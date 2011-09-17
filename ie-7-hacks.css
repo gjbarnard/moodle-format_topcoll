@@ -1,0 +1,13 @@
+/**
+ * Collapsed Topics Information
+ *
+ * @package    course/format
+ * @subpackage topcoll
+ * @copyright  2009-2011 @ G J Barnard.
+ * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
+ * @license    http://creativecommons.org/licenses/by-sa/3.0/ Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
+ */
+ 
+tr.cps {
+		display: block;
+		}

@@ -1,0 +1,18 @@
+/* $Id: js-override-topcoll.css,v 1.3.2.5 2011/05/30 17:08:17 gb2048 Exp $ */
+/**
+ * Collapsed Topics Information
+ *
+ * @package    course/format
+ * @subpackage topcoll
+ * @copyright  2009-2011 @ G J Barnard.
+ * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
+ * @license    http://creativecommons.org/licenses/by-sa/3.0/ Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
+ */
+ 
+/*-- This css file differs from topics_collapsed.css because it defines classes that will be
+        manipulated by the JavaScript in lib.js (or its compressed version lib_min.js). -- */
+
+/* -- The class which is used to hide and show the sections underneath their Toggle. -- */
+tr.hid {
+		display: none;
+	  }
