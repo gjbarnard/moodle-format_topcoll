@@ -1,0 +1,33 @@
+/**
+ * Collapsed Topics Information
+ *
+ * @package    course/format
+ * @subpackage topcoll
+ * @copyright  2009-2011 @ G J Barnard.
+ * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
+ * @license    http://creativecommons.org/licenses/by-sa/3.0/ Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
+ */
+
+/* -- The Toggle's row -- */
+tr.cps {
+	display: block;
+}
+		
+/* http://www.satzansatz.de/cssd/onhavinglayout.html & http://www.cayenne.co.uk/ie7/disappearing-content.html */
+/* -- Set the clickable element of the Toggle -- */
+tr.cps td a {
+	width: 100%;
+	height: 22px;
+	padding: 7px 0px 0px 35px;
+	zoom: 100%; 
+}
+
+/* -- Size of the spacer row -- */		
+.section .spacer {
+	height:1.4em;
+}
+
+/* -- The table data section of a Toggle's row -- */
+tr.cps td {
+	height: 22px;
+}
