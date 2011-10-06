@@ -4,13 +4,13 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @copyright  2009-2011 @ G J Barnard.
+ * @copyright  2009-2011 @ G J Barnard in respect to modifications of standard topics format.
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://creativecommons.org/licenses/by-sa/3.0/ Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
  */
 
 // Brazillian Translation of Collapsed Topics Course Format
-// Brazillian TraduÃ§Ã£o de TÃ³picos Fechado formato do curso
+// Brazillian Tradução de Tópicos Fechado formato do curso
 
 // Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
 // Usado pelo Core Moodle para identificando o formato e exibição na lista de formatos para um curso em suas configurações.

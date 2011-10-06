@@ -4,7 +4,7 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @copyright  2009-2011 @ G J Barnard.
+ * @copyright  2009-2011 @ G J Barnard in respect to modifications of standard topics format.
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://creativecommons.org/licenses/by-sa/3.0/ Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
  */

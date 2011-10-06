@@ -4,7 +4,7 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @copyright  2009-2011 @ G J Barnard.
+ * @copyright  2009-2011 @ G J Barnard in respect to modifications of standard topics format.
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://creativecommons.org/licenses/by-sa/3.0/ Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
  */
@@ -23,9 +23,9 @@ $string['topcolltoggle']='Olivetta';
 $string['topcolltogglewidth']='width: 26px;';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
-$string['topcollall']='alterna.';
-$string['topcollopened']="Aperto tutto l'";
-$string['topcollclosed']='Chiudere tutte le';
+$string['topcollall']='';
+$string['topcollopened']="Aperto tutto l'alterna.";
+$string['topcollclosed']='Chiudere tutte le alterna.';
 
 // Moodle 2.0 Enhancement - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages
 // Moodle 2.0 Valorizzazione - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages
