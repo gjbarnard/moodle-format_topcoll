@@ -16,6 +16,7 @@
 // Usado pelo Core Moodle para identificando o formato e exibição na lista de formatos para um curso em suas configurações.
 $string['nametopcoll']='Fechado Topicos';
 $string['formattopcoll']='Fechado Topicos';
+$string['pluginname'] = 'Fechado Topicos';
 
 // Used in format.php
 // Usado em format.php

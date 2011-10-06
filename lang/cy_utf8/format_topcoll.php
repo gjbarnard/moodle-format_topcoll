@@ -16,6 +16,7 @@
 // Ddefnyddir gan y Craidd Moodle ar gyfer identifing y fformat ac arddangos yn y rhestr o ffurfiau ar gyfer cwrs yn ei lleoliadau.
 $string['nametopcoll']='Pynciau Dymchwel';
 $string['formattopcoll']='Pynciau Dymchwel';
+$string['pluginname'] = 'Pynciau Dymchwel';
 
 // Used in format.php
 // A ddefnyddir mewn format.php

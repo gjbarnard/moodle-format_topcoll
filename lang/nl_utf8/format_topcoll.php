@@ -17,6 +17,7 @@
 // Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
 $string['nametopcoll']='Ingeklapte Onderwerpen format';
 $string['formattopcoll']='Ingeklapte Onderwerpen format';
+$string['pluginname'] = 'Ingeklapte Onderwerpen format';
 
 // Used in format.php
 $string['topcolltoggle']='In- Uitklappen';

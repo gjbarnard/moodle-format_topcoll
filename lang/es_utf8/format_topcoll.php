@@ -16,6 +16,7 @@
 // Utilizado por el Núcleo de Moodle identificando el formato y la visualización en la lista de formatos para un curso en su configuración.
 $string['nametopcoll']='Se derrumbo Temas';
 $string['formattopcoll']='Se derrumbo Temas';
+$string['pluginname'] = 'Se derrumbo Temas';
 
 // Used in format.php
 // Utilizado en format.php

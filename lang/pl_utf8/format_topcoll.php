@@ -16,6 +16,7 @@
 // Uzywane przez Moodle Core dla identifing format i wyswietlanie w liscie formatów na kurs w jego ustawienia.
 $string['nametopcoll']='Zwiniety Tematy';
 $string['formattopcoll']='Zwiniety Tematy';
+$string['pluginname'] = 'Zwiniety Tematy';
 
 // Used in format.php
 // Uzywane w format.php

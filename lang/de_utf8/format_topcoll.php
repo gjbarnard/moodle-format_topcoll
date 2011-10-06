@@ -16,6 +16,7 @@
 // Wird von der Moodle-Core für das Format der Identifikation und Anzeigen in der Liste der Formate für einen Kurs in den Einstellungen.
 $string['nametopcoll']='Komprimiert Themen';
 $string['formattopcoll']='Komprimiert Themen';
+$string['pluginname'] = 'Komprimiert Themen';
 
 // Used in format.php
 // Verwendet in format.php

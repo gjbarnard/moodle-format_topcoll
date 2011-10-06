@@ -16,6 +16,7 @@
 // Utilizzato dal Moodle per identificare i il formato e la visualizzazione nella lista dei formati per un corso di sue impostazioni.
 $string['nametopcoll']='Compresso Argomenti';
 $string['formattopcoll']='Compresso Argomenti';
+$string['pluginname'] = 'Compresso Argomenti';
 
 // Used in format.php
 // Utilizzato in format.php
@@ -23,7 +24,7 @@ $string['topcolltoggle']='Olivetta';
 $string['topcolltogglewidth']='width: 56px;';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
-$string['topcollall']='alterna.';
-$string['topcollopened']="Aperto tutto l'";
-$string['topcollclosed']='Chiudere tutte le';
+$string['topcollall']='';
+$string['topcollopened']="Aperto tutto l'alterna.";
+$string['topcollclosed']='Chiudere tutte le alterna.';
 ?>

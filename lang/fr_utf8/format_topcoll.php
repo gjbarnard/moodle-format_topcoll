@@ -16,6 +16,7 @@
 // Utilisée par le noyau de Moodle pour une indication des format et l'affichage dans la liste des formats pour un cours de ses paramètres.
 $string['nametopcoll']='Sujets Collapsed';
 $string['formattopcoll']='Sujets Collapsed';
+$string['pluginname'] = 'Sujets Collapsed';
 
 // Used in format.php
 // Employée au format.php
