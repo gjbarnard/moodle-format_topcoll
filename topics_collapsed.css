@@ -1,4 +1,4 @@
-/* $Id: topics_collapsed.css,v 1.8 2011/05/30 17:35:08 gb2048 Exp $ *//* -- The Toggle's row -- */
+/* $Id: topics_collapsed.css,v 1.9 2011/10/06 00:55:38 gb2048 Exp $ *//* -- The Toggle's row -- */
 /**
  * Collapsed Topics Information
  *
@@ -44,7 +44,7 @@ tr.cps td.cps_centre {
 /* -- Set the clickable element of the Toggle -- */
 tr.cps td a {
 	display: block;
-	padding: 7px 0 7px 35px; /* The 35px allows the arrow to be on the left and the next to it.  It is the space for the arrow! */
+	padding: 7px 0 7px 35px; /* The 35px allows the arrow to be on the left and the text next to it. */
 	text-align: left;
 	background: transparent url(arrow_down.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle */
 	width: auto;
@@ -68,7 +68,7 @@ tr.cps td a {
 tr.cps td a:hover {
 	background-color: #eeeeff;
 }
-	   
+
 /* -- For Internet Explorer inability to deal with column calculations when a colspan is used -- */		 
 #thetopics .section td.content, #thetopics  col.content {
 	width: auto;
@@ -94,4 +94,34 @@ tr.cps td a:hover {
 /* -- Size of the spacer row -- */
 .section .spacer {
   height:0.5em;
+}
+
+/* Toggle all */
+#toggle-all td h4 {
+    display: inline;
+}
+
+#thetopics .section td.toggle-all  {
+	text-align: left;
+}
+
+#toggle-all td a {
+	padding: 7px 7px 7px 30px; /* The 30px allows the arrow to be on the left and the text next to it. */
+	text-align: left;
+	width: 35px;
+	text-decoration: none;
+}
+
+#toggle-all td a.on {
+	background: transparent url(arrow_down.png) no-repeat 0px 45%; 
+}
+
+#toggle-all td a.off {
+	background: transparent url(arrow_up.png) no-repeat 0px 45%; 
+}
+
+/* -- hide the children for IE7 and older -- */
+.collapsed_topic *
+{
+    display: none;
 }

@@ -1,4 +1,4 @@
-﻿<?php // $Id: format_topcoll.php,v 1.3 2011/05/30 17:35:09 gb2048 Exp $
+﻿<?php // $Id: format_topcoll.php,v 1.4 2011/10/06 00:55:38 gb2048 Exp $
 /**
  * Collapsed Topics Information
  *
@@ -21,6 +21,11 @@ $string['formattopcoll']='Pynciau Dymchwel';
 // A ddefnyddir mewn format.php
 $string['topcolltoggle']='Toggle';
 $string['topcolltogglewidth']='width: 22px;';
+
+// Toggle all - Moodle Tracker CONTRIB-3190
+$string['topcollall']='pob toglau.';
+$string['topcollopened']='Agored';
+$string['topcollclosed']='Cau';
 
 // Moodle 2.0 Enhancement - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages
 // Moodle 2.0 Gwella - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages

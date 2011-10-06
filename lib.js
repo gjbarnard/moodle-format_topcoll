@@ -1,4 +1,4 @@
-//  $Id: lib.js,v 1.10 2011/05/30 17:35:08 gb2048 Exp $
+//  $Id: lib.js,v 1.11 2011/10/06 00:55:38 gb2048 Exp $
 
 /**
  * Collapsed Topics Information
@@ -17,6 +17,8 @@ var thewwwroot;  // For the toggle graphic and extra files.
 var thecookiesubid; // For the cookie sub name.
 var numToggles = 0;
 var cookieExpires;
+var ie7OrLess = false;
+var ie = false;
 
 // Because I like the idea of private and public methods, public will have an underscore in the name.
 
@@ -28,6 +30,19 @@ function topcoll_init(wwwroot, moodleid, courseid, cookielifetime)
     thewwwroot = wwwroot;
     thecookiesubid = moodleid + courseid;
     cookieExpires = cookielifetime; // null indicates that it is a session cookie.
+
+    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent))
+    {
+        // Info from: http://www.javascriptkit.com/javatutors/navigator.shtml - accessed 2nd September 2011.
+        var ieversion = new Number(RegExp.$1);
+        ie = true;
+        //alert('Is IE ' + ieversion);
+        if (ieversion <= 7)
+        {
+            //alert('Is IE 7');
+            ie7OrLess = true;
+        }
+    }
 }
 
 function set_number_of_toggles(atoggle)
@@ -60,14 +75,14 @@ function togglebinary(toggleNum, toggleVal)
 
 // Toggle functions
 // Args - target is the table row element in the DOM to be toggled.
-//            image is the img tag element in the DOM to be changed.
-//            toggleNum is the toggle number to change.
-//            reloading is a boolean that states if the function is called from reload_toggles() so that we do not have to resave what we already know - ohh for default argument values.
+//        image is the img tag element in the DOM to be changed.
+//        toggleNum is the toggle number to change.
+//        reloading is a boolean that states if the function is called from reload_toggles() so that we do not have to resave what we already know - ohh for default argument values.
 function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the target tr and change the image which is the a tag within the td of the tr above target
 {
     if(document.getElementById)
     {
-        if (navigator.userAgent.indexOf('IE')!= -1)
+        if (ie == true)
         {
             var displaySetting = "block"; // IE is always different from the rest!
         }
@@ -81,6 +96,11 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
         if (target.style.display == displaySetting)
         {
             target.style.display = "none";
+            if (ie7OrLess == true)
+            {
+                target.className += " collapsed_topic";  //add the class name
+                //alert('Added class name');
+            }
             image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/arrow_down.png)";
             // Save the toggle!
             if (reloading == false)    togglebinary(toggleNum,"0");
@@ -88,6 +108,11 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
         else
         {
             target.style.display = displaySetting;
+            if (ie7OrLess == true)
+            {
+                target.className = target.className.replace(/\b collapsed_topic\b/,'') //remove the class name
+                //alert('Removed class name');
+            }
             image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/arrow_up.png)";
             // Save the toggle!
             if (reloading == false) togglebinary(toggleNum,"1");
@@ -99,7 +124,7 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
 // Args - toggler the tag that initiated the call, toggleNum the number of the toggle for which toggler is a part of - see format.php.
 function toggle_topic(toggler,toggleNum)
 {
-    if(document.getElementById)
+   if(document.getElementById)
     {
         imageSwitch = toggler;
         targetElement = toggler.parentNode.parentNode.nextSibling; // Called from a <td>  or <div> inside a <tr> or <li> so find the next <tr> or <li>.
@@ -244,4 +269,49 @@ function show_topic(theTopic)
 function save_toggles()
 {
     savetopcollcookie(to36baseString(toggleBinaryGlobal));
+}
+
+// Functions that turn on or off all toggles.
+// Alter the state of the toggles.  Where 'state' needs to be true for open and false for close.
+function allToggle(state)
+{
+    var target;
+    var displaySetting;
+
+    if (state == false)
+    {
+         // All on to set off!
+        if (ie == true)
+        {
+            displaySetting = "block"; // IE is always different from the rest!
+        }
+        else
+        {
+            displaySetting = "table-row";
+        }
+    }
+    else
+    {
+        // Set all off to set on.
+        displaySetting = "none";
+    }
+
+    for (var theToggle = 1; theToggle <= numToggles; theToggle++)
+    {
+        target = document.getElementById("section-"+theToggle);
+        target.style.display = displaySetting;
+        toggleexacttopic(target,document.getElementById("sectionatag-" + theToggle),theToggle,false);
+    }
+}
+
+// Open all toggles.
+function all_opened()
+{
+    allToggle(true);
+}
+
+// Close all toggles.
+function all_closed()
+{
+    allToggle(false);
 }

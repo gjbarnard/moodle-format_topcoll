@@ -1,4 +1,4 @@
-<?php // $Id: lib.php,v 1.9 2011/06/09 17:20:17 gb2048 Exp $
+<?php // $Id: lib.php,v 1.10 2011/10/06 00:55:38 gb2048 Exp $
 /**
    This file contains general functions for the course format Collapsed Topics
    Thanks to Sam Hemelryk who modified the Moodle core code for 2.0, and
@@ -87,7 +87,7 @@ function callback_topcoll_get_section_name($course, $section) {
  */
 function callback_topcoll_ajax_support() {
     $ajaxsupport = new stdClass();
-    $ajaxsupport->capable = false;  // Temporarily disabled whilst CONTRIB-2975 is unresolved.
-    $ajaxsupport->testedbrowsers = array('MSIE' => 6.0, 'Gecko' => 20061111, 'Safari' => 531, 'Chrome' => 6.0);
+    $ajaxsupport->capable = true;  // See CONTRIB-2975 for information on how fixed.
+    $ajaxsupport->testedbrowsers = array('MSIE' => 6.0, 'Gecko' => 20061111, 'Opera' => 9.0, 'Safari' => 531, 'Chrome' => 6.0); 
     return $ajaxsupport;
 }

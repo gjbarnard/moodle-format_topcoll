@@ -31,3 +31,8 @@ tr.cps td a {
 tr.cps td {
 	height: 22px;
 }
+
+/* -- Toggle All text -- */
+#thetopics .section td.toggle-all  {
+	width: 100%;
+}
