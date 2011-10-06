@@ -102,7 +102,6 @@ tr.cps td a:hover {
 
 #thetopics .section td.toggle-all  {
 	text-align: left;
-	width: 100%; /* Internet Explorer again!!! */
 }
 
 #toggle-all td  a {
