@@ -1,4 +1,4 @@
-/* $Id: topics_collapsed.css,v 1.4.2.6 2011/05/30 17:08:17 gb2048 Exp $ */
+/* $Id: topics_collapsed.css,v 1.4.2.7 2011/10/06 00:56:11 gb2048 Exp $ */
 
 /**
  * Collapsed Topics Information
@@ -93,4 +93,35 @@ tr.cps td a:hover {
 #thetopics {
 	width: 100%;
 	table-layout: auto;
-}   
+}
+
+/* Toggle all */
+#toggle-all td h4 {
+    display: inline;
+}
+
+#thetopics .section td.toggle-all  {
+	text-align: left;
+	width: 100%; /* Internet Explorer again!!! */
+}
+
+#toggle-all td  a {
+	padding: 7px 7px 7px 30px; /* The 30px allows the arrow to be on the left and the text next to it. */
+	text-align: left;
+	width: 35px;
+	text-decoration: none;
+}
+
+#toggle-all td a.on {
+	background: transparent url(arrow_down.png) no-repeat 0px 45%; 
+}
+
+#toggle-all td a.off {
+	background: transparent url(arrow_up.png) no-repeat 0px 45%; 
+}
+
+/* -- hide the children for IE7 and older -- */
+.collapsed_topic *
+{
+    display: none;
+}

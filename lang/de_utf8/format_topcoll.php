@@ -1,4 +1,4 @@
-<?php // $Id: format_topcoll.php,v 1.1.2.4 2011/05/30 17:13:14 gb2048 Exp $
+﻿<?php // $Id: format_topcoll.php,v 1.1.2.5 2011/10/06 00:56:12 gb2048 Exp $
 /**
  * Collapsed Topics Information
  *
@@ -10,10 +10,10 @@
  */
 
 // German Translation of Collapsed Topics Course Format
-// Deutsch �bersetzung Collapsed Themen Course Format
+// Deutsch Übersetzung Collapsed Themen Course Format
 
 // Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
-// Wird von der Moodle-Core f�r das Format der Identifikation und Anzeigen in der Liste der Formate f�r einen Kurs in den Einstellungen.
+// Wird von der Moodle-Core für das Format der Identifikation und Anzeigen in der Liste der Formate für einen Kurs in den Einstellungen.
 $string['nametopcoll']='Komprimiert Themen';
 $string['formattopcoll']='Komprimiert Themen';
 
@@ -21,4 +21,9 @@ $string['formattopcoll']='Komprimiert Themen';
 // Verwendet in format.php
 $string['topcolltoggle']='Sehen';
 $string['topcolltogglewidth']='width: 38px;';
+
+// Toggle all - Moodle Tracker CONTRIB-3190
+$string['topcollall']='alle wechselt.';
+$string['topcollopened']='Geöffnet';
+$string['topcollclosed']='Schließen sie';
 ?>

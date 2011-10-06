@@ -1,4 +1,4 @@
-<?php // $Id: format_topcoll.php,v 1.1.2.4 2011/05/30 17:13:14 gb2048 Exp $
+﻿<?php // $Id: format_topcoll.php,v 1.1.2.5 2011/10/06 00:56:12 gb2048 Exp $
 /**
  * Collapsed Topics Information
  *
@@ -21,4 +21,9 @@ $string['formattopcoll']='Compresso Argomenti';
 // Utilizzato in format.php
 $string['topcolltoggle']='Olivetta';
 $string['topcolltogglewidth']='width: 56px;';
+
+// Toggle all - Moodle Tracker CONTRIB-3190
+$string['topcollall']='alterna.';
+$string['topcollopened']="Aperto tutto l'";
+$string['topcollclosed']='Chiudere tutte le';
 ?>

@@ -1,4 +1,4 @@
-<?php // $Id: format_topcoll.php,v 1.1.2.4 2011/05/30 17:13:13 gb2048 Exp $
+﻿<?php // $Id: format_topcoll.php,v 1.1.2.5 2011/10/06 00:56:12 gb2048 Exp $
 /**
  * Collapsed Topics Information
  *
@@ -21,4 +21,9 @@ $string['formattopcoll']='Pynciau Dymchwel';
 // A ddefnyddir mewn format.php
 $string['topcolltoggle']='Toggle';
 $string['topcolltogglewidth']='width: 38px;';
+
+// Toggle all - Moodle Tracker CONTRIB-3190
+$string['topcollall']='pob toglau.';
+$string['topcollopened']='Agored';
+$string['topcollclosed']='Cau';
 ?>

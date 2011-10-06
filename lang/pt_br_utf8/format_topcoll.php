@@ -1,4 +1,4 @@
-<?php // $Id: format_topcoll.php,v 1.1.2.4 2011/05/30 17:13:14 gb2048 Exp $
+ï»¿<?php // $Id: format_topcoll.php,v 1.1.2.5 2011/10/06 00:56:11 gb2048 Exp $
 /**
  * Collapsed Topics Information
  *
@@ -10,10 +10,10 @@
  */
 
 // Brazillian Translation of Collapsed Topics Course Format
-// Brazillian Tradução de Tópicos Fechado formato do curso
+// Brazillian TraduÃ§Ã£o de TÃ³picos Fechado formato do curso
 
 // Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
-// Usado pelo do Moodle para identificar os formatos e exibir na lista de formatos para um curso em suas configurações.
+// Usado pelo Core Moodle para identificando o formato e exibiÃ§Ã£o na lista de formatos para um curso em suas configuraÃ§Ãµes.
 $string['nametopcoll']='Fechado Topicos';
 $string['formattopcoll']='Fechado Topicos';
 
@@ -21,4 +21,9 @@ $string['formattopcoll']='Fechado Topicos';
 // Usado em format.php
 $string['topcolltoggle']='Toggle';
 $string['topcolltogglewidth']='width: 36px;';
+
+// Toggle all - Moodle Tracker CONTRIB-3190
+$string['topcollall']='todas as alterna.';
+$string['topcollopened']='Abra';
+$string['topcollclosed']='Feche';
 ?>

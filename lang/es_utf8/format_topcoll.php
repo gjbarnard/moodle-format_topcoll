@@ -1,4 +1,4 @@
-<?php // $Id: format_topcoll.php,v 1.1.2.4 2011/05/30 17:13:13 gb2048 Exp $
+ï»¿<?php // $Id: format_topcoll.php,v 1.1.2.5 2011/10/06 00:56:11 gb2048 Exp $
 /**
  * Collapsed Topics Information
  *
@@ -9,11 +9,11 @@
  * @license    http://creativecommons.org/licenses/by-sa/3.0/ Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
  */
  
-// Spanish International Translation of Collapsed Topics Course Format
-// Traducción al español Internacional de formato plegado Curso Temas
+// Spanish Translation of Collapsed Topics Course Format
+// TraducciÃ³n al espaÃ±ol de formato plegado Curso Temas
 
 // Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
-// Utilizado por el Núcleo de Moodle identificando el formato y la visualización en la lista de formatos para un curso en su configuración.
+// Utilizado por el NÃºcleo de Moodle identificando el formato y la visualizaciÃ³n en la lista de formatos para un curso en su configuraciÃ³n.
 $string['nametopcoll']='Se derrumbo Temas';
 $string['formattopcoll']='Se derrumbo Temas';
 
@@ -21,4 +21,9 @@ $string['formattopcoll']='Se derrumbo Temas';
 // Utilizado en format.php
 $string['topcolltoggle']='Activar';
 $string['topcolltogglewidth']='width: 32px;';
+
+// Toggle all - Moodle Tracker CONTRIB-3190
+$string['topcollall']='cambia.';
+$string['topcollopened']='Abierto todo';
+$string['topcollclosed']='Cierre todas las';
 ?>

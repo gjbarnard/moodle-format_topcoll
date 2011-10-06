@@ -1,4 +1,4 @@
-//  $Id: lib.js,v 1.1.2.7 2011/05/30 17:08:17 gb2048 Exp $
+//  $Id: lib.js,v 1.1.2.8 2011/10/06 00:56:11 gb2048 Exp $
 
 /**
  * Collapsed Topics Information
@@ -10,15 +10,16 @@
  * @license    http://creativecommons.org/licenses/by-sa/3.0/ Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
  */
  
- // Global variables 
+// Global variables 
 var toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000"; // 53 possible toggles - current settings in Moodle for number of topics - 52 + 1 for topic 0.  Need 1 as Most Significant bit to allow toggle 1+ to be off.
 var thesparezeros = "00000000000000000000000000"; // A constant of 26 0's to be used to pad the storage state of the toggles when converting between base 2 and 36, this is because cookies need to be compact.
 var thewwwroot;  // For the toggle graphic and extra files.
 var thecookiesubid; // For the cookie sub name.
 var yuicookie = YAHOO.util.Cookie; // Simpler function calls.
-var numToggles;
+var numToggles = 0;
 var cookieExpires;
-
+var ie7OrLess = false;
+var ie = false;
 
 // Global Time constants in milliseconds...
 var aSecond = 1000;
@@ -39,7 +40,20 @@ function topcoll_init(wwwroot, moodleid, courseid, cookielifetime)
     thewwwroot = wwwroot;
     thecookiesubid = moodleid + courseid;
     cookieExpires = cookielifetime; // null indicates that it is a session cookie.
-    
+
+    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent))
+    {
+        // Info from: http://www.javascriptkit.com/javatutors/navigator.shtml - accessed 2nd September 2011.
+        var ieversion = new Number(RegExp.$1);
+        ie = true;
+        //alert('Is IE ' + ieversion);
+        if (ieversion <= 7)
+        {
+            //alert('Is IE 7');
+            ie7OrLess = true;
+        }
+    }
+
     // CSS
     var cssNode = document.createElement('link');
     
@@ -86,7 +100,7 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
     // the logic at the end of format.php is broken and reload_toggles is called.
     if((document.getElementById) && ((target != null) && (image !=null)))
     {
-        if (navigator.userAgent.indexOf('IE')!= -1)
+        if (ie == true)
         {
             var displaySetting = "block";  // IE is always different from the rest!
         }
@@ -98,6 +112,11 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
         if (target.style.display == displaySetting)
         {
             target.style.display = "none";
+            if (ie7OrLess == true)
+            {
+                target.className += " collapsed_topic";  //add the class name
+                //alert('Added class name');
+            }
             image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/arrow_down.png)";
             // Save the toggle!
             if (reloading == false)    togglebinary(toggleNum,"0");
@@ -105,6 +124,11 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
         else
         {
             target.style.display = displaySetting;
+            if (ie7OrLess == true)
+            {
+                target.className = target.className.replace(/\b collapsed_topic\b/,'') //remove the class name
+                //alert('Removed class name');
+            }
             image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/arrow_up.png)";
             // Save the toggle!
             if (reloading == false) togglebinary(toggleNum,"1");
@@ -239,4 +263,49 @@ function show_topic(theTopic)
 function save_toggles()
 {
     savetopcollcookie(to36baseString(toggleBinaryGlobal));
+}
+
+// Functions that turn on or off all toggles.
+// Alter the state of the toggles.  Where 'state' needs to be true for open and false for close.
+function allToggle(state)
+{
+    var target;
+    var displaySetting;
+
+    if (state == false)
+    {
+         // All on to set off!
+        if (ie == true)
+        {
+            displaySetting = "block"; // IE is always different from the rest!
+        }
+        else
+        {
+            displaySetting = "table-row";
+        }
+    }
+    else
+    {
+        // Set all off to set on.
+        displaySetting = "none";
+    }
+
+    for (var theToggle = 1; theToggle <= numToggles; theToggle++)
+    {
+        target = document.getElementById("section-"+theToggle);
+        target.style.display = displaySetting;
+        toggleexacttopic(target,document.getElementById("sectionatag-" + theToggle),theToggle,false);
+    }
+}
+
+// Open all toggles.
+function all_opened()
+{
+    allToggle(true);
+}
+
+// Close all toggles.
+function all_closed()
+{
+    allToggle(false);
 }

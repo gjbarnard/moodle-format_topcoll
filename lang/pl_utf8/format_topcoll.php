@@ -1,4 +1,4 @@
-<?php // $Id: format_topcoll.php,v 1.1.2.4 2011/05/30 17:13:14 gb2048 Exp $
+﻿<?php // $Id: format_topcoll.php,v 1.1.2.5 2011/10/06 00:56:12 gb2048 Exp $
 /**
  * Collapsed Topics Information
  *
@@ -13,7 +13,7 @@
 // Polskie tlumaczenie Collapsed golfowe Tematy Format
 
 // Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
-// Uzywane przez Moodle Core dla identifing format i wyswietlanie w liscie format�w na kurs w jego ustawienia.
+// Uzywane przez Moodle Core dla identifing format i wyswietlanie w liscie formatów na kurs w jego ustawienia.
 $string['nametopcoll']='Zwiniety Tematy';
 $string['formattopcoll']='Zwiniety Tematy';
 
@@ -21,4 +21,9 @@ $string['formattopcoll']='Zwiniety Tematy';
 // Uzywane w format.php
 $string['topcolltoggle']='Dzwignia kolankowa';
 $string['topcolltogglewidth']='width: 34px;';
+
+// Toggle all - Moodle Tracker CONTRIB-3190
+$string['topcollall']='wszystkie przełączniki.';
+$string['topcollopened']='Otwórz';
+$string['topcollclosed']='Zamknij';
 ?>

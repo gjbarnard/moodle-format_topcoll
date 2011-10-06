@@ -1,4 +1,4 @@
-<?php // $Id: format_topcoll.php,v 1.1.2.4 2011/05/30 17:13:14 gb2048 Exp $
+ï»¿<?php // $Id: format_topcoll.php,v 1.1.2.5 2011/10/06 00:56:10 gb2048 Exp $
 /**
  * Collapsed Topics Information
  *
@@ -10,15 +10,20 @@
  */
 
 // French Translation of Collapsed Topics Course Format
-// Traduction française du Format du cours Collapsed Sujets
+// Traduction franÃ§aise du Format du cours Collapsed Sujets
 
 // Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
-// Utilisée par le noyau de Moodle pour une indication des format et l'affichage dans la liste des formats pour un cours de ses paramètres.
+// UtilisÃ©e par le noyau de Moodle pour une indication des format et l'affichage dans la liste des formats pour un cours de ses paramÃ¨tres.
 $string['nametopcoll']='Sujets Collapsed';
 $string['formattopcoll']='Sujets Collapsed';
 
 // Used in format.php
-// Employée au format.php
+// EmployÃ©e au format.php
 $string['topcolltoggle']='Basculer';
 $string['topcolltogglewidth']='width: 40px;';
+
+// Toggle all - Moodle Tracker CONTRIB-3190
+$string['topcollall']='toute bascule.';
+$string['topcollopened']='Ouvert';
+$string['topcollclosed']='Fermez';
 ?>

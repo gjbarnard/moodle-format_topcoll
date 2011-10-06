@@ -1,5 +1,5 @@
 <?php
-// $Id: format.php,v 1.6.2.12 2011/05/30 17:08:17 gb2048 Exp $
+// $Id: format.php,v 1.6.2.13 2011/10/06 00:56:11 gb2048 Exp $
 
 /**
  * Collapsed Topics Information
@@ -34,7 +34,6 @@ require_js(array('yui_yahoo', 'yui_cookie', 'yui_event'));
 <![endif]-->
 
 <script type="text/javascript" src="<?php echo $CFG->wwwroot ?>/course/format/topcoll/lib_min.js"></script>
-
 <script type="text/javascript">
 //<![CDATA[
     topcoll_init('<?php echo $CFG->wwwroot ?>',
@@ -43,7 +42,7 @@ require_js(array('yui_yahoo', 'yui_cookie', 'yui_event'));
                  null); <!-- Expiring Cookie Initialisation - replace 'null' with your chosen duration. -->
 //]]>
 </script>
-
+<script type="text/javascript" src="<?php echo $CFG->wwwroot ?>/course/format/topcoll/tc_section_classes_min.js"></script>
 
 <?php
     $topic = optional_param('topic', -1, PARAM_INT);
@@ -190,15 +189,24 @@ require_js(array('yui_yahoo', 'yui_cookie', 'yui_event'));
         echo '<tr class="section separator"><td colspan="3" class="spacer"></td></tr>';
     }
 
+    // Get the specific words from the language files.
+    $topictext = get_string('topic');
+    $toggletext = get_string('topcolltoggle','format_topcoll'); // This is defined in lang/en_utf8 of the formats installation directory - basically, the word 'Toggle'.
+
+    // Toggle all.
+    echo '<tr id="toggle-all" class="section main">';
+    echo '<td class="left side toggle-all" colspan="2">';
+    echo '<h4><a class="on" href="#" onclick="all_opened(); return false;">'.get_string('topcollopened','format_topcoll').'</a><a class="off" href="#" onclick="all_closed(); return false;">'.get_string('topcollclosed','format_topcoll').'</a>'.get_string('topcollall','format_topcoll').'</h4>';
+    echo '</td>';
+    echo '<td class="right side">&nbsp;</td>';
+    echo '</tr>';
+    echo '<tr class="section separator"><td colspan="3" class="spacer"></td></tr>';
 
 /// Now all the normal modules by topic
 /// Everything below uses "section" terminology - each "section" is a topic.
     $section = 1;
     $sectionmenu = array();
 
-    // Get the specific words from the language files.
-    $topictext = get_string('topic');
-    $toggletext = get_string('topcolltoggle','format_topcoll'); // This is defined in lang/en_utf8 of the formats installation directory - basically, the word 'Toggle'.
     while ($section <= $course->numsections) {
 
         if (!empty($sections[$section])) {
