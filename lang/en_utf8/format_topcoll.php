@@ -12,6 +12,7 @@
 // Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
 $string['nametopcoll']='Collapsed Topics';
 $string['formattopcoll']='Collapsed Topics';
+$string['pluginname'] = 'Collapsed Topics';
 
 // Used in format.php
 $string['topcolltoggle']='Toggle';
