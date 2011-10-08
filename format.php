@@ -106,6 +106,10 @@ require_once($CFG->libdir.'/completionlib.php');
         echo '<td class="left side">&nbsp;</td>';
         echo '<td class="content">';
 
+        if (!is_null($thissection->name)) { // MDL-20628
+            echo $OUTPUT->heading($thissection->name, 3, 'sectionname');
+        }
+
         echo '<div class="summary">';
 
         $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
