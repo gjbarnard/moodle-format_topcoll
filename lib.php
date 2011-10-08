@@ -71,7 +71,7 @@ function callback_topcoll_request_key() {
 function callback_topcoll_get_section_name($course, $section) {
     // We can't add a node without any text
     if (!empty($section->name)) {
-        return $section->name;
+        return format_string($section->name, true, array('context' => get_context_instance(CONTEXT_COURSE, $course->id)));  // MDL-29188
     } else if ($section->section == 0) {
         return get_string('section0name', 'format_topcoll');
     } else {
