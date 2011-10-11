@@ -1,6 +1,4 @@
-﻿$Id: Readme.txt,v 1.25 2011/10/06 00:55:38 gb2048 Exp $
-
-Introduction
+﻿Introduction
 ------------
 Topic based course format with an individual 'toggle' for each topic except 0.  This format differs from the
 Accordion format in that two or more topics can be visible at the same time.
