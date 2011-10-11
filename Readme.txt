@@ -225,7 +225,9 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
   3. CONTRIB-3190 - In realising that to make CONTRIB-2975 easier to use I suggested 'Toggle all' functionality and the
                     community said it was a good idea with no negative comments, please see (http://moodle.org/mod/forum/discuss.php?d=176806).
 
-11th October 2011 - Updated version.php to be fully populated.
+11th October 2011 - Version 1.3.1 - Branched from Moodle 2.0.x version.
+  1. Updated version.php to be fully populated.
+  2. MDL-29188 - Formatting of section name.  Causing Moodle 2.1.x branch of Collapsed Topics.
 
 Thanks
 ------

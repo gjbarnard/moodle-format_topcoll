@@ -106,8 +106,8 @@ require_once($CFG->libdir.'/completionlib.php');
         echo '<td class="left side">&nbsp;</td>';
         echo '<td class="content">';
 
-        if (!is_null($thissection->name)) { // MDL-20628
-            echo $OUTPUT->heading($thissection->name, 3, 'sectionname');
+        if (!is_null($thissection->name)) { // MDL-29188
+            echo $OUTPUT->heading(format_string($thissection->name, true, array('context' => $context)), 3, 'sectionname');
         }
 
         echo '<div class="summary">';
@@ -198,7 +198,7 @@ require_once($CFG->libdir.'/completionlib.php');
             if (is_null($thissection->name)) {
                 echo '<td colspan="3"><a id="sectionatag-'.$section.'" class="cps_nosumm" href="#" onclick="toggle_topic(this,'.$section.'); return false;">'.$topictext.' '.$currenttext.$section.' - '.$toggletext.'</a></td>';
             } else {
-                echo '<td colspan="2"><a id="sectionatag-'.$section.'" href="#" onclick="toggle_topic(this,'.$section.'); return false;"><span>'.html_to_text($thissection->name).'</span> - '.$toggletext.'</a></td><td class="cps_centre">'.$topictext.'<br />'.$currenttext.$section.'</td>';
+                echo '<td colspan="2"><a id="sectionatag-'.$section.'" href="#" onclick="toggle_topic(this,'.$section.'); return false;"><span>'.html_to_text(format_string($thissection->name, true, array('context' => $context))).'</span> - '.$toggletext.'</a></td><td class="cps_centre">'.$topictext.'<br />'.$currenttext.$section.'</td>';  // format_string from MDL-29188
                 // Comment out the above line and uncomment the line below if you do not want 'Topic x' displayed on the right hand side of the toggle.
                 //echo '<td colspan="3"><a id="sectionatag-'.$section.'" href="#" onclick="toggle_topic(this,'.$section.'); return false;"><span>'.html_to_text($thissection->name).'</span> - '.$toggletext.'</a></td>';
             }
