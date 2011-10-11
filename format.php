@@ -200,7 +200,7 @@ require_once($CFG->libdir.'/completionlib.php');
             } else {
                 echo '<td colspan="2"><a id="sectionatag-'.$section.'" href="#" onclick="toggle_topic(this,'.$section.'); return false;"><span>'.html_to_text(format_string($thissection->name, true, array('context' => $context))).'</span> - '.$toggletext.'</a></td><td class="cps_centre">'.$topictext.'<br />'.$currenttext.$section.'</td>';  // format_string from MDL-29188
                 // Comment out the above line and uncomment the line below if you do not want 'Topic x' displayed on the right hand side of the toggle.
-                //echo '<td colspan="3"><a id="sectionatag-'.$section.'" href="#" onclick="toggle_topic(this,'.$section.'); return false;"><span>'.html_to_text($thissection->name).'</span> - '.$toggletext.'</a></td>';
+                //echo '<td colspan="3"><a id="sectionatag-'.$section.'" href="#" onclick="toggle_topic(this,'.$section.'); return false;"><span>'.html_to_text(format_string($thissection->name, true, array('context' => $context))).'</span> - '.$toggletext.'</a></td>';
             }
             echo '</tr>';
 
