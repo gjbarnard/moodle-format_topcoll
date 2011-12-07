@@ -261,9 +261,9 @@ require_js(array('yui_yahoo', 'yui_cookie', 'yui_event'));
                 $thissection->summary='';
                 echo '<td colspan="3"><a id="sectionatag-'.$section.'" class="cps_nosumm" href="#" onclick="toggle_topic(this,'.$section.'); return false;">'.$topictext.' '.$currenttext.$section.' - '.$toggletext.'</a></td>';
             } else {
-                //echo '<td colspan="2"><a id="sectionatag-'.$section.'" href="#" onclick="toggle_topic(this,'.$section.'); return false;"><span>'.html_to_text($thissection->summary).'</span> - '.$toggletext.'</a></td><td class="cps_centre">'.$topictext.'<br />'.$currenttext.$section.'</td>';
+                echo '<td colspan="2"><a id="sectionatag-'.$section.'" href="#" onclick="toggle_topic(this,'.$section.'); return false;"><span>'.html_to_text($thissection->summary).'</span> - '.$toggletext.'</a></td><td class="cps_centre">'.$topictext.'<br />'.$currenttext.$section.'</td>';
                 // Comment out the above line and uncomment the line below if you do not want 'Topic x' displayed on the right hand side of the toggle.
-                echo '<td colspan="3"><a id="sectionatag-'.$section.'" href="#" onclick="toggle_topic(this,'.$section.'); return false;"><span>'.html_to_text($thissection->summary).'</span></a></td>';
+                //echo '<td colspan="3"><a id="sectionatag-'.$section.'" href="#" onclick="toggle_topic(this,'.$section.'); return false;"><span>'.html_to_text($thissection->summary).'</span></a></td>';
             }
             echo '</tr>';
 

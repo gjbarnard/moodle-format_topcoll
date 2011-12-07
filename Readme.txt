@@ -201,6 +201,9 @@ Version Information
 
 11th October 2011 - Updated version.php to be fully populated.
 
+7th December 2011 - Version 1.6.1 - Moodle Tracker CONTRIB-2497
+  1. Updated Brazilian translation thanks to Tarcísio Nunes (http://moodle.org/user/profile.php?id=1149633).
+
 Thanks
 ------
 
@@ -215,6 +218,10 @@ Michael de Raadt for CONTRIB-1945 & 1946 which sparked fixes in CONTRIB-1952 & C
 Amanda Doughty (http://moodle.org/user/profile.php?id=1062329) for her contribution in solving the AJAX move problem.
 
 Mark Ward (http://moodle.org/user/profile.php?id=489101) for his contribution solving the IE8- display problem.
+
+Pieter Wolters (http://moodle.org/user/profile.php?id=537037) - for the Dutch translation.
+
+Tarcísio Nunes (http://moodle.org/user/profile.php?id=1149633) - for the Brazilian translation.
 
 Desired Enhancements
 --------------------
