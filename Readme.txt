@@ -3,7 +3,7 @@
 Topic based course format with an individual 'toggle' for each topic except 0.  This format differs from the
 Accordion format in that two or more topics can be visible at the same time.
 
-This version works with Moodle 2.3.x.
+This version works with Moodle 2.2.x.
 
 Documented on http://docs.moodle.org/20/en/Collapsed_Topics_course_format
 
@@ -227,9 +227,9 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
   1. Updated version.php to be fully populated.
   2. MDL-29188 - Formatting of section name.  Causing Moodle 2.1.x branch of Collapsed Topics.
 
-8th December 2011 - Version 2.3.1 - Moodle Tracker CONTRIB-2497
+8th December 2011 - Version 2.2.1 - Moodle Tracker CONTRIB-2497
   1. Updated Brazilian translation thanks to Tarcísio Nunes (http://moodle.org/user/profile.php?id=1149633).
-  2. Changed version to relate to Moodle version, so this is for Moodle 2.3.
+  2. Changed version to relate to Moodle version, so this is for Moodle 2.2.
 
 Thanks
 ------
