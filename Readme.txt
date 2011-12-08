@@ -3,7 +3,7 @@
 Topic based course format with an individual 'toggle' for each topic except 0.  This format differs from the
 Accordion format in that two or more topics can be visible at the same time.
 
-This version works with Moodle 2.1.  And should be fine with 2.2.
+This version works with Moodle 2.1.x.
 
 Documented on http://docs.moodle.org/20/en/Collapsed_Topics_course_format
 
@@ -227,6 +227,10 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
   1. Updated version.php to be fully populated.
   2. MDL-29188 - Formatting of section name.  Causing Moodle 2.1.x branch of Collapsed Topics.
 
+8th December 2011 - Version 2.1.3.2 - Moodle Tracker CONTRIB-2497
+  1. Updated Brazilian translation thanks to Tarcísio Nunes (http://moodle.org/user/profile.php?id=1149633).
+  2. Changed version to relate to Moodle version, so this is for Moodle 2.1.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -243,6 +247,10 @@ Michael de Raadt for CONTRIB-1945 & 1946 which sparked fixes in CONTRIB-1952 & C
 Amanda Doughty (http://moodle.org/user/profile.php?id=1062329) for her contribution in solving the AJAX move problem.
 
 Mark Ward (http://moodle.org/user/profile.php?id=489101) for his contribution solving the IE8- display problem.
+
+Pieter Wolters (http://moodle.org/user/profile.php?id=537037) - for the Dutch translation.
+
+Tarcísio Nunes (http://moodle.org/user/profile.php?id=1149633) - for the Brazilian translation.
 
 References
 ----------
@@ -264,4 +272,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 11th October 2011.
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 8th December 2011.
