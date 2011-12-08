@@ -1,10 +1,10 @@
-﻿<?php // $Id: format_topcoll.php,v 1.1.2.5 2011/10/06 00:56:11 gb2048 Exp $
+﻿<?php
 /**
  * Collapsed Topics Information
  *
  * @package    course/format
  * @subpackage topcoll
- * @copyright  2009-2011 @ G J Barnard.
+ * @copyright  2009-2011 @ G J Barnard in respect to modifications of standard topics forma.
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://creativecommons.org/licenses/by-sa/3.0/ Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
  * @comment    A big thank you to Tarcísio Nunes (http://moodle.org/user/profile.php?id=1149633) for the translation.
