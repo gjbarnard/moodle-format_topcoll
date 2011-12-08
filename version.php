@@ -30,4 +30,4 @@
  $plugin->maturity = MATURITY_STABLE;
  $plugin->requires = 2011120500.00; // 2.2
  $plugin->component = 'format_topcoll';
- $plugin->release = '2.3.1';
+ $plugin->release = '2.2.1';
