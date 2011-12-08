@@ -1,5 +1,3 @@
-$Id: Readme.txt,v 1.5.2.20 2011/10/06 00:56:11 gb2048 Exp $
-
 Introduction
 ------------
 Topic based course format with an individual 'toggle' for each topic except 0.  This format differs from the
