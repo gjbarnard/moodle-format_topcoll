@@ -27,7 +27,7 @@
  */
  
  $plugin->version = 2011120821;
- $plugin->maturity = MATURITY_STABLE;
- $plugin->requires = 2011070102.01; // 2.1.2
+ $plugin->maturity = MATURITY_BETA;
+ $plugin->requires = 2011120500.00; // 2.3dev
  $plugin->component = 'format_topcoll';
- $plugin->release = '2.1.3.2';
+ $plugin->release = '2.3.1';
