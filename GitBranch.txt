@@ -1,1 +1,1 @@
-This is the Collapsed Topics for Moodle 1.9 branch.
+This is the Collapsed Topics for Moodle 1.9.x branch.

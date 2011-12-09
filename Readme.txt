@@ -3,7 +3,7 @@ Introduction
 Topic based course format with an individual 'toggle' for each topic except 0.  This format differs from the
 Accordion format in that two or more topics can be visible at the same time.
 
-This version works with Moodle 1.9+.
+This version works with Moodle 1.9.x.
 
 Documented on http://docs.moodle.org/19/en/Collapsed_Topics_course_format
 
@@ -203,6 +203,10 @@ Version Information
   1. Updated Brazilian translation thanks to Tarcísio Nunes (http://moodle.org/user/profile.php?id=1149633).
   2. Changed version to relate to Moodle version, so this is for Moodle 1.9.
 
+9th December 2011 - Version 1.9.6.2 - Moodle Tracker CONTRIB-3295
+  1. Fixed issue of the web browser miscaluating the width of the content in 'editing' mode so that the sections
+     are less than 100%.
+
 Thanks
 ------
 
@@ -229,4 +233,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 8th December 2011. 
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 9th December 2011. 

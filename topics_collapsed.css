@@ -1,5 +1,3 @@
-/* $Id: topics_collapsed.css,v 1.4.2.7 2011/10/06 00:56:11 gb2048 Exp $ */
-
 /**
  * Collapsed Topics Information
  *
@@ -12,87 +10,87 @@
 
 /* -- The Toggle's row -- */
 tr.cps {
-	display: table-row;
+  display: table-row;
 }
 
 /* -- The table data section of a Toggle's row -- */
 tr.cps td {
-	font-size: 0.8em;
-	text-align: left;
-	padding: 0 0;
-	width: auto;
+  font-size: 0.8em;
+  text-align: left;
+  padding: 0 0;
+  width: auto;
 }
 
-/* -- The topic summary text -- */		
+/* -- The topic summary text -- */    
 tr.cps td span {
-	font-size: 1.2em;
-	font-style: italic;
-	text-align: left;
+  font-size: 1.2em;
+  font-style: italic;
+  text-align: left;
 }
 
-/* -- For when no summary is entered */		   
+/* -- For when no summary is entered */       
 tr.cps td a.cps_nosumm {
    text-align: center;
 }  
 
-/* -- For centring the 'Topic x' text -- */		   
+/* -- For centring the 'Topic x' text -- */       
 tr.cps td.cps_centre {
-	   text-align: center;
-	   font-size: 0.6em;
+     text-align: center;
+     font-size: 0.6em;
 }  
-		   
+       
 /* -- Set the clickable element of the Toggle */
 tr.cps td a {
-	display: block;
-	padding: 7px 0 7px 35px; /* The 35px allows the arrow to be on the left and the next to it.  It is the space for the arrow! */
-	text-align: left;
-	background: transparent url(arrow_down.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle */
-	width: auto;
+  display: block;
+  padding: 7px 0 7px 35px; /* The 35px allows the arrow to be on the left and the next to it.  It is the space for the arrow! */
+  text-align: left;
+  background: transparent url(arrow_down.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle */
+  width: auto;
 }
 
 /* For setting unique theme based toggle colours, move the following 'tr.cps', 'tr.cps td a' and
    'tr.cps td a:hover' definitions from here and into all your themes, then customise.*/
 /* Toggle row. */
 tr.cps {
-	background-color: #e2e2f2;
-	color: #000000; /* 'Topic x' text colour */
+  background-color: #e2e2f2;
+  color: #000000; /* 'Topic x' text colour */
 }
 
 /* Toggle text */
 tr.cps td a {
-	text-decoration: none;
-	color: #000000;
+  text-decoration: none;
+  color: #000000;
 }
 
 /* -- What happens when a toggle is hovered over -- */
 tr.cps td a:hover {
-	background-color: #eeeeff;
+  background-color: #eeeeff;
 }
 
-/* -- For Internet Explorer inability to deal with column calculations when a colspan is used -- */		   
+/* -- For Internet Explorer inability to deal with column calculations when a colspan is used -- */       
 #thetopics .section td.content, #thetopics  col.content {
-	width: auto;
-	text-align: left;
+  width: 100%;
+  text-align: left;
 }
 
 /* -- Where the Toggle's arrow png is -- */
 #thetopics .section td.left, #thetopics  col.left {
-	width: 20px; /* If the arrow's width changes, change this and the padding of 'tr.cps td a' in js-override-topcoll.css */
-	min-width: 20px;
-	max-width: 20px;
+  width: 20px; /* If the arrow's width changes, change this and the padding of 'tr.cps td a' in js-override-topcoll.css */
+  min-width: 20px;
+  max-width: 20px;
 }
 
 /* -- Where the 'Topic x' text is -- */
 #thetopics .section td.right, #thetopics  col.right {
-	width: 20px;
-	min-width: 20px;
-	max-width: 20px;
+  width: 20px;
+  min-width: 20px;
+  max-width: 20px;
 }
 
 /* -- Make the table work with auto width for the content column -- */
 #thetopics {
-	width: 100%;
-	table-layout: auto;
+  width: 100%;
+  table-layout: auto;
 }
 
 /* Toggle all */
@@ -101,22 +99,22 @@ tr.cps td a:hover {
 }
 
 #thetopics .section td.toggle-all  {
-	text-align: left;
+  text-align: left;
 }
 
 #toggle-all td  a {
-	padding: 7px 7px 7px 30px; /* The 30px allows the arrow to be on the left and the text next to it. */
-	text-align: left;
-	width: 35px;
-	text-decoration: none;
+  padding: 7px 7px 7px 30px; /* The 30px allows the arrow to be on the left and the text next to it. */
+  text-align: left;
+  width: 35px;
+  text-decoration: none;
 }
 
 #toggle-all td a.on {
-	background: transparent url(arrow_down.png) no-repeat 0px 45%; 
+  background: transparent url(arrow_down.png) no-repeat 0px 45%; 
 }
 
 #toggle-all td a.off {
-	background: transparent url(arrow_up.png) no-repeat 0px 45%; 
+  background: transparent url(arrow_up.png) no-repeat 0px 45%; 
 }
 
 /* -- hide the children for IE7 and older -- */
