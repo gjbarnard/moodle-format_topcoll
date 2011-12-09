@@ -32,6 +32,5 @@ $string['topcollclosed']='Feche';
 // Moodle 2.0 Enhancement - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages
 // Moodle 2.0 Realce - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages
 $string['sectionname'] = 'Assunto';
-$string['pluginname'] = 'Topicos Recolhidos';
 $string['section0name'] = 'Geral';
 ?>
