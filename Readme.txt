@@ -229,6 +229,10 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
   1. Updated Brazilian translation thanks to Tarcísio Nunes (http://moodle.org/user/profile.php?id=1149633).
   2. Changed version to relate to Moodle version, so this is for Moodle 2.0.
 
+9th December 2011 - Version 2.0.3.2 - Moodle Tracker CONTRIB-3295
+  1. Fixed issue of the web browser miscaluating the width of the content in 'editing' mode so that the sections
+     are less than 100%.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -270,4 +274,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 8th December 2011.
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 9th December 2011.
