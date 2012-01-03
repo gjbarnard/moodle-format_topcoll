@@ -26,8 +26,8 @@
  * @license    http://creativecommons.org/licenses/by-sa/3.0/ Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
  */
  
- $plugin->version = 2011120914;
+ $plugin->version = 2012010300;
  $plugin->maturity = MATURITY_BETA;
  $plugin->requires = 2011120500.00; // 2.3dev
  $plugin->component = 'format_topcoll';
- $plugin->release = '2.3.1.1';
+ $plugin->release = '2.3.1.1.1';
