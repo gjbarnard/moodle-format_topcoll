@@ -1,4 +1,4 @@
-<?php // $Id: lib.php,v 1.10 2011/10/06 00:55:38 gb2048 Exp $
+<?php 
 /**
    This file contains general functions for the course format Collapsed Topics
    Thanks to Sam Hemelryk who modified the Moodle core code for 2.0, and
