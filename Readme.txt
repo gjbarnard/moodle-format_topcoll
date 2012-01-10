@@ -207,6 +207,9 @@ Version Information
   1. Fixed issue of the web browser miscaluating the width of the content in 'editing' mode so that the sections
      are less than 100%.
 
+10th January 2012 - Version 1.9.6.2.1
+  1. Corrected licence to be correct one used by Moodle Plugins - thanks to Tim Hunt (http://moodle.org/user/profile.php?id=93821).
+
 Thanks
 ------
 
@@ -233,4 +236,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 9th December 2011. 
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 10th January 2012. 
