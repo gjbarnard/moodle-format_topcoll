@@ -33,5 +33,5 @@
 
 /* -- The class which is used to hide and show the sections underneath their Toggle. -- */
 tr.hid {
-		display: none;
-	  }
+    display: none;
+    }

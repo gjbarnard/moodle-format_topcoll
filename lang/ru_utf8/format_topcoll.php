@@ -14,6 +14,7 @@
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
+ * @comment    A big thank you to Pavel Evgenjevich Timoshenko (http://moodle.org/user/profile.php?id=1322784) for the translation.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,22 +30,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// French Translation of Collapsed Topics Course Format
-// Traduction française du Format du cours Collapsed Sujets
-
 // Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
-// Utilisée par le noyau de Moodle pour une indication des format et l'affichage dans la liste des formats pour un cours de ses paramètres.
-$string['nametopcoll']='Sujets Collapsed';
-$string['formattopcoll']='Sujets Collapsed';
-$string['pluginname'] = 'Sujets Collapsed';
+// Possibly legacy to be removed after Moodle 2.0 is stable.
+$string['nametopcoll']='Сворачиваемые разделы по темам';
+$string['formattopcoll']='Сворачиваемые разделы по темам';
 
 // Used in format.php
-// Employée au format.php
-$string['topcolltoggle']='Basculer';
-$string['topcolltogglewidth']='width: 40px;';
+$string['topcolltoggle']='Показать/Скрыть';
+$string['topcolltogglewidth']='width: 28px;';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
-$string['topcollall']='toute bascule.';
-$string['topcollopened']='Ouvert';
-$string['topcollclosed']='Fermez';
+$string['topcollall']='все разделы.';
+$string['topcollopened']='Показать';
+$string['topcollclosed']='Скрыть';
 ?>

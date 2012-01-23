@@ -200,7 +200,7 @@ Version Information
 11th October 2011 - Updated version.php to be fully populated.
 
 8th December 2011 - Version 1.9.6.1 - Moodle Tracker CONTRIB-2497
-  1. Updated Brazilian translation thanks to Tarcísio Nunes (http://moodle.org/user/profile.php?id=1149633).
+  1. Updated Brazilian translation thanks to TarcÃ­sio Nunes (http://moodle.org/user/profile.php?id=1149633).
   2. Changed version to relate to Moodle version, so this is for Moodle 1.9.
 
 9th December 2011 - Version 1.9.6.2 - Moodle Tracker CONTRIB-3295
@@ -209,6 +209,10 @@ Version Information
 
 10th January 2012 - Version 1.9.6.2.1
   1. Corrected licence to be correct one used by Moodle Plugins - thanks to Tim Hunt (http://moodle.org/user/profile.php?id=93821).
+
+23rd January 2012 - Version 1.9.7
+  1. Sorted out UTF-8 BOM issue, see MDL-31343.
+  2. Added Russian translation, thanks to Pavel Evgenjevich Timoshenko (http://moodle.org/user/profile.php?id=1322784).
 
 Thanks
 ------
@@ -227,7 +231,9 @@ Mark Ward (http://moodle.org/user/profile.php?id=489101) for his contribution so
 
 Pieter Wolters (http://moodle.org/user/profile.php?id=537037) - for the Dutch translation.
 
-Tarcísio Nunes (http://moodle.org/user/profile.php?id=1149633) - for the Brazilian translation.
+TarcÃ­sio Nunes (http://moodle.org/user/profile.php?id=1149633) - for the Brazilian translation.
+
+Pavel Evgenjevich Timoshenko (http://moodle.org/user/profile.php?id=1322784) - for the Russian translation.
 
 Desired Enhancements
 --------------------
@@ -236,4 +242,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 10th January 2012. 
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 23rd January 2012. 
