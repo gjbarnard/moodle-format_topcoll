@@ -1,4 +1,4 @@
-﻿Introduction
+Introduction
 ------------
 Topic based course format with an individual 'toggle' for each topic except 0.  This format differs from the
 Accordion format in that two or more topics can be visible at the same time.
@@ -238,8 +238,12 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
 3rd January 2012 - Version 2.1.3.3.1 - Moodle Tracker MDL-30632
   1. Use consistent edit section icon.
 
-9th January 2012 - Version 2.2.3.3.2
+9th January 2012 - Version 2.1.3.3.2
   1. Corrected licence to be correct one used by Moodle Plugins - thanks to Tim Hunt (http://moodle.org/user/profile.php?id=93821).
+
+23rd January 2012 - Version 2.1.4
+  1. Sorted out UTF-8 BOM issue, see MDL-31343.
+  2. Added Russian translation, thanks to Pavel Evgenjevich Timoshenko (http://moodle.org/user/profile.php?id=1322784).
 
 Thanks
 ------
@@ -262,6 +266,8 @@ Pieter Wolters (http://moodle.org/user/profile.php?id=537037) - for the Dutch tr
 
 Tarcísio Nunes (http://moodle.org/user/profile.php?id=1149633) - for the Brazilian translation.
 
+Pavel Evgenjevich Timoshenko (http://moodle.org/user/profile.php?id=1322784) - for the Russian translation.
+
 References
 ----------
 .Net Magazine Issue 186 - Article on Collapsed Tables by Craig Grannell -
@@ -282,4 +288,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 9th January 2012.
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 23rd January 2012.
