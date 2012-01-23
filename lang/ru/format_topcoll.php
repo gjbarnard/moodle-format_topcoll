@@ -14,6 +14,7 @@
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
+ * @comment    A big thank you to Pavel Evgenjevich Timoshenko (http://moodle.org/user/profile.php?id=1322784) for the translation.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,27 +30,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Portuguese Translation of Collapsed Topics Course Format
-// Português Tradução de Tópicos Fechado formato do curso
-
 // Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
-// Usado pelo Core Moodle para identificando o formato e exibição na lista de formatos para um curso em suas configurações.
-$string['nametopcoll']='Fechado Topicos';
-$string['formattopcoll']='Fechado Topicos';
+// Possibly legacy to be removed after Moodle 2.0 is stable.
+$string['nametopcoll']='Сворачиваемые разделы по темам';
+$string['formattopcoll']='Сворачиваемые разделы по темам';
 
 // Used in format.php
-// Usado em format.php
-$string['topcolltoggle']='Alternar';
-$string['topcolltogglewidth']='width: 34px;';
+$string['topcolltoggle']='Показать/Скрыть';
+$string['topcolltogglewidth']='width: 28px;';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
-$string['topcollall']='todas as alterna.';
-$string['topcollopened']='Abra';
-$string['topcollclosed']='Feche';
+$string['topcollall']='все разделы.';
+$string['topcollopened']='Показать';
+$string['topcollclosed']='Скрыть';
 
 // Moodle 2.0 Enhancement - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages
-// Moodle 2.0 Realce - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages
-$string['sectionname'] = 'Assunto';
-$string['pluginname'] = 'Fechado Topicos';
-$string['section0name'] = 'Geral';
+$string['sectionname'] = 'Раздел';
+$string['pluginname'] = 'Сворачиваемые разделы по темам';
+$string['section0name'] = 'Общее';
 ?>
