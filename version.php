@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Collapsed Topics Information
  *
@@ -30,8 +29,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
- $plugin->version = 2012011000;
+ $plugin->version = 2012012300;
  $plugin->maturity = MATURITY_STABLE;
  $plugin->requires = 2011033005.00; // 2.0.5
  $plugin->component = 'format_topcoll';
- $plugin->release = '2.0.3.2.1';
+ $plugin->release = '2.0.4';
