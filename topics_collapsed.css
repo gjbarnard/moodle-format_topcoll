@@ -139,6 +139,13 @@ tr.cps td a:hover {
   background: transparent url(arrow_up.png) no-repeat 0px 45%; 
 }
 
+/* Set layout */
+#set-layout {
+  background: transparent url(tc_logo_spanner.png) no-repeat 0px 0px; 
+  width: 128px;
+  height: 128px;
+  float: right;
+}
 /* -- hide the children for IE7 and older -- */
 .collapsed_topic *
 {

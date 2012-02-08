@@ -245,6 +245,23 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
   1. Sorted out UTF-8 BOM issue, see MDL-31343.
   2. Added Russian translation, thanks to Pavel Evgenjevich Timoshenko (http://moodle.org/user/profile.php?id=1322784).
 
+2nd February 2012 - Version 2.3 - BETA
+  1. Added capability for layouts with persisence in the database.
+
+4th February 2012 - Version 2.3 - BETA 2
+  1. A big thank you to Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362) for his help in discovering the install.xml bug.
+  2. Fixed issue with install.xml file, gained knowledge on uninstallation for the note below:
+
+5th February 2012 - Version 2.3 - BETA 3
+  1. A big thank you to Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362) spotting issues in set_layout.php.
+  2. Fixed issues in set_layout.php.
+  3. Tidied up code to remove debug statements and development code.
+  4. Created icon for setting the layout instead of words.
+  5. Made strings in the English language file for the layout options and 'Set layout format'.  Others to follow.
+  6. Raised CONTRIB-3378 to document the development.
+
+NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the entry for 'format_topcoll' in the table 'config_plugins' where tables are with the prefix you use, the default being 'mdl_'.  Then delete the installation folder and replace with the current stable version.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -268,6 +285,8 @@ Tarcísio Nunes (http://moodle.org/user/profile.php?id=1149633) - for the Brazil
 
 Pavel Evgenjevich Timoshenko (http://moodle.org/user/profile.php?id=1322784) - for the Russian translation.
 
+All of the developers of the Grid Course format (https://github.com/PukunuiAustralia/moodle-courseformat_grid) for showing how the database can be used with a course format.
+
 References
 ----------
 .Net Magazine Issue 186 - Article on Collapsed Tables by Craig Grannell -
@@ -288,4 +307,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 23rd January 2012.
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 5th February 2012.

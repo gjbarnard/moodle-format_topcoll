@@ -47,4 +47,15 @@ $string['topcollclosed']='Close';
 $string['sectionname'] = 'Topic';
 $string['pluginname'] = 'Collapsed Topics';
 $string['section0name'] = 'General';
+
+// Layout enhancenent - Moodle Tracker CONTRIB-3378
+$string['setlayout'] = 'Set layout format';
+$string['setlayout_default'] = 'Default';
+$string['setlayout_no_topic_x'] = 'No topic x';
+$string['setlayout_no_section_no'] = 'No section number';
+$string['setlayout_no_topic_x_section_no'] = 'No topic x and section number';
+$string['setlayout_no_toggle_word'] = 'No toggle word';
+$string['setlayout_no_toggle_word_topic_x'] = 'No toggle word and topic x';
+$string['setlayout_no_toggle_word_topic_x_section_no'] = 'No toggle word, topic x and section number';
+
 ?>

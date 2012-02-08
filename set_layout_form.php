@@ -29,8 +29,35 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-$plugin->version = 2012012300.09;
-$plugin->maturity = MATURITY_STABLE;
-$plugin->requires = 2011120500.00; // 2.2
-$plugin->component = 'format_topcoll';
-$plugin->release = '2.3 - BETA 3';
+require_once("$CFG->libdir/formslib.php");
+
+class set_layout_form extends moodleform {
+
+    function definition() {
+        $mform = $this->_form;
+        $instance = $this->_customdata;
+
+        // visible elements
+        $formcourselayouts =
+                array(1 => get_string('setlayout_default', 'format_topcoll'),
+                    2 => get_string('setlayout_no_topic_x', 'format_topcoll'),
+                    3 => get_string('setlayout_no_section_no', 'format_topcoll'),
+                    4 => get_string('setlayout_no_topic_x_section_no', 'format_topcoll'),
+                    5 => get_string('setlayout_no_toggle_word', 'format_topcoll'),
+                    6 => get_string('setlayout_no_toggle_word_topic_x', 'format_topcoll'),
+                    7 => get_string('setlayout_no_toggle_word_topic_x_section_no', 'format_topcoll'));
+        $mform->addElement('select', 'set_layout', get_string('setlayout', 'format_topcoll'), $formcourselayouts);
+        //$mform->addHelpButton('format', 'format');
+        $mform->setDefault('set_layout', $instance['setlayout']);
+
+        // hidden params
+        $mform->addElement('hidden', 'id', $instance['courseid']);
+        $mform->setType('id', PARAM_INT);
+        $mform->addElement('hidden', 'setlayout', $instance['setlayout']);
+        $mform->setType('setlayout', PARAM_INT);
+        // buttons
+        $this->add_action_buttons(true, get_string('savechanges', 'admin'));
+    }
+}
+
+?>

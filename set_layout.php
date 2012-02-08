@@ -29,8 +29,42 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-$plugin->version = 2012012300.09;
-$plugin->maturity = MATURITY_STABLE;
-$plugin->requires = 2011120500.00; // 2.2
-$plugin->component = 'format_topcoll';
-$plugin->release = '2.3 - BETA 3';
+
+require_once('../../../config.php');
+require_once('./lib.php');
+require_once('./set_layout_form.php');
+
+defined('MOODLE_INTERNAL') || die();
+
+$courseid = required_param('id', PARAM_INT); // course id
+$setlayout = required_param('setlayout', PARAM_INT);
+
+
+$PAGE->set_pagelayout('admin');
+$PAGE->set_url($CFG->wwwroot . '/course/format/topcoll/set_layout.php&id=');
+
+$coursecontext = get_context_instance(CONTEXT_COURSE, $courseid);
+$PAGE->set_context($coursecontext);
+
+if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $coursecontext)) {
+
+$mform = new set_layout_form(null, array('courseid' => $courseid, 'setlayout' => $setlayout));
+
+if ($mform->is_cancelled()) {
+    redirect($CFG->wwwroot . '/course/view.php?id=' . $courseid);
+} else if ($formdata = $mform->get_data()) {
+    put_layout_setting($formdata->id, $formdata->set_layout);
+    redirect($CFG->wwwroot . "/course/view.php?id=" . $courseid);
+}
+
+echo $OUTPUT->header();
+echo $OUTPUT->box_start('generalbox');
+$mform->display();
+echo $OUTPUT->box_end();
+echo $OUTPUT->footer();
+}
+else
+{
+  redirect($CFG->wwwroot . "/course/view.php?id=" . $courseid);
+}
+?>
