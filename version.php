@@ -33,4 +33,4 @@ $plugin->version = 2012012300.09;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->requires = 2011120500.00; // 2.2
 $plugin->component = 'format_topcoll';
-$plugin->release = '2.3 - BETA 3';
+$plugin->release = '2.3 - BETA 4';
