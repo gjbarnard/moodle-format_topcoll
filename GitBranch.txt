@@ -1,1 +1,1 @@
-This is the Collapsed Topics for Moodle 2.2.x branch.
+This is the Collapsed Topics for Moodle 2.2.x CONTRIB-3378 branch.
