@@ -260,6 +260,11 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
   5. Made strings in the English language file for the layout options and 'Set layout format'.  Others to follow.
   6. Raised CONTRIB-3378 to document the development.
 
+8th February 2012 - Version 2.3 - BETA 4
+  1. A big thank you to Andrew Nicols (http://moodle.org/user/view.php?id=268794) for his contribution on the developer forum (http://moodle.org/mod/forum/discuss.php?d=195293).
+  2. Implemented the fixes and suggestions to tidy up the code as specified by Andrew above.
+  3. Implemented Spanish translations thanks to Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362).
+
 NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the entry for 'format_topcoll' in the table 'config_plugins' where tables are with the prefix you use, the default being 'mdl_'.  Then delete the installation folder and replace with the current stable version.
 
 Thanks
@@ -287,6 +292,10 @@ Pavel Evgenjevich Timoshenko (http://moodle.org/user/profile.php?id=1322784) - f
 
 All of the developers of the Grid Course format (https://github.com/PukunuiAustralia/moodle-courseformat_grid) for showing how the database can be used with a course format.
 
+Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362) for his assistance on CONTRIB-3378 and the Spanish translation.
+
+Andrew Nicols (http://moodle.org/user/view.php?id=268794) for his assistance on CONTRIB-3378.
+
 References
 ----------
 .Net Magazine Issue 186 - Article on Collapsed Tables by Craig Grannell -
@@ -307,4 +316,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 5th February 2012.
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 8th February 2012.

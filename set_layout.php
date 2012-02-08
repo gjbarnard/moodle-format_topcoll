@@ -41,20 +41,24 @@ $setlayout = required_param('setlayout', PARAM_INT);
 
 
 $PAGE->set_pagelayout('admin');
-$PAGE->set_url($CFG->wwwroot . '/course/format/topcoll/set_layout.php&id=');
+$PAGE->set_url('/course/format/topcoll/set_layout.php&id=');
 
 $coursecontext = get_context_instance(CONTEXT_COURSE, $courseid);
 $PAGE->set_context($coursecontext);
 
-if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $coursecontext)) {
+require_sesskey();
+require_capability('moodle/course:update', $coursecontext);
 
+$courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
+
+if ($PAGE->user_is_editing()) {
 $mform = new set_layout_form(null, array('courseid' => $courseid, 'setlayout' => $setlayout));
 
 if ($mform->is_cancelled()) {
-    redirect($CFG->wwwroot . '/course/view.php?id=' . $courseid);
+    redirect($courseurl);
 } else if ($formdata = $mform->get_data()) {
     put_layout_setting($formdata->id, $formdata->set_layout);
-    redirect($CFG->wwwroot . "/course/view.php?id=" . $courseid);
+    redirect($courseurl);
 }
 
 echo $OUTPUT->header();
@@ -65,6 +69,5 @@ echo $OUTPUT->footer();
 }
 else
 {
-  redirect($CFG->wwwroot . "/course/view.php?id=" . $courseid);
+  redirect($courseurl);
 }
-?>

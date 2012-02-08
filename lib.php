@@ -98,44 +98,37 @@ function callback_topcoll_ajax_support() {
  * CONTRIB-3378
  * @return The value of the layout setting.
  */
-function get_layout_setting($course) {
+function get_layout_setting($courseid) {
 
     global $DB;
-    if (!$layout_setting = $DB->get_record('format_topcoll_layout', array('courseid' => $course))) {
+    if (!$layout = $DB->get_record('format_topcoll_layout', array('courseid' => $courseid))) {
 
-        $new_layout_setting = new stdClass();
-        $new_layout_setting->courseid = $course;
-        $new_layout_setting->layoutsetting = 1; // Default value.
+        $layout = new stdClass();
+        $layout->courseid = $courseid;
+        $layout->layoutsetting = 1; // Default value.
 
-        if (!$new_layout_setting->id = $DB->insert_record('format_topcoll_layout', $new_layout_setting)) {
+        if (!$layout->id = $DB->insert_record('format_topcoll_layout', $layout)) {
             error('Could not set layout setting. Collapsed Topics format database is not ready.  An admin must visit notifications.');
         }
-        $layout_setting = $new_layout_setting;
     }
 
-    return $layout_setting->layoutsetting;
+    return $layout->layoutsetting;
 }
 
 /**
  * Sets the layout setting for the course or if it does not exist, create it.
  * CONTRIB-3378
  */
-function put_layout_setting($course, $layoutsetting) {
+function put_layout_setting($courseid, $layoutsetting) {
     global $DB;
-
-    $the_layout_setting = new stdClass();
-    $the_layout_setting->courseid = $course;
-    $the_layout_setting->layoutsetting = $layoutsetting;
-
-    if (!$old_layout_setting = $DB->get_record('format_topcoll_layout', array('courseid' => $course))) {
-
-        if (!$the_layout_setting->id = $DB->insert_record('format_topcoll_layout', $the_layout_setting)) {
-            error('Could not set layout setting. Collapsed Topics format database is not ready.  An admin must visit notifications.');
-        }
+    if ($layout = $DB->get_record('format_topcoll_layout', array('courseid' => $courseid))) {
+        $layout->layoutsetting = $layoutsetting;
+        $DB->update_record('format_topcoll_layout', $layout);
     } else {
-        $the_layout_setting->id = $old_layout_setting->id;
-        if (!$DB->update_record('format_topcoll_layout', $the_layout_setting)) {
-            error('Could not set layout setting. Collapsed Topics format database is not ready.  An admin must visit notifications.');
-        }
+        $layout = new stdClass();
+        $layout->courseid = $courseid;
+        $layout->layoutsetting = $layoutsetting;
+        $DB->insert_record('format_topcoll_layout', $layout);
     }
+    return $layout->id;
 }

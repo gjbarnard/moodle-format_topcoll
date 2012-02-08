@@ -119,7 +119,7 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
                 target.className += " collapsed_topic";  //add the class name
                 //alert('Added class name');
             }
-            image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/arrow_down.png)";
+            image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_down.png)";
             // Save the toggle!
             if (reloading == false)    togglebinary(toggleNum,"0");
         }
@@ -131,7 +131,7 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
                 target.className = target.className.replace(/\b collapsed_topic\b/,'') //remove the class name
                 //alert('Removed class name');
             }
-            image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/arrow_up.png)";
+            image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_up.png)";
             // Save the toggle!
             if (reloading == false) togglebinary(toggleNum,"1");
         }

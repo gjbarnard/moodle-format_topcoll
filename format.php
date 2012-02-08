@@ -115,7 +115,7 @@ if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $courseco
     echo '<tr class="section main">';
     echo '<td class="left side">&nbsp;</td>';
     echo '<td class="content">';
-    echo '<a title="' . get_string('setlayout', 'format_topcoll') . '" href="format/topcoll/set_layout.php?id=' . $course->id . '&setlayout=' . $layout_setting . '"><div id="set-layout"></div></a>';
+    echo '<a title="' . get_string('setlayout', 'format_topcoll') . '" href="format/topcoll/set_layout.php?id=' . $course->id . '&setlayout=' . $layout_setting . '&sesskey='.sesskey().'"><div id="set-layout"></div></a>';
     echo '</td>';
     echo '<td class="right side">&nbsp;</td>';
     echo '</tr>';
