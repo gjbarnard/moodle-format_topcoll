@@ -96,7 +96,8 @@ function callback_topcoll_ajax_support() {
 /**
  * Gets the layout setting for the course or if it does not exist, create it.
  * CONTRIB-3378
- * @return The value of the layout setting.
+ * @param int $courseid The course identifier.
+ * @return int The value of the layout setting.
  */
 function get_layout_setting($courseid) {
 
@@ -118,6 +119,8 @@ function get_layout_setting($courseid) {
 /**
  * Sets the layout setting for the course or if it does not exist, create it.
  * CONTRIB-3378
+ * @param int $courseid The course identifier.
+ * @param int The layout setting value to set.
  */
 function put_layout_setting($courseid, $layoutsetting) {
     global $DB;
@@ -130,5 +133,4 @@ function put_layout_setting($courseid, $layoutsetting) {
         $layout->layoutsetting = $layoutsetting;
         $DB->insert_record('format_topcoll_layout', $layout);
     }
-    return $layout->id;
 }
