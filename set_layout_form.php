@@ -34,27 +34,36 @@ require_once("$CFG->libdir/formslib.php");
 class set_layout_form extends moodleform {
 
     function definition() {
+
+        require_once('config.php'); // For $formcourselayoutstrutures - NOTE: For some reason 'globals' not working if it is used and this is outside this function.
+
         $mform = $this->_form;
         $instance = $this->_customdata;
 
-        // visible elements
-        $formcourselayouts =
-                array(1 => get_string('setlayout_default', 'format_topcoll'),
-                    2 => get_string('setlayout_no_topic_x', 'format_topcoll'),
-                    3 => get_string('setlayout_no_section_no', 'format_topcoll'),
-                    4 => get_string('setlayout_no_topic_x_section_no', 'format_topcoll'),
-                    5 => get_string('setlayout_no_toggle_word', 'format_topcoll'),
-                    6 => get_string('setlayout_no_toggle_word_topic_x', 'format_topcoll'),
-                    7 => get_string('setlayout_no_toggle_word_topic_x_section_no', 'format_topcoll'));
-        $mform->addElement('select', 'set_layout', get_string('setlayout', 'format_topcoll'), $formcourselayouts);
+        $formcourselayoutelements =
+            array(1 => get_string('setlayout_default', 'format_topcoll'),
+                  2 => get_string('setlayout_no_toggle_section_x', 'format_topcoll'),
+                  3 => get_string('setlayout_no_section_no', 'format_topcoll'),
+                  4 => get_string('setlayout_no_toggle_section_x_section_no', 'format_topcoll'),
+                  5 => get_string('setlayout_no_toggle_word', 'format_topcoll'),
+                  6 => get_string('setlayout_no_toggle_word_toggle_section_x', 'format_topcoll'),
+                  7 => get_string('setlayout_no_toggle_word_toggle_section_x_section_no', 'format_topcoll'));
+
+        $mform->addElement('select', 'set_element', get_string('setlayoutelements', 'format_topcoll'), $formcourselayoutelements);
         //$mform->addHelpButton('format', 'format');
-        $mform->setDefault('set_layout', $instance['setlayout']);
+        $mform->setDefault('set_element', $instance['setelement']);
+
+        $mform->addElement('select', 'set_structure', get_string('setlayoutstructure', 'format_topcoll'), $formcourselayoutstrutures);  // In config.php.
+        //$mform->addHelpButton('format', 'format');
+        $mform->setDefault('set_structure', $instance['setstructure']);
 
         // hidden params
         $mform->addElement('hidden', 'id', $instance['courseid']);
         $mform->setType('id', PARAM_INT);
-        $mform->addElement('hidden', 'setlayout', $instance['setlayout']);
-        $mform->setType('setlayout', PARAM_INT);
+        $mform->addElement('hidden', 'setelement', $instance['setelement']);
+        $mform->setType('setelement', PARAM_INT);
+        $mform->addElement('hidden', 'setstructure', $instance['setstructure']);
+        $mform->setType('setstructure', PARAM_INT);
         // buttons
         $this->add_action_buttons(true, get_string('savechanges', 'admin'));
     }

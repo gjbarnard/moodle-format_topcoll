@@ -57,10 +57,15 @@ $string['section0name'] = 'General';
 // Layout enhancenent - Moodle Tracker CONTRIB-3378
 $string['setlayout'] = 'Establecer el formato';
 $string['setlayout_default'] = 'Por defecto';
-$string['setlayout_no_topic_x'] = 'Sin tema x';
+$string['setlayout_no_toggle_section_x'] = 'Sin tema x';
 $string['setlayout_no_section_no'] = 'Sin número de sección';
-$string['setlayout_no_topic_x_section_no'] = 'Sin tema X ni número de sección';
+$string['setlayout_no_toggle_section_x_section_no'] = 'Sin tema X ni número de sección';
 $string['setlayout_no_toggle_word'] = 'Sin palabra toggle';
-$string['setlayout_no_toggle_word_topic_x'] = 'Sin toggle ni tema x';
-$string['setlayout_no_toggle_word_topic_x_section_no'] = 'Sin toggle, tema X ni número desección';
+$string['setlayout_no_toggle_word_toggle_section_x'] = 'Sin toggle ni tema x';
+$string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'Sin toggle, tema X ni número desección';
+$string['setlayoutelements'] = 'Set layout elements';
+$string['setlayoutstructure'] = 'Set layout structure';
+$string['setlayoutstructuretopic']='Temas';
+$string['setlayoutstructureweek']='Semana';
+$string['setlayoutstructurelatfirst']='Latest First';
 ?>

@@ -34,6 +34,7 @@ var thesparezeros = "00000000000000000000000000"; // A constant of 26 0's to be 
 var thewwwroot;  // For the toggle graphic and extra files.
 var thecookiesubid; // For the cookie sub name.
 var numToggles = 0;
+var currentWeek;
 var cookieExpires;
 var ie7OrLess = false;
 var ie = false;
@@ -66,6 +67,11 @@ function topcoll_init(wwwroot, moodleid, courseid, cookielifetime)
 function set_number_of_toggles(atoggle)
 {
     numToggles = atoggle;
+}
+
+function set_current_week(theWeek)
+{
+    currentWeek = theWeek;
 }
 
 // Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the most significant bit and represents the non-toggling topic 0.
@@ -253,7 +259,7 @@ function reloadToggles()
     
         for (var theToggle = 1; theToggle <= numToggles; theToggle++)
         {
-            if ((theToggle <= numToggles) && (toggleBinaryGlobal.charAt(theToggle) == "1")) // Array index 0 is never tested - MSB thing.
+            if ((theToggle <= numToggles) && ((toggleBinaryGlobal.charAt(theToggle) == "1") || (theToggle == currentWeek))) // Array index 0 is never tested - MSB thing.
             {
                 toggleexacttopic(document.getElementById("section-"+theToggle),document.getElementById("sectionatag-" + theToggle),theToggle,true);
                 //alert("Bongo4 " + thecookiesubid + " " + theToggle);

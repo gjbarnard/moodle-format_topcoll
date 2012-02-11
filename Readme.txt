@@ -265,6 +265,12 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
   2. Implemented the fixes and suggestions to tidy up the code as specified by Andrew above.
   3. Implemented Spanish translations thanks to Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362).
 
+11th February 2012 - Version 2.3 - BETA 5
+  1. Implemented the capability to have different 'structures' thereby encapsulating the 'Collapsed Weeks' and 'Latest First' formats into this one.
+  2. If you have previously installed this development, you need to drop the table 'format_topcoll_layout' in your database to upgrade as I do
+     not wish to have a complicated upgrade.php in the db folder at this stage whilst development continues.
+  3. As a consequence of some changes, the Spanish translation now needs fixing, sorry Carlos.
+
 NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the entry for 'format_topcoll' in the table 'config_plugins' where tables are with the prefix you use, the default being 'mdl_'.  Then delete the installation folder and replace with the current stable version.
 
 Thanks
@@ -316,4 +322,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 8th February 2012.
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 11th February 2012.

@@ -94,43 +94,48 @@ function callback_topcoll_ajax_support() {
 }
 
 /**
- * Gets the layout setting for the course or if it does not exist, create it.
+ * Gets the layout for the course or if it does not exist, create it.
  * CONTRIB-3378
  * @param int $courseid The course identifier.
- * @return int The value of the layout setting.
+ * @return int The layout.
  */
-function get_layout_setting($courseid) {
-
+function get_layout($courseid) {
+    require_once('config.php'); // For defaults - NOTE: For some reason 'globals' not working if it is used and this is outside this function.
     global $DB;
+
     if (!$layout = $DB->get_record('format_topcoll_layout', array('courseid' => $courseid))) {
 
         $layout = new stdClass();
         $layout->courseid = $courseid;
-        $layout->layoutsetting = 1; // Default value.
+        $layout->layoutelement = $defaultlayoutelement; // Default value.
+        $layout->layoutstructure = $defaultlayoutstructure; // Default value.
 
         if (!$layout->id = $DB->insert_record('format_topcoll_layout', $layout)) {
             error('Could not set layout setting. Collapsed Topics format database is not ready.  An admin must visit notifications.');
         }
     }
 
-    return $layout->layoutsetting;
+    return $layout;
 }
 
 /**
  * Sets the layout setting for the course or if it does not exist, create it.
  * CONTRIB-3378
  * @param int $courseid The course identifier.
- * @param int The layout setting value to set.
+ * @param int $layoutelement The layout element value to set.
+ * @param int $layoutstructure The layout structure value to set.
  */
-function put_layout_setting($courseid, $layoutsetting) {
+function put_layout($courseid, $layoutelement, $layoutstructure) {
     global $DB;
     if ($layout = $DB->get_record('format_topcoll_layout', array('courseid' => $courseid))) {
-        $layout->layoutsetting = $layoutsetting;
+        $layout->layoutelement = $layoutelement;
+        $layout->layoutstructure = $layoutstructure;
         $DB->update_record('format_topcoll_layout', $layout);
     } else {
         $layout = new stdClass();
         $layout->courseid = $courseid;
-        $layout->layoutsetting = $layoutsetting;
+        $layout->layoutelement = $layoutelement;
+        $layout->layoutstructure = $layoutstructure;
         $DB->insert_record('format_topcoll_layout', $layout);
     }
 }

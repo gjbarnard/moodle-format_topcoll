@@ -37,14 +37,15 @@ require_once('./set_layout_form.php');
 defined('MOODLE_INTERNAL') || die();
 
 $courseid = required_param('id', PARAM_INT); // course id
-$setlayout = required_param('setlayout', PARAM_INT);
+$setelement = required_param('setelement', PARAM_INT);
+$setstructure = required_param('setstructure', PARAM_INT);
 
-
-$PAGE->set_pagelayout('admin');
-$PAGE->set_url('/course/format/topcoll/set_layout.php&id=');
 
 $coursecontext = get_context_instance(CONTEXT_COURSE, $courseid);
 $PAGE->set_context($coursecontext);
+$PAGE->set_url('/course/format/topcoll/set_layout.php&id=',array('id' => $courseid)); // From /user/index.php
+$PAGE->set_pagelayout('incourse'); // From /user/index.php
+$PAGE->set_pagetype('course-view-topics'); // From /user/index.php
 
 require_sesskey();
 require_capability('moodle/course:update', $coursecontext);
@@ -52,12 +53,12 @@ require_capability('moodle/course:update', $coursecontext);
 $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
 
 if ($PAGE->user_is_editing()) {
-$mform = new set_layout_form(null, array('courseid' => $courseid, 'setlayout' => $setlayout));
+$mform = new set_layout_form(null, array('courseid' => $courseid, 'setelement' => $setelement, 'setstructure' => $setstructure));
 
 if ($mform->is_cancelled()) {
     redirect($courseurl);
 } else if ($formdata = $mform->get_data()) {
-    put_layout_setting($formdata->id, $formdata->set_layout);
+    put_layout($formdata->id, $formdata->set_element, $formdata->set_structure);
     redirect($courseurl);
 }
 
