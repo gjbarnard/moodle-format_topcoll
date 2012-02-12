@@ -94,6 +94,17 @@ function callback_topcoll_ajax_support() {
 }
 
 /**
+ * Returns a URL to arrive directly at a section
+ *
+ * @param int $courseid The id of the course to get the link for
+ * @param int $sectionnum The section number to jump to
+ * @return moodle_url
+ */
+function callback_topcoll_get_section_url($courseid, $sectionnum) {
+    return new moodle_url('/course/view.php', array('id' => $courseid, 'ctopic' => $sectionnum));
+}
+
+/**
  * Gets the layout for the course or if it does not exist, create it.
  * CONTRIB-3378
  * @param int $courseid The course identifier.

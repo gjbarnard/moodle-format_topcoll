@@ -285,7 +285,12 @@ function reload_toggles(aToggle)
 // Show a specific topic - used when in 'Show topic x' mode.
 function show_topic(theTopic)
 {
-    toggleexacttopic(document.getElementById("section-"+theTopic),document.getElementById("sectionatag-" + theTopic),theTopic,true);
+    var section = document.getElementById("section-"+theTopic);  // CONTRIB-3283
+    var secatag = document.getElementById("sectionatag-" + theTopic);
+    if ((section != null) && (secatag != null))
+    {
+        toggleexacttopic(section,secatag,theTopic,true);
+    }
     //alert("show_topic " + theTopic);
 }
 
