@@ -29,9 +29,46 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
- $plugin->version = 2012021200;
- $plugin->maturity = MATURITY_BETA;
- $plugin->requires = 2011120500.00; // 2.3dev
- $plugin->component = 'format_topcoll';
- $plugin->release = '2.3.3 - BETA 6';
+
+require_once('../../../config.php');
+require_once('./lib.php');
+require_once('./set_layout_form.php');
+
+defined('MOODLE_INTERNAL') || die();
+
+$courseid = required_param('id', PARAM_INT); // course id
+$setelement = required_param('setelement', PARAM_INT);
+$setstructure = required_param('setstructure', PARAM_INT);
+
+
+$coursecontext = get_context_instance(CONTEXT_COURSE, $courseid);
+$PAGE->set_context($coursecontext);
+$PAGE->set_url('/course/format/topcoll/set_layout.php&id=',array('id' => $courseid)); // From /user/index.php
+$PAGE->set_pagelayout('incourse'); // From /user/index.php
+$PAGE->set_pagetype('course-view-topics'); // From /user/index.php
+
+require_sesskey();
+require_capability('moodle/course:update', $coursecontext);
+
+$courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
+
+if ($PAGE->user_is_editing()) {
+$mform = new set_layout_form(null, array('courseid' => $courseid, 'setelement' => $setelement, 'setstructure' => $setstructure));
+
+if ($mform->is_cancelled()) {
+    redirect($courseurl);
+} else if ($formdata = $mform->get_data()) {
+    put_layout($formdata->id, $formdata->set_element, $formdata->set_structure);
+    redirect($courseurl);
+}
+
+echo $OUTPUT->header();
+echo $OUTPUT->box_start('generalbox');
+$mform->display();
+echo $OUTPUT->box_end();
+echo $OUTPUT->footer();
+}
+else
+{
+  redirect($courseurl);
+}

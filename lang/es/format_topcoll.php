@@ -14,6 +14,10 @@
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
+<<<<<<< HEAD
+=======
+ * @comment    A big thank you to Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362) for the translation.
+>>>>>>> remotes/origin/CONTRIB-3378
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,8 +38,8 @@
 
 // Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
 // Utilizado por el Núcleo de Moodle identificando el formato y la visualización en la lista de formatos para un curso en su configuración.
-$string['nametopcoll']='Se derrumbo Temas';
-$string['formattopcoll']='Se derrumbo Temas';
+$string['nametopcoll']='Temas plegados';
+$string['formattopcoll']='Temas plegados';
 
 // Used in format.php
 // Utilizado en format.php
@@ -43,13 +47,28 @@ $string['topcolltoggle']='Activar';
 $string['topcolltogglewidth']='width: 26px;';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
-$string['topcollall']='cambia.';
-$string['topcollopened']='Abierto todo';
-$string['topcollclosed']='Cierre todas las';
+$string['topcollall']='Cambiar';
+$string['topcollopened']='Todos abiertos'; /*all open*/
+$string['topcollclosed']='Todos cerrados'; /*all closed*/
 
 // Moodle 2.0 Enhancement - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages
 // Moodle 2.0 Mejora - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages
 $string['sectionname'] = 'Tema';
-$string['pluginname'] = 'Se derrumbo Temas';
+$string['pluginname'] = 'Temas deplegables'; /*Topics that you can collapse*/
 $string['section0name'] = 'General';
+
+// Layout enhancenent - Moodle Tracker CONTRIB-3378
+$string['setlayout'] = 'Establecer el formato';
+$string['setlayout_default'] = 'Por defecto';
+$string['setlayout_no_toggle_section_x'] = 'Sin tema x';
+$string['setlayout_no_section_no'] = 'Sin número de sección';
+$string['setlayout_no_toggle_section_x_section_no'] = 'Sin tema X ni número de sección';
+$string['setlayout_no_toggle_word'] = 'Sin palabra toggle';
+$string['setlayout_no_toggle_word_toggle_section_x'] = 'Sin toggle ni tema x';
+$string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'Sin toggle, tema X ni número desección';
+$string['setlayoutelements'] = 'Set layout elements';
+$string['setlayoutstructure'] = 'Set layout structure';
+$string['setlayoutstructuretopic']='Temas';
+$string['setlayoutstructureweek']='Semana';
+$string['setlayoutstructurelatfirst']='Latest First';
 ?>
