@@ -38,4 +38,28 @@
 // The default blocks layout for this course format:
     $format['defaultblocks'] = ':search_forums,news_items,calendar_upcoming,recent_activity';
 //
+
+// Layout configuration.
+// Here you can see what numbers in the array represent what layout for setting the default value below.
+// 1 => Default.
+// 2 => No 'Topic x' / 'Week x'.
+// 3 => No section number.
+// 4 => No 'Topic x' / 'Week x' and no section number.
+// 5 => No 'Toggle' word.
+// 6 => No 'Toggle' word and no 'Topic x' / 'Week x'.
+// 7 => No 'Toggle' word, no 'Topic x' / 'Week x'  and no section number.
+
+// Default layout to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this version which is V2.2.3.
+$defaultlayoutelement = 1;
+
+// Structure configuration.
+// Combo box strings.  Here so you can see what numbers in the array represent what structure for setting the default value below.
+$formcourselayoutstrutures =
+    array(1 => get_string('setlayoutstructuretopic', 'format_topcoll'),
+          2 => get_string('setlayoutstructureweek', 'format_topcoll'),
+          3 => get_string('setlayoutstructurelatfirst', 'format_topcoll'));
+
+// Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this version which is V2.2.3.
+$defaultlayoutstructure = 1;
+
 ?>

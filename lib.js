@@ -34,6 +34,7 @@ var thesparezeros = "00000000000000000000000000"; // A constant of 26 0's to be 
 var thewwwroot;  // For the toggle graphic and extra files.
 var thecookiesubid; // For the cookie sub name.
 var numToggles = 0;
+var currentWeek;
 var cookieExpires;
 var ie7OrLess = false;
 var ie = false;
@@ -66,6 +67,11 @@ function topcoll_init(wwwroot, moodleid, courseid, cookielifetime)
 function set_number_of_toggles(atoggle)
 {
     numToggles = atoggle;
+}
+
+function set_current_week(theWeek)
+{
+    currentWeek = theWeek;
 }
 
 // Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the most significant bit and represents the non-toggling topic 0.
@@ -119,7 +125,7 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
                 target.className += " collapsed_topic";  //add the class name
                 //alert('Added class name');
             }
-            image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/arrow_down.png)";
+            image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_down.png)";
             // Save the toggle!
             if (reloading == false)    togglebinary(toggleNum,"0");
         }
@@ -131,7 +137,7 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
                 target.className = target.className.replace(/\b collapsed_topic\b/,'') //remove the class name
                 //alert('Removed class name');
             }
-            image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/arrow_up.png)";
+            image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_up.png)";
             // Save the toggle!
             if (reloading == false) togglebinary(toggleNum,"1");
         }
@@ -253,7 +259,7 @@ function reloadToggles()
     
         for (var theToggle = 1; theToggle <= numToggles; theToggle++)
         {
-            if ((theToggle <= numToggles) && (toggleBinaryGlobal.charAt(theToggle) == "1")) // Array index 0 is never tested - MSB thing.
+            if ((theToggle <= numToggles) && ((toggleBinaryGlobal.charAt(theToggle) == "1") || (theToggle == currentWeek))) // Array index 0 is never tested - MSB thing.
             {
                 toggleexacttopic(document.getElementById("section-"+theToggle),document.getElementById("sectionatag-" + theToggle),theToggle,true);
                 //alert("Bongo4 " + thecookiesubid + " " + theToggle);
@@ -279,7 +285,12 @@ function reload_toggles(aToggle)
 // Show a specific topic - used when in 'Show topic x' mode.
 function show_topic(theTopic)
 {
-    toggleexacttopic(document.getElementById("section-"+theTopic),document.getElementById("sectionatag-" + theTopic),theTopic,true);
+    var section = document.getElementById("section-"+theTopic);  // CONTRIB-3283
+    var secatag = document.getElementById("sectionatag-" + theTopic);
+    if ((section != null) && (secatag != null))
+    {
+        toggleexacttopic(section,secatag,theTopic,true);
+    }
     //alert("show_topic " + theTopic);
 }
 
