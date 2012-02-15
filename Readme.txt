@@ -276,6 +276,9 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
   2. Added 'callback_topics_get_section_url' in 'lib.php' for MDL-26477.
   3. Corrected slight mistake with version number.
 
+15th February 2012 - Version 2.2.3 - BETA 7
+  1. Added strings for MDL-26105 in format_topcoll.php.
+
 NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the entry for 'format_topcoll' in the table 'config_plugins' where tables are with the prefix you use, the default being 'mdl_'.  Then delete the installation folder and replace with the current stable version.
 
 Thanks
@@ -327,4 +330,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 12th February 2012.
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 15th February 2012.
