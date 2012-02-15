@@ -231,52 +231,6 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
   1. Updated Brazilian translation thanks to Tarcísio Nunes (http://moodle.org/user/profile.php?id=1149633).
   2. Changed version to relate to Moodle version, so this is for Moodle 2.2.
 
-9th December 2011 - Version 2.2.1.1 - Moodle Tracker CONTRIB-3295
-  1. Fixed issue of the web browser miscaluating the width of the content in 'editing' mode so that the sections
-     are less than 100%.
-
-3rd January 2012 - Version 2.2.1.1.1 - Moodle Tracker MDL-30632
-  1. Use consistent edit section icon.
-
-9th January 2012 - Version 2.2.1.1.2
-  1. Corrected licence to be correct one used by Moodle Plugins - thanks to Tim Hunt (http://moodle.org/user/profile.php?id=93821).
-
-23rd January 2012 - Version 2.2.2
-  1. Sorted out UTF-8 BOM issue, see MDL-31343.
-  2. Added Russian translation, thanks to Pavel Evgenjevich Timoshenko (http://moodle.org/user/profile.php?id=1322784).
-
-2nd February 2012 - Version 2.3 - BETA
-  1. Added capability for layouts with persisence in the database.
-
-4th February 2012 - Version 2.3 - BETA 2
-  1. A big thank you to Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362) for his help in discovering the install.xml bug.
-  2. Fixed issue with install.xml file, gained knowledge on uninstallation for the note below:
-
-5th February 2012 - Version 2.3 - BETA 3
-  1. A big thank you to Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362) spotting issues in set_layout.php.
-  2. Fixed issues in set_layout.php.
-  3. Tidied up code to remove debug statements and development code.
-  4. Created icon for setting the layout instead of words.
-  5. Made strings in the English language file for the layout options and 'Set layout format'.  Others to follow.
-  6. Raised CONTRIB-3378 to document the development.
-
-8th February 2012 - Version 2.3 - BETA 4
-  1. A big thank you to Andrew Nicols (http://moodle.org/user/view.php?id=268794) for his contribution on the developer forum (http://moodle.org/mod/forum/discuss.php?d=195293).
-  2. Implemented the fixes and suggestions to tidy up the code as specified by Andrew above.
-  3. Implemented Spanish translations thanks to Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362).
-
-11th February 2012 - Version 2.3 - BETA 5
-  1. Implemented the capability to have different 'structures' thereby encapsulating the 'Collapsed Weeks' and 'Latest First' formats into this one.
-  2. If you have previously installed this development, you need to drop the table 'format_topcoll_layout' in your database to upgrade as I do
-     not wish to have a complicated upgrade.php in the db folder at this stage whilst development continues.
-  3. As a consequence of some changes, the Spanish translation now needs fixing, sorry Carlos.
-
-12th February 2012 - Version 2.3 - BETA 6
-  1. Fixed CONTRIB-3283 in lib.js (and hence lib_min.js) for when you are in display only 'Section x' mode and the number of sections is reduced, you go back to the course with a section number for you in the database that no longer exists and the 'Jump to...' drop down box does not work.  Leading to having to change the database or the value of 'ctopics' in the URL to that od a valid one.
-  2. Added 'callback_topics_get_section_url' in 'lib.php' for MDL-26477.
-
-NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the entry for 'format_topcoll' in the table 'config_plugins' where tables are with the prefix you use, the default being 'mdl_'.  Then delete the installation folder and replace with the current stable version.
-
 9th December 2011 - Version 2.3.1.1 - Moodle Tracker CONTRIB-3295
   1. Fixed issue of the web browser miscaluating the width of the content in 'editing' mode so that the sections
      are less than 100%.
@@ -321,6 +275,9 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1. Fixed CONTRIB-3283 in lib.js (and hence lib_min.js) for when you are in display only 'Section x' mode and the number of sections is reduced, you go back to the course with a section number for you in the database that no longer exists and the 'Jump to...' drop down box does not work.  Leading to having to change the database or the value of 'ctopics' in the URL to that od a valid one.
   2. Added 'callback_topics_get_section_url' in 'lib.php' for MDL-26477.
   3. Corrected slight mistake with version number.
+
+15th February 2012 - Version 2.3.3 - BETA 7
+  1. Added strings for MDL-26105 in format_topcoll.php.
 
 NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the entry for 'format_topcoll' in the table 'config_plugins' where tables are with the prefix you use, the default being 'mdl_'.  Then delete the installation folder and replace with the current stable version.
 
@@ -373,4 +330,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 12th February 2012.
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 15th February 2012.
