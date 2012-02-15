@@ -273,11 +273,12 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
 
 12th February 2012 - Version 2.2.3 - BETA 6
   1. Fixed CONTRIB-3283 in lib.js (and hence lib_min.js) for when you are in display only 'Section x' mode and the number of sections is reduced, you go back to the course with a section number for you in the database that no longer exists and the 'Jump to...' drop down box does not work.  Leading to having to change the database or the value of 'ctopics' in the URL to that od a valid one.
-  2. Added 'callback_topics_get_section_url' in 'lib.php' for MDL-26477.
+  2. Added 'callback_topcoll_get_section_url' in 'lib.php' for MDL-26477.
   3. Corrected slight mistake with version number.
 
 15th February 2012 - Version 2.2.3 - BETA 7
   1. Added strings for MDL-26105 in format_topcoll.php.
+  2. Used non-depreciated 'create_table' method in 'upgrade.php'.
 
 NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the entry for 'format_topcoll' in the table 'config_plugins' where tables are with the prefix you use, the default being 'mdl_'.  Then delete the installation folder and replace with the current stable version.
 
