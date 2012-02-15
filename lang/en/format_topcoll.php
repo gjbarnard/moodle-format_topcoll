@@ -48,6 +48,10 @@ $string['sectionname'] = 'Section';
 $string['pluginname'] = 'Collapsed Topics';
 $string['section0name'] = 'General';
 
+// MDL-26105
+$string['page-course-view-topcoll'] = 'Any course main page in collapsed topics format';
+$string['page-course-view-topcoll-x'] = 'Any course page in collapesed topics format';
+
 // Layout enhancenent - Moodle Tracker CONTRIB-3378
 $string['setlayout'] = 'Set layout format';
 $string['setlayout_default'] = 'Default';
