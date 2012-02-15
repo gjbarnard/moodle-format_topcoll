@@ -279,6 +279,7 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
 15th February 2012 - Version 2.2.3 - BETA 7
   1. Added strings for MDL-26105 in format_topcoll.php.
   2. Used non-depreciated 'create_table' method in 'upgrade.php'.
+  3. Finally worked out how to ensure that the 'Settings Block' displays the course and not front page administration by using 'require_login($course)'.
 
 NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the entry for 'format_topcoll' in the table 'config_plugins' where tables are with the prefix you use, the default being 'mdl_'.  Then delete the installation folder and replace with the current stable version.
 
