@@ -281,6 +281,9 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
   2. Used non-depreciated 'create_table' method in 'upgrade.php'.
   3. Finally worked out how to ensure that the 'Settings Block' displays the course and not front page administration by using 'require_login($course)'.
 
+18th February 2012 - Version 2.2.3 - BETA 8
+  1. CONTRIB-3225 - Added screen reader capability using 'h3' tags, the same as the standard Topics format.
+
 NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the entry for 'format_topcoll' in the table 'config_plugins' where tables are with the prefix you use, the default being 'mdl_'.  Then delete the installation folder and replace with the current stable version.
 
 Thanks
@@ -332,4 +335,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 15th February 2012.
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 18th February 2012.
