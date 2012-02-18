@@ -32,6 +32,8 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir . '/filelib.php');
 require_once($CFG->libdir . '/completionlib.php');
 
+$userisediting = $PAGE->user_is_editing();
+
 // Now get the css and JavaScript Lib.  The call to topcoll_init sets things up for JavaScript to work by understanding the particulars of this course.
 ?>    
 <style type="text/css" media="screen">
@@ -48,7 +50,7 @@ $PAGE->requires->js_function_call('topcoll_init', array($CFG->wwwroot,
     preg_replace("/[^A-Za-z0-9]/", "", $SITE->shortname),
     $course->id,
     null)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration.
-if (ajaxenabled() && $PAGE->user_is_editing()) {
+if (ajaxenabled() && $userisediting) {
     // This overrides the 'swap_with_section' function in /lib/ajax/section_classes.js
     $PAGE->requires->js('/course/format/topcoll/tc_section_classes_min.js');
 }
@@ -75,9 +77,13 @@ $strshowalltopics = get_string('showalltopics');
 $strtopic = get_string('topic');
 $strgroups = get_string('groups');
 $strgroupmy = get_string('groupmy');
-$editing = $PAGE->user_is_editing();
 
-if ($editing) {
+$screenreader = false;
+if ($USER->screenreader == 1) {
+    $screenreader = true; // CONTRIB-3225 - If screenreader default back to a non-toggle based topics type format.
+}
+
+if ($userisediting) {
     $strtopichide = get_string('hidetopicfromothers');
     $strtopicshow = get_string('showtopicfromothers');
     $strmarkthistopic = get_string('markthistopic');
@@ -111,7 +117,7 @@ if (ismoving($course->id)) {
 
 // CONTRIB-3378
 $layoutsetting = get_layout($course->id);
-if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $coursecontext)) {
+if ($userisediting && has_capability('moodle/course:update', $coursecontext)) {
     echo '<tr class="section main">';
     echo '<td class="left side">&nbsp;</td>';
     echo '<td class="content">';
@@ -127,13 +133,13 @@ $section = 0;
 $thissection = $sections[$section];
 unset($sections[0]);
 
-if ($thissection->summary or $thissection->sequence or $PAGE->user_is_editing()) {
+if ($thissection->summary or $thissection->sequence or $userisediting) {
     echo '<tr id="section-0" class="section main">';
     echo '<td class="left side">&nbsp;</td>';
     echo '<td class="content">';
 
-    if (!is_null($thissection->name)) { // MDL-29188
-        echo $OUTPUT->heading(format_string($thissection->name, true, array('context' => $coursecontext)), 3, 'sectionname');
+    if (!is_null($thissection->name)) { // MDL-20628
+        echo $OUTPUT->heading(format_string($thissection->name, true, array('context' => $coursecontext)), 3, 'sectionname'); // MDL-29188
     }
 
     echo '<div class="summary">';
@@ -144,7 +150,7 @@ if ($thissection->summary or $thissection->sequence or $PAGE->user_is_editing())
     $summaryformatoptions->overflowdiv = true;
     echo format_text($summarytext, $thissection->summaryformat, $summaryformatoptions);
 
-    if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $coursecontext)) {
+    if ($userisediting && has_capability('moodle/course:update', $coursecontext)) {
         echo '<a title="' . $streditsummary . '" ' .
         ' href="editsection.php?id=' . $thissection->id . '"><img src="' . $OUTPUT->pix_url('t/edit') . '" ' .
         ' class="iconsmall edit" alt="' . $streditsummary . '" /></a>';
@@ -153,7 +159,7 @@ if ($thissection->summary or $thissection->sequence or $PAGE->user_is_editing())
 
     print_section($course, $thissection, $mods, $modnamesused);
 
-    if ($PAGE->user_is_editing()) {
+    if ($userisediting) {
         print_section_add_menus($course, $section, $modnames);
     }
 
@@ -170,22 +176,24 @@ if ($layoutsetting->layoutstructure == 1) {
 } else {
     $topictext = get_string('setlayoutstructureweek', 'format_topcoll');
 }
-$toggletext = get_string('topcolltoggle', 'format_topcoll'); // The table row of the toggle.
-// Toggle all.
-echo '<tr id="toggle-all" class="section main">';
-echo '<td class="left side toggle-all" colspan="2">';
-echo '<h4><a class="on" href="#" onclick="all_opened(); return false;">' . get_string('topcollopened', 'format_topcoll') . '</a><a class="off" href="#" onclick="all_closed(); return false;">' . get_string('topcollclosed', 'format_topcoll') . '</a>' . get_string('topcollall', 'format_topcoll') . '</h4>';
-echo '</td>';
-echo '<td class="right side">&nbsp;</td>';
-echo '</tr>';
-echo '<tr class="section separator"><td colspan="3" class="spacer"></td></tr>';
 
+$toggletext = "";
+if ($screenreader == false) {
+    $toggletext = get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
+    // Toggle all.
+    echo '<tr id="toggle-all" class="section main">';
+    echo '<td class="left side toggle-all" colspan="2">';
+    echo '<h4><a class="on" href="#" onclick="all_opened(); return false;">' . get_string('topcollopened', 'format_topcoll') . '</a><a class="off" href="#" onclick="all_closed(); return false;">' . get_string('topcollclosed', 'format_topcoll') . '</a>' . get_string('topcollall', 'format_topcoll') . '</h4>';
+    echo '</td>';
+    echo '<td class="right side">&nbsp;</td>';
+    echo '</tr>';
+    echo '<tr class="section separator"><td colspan="3" class="spacer"></td></tr>';
+}
 // Now all the normal modules by topic or week
 // Everything below uses "section" terminology - each "section" is a topic or a week.
 $timenow = time();
 $weekofseconds = 604800;
 $course->enddate = $course->startdate + ($weekofseconds * $course->numsections);
-$userisediting = ($PAGE->user_is_editing());
 if (($layoutsetting->layoutstructure != 3) || ($userisediting)) {
     $section = 1;
     $weekdate = $course->startdate;    // this should be 0:00 Monday of that week
@@ -198,7 +206,6 @@ if (($layoutsetting->layoutstructure != 3) || ($userisediting)) {
 $sectionmenu = array();
 
 $theweek = 0; // The section that will be the current week if in a weekly structure.
-
 
 $strftimedateshort = ' ' . get_string('strftimedateshort');
 
@@ -277,95 +284,127 @@ while ($loopsection <= $course->numsections) {
         }
 
         $weekperiod = $weekday . ' - ' . $endweekday;
-        echo '<tr class="cps" id="sectionhead-' . $section . '">';
-        // Have a different look depending on if the section summary has been completed.
-        if (is_null($thissection->name)) {
-            echo '<td colspan="3"><a id="sectionatag-' . $section . '" class="cps_nosumm" href="#" onclick="toggle_topic(this,' . $section . '); return false;">';
-            if ($layoutsetting->layoutstructure != 1) {
-                echo '<span>' . $weekperiod . '</span><br />';
-            }
-            echo $topictext . ' ' . $currenttext . $section;
-            switch ($layoutsetting->layoutelement) {
-                case 1: // Default
-                case 3: // No section no.
-                case 2: // No Toggle Section x
-                case 4: // No Toggle Section x & section no.
-                    echo ' - ' . $toggletext . '</a></td>';
-                    break;
-                case 5: // No Toggle
-                case 6: // No Toggle and Toggle Section x
-                case 7: // No Toggle, Toggle Section x and section no.
-                    echo'</a></td>';
-                    break;
-                default:
-                    echo' - ' . $toggletext . '</a></td>';
-            }
-        } else {
-            $colspan = 0;
-            switch ($layoutsetting->layoutelement) {
-                case 1: // Default
-                case 3: // No section no.
-                case 5: // No Toggle
-                    $colspan = 2;
-                    break;
-                case 2: // No Toggle Section x
-                case 4: // No Toggle Section x & section no.
-                case 6: // No Toggle and Toggle Section x
-                case 7: // No Toggle, Toggle Section x and section no.
-                    $colspan = 3;
-                    break;
-            }
-            echo '<td colspan="' . $colspan . '"><a id="sectionatag-' . $section . '" href="#" onclick="toggle_topic(this,' . $section . '); return false;"><span>';
-            if ($layoutsetting->layoutstructure != 1) {
-                echo $weekperiod . '<br />';
-            }
-            echo html_to_text(format_string($thissection->name, true, array('context' => $coursecontext))) . '</span>';
 
-            switch ($layoutsetting->layoutelement) {
-                case 1: // Default
-                case 3: // No section no.
-                    echo ' - ' . $toggletext . '</a></td><td class="cps_centre">' . $topictext . '<br />' . $currenttext . $section . '</td>';  // format_string from MDL-29188
-                    break;
-                case 2: // No Toggle Section x
-                case 4: // No Toggle Section x & section no.
-                    echo' - ' . $toggletext . '</a></td>';
-                    break;
-                case 5: // No Toggle
-                    echo '</a></td><td class="cps_centre">' . $topictext . '<br />' . $currenttext . $section . '</td>';  // format_string from MDL-29188
-                    break;
-                case 6: // No Toggle and Toggle Section x
-                case 7: // No Toggle, Toggle Section x and section no.
-                    echo '</a></td>';  // format_string from MDL-29188
-                    break;
-                default:
-                    echo ' - ' . $toggletext . '</a></td><td class="cps_centre">' . $topictext . '<br />' . $currenttext . $section . '</td>';  // format_string from MDL-29188
+        if ($screenreader == false) {
+
+            echo '<tr class="cps" id="sectionhead-' . $section . '">';
+
+            // Have a different look depending on if the section summary has been completed.
+            if (is_null($thissection->name)) {
+                echo '<td colspan="3"><a id="sectionatag-' . $section . '" class="cps_nosumm" href="#" onclick="toggle_topic(this,' . $section . '); return false;">';
+                if ($layoutsetting->layoutstructure != 1) {
+                    echo '<span>' . $weekperiod . '</span><br />';
+                }
+                echo $topictext . ' ' . $currenttext . $section;
+                switch ($layoutsetting->layoutelement) {
+                    case 1: // Default
+                    case 3: // No section no.
+                    case 2: // No Toggle Section x
+                    case 4: // No Toggle Section x & section no.
+                        echo ' - ' . $toggletext . '</a></td>';
+                        break;
+                    case 5: // No Toggle
+                    case 6: // No Toggle and Toggle Section x
+                    case 7: // No Toggle, Toggle Section x and section no.
+                        echo'</a></td>';
+                        break;
+                    default:
+                        echo' - ' . $toggletext . '</a></td>';
+                }
+            } else {
+                $colspan = 0;
+                switch ($layoutsetting->layoutelement) {
+                    case 1: // Default
+                    case 3: // No section no.
+                    case 5: // No Toggle
+                        $colspan = 2;
+                        break;
+                    case 2: // No Toggle Section x
+                    case 4: // No Toggle Section x & section no.
+                    case 6: // No Toggle and Toggle Section x
+                    case 7: // No Toggle, Toggle Section x and section no.
+                        $colspan = 3;
+                        break;
+                }
+                echo '<td colspan="' . $colspan . '"><a id="sectionatag-' . $section . '" href="#" onclick="toggle_topic(this,' . $section . '); return false;"><span>';
+                if ($layoutsetting->layoutstructure != 1) {
+                    echo $weekperiod . '<br />';
+                }
+                echo html_to_text(format_string($thissection->name, true, array('context' => $coursecontext))) . '</span>';
+
+                switch ($layoutsetting->layoutelement) {
+                    case 1: // Default
+                    case 3: // No section no.
+                        echo ' - ' . $toggletext . '</a></td><td class="cps_centre">' . $topictext . '<br />' . $currenttext . $section . '</td>';  // format_string from MDL-29188
+                        break;
+                    case 2: // No Toggle Section x
+                    case 4: // No Toggle Section x & section no.
+                        echo' - ' . $toggletext . '</a></td>';
+                        break;
+                    case 5: // No Toggle
+                        echo '</a></td><td class="cps_centre">' . $topictext . '<br />' . $currenttext . $section . '</td>';  // format_string from MDL-29188
+                        break;
+                    case 6: // No Toggle and Toggle Section x
+                    case 7: // No Toggle, Toggle Section x and section no.
+                        echo '</a></td>';  // format_string from MDL-29188
+                        break;
+                    default:
+                        echo ' - ' . $toggletext . '</a></td><td class="cps_centre">' . $topictext . '<br />' . $currenttext . $section . '</td>';  // format_string from MDL-29188
+                }
             }
+            echo '</tr>';
         }
-        echo '</tr>';
 
         // Now the section itself.  The css class of 'hid' contains the display attribute that manipulated by the JavaScript to show and hide the section.  It is defined in js-override-topcoll.css which 
         // is loaded into the DOM by the JavaScript function topcoll_init.  Therefore having a logical separation between static and JavaScript manipulated css.  Nothing else here differs from 
         // the standard Topics format in the core distribution.  The next change is at the bottom.
-        echo '<tr id="section-' . $section . '" class="section main' . $sectionstyle . '" style="display:none;">';
+        if ($screenreader == true) {
+            echo '<tr id="section-' . $section . '" class="section main' . $sectionstyle . '">';
+        } else {
+            echo '<tr id="section-' . $section . '" class="section main' . $sectionstyle . '" style="display:none;">';
+        }
 
-        switch ($layoutsetting->layoutelement) {
-            case 1: // Default
-            case 2: // No Toggle Section x.
-                echo '<td class="left side">' . $currenttext . $section . '</td>';
-                break;
-            case 3: // No section no.
-            case 4: // No Toggle Section x & section no.
-            case 7: // No Toggle, Toggle Section x and section no.
-                echo '<td class="left side">&nbsp;</td>';
-                break;
-            default:
-                echo '<td class="left side">' . $currenttext . $section . '</td>';
+        if ($screenreader == true) {
+            echo '<td class="left side">' . $currenttext . $section . '</td>';
+        } else {
+            switch ($layoutsetting->layoutelement) {
+                case 1: // Default
+                case 2: // No Toggle Section x.
+                    echo '<td class="left side">' . $currenttext . $section . '</td>';
+                    break;
+                case 3: // No section no.
+                case 4: // No Toggle Section x & section no.
+                case 7: // No Toggle, Toggle Section x and section no.
+                    echo '<td class="left side">&nbsp;</td>';
+                    break;
+                default:
+                    echo '<td class="left side">' . $currenttext . $section . '</td>';
+            }
         }
 
         echo '<td class="content">';
         if (!has_capability('moodle/course:viewhiddensections', $coursecontext) and !$thissection->visible) {   // Hidden for students
             //echo get_string('notavailable');
         } else {
+            if ($screenreader == true) {
+                if ($layoutsetting->layoutstructure == 1) {
+                    // Topic structure.
+                    if (!is_null($thissection->name)) {
+                        echo $OUTPUT->heading(format_string($thissection->name, true, array('context' => $context)), 3, 'sectionname');
+                    } else {
+                        echo $OUTPUT->heading($topictext . ' ' . $currenttext . $section, 3, 'sectionname');
+                    }
+                } else {
+                    // Week structure.
+                    if (isset($thissection->name) && ($thissection->name !== NULL)) {  // empty string is ok
+                        echo $OUTPUT->heading(format_string($currenttext . $weekperiod, true, array('context' => $context)), 3, 'weekdates');
+                        echo $OUTPUT->heading(format_string($thissection->name, true, array('context' => $context)), 3, 'weekdates');
+                    } else {
+                        echo $OUTPUT->heading($currenttext . $weekperiod, 3, 'weekdates');
+                    }
+                }
+            }
+
             echo '<div class="summary">';
             if ($thissection->summary) {
                 $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
@@ -375,7 +414,7 @@ while ($loopsection <= $course->numsections) {
                 $summaryformatoptions->overflowdiv = true;
                 echo format_text($summarytext, $thissection->summaryformat, $summaryformatoptions);
             }
-            if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $coursecontext)) {
+            if ($userisediting && has_capability('moodle/course:update', $coursecontext)) {
                 echo '<a title="' . $streditsummary . '" href="editsection.php?id=' . $thissection->id . '">' .
                 '<img src="' . $OUTPUT->pix_url('t/edit') . '" class="iconsmall edit" alt="' . $streditsummary . '" /></a><br /><br />';
             }
@@ -383,7 +422,7 @@ while ($loopsection <= $course->numsections) {
 
             print_section($course, $thissection, $mods, $modnamesused);
 
-            if ($PAGE->user_is_editing()) {
+            if ($userisediting) {
                 print_section_add_menus($course, $section, $modnames);
             }
         }
@@ -399,7 +438,7 @@ while ($loopsection <= $course->numsections) {
             '<img src="' . $OUTPUT->pix_url('i/one') . '" class="icon" alt="' . $strshowonlytopic . '" /></a><br />';
         }
 
-        if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $coursecontext)) {
+        if ($userisediting && has_capability('moodle/course:update', $coursecontext)) {
             if ($course->marker == $section) {  // Show the "light globe" on/off
                 echo '<a href="view.php?id=' . $course->id . '&amp;marker=0&amp;sesskey=' . sesskey() . '#section-' . $section . '" title="' . $strmarkedthistopic . '">' . '<img src="' . $OUTPUT->pix_url('i/marked') . '" alt="' . $strmarkedthistopic . '" class="icon"/></a><br />'; // MDL-32145
             } else {
@@ -438,7 +477,7 @@ while ($loopsection <= $course->numsections) {
     $weekdate = $nextweekdate;
 }
 
-if (!$displaysection and $PAGE->user_is_editing() and has_capability('moodle/course:update', $coursecontext)) {
+if (!$displaysection and $userisediting and has_capability('moodle/course:update', $coursecontext)) {
     // print stealth sections if present
     $modinfo = get_fast_modinfo($course);
     foreach ($sections as $section => $thissection) {
@@ -468,16 +507,19 @@ if (!empty($sectionmenu)) {
     echo $OUTPUT->render($select);
 }
 
+// Only toggle if no Screen Reader
+if ($screenreader == false) {
 // Establish persistance when we have loaded.
 // Reload the state of the toggles from the data contained within the cookie.
 // Restore the state of the toggles from the cookie if not in 'Show topic x' mode, otherwise show that topic.
-if ($displaysection == 0) {
-    echo $PAGE->requires->js_function_call('reload_toggles', array($course->numsections));
-    if ($layoutsetting->layoutstructure != 1) {
-        echo $PAGE->requires->js_function_call('set_current_week', array($theweek));
+    if ($displaysection == 0) {
+        echo $PAGE->requires->js_function_call('reload_toggles', array($course->numsections));
+        if ($layoutsetting->layoutstructure != 1) {
+            echo $PAGE->requires->js_function_call('set_current_week', array($theweek));
+        } else {
+            echo $PAGE->requires->js_function_call('set_current_week', array(0)); // Uses section 0 as this is never tested so can be used for Topics.
+        }
     } else {
-        echo $PAGE->requires->js_function_call('set_current_week', array(0)); // Uses section 0 as this is never tested so can be used for Topics.
+        echo $PAGE->requires->js_function_call('show_topic', array($displaysection));
     }
-} else {
-    echo $PAGE->requires->js_function_call('show_topic', array($displaysection));
 }
