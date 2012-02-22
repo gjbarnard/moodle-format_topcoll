@@ -46,7 +46,7 @@ $userisediting = $PAGE->user_is_editing();
 <![endif]-->
 <?php
 $PAGE->requires->js('/course/format/topcoll/lib_min.js');
-$PAGE->requires->js_function_call('topcoll_init', array($CFG->wwwroot,
+$PAGE->requires->js_init_call('topcoll_init', array($CFG->wwwroot,
     preg_replace("/[^A-Za-z0-9]/", "", $SITE->shortname),
     $course->id,
     null)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration.
