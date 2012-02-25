@@ -284,6 +284,13 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
 18th February 2012 - Version 2.2.3 - BETA 8
   1. CONTRIB-3225 - Added screen reader capability using 'h3' tags, the same as the standard Topics format.
 
+25th February 2012 - Version 2.2.3 - Release Candidate 1
+  1. Added help information to the drop down options on the set layout form.
+  2. Tidied up to be consistent and use less words where required.
+  3. In format.php changed from depreciated js_function_call() to js_init_call().
+  4. If you have previously installed a beta version you will need to drop the table 'format_topcoll_layout' in the database.
+  5. If you are a native speaker of a language other than English, I would be grateful of a translation of the new language strings in 'lang/en/format_topcoll.php' under the comment 'Layout enhancement - Moodle Tracker CONTRIB-3378'.  Please message me using the details in my Moodle profile 'http://moodle.org/user/profile.php?id=442195'.
+
 NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the entry for 'format_topcoll' in the table 'config_plugins' where tables are with the prefix you use, the default being 'mdl_'.  Then delete the installation folder and replace with the current stable version.
 
 Thanks
@@ -335,4 +342,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 18th February 2012.
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 25th February 2012.
