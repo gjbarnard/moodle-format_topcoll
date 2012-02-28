@@ -41,10 +41,19 @@ var ie = false;
 
 // Because I like the idea of private and public methods, public will have an underscore in the name.
 
+/**
+ * @namespace
+ */
+M.format_topcoll = M.format_topcoll || {};
+
+/**
+ * This function is initialized from PHP
+ *
+ * @param {Object} Y YUI instance
+ */
 // Initialise with the information supplied from the course format 'format.php' so we can operate.
 // Args - wwwroot is the URL of the Moodle site, moodleid is the site short name (courseid 0) and courseid is the id of the current course to allow for settings for each course.
-function topcoll_init(Y, wwwroot, moodleid, courseid, cookielifetime)
-{
+M.format_topcoll.init = function(Y, wwwroot, moodleid, courseid, cookielifetime) {
     // Init.
     thewwwroot = wwwroot;
     thecookiesubid = moodleid + courseid;
@@ -64,8 +73,7 @@ function topcoll_init(Y, wwwroot, moodleid, courseid, cookielifetime)
     }
 }
 
-function set_current_section(Y, theSection)
-{
+M.format_topcoll.set_current_section = function (Y, theSection) {
     currentSection = theSection;
 }
 
@@ -268,8 +276,7 @@ function reloadToggles()
 // aToggle sets the number of toggles we have on this course so that when restoring the state we do not attempt to set something that
 // no longer exists.  This can happen when the number of sections is reduced and we return to the course and reload the page
 // using the data from the cookie.
-function reload_toggles(Y, aToggle)
-{
+M.format_topcoll.reload_toggles = function (Y, aToggle) {
     numToggles = aToggle;
     
     YUI().use('node-base', function(daYUI) {
@@ -278,7 +285,7 @@ function reload_toggles(Y, aToggle)
 }
 
 // Show a specific topic - used when in 'Show topic x' mode.
-function show_topic(Y, theTopic)
+M.format_topcoll.show_topic = function (Y, theTopic)
 {
     var section = document.getElementById("section-"+theTopic);  // CONTRIB-3283
     var secatag = document.getElementById("sectionatag-" + theTopic);

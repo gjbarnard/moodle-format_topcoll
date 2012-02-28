@@ -291,6 +291,15 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
   4. If you have previously installed a beta version you will need to drop the table 'format_topcoll_layout' in the database.
   5. If you are a native speaker of a language other than English, I would be grateful of a translation of the new language strings in 'lang/en/format_topcoll.php' under the comment 'Layout enhancement - Moodle Tracker CONTRIB-3378'.  Please message me using the details in my Moodle profile 'http://moodle.org/user/profile.php?id=442195'.
 
+28th February 2012 - Version 2.2.3 - Release Candidate 2
+  1. Added 'Current Topic First' as a new structure as suggested by 'Hartmut Scherer' (http://moodle.org/user/view.php?id=441502) on discussion '
+Collapsed Topics with Custom Layouts' (http://moodle.org/mod/forum/discuss.php?d=195292).
+  2. Fixed an issue in moving to js_init_call() in RC 1 and then followed the 'JavaScript guidelines' (http://docs.moodle.org/dev/JavaScript_guidelines) and 'How to include javascript file in a new course format?' (http://moodle.org/mod/forum/discuss.php?d=169124) to understand how to transition to using 'module.js' correctly.  Still going to include 'tc_section_classes_min.js' using the old way until I can figure out how to do this the new way.
+  3. 'lib.js' and 'lib_min.js' will remain for reference until I backport the code to the Moodle 1.9 version which does not follow the changes in '2' and work out how to merge in Git and not have those files removed in that branch.
+  4. In 'Show only section x' mode the 'Open / Close all toggles' option is not shown as not really appropriate.
+  5. Topic structure now opens current section by default in the same way as the weekly ones.
+  6. Changed name of 'Latest First' to 'Latest Week First' to be clearer.
+
 NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the entry for 'format_topcoll' in the table 'config_plugins' where tables are with the prefix you use, the default being 'mdl_'.  Then delete the installation folder and replace with the current stable version.
 
 Thanks
@@ -342,4 +351,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 25th February 2012.
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 28th February 2012.
