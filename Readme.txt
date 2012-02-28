@@ -9,29 +9,40 @@ Documented on http://docs.moodle.org/22/en/Collapsed_Topics_course_format
 
 Installation
 ------------
-1. Copy 'topcoll' to /course/formats/
-2. If using a Unix based system, chmod 755 on config.php - I have not tested this but have been told that it needs to be done.
-3. If desired, edit the colours of the topics_collapsed.css - which contains instructions on how to have per theme colours.
-4. To change the arrow graphic you need to replace arrow_up.png and arrow_down.png.  Reuse the graphics
+1. Put Moodle in 'Maintenance Mode' (docs.moodle.org/en/admin/setting/maintenancemode) so that there are no users using it bar you as the adminstrator.
+2. Copy 'topcoll' to '/course/format/'
+3. If using a Unix based system, chmod 755 on config.php - I have not tested this but have been told that it needs to be done.
+4. Login as an administrator and follow standard the 'plugin' update notification.  If needed, go to 'Site administration' -> 'Notifications' if this does not happen.
+5. If desired, edit the colours of the topics_collapsed.css - which contains instructions on how to have per theme colours.
+6. To change the arrow graphic you need to replace arrow_up.png and arrow_down.png.  Reuse the graphics
    if you want.  Created in Paint.Net.
+7. Put Moodle out of Maintenance Mode.
 
 Upgrade Instructions
 --------------------
-1. Put Moodle in Maintenance Mode so that there are no users using it bar you as the adminstrator.
-2. In /course/formats/ move old 'topcoll' directory to a backup folder outside of Moodle.
+1. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the adminstrator.
+2. In '/course/format/' move old 'topcoll' directory to a backup folder outside of Moodle.
 3. Follow installation instructions above.
 4. Put Moodle out of Maintenance Mode.
+
+Uninstallation
+--------------
+1. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the adminstrator.
+2. It is recommended but not essential to change all of the courses that use the format to another.  If this is not done Moodle will pick the last format in your list of formats to use but display in 'Edit settings' of the course the first format in the list.  You can then set the desired format.
+3. In '/course/format/' remove the folder 'topcoll'.
+4. In the database, remove the table 'format_topcoll_layout' and the entry for 'format_topcoll' ('plugin' attribute) in the table 'config_plugins'.  If using the default prefix this will be 'mdl_format_topcoll_layout' and 'mdl_config_plugins' respectively.
+5. Put Moodle out of Maintenance Mode.
 
 Remembered Toggle State Instructions
 ------------------------------------
 To have the state of the toggles be remembered beyond the session for a user (stored as a cookie in the user's 
 web browser local storage area), edit format.php and find the following at the towards the top...
 
-    $PAGE->requires->js_function_call('topcoll_init',
-                                      array($CFG->wwwroot,
-                                            preg_replace("/[^A-Za-z0-9]/", "", $SITE->shortname),
-                                            $course->id,
-                                            null)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration.
+    $PAGE->requires->js_init_call('M.format_topcoll.init',
+                                  array($CFG->wwwroot,
+                                        preg_replace("/[^A-Za-z0-9]/", "", $SITE->shortname),
+                                        $course->id,
+                                        null)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration.
 
 Millisecond values for standard durations are:
 a Second = 1000
@@ -45,20 +56,20 @@ a Year = 31536000000 is 365 Days.
 The word to change is 'null' which says to create a 'session cookie' for the toggle state.  Set the time in milliseconds in the
 future.  For example a remembered state of a week would be:
 
-    $PAGE->requires->js_function_call('topcoll_init',
-                                      array($CFG->wwwroot,
-                                            preg_replace("/[^A-Za-z0-9]/", "", $SITE->shortname),
-                                            $course->id,
-                                            604800000)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration.
+    $PAGE->requires->js_init_call('M.format_topcoll.init',
+                                  array($CFG->wwwroot,
+                                        preg_replace("/[^A-Za-z0-9]/", "", $SITE->shortname),
+                                        $course->id,
+                                        604800000)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration.
 
 You can combine the durations together and perform mathematical operations, for example, to have a
 duration in the future of one day 38 minutes and 30 seconds you would have:
 
-    $PAGE->requires->js_function_call('topcoll_init',
-                                      array($CFG->wwwroot,
-                                            preg_replace("/[^A-Za-z0-9]/", "", $SITE->shortname),
-                                            $course->id,
-                                            88710000)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration.
+    $PAGE->requires->js_init_call('M.format_topcoll.init',
+                                   array($CFG->wwwroot,
+                                         preg_replace("/[^A-Za-z0-9]/", "", $SITE->shortname),
+                                         $course->id,
+                                         88710000)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration.
 
 Calculated by 'a Day' + ('a Minute' * 38) + ('a Second' * 30) = 86400000 + (60000 * 38) + (1000 * 30) = 88710000
 
@@ -71,7 +82,6 @@ NOTE: The client's browser must support the persistent storage of cookies in the
 
 Known Issues
 ------------
-
 1.  If you get toggle text issues in languages other than English please ensure you have the latest version of Moodle installed.  More
     information on http://moodle.org/mod/forum/discuss.php?d=184150.
 2.  AJAX drag and drop appears not to be working in IE 9 for me, but is in compatibility mode (IE 7) and same issue with the standard
@@ -301,6 +311,12 @@ Collapsed Topics with Custom Layouts' (http://moodle.org/mod/forum/discuss.php?d
   6. Changed name of 'Latest First' to 'Latest Week First' to be clearer.
 
 NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the entry for 'format_topcoll' in the table 'config_plugins' where tables are with the prefix you use, the default being 'mdl_'.  Then delete the installation folder and replace with the current stable version.
+
+28th February 2012 - Version 2.2.3 - Release Candidate 3
+  1. Tidied up 'module.js' to be more efficient in using the YUI instance given.
+  2. Updated installation and toggle state instructions. 
+  3. Added uninstall procedure in the unlikely event that you need it.
+
 
 Thanks
 ------

@@ -45,10 +45,11 @@ $userisediting = $PAGE->user_is_editing();
     <link rel="stylesheet" type="text/css" href="<?php echo $CFG->wwwroot ?>/course/format/topcoll/ie-7-hacks.css" media="screen" />
 <![endif]-->
 <?php
-$PAGE->requires->js_init_call('M.format_topcoll.init', array($CFG->wwwroot,
-    preg_replace("/[^A-Za-z0-9]/", "", $SITE->shortname),
-    $course->id,
-    null)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration.
+$PAGE->requires->js_init_call('M.format_topcoll.init', 
+                               array($CFG->wwwroot,
+                               preg_replace("/[^A-Za-z0-9]/", "", $SITE->shortname),
+                               $course->id,
+                               null)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration - see Readme.txt.
 if (ajaxenabled() && $userisediting) {
     // This overrides the 'swap_with_section' function in /lib/ajax/section_classes.js
     $PAGE->requires->js('/course/format/topcoll/tc_section_classes_min.js');

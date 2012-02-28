@@ -38,6 +38,7 @@ var currentSection;
 var cookieExpires;
 var ie7OrLess = false;
 var ie = false;
+var ourYUI;
 
 // Because I like the idea of private and public methods, public will have an underscore in the name.
 
@@ -47,14 +48,16 @@ var ie = false;
 M.format_topcoll = M.format_topcoll || {};
 
 /**
- * This function is initialized from PHP
- *
+ * Initialise with the information supplied from the course format 'format.php' so we can operate.
  * @param {Object} Y YUI instance
+ * @param {String} wwwroot the URL of the Moodle site
+ * @param {Integer} moodleid the site short name (courseid 0)
+ * @param {Integer} courseid the id of the current course to allow for settings for each course.
+ * @param {Integer} cookielifetime how long the cookie should live for or null if a session cookie.
  */
-// Initialise with the information supplied from the course format 'format.php' so we can operate.
-// Args - wwwroot is the URL of the Moodle site, moodleid is the site short name (courseid 0) and courseid is the id of the current course to allow for settings for each course.
 M.format_topcoll.init = function(Y, wwwroot, moodleid, courseid, cookielifetime) {
     // Init.
+    ourYUI = Y;
     thewwwroot = wwwroot;
     thecookiesubid = moodleid + courseid;
     cookieExpires = cookielifetime; // null indicates that it is a session cookie.
@@ -217,11 +220,11 @@ function to36baseString(two)
 // Args - value to save to the cookie
 function savetopcollcookie(value)
 {
-    //create a YUI instance and use the cookie module. 
+    // Use our YUI instance and use the cookie module. 
     if (cookieExpires == null)
     {
         // Session Cookie...
-        YUI().use('cookie', function(Y){ 
+        ourYUI.use('cookie', function(Y){ 
            Y.Cookie.setSub("mdl_cf_topcoll",thecookiesubid,value); 
            //alert("Bongo After " + thecookiesubid + " " + value);
         });
@@ -231,7 +234,7 @@ function savetopcollcookie(value)
     else
     {
         // Expiring Cookie...
-        YUI().use('cookie', function(Y){ 
+        ourYUI.use('cookie', function(Y){ 
             var newDate = new Date();
             newDate.setTime(newDate.getTime() + cookieExpires); 
             Y.Cookie.setSub("mdl_cf_topcoll",thecookiesubid,value, { expires: newDate }); 
@@ -250,7 +253,7 @@ function restoretopcollcookie(daYUI)
 // 'Private' version of reload_toggles
 function reloadToggles()
 {
-    YUI().use('cookie', function(daYUI){ 
+    ourYUI.use('cookie', function(daYUI){ 
         // Get the cookie if there!
         //var storedval = restoretopcollcookie(daYUI);
         var storedval = daYUI.Cookie.getSub("mdl_cf_topcoll",thecookiesubid);
@@ -279,7 +282,7 @@ function reloadToggles()
 M.format_topcoll.reload_toggles = function (Y, aToggle) {
     numToggles = aToggle;
     
-    YUI().use('node-base', function(daYUI) {
+    Y.use('node-base', function(daYUI) {
      daYUI.on("domready", reloadToggles);
     });
 }
