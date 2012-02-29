@@ -50,12 +50,12 @@ class set_layout_form extends moodleform {
                   7 => get_string('setlayout_no_toggle_word_toggle_section_x_section_no', 'format_topcoll'));
 
         $mform->addElement('select', 'set_element', get_string('setlayoutelements', 'format_topcoll'), $formcourselayoutelements);
-        //$mform->addHelpButton('format', 'format');
         $mform->setDefault('set_element', $instance['setelement']);
+        $mform->addHelpButton('set_element','setlayoutelements', 'format_topcoll','',true);
 
         $mform->addElement('select', 'set_structure', get_string('setlayoutstructure', 'format_topcoll'), $formcourselayoutstrutures);  // In config.php.
-        //$mform->addHelpButton('format', 'format');
         $mform->setDefault('set_structure', $instance['setstructure']);
+        $mform->addHelpButton('set_structure','setlayoutstructure', 'format_topcoll','',true);
 
         // hidden params
         $mform->addElement('hidden', 'id', $instance['courseid']);

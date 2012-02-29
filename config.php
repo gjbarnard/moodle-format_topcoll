@@ -57,7 +57,8 @@ $defaultlayoutelement = 1;
 $formcourselayoutstrutures =
     array(1 => get_string('setlayoutstructuretopic', 'format_topcoll'),
           2 => get_string('setlayoutstructureweek', 'format_topcoll'),
-          3 => get_string('setlayoutstructurelatfirst', 'format_topcoll'));
+          3 => get_string('setlayoutstructurelatweekfirst', 'format_topcoll'),
+          4 => get_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'));
 
 // Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this version which is V2.2.3.
 $defaultlayoutstructure = 1;
