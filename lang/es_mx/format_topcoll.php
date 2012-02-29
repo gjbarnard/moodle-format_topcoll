@@ -41,7 +41,7 @@ $string['formattopcoll']='Temas plegados';
 // Used in format.php
 // Utilizado en format.php
 $string['topcolltoggle']='Activar';
-$string['topcolltogglewidth']='width: 26px;';
+$string['topcolltogglewidth']='width: 32px;';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='Cambiar';
@@ -54,6 +54,10 @@ $string['sectionname'] = 'Tema';
 $string['pluginname'] = 'Temas deplegables'; /*Topics that you can collapse*/
 $string['section0name'] = 'General';
 
+// MDL-26105
+$string['page-course-view-topcoll'] = 'Cualquier página principal del curso en el formato temas desplegables';
+$string['page-course-view-topcoll-x'] = 'Cualquier página del curso en el formato temas desplegables';
+
 // Layout enhancenent - Moodle Tracker CONTRIB-3378
 $string['setlayout'] = 'Establecer el formato';
 $string['setlayout_default'] = 'Por defecto';
@@ -63,9 +67,21 @@ $string['setlayout_no_toggle_section_x_section_no'] = 'Sin tema X ni número de 
 $string['setlayout_no_toggle_word'] = 'Sin palabra toggle';
 $string['setlayout_no_toggle_word_toggle_section_x'] = 'Sin toggle ni tema x';
 $string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'Sin toggle, tema X ni número desección';
-$string['setlayoutelements'] = 'Set layout elements';
-$string['setlayoutstructure'] = 'Set layout structure';
+$string['setlayoutelements'] = 'Establecer el formato de los elementos';
+$string['setlayoutstructure'] = 'Establecer el formato';
 $string['setlayoutstructuretopic']='Temas';
 $string['setlayoutstructureweek']='Semana';
-$string['setlayoutstructurelatfirst']='Latest First';
+$string['setlayoutstructurelatweekfirst']='Semana actual primero';
+$string['setlayoutstructurecurrenttopicfirst']='Tema actual primero';
+// Help
+$string['setlayoutelements_help']='Cuánta información sobre las secciones / toggles quieres visualizar.';
+$string['setlayoutstructure_help']="El formato o estructura del curso. Puedes elegir entre:
+
+'Temas' - el cual presenta cada sección como un tema en orden.
+
+'Semanas' - el cual presenta cada sección como una semana en orden ascendente.
+
+'Semana actual primero' - el cual es igual que el formato 'Semanas' pero la semana actual ocupa el primer lugar, seguida de las semanas anteriores en orden descendente. Este comportamiento no se da mientras estás en editando el curso (edición activada), es decir, la estructura mientras editas el curso es la misma que 'Semanas'.
+
+'Tema actual primero' - el cual es igual que el formato 'Temas', con la excepción de que el tema actual ocupa el primer lugar.";
 ?>
