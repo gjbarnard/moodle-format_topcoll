@@ -293,17 +293,17 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
   2. Used non-depreciated 'create_table' method in 'upgrade.php'.
   3. Finally worked out how to ensure that the 'Settings Block' displays the course and not front page administration by using 'require_login($course)'.
 
-18th February 2012 - Version 2.2.3 - BETA 8
+18th February 2012 - Version 2.1.5 - BETA 8
   1. CONTRIB-3225 - Added screen reader capability using 'h3' tags, the same as the standard Topics format.
 
-25th February 2012 - Version 2.2.3 - Release Candidate 1
+25th February 2012 - Version 2.1.5 - Release Candidate 1
   1. Added help information to the drop down options on the set layout form.
   2. Tidied up to be consistent and use less words where required.
   3. In format.php changed from depreciated js_function_call() to js_init_call().
   4. If you have previously installed a beta version you will need to drop the table 'format_topcoll_layout' in the database.
   5. If you are a native speaker of a language other than English, I would be grateful of a translation of the new language strings in 'lang/en/format_topcoll.php' under the comment 'Layout enhancement - Moodle Tracker CONTRIB-3378'.  Please message me using the details in my Moodle profile 'http://moodle.org/user/profile.php?id=442195'.
 
-28th February 2012 - Version 2.2.3 - Release Candidate 2
+28th February 2012 - Version 2.1.5 - Release Candidate 2
   1. Added 'Current Topic First' as a new structure as suggested by 'Hartmut Scherer' (http://moodle.org/user/view.php?id=441502) on discussion '
 Collapsed Topics with Custom Layouts' (http://moodle.org/mod/forum/discuss.php?d=195292).
   2. Fixed an issue in moving to js_init_call() in RC 1 and then followed the 'JavaScript guidelines' (http://docs.moodle.org/dev/JavaScript_guidelines) and 'How to include javascript file in a new course format?' (http://moodle.org/mod/forum/discuss.php?d=169124) to understand how to transition to using 'module.js' correctly.  Still going to include 'tc_section_classes_min.js' using the old way until I can figure out how to do this the new way.
@@ -314,17 +314,21 @@ Collapsed Topics with Custom Layouts' (http://moodle.org/mod/forum/discuss.php?d
 
 NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the entry for 'format_topcoll' in the table 'config_plugins' where tables are with the prefix you use, the default being 'mdl_'.  Then delete the installation folder and replace with the current stable version.
 
-28th February 2012 - Version 2.2.3 - Release Candidate 3
+28th February 2012 - Version 2.1.5 - Release Candidate 3
   1. Tidied up 'module.js' to be more efficient in using the YUI instance given.
   2. Updated installation and toggle state instructions. 
   3. Added uninstall procedure in the unlikely event that you need it.
 
-29th February 2012 - Version 2.2.3 - Release Candidate 4
+29th February 2012 - Version 2.1.5 - Release Candidate 4
   1. Updated Spanish language files thanks to Carlos Sánchez Martín.
   2. Added setting default layout and structure to installation instructions.
   3. Decided to have '$formcourselayoutstrutures' out of config.php to prevent possible future user error.
   4. Spotted a minor issue with changing language whilst on the 'Set Layout' form.  Added to known issues as very minor and rare as almost certainly the user will not have changed language on this form but would have done so beforehand.
   5. Fixed duplicate entry issue in 'course_sections' table when the default structure is 'Current Topic First' and a new course is created.
+
+1st March 2012 - Version 2.1.5 - Stable
+  1. Integrated Git Branch CONTRIB-3378 into stable branch MOODLE_21.
+  2. Removed redudant lib.js and lib_min.js in this branch.
 
 Thanks
 ------
