@@ -239,6 +239,7 @@ while ($loopsection <= $course->numsections) {
         $thissection->summaryformat = FORMAT_HTML;
         $thissection->visible = 1;
         $thissection->id = $DB->insert_record('course_sections', $thissection);
+        $sections[$section] = $thissection; // Ensure that the '!empty' works above if we are looped twice in the Current Topic First format when creating a new course and it is the default as set in 'config.php' of this course format.
     }
 
     //$showsection = (has_capability('moodle/course:viewhiddensections', $coursecontext) or $thissection->visible or !$course->hiddensections);

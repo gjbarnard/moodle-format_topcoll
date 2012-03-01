@@ -49,18 +49,17 @@
 // 6 => No 'Toggle' word and no 'Topic x' / 'Week x'.
 // 7 => No 'Toggle' word, no 'Topic x' / 'Week x'  and no section number.
 
-// Default layout to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this version which is V2.2.3.
+// Default layout to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
 $defaultlayoutelement = 1;
 
 // Structure configuration.
-// Combo box strings.  Here so you can see what numbers in the array represent what structure for setting the default value below.
-$formcourselayoutstrutures =
-    array(1 => get_string('setlayoutstructuretopic', 'format_topcoll'),
-          2 => get_string('setlayoutstructureweek', 'format_topcoll'),
-          3 => get_string('setlayoutstructurelatweekfirst', 'format_topcoll'),
-          4 => get_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'));
+// Here so you can see what numbers in the array represent what structure for setting the default value below.
+// 1 => Topic
+// 2 => Week   
+// 3 => Latest Week First 
+// 4 => Current Topic First
 
-// Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this version which is V2.2.3.
+// Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
 $defaultlayoutstructure = 1;
 
 ?>

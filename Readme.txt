@@ -12,6 +12,7 @@ Installation
 1. Put Moodle in 'Maintenance Mode' (docs.moodle.org/en/admin/setting/maintenancemode) so that there are no users using it bar you as the adminstrator.
 2. Copy 'topcoll' to '/course/format/'
 3. If using a Unix based system, chmod 755 on config.php - I have not tested this but have been told that it needs to be done.
+4. In 'config.php' change the values of '$defaultlayoutelement' and '$defaultlayoutstructure' for setting the default layout and structure respectively for new / updating courses as desired by following the instructions contained within.
 4. Login as an administrator and follow standard the 'plugin' update notification.  If needed, go to 'Site administration' -> 'Notifications' if this does not happen.
 5. If desired, edit the colours of the topics_collapsed.css - which contains instructions on how to have per theme colours.
 6. To change the arrow graphic you need to replace arrow_up.png and arrow_down.png.  Reuse the graphics
@@ -89,6 +90,8 @@ Known Issues
     the up and down arrows, edit lib.php and remove "'MSIE' => 6.0," from:
     "$ajaxsupport->testedbrowsers = array('MSIE' => 6.0, 'Gecko' => 20061111, 'Opera' => 9.0, 'Safari' => 531, 'Chrome' => 6.0);"
     And if possible, please let me know, my Moodle.org profile is 'http://moodle.org/user/profile.php?id=442195'.
+3.  Changing the language on the 'Set Layout' form produces an invalid Moodle URL.  Go back to the course screen and change the language
+    there before proceeding.
 
 Version Information
 -------------------
@@ -317,7 +320,18 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2. Updated installation and toggle state instructions. 
   3. Added uninstall procedure in the unlikely event that you need it.
 
+29th February 2012 - Version 2.3.3 - Release Candidate 4
+  1. Updated Spanish language files thanks to Carlos Sánchez Martín.
+  2. Added setting default layout and structure to installation instructions.
+  3. Decided to have '$formcourselayoutstrutures' out of config.php to prevent possible future user error.
+  4. Spotted a minor issue with changing language whilst on the 'Set Layout' form.  Added to known issues as very minor and rare as almost certainly the user will not have changed language on this form but would have done so beforehand.
+  5. Fixed duplicate entry issue in 'course_sections' table when the default structure is 'Current Topic First' and a new course is created.
 
+1st March 2012 - Version 2.3.3 - Stable
+  1. Integrated Git Branch CONTRIB-3378 into stable branch master.
+  2. NOTE: If you have previously installed a Beta or Release Candidate please drop the table 'format_topcoll_layout' before use.
+  3. Removed redudant lib.js and lib_min.js in this branch.
+  
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -367,4 +381,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 28th February 2012.
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 1st March 2012.
