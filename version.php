@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Collapsed Topics Information
  *
@@ -9,7 +10,7 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' below.
+ * @version    See the value of '$plugin->version' in below.
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
@@ -29,8 +30,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
- $plugin->version = 2012012300;
+ $plugin->version = 2012030100;
  $plugin->maturity = MATURITY_STABLE;
  $plugin->requires = 2011033005.00; // 2.0.5
  $plugin->component = 'format_topcoll';
- $plugin->release = '2.0.4';
+ $plugin->release = '2.0.5';

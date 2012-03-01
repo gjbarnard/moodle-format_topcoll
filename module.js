@@ -34,21 +34,34 @@ var thesparezeros = "00000000000000000000000000"; // A constant of 26 0's to be 
 var thewwwroot;  // For the toggle graphic and extra files.
 var thecookiesubid; // For the cookie sub name.
 var numToggles = 0;
+var currentSection;
 var cookieExpires;
 var ie7OrLess = false;
 var ie = false;
+var ourYUI;
 
 // Because I like the idea of private and public methods, public will have an underscore in the name.
 
-// Initialise with the information supplied from the course format 'format.php' so we can operate.
-// Args - wwwroot is the URL of the Moodle site, moodleid is the site short name (courseid 0) and courseid is the id of the current course to allow for settings for each course.
-function topcoll_init(wwwroot, moodleid, courseid, cookielifetime)
-{
+/**
+ * @namespace
+ */
+M.format_topcoll = M.format_topcoll || {};
+
+/**
+ * Initialise with the information supplied from the course format 'format.php' so we can operate.
+ * @param {Object} Y YUI instance
+ * @param {String} wwwroot the URL of the Moodle site
+ * @param {Integer} moodleid the site short name (courseid 0)
+ * @param {Integer} courseid the id of the current course to allow for settings for each course.
+ * @param {Integer} cookielifetime how long the cookie should live for or null if a session cookie.
+ */
+M.format_topcoll.init = function(Y, wwwroot, moodleid, courseid, cookielifetime) {
     // Init.
+    ourYUI = Y;
     thewwwroot = wwwroot;
     thecookiesubid = moodleid + courseid;
     cookieExpires = cookielifetime; // null indicates that it is a session cookie.
-
+    //alert('Init');
     if (/MSIE (\d+\.\d+);/.test(navigator.userAgent))
     {
         // Info from: http://www.javascriptkit.com/javatutors/navigator.shtml - accessed 2nd September 2011.
@@ -63,9 +76,8 @@ function topcoll_init(wwwroot, moodleid, courseid, cookielifetime)
     }
 }
 
-function set_number_of_toggles(atoggle)
-{
-    numToggles = atoggle;
+M.format_topcoll.set_current_section = function (Y, theSection) {
+    currentSection = theSection;
 }
 
 // Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the most significant bit and represents the non-toggling topic 0.
@@ -119,7 +131,7 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
                 target.className += " collapsed_topic";  //add the class name
                 //alert('Added class name');
             }
-            image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/arrow_down.png)";
+            image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_down.png)";
             // Save the toggle!
             if (reloading == false)    togglebinary(toggleNum,"0");
         }
@@ -131,7 +143,7 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
                 target.className = target.className.replace(/\b collapsed_topic\b/,'') //remove the class name
                 //alert('Removed class name');
             }
-            image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/arrow_up.png)";
+            image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_up.png)";
             // Save the toggle!
             if (reloading == false) togglebinary(toggleNum,"1");
         }
@@ -208,11 +220,11 @@ function to36baseString(two)
 // Args - value to save to the cookie
 function savetopcollcookie(value)
 {
-    //create a YUI instance and use the cookie module. 
+    // Use our YUI instance and use the cookie module. 
     if (cookieExpires == null)
     {
         // Session Cookie...
-        YUI().use('cookie', function(Y){ 
+        ourYUI.use('cookie', function(Y){ 
            Y.Cookie.setSub("mdl_cf_topcoll",thecookiesubid,value); 
            //alert("Bongo After " + thecookiesubid + " " + value);
         });
@@ -222,7 +234,7 @@ function savetopcollcookie(value)
     else
     {
         // Expiring Cookie...
-        YUI().use('cookie', function(Y){ 
+        ourYUI.use('cookie', function(Y){ 
             var newDate = new Date();
             newDate.setTime(newDate.getTime() + cookieExpires); 
             Y.Cookie.setSub("mdl_cf_topcoll",thecookiesubid,value, { expires: newDate }); 
@@ -241,7 +253,7 @@ function restoretopcollcookie(daYUI)
 // 'Private' version of reload_toggles
 function reloadToggles()
 {
-    YUI().use('cookie', function(daYUI){ 
+    ourYUI.use('cookie', function(daYUI){ 
         // Get the cookie if there!
         //var storedval = restoretopcollcookie(daYUI);
         var storedval = daYUI.Cookie.getSub("mdl_cf_topcoll",thecookiesubid);
@@ -253,7 +265,7 @@ function reloadToggles()
     
         for (var theToggle = 1; theToggle <= numToggles; theToggle++)
         {
-            if ((theToggle <= numToggles) && (toggleBinaryGlobal.charAt(theToggle) == "1")) // Array index 0 is never tested - MSB thing.
+            if ((theToggle <= numToggles) && ((toggleBinaryGlobal.charAt(theToggle) == "1") || (theToggle == currentSection))) // Array index 0 is never tested - MSB thing.
             {
                 toggleexacttopic(document.getElementById("section-"+theToggle),document.getElementById("sectionatag-" + theToggle),theToggle,true);
                 //alert("Bongo4 " + thecookiesubid + " " + theToggle);
@@ -267,19 +279,23 @@ function reloadToggles()
 // aToggle sets the number of toggles we have on this course so that when restoring the state we do not attempt to set something that
 // no longer exists.  This can happen when the number of sections is reduced and we return to the course and reload the page
 // using the data from the cookie.
-function reload_toggles(aToggle)
-{
+M.format_topcoll.reload_toggles = function (Y, aToggle) {
     numToggles = aToggle;
     
-    YUI().use('node-base', function(daYUI) {
+    Y.use('node-base', function(daYUI) {
      daYUI.on("domready", reloadToggles);
     });
 }
 
 // Show a specific topic - used when in 'Show topic x' mode.
-function show_topic(theTopic)
+M.format_topcoll.show_topic = function (Y, theTopic)
 {
-    toggleexacttopic(document.getElementById("section-"+theTopic),document.getElementById("sectionatag-" + theTopic),theTopic,true);
+    var section = document.getElementById("section-"+theTopic);  // CONTRIB-3283
+    var secatag = document.getElementById("sectionatag-" + theTopic);
+    if ((section != null) && (secatag != null))
+    {
+        toggleexacttopic(section,secatag,theTopic,true);
+    }
     //alert("show_topic " + theTopic);
 }
 
