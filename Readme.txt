@@ -327,6 +327,11 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   4. Spotted a minor issue with changing language whilst on the 'Set Layout' form.  Added to known issues as very minor and rare as almost certainly the user will not have changed language on this form but would have done so beforehand.
   5. Fixed duplicate entry issue in 'course_sections' table when the default structure is 'Current Topic First' and a new course is created.
 
+1st March 2012 - Version 2.2.3 - Stable
+  1. Integrated Git Branch CONTRIB-3378 into stable branch MOODLE_22.
+  2. NOTE: If you have previously installed a Beta or Release Candidate please drop the table 'format_topcoll_layout' before use.
+  3. Removed redudant lib.js and lib_min.js in this branch.
+  
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -376,4 +381,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 29th February 2012.
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 1st March 2012.
