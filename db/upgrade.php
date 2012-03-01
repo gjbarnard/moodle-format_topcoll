@@ -35,7 +35,7 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
     $dbman = $DB->get_manager();
     $result = true;
 
-    if ($result && $oldversion < 2012021100) {
+    if ($result && $oldversion < 2012022500) {
 
         // Define table format_topcoll_layout.
         $table = new XMLDBTable('format_topcoll_layout');
@@ -50,9 +50,9 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
 
         // Create table.
-        $result = $result && create_table($table);
+        $result = $result && $dbman->create_table($table);
 
-        upgrade_plugin_savepoint(true, '2012021100', 'format', 'topcoll');
+        upgrade_plugin_savepoint(true, '2012022500', 'format', 'topcoll');
     }
 
     return $result;
