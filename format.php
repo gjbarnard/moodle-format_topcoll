@@ -244,9 +244,9 @@ while ($loopsection <= $course->numsections) {
 
     //$showsection = (has_capability('moodle/course:viewhiddensections', $coursecontext) or $thissection->visible or !$course->hiddensections);
     if (($layoutsetting->layoutstructure != 3) || ($userisediting)) {
-        $showsection = (has_capability('moodle/course:viewhiddensections', $context) or $thissection->visible or !$course->hiddensections);
+        $showsection = (has_capability('moodle/course:viewhiddensections', $coursecontext) or $thissection->visible or !$course->hiddensections);
     } else {
-        $showsection = ((has_capability('moodle/course:viewhiddensections', $context) or $thissection->visible or !$course->hiddensections) and ($nextweekdate <= $timenow));
+        $showsection = ((has_capability('moodle/course:viewhiddensections', $coursecontext) or $thissection->visible or !$course->hiddensections) and ($nextweekdate <= $timenow));
     }
 
     if (!empty($displaysection) and $displaysection != $section) { // If the display section is not null then skip if it is not the section to show.
@@ -409,15 +409,15 @@ while ($loopsection <= $course->numsections) {
                 if (($layoutsetting->layoutstructure == 1) || ($layoutsetting->layoutstructure == 4)) {
                     // Topic type structure.
                     if (!is_null($thissection->name)) {
-                        echo $OUTPUT->heading(format_string($thissection->name, true, array('context' => $context)), 3, 'sectionname');
+                        echo $OUTPUT->heading(format_string($thissection->name, true, array('context' => $coursecontext)), 3, 'sectionname');
                     } else {
                         echo $OUTPUT->heading($topictext . ' ' . $currenttext . $section, 3, 'sectionname');
                     }
                 } else {
                     // Week structure.
                     if (isset($thissection->name) && ($thissection->name !== NULL)) {  // empty string is ok
-                        echo $OUTPUT->heading(format_string($currenttext . $weekperiod, true, array('context' => $context)), 3, 'weekdates');
-                        echo $OUTPUT->heading(format_string($thissection->name, true, array('context' => $context)), 3, 'weekdates');
+                        echo $OUTPUT->heading(format_string($currenttext . $weekperiod, true, array('context' => $coursecontext)), 3, 'weekdates');
+                        echo $OUTPUT->heading(format_string($thissection->name, true, array('context' => $coursecontext)), 3, 'weekdates');
                     } else {
                         echo $OUTPUT->heading($currenttext . $weekperiod, 3, 'weekdates');
                     }
@@ -426,7 +426,6 @@ while ($loopsection <= $course->numsections) {
 
             echo '<div class="summary">';
             if ($thissection->summary) {
-                $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
                 $summarytext = file_rewrite_pluginfile_urls($thissection->summary, 'pluginfile.php', $coursecontext->id, 'course', 'section', $thissection->id);
                 $summaryformatoptions = new stdClass();
                 $summaryformatoptions->noclean = true;
