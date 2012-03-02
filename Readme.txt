@@ -330,6 +330,9 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1. Integrated Git Branch CONTRIB-3378 into stable branch MOODLE_21.
   2. Removed redudant lib.js and lib_min.js in this branch.
 
+2nd March 2012 - Version 2.1.5.1
+  1. Minor fix to ensure consistent use of $coursecontext and not $context.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -379,4 +382,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 29th February 2012.
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 2nd March 2012.
