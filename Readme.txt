@@ -9,19 +9,30 @@ Documented on http://docs.moodle.org/19/en/Collapsed_Topics_course_format
 
 Installation
 ------------
-1. Copy 'topcoll' to /course/formats/.
-2. If using a Unix based system, chmod 755 on config.php - I have not tested this but have been told that it needs to be done.
-3. If desired, edit the colours of the topics_collapsed.css - which contains instructions on how to have per theme colours.
-4. To change the arrow graphic you need to replace arrow_up.png and arrow_down.png.  Reuse the graphics
+1. Put Moodle in 'Maintenance Mode' (docs.moodle.org/en/admin/setting/maintenancemode) so that there are no users using it bar you as the adminstrator.
+2. Copy 'topcoll' to '/course/format/'
+3. If using a Unix based system, chmod 755 on config.php - I have not tested this but have been told that it needs to be done.
+4. In 'config.php' change the values of '$defaultlayoutelement' and '$defaultlayoutstructure' for setting the default layout and structure respectively for new / updating courses as desired by following the instructions contained within.
+4. Login as an administrator and follow standard the 'plugin' update notification.  If needed, go to 'Site administration' -> 'Notifications' if this does not happen.
+5. If desired, edit the colours of the topics_collapsed.css - which contains instructions on how to have per theme colours.
+6. To change the arrow graphic you need to replace arrow_up.png and arrow_down.png.  Reuse the graphics
    if you want.  Created in Paint.Net.
+7. Put Moodle out of Maintenance Mode.
 
 Upgrade Instructions
 --------------------
-1. Put Moodle in Maintenance Mode so that there are no users using it bar you as the adminstrator.
-2. In /course/formats/ move old 'topcoll' directory to a backup folder outside of Moodle.
+1. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the adminstrator.
+2. In '/course/format/' move old 'topcoll' directory to a backup folder outside of Moodle.
 3. Follow installation instructions above.
 4. Put Moodle out of Maintenance Mode.
 
+Uninstallation
+--------------
+1. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the adminstrator.
+2. It is recommended but not essential to change all of the courses that use the format to another.  If this is not done Moodle will pick the last format in your list of formats to use but display in 'Edit settings' of the course the first format in the list.  You can then set the desired format.
+3. In '/course/format/' remove the folder 'topcoll'.
+4. In the database, remove the table 'format_topcoll_layout' and the entry for 'format_topcoll' ('plugin' attribute) in the table 'config_plugins'.  If using the default prefix this will be 'mdl_format_topcoll_layout' and 'mdl_config_plugins' respectively.
+5. Put Moodle out of Maintenance Mode.
 
 Remembered Toggle State Instructions
 ------------------------------------
@@ -79,6 +90,8 @@ Known Issues
     the up and down arrows, edit ajax.php and remove "'MSIE' => 6.0," from:
     "$CFG->ajaxtestedbrowsers = array('MSIE' => 6.0, 'Gecko' => 20061111, 'Opera' => 9.0, 'Safari' => 531, 'Chrome' => 6.0);"
     And if possible, please let me know, my Moodle.org profile is 'http://moodle.org/user/profile.php?id=442195'.
+3.  Changing the language on the 'Set Layout' form produces an invalid Moodle URL.  Go back to the course screen and change the language
+    there before proceeding.
 
 References
 ----------
@@ -214,6 +227,10 @@ Version Information
   1. Sorted out UTF-8 BOM issue, see MDL-31343.
   2. Added Russian translation, thanks to Pavel Evgenjevich Timoshenko (http://moodle.org/user/profile.php?id=1322784).
 
+2nd March 2012 - Version 1.9.8
+  1. Integrated in CONTRIB-3378 (Multiple Layouts) and associated CONTRIB-3283 (Current Section) CONTRIB-3225 (Screen Reader) from the Moodle 2.2 branch.
+  2. Still need to get help buttons working on the 'set layout form'.
+
 Thanks
 ------
 
@@ -235,6 +252,12 @@ Tarcísio Nunes (http://moodle.org/user/profile.php?id=1149633) - for the Brazil
 
 Pavel Evgenjevich Timoshenko (http://moodle.org/user/profile.php?id=1322784) - for the Russian translation.
 
+All of the developers of the Grid Course format (https://github.com/PukunuiAustralia/moodle-courseformat_grid) for showing how the database can be used with a course format.
+
+Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362) for his assistance on CONTRIB-3378 and the Spanish translation.
+
+Andrew Nicols (http://moodle.org/user/view.php?id=268794) for his assistance on CONTRIB-3378.
+
 Desired Enhancements
 --------------------
 
@@ -242,4 +265,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 23rd January 2012. 
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 2nd March 2012. 

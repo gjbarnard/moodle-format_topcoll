@@ -35,6 +35,7 @@ var thewwwroot;  // For the toggle graphic and extra files.
 var thecookiesubid; // For the cookie sub name.
 var yuicookie = YAHOO.util.Cookie; // Simpler function calls.
 var numToggles = 0;
+var currentSection;
 var cookieExpires;
 var ie7OrLess = false;
 var ie = false;
@@ -87,6 +88,11 @@ function topcoll_init(wwwroot, moodleid, courseid, cookielifetime)
 function set_number_of_toggles(atoggle)
 {
     numToggles = atoggle;
+}
+
+function set_current_section(theSection)
+{
+    currentSection = theSection;
 }
 
 // Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the most significant bit and represents the non-toggling topic 0.
@@ -264,7 +270,7 @@ function reload_toggles()
     
     for (var theToggle = 1; theToggle <= numToggles; theToggle++)
     {
-        if ((theToggle <= numToggles) && (toggleBinaryGlobal.charAt(theToggle) == "1")) // Array index 0 is never tested - MSB thing.
+        if ((theToggle <= numToggles) && ((toggleBinaryGlobal.charAt(theToggle) == "1") || (theToggle == currentSection))) // Array index 0 is never tested - MSB thing.
         {
             toggleexacttopic(document.getElementById("section-"+theToggle),document.getElementById("sectionatag-" + theToggle),theToggle,true);
         }
@@ -274,7 +280,12 @@ function reload_toggles()
 // Show a specific topic - used when in 'Show topic x' mode.
 function show_topic(theTopic)
 {
-    toggleexacttopic(document.getElementById("section-"+theTopic),document.getElementById("sectionatag-" + theTopic),theTopic,true);
+    var section = document.getElementById("section-"+theTopic);  // CONTRIB-3283
+    var secatag = document.getElementById("sectionatag-" + theTopic);
+    if ((section != null) && (secatag != null))
+    {
+        toggleexacttopic(section,secatag,theTopic,true);
+    }
 }
 
 // Save the toggles - called from togglebinary and an the unload event handler at the bottom of format.php which does not work for a refresh even though it should!

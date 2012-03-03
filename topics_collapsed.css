@@ -64,7 +64,7 @@ tr.cps td a {
   display: block;
   padding: 7px 0 7px 35px; /* The 35px allows the arrow to be on the left and the next to it.  It is the space for the arrow! */
   text-align: left;
-  background: transparent url(arrow_down.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle */
+  background: transparent url(images/arrow_down.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle */
   width: auto;
 }
 
@@ -130,11 +130,19 @@ tr.cps td a:hover {
 }
 
 #toggle-all td a.on {
-  background: transparent url(arrow_down.png) no-repeat 0px 45%; 
+  background: transparent url(images/arrow_down.png) no-repeat 0px 45%; 
 }
 
 #toggle-all td a.off {
-  background: transparent url(arrow_up.png) no-repeat 0px 45%; 
+  background: transparent url(images/arrow_up.png) no-repeat 0px 45%; 
+}
+
+/* Set layout */
+#set-layout {
+  background: transparent url(images/tc_logo_spanner.png) no-repeat 0px 0px; 
+  width: 128px;
+  height: 128px;
+  float: right;
 }
 
 /* -- hide the children for IE7 and older -- */

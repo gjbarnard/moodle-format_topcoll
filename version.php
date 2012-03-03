@@ -29,8 +29,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
- $plugin->version = 2012012300;
+ $plugin->version = 2012030200;
  $plugin->maturity = MATURITY_STABLE;
  $plugin->requires = 2007101591.06; // 1.9.14
  $plugin->component = 'format_topcoll';
- $plugin->release = '1.9.7';
+ $plugin->release = '1.9.8';

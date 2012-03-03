@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Collapsed Topics Information
  *
@@ -9,7 +10,7 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' in version.php.
+ * @version    See the value of '$plugin->version' in below.
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
@@ -28,39 +29,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+function xmldb_format_topcoll_upgrade($oldversion = 0) {
 
-//
-// Optional course format configuration file
-//
-// This file contains any specific configuration settings for the 
-// format.
-//
-// The default blocks layout for this course format:
-    $format['defaultblocks'] = 'participants,activity_modules,search_forums,'.
-                               'admin,course_list:news_items,calendar_upcoming,'.
-                               'recent_activity';
-//
+    global $CFG, $THEME, $db;
+    $result = true;
 
-// Layout configuration.
-// Here you can see what numbers in the array represent what layout for setting the default value below.
-// 1 => Default.
-// 2 => No 'Topic x' / 'Week x'.
-// 3 => No section number.
-// 4 => No 'Topic x' / 'Week x' and no section number.
-// 5 => No 'Toggle' word.
-// 6 => No 'Toggle' word and no 'Topic x' / 'Week x'.
-// 7 => No 'Toggle' word, no 'Topic x' / 'Week x'  and no section number.
+    if ($result && $oldversion < 2012030200) {
 
-// Default layout to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
-$defaultlayoutelement = 1;
+        // Define table format_topcoll_layout.
+        $table = new XMLDBTable('format_topcoll_layout');
 
-// Structure configuration.
-// Here so you can see what numbers in the array represent what structure for setting the default value below.
-// 1 => Topic
-// 2 => Week   
-// 3 => Latest Week First 
-// 4 => Current Topic First
+        // Drop it if it existed before
+        drop_table($table, true, false);
 
-// Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
-$defaultlayoutstructure = 1;
-?>
+        // Adding fields.
+        $table->addFieldInfo('id', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null, null);
+        $table->addFieldInfo('courseid', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null,null, '0', null);
+        $table->addFieldInfo('layoutelement', XMLDB_TYPE_INTEGER, '2', XMLDB_UNSIGNED, XMLDB_NOTNULL, null,null, '1', null);
+        $table->addFieldInfo('layoutstructure', XMLDB_TYPE_INTEGER, '1', XMLDB_UNSIGNED, XMLDB_NOTNULL, null,null, '1', null);
+
+        // Adding key.
+        $table->addKeyInfo('primary', XMLDB_KEY_PRIMARY, array('id'));
+
+        // Create table.
+        $result = $result && create_table($table);
+    }
+
+    return $result;
+}
