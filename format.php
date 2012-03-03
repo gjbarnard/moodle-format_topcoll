@@ -29,7 +29,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 require_once($CFG->libdir . '/ajax/ajaxlib.php');
-require_once($CFG->dirroot. '/course/format/topcoll/lib.php');
+require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
 
 $userisediting = $PAGE->user_is_editing();
 
@@ -288,7 +288,6 @@ foreach ($lt as $column) {
                     $sections[$section] = $thissection; // Ensure that the '!empty' works above if we are looped twice in the Current Topic First format when creating a new course and it is the default as set in 'config.php' of this course format.
                 }
 
-                //$showsection = (has_capability('moodle/course:viewhiddensections', $coursecontext) or $thissection->visible or !$course->hiddensections);
                 if (($layoutsetting->layoutstructure != 3) || ($userisediting)) {
                     $showsection = (has_capability('moodle/course:viewhiddensections', $coursecontext) or $thissection->visible or !$course->hiddensections);
                 } else {
@@ -364,7 +363,7 @@ foreach ($lt as $column) {
                         echo '<tr class="cps" id="sectionhead-' . $section . '">';
 
                         // Have a different look depending on if the section summary has been completed.
-                        if (is_null($thissection->summary)) {
+                        if (empty($thissection->summary)) {
                             echo '<td colspan="3"><a id="sectionatag-' . $section . '" class="cps_nosumm" href="#" onclick="toggle_topic(this,' . $section . '); return false;">';
                             if (($layoutsetting->layoutstructure != 1) && ($layoutsetting->layoutstructure != 4)) {
                                 echo '<span>' . $weekperiod . '</span><br />';
@@ -432,10 +431,11 @@ foreach ($lt as $column) {
                     // Now the section itself.  The css class of 'hid' contains the display attribute that manipulated by the JavaScript to show and hide the section.  It is defined in js-override-topcoll.css which 
                     // is loaded into the DOM by the JavaScript function topcoll_init.  Therefore having a logical separation between static and JavaScript manipulated css.  Nothing else here differs from 
                     // the standard Topics format in the core distribution.  The next change is at the bottom.
+                    echo '<tr id="section-' . $section . '" class="section main' . $sectionstyle;
                     if ($screenreader == true) {
-                        echo '<tr id="section-' . $section . '" class="section main' . $sectionstyle . '">';
+                        echo '">';
                     } else {
-                        echo '<tr id="section-' . $section . '" class="section main' . $sectionstyle . '" style="display:none;">';
+                        echo '" style="display:none;">';
                     }
 
                     if ($screenreader == true) {
@@ -464,30 +464,25 @@ foreach ($lt as $column) {
                         echo '<div class="summary">';
 
                         if ($screenreader == true) {
-                            if (($layoutsetting->layoutstructure == 1) || ($layoutsetting->layoutstructure == 4)) {
-                                // Topic type structure.
-                                $summaryformatoptions->noclean = true;
-                                echo format_text($thissection->summary, FORMAT_HTML, $summaryformatoptions);
-                            } else {
+                            if (($layoutsetting->layoutstructure == 2) || ($layoutsetting->layoutstructure == 3)) {
                                 // Week structure.
                                 print_heading($weekperiod, null, 3, 'weekdates');
-                                $summaryformatoptions->noclean = true;
+                            }
+                            $summaryformatoptions->noclean = true;
+                            if (!empty($thissection->summary)) {
                                 echo format_text($thissection->summary, FORMAT_HTML, $summaryformatoptions);
                             }
                         } else if (isediting($course->id) && has_capability('moodle/course:update', $coursecontext)) {
-                            $summaryformatoptions->noclean = true;
-                            if (($layoutsetting->layoutstructure == 1) || ($layoutsetting->layoutstructure == 4)) {
-                                // Topic type structure.
-                                echo format_text($thissection->summary, FORMAT_HTML, $summaryformatoptions);
-                                echo ' <a title="' . $streditsummary . '" href="editsection.php?id=' . $thissection->id . '">' .
-                                '<img src="' . $CFG->pixpath . '/t/edit.gif" alt="' . $streditsummary . '" /></a><br /><br />';
-                            } else {
+                            if (($layoutsetting->layoutstructure == 2) || ($layoutsetting->layoutstructure == 3)) {
                                 // Week structure.
                                 print_heading($weekperiod, null, 3, 'weekdates');
-                                echo format_text($thissection->summary, FORMAT_HTML, $summaryformatoptions);
-                                echo ' <a title="' . $streditsummary . '" href="editsection.php?id=' . $thissection->id . '">' .
-                                '<img src="' . $CFG->pixpath . '/t/edit.gif" class="iconsmall edit" alt="' . $streditsummary . '" /></a><br /><br />';
                             }
+                            if (!empty($thissection->summary)) {
+                                $summaryformatoptions->noclean = true;
+                                echo format_text($thissection->summary, FORMAT_HTML, $summaryformatoptions);
+                            }
+                            echo ' <a title="' . $streditsummary . '" href="editsection.php?id=' . $thissection->id . '">' .
+                            '<img src="' . $CFG->pixpath . '/t/edit.gif" class="iconsmall edit" alt="' . $streditsummary . '" /></a><br /><br />';
                         }
                         echo '</div>';
 
@@ -609,7 +604,7 @@ if ($screenreader == false) {
     }
 // Save the state of the toggles when the page unloads.  This is a stopgap as toggle state is saved every time
 // they change.  This is because there is no 'refresh' event yet which would be the best implementation.
-// TODO: Comment line 51 (save_toggles call in togglebinary function) of lib.js and make into lib_min.js when
+// TODO: Uncomment line 611 (save_toggles call in togglebinary function) of lib.js and make into lib_min.js when
 //       IE9 fully established with proper DOM event handling -
 //       http://blogs.msdn.com/ie/archive/2010/03/26/dom-level-3-events-support-in-ie9.aspx &
 //       http://dev.w3.org/2006/webapi/DOM-Level-3-Events/html/DOM3-Events.html#event-types-list
@@ -618,5 +613,3 @@ if ($screenreader == false) {
 ?>
     //]]>
 </script>
-
-

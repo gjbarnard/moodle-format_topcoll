@@ -232,9 +232,14 @@ Version Information
   2. Still need to get help buttons working on the 'set layout form'.
   3. NOTE: This is the first integration of CONTRIB-3378 which requires further testing.  If you encounter an issue please revert back to version 1.9.7 using the uninstallation and then installation instructions above.  And if you could let me know that would be a bonus :).
 
+3rd March 2012 - Version 1.9.8.1
+  1. Help buttons on the 'set_layout' form now working in English and Spanish.  If you need your language, copy the folder 'help' from 'en_utf8' into your language folder and edit the files contained within.
+  2. General tidy up of 'set_layout' form and code.
+  3. Fixed issue in lib.js and hence lib_min.js because the arrow images had moved.
+  4. Optimised format.php to avoid logical duplicate code.
+
 Thanks
 ------
-
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
 
 For the Peristence upgrade I would like to thank all those who contributed to the developer forum -
@@ -259,11 +264,12 @@ Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362) for his a
 
 Andrew Nicols (http://moodle.org/user/view.php?id=268794) for his assistance on CONTRIB-3378.
 
+Hartmut Scherer (http://moodle.org/user/view.php?id=441502) for suggesting the 'Current Topic First' structure and testing the Moodle 2.2 code on discussion 'Collapsed Topics with Custom Layouts' (http://moodle.org/mod/forum/discuss.php?d=195292).
+
 Desired Enhancements
 --------------------
-
 1. Use ordered lists / divs instead of tables to fall in line with current web design theory.  Older versions of
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 2nd March 2012. 
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 3rd March 2012. 

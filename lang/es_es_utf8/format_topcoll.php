@@ -64,15 +64,4 @@ $string['setlayoutstructuretopic']='Temas';
 $string['setlayoutstructureweek']='Semana';
 $string['setlayoutstructurelatweekfirst']='Semana actual primero';
 $string['setlayoutstructurecurrenttopicfirst']='Tema actual primero';
-// Help
-$string['setlayoutelements_help']='Cuánta información sobre las secciones / toggles quieres visualizar.';
-$string['setlayoutstructure_help']="El formato o estructura del curso. Puedes elegir entre:
-
-'Temas' - el cual presenta cada sección como un tema en orden.
-
-'Semanas' - el cual presenta cada sección como una semana en orden ascendente.
-
-'Semana actual primero' - el cual es igual que el formato 'Semanas' pero la semana actual ocupa el primer lugar, seguida de las semanas anteriores en orden descendente. Este comportamiento no se da mientras estás en editando el curso (edición activada), es decir, la estructura mientras editas el curso es la misma que 'Semanas'.
-
-'Tema actual primero' - el cual es igual que el formato 'Temas', con la excepción de que el tema actual ocupa el primer lugar.";
 ?>

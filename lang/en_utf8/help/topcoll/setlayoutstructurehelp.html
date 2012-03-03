@@ -1,4 +1,4 @@
-<?php
+<!--
 /**
  * Collapsed Topics Information
  *
@@ -9,8 +9,8 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' below.
- * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
+ * @version    See the value of '$plugin->version' in version.php.
+ * @copyright  (c) 2009-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
@@ -28,9 +28,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
- $plugin->version = 2012030300;
- $plugin->maturity = MATURITY_STABLE;
- $plugin->requires = 2007101591.06; // 1.9.14
- $plugin->component = 'format_topcoll';
- $plugin->release = '1.9.8.1';
+-->
+<head>
+</head>
+<body>
+<p>The layout structure of the course.  You can choose between:<br />
+<ul>
+<li>'Topics' - where each section is presented as a topic in section number order.</li>
+<li>'Weeks' - where each section is presented as a week in ascending week order.</li>
+<li>'Latest Week First' - which is the same as weeks but the current week is shown at the top and preceding weeks in decending order are displayed below execpt in editing mode where the structure is the same as 'Weeks'.</li>
+<li>'Current Topic First' - which is the same as 'Topics' except that the current topic is shown at the top if it has been set.</li>
+</ul>
+</p>
+</body>
+</html>

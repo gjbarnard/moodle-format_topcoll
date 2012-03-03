@@ -41,7 +41,7 @@ $courseid = required_param('id', PARAM_INT); // course id
 $setelement = required_param('setelement', PARAM_INT);
 $setstructure = required_param('setstructure', PARAM_INT);
 
-if (!($course = get_record('course', 'id',$courseid))) {
+if (!($course = get_record('course', 'id', $courseid))) {
     print_error('invalidcourseid', 'error');
 } // From /course/view.php
 
@@ -50,7 +50,6 @@ if (!$coursecontext = get_context_instance(CONTEXT_COURSE, $course->id)) {
     print_error('nocontext');
 }
 require_login($course); // From /course/view.php - Facilitates the correct population of the setttings block.
-
 //$PAGE->set_context($coursecontext);
 //$PAGE->set_url('/course/format/topcoll/set_layout.php&id=', array('id' => $courseid)); // From /course/view.php
 //$PAGE->set_pagelayout('course'); // From /course/view.php
@@ -62,7 +61,7 @@ require_login($course); // From /course/view.php - Facilitates the correct popul
 require_sesskey();
 require_capability('moodle/course:update', $coursecontext);
 
-$courseurl = $CFG->wwwroot.'/course/view.php?id='.$courseid;
+$courseurl = $CFG->wwwroot . '/course/view.php?id=' . $courseid;
 
 if (isediting($courseid)) {
     $mform = new set_layout_form(null, array('courseid' => $courseid, 'setelement' => $setelement, 'setstructure' => $setstructure));
@@ -79,64 +78,64 @@ if (isediting($courseid)) {
 
     $PAGE->print_header(get_string('setlayout', 'format_topcoll') . ' - ' . $course->fullname . ' ' . get_string('course'), null, '', null);
 
+// Layout from format.php.
 // Bounds for block widths
 // more flexible for theme designers taken from theme config.php
-$lmin = (empty($THEME->block_l_min_width)) ? 100 : $THEME->block_l_min_width;
-$lmax = (empty($THEME->block_l_max_width)) ? 210 : $THEME->block_l_max_width;
-$rmin = (empty($THEME->block_r_min_width)) ? 100 : $THEME->block_r_min_width;
-$rmax = (empty($THEME->block_r_max_width)) ? 210 : $THEME->block_r_max_width;
+    $lmin = (empty($THEME->block_l_min_width)) ? 100 : $THEME->block_l_min_width;
+    $lmax = (empty($THEME->block_l_max_width)) ? 210 : $THEME->block_l_max_width;
+    $rmin = (empty($THEME->block_r_min_width)) ? 100 : $THEME->block_r_min_width;
+    $rmax = (empty($THEME->block_r_max_width)) ? 210 : $THEME->block_r_max_width;
 
-define('BLOCK_L_MIN_WIDTH', $lmin);
-define('BLOCK_L_MAX_WIDTH', $lmax);
-define('BLOCK_R_MIN_WIDTH', $rmin);
-define('BLOCK_R_MAX_WIDTH', $rmax);
+    define('BLOCK_L_MIN_WIDTH', $lmin);
+    define('BLOCK_L_MAX_WIDTH', $lmax);
+    define('BLOCK_R_MIN_WIDTH', $rmin);
+    define('BLOCK_R_MAX_WIDTH', $rmax);
 
-$preferred_width_left = bounded_number(BLOCK_L_MIN_WIDTH, blocks_preferred_width($pageblocks[BLOCK_POS_LEFT]), BLOCK_L_MAX_WIDTH);
-$preferred_width_right = bounded_number(BLOCK_R_MIN_WIDTH, blocks_preferred_width($pageblocks[BLOCK_POS_RIGHT]), BLOCK_R_MAX_WIDTH);
+    $preferred_width_left = bounded_number(BLOCK_L_MIN_WIDTH, blocks_preferred_width($pageblocks[BLOCK_POS_LEFT]), BLOCK_L_MAX_WIDTH);
+    $preferred_width_right = bounded_number(BLOCK_R_MIN_WIDTH, blocks_preferred_width($pageblocks[BLOCK_POS_RIGHT]), BLOCK_R_MAX_WIDTH);
 
-/// Layout the whole page as three big columns.
-echo '<table id="layout-table" cellspacing="0" summary="' . get_string('layouttable') . '"><tr>';
+    echo '<table id="layout-table" cellspacing="0" summary="' . get_string('layouttable') . '"><tr>';
 
-/// The left column ...
-$lt = (empty($THEME->layouttable)) ? array('left', 'middle', 'right') : $THEME->layouttable;
-foreach ($lt as $column) {
-    switch ($column) {
-        case 'left':
+    $lt = (empty($THEME->layouttable)) ? array('left', 'middle', 'right') : $THEME->layouttable;
+    foreach ($lt as $column) {
+        switch ($column) {
+            case 'left':
 
-            if (blocks_have_content($pageblocks, BLOCK_POS_LEFT) || $userisediting) {
-                echo '<td style="width:' . $preferred_width_left . 'px" id="left-column">';
+                if (blocks_have_content($pageblocks, BLOCK_POS_LEFT) || $userisediting) {
+                    echo '<td style="width:' . $preferred_width_left . 'px" id="left-column">';
+                    print_container_start();
+                    blocks_print_group($PAGE, $pageblocks, BLOCK_POS_LEFT);
+                    print_container_end();
+                    echo '</td>';
+                }
+
+                break;
+            case 'middle':
+                echo '<td id="middle-column">';
                 print_container_start();
-                blocks_print_group($PAGE, $pageblocks, BLOCK_POS_LEFT);
+                print_simple_box_start();
+                $mform->display();
+                print_simple_box_end();
                 print_container_end();
                 echo '</td>';
-            }
 
-            break;
-        case 'middle':
-/// Start main column
-            echo '<td id="middle-column">';
-            print_container_start();
-    $mform->display();
-            print_container_end();
-            echo '</td>';
+                break;
+            case 'right':
+                // The right column
+                if (blocks_have_content($pageblocks, BLOCK_POS_RIGHT) || $userisediting) {
+                    echo '<td style="width:' . $preferred_width_right . 'px" id="right-column">';
+                    print_container_start();
+                    blocks_print_group($PAGE, $pageblocks, BLOCK_POS_RIGHT);
+                    print_container_end();
+                    echo '</td>';
+                }
 
-            break;
-        case 'right':
-            // The right column
-            if (blocks_have_content($pageblocks, BLOCK_POS_RIGHT) || $userisediting) {
-                echo '<td style="width:' . $preferred_width_right . 'px" id="right-column">';
-                print_container_start();
-                blocks_print_group($PAGE, $pageblocks, BLOCK_POS_RIGHT);
-                print_container_end();
-                echo '</td>';
-            }
-
-            break;
+                break;
+        }
     }
-}
-echo '</tr></table>';
+    echo '</tr></table>';
 
-    print_footer(NULL, $course);
+    print_footer(null, $course);
 } else {
     redirect($courseurl);
 }

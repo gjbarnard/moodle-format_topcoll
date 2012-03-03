@@ -1,4 +1,4 @@
-<?php
+<!--
 /**
  * Collapsed Topics Information
  *
@@ -9,11 +9,12 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' below.
- * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
+ * @version    See the value of '$plugin->version' in version.php.
+ * @copyright  (c) 2009-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
+ * @comment    A big thank you to Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362) for the translation.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,9 +29,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
- $plugin->version = 2012030300;
- $plugin->maturity = MATURITY_STABLE;
- $plugin->requires = 2007101591.06; // 1.9.14
- $plugin->component = 'format_topcoll';
- $plugin->release = '1.9.8.1';
+-->
+<head>
+</head>
+<body>
+<p>El formato o estructura del curso. Puedes elegir entre:<br />
+<ul>
+<li>'Temas' - el cual presenta cada sección como un tema en orden.</li>
+<li>'Semanas' - el cual presenta cada sección como una semana en orden ascendente.</li>
+<li>'Semana actual primero' - el cual es igual que el formato 'Semanas' pero la semana actual ocupa el primer lugar, seguida de las semanas anteriores en orden descendente. Este comportamiento no se da mientras estás en editando el curso (edición activada), es decir, la estructura mientras editas el curso es la misma que 'Semanas'.</li>
+<li>'Tema actual primero' - el cual es igual que el formato 'Temas', con la excepción de que el tema actual ocupa el primer lugar.</li>
+</ul>
+</p>
+</body>
+</html>
