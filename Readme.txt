@@ -230,6 +230,7 @@ Version Information
 2nd March 2012 - Version 1.9.8
   1. Integrated in CONTRIB-3378 (Multiple Layouts) and associated CONTRIB-3283 (Current Section) CONTRIB-3225 (Screen Reader) from the Moodle 2.2 branch.
   2. Still need to get help buttons working on the 'set layout form'.
+  3. NOTE: This is the first integration of CONTRIB-3378 which requires further testing.  If you encounter an issue please revert back to version 1.9.7 using the uninstallation and then installation instructions above.  And if you could let me know that would be a bonus :).
 
 Thanks
 ------
