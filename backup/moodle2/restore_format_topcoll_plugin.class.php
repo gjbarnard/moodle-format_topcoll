@@ -31,37 +31,36 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
+require_once($CFG->dirroot.'/course/format/topcoll/lib.php');
 
 /**
  * restore plugin class that provides the necessary information
- * needed to restore one grid course format plugin
+ * needed to restore one topcoll course format
  */
 class restore_format_topcoll_plugin extends restore_format_plugin {
     /**
-     * Returns the paths to be handled by the plugin at section level
+     * Returns the paths to be handled by the plugin at course level
      */
     protected function define_course_plugin_structure() {
 
         $paths = array();
 
         // Add own format stuff
-        $elename = 'topcoll';
-        $elepath = $this->get_pathfor('/topcoll');
+        $elename = 'topcoll'; // This defines the postfix of 'process_*' below.
+        $elepath = $this->get_pathfor('/'); // This is defines the nested tag within 'plugin_format_topcoll_course' to allow '/course/plugin_format_topcoll_course' in the path therefore as a path structure representing the levels in course.xml in the backup file.
         $paths[] = new restore_path_element($elename, $elepath);
 
         return $paths; // And we return the interesting paths
     }
 
     /**
-     * Process the format element
+     * Process the 'plugin_format_topcoll_course' element within the 'course' element in the 'course.xml' file in the '/course' folder
+     * of the zipped backup 'mbz' file.
      */
     public function process_topcoll($data) {
         global $DB;
 
-		// for getting a stack trace: throw new ddl_exception('ddlunknownerror', NULL, 'incorrect table parameter!');
-
         $data = (object)$data;
-        $oldid = $data->id;
 
         // We only process this information if the course we are restoring to
         // has 'topcoll' format (target format can change depending of restore options)
@@ -72,7 +71,7 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
 
         $data->courseid = $this->task->get_courseid();
 
-        $DB->insert_record('format_topcoll_layout', $data);
+        put_layout($data->courseid, $data->layoutelement, $data->layoutstructure);  // In $CFG->dirroot.'/course/format/topcoll/lib.php'.
 
         // No need to annotate anything here
     }

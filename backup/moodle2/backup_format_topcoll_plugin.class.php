@@ -36,7 +36,7 @@ defined('MOODLE_INTERNAL') || die();
  * Provides the information to backup topcoll course format
  */
 class backup_format_topcoll_plugin extends backup_format_plugin {
- /**
+    /**
      * Returns the format information to attach to course element
      */
     protected function define_course_plugin_structure() {
@@ -45,17 +45,10 @@ class backup_format_topcoll_plugin extends backup_format_plugin {
         $plugin = $this->get_plugin_element(null, '/course/format', 'topcoll');
 
         // Create one standard named plugin element (the visible container)
-        $pluginwrapper = new backup_nested_element($this->get_recommended_name(), array('layoutelement','layoutstructure'), null);
+        $pluginwrapper = new backup_nested_element($this->get_recommended_name(), null, array('layoutelement','layoutstructure'));
 
         // connect the visible container ASAP
         $plugin->add_child($pluginwrapper);
-
-        // Now create the format own structures
-        //$layout = new backup_nested_element('layout', 
-        //    array('courseid', 'layoutelement','layoutstructure'), null);
-
-        // Now the own format tree
-        //$pluginwrapper->add_child($layout);
 
         // set source to populate the data
         $pluginwrapper->set_source_table('format_topcoll_layout', array(
