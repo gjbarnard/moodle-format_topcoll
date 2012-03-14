@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Collapsed Topics Information
  *
@@ -29,8 +28,38 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-$plugin->version = 2012030200.01;
-$plugin->maturity = MATURITY_BETA;
-$plugin->requires = 2011120500.00; // 2.2
-$plugin->component = 'format_topcoll';
-$plugin->release = '2.2.4 - BETA';
+function topcoll_backup_format_data($bf, $preferences) {
+    $status = true;
+
+    if ($layouts = get_records('format_topcoll_layout', 'course_id',
+        $preferences->backup_course)) {
+    
+        $status = $status or fwrite ($bf, start_tag('LAYOUTS', 3, true));
+        foreach ($layouts as $layout) {
+            $status = $status or fwrite ($bf, start_tag('LAYOUT', 4, true));
+            $status = $status or fwrite ($bf, full_tag('COURSEID', 5, false, $layout->courseid));
+            $status = $status or fwrite ($bf, full_tag('LAYOUTELEMENT', 5, false, $layout->layoutelement));
+            $status = $status or fwrite ($bf, full_tag('LAYOUTSTRUCTURE', 5, false, $layout->layoutstructure));
+            $status = $status or fwrite ($bf, end_tag('LAYOUT', 4, true));
+        }
+        $status = $status or fwrite ($bf,end_tag('LAYOUTS', 3, true));
+    }
+    return $status;
+}
+
+/**
+ * Return a content encoded to support interactivities linking. This function is
+ * called automatically from the backup procedure by {@link backup_encode_absolute_links()}.
+ *
+ * @param string $content Content to be encoded
+ * @param object $restore Restore preferences object
+ * @return string The encoded content
+ **/
+function topcoll_encode_format_content_links($content, $restore) {
+    global $CFG;
+
+    $base = preg_quote($CFG->wwwroot, '/');
+
+    //TODO: Convert lins to universal id;
+    return $content;
+}

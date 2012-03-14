@@ -29,8 +29,40 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-$plugin->version = 2012030200.01;
-$plugin->maturity = MATURITY_BETA;
-$plugin->requires = 2011120500.00; // 2.2
-$plugin->component = 'format_topcoll';
-$plugin->release = '2.2.4 - BETA';
+
+defined('MOODLE_INTERNAL') || die();
+
+/**
+ * Provides the information to backup topcoll course format
+ */
+class backup_format_topcoll_plugin extends backup_format_plugin {
+ /**
+     * Returns the format information to attach to course element
+     */
+    protected function define_course_plugin_structure() {
+
+        // Define the virtual plugin element with the condition to fulfill
+        $plugin = $this->get_plugin_element(null, '/course/format', 'topcoll');
+
+        // Create one standard named plugin element (the visible container)
+        $pluginwrapper = new backup_nested_element($this->get_recommended_name(), array('layoutelement','layoutstructure'), null);
+
+        // connect the visible container ASAP
+        $plugin->add_child($pluginwrapper);
+
+        // Now create the format own structures
+        //$layout = new backup_nested_element('layout', 
+        //    array('courseid', 'layoutelement','layoutstructure'), null);
+
+        // Now the own format tree
+        //$pluginwrapper->add_child($layout);
+
+        // set source to populate the data
+        $pluginwrapper->set_source_table('format_topcoll_layout', array(
+            'courseid' => backup::VAR_PARENTID));
+
+        // don't need to annotate ids nor files
+
+        return $plugin;
+    }
+}

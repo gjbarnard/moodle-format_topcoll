@@ -29,8 +29,53 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-$plugin->version = 2012030200.01;
-$plugin->maturity = MATURITY_BETA;
-$plugin->requires = 2011120500.00; // 2.2
-$plugin->component = 'format_topcoll';
-$plugin->release = '2.2.4 - BETA';
+
+defined('MOODLE_INTERNAL') || die();
+
+/**
+ * restore plugin class that provides the necessary information
+ * needed to restore one grid course format plugin
+ */
+class restore_format_topcoll_plugin extends restore_format_plugin {
+    /**
+     * Returns the paths to be handled by the plugin at section level
+     */
+    protected function define_course_plugin_structure() {
+
+        $paths = array();
+
+        // Add own format stuff
+        $elename = 'topcoll';
+        $elepath = $this->get_pathfor('/topcoll');
+        $paths[] = new restore_path_element($elename, $elepath);
+
+        return $paths; // And we return the interesting paths
+    }
+
+    /**
+     * Process the format element
+     */
+    public function process_topcoll($data) {
+        global $DB;
+
+		// for getting a stack trace: throw new ddl_exception('ddlunknownerror', NULL, 'incorrect table parameter!');
+
+        $data = (object)$data;
+        $oldid = $data->id;
+
+        // We only process this information if the course we are restoring to
+        // has 'topcoll' format (target format can change depending of restore options)
+        $format = $DB->get_field('course', 'format', array('id' => $this->task->get_courseid()));
+        if ($format != 'topcoll') {
+            return;
+        }
+
+        $data->courseid = $this->task->get_courseid();
+
+        $DB->insert_record('format_topcoll_layout', $data);
+
+        // No need to annotate anything here
+    }
+    
+    protected function after_execute_structure() { }
+}

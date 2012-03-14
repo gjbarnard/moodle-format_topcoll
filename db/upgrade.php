@@ -38,7 +38,7 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
     if ($result && $oldversion < 2012030100) {
 
         // Define table format_topcoll_layout.
-        $table = new XMLDBTable('format_topcoll_layout');
+        $table = new xmldb_table('format_topcoll_layout');
 
         // Adding fields.
         $table->add_field('id', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null);
