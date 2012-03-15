@@ -28,6 +28,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+require_once($CFG->dirroot.'/course/format/topcoll/lib.php');
 
 function topcoll_restore_format_data($restore, $data) {
     global $CFG;
@@ -35,30 +36,13 @@ function topcoll_restore_format_data($restore, $data) {
     $status = true;
 
     // Get the backup data
-    if (!empty($data['FORMATDATA']['#']['LAYOUTS']['0']['#']['LAYOUT'])) {
-        // Get all the pages and restore them, restoring page items along the way.
-        // $layouts = $data['FORMATDATA']['#']['LAYOUTS']['0']['#']['PAGE'];
-        $layouts = $data['FORMATDATA']['#']['LAYOUTS']['0']['#']['LAYOUT'];
-        for ($i = 0; $i < count($layouts); $i++) {
-            $layout_info = $layouts[$i];
+    if (!empty($data['FORMATDATA']['#']['LAYOUT']['0'])) {
+        $layout_info = $data['FORMATDATA']['#']['LAYOUT']['0'];
 
-            // Id will remap later when we know all ids are present
-            //$layout_oldid = backup_todb($layout_info['#']['ID']['0']['#']);
-            
-            $layout = new stdClass;
-            $layout->layoutelement = backup_todb($layout_info['#']['LAYOUTELEMENT']['0']['#']);
-            $layout->layoutstructure = backup_todb($layout_info['#']['LAYOUTSTRUCTURE']['0']['#']);
-            $layout->courseid = $restore->courseid;
+        $layoutelement = backup_todb($layout_info['#']['LAYOUTELEMENT']['0']['#']);
+        $layoutstructure = backup_todb($layout_info['#']['LAYOUTSTRUCTURE']['0']['#']);
 
-            if ($layout_newid = insert_record('format_topcoll_layout', $layout)) {
-                //backup_putid($restore->backup_unique_code, 'format_topcoll_layout', $layout_oldid, $layout_newid);
-            } else {
-                $status = false;
-                break;
-            }
-        }
-
-        //TODO: Need to fix sortorder for old courses.
+        put_layout($restore->course_id, $layoutelement, $layoutstructure); // In $CFG->dirroot.'/course/format/topcoll/lib.php'.
     }
     return $status;
 }

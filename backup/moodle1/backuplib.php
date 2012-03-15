@@ -28,21 +28,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**
+ * Format's backup routine
+ *
+ * @param handler $bf Backup file handler
+ * @param object $preferences Backup preferences
+ * @return boolean Success
+ **/
 function topcoll_backup_format_data($bf, $preferences) {
     $status = true;
 
-    if ($layouts = get_records('format_topcoll_layout', 'course_id',
+    if ($layout = get_record('format_topcoll_layout', 'courseid',
         $preferences->backup_course)) {
-    
-        $status = $status or fwrite ($bf, start_tag('LAYOUTS', 3, true));
-        foreach ($layouts as $layout) {
-            $status = $status or fwrite ($bf, start_tag('LAYOUT', 4, true));
-            $status = $status or fwrite ($bf, full_tag('COURSEID', 5, false, $layout->courseid));
-            $status = $status or fwrite ($bf, full_tag('LAYOUTELEMENT', 5, false, $layout->layoutelement));
-            $status = $status or fwrite ($bf, full_tag('LAYOUTSTRUCTURE', 5, false, $layout->layoutstructure));
-            $status = $status or fwrite ($bf, end_tag('LAYOUT', 4, true));
-        }
-        $status = $status or fwrite ($bf,end_tag('LAYOUTS', 3, true));
+
+        $status = $status and fwrite ($bf, start_tag('LAYOUT', 3, true));
+        $status = $status and fwrite ($bf, full_tag('LAYOUTELEMENT', 4, false, $layout->layoutelement));
+        $status = $status and fwrite ($bf, full_tag('LAYOUTSTRUCTURE', 4, false, $layout->layoutstructure));
+        $status = $status and fwrite ($bf, end_tag('LAYOUT',3, true));
     }
     return $status;
 }
