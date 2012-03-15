@@ -40,7 +40,7 @@ $string['formattopcoll']='Zwiniety Tematy';
 // Used in format.php
 // Uzywane w format.php
 $string['topcolltoggle']='Dzwignia kolankowa';
-$string['topcolltogglewidth']='width: 28px;';
+$string['topcolltogglewidth']='width: 34px;';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='wszystkie przełączniki.';
@@ -69,8 +69,8 @@ $string['setlayout_no_toggle_word_toggle_section_x'] = 'No toggle word and toggl
 $string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'No toggle word, toggle section x and section number';
 $string['setlayoutelements'] = 'Set elements';
 $string['setlayoutstructure'] = 'Set structure';
-$string['setlayoutstructuretopic']='Topic';
-$string['setlayoutstructureweek']='Week';
+$string['setlayoutstructuretopic']='Temat';
+$string['setlayoutstructureweek']='Tydzień';
 $string['setlayoutstructurelatweekfirst']='Latest Week First';
 $string['setlayoutstructurecurrenttopicfirst']='Current Topic First';
 // Help

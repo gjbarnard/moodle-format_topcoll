@@ -37,7 +37,7 @@ $string['formattopcoll']='Сворачиваемые разделы по тем�
 
 // Used in format.php
 $string['topcolltoggle']='Показать/Скрыть';
-$string['topcolltogglewidth']='width: 28px;';
+$string['topcolltogglewidth']='width: 32px;';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='все разделы.';
@@ -65,8 +65,8 @@ $string['setlayout_no_toggle_word_toggle_section_x'] = 'No toggle word and toggl
 $string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'No toggle word, toggle section x and section number';
 $string['setlayoutelements'] = 'Set elements';
 $string['setlayoutstructure'] = 'Set structure';
-$string['setlayoutstructuretopic']='Topic';
-$string['setlayoutstructureweek']='Week';
+$string['setlayoutstructuretopic']='тема';
+$string['setlayoutstructureweek']='неделя';
 $string['setlayoutstructurelatweekfirst']='Latest Week First';
 $string['setlayoutstructurecurrenttopicfirst']='Current Topic First';
 // Help

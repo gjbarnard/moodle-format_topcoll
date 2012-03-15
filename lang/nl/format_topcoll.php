@@ -41,7 +41,7 @@ $string['formattopcoll']='Ingeklapte Onderwerpen format';
 
 // Used in format.php
 $string['topcolltoggle']='Uitklappen';
-$string['topcolltogglewidth']='width: 28px;';
+$string['topcolltogglewidth']='width: 42px;';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='alle schakelt.';
@@ -69,7 +69,7 @@ $string['setlayout_no_toggle_word_toggle_section_x'] = 'No toggle word and toggl
 $string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'No toggle word, toggle section x and section number';
 $string['setlayoutelements'] = 'Set elements';
 $string['setlayoutstructure'] = 'Set structure';
-$string['setlayoutstructuretopic']='Topic';
+$string['setlayoutstructuretopic']='Onderwerp';
 $string['setlayoutstructureweek']='Week';
 $string['setlayoutstructurelatweekfirst']='Latest Week First';
 $string['setlayoutstructurecurrenttopicfirst']='Current Topic First';

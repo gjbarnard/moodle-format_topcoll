@@ -40,7 +40,7 @@ $string['formattopcoll']='Pynciau Dymchwel';
 // Used in format.php
 // A ddefnyddir mewn format.php
 $string['topcolltoggle']='Toggle';
-$string['topcolltogglewidth']='width: 22px;';
+$string['topcolltogglewidth']='width: 36px;';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='pob toglau.';
@@ -69,8 +69,8 @@ $string['setlayout_no_toggle_word_toggle_section_x'] = 'No toggle word and toggl
 $string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'No toggle word, toggle section x and section number';
 $string['setlayoutelements'] = 'Set elements';
 $string['setlayoutstructure'] = 'Set structure';
-$string['setlayoutstructuretopic']='Topic';
-$string['setlayoutstructureweek']='Week';
+$string['setlayoutstructuretopic']='Pwnc';
+$string['setlayoutstructureweek']='Wythnos';
 $string['setlayoutstructurelatweekfirst']='Latest Week First';
 $string['setlayoutstructurecurrenttopicfirst']='Current Topic First';
 // Help
