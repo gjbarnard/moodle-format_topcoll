@@ -384,6 +384,8 @@ Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362) for his a
 
 Andrew Nicols (http://moodle.org/user/view.php?id=268794) for his assistance on CONTRIB-3378.
 
+Hartmut Scherer (http://moodle.org/user/view.php?id=441502) for suggesting the 'Current Topic First' format.
+
 References
 ----------
 .Net Magazine Issue 186 - Article on Collapsed Tables by Craig Grannell -
