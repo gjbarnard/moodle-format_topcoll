@@ -351,6 +351,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2. Translated the words 'Topic' and 'Week' in all language files so that the toggle bar is correct in all structures.  If you are a native speaker I would appreciate translation of the rest as Google Translate is not so good with long sentences.
   3. Added backup and restore instructions to this file.
 
+16th March 2012 - Version 2.2.4.1
+  1. Tried with restorelib.php in the root folder for importing Moodle 1.9 courses and did not work.  So for tidiness, moved the Moodle 1.9 backup and restore code to backup/moodle1 folder.
+  2. So please note that restoring Moodle 1.9 courses in this course format will not retain the structure settings and will default to the values in 'config.php'.  I hope to investigate and either fix or have this fixed.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -400,4 +404,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 15th March 2012.
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 16th March 2012.
