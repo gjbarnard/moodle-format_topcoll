@@ -76,3 +76,13 @@ function put_layout($courseid, $layoutelement, $layoutstructure) {
         insert_record('format_topcoll_layout', $layout);
     }
 }
+
+/**
+ * Deletes the layout entry for the given course.
+ * CONTRIB-3520
+ */
+function topcoll_course_format_delete_course($courseid) {
+    global $DB;
+
+    delete_records('format_topcoll_layout', 'courseid', $courseid);
+}
