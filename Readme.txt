@@ -34,6 +34,12 @@ Uninstallation
 4. In the database, remove the table 'format_topcoll_layout' and the entry for 'format_topcoll' ('plugin' attribute) in the table 'config_plugins'.  If using the default prefix this will be 'mdl_format_topcoll_layout' and 'mdl_config_plugins' respectively.
 5. Put Moodle out of Maintenance Mode.
 
+Course Backup and Restore Instructions
+--------------------------------------
+1. Backup as you would any other course.  The layout configuration will be stored with the course settings.
+2. Restore as you would any other course.  If you are offered the option of 'Overwrite Course Configuration' you must say 'Yes' to have the layout configuration restored otherwise the restored course will retain the layout it previously had or the default in the 'config.php' file as mentioned in the 'Installation' instructions above depending on the situation.
+3. Note: I believe that if you restore a Collapsed Topic's course on an installation that does not have the format then it will work and become the default course format.  However the layout data will not be stored if you install Collapsed Topic's at a later date.
+
 Remembered Toggle State Instructions
 ------------------------------------
 To have the state of the toggles be remembered beyond the session for a user (stored as a cookie in the user's 
@@ -331,6 +337,20 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 2nd March 2012 - Version 2.0.5.1
   1. Minor fix to ensure consistent use of $coursecontext and not $context.
 
+14th March 2012 - Version 2.0.6 - BETA - CONTRIB-3520.
+  1. Added backup and restore functionality.  If required when restoring a course 'Overwrite course configuration' needs to be 'Yes' to set the structure and elements correctly.
+  2. Added the function 'format_topcoll_delete_course' in 'lib.php' which will remove the entry in the 'format_topcoll_layout' table for the course when it is deleted.
+  3. Added language strings to the language files that were missing previous changes.  Still in English at the moment in the hope a native speaker will translate them for me.  I intend to translate the basics like 'Topic' and 'Week' though before release in line with what was already there.
+
+15th March 2012 - Version 2.0.6 - CONTRIB-3520 - Stable.
+  1. Completed files for 1.9 and placed in the root folder of the format in the hope that they are executed by the upgrade restoring code as they are in the Moodle 1.9 version of this issue.  I think it is a Moodle core coding issue that they are not called in Moodle 2.x+ when importing a Moodle 1.9 course backup - need to investigate.
+  2. Translated the words 'Topic' and 'Week' in all language files so that the toggle bar is correct in all structures.  If you are a native speaker I would appreciate translation of the rest as Google Translate is not so good with long sentences.
+  3. Added backup and restore instructions to this file.
+
+16th March 2012 - Version 2.0.6.1
+  1. Tried with restorelib.php in the root folder for importing Moodle 1.9 courses and did not work.  So for tidiness, moved the Moodle 1.9 backup and restore code to backup/moodle1 folder.
+  2. So please note that restoring Moodle 1.9 courses in this course format will not retain the structure settings and will default to the values in 'config.php'.  I hope to investigate and either fix or have this fixed.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -360,6 +380,8 @@ Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362) for his a
 
 Andrew Nicols (http://moodle.org/user/view.php?id=268794) for his assistance on CONTRIB-3378.
 
+Hartmut Scherer (http://moodle.org/user/view.php?id=441502) for suggesting the 'Current Topic First' format.
+
 References
 ----------
 .Net Magazine Issue 186 - Article on Collapsed Tables by Craig Grannell -
@@ -380,4 +402,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 2nd March 2012.
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 16th March 2012.
