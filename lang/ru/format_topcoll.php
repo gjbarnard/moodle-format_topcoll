@@ -37,7 +37,7 @@ $string['formattopcoll']='Сворачиваемые разделы по тем�
 
 // Used in format.php
 $string['topcolltoggle']='Показать/Скрыть';
-$string['topcolltogglewidth']='width: 28px;';
+$string['topcolltogglewidth']='width: 32px;';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='все разделы.';
@@ -48,4 +48,36 @@ $string['topcollclosed']='Скрыть';
 $string['sectionname'] = 'Раздел';
 $string['pluginname'] = 'Сворачиваемые разделы по темам';
 $string['section0name'] = 'Общее';
+
+// Everything below is pending translation...
+// MDL-26105
+$string['page-course-view-topcoll'] = 'Any course main page in collapsed topics format';
+$string['page-course-view-topcoll-x'] = 'Any course page in collapsed topics format';
+
+// Layout enhancement - Moodle Tracker CONTRIB-3378
+$string['setlayout'] = 'Set layout';
+$string['setlayout_default'] = 'Default';
+$string['setlayout_no_toggle_section_x'] = 'No toggle section x';
+$string['setlayout_no_section_no'] = 'No section number';
+$string['setlayout_no_toggle_section_x_section_no'] = 'No toggle section x and section number';
+$string['setlayout_no_toggle_word'] = 'No toggle word';
+$string['setlayout_no_toggle_word_toggle_section_x'] = 'No toggle word and toggle section x';
+$string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'No toggle word, toggle section x and section number';
+$string['setlayoutelements'] = 'Set elements';
+$string['setlayoutstructure'] = 'Set structure';
+$string['setlayoutstructuretopic']='тема';
+$string['setlayoutstructureweek']='неделя';
+$string['setlayoutstructurelatweekfirst']='Latest Week First';
+$string['setlayoutstructurecurrenttopicfirst']='Current Topic First';
+// Help
+$string['setlayoutelements_help']='How much information about the toggles / sections you wish to be displayed.';
+$string['setlayoutstructure_help']="The layout structure of the course.  You can choose between:
+
+'Topics' - where each section is presented as a topic in section number order.
+
+'Weeks' - where each section is presented as a week in ascending week order.
+
+'Latest Week First' - which is the same as weeks but the current week is shown at the top and preceding weeks in decending order are displayed below execpt in editing mode where the structure is the same as 'Weeks'.
+
+'Current Topic First' - which is the same as 'Topics' except that the current topic is shown at the top if it has been set.";
 ?>

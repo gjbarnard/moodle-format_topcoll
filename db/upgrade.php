@@ -35,16 +35,16 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
     $dbman = $DB->get_manager();
     $result = true;
 
-    if ($result && $oldversion < 2012030100) {
+    if ($result && $oldversion < 2012031700) {
 
         // Define table format_topcoll_layout.
-        $table = new XMLDBTable('format_topcoll_layout');
+        $table = new xmldb_table('format_topcoll_layout');
 
         // Adding fields.
-        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null);
-        $table->add_field('courseid', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, '0', null);
-        $table->add_field('layoutelement', XMLDB_TYPE_INTEGER, '2', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, '1', null);
-        $table->add_field('layoutstructure', XMLDB_TYPE_INTEGER, '1', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, '1', null);
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null);
+        $table->add_field('courseid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
+        $table->add_field('layoutelement', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, '1', null);
+        $table->add_field('layoutstructure', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '1', null);
 
         // Adding key.
         $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
@@ -52,7 +52,7 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         // Create table.
         $result = $result && $dbman->create_table($table);
 
-        upgrade_plugin_savepoint(true, '2012030100', 'format', 'topcoll');
+        upgrade_plugin_savepoint(true, '2012031700', 'format', 'topcoll');
     }
 
     return $result;

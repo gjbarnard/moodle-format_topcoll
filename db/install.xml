@@ -6,10 +6,10 @@
   <TABLES>
     <TABLE NAME="format_topcoll_layout" COMMENT="States the layout used with the given course.">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false" NEXT="courseid"/>
-        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" NEXT="layoutelement" PREVIOUS="id"/>
-        <FIELD NAME="layoutelement" TYPE="int" LENGTH="2" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" DEFAULT="1" ENUM="false" NEXT="layoutstructure" PREVIOUS="courseid"/>
-        <FIELD NAME="layoutstructure" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" DEFAULT="1" ENUM="false" PREVIOUS="layoutelement"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" ENUM="false" NEXT="courseid"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" ENUM="false" NEXT="layoutelement" PREVIOUS="id"/>
+        <FIELD NAME="layoutelement" TYPE="int" LENGTH="2" NOTNULL="true" SEQUENCE="false" DEFAULT="1" ENUM="false" NEXT="layoutstructure" PREVIOUS="courseid"/>
+        <FIELD NAME="layoutstructure" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" DEFAULT="1" ENUM="false" PREVIOUS="layoutelement"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
