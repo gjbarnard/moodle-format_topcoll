@@ -9,7 +9,7 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' below.
+ * @version    See the value of '$plugin->version' in below.
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
@@ -28,9 +28,41 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
- $plugin->version = 2012031700;
- //$plugin->maturity = MATURITY_STABLE; // Not in Moodle 1.9 but here as information to you.
- $plugin->requires = 2007101591.06; // 1.9.14
- $plugin->component = 'format_topcoll';
- $plugin->release = '1.9.9';
+
+/**
+ * Format's backup routine
+ *
+ * @param handler $bf Backup file handler
+ * @param object $preferences Backup preferences
+ * @return boolean Success
+ **/
+function topcoll_backup_format_data($bf, $preferences) {
+    $status = true;
+
+    if ($layout = get_record('format_topcoll_layout', 'courseid',
+        $preferences->backup_course)) {
+
+        $status = $status and fwrite ($bf, start_tag('LAYOUT', 3, true));
+        $status = $status and fwrite ($bf, full_tag('LAYOUTELEMENT', 4, false, $layout->layoutelement));
+        $status = $status and fwrite ($bf, full_tag('LAYOUTSTRUCTURE', 4, false, $layout->layoutstructure));
+        $status = $status and fwrite ($bf, end_tag('LAYOUT',3, true));
+    }
+    return $status;
+}
+
+/**
+ * Return a content encoded to support interactivities linking. This function is
+ * called automatically from the backup procedure by {@link backup_encode_absolute_links()}.
+ *
+ * @param string $content Content to be encoded
+ * @param object $restore Restore preferences object
+ * @return string The encoded content
+ **/
+function topcoll_encode_format_content_links($content, $restore) {
+    global $CFG;
+
+    $base = preg_quote($CFG->wwwroot, '/');
+
+    //TODO: Convert lins to universal id;
+    return $content;
+}

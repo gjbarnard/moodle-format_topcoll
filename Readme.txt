@@ -34,6 +34,12 @@ Uninstallation
 4. In the database, remove the table 'format_topcoll_layout' and the entry for 'format_topcoll' ('plugin' attribute) in the table 'config_plugins'.  If using the default prefix this will be 'mdl_format_topcoll_layout' and 'mdl_config_plugins' respectively.
 5. Put Moodle out of Maintenance Mode.
 
+Course Backup and Restore Instructions
+--------------------------------------
+1. Backup as you would any other course.  The layout configuration will be stored with the course settings.
+2. Restore as you would any other course.  There is no option of 'Overwrite Course Configuration' so the restored course will have the default in the 'config.php' file as mentioned in the 'Installation' instructions above when restoring to an existing course.
+3. Note: I believe that if you restore a Collapsed Topic's course on an installation that does not have the format then it will work and become the default course format.  However the layout data will not be stored if you install Collapsed Topic's at a later date.
+
 Remembered Toggle State Instructions
 ------------------------------------
 To have the state of the toggles be remembered beyond the session for a user (stored as a cookie in the user's 
@@ -238,6 +244,13 @@ Version Information
   3. Fixed issue in lib.js and hence lib_min.js because the arrow images had moved.
   4. Optimised format.php to avoid logical duplicate code.
 
+17th March 2012 - Version 1.9.9
+  1. Integrated CONTRIB-3520 such that the structure is saved in the course backup file and restored except when restoring to an existing course as Moodle 1.9 does not have the 'Overwrite course configuration' on course merge as Moodle 2+ does.
+  2. Remove the entry for the course in the table 'format_topcoll_layout' when the course is deleted by adding 'topcoll_course_format_delete_course' to 'lib.php'.
+  3. Added language strings to the language files that were missing previous changes.  Still in English at the moment in the hope a native speaker will translate them for me as Google Translate is not so good with long sentences.  Translated the words 'Topic' and 'Week' in all language files so that the toggle bar is correct in all structures.
+  4. Added the 'help' folder for each language in English to every language that does not have them.  Translation appreciated.
+  5. Added backup and restore instructions to this file.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -272,4 +285,4 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 3rd March 2012. 
+G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 17th March 2012. 
