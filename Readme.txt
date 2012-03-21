@@ -355,6 +355,9 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1. Tried with restorelib.php in the root folder for importing Moodle 1.9 courses and did not work.  So for tidiness, moved the Moodle 1.9 backup and restore code to backup/moodle1 folder.
   2. So please note that restoring Moodle 1.9 courses in this course format will not retain the structure settings and will default to the values in 'config.php'.  I hope to investigate and either fix or have this fixed.
 
+21st March 2012 - Version 2.2.4.2
+  1. Received an updated version of 'format_topcoll.php' from Luiggi Sansonetti for the French translation - Merci :).
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -385,6 +388,8 @@ Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362) for his a
 Andrew Nicols (http://moodle.org/user/view.php?id=268794) for his assistance on CONTRIB-3378.
 
 Hartmut Scherer (http://moodle.org/user/view.php?id=441502) for suggesting the 'Current Topic First' structure and testing the Moodle 2.2 code on discussion 'Collapsed Topics with Custom Layouts' (http://moodle.org/mod/forum/discuss.php?d=195292).
+
+Luiggi Sansonetti (http://moodle.org/user/profile.php?id=1297063) for the French translation.
 
 References
 ----------
