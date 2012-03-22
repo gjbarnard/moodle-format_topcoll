@@ -74,7 +74,7 @@ $string['setlayoutstructureweek']='Semaine';
 $string['setlayoutstructurelatweekfirst']='Dernière semaine en premier';
 $string['setlayoutstructurecurrenttopicfirst']='Section actuelle en premier';
 // Help
-$string['setlayoutelements_help']='Combien d\'informations sur les réductions et les sections que vous souhaitez afficher ?';
+$string['setlayoutelements_help']='Combien d\'informations sur les éléments et les sections souhaitez-vous afficher ?';
 $string['setlayoutstructure_help']="Structure et disposition de la page.  Vous pouvez choisir entre :
 
 'Format thématique' - ce format est organisé en sections thématiques numérotées.
