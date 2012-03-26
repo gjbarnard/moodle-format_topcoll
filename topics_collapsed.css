@@ -69,23 +69,9 @@ tr.cps td a {
   width: auto;
 }
 
-/* -- For setting unique theme based toggle colours, move the following 'tr.cps', 'tr.cps td a' and
-      'tr.cps td a:hover' definitions from here and into all your themes, then customise.  -- */
-/* -- Toggle row -- */
-tr.cps {
-  background-color: #e2e2f2;
-  color: #000000; /* 'Topic x' text colour */
-}
-
 /* -- Toggle text -- */
 tr.cps td a {
   text-decoration: none;
-  color: #000000;
-}
-
-/* -- What happens when a toggle is hovered over -- */
-tr.cps td a:hover {
-  background-color: #eeeeff;
 }
 
 /* -- For Internet Explorer inability to deal with column calculations when a colspan is used -- */     

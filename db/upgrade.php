@@ -55,5 +55,60 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         upgrade_plugin_savepoint(true, '2012030100', 'format', 'topcoll');
     }
 
+    if ($result && $oldversion < 2012032500.07) {
+        // Changing sign of field id on table format_topcoll_layout to signed
+        $table = new xmldb_table('format_topcoll_layout');
+        $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null);
+
+        // Launch change of sign for field id
+        $dbman->change_field_unsigned($table, $field);
+
+        // Changing sign of field courseid on table format_topcoll_layout to signed
+        $field = new xmldb_field('courseid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null, 'id');
+
+        // Launch change of sign for field courseid
+        $dbman->change_field_unsigned($table, $field);
+
+        // Changing sign of field layoutelement on table format_topcoll_layout to signed
+        $field = new xmldb_field('layoutelement', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, '1', 'courseid');
+
+        // Launch change of sign for field layoutelement
+        $dbman->change_field_unsigned($table, $field);
+
+        // Changing sign of field layoutstructure on table format_topcoll_layout to signed
+        $field = new xmldb_field('layoutstructure', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '1', 'layoutelement');
+
+        // Launch change of sign for field layoutstructure
+        $dbman->change_field_unsigned($table, $field);
+
+        // Define field tgfgcolour to be added to format_topcoll_layout
+        $field = new xmldb_field('tgfgcolour', XMLDB_TYPE_CHAR, '6', null, XMLDB_NOTNULL, null, '000000', 'layoutstructure');
+
+        // Conditionally launch add field tgfgcolour
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define field tgbgcolour to be added to format_topcoll_layout
+        $field = new xmldb_field('tgbgcolour', XMLDB_TYPE_CHAR, '6', null, XMLDB_NOTNULL, null, 'e2e2f2', 'tgfgcolour');
+
+        // Conditionally launch add field tgbgcolour
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define field tgbghvrcolour to be added to format_topcoll_layout
+        $field = new xmldb_field('tgbghvrcolour', XMLDB_TYPE_CHAR, '6', null, XMLDB_NOTNULL, null, 'eeeeff', 'tgbgcolour');
+
+        // Conditionally launch add field tgbghvrcolour
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        upgrade_plugin_savepoint(true, '2012032500.07', 'format', 'topcoll');
+
+        $result = $result && true;
+    }
+
     return $result;
 }

@@ -35,7 +35,7 @@ require_once($CFG->libdir . '/completionlib.php');
 $userisediting = $PAGE->user_is_editing();
 
 // Now get the css and JavaScript Lib.  The call to topcoll_init sets things up for JavaScript to work by understanding the particulars of this course.
-?>    
+?>
 <style type="text/css" media="screen">
     /* <![CDATA[ */
     @import url(<?php echo $CFG->wwwroot ?>/course/format/topcoll/topics_collapsed.css);
@@ -52,7 +52,7 @@ $PAGE->requires->js_init_call('M.format_topcoll.init',
                                null)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration - see Readme.txt.
 if (ajaxenabled() && $userisediting) {
     // This overrides the 'swap_with_section' function in /lib/ajax/section_classes.js
-    $PAGE->requires->js('/course/format/topcoll/tc_section_classes_min.js');
+    $PAGE->requires->js('/course/format/topcoll/js/tc_section_classes_min.js');
 }
 
 $topic = optional_param('ctopics', -1, PARAM_INT);
@@ -117,11 +117,32 @@ if (ismoving($course->id)) {
 
 // CONTRIB-3378
 $layoutsetting = get_layout($course->id);
+?>    
+<style type="text/css" media="screen">
+    /* <![CDATA[ */
+/* -- Toggle row -- */
+tr.cps {
+  background-color: #<?php echo $layoutsetting->tgbgcolour;?>;
+  color: #<?php echo $layoutsetting->tgfgcolour;?>; /* 'Topic x' text colour */
+}
+
+/* -- Toggle text -- */
+tr.cps td a {
+  color: #<?php echo $layoutsetting->tgfgcolour;?>;
+}
+
+/* -- What happens when a toggle is hovered over -- */
+tr.cps td a:hover {
+  background-color: #<?php echo $layoutsetting->tgbghvrcolour;?>;
+}
+    /* ]]> */
+</style>
+<?php
 if ($userisediting && has_capability('moodle/course:update', $coursecontext)) {
     echo '<tr class="section main">';
     echo '<td class="left side">&nbsp;</td>';
     echo '<td class="content">';
-    echo '<a title="' . get_string('setlayout', 'format_topcoll') . '" href="format/topcoll/set_layout.php?id=' . $course->id . '&setelement=' . $layoutsetting->layoutelement . '&setstructure=' . $layoutsetting->layoutstructure . '&sesskey=' . sesskey() . '"><div id="set-layout"></div></a>';
+    echo '<a title="' . get_string('setlayout', 'format_topcoll') . '" href="format/topcoll/set_layout.php?id=' . $course->id . '&sesskey=' . sesskey() . '"><div id="set-layout"></div></a>';
     echo '</td>';
     echo '<td class="right side">&nbsp;</td>';
     echo '</tr>';

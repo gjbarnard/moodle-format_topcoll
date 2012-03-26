@@ -116,10 +116,14 @@ function get_layout($courseid) {
 
     if (!$layout = $DB->get_record('format_topcoll_layout', array('courseid' => $courseid))) {
 
+        // Default values...
         $layout = new stdClass();
         $layout->courseid = $courseid;
-        $layout->layoutelement = $defaultlayoutelement; // Default value.
-        $layout->layoutstructure = $defaultlayoutstructure; // Default value.
+        $layout->layoutelement = $defaultlayoutelement; 
+        $layout->layoutstructure = $defaultlayoutstructure;
+        $layout->tgfgcolour = $defaulttgfgcolour;
+        $layout->tgbgcolour = $defaulttgbgcolour;
+        $layout->tgbghvrcolour = $defaulttgbghvrcolour;
 
         if (!$layout->id = $DB->insert_record('format_topcoll_layout', $layout)) {
             error('Could not set layout setting. Collapsed Topics format database is not ready.  An admin must visit notifications.');
@@ -136,17 +140,23 @@ function get_layout($courseid) {
  * @param int $layoutelement The layout element value to set.
  * @param int $layoutstructure The layout structure value to set.
  */
-function put_layout($courseid, $layoutelement, $layoutstructure) {
+function put_layout($courseid, $layoutelement, $layoutstructure, $tgfgcolour, $tgbgcolour, $tgbghvrcolour) {
     global $DB;
     if ($layout = $DB->get_record('format_topcoll_layout', array('courseid' => $courseid))) {
         $layout->layoutelement = $layoutelement;
         $layout->layoutstructure = $layoutstructure;
+        $layout->tgfgcolour = $tgfgcolour;
+        $layout->tgbgcolour = $tgbgcolour;
+        $layout->tgbghvrcolour = $tgbghvrcolour;
         $DB->update_record('format_topcoll_layout', $layout);
     } else {
         $layout = new stdClass();
         $layout->courseid = $courseid;
         $layout->layoutelement = $layoutelement;
         $layout->layoutstructure = $layoutstructure;
+        $layout->tgfgcolour = $tgfgcolour;
+        $layout->tgbgcolour = $tgbgcolour;
+        $layout->tgbghvrcolour = $tgbghvrcolour;
         $DB->insert_record('format_topcoll_layout', $layout);
     }
 }

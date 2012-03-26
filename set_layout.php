@@ -36,12 +36,12 @@ require_once('./set_layout_form.php');
 defined('MOODLE_INTERNAL') || die();
 
 $courseid = required_param('id', PARAM_INT); // course id
-$setelement = required_param('setelement', PARAM_INT);
-$setstructure = required_param('setstructure', PARAM_INT);
 
 if (!($course = $DB->get_record('course', array('id' => $courseid)))) {
     print_error('invalidcourseid', 'error');
 } // From /course/view.php
+
+$layoutsetting = get_layout($course->id);
 
 preload_course_contexts($courseid); // From /course/view.php
 if (!$coursecontext = get_context_instance(CONTEXT_COURSE, $course->id)) {
@@ -63,12 +63,18 @@ require_capability('moodle/course:update', $coursecontext);
 $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
 
 if ($PAGE->user_is_editing()) {
-    $mform = new set_layout_form(null, array('courseid' => $courseid, 'setelement' => $setelement, 'setstructure' => $setstructure));
+    $mform = new set_layout_form(null, array('courseid' => $courseid, 'setelement' => $layoutsetting->layoutelement, 'setstructure' => $layoutsetting->layoutstructure,'tgfgcolour' => $layoutsetting->tgfgcolour,'tgbgcolour' => $layoutsetting->tgbgcolour, 'tgbghvrcolour' => $layoutsetting->tgbghvrcolour ));
 
     if ($mform->is_cancelled()) {
         redirect($courseurl);
     } else if ($formdata = $mform->get_data()) {
-        put_layout($formdata->id, $formdata->set_element, $formdata->set_structure);
+        //print_r($formdata);
+        put_layout($formdata->id,
+                   $formdata->setelementnew,
+                   $formdata->setstructurenew,
+                   substr($formdata->tgfg,1),
+                   substr($formdata->tgbg,1),
+                   substr($formdata->tgbghvr,1));
         redirect($courseurl);
     }
 

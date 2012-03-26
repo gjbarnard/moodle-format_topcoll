@@ -62,4 +62,14 @@ $defaultlayoutelement = 1;
 // Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
 $defaultlayoutstructure = 1;
 
+// Toggle colours per course - CONTRIB-3529.
+// Default toggle foreground colour in hexidecimal RGB without preceeding '#'.
+$defaulttgfgcolour = '000000';
+
+// Default toggle background colour in hexidecimal RGB without preceeding '#'.
+$defaulttgbgcolour = 'e2e2f2';
+
+// Default toggle background hover colour in hexidecimal RGB without preceeding '#'.
+$defaulttgbghvrcolour = 'eeeeff';
+
 ?>

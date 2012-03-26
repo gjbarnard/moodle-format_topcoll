@@ -45,7 +45,7 @@ class backup_format_topcoll_plugin extends backup_format_plugin {
         $plugin = $this->get_plugin_element(null, '/course/format', 'topcoll');
 
         // Create one standard named plugin element (the visible container)
-        $pluginwrapper = new backup_nested_element($this->get_recommended_name(), null, array('layoutelement','layoutstructure'));
+        $pluginwrapper = new backup_nested_element($this->get_recommended_name(), null, array('layoutelement','layoutstructure','tgfgcolour','tgbgcolour','tgbghvrcolour'));
 
         // connect the visible container ASAP
         $plugin->add_child($pluginwrapper);
