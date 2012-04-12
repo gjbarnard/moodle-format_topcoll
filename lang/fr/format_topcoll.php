@@ -14,7 +14,7 @@
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
- * @comment    Thank you to Luiggi Sansonetti (http://moodle.org/user/profile.php?id=1297063) for the translation.
+ * @comment    A big thank you to Luiggi Sansonetti (http://moodle.org/user/profile.php?id=1297063) for the translation.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ $string['formattopcoll']='Sections réduites';
 // Used in format.php
 // Employée au format.php
 $string['topcolltoggle']='Basculer';
-$string['topcolltogglewidth']='width: 34px;';
+$string['topcolltogglewidth']='width: 32px;';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='toutes les sections.';
