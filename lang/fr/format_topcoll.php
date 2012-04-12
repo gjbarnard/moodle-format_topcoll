@@ -14,7 +14,7 @@
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
- * @comment    A big thank you to Luiggi Sansonetti (http://moodle.org/user/profile.php?id=1297063) for the translation.
+ * @comment    Thank you to Luiggi Sansonetti (http://moodle.org/user/profile.php?id=1297063) for the translation.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ $string['formattopcoll']='Sections réduites';
 // Used in format.php
 // Employée au format.php
 $string['topcolltoggle']='Basculer';
-$string['topcolltogglewidth']='width: 32px;';
+$string['topcolltogglewidth']='width: 34px;';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='toutes les sections.';
@@ -54,35 +54,34 @@ $string['sectionname'] = 'Section';
 $string['pluginname'] = 'Sections réduites';
 $string['section0name'] = 'Général';
 
-// Everything below is pending translation...
 // MDL-26105
-$string['page-course-view-topcoll'] = 'Any course main page in collapsed topics format';
-$string['page-course-view-topcoll-x'] = 'Any course page in collapsed topics format';
+$string['page-course-view-topcoll'] = 'Toutes les pages du cours principal au format sections réduites';
+$string['page-course-view-topcoll-x'] = 'Toutes les pages du cours au format sections réduites';
 
 // Layout enhancement - Moodle Tracker CONTRIB-3378
-$string['setlayout'] = 'Set layout';
-$string['setlayout_default'] = 'Default';
-$string['setlayout_no_toggle_section_x'] = 'No toggle section x';
-$string['setlayout_no_section_no'] = 'No section number';
-$string['setlayout_no_toggle_section_x_section_no'] = 'No toggle section x and section number';
-$string['setlayout_no_toggle_word'] = 'No toggle word';
-$string['setlayout_no_toggle_word_toggle_section_x'] = 'No toggle word and toggle section x';
-$string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'No toggle word, toggle section x and section number';
-$string['setlayoutelements'] = 'Set elements';
-$string['setlayoutstructure'] = 'Set structure';
-$string['setlayoutstructuretopic']='Sujet';
+$string['setlayout'] = 'Disposition';
+$string['setlayout_default'] = 'Par défaut';
+$string['setlayout_no_toggle_section_x'] = 'Pas de section x à basculer';
+$string['setlayout_no_section_no'] = 'Pas de numéro de section';
+$string['setlayout_no_toggle_section_x_section_no'] = 'Pas de section x à basculer ni de numéro de section';
+$string['setlayout_no_toggle_word'] = 'Pas de mot à basculer';
+$string['setlayout_no_toggle_word_toggle_section_x'] = 'Pas de mot ni de section x à basculer';
+$string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'Pas de mot, pas de section x ni de numéro de section à basculer';
+$string['setlayoutelements'] = 'Eléments';
+$string['setlayoutstructure'] = 'Structure';
+$string['setlayoutstructuretopic']='Section';
 $string['setlayoutstructureweek']='Semaine';
-$string['setlayoutstructurelatweekfirst']='Latest Week First';
-$string['setlayoutstructurecurrenttopicfirst']='Current Topic First';
+$string['setlayoutstructurelatweekfirst']='Dernière semaine en premier';
+$string['setlayoutstructurecurrenttopicfirst']='Section actuelle en premier';
 // Help
-$string['setlayoutelements_help']='How much information about the toggles / sections you wish to be displayed.';
-$string['setlayoutstructure_help']="The layout structure of the course.  You can choose between:
+$string['setlayoutelements_help']='Combien d\'informations sur les éléments et les sections souhaitez-vous afficher ?';
+$string['setlayoutstructure_help']="Structure et disposition de la page.  Vous pouvez choisir entre :
 
-'Topics' - where each section is presented as a topic in section number order.
+'Format thématique' - ce format est organisé en sections thématiques numérotées.
 
-'Weeks' - where each section is presented as a week in ascending week order.
+'Format hebdomadaire' - le cours est organisé par semaine avec des dates de début et de fin.
 
-'Latest Week First' - which is the same as weeks but the current week is shown at the top and preceding weeks in decending order are displayed below execpt in editing mode where the structure is the same as 'Weeks'.
+'Dernière semaine en premier' - basé sur le 'format hebdomadaire', la semaine en cours est affichée en haut et les semaines précédentes dans un ordre descendant, sauf en mode édition où la structure revient au format initial hebdomadaire.
 
-'Current Topic First' - which is the same as 'Topics' except that the current topic is shown at the top if it has been set.";
+'Section actuelle en premier' - basé sur le 'format thématique', la secion actuelle est affichée en haut si elle a été fixée.";
 ?>
