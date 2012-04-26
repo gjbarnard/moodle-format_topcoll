@@ -29,31 +29,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// German Translation of Collapsed Topics Course Format
-// Deutsch Übersetzung Collapsed Themen Course Format
+// English American Translation of Collapsed Topics Course Format
 
 // Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
-// Wird von der Moodle-Core für das Format der Identifikation und Anzeigen in der Liste der Formate für einen Kurs in den Einstellungen.
-$string['nametopcoll']='Komprimiert Themen';
-$string['formattopcoll']='Komprimiert Themen';
+// Possibly legacy to be removed after Moodle 2.0 is stable.
+$string['nametopcoll']='Collapsed Topics';
+$string['formattopcoll']='Collapsed Topics';
 
 // Used in format.php
-// Verwendet in format.php
-$string['topcolltoggle']='Sehen';
-$string['topcolltogglewidth']='width: 30px;';
+$string['topcolltoggle']='Toggle';
+$string['topcolltogglewidth']='width: 28px;';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
-$string['topcollall']='alle wechselt.';
-$string['topcollopened']='Geöffnet';
-$string['topcollclosed']='Schließen sie';
+$string['topcollall']='all toggles.';
+$string['topcollopened']='Open';
+$string['topcollclosed']='Close';
 
 // Moodle 2.0 Enhancement - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages
-// Moodle 2.0 Erweiterung - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages
-$string['sectionname'] = 'Thema';
-$string['pluginname'] = 'Komprimiert Themen';
-$string['section0name'] = 'Allgemeine';
+$string['sectionname'] = 'Section';
+$string['pluginname'] = 'Collapsed Topics';
+$string['section0name'] = 'General';
 
-// Everything below is pending translation...
 // MDL-26105
 $string['page-course-view-topcoll'] = 'Any course main page in collapsed topics format';
 $string['page-course-view-topcoll-x'] = 'Any course page in collapsed topics format';
@@ -77,12 +73,12 @@ $string['setlayoutstructurecurrenttopicfirst']='Current Topic First';
 $string['resetlayout'] = 'Reset layout'; //CONTRIB-3529
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529
-$string['setcolour'] = 'Set colour';
-$string['colourrule'] = "Please enter a valid RGB colour, a '#' and then six hexadecimal digits.";
+$string['setcolour'] = 'Set color';
+$string['colourrule'] = "Please enter a valid RGB color, a '#' and then six hexadecimal digits.";
 $string['settoggleforegroundcolour'] = 'Toggle foreground';
 $string['settogglebackgroundcolour'] = 'Toggle background';
 $string['settogglebackgroundhovercolour'] = 'Toggle background hover';
-$string['resetcolour'] = 'Reset colour';
+$string['resetcolour'] = 'Reset color';
 
 // Help
 $string['setlayoutelements_help']='How much information about the toggles / sections you wish to be displayed.';
@@ -97,9 +93,9 @@ $string['setlayoutstructure_help']="The layout structure of the course.  You can
 'Current Topic First' - which is the same as 'Topics' except that the current topic is shown at the top if it has been set.";
 $string['setlayout_help'] = 'Contains the settings to do with the layout of the format within the course.';
 $string['resetlayout_help'] = 'Resets the layout to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format';
-$string['setcolour_help'] = 'Contains the settings to do with the colour of the format within the course.';
-$string['settoggleforegroundcolour_help'] = 'Sets the colour of the text on the toggle.';
+$string['setcolour_help'] = 'Contains the settings to do with the color of the format within the course.';
+$string['settoggleforegroundcolour_help'] = 'Sets the color of the text on the toggle.';
 $string['settogglebackgroundcolour_help'] = 'Sets the background of the toggle.';
 $string['settogglebackgroundhovercolour_help'] = 'Sets the background of the toggle when the mouse moves over it.';
-$string['resetcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format';
+$string['resetcolour_help'] = 'Resets the colors to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format';
 ?>

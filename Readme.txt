@@ -96,8 +96,9 @@ Known Issues
     the up and down arrows, edit lib.php and remove "'MSIE' => 6.0," from:
     "$ajaxsupport->testedbrowsers = array('MSIE' => 6.0, 'Gecko' => 20061111, 'Opera' => 9.0, 'Safari' => 531, 'Chrome' => 6.0);"
     And if possible, please let me know, my Moodle.org profile is 'http://moodle.org/user/profile.php?id=442195'.
-3.  Changing the language on the 'Set Layout' form produces an invalid Moodle URL.  Go back to the course screen and change the language
+3.  Changing the language on the 'Settings' form produces an invalid Moodle URL.  Go back to the course screen and change the language
     there before proceeding.
+4.  Hovering over the light bulb when in a week based structure and using AJAX that it describes 'topics' and not 'weeks'.  See comment ten for Version 2.2.5.
 
 Version Information
 -------------------
@@ -358,6 +359,18 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 21st March 2012 - Version 2.2.4.2
   1. Received an updated version of 'format_topcoll.php' from Luiggi Sansonetti for the French translation - Merci :).
 
+26th April 2012 - Version 2.2.5 - CONTRIB-3529 - As suggested by Leonie Vos (http://moodle.org/user/profile.php?id=1435066).
+   1. Added the ability to set the colour attributes of the toggle.
+   2. Added the ability to reset the layout and colour attributes back to the defaults as defined in the 'config.php' file.
+   3. Thank you to 'Nadav Kavalerchik' for pointing out on MDL-23320 how this can be done by modifying the colour picker code implemented by 'Iain Checkland' in his Quick Structure block 'https://github.com/drcheckers/moodle-block_quickstructure/tree/master/blocks/quickstructure', and to 'Matthew Cannings' on MDL-23320 for the colour validation rule.
+   4. Moved Javascript code into its own folder 'js' for neatness.
+   5. Renamed 'format_topcoll_layout' table to 'format_topcoll_settings' so that it is a better representation of what it stores.  Restores from previous versions should work.  Raised MDL-32650 as cannot rename the comment for the renamed table in upgrading installations.
+   6. Added an American English translation (en_us) because of the incorporation of the word 'colour'.  More information on 'http://en.wikipedia.org/wiki/American_and_British_English_spelling_differences'.  I may have not got everything correct!
+   7. Added an English Pirate translation (en_ar) upon discovery of the 'Pirate' treasure language pack mee hearties :).
+   8. Additional language strings have been placed in the language files, where I have been unable to translate them they are in English, if you are able to translate them into your own language I would appreciate the translation, please contact me via Moodle - http://moodle.org/user/profile.php?id=442195.
+   9. Minor tweaks to format.php for showing the correct wording over icons when in a 'weeks' structure.
+  10. Discovered a minor issue with hovering over the light bulb when in a week based structure and using AJAX that it describes 'topics' and not 'weeks', raised a point on MDL-31052 for this.  Not sure how to fix yet as it is in the initialisation code of 'section_classes.js' and overloading does not seem to work.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -411,4 +424,5 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 16th March 2012.
+G J Barnard MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 26th April 2012.
+Moodle profile: moodle.org/user/profile.php?id=442195.

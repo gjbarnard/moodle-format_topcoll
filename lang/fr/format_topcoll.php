@@ -14,7 +14,7 @@
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
- * @comment    Thank you to Luiggi Sansonetti (http://moodle.org/user/profile.php?id=1297063) for the translation.
+ * @comment    A big thank you to Luiggi Sansonetti (http://moodle.org/user/profile.php?id=1297063) for the translation.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ $string['formattopcoll']='Sections réduites';
 // Used in format.php
 // Employée au format.php
 $string['topcolltoggle']='Basculer';
-$string['topcolltogglewidth']='width: 34px;';
+$string['topcolltogglewidth']='width: 32px;';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='toutes les sections.';
@@ -59,6 +59,7 @@ $string['page-course-view-topcoll'] = 'Toutes les pages du cours principal au fo
 $string['page-course-view-topcoll-x'] = 'Toutes les pages du cours au format sections réduites';
 
 // Layout enhancement - Moodle Tracker CONTRIB-3378
+$string['formatsettings'] = 'Parametres du format de'; // CONTRIB-3529
 $string['setlayout'] = 'Disposition';
 $string['setlayout_default'] = 'Par défaut';
 $string['setlayout_no_toggle_section_x'] = 'Pas de section x à basculer';
@@ -73,6 +74,16 @@ $string['setlayoutstructuretopic']='Section';
 $string['setlayoutstructureweek']='Semaine';
 $string['setlayoutstructurelatweekfirst']='Dernière semaine en premier';
 $string['setlayoutstructurecurrenttopicfirst']='Section actuelle en premier';
+$string['resetlayout'] = 'Réinitialiser de disposition'; //CONTRIB-3529
+
+// Colour enhancement - Moodle Tracker CONTRIB-3529
+$string['setcolour'] = 'Définir la couleur';
+$string['colourrule'] = "Please enter a valid RGB colour, a '#' and then six hexadecimal digits.";
+$string['settoggleforegroundcolour'] = 'Basculer premier plan';
+$string['settogglebackgroundcolour'] = 'Basculer de fond';
+$string['settogglebackgroundhovercolour'] = 'Basculer de fond le flotter';
+$string['resetcolour'] = 'Réinitialiser la couleur';
+
 // Help
 $string['setlayoutelements_help']='Combien d\'informations sur les éléments et les sections souhaitez-vous afficher ?';
 $string['setlayoutstructure_help']="Structure et disposition de la page.  Vous pouvez choisir entre :
@@ -84,4 +95,11 @@ $string['setlayoutstructure_help']="Structure et disposition de la page.  Vous p
 'Dernière semaine en premier' - basé sur le 'format hebdomadaire', la semaine en cours est affichée en haut et les semaines précédentes dans un ordre descendant, sauf en mode édition où la structure revient au format initial hebdomadaire.
 
 'Section actuelle en premier' - basé sur le 'format thématique', la secion actuelle est affichée en haut si elle a été fixée.";
+$string['setlayout_help'] = 'Contains the settings to do with the layout of the format within the course.';
+$string['resetlayout_help'] = 'Resets the layout to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format';
+$string['setcolour_help'] = 'Contains the settings to do with the colour of the format within the course.';
+$string['settoggleforegroundcolour_help'] = 'Sets the colour of the text on the toggle.';
+$string['settogglebackgroundcolour_help'] = 'Sets the background of the toggle.';
+$string['settogglebackgroundhovercolour_help'] = 'Sets the background of the toggle when the mouse moves over it.';
+$string['resetcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format';
 ?>

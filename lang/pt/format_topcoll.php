@@ -59,6 +59,7 @@ $string['page-course-view-topcoll'] = 'Any course main page in collapsed topics 
 $string['page-course-view-topcoll-x'] = 'Any course page in collapsed topics format';
 
 // Layout enhancement - Moodle Tracker CONTRIB-3378
+$string['formatsettings'] = 'Format settings'; // CONTRIB-3529
 $string['setlayout'] = 'Set layout';
 $string['setlayout_default'] = 'Default';
 $string['setlayout_no_toggle_section_x'] = 'No toggle section x';
@@ -69,10 +70,20 @@ $string['setlayout_no_toggle_word_toggle_section_x'] = 'No toggle word and toggl
 $string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'No toggle word, toggle section x and section number';
 $string['setlayoutelements'] = 'Set elements';
 $string['setlayoutstructure'] = 'Set structure';
-$string['setlayoutstructuretopic']='Tópico';
-$string['setlayoutstructureweek']='Semana';
+$string['setlayoutstructuretopic']='Topic';
+$string['setlayoutstructureweek']='Week';
 $string['setlayoutstructurelatweekfirst']='Latest Week First';
 $string['setlayoutstructurecurrenttopicfirst']='Current Topic First';
+$string['resetlayout'] = 'Reset layout'; //CONTRIB-3529
+
+// Colour enhancement - Moodle Tracker CONTRIB-3529
+$string['setcolour'] = 'Set colour';
+$string['colourrule'] = "Please enter a valid RGB colour, a '#' and then six hexadecimal digits.";
+$string['settoggleforegroundcolour'] = 'Toggle foreground';
+$string['settogglebackgroundcolour'] = 'Toggle background';
+$string['settogglebackgroundhovercolour'] = 'Toggle background hover';
+$string['resetcolour'] = 'Reset colour';
+
 // Help
 $string['setlayoutelements_help']='How much information about the toggles / sections you wish to be displayed.';
 $string['setlayoutstructure_help']="The layout structure of the course.  You can choose between:
@@ -84,4 +95,11 @@ $string['setlayoutstructure_help']="The layout structure of the course.  You can
 'Latest Week First' - which is the same as weeks but the current week is shown at the top and preceding weeks in decending order are displayed below execpt in editing mode where the structure is the same as 'Weeks'.
 
 'Current Topic First' - which is the same as 'Topics' except that the current topic is shown at the top if it has been set.";
+$string['setlayout_help'] = 'Contains the settings to do with the layout of the format within the course.';
+$string['resetlayout_help'] = 'Resets the layout to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format';
+$string['setcolour_help'] = 'Contains the settings to do with the colour of the format within the course.';
+$string['settoggleforegroundcolour_help'] = 'Sets the colour of the text on the toggle.';
+$string['settogglebackgroundcolour_help'] = 'Sets the background of the toggle.';
+$string['settogglebackgroundhovercolour_help'] = 'Sets the background of the toggle when the mouse moves over it.';
+$string['resetcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format';
 ?>

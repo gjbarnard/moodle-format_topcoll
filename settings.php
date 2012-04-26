@@ -31,7 +31,8 @@
  */
 require_once('../../../config.php');
 require_once('./lib.php');
-require_once('./set_layout_form.php');
+require_once('./settings_form.php');
+require_once('./config.php');
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -41,7 +42,7 @@ if (!($course = $DB->get_record('course', array('id' => $courseid)))) {
     print_error('invalidcourseid', 'error');
 } // From /course/view.php
 
-$layoutsetting = get_layout($course->id);
+$layoutsetting = get_topcoll_setting($course->id);
 
 preload_course_contexts($courseid); // From /course/view.php
 if (!$coursecontext = get_context_instance(CONTEXT_COURSE, $course->id)) {
@@ -50,12 +51,12 @@ if (!$coursecontext = get_context_instance(CONTEXT_COURSE, $course->id)) {
 require_login($course); // From /course/view.php - Facilitates the correct population of the setttings block.
 
 $PAGE->set_context($coursecontext);
-$PAGE->set_url('/course/format/topcoll/set_layout.php&id=', array('id' => $courseid)); // From /course/view.php
+$PAGE->set_url('/course/format/topcoll/settings.php&id=', array('id' => $courseid)); // From /course/view.php
 $PAGE->set_pagelayout('course'); // From /course/view.php
 $PAGE->set_pagetype('course-view-topcoll'); // From /course/view.php
 $PAGE->set_other_editing_capability('moodle/course:manageactivities'); // From /course/view.php
-$PAGE->set_title(get_string('setlayout', 'format_topcoll') . ' - ' . $course->fullname . ' ' . get_string('course'));
-$PAGE->set_heading(get_string('setlayout', 'format_topcoll') . ' - ' . $course->fullname . ' ' . get_string('course'));
+$PAGE->set_title(get_string('settings') . ' - ' . $course->fullname . ' ' . get_string('course'));
+$PAGE->set_heading(get_string('formatsettings','format_topcoll') . ' - ' . $course->fullname . ' ' . get_string('course'));
 
 require_sesskey();
 require_capability('moodle/course:update', $coursecontext);
@@ -65,16 +66,40 @@ $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
 if ($PAGE->user_is_editing()) {
     $mform = new set_layout_form(null, array('courseid' => $courseid, 'setelement' => $layoutsetting->layoutelement, 'setstructure' => $layoutsetting->layoutstructure,'tgfgcolour' => $layoutsetting->tgfgcolour,'tgbgcolour' => $layoutsetting->tgbgcolour, 'tgbghvrcolour' => $layoutsetting->tgbghvrcolour ));
 
+    //print_object($mform);
     if ($mform->is_cancelled()) {
         redirect($courseurl);
     } else if ($formdata = $mform->get_data()) {
         //print_r($formdata);
-        put_layout($formdata->id,
-                   $formdata->setelementnew,
-                   $formdata->setstructurenew,
-                   substr($formdata->tgfg,1),
-                   substr($formdata->tgbg,1),
-                   substr($formdata->tgbghvr,1));
+        if ((isset($formdata->resetlayout) == true) && (isset($formdata->resetcolour) == true)) {
+            put_topcoll_setting($formdata->id,
+                                $defaultlayoutelement,
+                                $defaultlayoutstructure,
+                                $defaulttgfgcolour,
+                                $defaulttgbgcolour,
+                                $defaulttgbghvrcolour);
+        } else if (isset($formdata->resetlayout) == true) {
+            put_topcoll_setting($formdata->id,
+                                $defaultlayoutelement,
+                                $defaultlayoutstructure,
+                                substr($formdata->tgfg,1),
+                                substr($formdata->tgbg,1),
+                                substr($formdata->tgbghvr,1));
+        } else if (isset($formdata->resetcolour) == true) {
+            put_topcoll_setting($formdata->id,
+                                $formdata->setelementnew,
+                                $formdata->setstructurenew,
+                                $defaulttgfgcolour,
+                                $defaulttgbgcolour,
+                                $defaulttgbghvrcolour);
+        } else {
+            put_topcoll_setting($formdata->id,
+                                $formdata->setelementnew,
+                                $formdata->setstructurenew,
+                                substr($formdata->tgfg,1),
+                                substr($formdata->tgbg,1),
+                                substr($formdata->tgbghvr,1));
+        }
         redirect($courseurl);
     }
 

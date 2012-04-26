@@ -51,7 +51,7 @@ class backup_format_topcoll_plugin extends backup_format_plugin {
         $plugin->add_child($pluginwrapper);
 
         // set source to populate the data
-        $pluginwrapper->set_source_table('format_topcoll_layout', array(
+        $pluginwrapper->set_source_table('format_topcoll_settings', array(
             'courseid' => backup::VAR_PARENTID));
 
         // don't need to annotate ids nor files
