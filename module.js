@@ -35,6 +35,7 @@ var thewwwroot;  // For the toggle graphic and extra files.
 var thecookiesubid; // For the cookie sub name.
 var numToggles = 0;
 var currentSection;
+var cookieConsent = 3; // Off by default as a 'just in case'.
 var cookieExpires;
 var ie7OrLess = false;
 var ie = false;
@@ -78,6 +79,10 @@ M.format_topcoll.init = function(Y, wwwroot, moodleid, courseid, cookielifetime)
 
 M.format_topcoll.set_current_section = function (Y, theSection) {
     currentSection = theSection;
+}
+
+M.format_topcoll.set_cookie_consent = function (Y, theConsent) {
+    cookieConsent = theConsent;
 }
 
 // Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the most significant bit and represents the non-toggling topic 0.
@@ -220,34 +225,46 @@ function to36baseString(two)
 // Args - value to save to the cookie
 function savetopcollcookie(value)
 {
-    // Use our YUI instance and use the cookie module. 
-    if (cookieExpires == null)
+    // Only save the cookie if consent has been given or not required for the installations country.
+    if (cookieConsent == 2)
     {
-        // Session Cookie...
-        ourYUI.use('cookie', function(Y){ 
-           Y.Cookie.setSub("mdl_cf_topcoll",thecookiesubid,value); 
-           //alert("Bongo After " + thecookiesubid + " " + value);
-        });
-    // Using Sub cookies, so, name, moodleid/courseid, value.
-        // This is not a Moodle table but in fact the cookies name.
-    }
-    else
-    {
-        // Expiring Cookie...
-        ourYUI.use('cookie', function(Y){ 
-            var newDate = new Date();
-            newDate.setTime(newDate.getTime() + cookieExpires); 
-            Y.Cookie.setSub("mdl_cf_topcoll",thecookiesubid,value, { expires: newDate }); 
-            //alert("Bongo After " + thecookiesubid + " " + value + " " + newDate + " " + cookieExpires);
-        });
-        // This is not a Moodle table but in fact the cookies name.
+        // Use our YUI instance and use the cookie module. 
+        if (cookieExpires == null)
+        {
+            // Session Cookie...
+            ourYUI.use('cookie', function(Y){ 
+               Y.Cookie.setSub("mdl_cf_topcoll",thecookiesubid,value); 
+               //alert("Bongo After " + thecookiesubid + " " + value);
+            });
+            // Using Sub cookies, so, name, moodleid/courseid, value.
+            // This is not a Moodle table but in fact the cookies name.
+        }
+        else
+        {
+            // Expiring Cookie...
+                ourYUI.use('cookie', function(Y){ 
+                var newDate = new Date();
+                newDate.setTime(newDate.getTime() + cookieExpires); 
+                Y.Cookie.setSub("mdl_cf_topcoll",thecookiesubid,value, { expires: newDate }); 
+                //alert("Bongo After " + thecookiesubid + " " + value + " " + newDate + " " + cookieExpires);
+            });
+            // This is not a Moodle table but in fact the cookies name.
+        }
     }
 }
 
 // Get the cookie - yum.
 function restoretopcollcookie(daYUI)
 {
-    return daYUI.Cookie.getSub("mdl_cf_topcoll",thecookiesubid); 
+    // Only load the cookie if consent has been given or not required for the installations country.
+    if (cookieConsent == 2)
+    {
+        return daYUI.Cookie.getSub("mdl_cf_topcoll",thecookiesubid); 
+    }
+    else
+    {
+        return null;
+    }
 }
 
 // 'Private' version of reload_toggles
@@ -255,11 +272,16 @@ function reloadToggles()
 {
     ourYUI.use('cookie', function(daYUI){ 
         // Get the cookie if there!
-        //var storedval = restoretopcollcookie(daYUI);
-        var storedval = daYUI.Cookie.getSub("mdl_cf_topcoll",thecookiesubid);
+        var storedval = restoretopcollcookie(daYUI);
+        //var storedval = daYUI.Cookie.getSub("mdl_cf_topcoll",thecookiesubid);
         if (storedval != null)
         {
             toggleBinaryGlobal = to2baseString(storedval);
+        }
+        else
+        {
+            // Reset to default.
+            toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
         }
         //alert("Bongo3 " + thecookiesubid + " " + storedval + " " + numToggles + " " + toggleBinaryGlobal);
     

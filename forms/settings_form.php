@@ -31,13 +31,17 @@
  */
 require_once("$CFG->libdir/formslib.php");
 
-class set_layout_form extends moodleform {
+class set_settings_form extends moodleform {
 
     function definition() {
+        global $CFG;
+        MoodleQuickForm::registerElementType('tccolourpopup', "$CFG->dirroot/course/format/topcoll/js/tc_colourpopup.php", 'MoodleQuickForm_tccolourpopup');
 
         $mform = $this->_form;
         $instance = $this->_customdata;
 
+        $mform->addElement('header','setlayout', get_string('setlayout', 'format_topcoll'));
+        $mform->addHelpButton('setlayout','setlayout', 'format_topcoll','',true);
         $formcourselayoutelements =
             array(1 => get_string('setlayout_default', 'format_topcoll'),                                     // Default.
                   2 => get_string('setlayout_no_toggle_section_x', 'format_topcoll'),                         // No 'Topic x' / 'Week x'.
@@ -47,9 +51,9 @@ class set_layout_form extends moodleform {
                   6 => get_string('setlayout_no_toggle_word_toggle_section_x', 'format_topcoll'),             // No 'Toggle' word and no 'Topic x' / 'Week x'.
                   7 => get_string('setlayout_no_toggle_word_toggle_section_x_section_no', 'format_topcoll')); // No 'Toggle' word, no 'Topic x' / 'Week x'  and no section number.
 
-        $mform->addElement('select', 'set_element', get_string('setlayoutelements', 'format_topcoll'), $formcourselayoutelements);
-        $mform->setDefault('set_element', $instance['setelement']);
-        $mform->addHelpButton('set_element','setlayoutelements', 'format_topcoll','',true);
+        $mform->addElement('select', 'setelementnew', get_string('setlayoutelements', 'format_topcoll'), $formcourselayoutelements);
+        $mform->setDefault('setelementnew', $instance['setelement']);
+        $mform->addHelpButton('setelementnew','setlayoutelements', 'format_topcoll','',true);
 
         $formcourselayoutstrutures =
             array(1 => get_string('setlayoutstructuretopic', 'format_topcoll'),               // Topic
@@ -57,17 +61,33 @@ class set_layout_form extends moodleform {
                   3 => get_string('setlayoutstructurelatweekfirst', 'format_topcoll'),        // Latest Week First 
                   4 => get_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'));  // Current Topic First
 
-        $mform->addElement('select', 'set_structure', get_string('setlayoutstructure', 'format_topcoll'), $formcourselayoutstrutures); 
-        $mform->setDefault('set_structure', $instance['setstructure']);
-        $mform->addHelpButton('set_structure','setlayoutstructure', 'format_topcoll','',true);
+        $mform->addElement('select', 'setstructurenew', get_string('setlayoutstructure', 'format_topcoll'), $formcourselayoutstrutures); 
+        $mform->setDefault('setstructurenew', $instance['setstructure']);
+        $mform->addHelpButton('setstructurenew','setlayoutstructure', 'format_topcoll','',true);
+        $mform->addElement('checkbox','resetlayout',get_string('resetlayout', 'format_topcoll'),false);
+        $mform->addHelpButton('resetlayout','resetlayout', 'format_topcoll','',true);
 
+        $mform->addElement('header','setcolour', get_string('setcolour', 'format_topcoll'));
+        $mform->addHelpButton('setcolour','setcolour', 'format_topcoll','',true);
+
+        $mform->addElement('tccolourpopup','tgfg',get_string('settoggleforegroundcolour', 'format_topcoll'),array('tabindex'=>-1,'value'=>'#'.$instance['tgfgcolour']));
+        $mform->addHelpButton('tgfg','settoggleforegroundcolour', 'format_topcoll','',true);
+        $mform->registerRule('colour','regex','/^#([a-fA-F0-9]{6})$/');
+        $mform->addRule('tgfg',get_string('colourrule', 'format_topcoll'),'colour');
+
+        $mform->addElement('tccolourpopup','tgbg',get_string('settogglebackgroundcolour', 'format_topcoll'),array('tabindex'=>-1,'value'=>'#'.$instance['tgbgcolour']));
+        $mform->addHelpButton('tgbg','settogglebackgroundcolour', 'format_topcoll','',true);
+        $mform->addRule('tgbg',get_string('colourrule', 'format_topcoll'),'colour');
+
+        $mform->addElement('tccolourpopup','tgbghvr',get_string('settogglebackgroundhovercolour', 'format_topcoll'),array('tabindex'=>-1,'value'=>'#'.$instance['tgbghvrcolour']));
+        $mform->addHelpButton('tgbghvr','settogglebackgroundhovercolour', 'format_topcoll','',true);
+        $mform->addRule('tgbghvr',get_string('colourrule', 'format_topcoll'),'colour');
+
+        $mform->addElement('checkbox','resetcolour',get_string('resetcolour', 'format_topcoll'),false);
+        $mform->addHelpButton('resetcolour','resetcolour', 'format_topcoll','',true);
         // hidden params
         $mform->addElement('hidden', 'id', $instance['courseid']);
         $mform->setType('id', PARAM_INT);
-        $mform->addElement('hidden', 'setelement', $instance['setelement']);
-        $mform->setType('setelement', PARAM_INT);
-        $mform->addElement('hidden', 'setstructure', $instance['setstructure']);
-        $mform->setType('setstructure', PARAM_INT);
         // buttons
         $this->add_action_buttons(true, get_string('savechanges', 'admin'));
     }

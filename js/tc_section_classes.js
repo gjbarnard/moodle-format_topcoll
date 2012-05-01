@@ -54,7 +54,7 @@ section_class.prototype.swap_with_section = function(sectionIn)
     }
     // Swap the sections.
     YAHOO.util.DDM.swapNode(this.getEl(), sectionIn.getEl());
-    // This is the additional line that swaps the section underneath the toggle as well as the toggle itself (above line).
+    // This is the additional line that swaps the toggle as well the section underneath (above line).
     // But the 'Topic x' does not change until page refresh.
     YAHOO.util.DDM.swapNode(this.getEl().previousSibling, sectionIn.getEl().previousSibling);
 

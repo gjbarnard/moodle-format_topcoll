@@ -59,6 +59,7 @@ $string['page-course-view-topcoll'] = 'Toutes les pages du cours principal au fo
 $string['page-course-view-topcoll-x'] = 'Toutes les pages du cours au format sections réduites';
 
 // Layout enhancement - Moodle Tracker CONTRIB-3378
+$string['formatsettings'] = 'Parametres du format de'; // CONTRIB-3529
 $string['setlayout'] = 'Disposition';
 $string['setlayout_default'] = 'Par défaut';
 $string['setlayout_no_toggle_section_x'] = 'Pas de section x à basculer';
@@ -73,6 +74,23 @@ $string['setlayoutstructuretopic']='Section';
 $string['setlayoutstructureweek']='Semaine';
 $string['setlayoutstructurelatweekfirst']='Dernière semaine en premier';
 $string['setlayoutstructurecurrenttopicfirst']='Section actuelle en premier';
+$string['resetlayout'] = 'Réinitialiser de disposition'; //CONTRIB-3529
+
+// Colour enhancement - Moodle Tracker CONTRIB-3529
+$string['setcolour'] = 'Définir la couleur';
+$string['colourrule'] = "Please enter a valid RGB colour, a '#' and then six hexadecimal digits.";
+$string['settoggleforegroundcolour'] = 'Basculer premier plan';
+$string['settogglebackgroundcolour'] = 'Basculer de fond';
+$string['settogglebackgroundhovercolour'] = 'Basculer de fond le flotter';
+$string['resetcolour'] = 'Réinitialiser la couleur';
+
+// Cookie consent - Moodle Tracker CONTRIB-3624
+$string['cookieconsentform'] = 'Cookie consent form' ;
+$string['cookieconsent'] = "Cookie consent is required to allow any course that uses the 'Collapsed Topics' format as you can see below to remember the state of the toggles.  Once you have given that consent using the icon to the right, the toggles will remember what you set them to when you refresh the page and when you return if this has been setup by your administrator.<br /><br />The cookie 'mdl_cf_topcoll' only contains the site short name, course id and a series of encoded 1's and 0's representing open or closed respectively.<br /><br />Once chosen this will be remembered for all 'Collapsed Topics' based courses and you will not be asked again unless your administrator performs a reset.";
+$string['setcookieconsent'] = 'Cookie consent';
+$string['cookieconsentallowed'] ='Allowed';
+$string['cookieconsentdenied'] ='Denied';
+
 // Help
 $string['setlayoutelements_help']='Combien d\'informations sur les éléments et les sections souhaitez-vous afficher ?';
 $string['setlayoutstructure_help']="Structure et disposition de la page.  Vous pouvez choisir entre :
@@ -84,4 +102,14 @@ $string['setlayoutstructure_help']="Structure et disposition de la page.  Vous p
 'Dernière semaine en premier' - basé sur le 'format hebdomadaire', la semaine en cours est affichée en haut et les semaines précédentes dans un ordre descendant, sauf en mode édition où la structure revient au format initial hebdomadaire.
 
 'Section actuelle en premier' - basé sur le 'format thématique', la secion actuelle est affichée en haut si elle a été fixée.";
+$string['setlayout_help'] = 'Contains the settings to do with the layout of the format within the course.';
+$string['resetlayout_help'] = 'Resets the layout to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format';
+// Moodle Tracker CONTRIB-3529
+$string['setcolour_help'] = 'Contains the settings to do with the colour of the format within the course.';
+$string['settoggleforegroundcolour_help'] = 'Sets the colour of the text on the toggle.';
+$string['settogglebackgroundcolour_help'] = 'Sets the background of the toggle.';
+$string['settogglebackgroundhovercolour_help'] = 'Sets the background of the toggle when the mouse moves over it.';
+$string['resetcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format';
+// Moodle Tracker CONTRIB-3624
+$string['setcookieconsent_help'] = "If you choose 'Allowed' you agree that the next time you click on a toggle in any 'Collapsed Topics' based course then the 'mdl_cf_topcoll' cookie will be placed on your computer for the duration of the browser session or longer if you administrator has allowed - they can determine for how long.  It will remember the state of the toggles when you click on them.  If you choose 'Denied' the cookie will not be placed on your computer.  Once chosen this will be remembered for all 'Collapsed Topics' based courses and you will not be asked again unless your administrator performs a reset - please refer to 'Cookie Consent Information' in the 'Readme.txt' file of the format.";
 ?>
