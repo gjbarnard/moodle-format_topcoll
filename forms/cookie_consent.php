@@ -29,15 +29,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-require_once('../../../config.php');
-require_once('./lib.php');
-require_once('./set_layout_form.php');
+require_once('../../../../config.php');
+require_once('../lib.php');
+require_once('./cookie_consent_form.php');
+require_once('../config.php');
 
 defined('MOODLE_INTERNAL') || die();
 
-$courseid = required_param('id', PARAM_INT); // course id
-$setelement = required_param('setelement', PARAM_INT);
-$setstructure = required_param('setstructure', PARAM_INT);
+$courseid = required_param('courseid', PARAM_INT); // course id
+$userid = required_param('userid', PARAM_INT); // user id
 
 if (!($course = $DB->get_record('course', array('id' => $courseid)))) {
     print_error('invalidcourseid', 'error');
@@ -50,33 +50,29 @@ if (!$coursecontext = get_context_instance(CONTEXT_COURSE, $course->id)) {
 require_login($course); // From /course/view.php - Facilitates the correct population of the setttings block.
 
 $PAGE->set_context($coursecontext);
-$PAGE->set_url('/course/format/topcoll/set_layout.php&id=', array('id' => $courseid)); // From /course/view.php
+$PAGE->set_url('/course/format/topcoll/forms/cookie_consent.php', array('courseid' => $courseid, 'userid' => $userid, 'sesskey' => sesskey())); // From /course/view.php
 $PAGE->set_pagelayout('course'); // From /course/view.php
 $PAGE->set_pagetype('course-view-topcoll'); // From /course/view.php
 $PAGE->set_other_editing_capability('moodle/course:manageactivities'); // From /course/view.php
-$PAGE->set_title(get_string('setlayout', 'format_topcoll') . ' - ' . $course->fullname . ' ' . get_string('course'));
-$PAGE->set_heading(get_string('setlayout', 'format_topcoll') . ' - ' . $course->fullname . ' ' . get_string('course'));
+$PAGE->set_title(get_string('cookieconsentform','format_topcoll'));
+$PAGE->set_heading(get_string('cookieconsentform','format_topcoll'));
 
 require_sesskey();
 require_capability('moodle/course:update', $coursecontext);
 
 $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
 
-if ($PAGE->user_is_editing()) {
-    $mform = new set_layout_form(null, array('courseid' => $courseid, 'setelement' => $setelement, 'setstructure' => $setstructure));
+$mform = new set_cookie_consent_form(null, array('courseid' => $courseid, 'userid' => $userid ));
 
-    if ($mform->is_cancelled()) {
-        redirect($courseurl);
-    } else if ($formdata = $mform->get_data()) {
-        put_layout($formdata->id, $formdata->set_element, $formdata->set_structure);
-        redirect($courseurl);
-    }
-
-    echo $OUTPUT->header();
-    echo $OUTPUT->box_start('generalbox');
-    $mform->display();
-    echo $OUTPUT->box_end();
-    echo $OUTPUT->footer();
-} else {
+if ($mform->is_cancelled()) {
+    redirect($courseurl);
+} else if ($formdata = $mform->get_data()) {
+    put_topcoll_cookie_consent($userid,$formdata->setcookieconsent);
     redirect($courseurl);
 }
+
+echo $OUTPUT->header();
+echo $OUTPUT->box_start('generalbox');
+$mform->display();
+echo $OUTPUT->box_end();
+echo $OUTPUT->footer();
