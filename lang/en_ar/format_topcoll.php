@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Collapsed Topics Information
  *
@@ -14,7 +14,6 @@
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
- * @comment    A big thank you to Tarcísio Nunes (http://moodle.org/user/profile.php?id=1149633) for the translation.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,38 +29,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Brazilian Translation of Collapsed Topics Course Format
-// Tradução brasileira de formato do curso Tópicos Recolhidos
+ // English Pirate Translation of Collapsed Topics Course Format
 
 // Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
-// Usado pelo Core Moodle para identificando o formato e exibição na lista de formatos para um curso em suas configurações.
-$string['nametopcoll']='Topicos Recolhidos';
-$string['formattopcoll']='Topicos Recolhidos';
-$string['pluginname'] = 'Topicos Recolhidos';
+// Possibly legacy to be removed after Moodle 2.0 is stable.
+$string['nametopcoll']='Collapsed Topics';
+$string['formattopcoll']='Collapsed Topics';
 
 // Used in format.php
-// Usado em format.php
-$string['topcolltoggle']='Alternar';
-$string['topcolltogglewidth']='width: 34px;';
+$string['topcolltoggle']='Toggle';
+$string['topcolltogglewidth']='width: 38px;';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
-$string['topcollall']='todas as alterna.';
-$string['topcollopened']='Abra';
-$string['topcollclosed']='Feche';
+$string['topcollall']='all toggles.';
+$string['topcollopened']='Untie';
+$string['topcollclosed']='Tie';
 
 // Moodle 2.0 Enhancement - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages
-// Moodle 2.0 Realce - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages
-$string['sectionname'] = 'Assunto';
-$string['section0name'] = 'Geral';
+$string['sectionname'] = 'Section';
+$string['pluginname'] = 'Collapsed Topics';
+$string['section0name'] = 'General';
 
-// Everything below is pending translation...
 // MDL-26105
 $string['page-course-view-topcoll'] = 'Any course main page in collapsed topics format';
 $string['page-course-view-topcoll-x'] = 'Any course page in collapsed topics format';
 
 // Layout enhancement - Moodle Tracker CONTRIB-3378
-$string['formatsettings'] = 'Format settings'; // CONTRIB-3529
-$string['setlayout'] = 'Set layout';
+$string['formatsettings'] = 'Ye format settings'; // CONTRIB-3529
+$string['setlayout'] = 'Set thee layout';
 $string['setlayout_default'] = 'Default';
 $string['setlayout_no_toggle_section_x'] = 'No toggle section x';
 $string['setlayout_no_section_no'] = 'No section number';
@@ -69,21 +64,21 @@ $string['setlayout_no_toggle_section_x_section_no'] = 'No toggle section x and s
 $string['setlayout_no_toggle_word'] = 'No toggle word';
 $string['setlayout_no_toggle_word_toggle_section_x'] = 'No toggle word and toggle section x';
 $string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'No toggle word, toggle section x and section number';
-$string['setlayoutelements'] = 'Set elements';
-$string['setlayoutstructure'] = 'Set structure';
-$string['setlayoutstructuretopic']='Topic';
-$string['setlayoutstructureweek']='Week';
-$string['setlayoutstructurelatweekfirst']='Latest Week First';
-$string['setlayoutstructurecurrenttopicfirst']='Current Topic First';
-$string['resetlayout'] = 'Reset layout'; //CONTRIB-3529
+$string['setlayoutelements'] = 'Set thee elements';
+$string['setlayoutstructure'] = 'Set thee structure';
+$string['setlayoutstructuretopic']='Treasure Chest';
+$string['setlayoutstructureweek']='Sailing Week';
+$string['setlayoutstructurelatweekfirst']='Latest Sailing Week First';
+$string['setlayoutstructurecurrenttopicfirst']='Current Treasure Chest First';
+$string['resetlayout'] = 'Reset thee layout'; //CONTRIB-3529
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529
-$string['setcolour'] = 'Set colour';
-$string['colourrule'] = "Please enter a valid RGB colour, a '#' and then six hexadecimal digits.";
-$string['settoggleforegroundcolour'] = 'Toggle foreground';
-$string['settogglebackgroundcolour'] = 'Toggle background';
-$string['settogglebackgroundhovercolour'] = 'Toggle background hover';
-$string['resetcolour'] = 'Reset colour';
+$string['setcolour'] = 'Set thee colour';
+$string['colourrule'] = "Enter a valid RGB colour, a '#' and then six hexadecimal digits or walk thy plank.";
+$string['settoggleforegroundcolour'] = 'Thy toggle foreground';
+$string['settogglebackgroundcolour'] = 'Thy toggle background';
+$string['settogglebackgroundhovercolour'] = 'Thy toggle background hover';
+$string['resetcolour'] = 'Reset thee colour';
 
 // Cookie consent - Moodle Tracker CONTRIB-3624
 $string['cookieconsentform'] = 'Cookie consent form' ;
@@ -93,18 +88,18 @@ $string['cookieconsentallowed'] ='Allowed';
 $string['cookieconsentdenied'] ='Denied';
 
 // Help
-$string['setlayoutelements_help']='How much information about the toggles / sections you wish to be displayed.';
-$string['setlayoutstructure_help']="The layout structure of the course.  You can choose between:
+$string['setlayoutelements_help']='How much information about thee toggles / sections you wish to be displayed.';
+$string['setlayoutstructure_help']="Avast ye landlubbers, this be thee layout structure of thee course.  Ye choose between:
 
 'Topics' - where each section is presented as a topic in section number order.
 
 'Weeks' - where each section is presented as a week in ascending week order.
 
-'Latest Week First' - which is the same as weeks but the current week is shown at the top and preceding weeks in decending order are displayed below execpt in editing mode where the structure is the same as 'Weeks'.
+'Latest Week First' - which is the same as weeks but thee current week is shown at thee top and preceding weeks in decending order are displayed below execpt in editing mode where the structure is thy same as 'Weeks'.
 
-'Current Topic First' - which is the same as 'Topics' except that the current topic is shown at the top if it has been set.";
-$string['setlayout_help'] = 'Contains the settings to do with the layout of the format within the course.';
-$string['resetlayout_help'] = 'Resets the layout to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format';
+'Current Topic First' - which is thee same as 'Topics' except that thee current topic is shown at thee top if it has been set.";
+$string['setlayout_help'] = 'Contains thee settings to do with thee layout of the format within thy course.';
+$string['resetlayout_help'] = 'Resets thee layout to thee default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in thy Collapsed Topics format';
 // Moodle Tracker CONTRIB-3529
 $string['setcolour_help'] = 'Contains the settings to do with the colour of the format within the course.';
 $string['settoggleforegroundcolour_help'] = 'Sets the colour of the text on the toggle.';

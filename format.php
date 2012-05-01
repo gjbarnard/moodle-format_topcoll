@@ -31,18 +31,19 @@
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir . '/filelib.php');
 require_once($CFG->libdir . '/completionlib.php');
+require_once($CFG->dirroot . '/course/format/topcoll/config.php');
 
 $userisediting = $PAGE->user_is_editing();
 
 // Now get the css and JavaScript Lib.  The call to topcoll_init sets things up for JavaScript to work by understanding the particulars of this course.
-?>    
+?>
 <style type="text/css" media="screen">
     /* <![CDATA[ */
-    @import url(<?php echo $CFG->wwwroot ?>/course/format/topcoll/topics_collapsed.css);
+    @import url(<?php echo $CFG->wwwroot ?>/course/format/topcoll/css/topics_collapsed.css);
     /* ]]> */
 </style>
 <!--[if lte IE 7]>
-    <link rel="stylesheet" type="text/css" href="<?php echo $CFG->wwwroot ?>/course/format/topcoll/ie-7-hacks.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="<?php echo $CFG->wwwroot ?>/course/format/topcoll/css/ie-7-hacks.css" media="screen" />
 <![endif]-->
 <?php
 $PAGE->requires->js_init_call('M.format_topcoll.init', 
@@ -52,7 +53,7 @@ $PAGE->requires->js_init_call('M.format_topcoll.init',
                                null)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration - see Readme.txt.
 if (ajaxenabled() && $userisediting) {
     // This overrides the 'swap_with_section' function in /lib/ajax/section_classes.js
-    $PAGE->requires->js('/course/format/topcoll/tc_section_classes_min.js');
+    $PAGE->requires->js('/course/format/topcoll/js/tc_section_classes_min.js');
 }
 
 $topic = optional_param('ctopics', -1, PARAM_INT);
@@ -70,11 +71,16 @@ if (($marker >= 0) && has_capability('moodle/course:setcurrentsection', $coursec
     $DB->set_field("course", "marker", $marker, array("id" => $course->id));
 }
 
+$setting = get_topcoll_setting($course->id); // CONTRIB-3378
+
 $streditsummary = get_string('editsummary');
 $stradd = get_string('add');
 $stractivities = get_string('activities');
-$strshowalltopics = get_string('showalltopics');
-$strtopic = get_string('topic');
+if (($setting->layoutstructure == 1) || ($setting->layoutstructure == 4)) {
+    $strshowalltopics = get_string('showalltopics');
+} else {
+    $strshowalltopics = get_string('showallweeks');
+}
 $strgroups = get_string('groups');
 $strgroupmy = get_string('groupmy');
 
@@ -84,10 +90,16 @@ if ($USER->screenreader == 1) {
 }
 
 if ($userisediting) {
-    $strtopichide = get_string('hidetopicfromothers');
-    $strtopicshow = get_string('showtopicfromothers');
-    $strmarkthistopic = get_string('markthistopic');
-    $strmarkedthistopic = get_string('markedthistopic');
+    if (($setting->layoutstructure == 1) || ($setting->layoutstructure == 4)) {
+        $strtopichide = get_string('hidetopicfromothers');
+        $strtopicshow = get_string('showtopicfromothers');
+        $strmarkthistopic = get_string('markthistopic');
+        $strmarkedthistopic = get_string('markedthistopic');
+    } else {
+        $strtopichide = get_string('hideweekfromothers');
+        $strtopicshow = get_string('showweekfromothers');
+        $strmarkedthistopic = get_string('showallweeks');
+    }
     $strmoveup = get_string('moveup');
     $strmovedown = get_string('movedown');
 }
@@ -115,13 +127,58 @@ if (ismoving($course->id)) {
     echo '</tr>';
 }
 
-// CONTRIB-3378
-$layoutsetting = get_layout($course->id);
+?>    
+<style type="text/css" media="screen">
+    /* <![CDATA[ */
+/* -- Toggle row -- */
+tr.cps {
+  background-color: #<?php echo $setting->tgbgcolour;?>;
+  color: #<?php echo $setting->tgfgcolour;?>; /* 'Topic x' text colour */
+}
+
+/* -- Toggle text -- */
+tr.cps td a {
+  color: #<?php echo $setting->tgfgcolour;?>;
+}
+
+/* -- What happens when a toggle is hovered over -- */
+tr.cps td a:hover, body.jsenabled tr.cps td a:hover {
+  background-color: #<?php echo $setting->tgbghvrcolour;?>;
+}
+    /* ]]> */
+</style>
+<?php
+// CONTRIB-3624 - Cookie consent.
+if ($TCCFG->defaultcookieconsent  == true) {
+    $usercookieconsent = get_topcoll_cookie_consent($USER->id); // In topcoll/lib.php
+
+    // Tell the JavaScript code of the state.  Upon user choice, this page will refresh and a new value sent...
+    echo $PAGE->requires->js_init_call('M.format_topcoll.set_cookie_consent', array($usercookieconsent->cookieconsent));
+
+    if ($usercookieconsent->cookieconsent == 1) {
+        // Display message to ask for consent.
+        echo '<tr class="section main">';
+        echo '<td class="left side">&nbsp;</td>';
+        echo '<td class="content">';
+        echo '<div class="cookieConsentContainer">';
+        echo '<a "title="' . get_string('cookieconsentform','format_topcoll') . '" href="format/topcoll/forms/cookie_consent.php?userid=' . $USER->id . '&courseid=' . $course->id . '&sesskey=' . sesskey() . '"><div id="set-cookie-consent"></div></a>';
+        echo '<div>'.$OUTPUT->heading(get_string('setcookieconsent','format_topcoll'), 2, 'sectionname').get_string('cookieconsent','format_topcoll').'</div>';
+        echo '</div>';
+        echo '</td>';
+        echo '<td class="right side">&nbsp;</td>';
+        echo '</tr>';
+        echo '<tr class="section separator"><td colspan="3" class="spacer"></td></tr>';
+    }
+} else {
+    // Cookie consent turned off by administrator, so allow...
+    echo $PAGE->requires->js_init_call('M.format_topcoll.set_cookie_consent', array(2));
+}
+
 if ($userisediting && has_capability('moodle/course:update', $coursecontext)) {
     echo '<tr class="section main">';
     echo '<td class="left side">&nbsp;</td>';
     echo '<td class="content">';
-    echo '<a title="' . get_string('setlayout', 'format_topcoll') . '" href="format/topcoll/set_layout.php?id=' . $course->id . '&setelement=' . $layoutsetting->layoutelement . '&setstructure=' . $layoutsetting->layoutstructure . '&sesskey=' . sesskey() . '"><div id="set-layout"></div></a>';
+    echo '<a title="' . get_string('settings') . '" href="format/topcoll/forms/settings.php?id=' . $course->id . '&sesskey=' . sesskey() . '"><div id="set-settings"></div></a>';
     echo '</td>';
     echo '<td class="right side">&nbsp;</td>';
     echo '</tr>';
@@ -171,7 +228,7 @@ if ($thissection->summary or $thissection->sequence or $userisediting) {
 
 // Get the specific words from the language files.
 $topictext = null;
-if (($layoutsetting->layoutstructure == 1) || ($layoutsetting->layoutstructure == 4)) {
+if (($setting->layoutstructure == 1) || ($setting->layoutstructure == 4)) {
     $topictext = get_string('setlayoutstructuretopic', 'format_topcoll');
 } else {
     $topictext = get_string('setlayoutstructureweek', 'format_topcoll');
@@ -196,7 +253,7 @@ if ($screenreader == false) { // No need to show if in screen reader mode.
 $timenow = time();
 $weekofseconds = 604800;
 $course->enddate = $course->startdate + ($weekofseconds * $course->numsections);
-if (($layoutsetting->layoutstructure != 3) || ($userisediting)) {
+if (($setting->layoutstructure != 3) || ($userisediting)) {
     $section = 1;
     $weekdate = $course->startdate;    // this should be 0:00 Monday of that week
     $weekdate += 7200;                 // Add two hours to avoid possible DST problems
@@ -209,7 +266,7 @@ $sectionmenu = array();
 
 $thecurrentsection = 0; // The section that will be the current section.
 $currentsectionfirst = false;
-if ($layoutsetting->layoutstructure == 4) {
+if ($setting->layoutstructure == 4) {
     $currentsectionfirst = true;
 }
 
@@ -218,7 +275,7 @@ $strftimedateshort = ' ' . get_string('strftimedateshort');
 $loopsection = 1;
 while ($loopsection <= $course->numsections) {
     // This will still work as with a weekly format you define the number of topics / weeks not the end date.
-    if (($layoutsetting->layoutstructure != 3) || ($userisediting)) {
+    if (($setting->layoutstructure != 3) || ($userisediting)) {
         $nextweekdate = $weekdate + ($weekofseconds);
         $weekday = userdate($weekdate, $strftimedateshort);
         $endweekday = userdate($weekdate + 518400, $strftimedateshort);
@@ -243,7 +300,7 @@ while ($loopsection <= $course->numsections) {
     }
 
     //$showsection = (has_capability('moodle/course:viewhiddensections', $coursecontext) or $thissection->visible or !$course->hiddensections);
-    if (($layoutsetting->layoutstructure != 3) || ($userisediting)) {
+    if (($setting->layoutstructure != 3) || ($userisediting)) {
         $showsection = (has_capability('moodle/course:viewhiddensections', $coursecontext) or $thissection->visible or !$course->hiddensections);
     } else {
         $showsection = ((has_capability('moodle/course:viewhiddensections', $coursecontext) or $thissection->visible or !$course->hiddensections) and ($nextweekdate <= $timenow));
@@ -255,7 +312,7 @@ while ($loopsection <= $course->numsections) {
         }
 
         if ($currentsectionfirst == false) {
-            if (($layoutsetting->layoutstructure != 3) || ($userisediting)) {
+            if (($setting->layoutstructure != 3) || ($userisediting)) {
                 $section++;
             } else {
                 $section--;
@@ -270,17 +327,17 @@ while ($loopsection <= $course->numsections) {
 
     if (($currentsectionfirst == true) && ($showsection == true)){
         $showsection = ($course->marker == $section);  // Show  the section if we were meant to and it is the current section.
-    } else if (($layoutsetting->layoutstructure == 4) && ($course->marker == $section)) {
+    } else if (($setting->layoutstructure == 4) && ($course->marker == $section)) {
         $showsection = false; // Do not reshow current section. 
     }
 
     if ($showsection) {
         $currenttopic = null;
         $currentweek = null;
-        if (($layoutsetting->layoutstructure == 1) || ($layoutsetting->layoutstructure == 4)) {
+        if (($setting->layoutstructure == 1) || ($setting->layoutstructure == 4)) {
             $currenttopic = ($course->marker == $section);
         } else {
-            if (($userisediting) || ($layoutsetting->layoutstructure != 3)) {
+            if (($userisediting) || ($setting->layoutstructure != 3)) {
                 $currentweek = (($weekdate <= $timenow) && ($timenow < $nextweekdate));
             } else {
                 $currentweek = (($weekdate > $timenow) && ($timenow >= $nextweekdate));
@@ -311,11 +368,11 @@ while ($loopsection <= $course->numsections) {
             // Have a different look depending on if the section summary has been completed.
             if (is_null($thissection->name)) {
                 echo '<td colspan="3"><a id="sectionatag-' . $section . '" class="cps_nosumm" href="#" onclick="toggle_topic(this,' . $section . '); return false;">';
-                if (($layoutsetting->layoutstructure != 1) && ($layoutsetting->layoutstructure != 4)) {
+                if (($setting->layoutstructure != 1) && ($setting->layoutstructure != 4)) {
                     echo '<span>' . $weekperiod . '</span><br />';
                 }
                 echo $topictext . ' ' . $currenttext . $section;
-                switch ($layoutsetting->layoutelement) {
+                switch ($setting->layoutelement) {
                     case 1: // Default
                     case 3: // No section no.
                     case 2: // No Toggle Section x
@@ -332,7 +389,7 @@ while ($loopsection <= $course->numsections) {
                 }
             } else {
                 $colspan = 0;
-                switch ($layoutsetting->layoutelement) {
+                switch ($setting->layoutelement) {
                     case 1: // Default
                     case 3: // No section no.
                     case 5: // No Toggle
@@ -346,12 +403,12 @@ while ($loopsection <= $course->numsections) {
                         break;
                 }
                 echo '<td colspan="' . $colspan . '"><a id="sectionatag-' . $section . '" href="#" onclick="toggle_topic(this,' . $section . '); return false;"><span>';
-                if (($layoutsetting->layoutstructure != 1) && ($layoutsetting->layoutstructure != 4)) {
+                if (($setting->layoutstructure != 1) && ($setting->layoutstructure != 4)) {
                     echo $weekperiod . '<br />';
                 }
                 echo html_to_text(format_string($thissection->name, true, array('context' => $coursecontext))) . '</span>';
 
-                switch ($layoutsetting->layoutelement) {
+                switch ($setting->layoutelement) {
                     case 1: // Default
                     case 3: // No section no.
                         echo ' - ' . $toggletext . '</a></td><td class="cps_centre">' . $topictext . '<br />' . $currenttext . $section . '</td>';  // format_string from MDL-29188
@@ -380,13 +437,13 @@ while ($loopsection <= $course->numsections) {
         if ($screenreader == true) {
             echo '<tr id="section-' . $section . '" class="section main' . $sectionstyle . '">';
         } else {
-            echo '<tr id="section-' . $section . '" class="section main' . $sectionstyle . '" style="display:none;">';
+            echo '<tr id="section-' . $section . '" class="section main togglesection' . $sectionstyle . '">';
         }
 
         if ($screenreader == true) {
             echo '<td class="left side">' . $currenttext . $section . '</td>';
         } else {
-            switch ($layoutsetting->layoutelement) {
+            switch ($setting->layoutelement) {
                 case 1: // Default
                 case 2: // No Toggle Section x.
                     echo '<td class="left side">' . $currenttext . $section . '</td>';
@@ -406,7 +463,7 @@ while ($loopsection <= $course->numsections) {
             //echo get_string('notavailable');
         } else {
             if ($screenreader == true) {
-                if (($layoutsetting->layoutstructure == 1) || ($layoutsetting->layoutstructure == 4)) {
+                if (($setting->layoutstructure == 1) || ($setting->layoutstructure == 4)) {
                     // Topic type structure.
                     if (!is_null($thissection->name)) {
                         echo $OUTPUT->heading(format_string($thissection->name, true, array('context' => $coursecontext)), 3, 'sectionname');
@@ -451,7 +508,11 @@ while ($loopsection <= $course->numsections) {
             echo '<a href="view.php?id=' . $course->id . '&amp;ctopics=0#section-' . $section . '" title="' . $strshowalltopics . '">' .
             '<img src="' . $OUTPUT->pix_url('i/all') . '" class="icon" alt="' . $strshowalltopics . '" /></a><br />';
         } else {
-            $strshowonlytopic = get_string("showonlytopic", "", $section);
+            if (($setting->layoutstructure == 2) || ($setting->layoutstructure == 3)) {
+                $strshowonlytopic = get_string("showonlyweek", "", $section);
+            } else {
+                $strshowonlytopic = get_string("showonlytopic", "", $section);
+            }
             echo '<a href="view.php?id=' . $course->id . '&amp;ctopics=' . $section . '" title="' . $strshowonlytopic . '">' .
             '<img src="' . $OUTPUT->pix_url('i/one') . '" class="icon" alt="' . $strshowonlytopic . '" /></a><br />';
         }
@@ -460,6 +521,9 @@ while ($loopsection <= $course->numsections) {
             if ($course->marker == $section) {  // Show the "light globe" on/off
                 echo '<a href="view.php?id=' . $course->id . '&amp;marker=0&amp;sesskey=' . sesskey() . '#section-' . $section . '" title="' . $strmarkedthistopic . '">' . '<img src="' . $OUTPUT->pix_url('i/marked') . '" alt="' . $strmarkedthistopic . '" class="icon"/></a><br />'; // MDL-32145
             } else {
+                if (($setting->layoutstructure == 2) || ($setting->layoutstructure == 3)) {
+                    $strmarkthistopic = get_string("showonlyweek", "", $section);
+                }
                 echo '<a href="view.php?id=' . $course->id . '&amp;marker=' . $section . '&amp;sesskey=' . sesskey() . '#section-' . $section . '" title="' . $strmarkthistopic . '">' . '<img src="' . $OUTPUT->pix_url('i/marker') . '" alt="' . $strmarkthistopic . '" class="icon"/></a><br />';
             } // MDL-32145
 
@@ -481,14 +545,13 @@ while ($loopsection <= $course->numsections) {
             }
         }
         echo '</td></tr>';
-
         echo '<tr class="section separator"><td colspan="3" class="spacer"></td></tr>';
     }
 
     if ($currentsectionfirst == false) {
         unset($sections[$section]); // Only need to do this on the iteration when $currentsectionfirst is not true as this iteration will always happen.  Otherwise you get duplicate entries in course_sections in the DB.
     }
-    if (($layoutsetting->layoutstructure != 3) || ($userisediting)) {
+    if (($setting->layoutstructure != 3) || ($userisediting)) {
         $section++;
     } else {
         $section--;

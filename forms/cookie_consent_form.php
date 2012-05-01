@@ -29,8 +29,36 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-$plugin->version = 2012050100.00;
-$plugin->maturity = MATURITY_STABLE;
-$plugin->requires = 2011033005.00; // 2.0.5
-$plugin->component = 'format_topcoll';
-$plugin->release = '2.0.8';
+require_once("$CFG->libdir/formslib.php");
+
+class set_cookie_consent_form extends moodleform {
+
+    function definition() {
+        global $CFG;
+
+        $mform = $this->_form;
+        $instance = $this->_customdata;
+
+        $formcookieconsentoptions =
+            array(2 => get_string('cookieconsentallowed', 'format_topcoll'),
+                  3 => get_string('cookieconsentdenied', 'format_topcoll'));
+        /* Note: Values for the field 'cookieconsent' are:
+                 1 - Display message.
+                 2 - Use cookie.
+                 3 - Don't use cookie.
+        */
+
+        $mform->addElement('select', 'setcookieconsent', get_string('setcookieconsent', 'format_topcoll'), $formcookieconsentoptions);
+        $mform->setDefault('setcookieconsent', 3);
+        $mform->addHelpButton('setcookieconsent','setcookieconsent', 'format_topcoll','',true);
+
+        // hidden params
+        $mform->addElement('hidden', 'courseid', $instance['courseid']);
+        $mform->setType('courseid', PARAM_INT);
+        $mform->addElement('hidden', 'userid', $instance['userid']);
+        $mform->setType('userid', PARAM_INT);
+        // buttons
+        $this->add_action_buttons(true, get_string('savechanges', 'admin'));
+    }
+}
+?>

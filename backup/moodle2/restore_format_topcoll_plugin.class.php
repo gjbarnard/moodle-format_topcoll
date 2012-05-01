@@ -71,7 +71,8 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
 
         $data->courseid = $this->task->get_courseid();
 
-        put_layout($data->courseid, $data->layoutelement, $data->layoutstructure);  // In $CFG->dirroot.'/course/format/topcoll/lib.php'.
+        // In $CFG->dirroot.'/course/format/topcoll/lib.php'...
+        put_topcoll_setting($data->courseid, $data->layoutelement, $data->layoutstructure, $data->tgfgcolour, $data->tgbgcolour, $data->tgbghvrcolour);
 
         // No need to annotate anything here
     }
