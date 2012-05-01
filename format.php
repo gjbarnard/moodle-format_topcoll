@@ -31,6 +31,7 @@
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir . '/filelib.php');
 require_once($CFG->libdir . '/completionlib.php');
+require_once($CFG->dirroot . '/course/format/topcoll/config.php');
 
 $userisediting = $PAGE->user_is_editing();
 
@@ -38,11 +39,11 @@ $userisediting = $PAGE->user_is_editing();
 ?>
 <style type="text/css" media="screen">
     /* <![CDATA[ */
-    @import url(<?php echo $CFG->wwwroot ?>/course/format/topcoll/topics_collapsed.css);
+    @import url(<?php echo $CFG->wwwroot ?>/course/format/topcoll/css/topics_collapsed.css);
     /* ]]> */
 </style>
 <!--[if lte IE 7]>
-    <link rel="stylesheet" type="text/css" href="<?php echo $CFG->wwwroot ?>/course/format/topcoll/ie-7-hacks.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="<?php echo $CFG->wwwroot ?>/course/format/topcoll/css/ie-7-hacks.css" media="screen" />
 <![endif]-->
 <?php
 $PAGE->requires->js_init_call('M.format_topcoll.init', 
@@ -141,17 +142,43 @@ tr.cps td a {
 }
 
 /* -- What happens when a toggle is hovered over -- */
-tr.cps td a:hover {
+tr.cps td a:hover, body.jsenabled tr.cps td a:hover {
   background-color: #<?php echo $setting->tgbghvrcolour;?>;
 }
     /* ]]> */
 </style>
 <?php
+// CONTRIB-3624 - Cookie consent.
+if ($TCCFG->defaultcookieconsent  == true) {
+    $usercookieconsent = get_topcoll_cookie_consent($USER->id); // In topcoll/lib.php
+
+    // Tell the JavaScript code of the state.  Upon user choice, this page will refresh and a new value sent...
+    echo $PAGE->requires->js_init_call('M.format_topcoll.set_cookie_consent', array($usercookieconsent->cookieconsent));
+
+    if ($usercookieconsent->cookieconsent == 1) {
+        // Display message to ask for consent.
+        echo '<tr class="section main">';
+        echo '<td class="left side">&nbsp;</td>';
+        echo '<td class="content">';
+        echo '<div class="cookieConsentContainer">';
+        echo '<a "title="' . get_string('cookieconsentform','format_topcoll') . '" href="format/topcoll/forms/cookie_consent.php?userid=' . $USER->id . '&courseid=' . $course->id . '&sesskey=' . sesskey() . '"><div id="set-cookie-consent"></div></a>';
+        echo '<div>'.$OUTPUT->heading(get_string('setcookieconsent','format_topcoll'), 2, 'sectionname').get_string('cookieconsent','format_topcoll').'</div>';
+        echo '</div>';
+        echo '</td>';
+        echo '<td class="right side">&nbsp;</td>';
+        echo '</tr>';
+        echo '<tr class="section separator"><td colspan="3" class="spacer"></td></tr>';
+    }
+} else {
+    // Cookie consent turned off by administrator, so allow...
+    echo $PAGE->requires->js_init_call('M.format_topcoll.set_cookie_consent', array(2));
+}
+
 if ($userisediting && has_capability('moodle/course:update', $coursecontext)) {
     echo '<tr class="section main">';
     echo '<td class="left side">&nbsp;</td>';
     echo '<td class="content">';
-    echo '<a title="' . get_string('settings') . '" href="format/topcoll/settings.php?id=' . $course->id . '&sesskey=' . sesskey() . '"><div id="set-layout"></div></a>';
+    echo '<a title="' . get_string('settings') . '" href="format/topcoll/forms/settings.php?id=' . $course->id . '&sesskey=' . sesskey() . '"><div id="set-settings"></div></a>';
     echo '</td>';
     echo '<td class="right side">&nbsp;</td>';
     echo '</tr>';
@@ -410,7 +437,7 @@ while ($loopsection <= $course->numsections) {
         if ($screenreader == true) {
             echo '<tr id="section-' . $section . '" class="section main' . $sectionstyle . '">';
         } else {
-            echo '<tr id="section-' . $section . '" class="section main' . $sectionstyle . '" style="display:none;">';
+            echo '<tr id="section-' . $section . '" class="section main togglesection' . $sectionstyle . '">';
         }
 
         if ($screenreader == true) {
@@ -518,7 +545,6 @@ while ($loopsection <= $course->numsections) {
             }
         }
         echo '</td></tr>';
-
         echo '<tr class="section separator"><td colspan="3" class="spacer"></td></tr>';
     }
 

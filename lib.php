@@ -20,6 +20,8 @@
   along with this program.  If not, see http://www.gnu.org/licenses/.
  */
 
+ require_once('config.php'); // For Collaped Topics defaults.
+
 /**
  * Indicates this format uses sections.
  *
@@ -111,19 +113,18 @@ function callback_topcoll_get_section_url($courseid, $sectionnum) {
  * @return int The format setting.
  */
 function get_topcoll_setting($courseid) {
-    require_once('config.php'); // For defaults - NOTE: For some reason 'globals' not working if it is used and this is outside this function.
     global $DB;
+    global $TCCFG;
 
     if (!$setting = $DB->get_record('format_topcoll_settings', array('courseid' => $courseid))) {
-
         // Default values...
         $setting = new stdClass();
         $setting->courseid = $courseid;
-        $setting->layoutelement = $defaultlayoutelement; 
-        $setting->layoutstructure = $defaultlayoutstructure;
-        $setting->tgfgcolour = $defaulttgfgcolour;
-        $setting->tgbgcolour = $defaulttgbgcolour;
-        $setting->tgbghvrcolour = $defaulttgbghvrcolour;
+        $setting->layoutelement = $TCCFG->defaultlayoutelement; 
+        $setting->layoutstructure = $TCCFG->defaultlayoutstructure;
+        $setting->tgfgcolour = $TCCFG->defaulttgfgcolour;
+        $setting->tgbgcolour = $TCCFG->defaulttgbgcolour;
+        $setting->tgbghvrcolour = $TCCFG->defaulttgbghvrcolour;
 
         if (!$setting->id = $DB->insert_record('format_topcoll_settings', $setting)) {
             error('Could not set format setting. Collapsed Topics format database is not ready.  An admin must visit notifications.');
@@ -157,7 +158,7 @@ function put_topcoll_setting($courseid, $layoutelement, $layoutstructure, $tgfgc
         $setting->tgfgcolour = $tgfgcolour;
         $setting->tgbgcolour = $tgbgcolour;
         $setting->tgbghvrcolour = $tgbghvrcolour;
-        $DB->insert_record('format_topcoll_settings', $layout);
+        $DB->insert_record('format_topcoll_settings', $setting);
     }
 }
 
@@ -169,4 +170,47 @@ function format_topcoll_delete_course($courseid) {
     global $DB;
 
     $DB->delete_records("format_topcoll_settings", array("courseid"=>$courseid));
+}
+
+/**
+ * Gets the format cookie consent for the user or if it does not exist, create it.
+ * CONTRIB-3624
+ * @param int $userid The user identifier.
+ * @return int The format cookie consent.
+ */
+function get_topcoll_cookie_consent($userid) {
+    global $DB;
+
+    if (!$cookie = $DB->get_record('format_topcoll_cookie_cnsnt', array('userid' => $userid))) {
+
+        // Default values...
+        $cookie = new stdClass();
+        $cookie->userid = $userid;
+        $cookie->cookieconsent = 1;
+
+        if (!$cookie->id = $DB->insert_record('format_topcoll_cookie_cnsnt', $cookie)) {
+            error('Could not set format cookie consent. Collapsed Topics format database is not ready.  An admin must visit notifications.');
+        }
+    }
+
+    return $cookie;
+}
+
+/**
+ * Sets the format cookie consent for the user or if it does not exist, create it.
+ * CONTRIB-3624
+ * @param int $userid The user identifier.
+ * @param int $cookieconsent The layout element value to set.
+ */
+function put_topcoll_cookie_consent($userid, $cookieconsent) {
+    global $DB;
+    if ($cookie = $DB->get_record('format_topcoll_cookie_cnsnt', array('userid' => $userid))) {
+        $cookie->cookieconsent = $cookieconsent;
+        $DB->update_record('format_topcoll_cookie_cnsnt', $cookie);
+    } else {
+        $cookie = new stdClass();
+        $cookie->courseid = $userid;
+        $cookie->cookieconsent = $cookieconsent;
+        $DB->insert_record('format_topcoll_cookie_cnsnt', $cookie);
+    }
 }

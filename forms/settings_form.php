@@ -31,7 +31,7 @@
  */
 require_once("$CFG->libdir/formslib.php");
 
-class set_layout_form extends moodleform {
+class set_settings_form extends moodleform {
 
     function definition() {
         global $CFG;
@@ -88,10 +88,6 @@ class set_layout_form extends moodleform {
         // hidden params
         $mform->addElement('hidden', 'id', $instance['courseid']);
         $mform->setType('id', PARAM_INT);
-        //$mform->addElement('hidden', 'setelement', $instance['setelement']);
-        //$mform->setType('setelement', PARAM_INT);
-        //$mform->addElement('hidden', 'setstructure', $instance['setstructure']);
-        //$mform->setType('setstructure', PARAM_INT);
         // buttons
         $this->add_action_buttons(true, get_string('savechanges', 'admin'));
     }

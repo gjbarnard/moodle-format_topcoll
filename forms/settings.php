@@ -29,10 +29,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-require_once('../../../config.php');
-require_once('./lib.php');
+require_once('../../../../config.php');
+require_once('../lib.php');
 require_once('./settings_form.php');
-require_once('./config.php');
+require_once('../config.php');
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -51,7 +51,7 @@ if (!$coursecontext = get_context_instance(CONTEXT_COURSE, $course->id)) {
 require_login($course); // From /course/view.php - Facilitates the correct population of the setttings block.
 
 $PAGE->set_context($coursecontext);
-$PAGE->set_url('/course/format/topcoll/settings.php&id=', array('id' => $courseid)); // From /course/view.php
+$PAGE->set_url('/course/format/topcoll/forms/settings.php', array('id' => $courseid, 'sesskey' => sesskey())); // From /course/view.php
 $PAGE->set_pagelayout('course'); // From /course/view.php
 $PAGE->set_pagetype('course-view-topcoll'); // From /course/view.php
 $PAGE->set_other_editing_capability('moodle/course:manageactivities'); // From /course/view.php
@@ -64,7 +64,7 @@ require_capability('moodle/course:update', $coursecontext);
 $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
 
 if ($PAGE->user_is_editing()) {
-    $mform = new set_layout_form(null, array('courseid' => $courseid, 'setelement' => $layoutsetting->layoutelement, 'setstructure' => $layoutsetting->layoutstructure,'tgfgcolour' => $layoutsetting->tgfgcolour,'tgbgcolour' => $layoutsetting->tgbgcolour, 'tgbghvrcolour' => $layoutsetting->tgbghvrcolour ));
+    $mform = new set_settings_form(null, array('courseid' => $courseid, 'setelement' => $layoutsetting->layoutelement, 'setstructure' => $layoutsetting->layoutstructure,'tgfgcolour' => $layoutsetting->tgfgcolour,'tgbgcolour' => $layoutsetting->tgbgcolour, 'tgbghvrcolour' => $layoutsetting->tgbghvrcolour ));
 
     //print_object($mform);
     if ($mform->is_cancelled()) {
@@ -73,15 +73,15 @@ if ($PAGE->user_is_editing()) {
         //print_r($formdata);
         if ((isset($formdata->resetlayout) == true) && (isset($formdata->resetcolour) == true)) {
             put_topcoll_setting($formdata->id,
-                                $defaultlayoutelement,
-                                $defaultlayoutstructure,
-                                $defaulttgfgcolour,
-                                $defaulttgbgcolour,
-                                $defaulttgbghvrcolour);
+                                $TCCFG->defaultlayoutelement,
+                                $TCCFG->defaultlayoutstructure,
+                                $TCCFG->defaulttgfgcolour,
+                                $TCCFG->defaulttgbgcolour,
+                                $TCCFG->defaulttgbghvrcolour);
         } else if (isset($formdata->resetlayout) == true) {
             put_topcoll_setting($formdata->id,
-                                $defaultlayoutelement,
-                                $defaultlayoutstructure,
+                                $TCCFG->defaultlayoutelement,
+                                $TCCFG->defaultlayoutstructure,
                                 substr($formdata->tgfg,1),
                                 substr($formdata->tgbg,1),
                                 substr($formdata->tgbghvr,1));
@@ -89,9 +89,9 @@ if ($PAGE->user_is_editing()) {
             put_topcoll_setting($formdata->id,
                                 $formdata->setelementnew,
                                 $formdata->setstructurenew,
-                                $defaulttgfgcolour,
-                                $defaulttgbgcolour,
-                                $defaulttgbghvrcolour);
+                                $TCCFG->defaulttgfgcolour,
+                                $TCCFG->defaulttgbgcolour,
+                                $TCCFG->defaulttgbghvrcolour);
         } else {
             put_topcoll_setting($formdata->id,
                                 $formdata->setelementnew,
