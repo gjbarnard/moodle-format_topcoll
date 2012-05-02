@@ -29,8 +29,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
- $plugin->version = 2012031700;
+ $plugin->version = 2012050200.00;
  //$plugin->maturity = MATURITY_STABLE; // Not in Moodle 1.9 but here as information to you.
  $plugin->requires = 2007101591.06; // 1.9.14
  $plugin->component = 'format_topcoll';
- $plugin->release = '1.9.9';
+ $plugin->release = '1.9.10';

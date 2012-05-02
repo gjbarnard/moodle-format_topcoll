@@ -60,6 +60,8 @@ class set_layout_form extends moodleform {
         $mform->addElement('select', 'set_structure', get_string('setlayoutstructure', 'format_topcoll'), $formcourselayoutstrutures);
         $mform->setDefault('set_structure', $instance['setstructure']);
         $mform->setHelpButton('set_structure', array('setlayoutstructurehelp', get_string('setlayoutstructure', 'format_topcoll'), 'format_topcoll'));
+        $mform->addElement('checkbox','resetlayout',get_string('resetlayout', 'format_topcoll'),false);
+        $mform->setHelpButton('resetlayout', array('resetlayouthelp', get_string('resetlayout', 'format_topcoll'), 'format_topcoll'));
 
         // hidden params
         $mform->addElement('hidden', 'id', $instance['courseid']);

@@ -32,6 +32,7 @@
 require_once('../../../config.php');
 require_once('./lib.php');
 require_once('./set_layout_form.php');
+require_once('./config.php');
 
 global $DB, $PAGE;
 
@@ -69,7 +70,13 @@ if (isediting($courseid)) {
     if ($mform->is_cancelled()) {
         redirect($courseurl);
     } else if ($formdata = $mform->get_data()) {
-        put_layout($formdata->id, $formdata->set_element, $formdata->set_structure);
+        if (isset($formdata->resetlayout) == true) {
+            put_layout($formdata->id,
+                       $TCCFG->defaultlayoutelement,
+                       $TCCFG->defaultlayoutstructure);
+        } else {
+            put_layout($formdata->id, $formdata->set_element, $formdata->set_structure);
+        }
         redirect($courseurl);
     }
 

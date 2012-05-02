@@ -36,6 +36,7 @@ var thecookiesubid; // For the cookie sub name.
 var yuicookie = YAHOO.util.Cookie; // Simpler function calls.
 var numToggles = 0;
 var currentSection;
+var cookieConsent = 3; // Off by default as a 'just in case'.
 var cookieExpires;
 var ie7OrLess = false;
 var ie = false;
@@ -93,6 +94,11 @@ function set_number_of_toggles(atoggle)
 function set_current_section(theSection)
 {
     currentSection = theSection;
+}
+
+function set_cookie_consent(theConsent) 
+{
+    cookieConsent = theConsent;
 }
 
 // Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the most significant bit and represents the non-toggling topic 0.
@@ -234,27 +240,38 @@ function to36baseString(two)
 // Args - value to save to the cookie
 function savetopcollcookie(value)
 {
-    // Using Sub cookies, so, name, moodleid/courseid, value.
-    if (cookieExpires == null)
+    // Only save the cookie if consent has been given or not required for the installations country.
+    if (cookieConsent == 2)
     {
-        // Session Cookie...
-        yuicookie.setSub("mdl_cf_topcoll",thecookiesubid,value);    
-        // This is not a Moodle table but in fact the cookies name.
-    }
-    else
-    {
-        // Expiring Cookie...
-        var newDate = new Date();
-        newDate.setTime(newDate.getTime() + cookieExpires);
-        yuicookie.setSub("mdl_cf_topcoll",thecookiesubid,value, { expires: newDate });
-        // This is not a Moodle table but in fact the cookies name.
+        // Using Sub cookies, so, name, moodleid/courseid, value.
+        if (cookieExpires == null)
+        {
+            // Session Cookie...
+            yuicookie.setSub("mdl_cf_topcoll",thecookiesubid,value);    
+            // This is not a Moodle table but in fact the cookies name.
+        }
+        else
+        {
+            // Expiring Cookie...
+            var newDate = new Date();
+            newDate.setTime(newDate.getTime() + cookieExpires);
+            yuicookie.setSub("mdl_cf_topcoll",thecookiesubid,value, { expires: newDate });
+            // This is not a Moodle table but in fact the cookies name.
+        }
     }
 }
 
 // Get the cookie - yum.
 function restoretopcollcookie()
 {
-    return yuicookie.getSub("mdl_cf_topcoll",thecookiesubid); // Returns null if cookie does not exist.
+    if (cookieConsent == 2)
+    {
+        return yuicookie.getSub("mdl_cf_topcoll",thecookiesubid); // Returns null if cookie does not exist.
+    }
+    else
+    {
+        return null;
+    }
 }
 
 // Toggle persistence functions
@@ -267,7 +284,12 @@ function reload_toggles()
     {
         toggleBinaryGlobal = to2baseString(storedval);
     }
-    
+    else
+    {
+        // Reset to default.
+        toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
+    }
+
     for (var theToggle = 1; theToggle <= numToggles; theToggle++)
     {
         if ((theToggle <= numToggles) && ((toggleBinaryGlobal.charAt(theToggle) == "1") || (theToggle == currentSection))) // Array index 0 is never tested - MSB thing.

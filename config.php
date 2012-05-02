@@ -41,6 +41,11 @@
                                'recent_activity';
 //
 
+
+unset($TCCFG);
+global $TCCFG;
+$TCCFG = new stdClass();
+
 // Layout configuration.
 // Here you can see what numbers in the array represent what layout for setting the default value below.
 // 1 => Default.
@@ -52,7 +57,7 @@
 // 7 => No 'Toggle' word, no 'Topic x' / 'Week x'  and no section number.
 
 // Default layout to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
-$defaultlayoutelement = 1;
+$TCCFG->defaultlayoutelement = 1;
 
 // Structure configuration.
 // Here so you can see what numbers in the array represent what structure for setting the default value below.
@@ -62,5 +67,8 @@ $defaultlayoutelement = 1;
 // 4 => Current Topic First
 
 // Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
-$defaultlayoutstructure = 1;
+$TCCFG->defaultlayoutstructure = 1;
+
+// Request Cookie Consent - CONTRIB-3624
+$TCCFG->defaultcookieconsent = false; // Set to true if your country does implement cookie consent law - details on CONTRIB-3624 (http://tracker.moodle.org/browse/CONTRIB-3624).
 ?>

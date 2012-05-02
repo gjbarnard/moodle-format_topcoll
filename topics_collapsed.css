@@ -144,6 +144,21 @@ tr.cps td a:hover {
   height: 128px;
   float: right;
 }
+/* Set cookie consent */
+#set-cookie-consent{
+  float: right; 
+  vertical-align: text-top;
+  background: transparent url(images/tc_logo_cookie.png) no-repeat 0px 0px; 
+  width: 128px;
+  height: 100px;
+  margin: 40px 4px 4px 4px;
+}
+
+div.cookieConsentContainer {
+  width:100%;
+  float:left;
+  display: block;
+}
 
 /* -- hide the children for IE7 and older -- */
 .collapsed_topic *

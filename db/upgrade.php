@@ -55,5 +55,24 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         $result = $result && create_table($table);
     }
 
+    if ($result && $oldversion < 2012050200.00) {
+
+        // Define table format_topcoll_cookie_cnsnt to be created
+        $table = new XMLDBTable('format_topcoll_cookie_cnsnt');
+
+        // Adding fields to table format_topcoll_cookie_cnsnt
+        $table->addFieldInfo('id', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null, null);
+        $table->addFieldInfo('userid', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, null, null,null, null, null);
+        $table->addFieldInfo('cookieconsent', XMLDB_TYPE_INTEGER, '1', XMLDB_UNSIGNED, XMLDB_NOTNULL, null,null, '1', null);
+
+        // Adding keys to table format_topcoll_cookie_cnsnt
+        $table->addKeyInfo('primary', XMLDB_KEY_PRIMARY, array('id'));
+
+        // Create table.
+        $result = $result && create_table($table);
+
+        upgrade_plugin_savepoint(true, '2012050200.00', 'format', 'topcoll');
+    }
+
     return $result;
 }

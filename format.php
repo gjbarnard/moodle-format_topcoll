@@ -168,12 +168,54 @@ foreach ($lt as $column) {
                 echo '</tr>';
             }
 
+// CONTRIB-3624 - Cookie consent.
+if ($TCCFG->defaultcookieconsent  == true) {
+    $usercookieconsent = get_topcoll_cookie_consent($USER->id); // In topcoll/lib.php
+
+    // Tell the JavaScript code of the state.  Upon user choice, this page will refresh and a new value sent...
+?>
+<script type="text/javascript" defer="defer"> // Defer running of the script until all HMTL has been passed.
+    //<![CDATA[
+<?php
+    echo 'set_cookie_consent('.$usercookieconsent->cookieconsent.')';
+?>
+    //]]>
+</script>
+<?php
+    if ($usercookieconsent->cookieconsent == 1) {
+        // Display message to ask for consent.
+        echo '<tr class="section main">';
+        echo '<td class="left side">&nbsp;</td>';
+        echo '<td class="content">';
+        echo '<div class="cookieConsentContainer">';
+        echo '<a "title="' . get_string('cookieconsentform','format_topcoll') . '" href="format/topcoll/cookie_consent.php?userid=' . $USER->id . '&courseid=' . $course->id . '&sesskey=' . sesskey() . '"><div id="set-cookie-consent"></div></a>';
+        echo '<div>'.print_heading_block(get_string('setcookieconsent','format_topcoll'), 'sectionname').get_string('cookieconsent','format_topcoll').'</div>';
+        echo '</div>';
+        echo '</td>';
+        echo '<td class="right side">&nbsp;</td>';
+        echo '</tr>';
+        echo '<tr class="section separator"><td colspan="3" class="spacer"></td></tr>';
+    }
+} else {
+    // Cookie consent turned off by administrator, so allow...
+?>
+<script type="text/javascript" defer="defer"> // Defer running of the script until all HMTL has been passed.
+    //<![CDATA[
+<?php
+    echo 'set_cookie_consent(2)';
+?>
+    //]]>
+</script>
+<?php
+}
+
 // CONTRIB-3378
             $layoutsetting = get_layout($course->id);
             if ($userisediting && has_capability('moodle/course:update', $coursecontext)) {
                 echo '<tr class="section main">';
                 echo '<td class="left side">&nbsp;</td>';
                 echo '<td class="content">';
+                print_heading_block(get_string('setlayout','format_topcoll'), 'sectionname');
                 echo '<a title="' . get_string('setlayout', 'format_topcoll') . '" href="format/topcoll/set_layout.php?id=' . $course->id . '&setelement=' . $layoutsetting->layoutelement . '&setstructure=' . $layoutsetting->layoutstructure . '&sesskey=' . sesskey() . '"><div id="set-layout"></div></a>';
                 echo '</td>';
                 echo '<td class="right side">&nbsp;</td>';

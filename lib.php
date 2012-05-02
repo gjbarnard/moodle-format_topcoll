@@ -29,6 +29,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+require_once('config.php'); // For defaults.
+
 /**
  * Gets the layout for the course or if it does not exist, create it.
  * CONTRIB-3378
@@ -36,15 +38,15 @@
  * @return int The layout.
  */
 function get_layout($courseid) {
-    require_once('config.php'); // For defaults - NOTE: For some reason 'globals' not working if it is used and this is outside this function.
     global $DB;
+    global $TCCFG;
 
     if (!$layout = get_record('format_topcoll_layout', 'courseid',$courseid)) {
 
         $layout = new stdClass();
         $layout->courseid = $courseid;
-        $layout->layoutelement = $defaultlayoutelement; // Default value.
-        $layout->layoutstructure = $defaultlayoutstructure; // Default value.
+        $layout->layoutelement = $TCCFG->defaultlayoutelement; // Default value.
+        $layout->layoutstructure = $TCCFG->defaultlayoutstructure; // Default value.
 
         if (!$layout->id = insert_record('format_topcoll_layout', $layout)) {
             error('Could not set layout setting. Collapsed Topics format database is not ready.  An admin must visit notifications.');
@@ -62,7 +64,6 @@ function get_layout($courseid) {
  * @param int $layoutstructure The layout structure value to set.
  */
 function put_layout($courseid, $layoutelement, $layoutstructure) {
-    //require_once('config.php'); // For defaults - NOTE: For some reason 'globals' not working if it is used and this is outside this function.
     global $DB;
     if ($layout = get_record('format_topcoll_layout', 'courseid',$courseid)) {
         $layout->layoutelement = $layoutelement;
@@ -85,4 +86,47 @@ function topcoll_course_format_delete_course($courseid) {
     global $DB;
 
     delete_records('format_topcoll_layout', 'courseid', $courseid);
+}
+
+/**
+ * Gets the format cookie consent for the user or if it does not exist, create it.
+ * CONTRIB-3624
+ * @param int $userid The user identifier.
+ * @return int The format cookie consent.
+ */
+function get_topcoll_cookie_consent($userid) {
+    global $DB;
+
+    if (!$cookie = get_record('format_topcoll_cookie_cnsnt', 'userid',$userid)) {
+
+        // Default values...
+        $cookie = new stdClass();
+        $cookie->userid = $userid;
+        $cookie->cookieconsent = 1;
+
+        if (!$cookie->id = insert_record('format_topcoll_cookie_cnsnt', $cookie)) {
+            error('Could not set format cookie consent. Collapsed Topics format database is not ready.  An admin must visit notifications.');
+        }
+    }
+
+    return $cookie;
+}
+
+/**
+ * Sets the format cookie consent for the user or if it does not exist, create it.
+ * CONTRIB-3624
+ * @param int $userid The user identifier.
+ * @param int $cookieconsent The layout element value to set.
+ */
+function put_topcoll_cookie_consent($userid, $cookieconsent) {
+    global $DB;
+    if ($cookie = get_record('format_topcoll_cookie_cnsnt', 'userid',$userid)) {
+        $cookie->cookieconsent = $cookieconsent;
+        update_record('format_topcoll_cookie_cnsnt', $cookie);
+    } else {
+        $cookie = new stdClass();
+        $cookie->courseid = $userid;
+        $cookie->cookieconsent = $cookieconsent;
+        insert_record('format_topcoll_cookie_cnsnt', $cookie);
+    }
 }
