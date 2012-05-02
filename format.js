@@ -35,13 +35,13 @@ M.course.format.swap_sections = function(Y, node1, node2) {
     //var sectionlist = Y.Node.all('.'+CSS.COURSECONTENT+' '+ 'tbody.topcollsection';
     // Swap left block
     sectionlist.item(node1).one('.'+CSS.LEFT).swap(sectionlist.item(node2).one('.'+CSS.LEFT));
-    //sectionlist.item(node1).previousSibling.one('.'+CSS.LEFT).swap(sectionlist.item(node2).previousSibling.one('.'+CSS.LEFT));
+    //sectionlist.item(node1).previous().one('.'+CSS.LEFT).swap(sectionlist.item(node2).previous().one('.'+CSS.LEFT));
     // Swap right block
     sectionlist.item(node1).one('.'+CSS.RIGHT).swap(sectionlist.item(node2).one('.'+CSS.RIGHT));
-    //sectionlist.item(node1).previousSibling.one('.'+CSS.RIGHT).swap(sectionlist.item(node2).previousSibling.one('.'+CSS.RIGHT));
+    //sectionlist.item(node1).previous().one('.'+CSS.RIGHT).swap(sectionlist.item(node2).previous().one('.'+CSS.RIGHT));
     // Swap menus
     sectionlist.item(node1).one('.'+CSS.SECTIONADDMENUS).swap(sectionlist.item(node2).one('.'+CSS.SECTIONADDMENUS));
-      //sectionlist.item(node1).previousSibling.one('.'+CSS.SECTIONADDMENUS).swap(sectionlist.item(node2).previousSibling.one('.'+CSS.SECTIONADDMENUS));
+    //sectionlist.item(node1).previous().one('.'+CSS.SECTIONADDMENUS).swap(sectionlist.item(node2).previous().one('.'+CSS.SECTIONADDMENUS));
 
     //sectionlist = Y.Node.all('.'+CSS.COURSECONTENT+' '+ 'tr.cps';
     // Swap left block
