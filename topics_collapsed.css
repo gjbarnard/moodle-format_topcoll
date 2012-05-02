@@ -141,7 +141,7 @@ tr.cps td a:hover {
 #set-layout {
   background: transparent url(images/tc_logo_spanner.png) no-repeat 0px 0px; 
   width: 128px;
-  height: 128px;
+  height: 100px;
   float: right;
 }
 /* Set cookie consent */
