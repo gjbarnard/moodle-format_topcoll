@@ -28,7 +28,6 @@ M.course.format.swap_sections = function(Y, node1, node2) {
         LEFT : 'left',
         RIGHT : 'right',
         SECTIONADDMENUS : 'section_add_menus',
-        WEEKDATES: 'weekdates'
     };
 
     var sectionlist = Y.Node.all('.'+CSS.COURSECONTENT+' '+M.course.format.get_section_selector(Y));
@@ -38,6 +37,4 @@ M.course.format.swap_sections = function(Y, node1, node2) {
     sectionlist.item(node1).one('.'+CSS.RIGHT).swap(sectionlist.item(node2).one('.'+CSS.RIGHT));
     // Swap menus
     sectionlist.item(node1).one('.'+CSS.SECTIONADDMENUS).swap(sectionlist.item(node2).one('.'+CSS.SECTIONADDMENUS));
-    // Swap week dates
-    sectionlist.item(node1).one('.'+CSS.WEEKDATES).swap(sectionlist.item(node2).one('.'+CSS.WEEKDATES));
 }

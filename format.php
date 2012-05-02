@@ -597,6 +597,9 @@ if (!empty($sectionmenu)) {
     echo $OUTPUT->render($select);
 }
 
+// Include course format js module
+$PAGE->requires->js('/course/format/topcoll/format.js');
+
 // Only toggle if no Screen Reader
 if ($screenreader == false) {
 // Establish persistance when we have loaded.
