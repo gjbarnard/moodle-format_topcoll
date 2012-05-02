@@ -404,6 +404,8 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   4. A few fixes to changes made in version 2.2.5 where I had renamed table 'format_topcoll_layout' to 'format_topcoll_settings' in the code.
   5. Created a '$TCCFG' object in the 'config.php' file to solve the 'globals' issue in 'lib.php'.
 
+2nd May 2012 - MDL-32657 development branch.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.

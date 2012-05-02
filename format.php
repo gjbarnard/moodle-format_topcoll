@@ -53,7 +53,7 @@ $PAGE->requires->js_init_call('M.format_topcoll.init',
                                null)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration - see Readme.txt.
 if (ajaxenabled() && $userisediting) {
     // This overrides the 'swap_with_section' function in /lib/ajax/section_classes.js
-    $PAGE->requires->js('/course/format/topcoll/js/tc_section_classes_min.js');
+    //$PAGE->requires->js('/course/format/topcoll/js/tc_section_classes_min.js');
 }
 
 $topic = optional_param('ctopics', -1, PARAM_INT);
@@ -361,6 +361,7 @@ while ($loopsection <= $course->numsections) {
 
         $weekperiod = $weekday . ' - ' . $endweekday;
 
+        echo '<tbody class="topcollsection">';
         if ($screenreader == false) {
 
             echo '<tr class="cps" id="sectionhead-' . $section . '">';
@@ -545,6 +546,7 @@ while ($loopsection <= $course->numsections) {
             }
         }
         echo '</td></tr>';
+        echo '</tbody>';
         echo '<tr class="section separator"><td colspan="3" class="spacer"></td></tr>';
     }
 
