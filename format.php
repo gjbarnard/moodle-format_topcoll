@@ -91,17 +91,15 @@ if ($USER->screenreader == 1) {
 
 if ($userisediting) {
     if (($setting->layoutstructure == 1) || ($setting->layoutstructure == 4)) {
-        $strtopichide = get_string('hidetopicfromothers');
-        $strtopicshow = get_string('showtopicfromothers');
         $strmarkthistopic = get_string('markthistopic');
         $strmarkedthistopic = get_string('markedthistopic');
     } else {
-        $strtopichide = get_string('hideweekfromothers');
-        $strtopicshow = get_string('showweekfromothers');
         $strmarkedthistopic = get_string('showallweeks');
     }
     $strmoveup = get_string('moveup');
     $strmovedown = get_string('movedown');
+    $strtopichide = get_string('hidefromothers', 'format_topcoll');
+    $strtopicshow = get_string('showfromothers', 'format_topcoll');
 }
 
 // Print the Your progress icon if the track completion is enabled
