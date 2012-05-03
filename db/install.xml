@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="course/format/topcoll/db" VERSION="20120430" COMMENT="XMLDB file for Moodle course/format/topcoll"
+<XMLDB PATH="course/format/topcoll/db" VERSION="20120503" COMMENT="XMLDB file for Moodle course/format/topcoll"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
     <TABLE NAME="format_topcoll_settings" COMMENT="States the settings used with the given course." NEXT="format_topcoll_cookie_cnsnt">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" SEQUENCE="true" NEXT="courseid"/>
-        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" SEQUENCE="false" PREVIOUS="id" NEXT="layoutelement"/>
-        <FIELD NAME="layoutelement" TYPE="int" LENGTH="2" NOTNULL="true" UNSIGNED="false" DEFAULT="1" SEQUENCE="false" PREVIOUS="courseid" NEXT="layoutstructure"/>
-        <FIELD NAME="layoutstructure" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="false" DEFAULT="1" SEQUENCE="false" PREVIOUS="layoutelement" NEXT="tgfgcolour"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="courseid"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="id" NEXT="layoutelement"/>
+        <FIELD NAME="layoutelement" TYPE="int" LENGTH="2" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="courseid" NEXT="layoutstructure"/>
+        <FIELD NAME="layoutstructure" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="layoutelement" NEXT="tgfgcolour"/>
         <FIELD NAME="tgfgcolour" TYPE="char" LENGTH="6" NOTNULL="true" DEFAULT="000000" SEQUENCE="false" PREVIOUS="layoutstructure" NEXT="tgbgcolour"/>
         <FIELD NAME="tgbgcolour" TYPE="char" LENGTH="6" NOTNULL="true" DEFAULT="e2e2f2" SEQUENCE="false" PREVIOUS="tgfgcolour" NEXT="tgbghvrcolour"/>
         <FIELD NAME="tgbghvrcolour" TYPE="char" LENGTH="6" NOTNULL="true" DEFAULT="eeeeff" SEQUENCE="false" PREVIOUS="tgbgcolour"/>
@@ -20,8 +20,8 @@
     </TABLE>
     <TABLE NAME="format_topcoll_cookie_cnsnt" COMMENT="Cookie consent state for any Collapsed Topics course." PREVIOUS="format_topcoll_settings">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" SEQUENCE="true" NEXT="userid"/>
-        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" SEQUENCE="false" PREVIOUS="id" NEXT="cookieconsent"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="userid"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="id" NEXT="cookieconsent"/>
         <FIELD NAME="cookieconsent" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="false" DEFAULT="1" SEQUENCE="false" COMMENT="1 Message, 2 Use cookie and 3 Don't use cookie." PREVIOUS="userid"/>
       </FIELDS>
       <KEYS>

@@ -56,33 +56,8 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
     }
 
     if ($result && $oldversion < 2012042600.00) {
-
-        // Changing sign of field id on table format_topcoll_layout to signed
-        $table = new xmldb_table('format_topcoll_layout');
-        $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null);
-
-        // Launch change of sign for field id
-        $dbman->change_field_unsigned($table, $field);
-
-        // Changing sign of field courseid on table format_topcoll_layout to signed
-        $field = new xmldb_field('courseid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null, 'id');
-
-        // Launch change of sign for field courseid
-        $dbman->change_field_unsigned($table, $field);
-
-        // Changing sign of field layoutelement on table format_topcoll_layout to signed
-        $field = new xmldb_field('layoutelement', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, '1', 'courseid');
-
-        // Launch change of sign for field layoutelement
-        $dbman->change_field_unsigned($table, $field);
-
-        // Changing sign of field layoutstructure on table format_topcoll_layout to signed
-        $field = new xmldb_field('layoutstructure', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '1', 'layoutelement');
-
-        // Launch change of sign for field layoutstructure
-        $dbman->change_field_unsigned($table, $field);
-
         // Change table name...
+        $table = new xmldb_table('format_topcoll_layout');
         $dbman->rename_table($table, 'format_topcoll_settings');
         $table = new xmldb_table('format_topcoll_settings');   // Use the new table.
 
@@ -115,14 +90,14 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         $result = $result && true;
     }
 
-    if ($result && $oldversion < 2012050100.00) {
+    if ($result && $oldversion < 2012050300.00) {
 
         // Define table format_topcoll_cookie_cnsnt to be created
         $table = new xmldb_table('format_topcoll_cookie_cnsnt');
 
         // Adding fields to table format_topcoll_cookie_cnsnt
-        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
-        $table->add_field('userid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('userid', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null);
         $table->add_field('cookieconsent', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '1');
 
         // Adding keys to table format_topcoll_cookie_cnsnt
@@ -133,7 +108,7 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
             $dbman->create_table($table);
         }
 
-        upgrade_plugin_savepoint(true, '2012050100.00', 'format', 'topcoll');
+        upgrade_plugin_savepoint(true, '2012050300.00', 'format', 'topcoll');
 
         $result = $result && true;
     }
