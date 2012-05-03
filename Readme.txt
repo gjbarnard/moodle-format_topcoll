@@ -400,6 +400,11 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   4. A few fixes to changes made in version 2.2.5 where I had renamed table 'format_topcoll_layout' to 'format_topcoll_settings' in the code.
   5. Created a '$TCCFG' object in the 'config.php' file to solve the 'globals' issue in 'lib.php'.
 
+3rd May 2012 - Version 2.1.8.1
+  1. Reverted back to unsigned data types in database due to error with MSSQL database code probably in core, but not essential change at
+     this point in time - see http://moodle.org/mod/forum/discuss.php?d=201460.
+  2. Updated French translation thanks to Luiggi Sansonetti.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -455,5 +460,5 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 1st May 2012.
+G J Barnard MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 3rd May 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.

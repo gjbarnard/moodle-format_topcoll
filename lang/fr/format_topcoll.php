@@ -60,13 +60,13 @@ $string['page-course-view-topcoll-x'] = 'Toutes les pages du cours au format sec
 
 // Layout enhancement - Moodle Tracker CONTRIB-3378
 $string['formatsettings'] = 'Parametres du format de'; // CONTRIB-3529
-$string['setlayout'] = 'Disposition';
+$string['setlayout'] = 'Paramètres de base';
 $string['setlayout_default'] = 'Par défaut';
-$string['setlayout_no_toggle_section_x'] = 'Pas de section x à basculer';
+$string['setlayout_no_toggle_section_x'] = "Pas de 'section x à basculer'";
 $string['setlayout_no_section_no'] = 'Pas de numéro de section';
-$string['setlayout_no_toggle_section_x_section_no'] = 'Pas de section x à basculer ni de numéro de section';
-$string['setlayout_no_toggle_word'] = 'Pas de mot à basculer';
-$string['setlayout_no_toggle_word_toggle_section_x'] = 'Pas de mot ni de section x à basculer';
+$string['setlayout_no_toggle_section_x_section_no'] = "Pas de 'section x à basculer' ni de numéro de section";
+$string['setlayout_no_toggle_word'] = "Pas de mot 'Basculer'";
+$string['setlayout_no_toggle_word_toggle_section_x'] = "Pas de mot 'Basculer' ni de 'section x à basculer'";
 $string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'Pas de mot, pas de section x ni de numéro de section à basculer';
 $string['setlayoutelements'] = 'Eléments';
 $string['setlayoutstructure'] = 'Structure';
@@ -77,22 +77,22 @@ $string['setlayoutstructurecurrenttopicfirst']='Section actuelle en premier';
 $string['resetlayout'] = 'Réinitialiser de disposition'; //CONTRIB-3529
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529
-$string['setcolour'] = 'Définir la couleur';
-$string['colourrule'] = "Please enter a valid RGB colour, a '#' and then six hexadecimal digits.";
-$string['settoggleforegroundcolour'] = 'Basculer premier plan';
-$string['settogglebackgroundcolour'] = 'Basculer de fond';
-$string['settogglebackgroundhovercolour'] = 'Basculer de fond le flotter';
+$string['setcolour'] = 'Réglages de la couleur';
+$string['colourrule'] = "Merci d\'entrer une couleur RVB valide au format # suivi de 6 caractères hexadécimaux.";
+$string['settoggleforegroundcolour'] = 'Couleur du premier plan (texte)';
+$string['settogglebackgroundcolour'] = 'Couleur du fond (bandeau)';
+$string['settogglebackgroundhovercolour'] = 'Couleur du bandeau au survol de la souris';
 $string['resetcolour'] = 'Réinitialiser la couleur';
 
 // Cookie consent - Moodle Tracker CONTRIB-3624
-$string['cookieconsentform'] = 'Cookie consent form' ;
-$string['cookieconsent'] = "Cookie consent is required to allow any course that uses the 'Collapsed Topics' format as you can see below to remember the state of the toggles.  Once you have given that consent using the icon to the right, the toggles will remember what you set them to when you refresh the page and when you return if this has been setup by your administrator.<br /><br />The cookie 'mdl_cf_topcoll' only contains the site short name, course id and a series of encoded 1's and 0's representing open or closed respectively.<br /><br />Once chosen this will be remembered for all 'Collapsed Topics' based courses and you will not be asked again unless your administrator performs a reset.";
-$string['setcookieconsent'] = 'Cookie consent';
-$string['cookieconsentallowed'] ='Allowed';
-$string['cookieconsentdenied'] ='Denied';
+$string['cookieconsentform'] = 'Formulaire d\'acceptation du Cookie' ;
+$string['cookieconsent'] = "L\'acceptatino du Cookie est nécessaire pour garder en mémoire pour tous les cours utilisant le format Sections Réduites l\'état des sections. Une fois que vous avez accepté en utilisant l\'icône à droite, l\'état des sections sera gardé lors d'actualisation des pages.<br /><br />Le cookie 'mdl_cf_topcoll' ne contient que le nom du site, l\'identifiant du cours et une série de 1 et de 0 signifiant ouvert ou fermé.<br /><br />Une fois ce réglage choisi, il ne vous sera pas demandé de reparamétrer le Cookie, sauf si l\'administrateur réinitialise les paramètres.";
+$string['setcookieconsent'] = 'Acceptation du Cookie';
+$string['cookieconsentallowed'] ='Autorisé';
+$string['cookieconsentdenied'] ='Refusé';
 
 // Help
-$string['setlayoutelements_help']='Combien d\'informations sur les éléments et les sections souhaitez-vous afficher ?';
+$string['setlayoutelements_help']="Quelles informations souhaitez-vous afficher sur le bandeau ?";
 $string['setlayoutstructure_help']="Structure et disposition de la page.  Vous pouvez choisir entre :
 
 'Format thématique' - ce format est organisé en sections thématiques numérotées.
@@ -102,14 +102,19 @@ $string['setlayoutstructure_help']="Structure et disposition de la page.  Vous p
 'Dernière semaine en premier' - basé sur le 'format hebdomadaire', la semaine en cours est affichée en haut et les semaines précédentes dans un ordre descendant, sauf en mode édition où la structure revient au format initial hebdomadaire.
 
 'Section actuelle en premier' - basé sur le 'format thématique', la secion actuelle est affichée en haut si elle a été fixée.";
-$string['setlayout_help'] = 'Contains the settings to do with the layout of the format within the course.';
-$string['resetlayout_help'] = 'Resets the layout to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format';
+$string['setlayout_help'] = 'Contient les réglages pour paramétrer le format sections réduites.';
+$string['resetlayout_help'] = 'Réinitialise les réglages par les valeurs par défaut présentes dans le fichier "/course/format/topcoll/config.php", ce sera donc le format de base de cours au format sections réduites';
 // Moodle Tracker CONTRIB-3529
-$string['setcolour_help'] = 'Contains the settings to do with the colour of the format within the course.';
-$string['settoggleforegroundcolour_help'] = 'Sets the colour of the text on the toggle.';
-$string['settogglebackgroundcolour_help'] = 'Sets the background of the toggle.';
-$string['settogglebackgroundhovercolour_help'] = 'Sets the background of the toggle when the mouse moves over it.';
-$string['resetcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format';
+$string['setcolour_help'] = 'Contient les réglages pour paramétrer les couleurs du format sections réduites.';
+$string['settoggleforegroundcolour_help'] = 'Définit la couleur du texte de la section réduite.';
+$string['settogglebackgroundcolour_help'] = 'Définit la couleur du fond de la section réduite.';
+$string['settogglebackgroundhovercolour_help'] = 'Définit la couleur de la section réduite au passage de la souris.';
+$string['resetcolour_help'] = 'Réinitialise les couleurs par les valeurs par défaut présentes dans le fichier "/course/format/topcoll/config.php", ce sera donc le format de base de cours au format sections réduites';
 // Moodle Tracker CONTRIB-3624
-$string['setcookieconsent_help'] = "If you choose 'Allowed' you agree that the next time you click on a toggle in any 'Collapsed Topics' based course then the 'mdl_cf_topcoll' cookie will be placed on your computer for the duration of the browser session or longer if you administrator has allowed - they can determine for how long.  It will remember the state of the toggles when you click on them.  If you choose 'Denied' the cookie will not be placed on your computer.  Once chosen this will be remembered for all 'Collapsed Topics' based courses and you will not be asked again unless your administrator performs a reset - please refer to 'Cookie Consent Information' in the 'Readme.txt' file of the format.";
+$string['setcookieconsent_help'] = "Si vous choisissez 'Autorisé', vous acceptez qu'à la prochaine fois que vous cliquez sur les basculements de sections, dans n'importe quel cours ayant le format 'Sections Réduites', le cookie 'mdl_cf_topcoll' s'enregister dans votre ordinateur le temps de votre session.
+Il se souviendra de l'état des sections quand vous cliquerez dessus.
+
+Si vous choisissez 'Refusé', le cookie ne s'enregistre pas dans votre ordinateur. Vous ne serez pas invité à modifier ce choix, sauf si l'administrateur réinitialise le réglage du cookie.
+
+Merci de vous référer à 'Cookie Consent Information' dans le fichier 'Readme.txt'.";
 ?>
