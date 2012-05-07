@@ -155,7 +155,7 @@ if ($TCCFG->defaultcookieconsent  == true) {
 
     if ($usercookieconsent->cookieconsent == 1) {
         // Display message to ask for consent.
-        echo '<tr class="section main">';
+        echo '<tr class="main">';
         echo '<td class="left side">&nbsp;</td>';
         echo '<td class="content">';
         echo '<div class="cookieConsentContainer">';
@@ -165,7 +165,7 @@ if ($TCCFG->defaultcookieconsent  == true) {
         echo '</td>';
         echo '<td class="right side">&nbsp;</td>';
         echo '</tr>';
-        echo '<tr class="section separator"><td colspan="3" class="spacer"></td></tr>';
+        echo '<tr class="separator"><td colspan="3" class="spacer"></td></tr>';
     }
 } else {
     // Cookie consent turned off by administrator, so allow...
@@ -173,14 +173,14 @@ if ($TCCFG->defaultcookieconsent  == true) {
 }
 
 if ($userisediting && has_capability('moodle/course:update', $coursecontext)) {
-    echo '<tr class="section main">';
+    echo '<tr class="main">';
     echo '<td class="left side">&nbsp;</td>';
     echo '<td class="content">';
     echo '<a title="' . get_string('settings') . '" href="format/topcoll/forms/settings.php?id=' . $course->id . '&sesskey=' . sesskey() . '"><div id="set-settings"></div></a>';
     echo '</td>';
     echo '<td class="right side">&nbsp;</td>';
     echo '</tr>';
-    echo '<tr class="section separator"><td colspan="3" class="spacer"></td></tr>';
+    echo '<tr class="separator"><td colspan="3" class="spacer"></td></tr>';
 }
 
 // Print Section 0 with general activities
@@ -221,7 +221,7 @@ if ($thissection->summary or $thissection->sequence or $userisediting) {
     echo '</td>';
     echo '<td class="right side">&nbsp;</td>';
     echo '</tr>';
-    echo '<tr class="section separator"><td colspan="3" class="spacer"></td></tr>';
+    echo '<tr class="separator"><td colspan="3" class="spacer"></td></tr>';
 }
 
 // Get the specific words from the language files.
@@ -237,13 +237,13 @@ if ($screenreader == false) { // No need to show if in screen reader mode.
     $toggletext = get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
     if (empty($displaysection)) { // or showing only one section.
         // Toggle all.
-        echo '<tr id="toggle-all" class="section main">';
+        echo '<tr id="toggle-all" class="main">';
         echo '<td class="left side toggle-all" colspan="2">';
         echo '<h4><a class="on" href="#" onclick="all_opened(); return false;">' . get_string('topcollopened', 'format_topcoll') . '</a><a class="off" href="#" onclick="all_closed(); return false;">' . get_string('topcollclosed', 'format_topcoll') . '</a>' . get_string('topcollall', 'format_topcoll') . '</h4>';
         echo '</td>';
         echo '<td class="right side">&nbsp;</td>';
         echo '</tr>';
-        echo '<tr class="section separator"><td colspan="3" class="spacer"></td></tr>';
+        echo '<tr class="separator"><td colspan="3" class="spacer"></td></tr>';
     }
 }
 // Now all the normal modules by topic or week
@@ -545,7 +545,7 @@ while ($loopsection <= $course->numsections) {
         }
         echo '</td></tr>';
         echo '</tbody>';
-        echo '<tr class="section separator"><td colspan="3" class="spacer"></td></tr>';
+        echo '<tr class="separator"><td colspan="3" class="spacer"></td></tr>';
     }
 
     if ($currentsectionfirst == false) {
