@@ -1,1 +1,1 @@
-This is the Collapsed Topics for Moodle MDL-32657 branch.
+This is the Collapsed Topics for Moodle MDL-32744 branch.
