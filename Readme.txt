@@ -406,6 +406,8 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 
 2nd May 2012 - MDL-32657 development branch.
 
+11th May 2012 - MDL-32657 & MDL-32744 development branch.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -461,5 +463,5 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 1st May 2012.
+G J Barnard MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 11th May 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
