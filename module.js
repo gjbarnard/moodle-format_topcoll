@@ -289,7 +289,7 @@ function reloadToggles()
         {
             if ((theToggle <= numToggles) && ((toggleBinaryGlobal.charAt(theToggle) == "1") || (theToggle == currentSection))) // Array index 0 is never tested - MSB thing.
             {
-                toggleexacttopic(document.getElementById("section-"+theToggle),document.getElementById("sectionatag-" + theToggle),theToggle,true);
+                toggleexacttopic(document.getElementById("sectionbody-"+theToggle),document.getElementById("sectionatag-" + theToggle),theToggle,true);
                 //alert("Bongo4 " + thecookiesubid + " " + theToggle);
             }
         }    
@@ -312,7 +312,7 @@ M.format_topcoll.reload_toggles = function (Y, aToggle) {
 // Show a specific topic - used when in 'Show topic x' mode.
 M.format_topcoll.show_topic = function (Y, theTopic)
 {
-    var section = document.getElementById("section-"+theTopic);  // CONTRIB-3283
+    var section = document.getElementById("sectionbody-"+theTopic);  // CONTRIB-3283
     var secatag = document.getElementById("sectionatag-" + theTopic);
     if ((section != null) && (secatag != null))
     {
@@ -351,10 +351,9 @@ function allToggle(state)
         // Set all off to set on.
         displaySetting = "none";
     }
-
     for (var theToggle = 1; theToggle <= numToggles; theToggle++)
     {
-        target = document.getElementById("section-"+theToggle);
+        target = document.getElementById("sectionbody-"+theToggle);
         target.style.display = displaySetting;
         toggleexacttopic(target,document.getElementById("sectionatag-" + theToggle),theToggle,false);
     }

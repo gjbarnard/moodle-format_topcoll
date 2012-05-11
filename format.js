@@ -5,14 +5,28 @@ M.course = M.course || {};
 M.course.format = M.course.format || {};
 
 /**
- * Get section list for this format
+ * Get sections config for this format
  *
- * @param {YUI} Y YUI3 instance
- * @return {string} section list selector
+ * The section structure is:
+ * <table class="topics">
+ *  <tbody class"section">
+ *    <td class="sectionbody">...</td>
+ *    <td class="sectionbody">...</td>
+ *  </tbody>
+ *   ...
+ * </table>
+ *
+ * @return {object} section list configuration
  */
-M.course.format.get_section_selector = function(Y) {
-    return 'tbody.topcollsection';
-    //return 'tr.togglesection';  // Partly works.
+M.course.format.get_config = function() {
+    return {
+        container_node : 'table',
+        container_class : 'topics',
+        section_wrapper_node : 'tbody',
+        section_wrapper_class : 'section',
+        section_node : 'tr',
+        section_class : 'sectionbody'
+    };
 }
 
 /**
@@ -27,27 +41,15 @@ M.course.format.swap_sections = function(Y, node1, node2) {
     var CSS = {
         COURSECONTENT : 'course-content',
         LEFT : 'left',
-        RIGHT : 'right',
         SECTIONADDMENUS : 'section_add_menus',
+        CPS : 'cps'
     };
 
-    var sectionlist = Y.Node.all('.'+CSS.COURSECONTENT+' '+M.course.format.get_section_selector(Y));
-    //var sectionlist = Y.Node.all('.'+CSS.COURSECONTENT+' '+ 'tbody.topcollsection';
+    var sectionlist = Y.Node.all('.'+CSS.COURSECONTENT+' '+M.course.format.get_section_wrapper(Y));
     // Swap left block
     sectionlist.item(node1).one('.'+CSS.LEFT).swap(sectionlist.item(node2).one('.'+CSS.LEFT));
-    //sectionlist.item(node1).previous().one('.'+CSS.LEFT).swap(sectionlist.item(node2).previous().one('.'+CSS.LEFT));
-    // Swap right block
-    sectionlist.item(node1).one('.'+CSS.RIGHT).swap(sectionlist.item(node2).one('.'+CSS.RIGHT));
-    //sectionlist.item(node1).previous().one('.'+CSS.RIGHT).swap(sectionlist.item(node2).previous().one('.'+CSS.RIGHT));
     // Swap menus
     sectionlist.item(node1).one('.'+CSS.SECTIONADDMENUS).swap(sectionlist.item(node2).one('.'+CSS.SECTIONADDMENUS));
-    //sectionlist.item(node1).previous().one('.'+CSS.SECTIONADDMENUS).swap(sectionlist.item(node2).previous().one('.'+CSS.SECTIONADDMENUS));
-
-    //sectionlist = Y.Node.all('.'+CSS.COURSECONTENT+' '+ 'tr.cps';
-    // Swap left block
-    //sectionlist.item(node1).one('.'+CSS.LEFT).swap(sectionlist.item(node2).one('.'+CSS.LEFT));
-    // Swap right block
-    //sectionlist.item(node1).one('.'+CSS.RIGHT).swap(sectionlist.item(node2).one('.'+CSS.RIGHT));
-    // Swap menus
-    //sectionlist.item(node1).one('.'+CSS.SECTIONADDMENUS).swap(sectionlist.item(node2).one('.'+CSS.SECTIONADDMENUS));
+    // Swap toggles
+    sectionlist.item(node1).one('.'+CSS.CPS).swap(sectionlist.item(node2).one('.'+CSS.CPS));
 }

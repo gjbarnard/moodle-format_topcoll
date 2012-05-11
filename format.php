@@ -55,14 +55,18 @@ if (ajaxenabled() && $userisediting) {
     // This overrides the 'swap_with_section' function in /lib/ajax/section_classes.js
     //$PAGE->requires->js('/course/format/topcoll/js/tc_section_classes_min.js');
 }
+// Include course format js module
+$PAGE->requires->js('/course/format/topcoll/format.js');
 
 $topic = optional_param('ctopics', -1, PARAM_INT);
 
-if ($topic != -1) {
-    $displaysection = course_set_display($course->id, $topic);
-} else {
-    $displaysection = course_get_display($course->id); // MDL-23939
-}
+// Not sure what to do about this code...
+//if ($topic != -1) {
+//    $displaysection = course_set_display($course->id, $topic);
+//} else {
+//    $displaysection = course_get_display($course->id); // MDL-23939
+//}
+//$displaysection = 0;  // Was default value in 'course_get_display' for when not set.
 
 $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
 
@@ -76,11 +80,7 @@ $setting = get_topcoll_setting($course->id); // CONTRIB-3378
 $streditsummary = get_string('editsummary');
 $stradd = get_string('add');
 $stractivities = get_string('activities');
-if (($setting->layoutstructure == 1) || ($setting->layoutstructure == 4)) {
-    $strshowalltopics = get_string('showalltopics');
-} else {
-    $strshowalltopics = get_string('showallweeks');
-}
+$strshowalltopics = get_string('showfromothers', 'format_topcoll');
 $strgroups = get_string('groups');
 $strgroupmy = get_string('groupmy');
 
@@ -110,7 +110,7 @@ echo $OUTPUT->heading(get_string('topicoutline'), 2, 'headingblock header outlin
 
 // Establish the table for the topics with the colgroup and col tags to allow css to set the widths of the columns correctly and fix them in the browser so
 // that the columns do not magically resize when the toggle is used or we go into editing mode.
-echo '<table id="thetopics" summary="' . get_string('layouttable') . '">';
+echo '<table class="topics" id="thetopics" summary="' . get_string('layouttable') . '">';
 echo '<colgroup><col class="left" /><col class="content" /><col class="right" style="' . get_string('topcolltogglewidth', 'format_topcoll') . '" /></colgroup>';
 // The string 'topcolltogglewidth' above can be set in the language file to allow for different lengths of words for different languages.
 // For example $string['topcolltogglewidth']='width: 42px;' - if not defined, then the default '#thetopics col.right' in topics_collapsed.css applies.
@@ -189,7 +189,7 @@ $thissection = $sections[$section];
 unset($sections[0]);
 
 if ($thissection->summary or $thissection->sequence or $userisediting) {
-    echo '<tr id="section-0" class="section main">';
+    echo '<tr id="sectionbody-0" class="sectionbody main">';
     echo '<td class="left side">&nbsp;</td>';
     echo '<td class="content">';
 
@@ -304,7 +304,7 @@ while ($loopsection <= $course->numsections) {
         $showsection = ((has_capability('moodle/course:viewhiddensections', $coursecontext) or $thissection->visible or !$course->hiddensections) and ($nextweekdate <= $timenow));
     }
 
-    if (!empty($displaysection) and $displaysection != $section) { // If the display section is not null then skip if it is not the section to show.
+    if (!empty($displaysection) and $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) { // If the display section is not null then skip if it is not the section to show.
         if ($showsection) {
             $sectionmenu[$section] = get_section_name($course, $thissection);
         }
@@ -359,9 +359,8 @@ while ($loopsection <= $course->numsections) {
 
         $weekperiod = $weekday . ' - ' . $endweekday;
 
-        echo '<tbody class="topcollsection">';
+        echo '<tbody class="section" id="section-' . $section . '">';
         if ($screenreader == false) {
-
             echo '<tr class="cps" id="sectionhead-' . $section . '">';
 
             // Have a different look depending on if the section summary has been completed.
@@ -434,9 +433,9 @@ while ($loopsection <= $course->numsections) {
         // is loaded into the DOM by the JavaScript function topcoll_init.  Therefore having a logical separation between static and JavaScript manipulated css.  Nothing else here differs from 
         // the standard Topics format in the core distribution.  The next change is at the bottom.
         if ($screenreader == true) {
-            echo '<tr id="section-' . $section . '" class="section main' . $sectionstyle . '">';
+            echo '<tr id="sectionbody-' . $section . '" class="sectionbody main' . $sectionstyle . '">';
         } else {
-            echo '<tr id="section-' . $section . '" class="section main togglesection' . $sectionstyle . '">';
+            echo '<tr id="sectionbody-' . $section . '" class="sectionbody main togglesection' . $sectionstyle . '">';
         }
 
         if ($screenreader == true) {
@@ -503,43 +502,38 @@ while ($loopsection <= $course->numsections) {
         echo '</td>';
 
         echo '<td class="right side">';
-        if ($displaysection == $section) {    // Show the zoom boxes
+        if (!empty($displaysection) and ($course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) and ($displaysection == $section)) {    // Show the zoom boxes
             echo '<a href="view.php?id=' . $course->id . '&amp;ctopics=0#section-' . $section . '" title="' . $strshowalltopics . '">' .
             '<img src="' . $OUTPUT->pix_url('i/all') . '" class="icon" alt="' . $strshowalltopics . '" /></a><br />';
         } else {
-            if (($setting->layoutstructure == 2) || ($setting->layoutstructure == 3)) {
-                $strshowonlytopic = get_string("showonlyweek", "", $section);
-            } else {
-                $strshowonlytopic = get_string("showonlytopic", "", $section);
-            }
-            echo '<a href="view.php?id=' . $course->id . '&amp;ctopics=' . $section . '" title="' . $strshowonlytopic . '">' .
-            '<img src="' . $OUTPUT->pix_url('i/one') . '" class="icon" alt="' . $strshowonlytopic . '" /></a><br />';
+            echo '<a href="view.php?id=' . $course->id . '&amp;ctopics=' . $section . '" title="' . $strshowalltopics . '">' .
+            '<img src="' . $OUTPUT->pix_url('i/one') . '" class="icon" alt="' . $strshowalltopics . '" /></a><br />';
         }
 
         if ($userisediting && has_capability('moodle/course:update', $coursecontext)) {
             if ($course->marker == $section) {  // Show the "light globe" on/off
-                echo '<a href="view.php?id=' . $course->id . '&amp;marker=0&amp;sesskey=' . sesskey() . '#section-' . $section . '" title="' . $strmarkedthistopic . '">' . '<img src="' . $OUTPUT->pix_url('i/marked') . '" alt="' . $strmarkedthistopic . '" class="icon"/></a><br />'; // MDL-32145
+                echo '<a href="view.php?id=' . $course->id . '&amp;marker=0&amp;sesskey=' . sesskey() . '#section-' . $section . '" title="' . $strmarkedthistopic . '" class="editing_highlight">' . '<img src="' . $OUTPUT->pix_url('i/marked') . '" alt="' . $strmarkedthistopic . '" class="icon"/></a><br />'; // MDL-32145
             } else {
                 if (($setting->layoutstructure == 2) || ($setting->layoutstructure == 3)) {
                     $strmarkthistopic = get_string("showonlyweek", "", $section);
                 }
-                echo '<a href="view.php?id=' . $course->id . '&amp;marker=' . $section . '&amp;sesskey=' . sesskey() . '#section-' . $section . '" title="' . $strmarkthistopic . '">' . '<img src="' . $OUTPUT->pix_url('i/marker') . '" alt="' . $strmarkthistopic . '" class="icon"/></a><br />';
+                echo '<a href="view.php?id=' . $course->id . '&amp;marker=' . $section . '&amp;sesskey=' . sesskey() . '#section-' . $section . '" title="' . $strmarkthistopic . '" class="editing_highlight">' . '<img src="' . $OUTPUT->pix_url('i/marker') . '" alt="' . $strmarkthistopic . '" class="icon"/></a><br />';
             } // MDL-32145
 
             if ($thissection->visible) { // Show the hide/show eye
-                echo '<a href="view.php?id=' . $course->id . '&amp;hide=' . $section . '&amp;sesskey=' . sesskey() . '#section-' . $section . '" title="' . $strtopichide . '">' .
+                echo '<a href="view.php?id=' . $course->id . '&amp;hide=' . $section . '&amp;sesskey=' . sesskey() . '#section-' . $section . '" title="' . $strtopichide . '" class="editing_showhide">' .
                 '<img src="' . $OUTPUT->pix_url('i/hide') . '" class="icon hide" alt="' . $strtopichide . '" /></a><br />';
             } else {
-                echo '<a href="view.php?id=' . $course->id . '&amp;show=' . $section . '&amp;sesskey=' . sesskey() . '#section-' . $section . '" title="' . $strtopicshow . '">' .
+                echo '<a href="view.php?id=' . $course->id . '&amp;show=' . $section . '&amp;sesskey=' . sesskey() . '#section-' . $section . '" title="' . $strtopicshow . '" class="editing_showhide">' .
                 '<img src="' . $OUTPUT->pix_url('i/show') . '" class="icon hide" alt="' . $strtopicshow . '" /></a><br />';
             }
             if ($section > 1) { // Add a arrow to move section up
-                echo '<a href="view.php?id=' . $course->id . '&amp;random=' . rand(1, 10000) . '&amp;section=' . $section . '&amp;move=-1&amp;sesskey=' . sesskey() . '#section-' . ($section - 1) . '" title="' . $strmoveup . '">' .
+                echo '<a href="view.php?id=' . $course->id . '&amp;random=' . rand(1, 10000) . '&amp;section=' . $section . '&amp;move=-1&amp;sesskey=' . sesskey() . '#section-' . ($section - 1) . '" title="' . $strmoveup . '" class="moveup">' .
                 '<img src="' . $OUTPUT->pix_url('t/up') . '" class="icon up" alt="' . $strmoveup . '" /></a><br />';
             }
 
             if ($section < $course->numsections) { // Add a arrow to move section down
-                echo '<a href="view.php?id=' . $course->id . '&amp;random=' . rand(1, 10000) . '&amp;section=' . $section . '&amp;move=1&amp;sesskey=' . sesskey() . '#section-' . ($section + 1) . '" title="' . $strmovedown . '">' .
+                echo '<a href="view.php?id=' . $course->id . '&amp;random=' . rand(1, 10000) . '&amp;section=' . $section . '&amp;move=1&amp;sesskey=' . sesskey() . '#section-' . ($section + 1) . '" title="' . $strmovedown . '"  class="movedown">' .
                 '<img src="' . $OUTPUT->pix_url('t/down') . '" class="icon down" alt="' . $strmovedown . '" /></a><br />';
             }
         }
@@ -567,15 +561,15 @@ while ($loopsection <= $course->numsections) {
     }
 }
 
-if (!$displaysection and $userisediting and has_capability('moodle/course:update', $coursecontext)) {
+if ((!empty($displaysection) and $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) and $userisediting and has_capability('moodle/course:update', $coursecontext)) {
     // print stealth sections if present
     $modinfo = get_fast_modinfo($course);
     foreach ($sections as $section => $thissection) {
         if (empty($modinfo->sections[$section])) {
             continue;
         }
-
-        echo '<tr id="section-' . $section . '" class="section main clearfix orphaned hidden">';
+        //echo '<tbody class="section" id="section-' . $section . '">';
+        echo '<tr id="sectionbody-' . $section . '" class="sectionbody main clearfix orphaned hidden">';
         echo '<td class="left side">';
         echo '</td>';
         echo '<td class="content">';
@@ -585,6 +579,7 @@ if (!$displaysection and $userisediting and has_capability('moodle/course:update
         echo '<td class="right side">';
         echo '</td>';
         echo "</tr>\n";
+        //echo "</tbody>";
     }
 }
 echo '</table>';
@@ -596,9 +591,6 @@ if (!empty($sectionmenu)) {
     $select->formid = 'sectionmenu';
     echo $OUTPUT->render($select);
 }
-
-// Include course format js module
-$PAGE->requires->js('/course/format/topcoll/format.js');
 
 // Only toggle if no Screen Reader
 if ($screenreader == false) {
