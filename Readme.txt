@@ -403,6 +403,9 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
      this point in time - see http://moodle.org/mod/forum/discuss.php?d=201460.
   2. Updated French translation thanks to Luiggi Sansonetti.
 
+31st May 2012 - Version 2.0.8.2 - CONTRIB-3682
+  1. Fixed issue with students not being able to perform cookie consent because of incorrect application of requiring the capability of course update.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -458,5 +461,5 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 3rd May 2012.
+G J Barnard MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 31st May 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
