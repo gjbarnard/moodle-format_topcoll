@@ -404,7 +404,11 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   4. A few fixes to changes made in version 2.2.5 where I had renamed table 'format_topcoll_layout' to 'format_topcoll_settings' in the code.
   5. Created a '$TCCFG' object in the 'config.php' file to solve the 'globals' issue in 'lib.php'.
 
-Thanks
+31st May 2012 - Version 2.3.6.1 - CONTRIB-3682
+  1. Fixed issue with students not being able to perform cookie consent because of incorrect application of requiring the capability of course update.
+  2. Code change done in line with other versions but format not working with development version.
+
+  Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
 
