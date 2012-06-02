@@ -404,11 +404,22 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   4. A few fixes to changes made in version 2.2.5 where I had renamed table 'format_topcoll_layout' to 'format_topcoll_settings' in the code.
   5. Created a '$TCCFG' object in the 'config.php' file to solve the 'globals' issue in 'lib.php'.
 
-31st May 2012 - Version 2.3.6.1 - CONTRIB-3682
+3rd May 2012 - Version 2.3.6.1
+  1. Reverted back to unsigned data types in database due to error with MSSQL database code probably in core, but not essential change at
+     this point in time - see http://moodle.org/mod/forum/discuss.php?d=201460.
+  2. Updated French translation thanks to Luiggi Sansonetti.
+
+14th May 2012 - Version 2.3.6.2
+  1. Fixed slight issue with version number causing 'Site Administration -> Plugins -> Plugin Overview' to fail, please see 'http://moodle.org/mod/forum/discuss.php?d=202578'.
+
+20th May 2012 - Version 2.3.6.2.1 - CONTRIB-3655
+  1. Changes in module.js for MyMobile theme.
+  
+31st May 2012 - Version 2.3.6.3 - CONTRIB-3682
   1. Fixed issue with students not being able to perform cookie consent because of incorrect application of requiring the capability of course update.
   2. Code change done in line with other versions but format not working with development version.
 
-  Thanks
+Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
 
@@ -463,5 +474,6 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 1st May 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 31st May 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
+Web profile   : about.me/gjbarnard

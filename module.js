@@ -39,6 +39,7 @@ var cookieConsent = 3; // Off by default as a 'just in case'.
 var cookieExpires;
 var ie7OrLess = false;
 var ie = false;
+var mymobiletheme = false;
 var ourYUI;
 
 // Because I like the idea of private and public methods, public will have an underscore in the name.
@@ -75,6 +76,10 @@ M.format_topcoll.init = function(Y, wwwroot, moodleid, courseid, cookielifetime)
             ie7OrLess = true;
         }
     }
+    if (document.getElementById("mymobile")) {
+        mymobiletheme = true;
+    }
+    //alert(mymobiletheme);
 }
 
 M.format_topcoll.set_current_section = function (Y, theSection) {
@@ -136,7 +141,14 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
                 target.className += " collapsed_topic";  //add the class name
                 //alert('Added class name');
             }
-            image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_down.png)";
+
+            if (mymobiletheme == true) {
+                var sectoggle = document.getElementById("sectionhead-" + toggleNum);
+                sectoggle.className = sectoggle.className.replace(/\b opencps\b/,''); //remove the class name
+            } else {
+                image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_down.png)";
+            }
+
             // Save the toggle!
             if (reloading == false)    togglebinary(toggleNum,"0");
         }
@@ -148,7 +160,14 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
                 target.className = target.className.replace(/\b collapsed_topic\b/,'') //remove the class name
                 //alert('Removed class name');
             }
-            image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_up.png)";
+
+            if (mymobiletheme == true) {
+                var sectoggle = document.getElementById("sectionhead-" + toggleNum);
+                sectoggle.className += " opencps";  //add the class name
+            } else {
+                image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_up.png)";
+            }
+
             // Save the toggle!
             if (reloading == false) togglebinary(toggleNum,"1");
         }
