@@ -58,7 +58,6 @@ $PAGE->set_title(get_string('cookieconsentform','format_topcoll'));
 $PAGE->set_heading(get_string('cookieconsentform','format_topcoll'));
 
 require_sesskey();
-require_capability('moodle/course:update', $coursecontext);
 
 $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
 
