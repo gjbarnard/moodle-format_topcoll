@@ -29,8 +29,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+defined('MOODLE_INTERNAL') || die();
+ 
 $plugin->version = 2012053100;
-$plugin->maturity = MATURITY_STABLE;
+$plugin->maturity = MATURITY_ALPHA;
 $plugin->requires = 2012031500.00; // 2.3dev
 $plugin->component = 'format_topcoll';
 $plugin->release = '2.3.6.3';
