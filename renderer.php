@@ -69,8 +69,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @return string HTML to output.
      */
     protected function section_right_content($section, $course, $onsectionpage) {
-	    $o = 'Topic';
-        $o .= $this->output->spacer();
+        $o = $this->output->spacer();
 
         if ($section->section != 0) {
             $controls = $this->section_edit_controls($course, $section, $onsectionpage);
@@ -355,22 +354,28 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
     public function settings($course) {
 	global $PAGE;
+	
+	$o = '';
+	
 	$coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
 	if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $coursecontext)) {
-        $o = html_writer::start_tag('li', array('class' => 'section main clearfix'));
+        $o.= html_writer::start_tag('li', array('class' => 'section main clearfix'));
 
-        $leftcontent = $this->section_left_content($section, $course, $onsectionpage);
-        $o.= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
+        //$leftcontent = $this->section_left_content($section, $course, false);
+        //$o.= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
+        $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
 
-        $rightcontent = $this->section_right_content($section, $course, $onsectionpage);
-        $o.= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
+        //$rightcontent = $this->section_right_content($section, $course, false);
+        //$o.= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
+        $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
 
         $o.= html_writer::start_tag('div', array('class' => 'content'));
 		$o.= html_writer::start_tag('div', array('class' => 'sectionbody'));
-        $o.= html_writer::tag('a', '<div id="set-settings"></div>', array('title' => get_string("settings"),'href' =>'format/topcoll/forms/settings.php?id=' . $course->id . '&sesskey=' . sesskey()));
+        $o.= html_writer::tag('a',  html_writer::tag('div','',array('id' => 'set-settings')), array('title' => get_string("settings"),'href' =>'format/topcoll/forms/settings.php?id=' . $course->id . '&sesskey=' . sesskey()));
 	    $o.= html_writer::end_tag('div');
-        $o = html_writer::end_tag('div');
+        $o.= html_writer::end_tag('div');
         $o.= html_writer::end_tag('li');
-}
+    }
+        return $o;
     }	
 }
