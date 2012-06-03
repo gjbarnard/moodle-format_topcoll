@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Renderer for outputting the topics course format.
+ * Renderer for outputting the collapsed topics course format.
  *
  * @package format_topics
  * @copyright 2012 Dan Poltawski
@@ -57,6 +57,29 @@ class format_topcoll_renderer extends format_section_renderer_base {
      */
     protected function page_title() {
         return get_string('sectionname','format_topcoll');
+    }
+
+    /**
+     * Generate the content to displayed on the right part of a section
+     * before course modules are included
+     *
+     * @param stdClass $section The course_section entry from DB
+     * @param stdClass $course The course entry from DB
+     * @param bool $onsectionpage true if being printed on a section page
+     * @return string HTML to output.
+     */
+    protected function section_right_content($section, $course, $onsectionpage) {
+	    $o = 'Topic';
+        $o .= $this->output->spacer();
+
+        if ($section->section != 0) {
+            $controls = $this->section_edit_controls($course, $section, $onsectionpage);
+            if (!empty($controls)) {
+                $o = implode('<br />', $controls);
+            }
+        }
+
+        return $o;
     }
 
     /**
@@ -119,6 +142,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $currenttext = '';
         $sectionstyle = '';
         $linktitle = false;
+        $toggletext = get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
 
         if ($section->section != 0) {
             // Only in the non-general sections.
@@ -141,17 +165,20 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o.= html_writer::start_tag('div', array('class' => 'content'));
 
         if (!$onsectionpage) {
-        $o.= html_writer::start_tag('div', array('class' => 'sectionhead toggle'));
-        //$o.= '<a id="sectionatag-' . $section . '" class="cps_nosumm" href="#" onclick="toggle_topic(this,' . $section->section . '); return false;">';	
+        $o.= html_writer::start_tag('div', array('class' => 'sectionhead toggle','id' => 'toggle-'.$section->section));
         $title = get_section_name($course, $section);
-        $o.= html_writer::tag('a', $title, array('class' => 'cps_nosumm', 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
-        $o.= html_writer::end_tag('div');
-        $o.= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection'));
+		if (empty($section->summary)) {
+        $o.= html_writer::tag('a', $title.' - '.$toggletext.'<br />', array('class' => 'cps_nosumm', 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
+        } else {
+        $o.= html_writer::tag('a', $title.' - '.$toggletext.'<br />'.$section->summary, array('href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
+		}
+		$o.= html_writer::end_tag('div');
+        $o.= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection','id' => 'toggledsection-'.$section->section));
 
             if ($linktitle) {
                 $title = html_writer::link(course_get_url($course, $section->section), $title);
             }
-            //$o.= $this->output->heading($title, 3, 'sectionname');
+            $o.= $this->output->heading($title, 3, 'sectionname');
         } else {
 		        $o.= html_writer::start_tag('div', array('class' => 'sectionbody'));
         }
@@ -175,6 +202,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         $o .= $this->section_availability_message($section);
 
+		//print_object($section);
+		
         return $o;
     }
 
@@ -189,5 +218,159 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o.= html_writer::end_tag('li');
 
         return $o;
+    }
+
+    /**
+     * Output the html for a multiple section page
+     *
+     * @param stdClass $course The course entry from DB
+     * @param array $sections The course_sections entries from the DB
+     * @param array $mods used for print_section()
+     * @param array $modnames used for print_section()
+     * @param array $modnamesused used for print_section()
+     */
+    public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
+        global $PAGE;
+
+        $context = context_course::instance($course->id);
+        // Title with completion help icon.
+        $completioninfo = new completion_info($course);
+        echo $completioninfo->display_help_icon();
+        echo $this->output->heading($this->page_title(), 2, 'accesshide');
+
+        // Copy activity clipboard..
+        echo $this->course_activity_clipboard($course);
+
+        // Now the list of sections..
+        echo $this->start_section_list();
+
+		// Collapsed Topics settings and cookie consent.
+		echo $this->settings($course);
+		
+        // General section if non-empty.
+        $thissection = $sections[0];
+        unset($sections[0]);
+        if ($thissection->summary or $thissection->sequence or $PAGE->user_is_editing()) {
+            echo $this->section_header($thissection, $course, true);
+            print_section($course, $thissection, $mods, $modnamesused, true);
+            if ($PAGE->user_is_editing()) {
+                print_section_add_menus($course, 0, $modnames);
+            }
+            echo $this->section_footer();
+        }
+
+        $canviewhidden = has_capability('moodle/course:viewhiddensections', $context);
+        for ($section = 1; $section <= $course->numsections; $section++) {
+            if (!empty($sections[$section])) {
+                $thissection = $sections[$section];
+            } else {
+                // This will create a course section if it doesn't exist..
+                $thissection = get_course_section($section, $course->id);
+
+                // The returned section is only a bare database object rather than
+                // a section_info object - we will need at least the uservisible
+                // field in it.
+                $thissection->uservisible = true;
+                $thissection->availableinfo = null;
+                $thissection->showavailability = 0;
+            }
+            // Show the section if the user is permitted to access it, OR if it's not available
+            // but showavailability is turned on
+            $showsection = $thissection->uservisible ||
+                    ($thissection->visible && !$thissection->available && $thissection->showavailability);
+            if (!$showsection) {
+                // Hidden section message is overridden by 'unavailable' control
+                // (showavailability option).
+                if (!$course->hiddensections && $thissection->available) {
+                    echo $this->section_hidden($section);
+                }
+
+                unset($sections[$section]);
+                continue;
+            }
+
+            if (!$PAGE->user_is_editing() && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
+                // Display section summary only.
+                echo $this->section_summary($thissection, $course);
+            } else {
+                echo $this->section_header($thissection, $course, false);
+                if ($thissection->uservisible) {
+                    print_section($course, $thissection, $mods, $modnamesused);
+                    if ($PAGE->user_is_editing()) {
+                        print_section_add_menus($course, $section, $modnames);
+                    }
+                }
+                echo $this->section_footer();
+            }
+
+            unset($sections[$section]);
+        }
+
+        if ($PAGE->user_is_editing() and has_capability('moodle/course:update', $context)) {
+            // Print stealth sections if present.
+            $modinfo = get_fast_modinfo($course);
+            foreach ($sections as $section => $thissection) {
+                if (empty($modinfo->sections[$section])) {
+                    continue;
+                }
+                echo $this->stealth_section_header($section);
+                print_section($course, $thissection, $mods, $modnamesused);
+                echo $this->stealth_section_footer();
+            }
+
+            echo $this->end_section_list();
+
+            echo html_writer::start_tag('div', array('class' => 'mdl-right'));
+
+            // Increase number of sections.
+            $straddsection = get_string('increasesections', 'moodle');
+            $url = new moodle_url('/course/changenumsections.php',
+                array('courseid' => $course->id,
+                      'increase' => true,
+                      'sesskey' => sesskey()));
+            $icon = $this->output->pix_icon('t/switch_plus', $straddsection);
+            echo html_writer::link($url, $icon.get_accesshide($straddsection), array('class' => 'increase-sections'));
+
+            if ($course->numsections > 0) {
+                // Reduce number of sections sections.
+                $strremovesection = get_string('reducesections', 'moodle');
+                $url = new moodle_url('/course/changenumsections.php',
+                    array('courseid' => $course->id,
+                          'increase' => false,
+                          'sesskey' => sesskey()));
+                $icon = $this->output->pix_icon('t/switch_minus', $strremovesection);
+                echo html_writer::link($url, $icon.get_accesshide($strremovesection), array('class' => 'reduce-sections'));
+            }
+
+            echo html_writer::end_tag('div');
+        } else {
+            echo $this->end_section_list();
+        }
+
+    }
+
+    // Collapsed Topics non-overridden additions.
+    public function cookie_consent() {
+    }
+
+    public function settings($course) {
+	global $PAGE;
+	$coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
+	if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $coursecontext)) {
+        $o = html_writer::start_tag('li', array('class' => 'section main clearfix'));
+
+        $leftcontent = $this->section_left_content($section, $course, $onsectionpage);
+        $o.= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
+
+        $rightcontent = $this->section_right_content($section, $course, $onsectionpage);
+        $o.= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
+
+        $o.= html_writer::start_tag('div', array('class' => 'content'));
+		$o.= html_writer::start_tag('div', array('class' => 'sectionbody'));
+        $o.= html_writer::tag('a', '<div id="set-settings"></div>', array('title' => get_string("settings"),'href' =>'format/topcoll/forms/settings.php?id=' . $course->id . '&sesskey=' . sesskey()));
+	    $o.= html_writer::end_tag('div');
+        $o = html_writer::end_tag('div');
+        $o.= html_writer::end_tag('li');
+}
     }	
 }

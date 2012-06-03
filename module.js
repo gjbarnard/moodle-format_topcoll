@@ -63,7 +63,7 @@ M.format_topcoll.init = function(Y, wwwroot, moodleid, courseid, cookielifetime)
     thewwwroot = wwwroot;
     thecookiesubid = moodleid + courseid;
     cookieExpires = cookielifetime; // null indicates that it is a session cookie.
-    //alert('Init');
+    //alert('Init: www: ' + wwwroot + ' mooid: ' + moodleid + ' corid: ' + courseid + ' cookielt: ' + cookielifetime);
     if (/MSIE (\d+\.\d+);/.test(navigator.userAgent))
     {
         // Info from: http://www.javascriptkit.com/javatutors/navigator.shtml - accessed 2nd September 2011.
@@ -124,11 +124,11 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
     {
         if (ie == true)
         {
-            var displaySetting = "block"; // IE is always different from the rest!
+            var displaySetting = "table-row";
         }
         else
         {
-            var displaySetting = "table-row";
+            var displaySetting = "block";
         }
         
         //alert("toggleexacttopic tdisp:" + target.style.display + " disp:" + displaySetting + " ton:" + toggleNum + " rl:" + reloading);
@@ -178,10 +178,11 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
 // Args - toggler the tag that initiated the call, toggleNum the number of the toggle for which toggler is a part of - see format.php.
 function toggle_topic(toggler,toggleNum)
 {
+   //alert('toggle_topic ' + toggleNum);
    if(document.getElementById)
     {
         imageSwitch = toggler;
-        targetElement = toggler.parentNode.parentNode.nextSibling; // Called from a <td>  or <div> inside a <tr> or <li> so find the next <tr> or <li>.
+        targetElement = toggler.parentNode.nextSibling; // Called from <a> in a <div> so find the next <div>.
 
         toggleexacttopic(targetElement,imageSwitch,toggleNum,false);
     }
@@ -304,11 +305,12 @@ function reloadToggles()
         }
         //alert("Bongo3 " + thecookiesubid + " " + storedval + " " + numToggles + " " + toggleBinaryGlobal);
     
+	    //alert(toggleBinaryGlobal);
         for (var theToggle = 1; theToggle <= numToggles; theToggle++)
         {
             if ((theToggle <= numToggles) && ((toggleBinaryGlobal.charAt(theToggle) == "1") || (theToggle == currentSection))) // Array index 0 is never tested - MSB thing.
             {
-                toggleexacttopic(document.getElementById("section-"+theToggle),document.getElementById("sectionatag-" + theToggle),theToggle,true);
+                toggleexacttopic(document.getElementById("toggledsection-" + theToggle),document.getElementById("toggle-" + theToggle).nextSibling,theToggle,true);
                 //alert("Bongo4 " + thecookiesubid + " " + theToggle);
             }
         }    
@@ -326,18 +328,6 @@ M.format_topcoll.reload_toggles = function (Y, aToggle) {
     Y.use('node-base', function(daYUI) {
      daYUI.on("domready", reloadToggles);
     });
-}
-
-// Show a specific topic - used when in 'Show topic x' mode.
-M.format_topcoll.show_topic = function (Y, theTopic)
-{
-    var section = document.getElementById("section-"+theTopic);  // CONTRIB-3283
-    var secatag = document.getElementById("sectionatag-" + theTopic);
-    if ((section != null) && (secatag != null))
-    {
-        toggleexacttopic(section,secatag,theTopic,true);
-    }
-    //alert("show_topic " + theTopic);
 }
 
 // Save the toggles - called from togglebinary and an the unload event handler at the bottom of format.php which does not work for a refresh even though it should!
@@ -375,7 +365,7 @@ function allToggle(state)
     {
         target = document.getElementById("section-"+theToggle);
         target.style.display = displaySetting;
-        toggleexacttopic(target,document.getElementById("sectionatag-" + theToggle),theToggle,false);
+        toggleexacttopic(target,document.getElementById("toggle-" + theToggle),theToggle,false);
     }
 }
 
@@ -389,4 +379,9 @@ function all_opened()
 function all_closed()
 {
     allToggle(false);
+}
+
+function ct_test()
+{
+  alert('CT Test');
 }

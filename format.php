@@ -49,7 +49,79 @@ $renderer = $PAGE->get_renderer('format_topcoll');
 if (!empty($displaysection) && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
     $renderer->print_single_section_page($course, $sections, $mods, $modnames, $modnamesused, $displaysection);
 } else {
+require_once($CFG->dirroot . '/course/format/topcoll/config.php');
+
+$PAGE->requires->js_init_call('M.format_topcoll.init', 
+                               array($CFG->wwwroot,
+                               preg_replace("/[^A-Za-z0-9]/", "", $SITE->shortname),
+                               $course->id,
+                               null)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration - see Readme.tx
+							   
+
+$setting = get_topcoll_setting($course->id); // CONTRIB-3378
+
+?>    
+<style type="text/css" media="screen">
+    /* <![CDATA[ */
+/* -- Toggle -- */
+.course-content ul.sections li.section .content .toggle {
+  background-color: #<?php echo $setting->tgbgcolour;?>;
+  color: #<?php echo $setting->tgfgcolour;?>; /* 'Topic x' text colour */
+}
+
+/* -- Toggle text -- */
+.course-content ul.sections li.section .content .toggle a {
+  color: #<?php echo $setting->tgfgcolour;?>;
+}
+
+/* -- What happens when a toggle is hovered over -- */
+.course-content ul.sections li.section .content div.toggle:hover, body.jsenabled tr.cps td a:hover {
+  background-color: #<?php echo $setting->tgbghvrcolour;?>;
+}
+    /* ]]> */
+</style>
+<?php
+// CONTRIB-3624 - Cookie consent.
+if ($TCCFG->defaultcookieconsent  == true) {
+    $usercookieconsent = get_topcoll_cookie_consent($USER->id); // In topcoll/lib.php
+
+    // Tell the JavaScript code of the state.  Upon user choice, this page will refresh and a new value sent...
+    echo $PAGE->requires->js_init_call('M.format_topcoll.set_cookie_consent', array($usercookieconsent->cookieconsent));
+
+    if ($usercookieconsent->cookieconsent == 1) {
+        // Display message to ask for consent.
+        echo '<table><tr class="section main">';
+        echo '<td class="left side">&nbsp;</td>';
+        echo '<td class="content">';
+        echo '<div class="cookieConsentContainer">';
+        echo '<a "title="' . get_string('cookieconsentform','format_topcoll') . '" href="format/topcoll/forms/cookie_consent.php?userid=' . $USER->id . '&courseid=' . $course->id . '&sesskey=' . sesskey() . '"><div id="set-cookie-consent"></div></a>';
+        echo '<div>'.$OUTPUT->heading(get_string('setcookieconsent','format_topcoll'), 2, 'sectionname').get_string('cookieconsent','format_topcoll').'</div>';
+        echo '</div>';
+        echo '</td>';
+        echo '<td class="right side">&nbsp;</td>';
+        echo '</tr>';
+        echo '<tr class="section separator"><td colspan="3" class="spacer"></td></tr></table>';
+    }
+} else {
+    // Cookie consent turned off by administrator, so allow...
+    echo $PAGE->requires->js_init_call('M.format_topcoll.set_cookie_consent', array(2));
+}
+
     $renderer->print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused);
+
+$screenreader = false;
+if ($USER->screenreader == 1) {
+    $screenreader = true; // CONTRIB-3225 - If screenreader default back to a non-toggle based topics type format.
+}
+
+// Only toggle if no Screen Reader
+if ($screenreader == false) {
+// Establish persistance when we have loaded.
+// Reload the state of the toggles from the data contained within the cookie.
+// Restore the state of the toggles from the cookie.
+        echo $PAGE->requires->js_init_call('M.format_topcoll.set_current_section', array($thecurrentsection)); // If thecurrentsection is 0 because it has not been changed from the defualt, then as section 0 is never tested so can be used to set none.
+        echo $PAGE->requires->js_init_call('M.format_topcoll.reload_toggles', array($course->numsections)); // reload_toggles uses the value set above.
+}
 }
 
 // Include course format js module

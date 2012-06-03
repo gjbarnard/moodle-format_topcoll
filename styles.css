@@ -36,7 +36,7 @@
  
 /* -- The Toggle's row -- */
 .course-content ul.sections li.section .content .toggle {
-  display: table-row;
+  display: block;
 }
 
 /* -- The table data section of a Toggle's row -- */
@@ -49,7 +49,7 @@
 }
 
 /* -- The topic summary text -- */    
-.course-content ul.sections li.section .content .toggle span {
+.course-content ul.sections li.section .content .toggle a p {
   font-size: 1.2em;
   font-style: italic;
   text-align: left;
@@ -65,18 +65,22 @@
      text-align: center;
      font-size: 0.6em;
 }  
-       
+
+.course-content ul.sections li.section .content .toggle {
+   width: 100%;
+}
+
 /* -- Set the clickable element of the Toggle -- */
 .course-content ul.sections li.section .content .toggle a {
   display: block;
   padding: 7px 0 7px 35px; /* The 35px allows the arrow to be on the left and the text next to it. */
-  background: transparent url(../images/arrow_up.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+  background: transparent url(../course/format/topcoll/images/arrow_up.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
   text-align: left;
   width: auto;
 }
 
 body.jsenabled .course-content ul.sections li.section .content .toggle a {
-  background: transparent url(../images/arrow_down.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
+  background: transparent url(../course/format/topcoll/images/arrow_down.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
 }
 
 /* -- Toggle text -- */
@@ -111,16 +115,16 @@ body.jsenabled .toggledsection {
 }
 
 #toggle-all td a.on {
-  background: transparent url(../images/arrow_down.png) no-repeat 0px 45%; 
+  background: transparent url(../course/format/topcoll/images/arrow_down.png) no-repeat 0px 45%; 
 }
 
 #toggle-all td a.off {
-  background: transparent url(../images/arrow_up.png) no-repeat 0px 45%; 
+  background: transparent url(../course/format/topcoll/images/arrow_up.png) no-repeat 0px 45%; 
 }
 
 /* Set settings */
 #set-settings {
-  background: transparent url(../images/tc_logo_spanner.png) no-repeat 0px 0px; 
+  background: transparent url(../course/format/topcoll/images/tc_logo_spanner.png) no-repeat 0px 0px; 
   width: 128px;
   height: 100px;
   float: right;
@@ -131,7 +135,7 @@ body.jsenabled .toggledsection {
 #set-cookie-consent{
   float: right; 
   vertical-align: text-top;
-  background: transparent url(../images/tc_logo_cookie.png) no-repeat 0px 0px; 
+  background: transparent url(../course/format/topcoll/images/tc_logo_cookie.png) no-repeat 0px 0px; 
   width: 128px;
   height: 100px;
   margin: 4px;
