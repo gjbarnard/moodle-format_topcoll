@@ -346,9 +346,9 @@ function allToggle(state)
     if (state == false)
     {
          // All on to set off!
-        if (ie == true)
+        if (ie == false)
         {
-            displaySetting = "block"; // IE is always different from the rest!
+            displaySetting = "block";
         }
         else
         {
@@ -363,9 +363,10 @@ function allToggle(state)
 
     for (var theToggle = 1; theToggle <= numToggles; theToggle++)
     {
-        target = document.getElementById("section-"+theToggle);
+        target = document.getElementById("toggledsection-"+theToggle);
+		image = document.getElementById("toggle-" + theToggle).firstChild;
         target.style.display = displaySetting;
-        toggleexacttopic(target,document.getElementById("toggle-" + theToggle),theToggle,false);
+        toggleexacttopic(target,image,theToggle,false);
     }
 }
 

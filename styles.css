@@ -27,20 +27,46 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-.course-content ul.sections {margin:0;}
-.course-content ul.sections li.section {list-style: none;margin:5px 0 0 0;padding:0;}
-.course-content ul.sections li.section .content {margin:0 40px;}
-.course-content ul.sections li.section .left {width:40px;float:left;text-align:center;}
-.course-content ul.sections li.section .right {width:40px;float:right;text-align:center;}
-.jumpmenu {text-align:center;}
+.course-content ul.topics {
+  margin:0;
+}
+
+.course-content ul.topics li.section {
+  list-style: none;
+  margin:5px 0 0 0;
+  padding:0;
+}
+
+.course-content ul.topics li.section .content {
+  margin: 0 40px;
+  padding: 0 2px;
+}
+
+.course-content ul.topics li.section .left {
+  width:40px;
+  float:left;
+  text-align:center;
+}
+
+.course-content ul.topics li.section .right {
+  width:40px;
+  float:right;
+  text-align:center;
+}
+
+.jumpmenu {
+  text-align:center;
+}
+
+
  
 /* -- The Toggle's row -- */
-.course-content ul.sections li.section .content .toggle {
+.course-content ul.topics li.section .content .toggle {
   display: block;
 }
 
 /* -- The table data section of a Toggle's row -- */
-.course-content ul.sections li.section .content .toggle  {
+.course-content ul.topics li.section .content .toggle  {
   font-size: 0.8em;
   text-align: left;
   padding: 0 0;
@@ -49,29 +75,29 @@
 }
 
 /* -- The topic summary text -- */    
-.course-content ul.sections li.section .content .toggle a p {
+.course-content ul.topics li.section .content .toggle a p {
   font-size: 1.2em;
   font-style: italic;
   text-align: left;
 }
 
 /* -- For when no summary is entered */       
-.course-content ul.sections li.section .content .toggle a.cps_nosumm {
+.course-content ul.topics li.section .content .toggle a.cps_nosumm {
    text-align: center;
 }  
 
 /* -- For centring the 'Topic x' text -- */       
-.course-content ul.sections li.section .content .toggle .cps_centre {
+.course-content ul.topics li.section .content .toggle .cps_centre {
      text-align: center;
      font-size: 0.6em;
 }  
 
-.course-content ul.sections li.section .content .toggle {
+.course-content ul.topics li.section .content .toggle {
    width: 100%;
 }
 
 /* -- Set the clickable element of the Toggle -- */
-.course-content ul.sections li.section .content .toggle a {
+.course-content ul.topics li.section .content .toggle a {
   display: block;
   padding: 7px 0 7px 35px; /* The 35px allows the arrow to be on the left and the text next to it. */
   background: transparent url(../course/format/topcoll/images/arrow_up.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
@@ -79,12 +105,12 @@
   width: auto;
 }
 
-body.jsenabled .course-content ul.sections li.section .content .toggle a {
+body.jsenabled .course-content ul.topics li.section .content .toggle a {
   background: transparent url(../course/format/topcoll/images/arrow_down.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
 }
 
 /* -- Toggle text -- */
-.course-content ul.sections li.section .content .toggle a {
+.course-content ul.topics li.section .content .toggle a {
   text-decoration: none;
 }
 
@@ -99,26 +125,23 @@ body.jsenabled .toggledsection {
 }
 
 /* Toggle all */
-#toggle-all td h4 {
-    display: inline;
+#toggle-all .content .sectionbody h4 {
+    display: block;
+	padding: 6px;
 }
 
-#thetopics .section td.toggle-all  {
-  text-align: left;
-}
-
-#toggle-all td a {
+#toggle-all .content .sectionbody h4 a {
   padding: 7px 7px 7px 30px; /* The 30px allows the arrow to be on the left and the text next to it. */
   text-align: left;
   width: 35px;
   text-decoration: none;
 }
 
-#toggle-all td a.on {
+#toggle-all .content .sectionbody h4 a.on {
   background: transparent url(../course/format/topcoll/images/arrow_down.png) no-repeat 0px 45%; 
 }
 
-#toggle-all td a.off {
+#toggle-all .content .sectionbody h4 a.off {
   background: transparent url(../course/format/topcoll/images/arrow_up.png) no-repeat 0px 45%; 
 }
 

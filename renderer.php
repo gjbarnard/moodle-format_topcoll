@@ -40,7 +40,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @return string HTML to output.
      */
     protected function start_section_list() {
-        return html_writer::start_tag('ul', array('class' => 'sections'));
+        return html_writer::start_tag('ul', array('class' => 'topics'));
     }
 
     /**
@@ -244,6 +244,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         echo $this->start_section_list();
 
 		// Collapsed Topics settings and cookie consent.
+		echo $this->cookie_consent($course);
 		echo $this->settings($course);
 		
         // General section if non-empty.
@@ -257,6 +258,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
             echo $this->section_footer();
         }
+		
+        // Collapsed Topics all toggles.
+		echo $this->toggle_all();
 
         $canviewhidden = has_capability('moodle/course:viewhiddensections', $context);
         for ($section = 1; $section <= $course->numsections; $section++) {
@@ -349,7 +353,40 @@ class format_topcoll_renderer extends format_section_renderer_base {
     }
 
     // Collapsed Topics non-overridden additions.
-    public function cookie_consent() {
+	
+	protected $screenreader;
+	protected $cookieconsent;
+	
+	public function set_screen_reader($screenreader) {
+	    $this->screenreader = $screenreader;
+	}
+	
+	public function set_cookie_consent($cookieconsent) {
+	    $this->cookieconsent = $cookieconsent;
+    }
+	
+    public function cookie_consent($course) {	
+	global $USER;
+	$o = '';
+	
+	$coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
+	if ($this->cookieconsent == 1) {
+        // Display message to ask for consent.
+        $o.= html_writer::start_tag('li', array('class' => 'section main clearfix'));
+
+        $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
+        $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
+
+        $o.= html_writer::start_tag('div', array('class' => 'content'));
+		$o.= html_writer::start_tag('div', array('class' => 'sectionbody cookieConsentContainer'));
+        $o.= html_writer::tag('a',  html_writer::tag('div','',array('id' => 'set-cookie-consent')), array('title' => get_string('cookieconsentform','format_topcoll'),'href' =>'format/topcoll/forms/cookie_consent.php?userid=' . $USER->id.'&courseid=' . $course->id . '&sesskey=' . sesskey()));
+		$o.= html_writer::tag('div',  $this->output->heading(get_string('setcookieconsent','format_topcoll'), 3, 'sectionname').get_string('cookieconsent','format_topcoll'), null);
+	    $o.= html_writer::end_tag('div');
+        $o.= html_writer::end_tag('div');
+        $o.= html_writer::end_tag('li');
+		
+    }
+        return $o;	
     }
 
     public function settings($course) {
@@ -377,5 +414,31 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o.= html_writer::end_tag('li');
     }
         return $o;
-    }	
+    }
+	
+	public function toggle_all() {
+		$o = '';
+	if ($this->screenreader == false) { // No need to show if in screen reader mode.
+    $toggletext = get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
+        // Toggle all.
+
+		$o.= html_writer::start_tag('li', array('class' => 'section main clearfix', 'id' => 'toggle-all'));
+
+        $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
+        $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
+
+        $o.= html_writer::start_tag('div', array('class' => 'content'));
+		$o.= html_writer::start_tag('div', array('class' => 'sectionbody'));
+		$o.= html_writer::start_tag('h4', null);
+        $o.= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on','href' =>'#', 'onclick' => 'all_opened(); return false;'));
+        $o.= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off','href' =>'#', 'onclick' => 'all_closed(); return false;'));
+        $o.= html_writer::tag('span', get_string('topcollall', 'format_topcoll'), null);
+	    $o.= html_writer::end_tag('h4');
+	    $o.= html_writer::end_tag('div');
+        $o.= html_writer::end_tag('div');
+        $o.= html_writer::end_tag('li');
+}
+return $o;
+}
+
 }
