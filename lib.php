@@ -89,7 +89,7 @@ function callback_topcoll_get_section_name($course, $section) {
  */
 function callback_topcoll_ajax_support() {
     $ajaxsupport = new stdClass();
-    $ajaxsupport->capable = true;  // See CONTRIB-2975 for information on how fixed.
+    $ajaxsupport->capable = true;
     $ajaxsupport->testedbrowsers = array('MSIE' => 6.0, 'Gecko' => 20061111, 'Opera' => 9.0, 'Safari' => 531, 'Chrome' => 6.0);
     return $ajaxsupport;
 }

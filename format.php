@@ -65,6 +65,7 @@ if ($USER->screenreader == 1) {
 $renderer->set_screen_reader($screenreader);
 
 $setting = get_topcoll_setting($course->id); // CONTRIB-3378
+$renderer->set_setting($setting);
 
 ?>    
 <style type="text/css" media="screen">

@@ -31,24 +31,24 @@
   margin:0;
 }
 
-.course-content ul.topics li.section {
+.course-content ul.topics li.section, .course-content ul.topics li.tcsection {
   list-style: none;
   margin:5px 0 0 0;
   padding:0;
 }
 
-.course-content ul.topics li.section .content {
+.course-content ul.topics li.section .content, .course-content ul.topics li.tcsection .content {
   margin: 0 40px;
   padding: 0 2px;
 }
 
-.course-content ul.topics li.section .left {
+.course-content ul.topics li.section .left, .course-content ul.topics li.tcsection .left {
   width:40px;
   float:left;
   text-align:center;
 }
 
-.course-content ul.topics li.section .right {
+.course-content ul.topics li.section .right, .course-content ul.topics li.tcsection .right {
   width:40px;
   float:right;
   text-align:center;
@@ -57,8 +57,6 @@
 .jumpmenu {
   text-align:center;
 }
-
-
  
 /* -- The Toggle's row -- */
 .course-content ul.topics li.section .content .toggle {
@@ -86,8 +84,8 @@
    text-align: center;
 }  
 
-/* -- For centring the 'Topic x' text -- */       
-.course-content ul.topics li.section .content .toggle .cps_centre {
+/* -- For centring the 'Topic / Week x' text -- */       
+.course-content ul.topics li.section .right span.cps_centre {
      text-align: center;
      font-size: 0.6em;
 }  
@@ -97,7 +95,7 @@
 }
 
 /* -- Set the clickable element of the Toggle -- */
-.course-content ul.topics li.section .content .toggle a {
+.course-content ul.topics li.section .content .toggle a.cps_a {
   display: block;
   padding: 7px 0 7px 35px; /* The 35px allows the arrow to be on the left and the text next to it. */
   background: transparent url(../course/format/topcoll/images/arrow_up.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
@@ -105,7 +103,7 @@
   width: auto;
 }
 
-body.jsenabled .course-content ul.topics li.section .content .toggle a {
+body.jsenabled .course-content ul.topics li.section .content .toggle a.cps_a {
   background: transparent url(../course/format/topcoll/images/arrow_down.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
 }
 
