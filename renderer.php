@@ -155,7 +155,6 @@ if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
         $o = '';
         $currenttext = '';
         $sectionstyle = '';
-        $linktitle = false;
         $toggletext = get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
 
         if ($section->section != 0) {
@@ -165,7 +164,6 @@ if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
             } else if ($this->is_section_current($section, $course)) {
                 $sectionstyle = ' current';
             }
-            $linktitle = ($course->coursedisplay == COURSE_DISPLAY_MULTIPAGE);
         }
 
         $o.= html_writer::start_tag('li', array('id' => 'section-'.$section->section,
@@ -182,7 +180,7 @@ if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
 
         $o.= html_writer::start_tag('div', array('class' => 'sectionhead toggle','id' => 'toggle-'.$section->section));
 		
-        $title = get_section_name($course, $section);
+        $title = $this->section_title($section, $course);
 		if (empty($section->summary)) {
         $o.= html_writer::start_tag('a', array('class' => 'cps_nosumm cps_a', 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
 		$o.= $title.' - '.$toggletext;
@@ -206,10 +204,6 @@ if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
 		$o.= html_writer::end_tag('div');
         $o.= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection','id' => 'toggledsection-'.$section->section));
 
-            if ($linktitle) {
-                $title = html_writer::link(course_get_url($course, $section->section), $title);
-            }
-            //$o.= $this->output->heading($title, 3, 'sectionname');
         } else {
 		        $o.= html_writer::start_tag('div', array('class' => 'sectionbody'));
         }
@@ -345,7 +339,7 @@ if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
 
             echo $this->end_section_list();
 
-            echo html_writer::start_tag('div', array('class' => 'mdl-right'));
+            echo html_writer::start_tag('div', array('id' => 'changenumsections', 'class' => 'mdl-right'));
 
             // Increase number of sections.
             $straddsection = get_string('increasesections', 'moodle');
