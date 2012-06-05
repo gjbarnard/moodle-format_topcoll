@@ -64,8 +64,12 @@ if ($USER->screenreader == 1) {
 
 $renderer->set_screen_reader($screenreader);
 
-$setting = get_topcoll_setting($course->id); // CONTRIB-3378
-$renderer->set_setting($setting);
+global $tcsetting;
+if (empty($tcsetting) == true) {
+$tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
+}
+//print_object($setting);
+$renderer->set_tc_setting($tcsetting);
 
 ?>    
 <style type="text/css" media="screen">

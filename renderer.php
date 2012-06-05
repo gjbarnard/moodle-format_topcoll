@@ -26,6 +26,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot.'/course/format/renderer.php');
+require_once($CFG->dirroot.'/course/format/topcoll/lib.php');
 
 /**
  * Basic renderer for collapsed topics format.
@@ -367,12 +368,30 @@ if (($this->setting->layoutstructure == 1) || ($this->setting->layoutstructure =
         }
 
     }
+	
+	/**
+     * Is the section passed in the current section?
+     *
+     * @param stdClass $section The course_section entry from the DB
+     * @param stdClass $course The course entry from DB
+     * @return bool true if the section is current
+     */
+    protected function is_section_current($section, $course) {
+        if ($section->section < 1) {
+            return false;
+        }
+
+        $timenow = time();
+        $dates = format_topcoll_get_section_dates($section, $course);
+
+        return (($timenow >= $dates->start) && ($timenow < $dates->end));
+    }
 
     // Collapsed Topics non-overridden additions.
 	
 	protected $screenreader;
 	protected $cookieconsent;
-	protected $setting;
+	protected $tcsetting;
 	
 	public function set_screen_reader($screenreader) {
 	    $this->screenreader = $screenreader;
@@ -382,8 +401,14 @@ if (($this->setting->layoutstructure == 1) || ($this->setting->layoutstructure =
 	    $this->cookieconsent = $cookieconsent;
     }
 	
-	public function set_setting($setting) {
-	    $this->setting = $setting;
+	public function set_tc_setting(stdClass $setting) {
+	    $this->tcsetting = $setting;
+		//print_object($this->tcsetting);
+	}
+	
+	public function get_tc_setting() {
+	    //print_object($this->tcsetting);
+	    return $this->tcsetting;
 	}
 	
     public function cookie_consent($course) {	

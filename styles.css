@@ -39,7 +39,7 @@
 
 .course-content ul.topics li.section .content, .course-content ul.topics li.tcsection .content {
   margin: 0 40px;
-  padding: 0 2px;
+  padding: 0px;
 }
 
 .course-content ul.topics li.section .left, .course-content ul.topics li.tcsection .left {

@@ -19,7 +19,7 @@
   along with this program.  If not, see http://www.gnu.org/licenses/.
  */
 
- require_once('config.php'); // For Collaped Topics defaults.
+require_once('config.php'); // For Collaped Topics defaults.
 
 /**
  * Indicates this format uses sections.
@@ -71,14 +71,35 @@ function callback_topcoll_request_key() {
  * @return string
  */
 function callback_topcoll_get_section_name($course, $section) {
+	
     // We can't add a node without any text
     if (!empty($section->name)) {
-        return format_string($section->name, true, array('context' => get_context_instance(CONTEXT_COURSE, $course->id)));  // MDL-29188
+        return format_string($section->name, true, array('context' => context_course::instance($course->id)));
     } else if ($section->section == 0) {
         return get_string('section0name', 'format_topcoll');
     } else {
+	    global $tcsetting;
+		if (empty($tcsetting) == true) {
+		    $tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
+		}
+	//$renderer = $PAGE->get_renderer('format_topcoll');
+	//$setting = $renderer->get_tc_setting();
+	//print_object($tcsetting);
+	 if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
         return get_string('sectionname', 'format_topcoll') . ' ' . $section->section;
+		} else {
+		        $dates = format_topcoll_get_section_dates($section, $course);
+
+        // We subtract 24 hours for display purposes.
+        $dates->end = ($dates->end - 86400);
+
+        $dateformat = ' '.get_string('strftimedateshort');
+        $weekday = userdate($dates->start, $dateformat);
+        $endweekday = userdate($dates->end, $dateformat);
+        return $weekday.' - '.$endweekday;
+		}
     }
+
 }
 
 /**
@@ -212,4 +233,24 @@ function put_topcoll_cookie_consent($userid, $cookieconsent) {
         $cookie->cookieconsent = $cookieconsent;
         $DB->insert_record('format_topcoll_cookie_cnsnt', $cookie);
     }
+}
+
+/**
+ * Return the start and end date of the passed section
+ *
+ * @param stdClass $section The course_section entry from the DB
+ * @param stdClass $course The course entry from DB
+ * @return stdClass property start for startdate, property end for enddate
+ */
+function format_topcoll_get_section_dates($section, $course) {
+    $oneweekseconds = 604800;
+    // Hack alert. We add 2 hours to avoid possible DST problems. (e.g. we go into daylight
+    // savings and the date changes.
+    $startdate = $course->startdate + 7200;
+
+    $dates = new stdClass();
+    $dates->start = $startdate + ($oneweekseconds * ($section->section - 1));
+    $dates->end = $dates->start + $oneweekseconds;
+
+    return $dates;
 }
