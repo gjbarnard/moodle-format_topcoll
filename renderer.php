@@ -78,8 +78,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $o = implode('<br />', $controls);
             } else {
 			// Get the specific words from the language files.
+			global $tcsetting;
 $topictext = null;
-if (($this->setting->layoutstructure == 1) || ($this->setting->layoutstructure == 4)) {
+if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
     $topictext = get_string('setlayoutstructuretopic', 'format_topcoll');
 } else {
     $topictext = get_string('setlayoutstructureweek', 'format_topcoll');
@@ -118,7 +119,9 @@ if (($this->setting->layoutstructure == 1) || ($this->setting->layoutstructure =
         }
         $url->param('sesskey', sesskey());
 
-        $controls = array();
+		global $tcsetting;
+		$controls = array();
+		if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
         if ($course->marker == $section->section) {  // Show the "light globe" on/off.
             $url->param('marker', 0);
             $controls[] = html_writer::link($url,
@@ -132,6 +135,7 @@ if (($this->setting->layoutstructure == 1) || ($this->setting->layoutstructure =
                                 'class' => 'icon', 'alt' => get_string('markthistopic'))),
                             array('title' => get_string('markthistopic'), 'class' => 'editing_highlight'));
         }
+}
 
         return array_merge($controls, parent::section_edit_controls($course, $section, $onsectionpage));
     }
@@ -246,6 +250,7 @@ if (($this->setting->layoutstructure == 1) || ($this->setting->layoutstructure =
      */
     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
         global $PAGE;
+		global $tcsetting;
 
         $context = context_course::instance($course->id);
         // Title with completion help icon.
@@ -377,6 +382,8 @@ if (($this->setting->layoutstructure == 1) || ($this->setting->layoutstructure =
      * @return bool true if the section is current
      */
     protected function is_section_current($section, $course) {
+	global $tcsetting;
+	if (($tcsetting->layoutstructure == 2) || ($tcsetting->layoutstructure == 3)) {
         if ($section->section < 1) {
             return false;
         }
@@ -385,13 +392,16 @@ if (($this->setting->layoutstructure == 1) || ($this->setting->layoutstructure =
         $dates = format_topcoll_get_section_dates($section, $course);
 
         return (($timenow >= $dates->start) && ($timenow < $dates->end));
+		} else {
+		  return parent::is_section_current($section, $course);
+		}
     }
 
     // Collapsed Topics non-overridden additions.
 	
 	protected $screenreader;
 	protected $cookieconsent;
-	protected $tcsetting;
+	//protected $tcsetting;
 	
 	public function set_screen_reader($screenreader) {
 	    $this->screenreader = $screenreader;
@@ -401,6 +411,7 @@ if (($this->setting->layoutstructure == 1) || ($this->setting->layoutstructure =
 	    $this->cookieconsent = $cookieconsent;
     }
 	
+	/*
 	public function set_tc_setting(stdClass $setting) {
 	    $this->tcsetting = $setting;
 		//print_object($this->tcsetting);
@@ -409,7 +420,7 @@ if (($this->setting->layoutstructure == 1) || ($this->setting->layoutstructure =
 	public function get_tc_setting() {
 	    //print_object($this->tcsetting);
 	    return $this->tcsetting;
-	}
+	}*/
 	
     public function cookie_consent($course) {	
 	global $USER;

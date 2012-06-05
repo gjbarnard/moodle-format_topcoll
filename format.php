@@ -69,25 +69,25 @@ if (empty($tcsetting) == true) {
 $tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
 }
 //print_object($setting);
-$renderer->set_tc_setting($tcsetting);
+//$renderer->set_tc_setting($tcsetting);
 
 ?>    
 <style type="text/css" media="screen">
     /* <![CDATA[ */
 /* -- Toggle -- */
 .course-content ul.topics li.section .content .toggle {
-  background-color: #<?php echo $setting->tgbgcolour;?>;
-  color: #<?php echo $setting->tgfgcolour;?>; /* 'Topic x' text colour */
+  background-color: #<?php echo $tcsetting->tgbgcolour;?>;
+  color: #<?php echo $tcsetting->tgfgcolour;?>; /* 'Topic x' text colour */
 }
 
 /* -- Toggle text -- */
 .course-content ul.topics li.section .content .toggle a {
-  color: #<?php echo $setting->tgfgcolour;?>;
+  color: #<?php echo $tcsetting->tgfgcolour;?>;
 }
 
 /* -- What happens when a toggle is hovered over -- */
 .course-content ul.topics li.section .content div.toggle:hover, body.jsenabled tr.cps td a:hover {
-  background-color: #<?php echo $setting->tgbghvrcolour;?>;
+  background-color: #<?php echo $tcsetting->tgbghvrcolour;?>;
 }
     /* ]]> */
 </style>

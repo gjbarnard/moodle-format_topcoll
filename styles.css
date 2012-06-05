@@ -58,13 +58,9 @@
   text-align:center;
 }
  
-/* -- The Toggle's row -- */
-.course-content ul.topics li.section .content .toggle {
-  display: block;
-}
-
-/* -- The table data section of a Toggle's row -- */
+/* -- The section name and summary of a Toggle -- */
 .course-content ul.topics li.section .content .toggle  {
+  display: block;
   font-size: 0.8em;
   text-align: left;
   padding: 0 0;
@@ -99,7 +95,6 @@
   display: block;
   padding: 7px 0 7px 35px; /* The 35px allows the arrow to be on the left and the text next to it. */
   background: transparent url(../course/format/topcoll/images/arrow_up.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
-  text-align: left;
   width: auto;
 }
 

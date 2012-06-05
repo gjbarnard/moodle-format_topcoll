@@ -143,7 +143,7 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
             }
 
             if (mymobiletheme == true) {
-                var sectoggle = document.getElementById("sectionhead-" + toggleNum);
+                var sectoggle = document.getElementById("toggle-" + toggleNum);
                 sectoggle.className = sectoggle.className.replace(/\b opencps\b/,''); //remove the class name
             } else {
                 image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_down.png)";
@@ -162,7 +162,7 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
             }
 
             if (mymobiletheme == true) {
-                var sectoggle = document.getElementById("sectionhead-" + toggleNum);
+                var sectoggle = document.getElementById("toggle-" + toggleNum);
                 sectoggle.className += " opencps";  //add the class name
             } else {
                 image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_up.png)";
