@@ -245,7 +245,8 @@ if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
         global $PAGE;
 		global $tcsetting;
-
+        $userisediting = $PAGE->user_is_editing();
+		
         $context = context_course::instance($course->id);
         // Title with completion help icon.
         $completioninfo = new completion_info($course);
@@ -278,7 +279,31 @@ if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
 		echo $this->toggle_all();
 
         $canviewhidden = has_capability('moodle/course:viewhiddensections', $context);
-        for ($section = 1; $section <= $course->numsections; $section++) {
+
+		global $tcsetting;
+
+        $thecurrentsection = 0; // The section that will be the current section.
+        $currentsectionfirst = false;
+        if ($tcsetting->layoutstructure == 4) {
+            $currentsectionfirst = true;
+        }
+		
+		$timenow = time();
+        $weekofseconds = 604800;
+        $course->enddate = $course->startdate + ($weekofseconds * $course->numsections);
+        if (($tcsetting->layoutstructure != 3) || ($userisediting)) {
+		    $section = 1;
+		} else {
+		    $section = $course->numsections;
+            $weekdate = $course->enddate;      // this should be 0:00 Monday of that week
+            $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems
+	    }
+
+		$loopsection = 1;
+        while ($loopsection <= $course->numsections) {
+		    if (($tcsetting->layoutstructure == 3) && ($userisediting == false)) {
+                $nextweekdate = $weekdate - ($weekofseconds);
+            }
             if (!empty($sections[$section])) {
                 $thissection = $sections[$section];
             } else {
@@ -294,19 +319,45 @@ if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
             }
             // Show the section if the user is permitted to access it, OR if it's not available
             // but showavailability is turned on
-            $showsection = $thissection->uservisible ||
+            //$showsection = $thissection->uservisible ||
+            //($thissection->visible && !$thissection->available && $thissection->showavailability);
+			if (($tcsetting->layoutstructure != 3) || ($userisediting)) {
+                $showsection = $thissection->uservisible ||
                     ($thissection->visible && !$thissection->available && $thissection->showavailability);
+            } else {
+                $showsection = ($thissection->uservisible ||
+                    ($thissection->visible && !$thissection->available && $thissection->showavailability))
+		            && ($nextweekdate <= $timenow);
+            }
+			//print($nextweekdate);
+			//print($timenow);
             if (!$showsection) {
                 // Hidden section message is overridden by 'unavailable' control
                 // (showavailability option).
+				if (($tcsetting->layoutstructure != 3) || ($userisediting)) {
                 if (!$course->hiddensections && $thissection->available) {
                     echo $this->section_hidden($section);
                 }
-
-                unset($sections[$section]);
-                continue;
+				}
+            } else {
+			        $currenttopic = null;
+        $currentweek = null;
+        if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
+            $currenttopic = ($course->marker == $section);
+        } else {
+            if (($userisediting) || ($tcsetting->layoutstructure != 3)) {
+                $currentweek = (($weekdate <= $timenow) && ($timenow < $nextweekdate));
+            } else {
+                $currentweek = (($weekdate > $timenow) && ($timenow >= $nextweekdate));
             }
-//print_object($thissection);
+        }
+		
+		if ($currenttopic) {
+            $thecurrentsection = $section;
+        } else if ($currentweek) {
+            $thecurrentsection = $section;
+			}
+            //print_object($thissection);
             if (!$PAGE->user_is_editing() && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                 // Display section summary only.
                 echo $this->section_summary($thissection, $course);
@@ -321,8 +372,20 @@ if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
                 }
                 echo $this->section_footer();
             }
+			}
 
             unset($sections[$section]);
+			if (($tcsetting->layoutstructure != 3) || ($userisediting)) {
+			    $section++;
+			} else {
+			    $section--;
+			    if (($tcsetting->layoutstructure == 3) && ($userisediting == false)) {
+			        $weekdate = $nextweekdate;
+			    }
+			}
+			$loopsection++;
+			//print_object($course);
+			//print_object($tcsetting);
         }
 
         if ($PAGE->user_is_editing() and has_capability('moodle/course:update', $context)) {
@@ -365,7 +428,7 @@ if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
         } else {
             echo $this->end_section_list();
         }
-
+        return $thecurrentsection;
     }
 	
 	/**

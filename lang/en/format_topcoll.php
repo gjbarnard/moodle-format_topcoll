@@ -68,6 +68,7 @@ $string['setlayoutstructuretopic']='Topic';
 $string['setlayoutstructureweek']='Week';
 $string['setlayoutstructurelatweekfirst']='Latest Week First';
 $string['setlayoutstructurecurrenttopicfirst']='Current Topic First';
+$string['setlayoutstructureday']='Day';
 $string['resetlayout'] = 'Reset layout'; //CONTRIB-3529
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529

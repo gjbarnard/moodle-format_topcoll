@@ -88,15 +88,22 @@ function callback_topcoll_get_section_name($course, $section) {
 	 if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
         return get_string('sectionname', 'format_topcoll') . ' ' . $section->section;
 		} else {
+        $dateformat = ' '.get_string('strftimedateshort');
+		if ($tcsetting->layoutstructure == 5) {
+		    $day = format_topcoll_get_section_day($section, $course);
+
+        $weekday = userdate($day, $dateformat);
+        return $weekday;
+		} else {
 		        $dates = format_topcoll_get_section_dates($section, $course);
 
         // We subtract 24 hours for display purposes.
         $dates->end = ($dates->end - 86400);
 
-        $dateformat = ' '.get_string('strftimedateshort');
         $weekday = userdate($dates->start, $dateformat);
         $endweekday = userdate($dates->end, $dateformat);
         return $weekday.' - '.$endweekday;
+		}
 		}
     }
 
@@ -275,4 +282,22 @@ function format_topcoll_get_section_dates($section, $course) {
     $dates->end = $dates->start + $oneweekseconds;
 
     return $dates;
+}
+
+/**
+ * Return the start and end date of the passed section
+ *
+ * @param stdClass $section The course_section entry from the DB
+ * @param stdClass $course The course entry from DB
+ * @return stdClass property start for startdate, property end for enddate
+ */
+function format_topcoll_get_section_day($section, $course) {
+    $onedayseconds = 86400;
+    // Hack alert. We add 2 hours to avoid possible DST problems. (e.g. we go into daylight
+    // savings and the date changes.
+    $startdate = $course->startdate + 7200;
+
+    $day = $startdate + ($onedayseconds * ($section->section - 1));
+
+    return $day;
 }

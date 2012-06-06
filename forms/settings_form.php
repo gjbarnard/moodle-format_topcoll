@@ -59,7 +59,8 @@ class set_settings_form extends moodleform {
             array(1 => get_string('setlayoutstructuretopic', 'format_topcoll'),               // Topic
                   2 => get_string('setlayoutstructureweek', 'format_topcoll'),                // Week   
                   3 => get_string('setlayoutstructurelatweekfirst', 'format_topcoll'),        // Latest Week First 
-                  4 => get_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'));  // Current Topic First
+                  4 => get_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'),   // Current Topic First
+                  5 => get_string('setlayoutstructureday', 'format_topcoll'));                // Day
 
         $mform->addElement('select', 'setstructurenew', get_string('setlayoutstructure', 'format_topcoll'), $formcourselayoutstrutures); 
         $mform->setDefault('setstructurenew', $instance['setstructure']);

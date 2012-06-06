@@ -104,7 +104,7 @@ if ($TCCFG->defaultcookieconsent  == true) {
     echo $PAGE->requires->js_init_call('M.format_topcoll.set_cookie_consent', array(2));
 }
 
-    $renderer->print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused);
+    $thecurrentsection = $renderer->print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused);
 
 
 // Only toggle if no Screen Reader

@@ -62,6 +62,7 @@ $TCCFG->defaultlayoutelement = 1;
 // 2 => Week   
 // 3 => Latest Week First 
 // 4 => Current Topic First
+// 5 => Day
 
 // Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
 $TCCFG->defaultlayoutstructure = 1;
