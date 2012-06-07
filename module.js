@@ -312,7 +312,7 @@ function reloadToggles()
         {
             if ((theToggle <= numToggles) && ((toggleBinaryGlobal.charAt(theToggle) == "1") || (theToggle == currentSection))) // Array index 0 is never tested - MSB thing.
             {
-			    alert(theToggle);
+			    //alert(theToggle);
                 toggleexacttopic(document.getElementById("toggledsection-" + theToggle),document.getElementById("toggle-" + theToggle).firstChild,theToggle,true);
                 //alert("Bongo4 " + thecookiesubid + " " + theToggle);
             }
