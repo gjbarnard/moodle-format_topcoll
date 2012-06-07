@@ -103,9 +103,10 @@ if ($TCCFG->defaultcookieconsent  == true) {
     // Cookie consent turned off by administrator, so allow...
     echo $PAGE->requires->js_init_call('M.format_topcoll.set_cookie_consent', array(2));
 }
-
-    $thecurrentsection = $renderer->print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused);
-
+    $thecurrentsection = 0; // The section that will be the current section - manipulated in section_header in the renderer.
+    //$thecurrentsection = 
+	$renderer->print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused);
+    //print ($thecurrentsection);
 
 // Only toggle if no Screen Reader
 if ($screenreader == false) {

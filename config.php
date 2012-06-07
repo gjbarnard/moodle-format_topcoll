@@ -46,12 +46,12 @@ $TCCFG = new stdClass();
 // Layout configuration.
 // Here you can see what numbers in the array represent what layout for setting the default value below.
 // 1 => Default.
-// 2 => No 'Topic x' / 'Week x'.
+// 2 => No 'Topic x' / 'Week x' / 'Day x'.
 // 3 => No section number.
-// 4 => No 'Topic x' / 'Week x' and no section number.
+// 4 => No 'Topic x' / 'Week x' / 'Day x' and no section number.
 // 5 => No 'Toggle' word.
-// 6 => No 'Toggle' word and no 'Topic x' / 'Week x'.
-// 7 => No 'Toggle' word, no 'Topic x' / 'Week x'  and no section number.
+// 6 => No 'Toggle' word and no 'Topic x' / 'Week x' / 'Day x'.
+// 7 => No 'Toggle' word, no 'Topic x' / 'Week x' / 'Day x' and no section number.
 
 // Default layout to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
 $TCCFG->defaultlayoutelement = 1;

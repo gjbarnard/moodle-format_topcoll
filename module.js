@@ -84,6 +84,7 @@ M.format_topcoll.init = function(Y, wwwroot, moodleid, courseid, cookielifetime)
 
 M.format_topcoll.set_current_section = function (Y, theSection) {
     currentSection = theSection;
+	//alert(currentSection);
 }
 
 M.format_topcoll.set_cookie_consent = function (Y, theConsent) {
@@ -290,6 +291,7 @@ function restoretopcollcookie(daYUI)
 // 'Private' version of reload_toggles
 function reloadToggles()
 {
+    //alert('reloadToggles()');
     ourYUI.use('cookie', function(daYUI){ 
         // Get the cookie if there!
         var storedval = restoretopcollcookie(daYUI);
@@ -310,6 +312,7 @@ function reloadToggles()
         {
             if ((theToggle <= numToggles) && ((toggleBinaryGlobal.charAt(theToggle) == "1") || (theToggle == currentSection))) // Array index 0 is never tested - MSB thing.
             {
+			    alert(theToggle);
                 toggleexacttopic(document.getElementById("toggledsection-" + theToggle),document.getElementById("toggle-" + theToggle).firstChild,theToggle,true);
                 //alert("Bongo4 " + thecookiesubid + " " + theToggle);
             }

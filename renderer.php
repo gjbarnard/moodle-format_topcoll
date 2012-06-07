@@ -82,9 +82,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
 $topictext = null;
 if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
     $topictext = get_string('setlayoutstructuretopic', 'format_topcoll');
-} else {
+} else if (($tcsetting->layoutstructure == 2) || ($tcsetting->layoutstructure == 3)) {
     $topictext = get_string('setlayoutstructureweek', 'format_topcoll');
+} else {
+    $topictext = get_string('setlayoutstructureday', 'format_topcoll');
 }
+
         $o = html_writer::tag('span', $topictext . '<br />' . $section->section, array('class' => 'cps_centre'));
 			}
         }
@@ -162,6 +165,8 @@ if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
             if (!$section->visible) {
                 $sectionstyle = ' hidden';
             } else if ($this->is_section_current($section, $course)) {
+			    global $thecurrentsection;
+				$thecurrentsection = $section->section;
                 $sectionstyle = ' current';
             }
         }
@@ -282,7 +287,7 @@ if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
 
 		global $tcsetting;
 
-        $thecurrentsection = 0; // The section that will be the current section.
+        //global $thecurrentsection = 0; 
         $currentsectionfirst = false;
         if ($tcsetting->layoutstructure == 4) {
             $currentsectionfirst = true;
@@ -331,16 +336,24 @@ if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
             }
 			//print($nextweekdate);
 			//print($timenow);
+    if (($currentsectionfirst == true) && ($showsection == true)){
+        $showsection = ($course->marker == $section);  // Show  the section if we were meant to and it is the current section.
+    } else if (($tcsetting->layoutstructure == 4) && ($course->marker == $section)) {
+        $showsection = false; // Do not reshow current section. 
+    }			
             if (!$showsection) {
                 // Hidden section message is overridden by 'unavailable' control
                 // (showavailability option).
+				if ($tcsetting->layoutstructure != 4) {
 				if (($tcsetting->layoutstructure != 3) || ($userisediting)) {
                 if (!$course->hiddensections && $thissection->available) {
                     echo $this->section_hidden($section);
                 }
 				}
+				}
             } else {
-			        $currenttopic = null;
+			
+			        /*$currenttopic = null;
         $currentweek = null;
         if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
             $currenttopic = ($course->marker == $section);
@@ -356,7 +369,7 @@ if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
             $thecurrentsection = $section;
         } else if ($currentweek) {
             $thecurrentsection = $section;
-			}
+			}*/
             //print_object($thissection);
             if (!$PAGE->user_is_editing() && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                 // Display section summary only.
@@ -374,7 +387,9 @@ if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
             }
 			}
 
-            unset($sections[$section]);
+    if ($currentsectionfirst == false) {
+        unset($sections[$section]); // Only need to do this on the iteration when $currentsectionfirst is not true as this iteration will always happen.  Otherwise you get duplicate entries in course_sections in the DB.
+    }
 			if (($tcsetting->layoutstructure != 3) || ($userisediting)) {
 			    $section++;
 			} else {
@@ -386,6 +401,12 @@ if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
 			$loopsection++;
 			//print_object($course);
 			//print_object($tcsetting);
+    if (($currentsectionfirst == true) && ($loopsection > $course->numsections)) {
+        // Now show the rest.
+        $currentsectionfirst = false; 
+        $loopsection = 1;
+        $section = 1;
+    }			
         }
 
         if ($PAGE->user_is_editing() and has_capability('moodle/course:update', $context)) {
@@ -428,7 +449,7 @@ if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
         } else {
             echo $this->end_section_list();
         }
-        return $thecurrentsection;
+        //return $thecurrentsection;
     }
 	
 	/**
@@ -449,6 +470,15 @@ if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
         $dates = format_topcoll_get_section_dates($section, $course);
 
         return (($timenow >= $dates->start) && ($timenow < $dates->end));
+		} else if ($tcsetting->layoutstructure == 5)  {
+        if ($section->section < 1) {
+            return false;
+        }
+
+        $timenow = time();
+        $day = format_topcoll_get_section_day($section, $course);
+        $onedayseconds = 86400;
+        return (($timenow >= $day) && ($timenow < ($day + $onedayseconds)));
 		} else {
 		  return parent::is_section_current($section, $course);
 		}

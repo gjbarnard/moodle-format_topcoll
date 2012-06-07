@@ -61,11 +61,11 @@
 /* -- The section name and summary of a Toggle -- */
 .course-content ul.topics li.section .content .toggle  {
   display: block;
-  font-size: 0.8em;
+  font-size: 0.9em;
   text-align: left;
   padding: 0 0;
   width: auto;
-  line-height: 1.3em;
+  line-height: 2em;
 }
 
 /* -- The topic summary text -- */    
@@ -80,10 +80,10 @@
    text-align: center;
 }  
 
-/* -- For centring the 'Topic / Week x' text -- */       
+/* -- For centring the 'Topic / Week / Day x' text -- */       
 .course-content ul.topics li.section .right span.cps_centre {
      text-align: center;
-     font-size: 0.6em;
+     font-size: 0.7em;
 }  
 
 .course-content ul.topics li.section .content .toggle {
@@ -105,6 +105,10 @@ body.jsenabled .course-content ul.topics li.section .content .toggle a.cps_a {
 /* -- Toggle text -- */
 .course-content ul.topics li.section .content .toggle a {
   text-decoration: none;
+}
+
+.course-content ul.topics li.section .content .toggledsection {
+  min-height: 30px;
 }
 
 /* -- Hiding the sections -- */
