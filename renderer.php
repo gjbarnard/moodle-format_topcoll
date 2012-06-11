@@ -338,9 +338,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 		echo $this->toggle_all();
 
 		$canviewhidden = has_capability('moodle/course:viewhiddensections', $context);
-
-		global $tcsetting;
-
+		
 		//global $thecurrentsection = 0;
 		$currentsectionfirst = false;
 		if ($tcsetting->layoutstructure == 4) {

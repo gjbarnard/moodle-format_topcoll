@@ -179,8 +179,8 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
 // Args - toggler the tag that initiated the call, toggleNum the number of the toggle for which toggler is a part of - see format.php.
 function toggle_topic(toggler,toggleNum)
 {
-   //alert('toggle_topic ' + toggleNum);
-   if(document.getElementById)
+    //alert('toggle_topic ' + toggleNum);
+    if(document.getElementById)
     {
         imageSwitch = toggler;
         targetElement = toggler.parentNode.nextSibling; // Called from <a> in a <div> so find the next <div>.
@@ -295,6 +295,7 @@ function reloadToggles()
     ourYUI.use('cookie', function(daYUI){ 
         // Get the cookie if there!
         var storedval = restoretopcollcookie(daYUI);
+
         //var storedval = daYUI.Cookie.getSub("mdl_cf_topcoll",thecookiesubid);
         if (storedval != null)
         {
@@ -313,7 +314,12 @@ function reloadToggles()
             if ((theToggle <= numToggles) && ((toggleBinaryGlobal.charAt(theToggle) == "1") || (theToggle == currentSection))) // Array index 0 is never tested - MSB thing.
             {
 			    //alert(theToggle);
-                toggleexacttopic(document.getElementById("toggledsection-" + theToggle),document.getElementById("toggle-" + theToggle).firstChild,theToggle,true);
+				var target = document.getElementById("toggledsection-"+theToggle);
+		        var image = document.getElementById("toggle-" + theToggle);
+		        if ((target != null) && (image != null))
+		        {
+                    toggleexacttopic(target,image.firstChild,theToggle,true);
+                }
                 //alert("Bongo4 " + thecookiesubid + " " + theToggle);
             }
         }    
@@ -343,7 +349,6 @@ function save_toggles()
 // Alter the state of the toggles.  Where 'state' needs to be true for open and false for close.
 function allToggle(state)
 {
-    var target;
     var displaySetting;
 
     if (state == false)
@@ -366,10 +371,14 @@ function allToggle(state)
 
     for (var theToggle = 1; theToggle <= numToggles; theToggle++)
     {
-        target = document.getElementById("toggledsection-"+theToggle);
-		image = document.getElementById("toggle-" + theToggle).firstChild;
-        target.style.display = displaySetting;
-        toggleexacttopic(target,image,theToggle,false);
+        var target = document.getElementById("toggledsection-"+theToggle);
+		var image = document.getElementById("toggle-" + theToggle);
+		if ((target != null) && (image != null))
+		{
+            target.style.display = displaySetting;
+            toggleexacttopic(target,image.firstChild,theToggle,false);
+		}
+		//alert(theToggle);
     }
 }
 
