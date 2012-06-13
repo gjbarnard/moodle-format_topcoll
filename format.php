@@ -1,26 +1,32 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
 /**
- * Topics course format.  Display the whole course as "topics" made of modules.
+ * Collapsed Topics Information
  *
- * @package format_topics
- * @copyright 2006 The Open University
- * @author N.D.Freear@open.ac.uk, and others.
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * A topic based format that solves the issue of the 'Scroll of Death' when a course has many topics. All topics
+ * except zero have a toggle that displays that topic. One or more topics can be displayed at any given time.
+ * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
+ * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
+ *
+ * @package    course/format
+ * @subpackage topcoll
+ * @version    See the value of '$plugin->version' in version.php.
+ * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
+ * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
+ * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -74,6 +80,52 @@ if (!empty($displaysection) && $course->coursedisplay == COURSE_DISPLAY_MULTIPAG
 	?>
 <style type="text/css" media="screen">
 /* <![CDATA[ */
+/* -- Images here as need to know the full url due to [[pix:****]] not working with course formats in the css file and the relative position changes between theme designer mode on / off.  -- */
+
+/* -- The clickable element of the Toggle -- */
+.course-content ul.topics li.section .content .toggle a.cps_a {
+  padding: 7px 0 7px 35px; /* The 35px allows the arrow to be on the left and the text next to it. */
+  background: transparent url(<?php echo $CFG->wwwroot?>/course/format/topcoll/images/arrow_up.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+}
+
+body.jsenabled .course-content ul.topics li.section .content .toggle a.cps_a {
+  background: transparent url(../course/format/topcoll/images/arrow_down.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
+}
+
+#toggle-all .content .sectionbody h4 a {
+  padding: 7px 7px 7px 30px; /* The 30px allows the arrow to be on the left and the text next to it. */
+  text-align: left;
+  width: 35px;
+  text-decoration: none;
+}
+
+#toggle-all .content .sectionbody h4 a.on {
+  background: transparent url(<?php echo $CFG->wwwroot?>/course/format/topcoll/images/arrow_down.png) no-repeat 0px 45%; 
+}
+
+#toggle-all .content .sectionbody h4 a.off {
+  background: transparent url(<?php echo $CFG->wwwroot?>/course/format/topcoll/images/arrow_up.png) no-repeat 0px 45%; 
+}
+
+/* Set settings */
+#set-settings {
+  background: transparent url(<?php echo $CFG->wwwroot?>/course/format/topcoll/images/tc_logo_spanner.png) no-repeat 0px 0px; 
+  width: 128px;
+  height: 100px;
+  float: right;
+  margin: 4px;
+}
+
+/* Set cookie consent */
+#set-cookie-consent{
+  float: right; 
+  vertical-align: text-top;
+  background: transparent url(<?php echo $CFG->wwwroot?>/course/format/topcoll/images/tc_logo_cookie.png) no-repeat 0px 0px; 
+  width: 128px;
+  height: 100px;
+  margin: 4px;
+}
+
 /* -- Toggle -- */
 .course-content ul.topics li.section .content .toggle {
 	background-color: #<?php echo $tcsetting->tgbgcolour; ?>;

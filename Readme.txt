@@ -419,9 +419,12 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1. Fixed issue with students not being able to perform cookie consent because of incorrect application of requiring the capability of course update.
   2. Code change done in line with other versions but format not working with development version.
 
-3rd June 2012 - Verrion 2.3.7dev - CONTRIB-3652 development - rewrite for Moodle 2.3
+3rd June 2012 - Version 2.3.7dev - CONTRIB-3652 development - rewrite for Moodle 2.3
   1. Started rewrite of Collapsed Topics for Moodle 2.3 as course formats now use a completely new renderer system introduced in MDL-32508.
   2. This branch now in 'Alpha' for stability as existing code does not work and reapplying old code in a progressive manner.
+
+12th June 2012 - Version 2.3.7dev - CONTRIB-3652 development - rewrite for Moodle 2.3
+  1. Completed bulk of code developent, now 'Beta' version for testing.
 
 Thanks
 ------
@@ -478,6 +481,6 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 3rd June 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 12th June 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

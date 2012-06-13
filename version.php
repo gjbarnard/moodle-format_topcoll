@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Collapsed Topics Information
  *
@@ -32,8 +31,8 @@
 
 defined('MOODLE_INTERNAL') || die();
  
-$plugin->version = 2012053100;
-$plugin->maturity = MATURITY_ALPHA;
-$plugin->requires = 2012031500.00; // 2.3dev
+$plugin->version = 2012061200;
+$plugin->maturity = MATURITY_BETA;
+$plugin->requires = 2012061200.00; // 2.3dev (Build: 20120612)
 $plugin->component = 'format_topcoll';
-$plugin->release = '2.3.6.3';
+$plugin->release = '2.3.7dev';
