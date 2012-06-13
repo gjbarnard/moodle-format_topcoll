@@ -292,7 +292,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 	 */
 	protected function section_footer() {
 		$o = html_writer::end_tag('div');
-		$o.= html_writer::end_tag('div');
+		//$o.= html_writer::end_tag('div');
 		$o.= html_writer::end_tag('li');
 
 		return $o;
@@ -437,9 +437,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
 					if ($thissection->uservisible) {
 						print_section($course, $thissection, $mods, $modnamesused);
 
+						echo html_writer::end_tag('div');
 						if ($PAGE->user_is_editing()) {
 							print_section_add_menus($course, $section, $modnames);
 						}
+					} else {
+					    echo html_writer::end_tag('div');
 					}
 					echo $this->section_footer();
 				}
