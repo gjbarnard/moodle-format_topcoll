@@ -424,7 +424,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2. This branch now in 'Alpha' for stability as existing code does not work and reapplying old code in a progressive manner.
 
 12th June 2012 - Version 2.3.7dev - CONTRIB-3652 development - rewrite for Moodle 2.3
-  1. Completed bulk of code developent, now 'Beta' version for testing.
+  1. Completed bulk of code development, now 'Beta' version for testing.
 
 Thanks
 ------
