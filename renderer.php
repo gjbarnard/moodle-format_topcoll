@@ -194,7 +194,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 	 * @return string HTML to output.
 	 */
 	protected function section_header($section, $course, $onsectionpage) {
-		if ($course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
+		//if ($course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
 			global $PAGE;
 
 		$o = '';
@@ -228,7 +228,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
 		if (((!$onsectionpage) || ($tcscreenreader == false)) && ($section->section != 0)) {
            	$o.= html_writer::start_tag('div', array('class' => 'sectionhead toggle','id' => 'toggle-'.$section->section));
 
-			$title = $this->section_title($section, $course);
+			//$title = $this->section_title($section, $course);
+			$title = get_section_name($course, $section);
 			if (empty($section->summary)) {
 				$o.= html_writer::start_tag('a', array('class' => 'cps_nosumm cps_a', 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
 				$o.= $title;
@@ -268,6 +269,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
 			$o.= html_writer::end_tag('a');
 			$o.= html_writer::end_tag('div');
 			$o.= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection','id' => 'toggledsection-'.$section->section));
+        if ($section->section != 0 && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
+            $o.= html_writer::link(course_get_url($course, $section->section), $title);
+        }
 
 		} else {
 			$o.= html_writer::start_tag('div', array('class' => 'sectionbody'));
@@ -284,9 +288,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
 		//print_object($section);
 
 		return $o;
-		} else {
-		    return parent::section_header($section, $course, $onsectionpage);
-		}
+		//} else {
+		//   return parent::section_header($section, $course, $onsectionpage);
+		//}
 	}
 
 	/**
@@ -295,15 +299,15 @@ class format_topcoll_renderer extends format_section_renderer_base {
 	 * @return string HTML to output.
 	 */
 	protected function section_footer() {
-	    if ($course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
+	    //if ($course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
 		$o = html_writer::end_tag('div');
 		//$o.= html_writer::end_tag('div');
 		$o.= html_writer::end_tag('li');
 
 		return $o;
-		} else {
-		    return parent::section_footer();
-		}
+		//} else {
+		//    return parent::section_footer();
+		//}
 	}
 
 	/**
@@ -348,7 +352,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 			echo $this->section_footer();
 		}
 
-		if ($course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
+		if ($PAGE->user_is_editing() || $course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
 		    // Collapsed Topics all toggles.
 		    echo $this->toggle_all();
         }
