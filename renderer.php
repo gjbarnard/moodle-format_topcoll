@@ -194,7 +194,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 	 * @return string HTML to output.
 	 */
 	protected function section_header($section, $course, $onsectionpage) {
-		//if ($course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
+		if ($onsectionpage == false) {
 			global $PAGE;
 
 		$o = '';
@@ -288,9 +288,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
 		//print_object($section);
 
 		return $o;
-		//} else {
+		} else {
+			$o = html_writer::start_tag('div', array('class' => 'sectionbody'));
+			//$o.= $this->output->heading($this->section_title($section, $course), 3, 'sectionname');
+			return $o;
 		//   return parent::section_header($section, $course, $onsectionpage);
-		//}
+	    }
 	}
 
 	/**
