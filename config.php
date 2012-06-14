@@ -78,5 +78,5 @@ $TCCFG->defaulttgbgcolour = 'e2e2f2';
 $TCCFG->defaulttgbghvrcolour = 'eeeeff';
 
 // Request Cookie Consent - CONTRIB-3624
-$TCCFG->defaultcookieconsent = true; // Set to true if your country does implement cookie consent law - details on CONTRIB-3624 (http://tracker.moodle.org/browse/CONTRIB-3624).
+$TCCFG->defaultcookieconsent = false; // Set to true if your country does implement cookie consent law - details on CONTRIB-3624 (http://tracker.moodle.org/browse/CONTRIB-3624).
 ?>

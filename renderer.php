@@ -194,7 +194,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
 	 * @return string HTML to output.
 	 */
 	protected function section_header($section, $course, $onsectionpage) {
-		global $PAGE;
+		if ($course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
+			global $PAGE;
 
 		$o = '';
 		$currenttext = '';
@@ -283,6 +284,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
 		//print_object($section);
 
 		return $o;
+		} else {
+		    return parent::section_header($section, $course, $onsectionpage);
+		}
 	}
 
 	/**
@@ -291,11 +295,15 @@ class format_topcoll_renderer extends format_section_renderer_base {
 	 * @return string HTML to output.
 	 */
 	protected function section_footer() {
+	    if ($course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
 		$o = html_writer::end_tag('div');
 		//$o.= html_writer::end_tag('div');
 		$o.= html_writer::end_tag('li');
 
 		return $o;
+		} else {
+		    return parent::section_footer();
+		}
 	}
 
 	/**
@@ -340,8 +348,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
 			echo $this->section_footer();
 		}
 
-		// Collapsed Topics all toggles.
-		echo $this->toggle_all();
+		if ($course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
+		    // Collapsed Topics all toggles.
+		    echo $this->toggle_all();
+        }
 
 		$canviewhidden = has_capability('moodle/course:viewhiddensections', $context);
 		
@@ -437,12 +447,16 @@ class format_topcoll_renderer extends format_section_renderer_base {
 					if ($thissection->uservisible) {
 						print_section($course, $thissection, $mods, $modnamesused);
 
-						echo html_writer::end_tag('div');
+						if ($course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
+						    echo html_writer::end_tag('div');
+						}
 						if ($PAGE->user_is_editing()) {
 							print_section_add_menus($course, $section, $modnames);
 						}
 					} else {
-					    echo html_writer::end_tag('div');
+					    if ($course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
+						   echo html_writer::end_tag('div');
+						}
 					}
 					echo $this->section_footer();
 				}
