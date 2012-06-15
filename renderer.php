@@ -195,7 +195,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 	 */
 	protected function section_header($section, $course, $onsectionpage) {
 		$o = '';
-			global $PAGE;
+		global $PAGE;
 
 		$currenttext = '';
 		$sectionstyle = '';
@@ -288,7 +288,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 		//print_object($section);
 
 		} else {
-			$o = html_writer::start_tag('div', array('class' => 'sectionbody'));
+			$o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
 			//$o.= $this->output->heading($this->section_title($section, $course), 3, 'sectionname');
 		//   return parent::section_header($section, $course, $onsectionpage);
 	    }
@@ -567,13 +567,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
 	// Collapsed Topics non-overridden additions.
 
-	protected $screenreader;
+	//protected $screenreader;
 	protected $cookieconsent;
 	//protected $tcsetting;
 
-	public function set_screen_reader($screenreader) {
-		$this->screenreader = $screenreader;
-	}
+	//public function set_screen_reader($screenreader) {
+	//	$this->screenreader = $screenreader;
+	//}
 
 	public function set_cookie_consent($cookieconsent) {
 		$this->cookieconsent = $cookieconsent;
@@ -592,9 +592,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
 	public function cookie_consent($course) {
 		global $USER;
+		global $tcscreenreader;
 		$o = '';
 
-		if (($this->screenreader == false) && ($this->cookieconsent == 1)) {
+		if (($tcscreenreader == false) && ($this->cookieconsent == 1)) {
 			// Display message to ask for consent.
 			$o.= html_writer::start_tag('li', array('class' => 'tcsection main clearfix'));
 
@@ -641,8 +642,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
 	}
 
 	public function toggle_all() {
+	    global $tcscreenreader;
 		$o = '';
-		if ($this->screenreader == false) { // No need to show if in screen reader mode.
+		if ($tcscreenreader == false) { // No need to show if in screen reader mode.
 			$toggletext = get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
 			// Toggle all.
 
