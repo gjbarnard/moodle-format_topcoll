@@ -33,6 +33,6 @@ defined('MOODLE_INTERNAL') || die();
  
 $plugin->version = 2012061500;
 $plugin->maturity = MATURITY_BETA;
-$plugin->requires = 2012061200.00; // 2.3dev (Build: 20120612)
+$plugin->requires = 2012061700; // 2.3dev (Build: 20120617)
 $plugin->component = 'format_topcoll';
 $plugin->release = '2.3.7dev';

@@ -291,8 +291,9 @@ function restoretopcollcookie(daYUI)
 // 'Private' version of reload_toggles
 function reloadToggles()
 {
-    //alert('reloadToggles()');
+    //alert('reloadToggles() - ' + ourYUI);
     ourYUI.use('cookie', function(daYUI){ 
+	    alert('reloadToggles() in cookie function - ' + daYUI);
         // Get the cookie if there!
         var storedval = restoretopcollcookie(daYUI);
 
@@ -332,7 +333,8 @@ function reloadToggles()
 // no longer exists.  This can happen when the number of sections is reduced and we return to the course and reload the page
 // using the data from the cookie.
 M.format_topcoll.reload_toggles = function (Y, aToggle) {
-    numToggles = aToggle;
+     //alert('reload_toggles(' + aToggle + ')');
+	 numToggles = aToggle;
     
     Y.use('node-base', function(daYUI) {
      daYUI.on("domready", reloadToggles);
@@ -392,9 +394,4 @@ function all_opened()
 function all_closed()
 {
     allToggle(false);
-}
-
-function ct_test()
-{
-  alert('CT Test');
 }

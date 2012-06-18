@@ -447,7 +447,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 				//print_object($thissection);
 				if (!$PAGE->user_is_editing() && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
 					// Display section summary only.
-					echo $this->section_summary($thissection, $course);
+					echo $this->section_summary($thissection, $course, $mods);
 				} else {
 					echo $this->section_header($thissection, $course, false);
 					if ($thissection->uservisible) {
