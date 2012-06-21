@@ -31,6 +31,8 @@
 // Global variables 
 var toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000"; // 53 possible toggles - current settings in Moodle for number of topics - 52 + 1 for topic 0.  Need 1 as Most Significant bit to allow toggle 1+ to be off.
 var thesparezeros = "00000000000000000000000000"; // A constant of 26 0's to be used to pad the storage state of the toggles when converting between base 2 and 36, this is because cookies need to be compact.
+var toggleState;
+var courseid;
 var thewwwroot;  // For the toggle graphic and extra files.
 var thecookiesubid; // For the cookie sub name.
 var numToggles = 0;
@@ -54,15 +56,18 @@ M.format_topcoll = M.format_topcoll || {};
  * @param {Object} Y YUI instance
  * @param {String} wwwroot the URL of the Moodle site
  * @param {Integer} moodleid the site short name (courseid 0)
- * @param {Integer} courseid the id of the current course to allow for settings for each course.
- * @param {Integer} cookielifetime how long the cookie should live for or null if a session cookie.
+ * @param {Integer} thecourseid the id of the current course to allow for settings for each course.
+ * @param {String} thetogglestate the current state of the toggles.
  */
-M.format_topcoll.init = function(Y, wwwroot, moodleid, courseid, cookielifetime) {
+M.format_topcoll.init = function(Y, wwwroot, moodleid, thecourseid, thetogglestate) {
     // Init.
     ourYUI = Y;
     thewwwroot = wwwroot;
+	courseid = thecourseid;
     thecookiesubid = moodleid + courseid;
-    cookieExpires = cookielifetime; // null indicates that it is a session cookie.
+    cookieExpires = null; // null indicates that it is a session cookie.
+	toggleState = thetogglestate;
+	//alert(toggleState);
     //alert('Init: www: ' + wwwroot + ' mooid: ' + moodleid + ' corid: ' + courseid + ' cookielt: ' + cookielifetime);
     if (/MSIE (\d+\.\d+);/.test(navigator.userAgent))
     {
@@ -123,14 +128,14 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
 {
     if(document.getElementById)
     {
-        if (ie == true)
-        {
-            var displaySetting = "table-row";
-        }
-        else
-        {
+        //if (ie == true)
+        //{
+            //var displaySetting = "table-row";
+        //}
+        //else
+        //{
             var displaySetting = "block";
-        }
+        //}
         
         //alert("toggleexacttopic tdisp:" + target.style.display + " disp:" + displaySetting + " ton:" + toggleNum + " rl:" + reloading);
 
@@ -288,15 +293,22 @@ function restoretopcollcookie(daYUI)
     }
 }
 
+function savetogglestate(value)
+{
+	M.util.set_user_preference('topcoll_toggle_'+courseid , value);
+}
+
 // 'Private' version of reload_toggles
 function reloadToggles()
 {
     //alert('reloadToggles() - ' + ourYUI);
-    ourYUI.use('cookie', function(daYUI){ 
-	    alert('reloadToggles() in cookie function - ' + daYUI);
+    //ourYUI.use('cookie', function(daYUI){ 
+	    //alert('reloadToggles() in cookie function - ' + daYUI);
         // Get the cookie if there!
-        var storedval = restoretopcollcookie(daYUI);
-
+        //var storedval = restoretopcollcookie(daYUI);
+        var storedval = toggleState;
+        //alert(storedval);
+		
         //var storedval = daYUI.Cookie.getSub("mdl_cf_topcoll",thecookiesubid);
         if (storedval != null)
         {
@@ -324,7 +336,7 @@ function reloadToggles()
                 //alert("Bongo4 " + thecookiesubid + " " + theToggle);
             }
         }    
-    });
+    //});
 }
 
 // Toggle persistence functions
@@ -344,7 +356,8 @@ M.format_topcoll.reload_toggles = function (Y, aToggle) {
 // Save the toggles - called from togglebinary and an the unload event handler at the bottom of format.php which does not work for a refresh even though it should!
 function save_toggles()
 {
-    savetopcollcookie(to36baseString(toggleBinaryGlobal));
+    //savetopcollcookie(to36baseString(toggleBinaryGlobal));
+	savetogglestate(to36baseString(toggleBinaryGlobal));
 }
 
 // Functions that turn on or off all toggles.
@@ -356,14 +369,14 @@ function allToggle(state)
     if (state == false)
     {
          // All on to set off!
-        if (ie == false)
-        {
+        //if (ie == false)
+        //{
             displaySetting = "block";
-        }
-        else
-        {
+        //}
+        //else
+        //{
             displaySetting = "table-row";
-        }
+        //}
     }
     else
     {

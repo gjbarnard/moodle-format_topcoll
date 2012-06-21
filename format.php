@@ -62,11 +62,13 @@ if (!empty($displaysection) && $course->coursedisplay == COURSE_DISPLAY_MULTIPAG
 } else {
 	require_once($CFG->dirroot . '/course/format/topcoll/config.php');
 
+	user_preference_allow_ajax_update('topcoll_toggle_'.$course->id, PARAM_ALPHANUM);
+	
 	$PAGE->requires->js_init_call('M.format_topcoll.init',
 	array($CFG->wwwroot,
 	preg_replace("/[^A-Za-z0-9]/", "", $SITE->shortname),
 	$course->id,
-	null)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration - see Readme.txt
+	get_user_preferences('topcoll_toggle_'.$course->id))); 
 	
 	//$renderer->set_screen_reader($tcscreenreader);
 

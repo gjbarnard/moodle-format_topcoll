@@ -219,6 +219,7 @@ function format_topcoll_delete_course($courseid) {
     global $DB;
 
     $DB->delete_records("format_topcoll_settings", array("courseid"=>$courseid));
+	$DB->delete_records("user_preferences", array("name"=>'topcoll_toggle_'.$courseid));
 }
 
 /**
