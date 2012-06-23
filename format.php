@@ -66,18 +66,14 @@ if (!empty($displaysection) && $course->coursedisplay == COURSE_DISPLAY_MULTIPAG
 	
 	$PAGE->requires->js_init_call('M.format_topcoll.init',
 	array($CFG->wwwroot,
-	preg_replace("/[^A-Za-z0-9]/", "", $SITE->shortname),
 	$course->id,
 	get_user_preferences('topcoll_toggle_'.$course->id))); 
 	
-	//$renderer->set_screen_reader($tcscreenreader);
-
 	global $tcsetting;
 	if (empty($tcsetting) == true) {
 		$tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
 	}
-	//print_object($setting);
-	//$renderer->set_tc_setting($tcsetting);
+
 
 	?>
 <style type="text/css" media="screen">
@@ -118,16 +114,6 @@ body.jsenabled .course-content ul.topics li.section .content .toggle a.cps_a {
   margin: 4px;
 }
 
-/* Set cookie consent */
-#set-cookie-consent{
-  float: right; 
-  vertical-align: text-top;
-  background: transparent url(<?php echo $CFG->wwwroot?>/course/format/topcoll/images/tc_logo_cookie.png) no-repeat 0px 0px; 
-  width: 128px;
-  height: 100px;
-  margin: 4px;
-}
-
 /* -- Toggle -- */
 .course-content ul.topics li.section .content .toggle {
 	background-color: #<?php echo $tcsetting->tgbgcolour; ?>;
@@ -147,17 +133,6 @@ body.jsenabled .course-content ul.topics li.section .content .toggle a.cps_a {
 /* ]]> */
 </style>
 	<?php
-	// CONTRIB-3624 - Cookie consent.
-	if ($TCCFG->defaultcookieconsent  == true) {
-		$usercookieconsent = get_topcoll_cookie_consent($USER->id); // In topcoll/lib.php
-
-		// Tell the JavaScript code of the state.  Upon user choice, this page will refresh and a new value sent...
-		echo $PAGE->requires->js_init_call('M.format_topcoll.set_cookie_consent', array($usercookieconsent->cookieconsent));
-		$renderer->set_cookie_consent($usercookieconsent->cookieconsent);
-	} else {
-		// Cookie consent turned off by administrator, so allow...
-		echo $PAGE->requires->js_init_call('M.format_topcoll.set_cookie_consent', array(2));
-	}
 	$thecurrentsection = 0; // The section that will be the current section - manipulated in section_header in the renderer.
 	$renderer->print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused);
 	//print ($thecurrentsection);

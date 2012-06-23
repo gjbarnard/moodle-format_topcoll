@@ -34,11 +34,8 @@ var thesparezeros = "00000000000000000000000000"; // A constant of 26 0's to be 
 var toggleState;
 var courseid;
 var thewwwroot;  // For the toggle graphic and extra files.
-var thecookiesubid; // For the cookie sub name.
 var numToggles = 0;
 var currentSection;
-var cookieConsent = 3; // Off by default as a 'just in case'.
-var cookieExpires;
 var ie7OrLess = false;
 var ie = false;
 var mymobiletheme = false;
@@ -55,17 +52,14 @@ M.format_topcoll = M.format_topcoll || {};
  * Initialise with the information supplied from the course format 'format.php' so we can operate.
  * @param {Object} Y YUI instance
  * @param {String} wwwroot the URL of the Moodle site
- * @param {Integer} moodleid the site short name (courseid 0)
  * @param {Integer} thecourseid the id of the current course to allow for settings for each course.
  * @param {String} thetogglestate the current state of the toggles.
  */
-M.format_topcoll.init = function(Y, wwwroot, moodleid, thecourseid, thetogglestate) {
+M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate) {
     // Init.
     ourYUI = Y;
     thewwwroot = wwwroot;
 	courseid = thecourseid;
-    thecookiesubid = moodleid + courseid;
-    cookieExpires = null; // null indicates that it is a session cookie.
 	toggleState = thetogglestate;
 	//alert(toggleState);
     //alert('Init: www: ' + wwwroot + ' mooid: ' + moodleid + ' corid: ' + courseid + ' cookielt: ' + cookielifetime);
@@ -90,10 +84,6 @@ M.format_topcoll.init = function(Y, wwwroot, moodleid, thecourseid, thetogglesta
 M.format_topcoll.set_current_section = function (Y, theSection) {
     currentSection = theSection;
 	//alert(currentSection);
-}
-
-M.format_topcoll.set_cookie_consent = function (Y, theConsent) {
-    cookieConsent = theConsent;
 }
 
 // Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the most significant bit and represents the non-toggling topic 0.
@@ -247,52 +237,6 @@ function to36baseString(two)
     return fps + sps;
 }
 
-// Cookie Monster
-// Args - value to save to the cookie
-function savetopcollcookie(value)
-{
-    // Only save the cookie if consent has been given or not required for the installations country.
-    if (cookieConsent == 2)
-    {
-        // Use our YUI instance and use the cookie module. 
-        if (cookieExpires == null)
-        {
-            // Session Cookie...
-            ourYUI.use('cookie', function(Y){ 
-               Y.Cookie.setSub("mdl_cf_topcoll",thecookiesubid,value); 
-               //alert("Bongo After " + thecookiesubid + " " + value);
-            });
-            // Using Sub cookies, so, name, moodleid/courseid, value.
-            // This is not a Moodle table but in fact the cookies name.
-        }
-        else
-        {
-            // Expiring Cookie...
-                ourYUI.use('cookie', function(Y){ 
-                var newDate = new Date();
-                newDate.setTime(newDate.getTime() + cookieExpires); 
-                Y.Cookie.setSub("mdl_cf_topcoll",thecookiesubid,value, { expires: newDate }); 
-                //alert("Bongo After " + thecookiesubid + " " + value + " " + newDate + " " + cookieExpires);
-            });
-            // This is not a Moodle table but in fact the cookies name.
-        }
-    }
-}
-
-// Get the cookie - yum.
-function restoretopcollcookie(daYUI)
-{
-    // Only load the cookie if consent has been given or not required for the installations country.
-    if (cookieConsent == 2)
-    {
-        return daYUI.Cookie.getSub("mdl_cf_topcoll",thecookiesubid); 
-    }
-    else
-    {
-        return null;
-    }
-}
-
 function savetogglestate(value)
 {
 	M.util.set_user_preference('topcoll_toggle_'+courseid , value);
@@ -301,25 +245,16 @@ function savetogglestate(value)
 // 'Private' version of reload_toggles
 function reloadToggles()
 {
-    //alert('reloadToggles() - ' + ourYUI);
-    //ourYUI.use('cookie', function(daYUI){ 
-	    //alert('reloadToggles() in cookie function - ' + daYUI);
-        // Get the cookie if there!
-        //var storedval = restoretopcollcookie(daYUI);
-        var storedval = toggleState;
-        //alert(storedval);
-		
-        //var storedval = daYUI.Cookie.getSub("mdl_cf_topcoll",thecookiesubid);
-        if (storedval != null)
+        if (toggleState != null)
         {
-            toggleBinaryGlobal = to2baseString(storedval);
+            toggleBinaryGlobal = to2baseString(toggleState);
         }
         else
         {
             // Reset to default.
             toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
         }
-        //alert("Bongo3 " + thecookiesubid + " " + storedval + " " + numToggles + " " + toggleBinaryGlobal);
+        //alert("Bongo3 " + toggleState + " " + numToggles + " " + toggleBinaryGlobal);
     
 	    //alert(toggleBinaryGlobal);
         for (var theToggle = 1; theToggle <= numToggles; theToggle++)
@@ -333,10 +268,9 @@ function reloadToggles()
 		        {
                     toggleexacttopic(target,image.firstChild,theToggle,true);
                 }
-                //alert("Bongo4 " + thecookiesubid + " " + theToggle);
+                //alert("Bongo4 " + theToggle);
             }
         }    
-    //});
 }
 
 // Toggle persistence functions
@@ -356,7 +290,6 @@ M.format_topcoll.reload_toggles = function (Y, aToggle) {
 // Save the toggles - called from togglebinary and an the unload event handler at the bottom of format.php which does not work for a refresh even though it should!
 function save_toggles()
 {
-    //savetopcollcookie(to36baseString(toggleBinaryGlobal));
 	savetogglestate(to36baseString(toggleBinaryGlobal));
 }
 
@@ -375,7 +308,7 @@ function allToggle(state)
         //}
         //else
         //{
-            displaySetting = "table-row";
+        //  displaySetting = "table-row";
         //}
     }
     else
