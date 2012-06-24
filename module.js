@@ -36,8 +36,8 @@ var courseid;
 var thewwwroot;  // For the toggle graphic and extra files.
 var numToggles = 0;
 var currentSection;
-var ie7OrLess = false;
-var ie = false;
+//var ie7OrLess = false;
+//var ie = false;
 var mymobiletheme = false;
 var ourYUI;
 
@@ -59,11 +59,11 @@ M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate) {
     // Init.
     ourYUI = Y;
     thewwwroot = wwwroot;
-	courseid = thecourseid;
-	toggleState = thetogglestate;
-	//alert(toggleState);
+    courseid = thecourseid;
+    toggleState = thetogglestate;
+    //alert(toggleState);
     //alert('Init: www: ' + wwwroot + ' mooid: ' + moodleid + ' corid: ' + courseid + ' cookielt: ' + cookielifetime);
-    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent))
+    /* if (/MSIE (\d+\.\d+);/.test(navigator.userAgent))
     {
         // Info from: http://www.javascriptkit.com/javatutors/navigator.shtml - accessed 2nd September 2011.
         var ieversion = new Number(RegExp.$1);
@@ -74,7 +74,7 @@ M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate) {
             //alert('Is IE 7');
             ie7OrLess = true;
         }
-    }
+    } */
     if (document.getElementById("mymobile")) {
         mymobiletheme = true;
     }
@@ -83,7 +83,7 @@ M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate) {
 
 M.format_topcoll.set_current_section = function (Y, theSection) {
     currentSection = theSection;
-	//alert(currentSection);
+    //alert(currentSection);
 }
 
 // Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the most significant bit and represents the non-toggling topic 0.
@@ -120,45 +120,41 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
     {
         //if (ie == true)
         //{
-            //var displaySetting = "table-row";
+        //var displaySetting = "table-row";
         //}
         //else
         //{
-            var displaySetting = "block";
+        var displaySetting = "block";
         //}
         
         //alert("toggleexacttopic tdisp:" + target.style.display + " disp:" + displaySetting + " ton:" + toggleNum + " rl:" + reloading);
 
+        var sectoggle = document.getElementById("toggle-" + toggleNum);
         if (target.style.display == displaySetting)
         {
             target.style.display = "none";
-            if (ie7OrLess == true)
-            {
-                target.className += " collapsed_topic";  //add the class name
-                //alert('Added class name');
-            }
 
             if (mymobiletheme == true) {
-                var sectoggle = document.getElementById("toggle-" + toggleNum);
                 sectoggle.className = sectoggle.className.replace(/\b opencps\b/,''); //remove the class name
             } else {
                 image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_down.png)";
             }
 
             // Save the toggle!
-            if (reloading == false)    togglebinary(toggleNum,"0");
+            if (reloading == false) {
+                togglebinary(toggleNum,"0");
+            }
         }
         else
         {
             target.style.display = displaySetting;
-            if (ie7OrLess == true)
+            /*if (ie7OrLess == true)
             {
                 target.className = target.className.replace(/\b collapsed_topic\b/,'') //remove the class name
-                //alert('Removed class name');
-            }
+            //alert('Removed class name');
+            }*/
 
             if (mymobiletheme == true) {
-                var sectoggle = document.getElementById("toggle-" + toggleNum);
                 sectoggle.className += " opencps";  //add the class name
             } else {
                 image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_up.png)";
@@ -239,38 +235,38 @@ function to36baseString(two)
 
 function savetogglestate(value)
 {
-	M.util.set_user_preference('topcoll_toggle_'+courseid , value);
+    M.util.set_user_preference('topcoll_toggle_'+courseid , value);
 }
 
 // 'Private' version of reload_toggles
 function reloadToggles()
 {
-        if (toggleState != null)
-        {
-            toggleBinaryGlobal = to2baseString(toggleState);
-        }
-        else
-        {
-            // Reset to default.
-            toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
-        }
-        //alert("Bongo3 " + toggleState + " " + numToggles + " " + toggleBinaryGlobal);
+    if (toggleState != null)
+    {
+        toggleBinaryGlobal = to2baseString(toggleState);
+    }
+    else
+    {
+        // Reset to default.
+        toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
+    }
+    //alert("Bongo3 " + toggleState + " " + numToggles + " " + toggleBinaryGlobal);
     
-	    //alert(toggleBinaryGlobal);
-        for (var theToggle = 1; theToggle <= numToggles; theToggle++)
+    //alert(toggleBinaryGlobal);
+    for (var theToggle = 1; theToggle <= numToggles; theToggle++)
+    {
+        if ((theToggle <= numToggles) && ((toggleBinaryGlobal.charAt(theToggle) == "1") || (theToggle == currentSection))) // Array index 0 is never tested - MSB thing.
         {
-            if ((theToggle <= numToggles) && ((toggleBinaryGlobal.charAt(theToggle) == "1") || (theToggle == currentSection))) // Array index 0 is never tested - MSB thing.
+            //alert(theToggle);
+            var target = document.getElementById("toggledsection-"+theToggle);
+            var image = document.getElementById("toggle-" + theToggle);
+            if ((target != null) && (image != null))
             {
-			    //alert(theToggle);
-				var target = document.getElementById("toggledsection-"+theToggle);
-		        var image = document.getElementById("toggle-" + theToggle);
-		        if ((target != null) && (image != null))
-		        {
-                    toggleexacttopic(target,image.firstChild,theToggle,true);
-                }
-                //alert("Bongo4 " + theToggle);
+                toggleexacttopic(target,image.firstChild,theToggle,true);
             }
-        }    
+        //alert("Bongo4 " + theToggle);
+        }
+    }    
 }
 
 // Toggle persistence functions
@@ -279,18 +275,18 @@ function reloadToggles()
 // no longer exists.  This can happen when the number of sections is reduced and we return to the course and reload the page
 // using the data from the cookie.
 M.format_topcoll.reload_toggles = function (Y, aToggle) {
-     //alert('reload_toggles(' + aToggle + ')');
-	 numToggles = aToggle;
+    //alert('reload_toggles(' + aToggle + ')');
+    numToggles = aToggle;
     
     Y.use('node-base', function(daYUI) {
-     daYUI.on("domready", reloadToggles);
+        daYUI.on("domready", reloadToggles);
     });
 }
 
 // Save the toggles - called from togglebinary and an the unload event handler at the bottom of format.php which does not work for a refresh even though it should!
 function save_toggles()
 {
-	savetogglestate(to36baseString(toggleBinaryGlobal));
+    savetogglestate(to36baseString(toggleBinaryGlobal));
 }
 
 // Functions that turn on or off all toggles.
@@ -301,15 +297,15 @@ function allToggle(state)
 
     if (state == false)
     {
-         // All on to set off!
+        // All on to set off!
         //if (ie == false)
         //{
-            displaySetting = "block";
-        //}
-        //else
-        //{
-        //  displaySetting = "table-row";
-        //}
+        displaySetting = "block";
+    //}
+    //else
+    //{
+    //  displaySetting = "table-row";
+    //}
     }
     else
     {
@@ -320,13 +316,13 @@ function allToggle(state)
     for (var theToggle = 1; theToggle <= numToggles; theToggle++)
     {
         var target = document.getElementById("toggledsection-"+theToggle);
-		var image = document.getElementById("toggle-" + theToggle);
-		if ((target != null) && (image != null))
-		{
+        var image = document.getElementById("toggle-" + theToggle);
+        if ((target != null) && (image != null))
+        {
             target.style.display = displaySetting;
             toggleexacttopic(target,image.firstChild,theToggle,false);
-		}
-		//alert(theToggle);
+        }
+    //alert(theToggle);
     }
 }
 

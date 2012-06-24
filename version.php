@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Collapsed Topics Information
  *
@@ -28,11 +29,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 defined('MOODLE_INTERNAL') || die();
- 
-$plugin->version = 2012062300;
-$plugin->maturity = MATURITY_BETA;
+
+$plugin->version = 2012062400;
+$plugin->maturity = MATURITY_RC;
 $plugin->requires = 2012061800.00; // 2.3beta (Build: 20120618)
 $plugin->component = 'format_topcoll';
-$plugin->release = '2.3.7dev';
+$plugin->release = '2.3.7rc';

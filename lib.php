@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /**
   This file contains general functions for the course format Collapsed Topics
   Thanks to Sam Hemelryk who modified the Moodle core code for 2.0, and
@@ -18,7 +19,6 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see http://www.gnu.org/licenses/.
  */
-
 require_once('config.php'); // For Collaped Topics defaults.
 
 /**
@@ -71,42 +71,41 @@ function callback_topcoll_request_key() {
  * @return string
  */
 function callback_topcoll_get_section_name($course, $section) {
-	
+
     // We can't add a node without any text
-    if ((string)$section->name !== '') {
+    if ((string) $section->name !== '') {
         return format_string($section->name, true, array('context' => context_course::instance($course->id)));
     } else if ($section->section == 0) {
         return get_string('section0name', 'format_topcoll');
     } else {
-	    global $tcsetting;
-		if (empty($tcsetting) == true) {
-		    $tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
-		}
-	//$renderer = $PAGE->get_renderer('format_topcoll');
-	//$setting = $renderer->get_tc_setting();
-	//print_object($tcsetting);
-	 if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
-        return get_string('sectionname', 'format_topcoll') . ' ' . $section->section;
-		} else {
-        $dateformat = ' '.get_string('strftimedateshort');
-		if ($tcsetting->layoutstructure == 5) {
-		    $day = format_topcoll_get_section_day($section, $course);
+        global $tcsetting;
+        if (empty($tcsetting) == true) {
+            $tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
+        }
+        //$renderer = $PAGE->get_renderer('format_topcoll');
+        //$setting = $renderer->get_tc_setting();
+        //print_object($tcsetting);
+        if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
+            return get_string('sectionname', 'format_topcoll') . ' ' . $section->section;
+        } else {
+            $dateformat = ' ' . get_string('strftimedateshort');
+            if ($tcsetting->layoutstructure == 5) {
+                $day = format_topcoll_get_section_day($section, $course);
 
-        $weekday = userdate($day, $dateformat);
-        return $weekday;
-		} else {
-		        $dates = format_topcoll_get_section_dates($section, $course);
+                $weekday = userdate($day, $dateformat);
+                return $weekday;
+            } else {
+                $dates = format_topcoll_get_section_dates($section, $course);
 
-        // We subtract 24 hours for display purposes.
-        $dates->end = ($dates->end - 86400);
+                // We subtract 24 hours for display purposes.
+                $dates->end = ($dates->end - 86400);
 
-        $weekday = userdate($dates->start, $dateformat);
-        $endweekday = userdate($dates->end, $dateformat);
-        return $weekday.' - '.$endweekday;
-		}
-		}
+                $weekday = userdate($dates->start, $dateformat);
+                $endweekday = userdate($dates->end, $dateformat);
+                return $weekday . ' - ' . $endweekday;
+            }
+        }
     }
-
 }
 
 /**
@@ -132,7 +131,6 @@ function callback_topcoll_ajax_support() {
 function callback_topcoll_get_section_url($courseid, $sectionnum) {
     return new moodle_url('/course/view.php', array('id' => $courseid, 'ctopic' => $sectionnum));
 }
-
 
 /**
  * Callback function to do some action after section move
@@ -169,7 +167,7 @@ function get_topcoll_setting($courseid) {
         // Default values...
         $setting = new stdClass();
         $setting->courseid = $courseid;
-        $setting->layoutelement = $TCCFG->defaultlayoutelement; 
+        $setting->layoutelement = $TCCFG->defaultlayoutelement;
         $setting->layoutstructure = $TCCFG->defaultlayoutstructure;
         $setting->tgfgcolour = $TCCFG->defaulttgfgcolour;
         $setting->tgbgcolour = $TCCFG->defaulttgbgcolour;
@@ -218,8 +216,8 @@ function put_topcoll_setting($courseid, $layoutelement, $layoutstructure, $tgfgc
 function format_topcoll_delete_course($courseid) {
     global $DB;
 
-    $DB->delete_records("format_topcoll_settings", array("courseid"=>$courseid));
-	$DB->delete_records("user_preferences", array("name"=>'topcoll_toggle_'.$courseid));
+    $DB->delete_records("format_topcoll_settings", array("courseid" => $courseid));
+    $DB->delete_records("user_preferences", array("name" => 'topcoll_toggle_' . $courseid));
 }
 
 /**

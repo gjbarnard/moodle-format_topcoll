@@ -17,31 +17,30 @@ Installation
     and structure respectively for new / updating courses as desired by following the instructions contained within.
 5.  In 'config.php' change the values of '$TCCFG->defaulttgfgcolour', '$TCCFG->defaulttgbgcolour' and '$TCCFG->defaulttgbghvrcolour' for
     setting the default toggle colours.
-6.  In 'config.php' change the value of '$TCCFG->defaultcookieconsent' in line with your countries law on cookies.
-7.  Login as an administrator and follow standard the 'plugin' update notification.  If needed, go to 'Site administration' -> 'Notifications' if
+6.  Login as an administrator and follow standard the 'plugin' update notification.  If needed, go to 'Site administration' -> 'Notifications' if
     this does not happen.
-8.  If desired, edit the colours of the topics_collapsed.css - which contains instructions on how to have per theme colours.
-9.  To change the arrow graphic you need to replace arrow_up.png and arrow_down.png.  Reuse the graphics
+7.  If desired, edit the colours of the styles.css - which contains instructions on how to have per theme colours.
+8.  To change the arrow graphic you need to replace arrow_up.png and arrow_down.png.  Reuse the graphics
     if you want.  Created in Paint.Net.
-10. Put Moodle out of Maintenance Mode.
+9.  Put Moodle out of Maintenance Mode.
 
 Upgrade Instructions
 --------------------
-1. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the adminstrator.
+1. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
 2. In '/course/format/' move old 'topcoll' directory to a backup folder outside of Moodle.
 3. Follow installation instructions above.
 4. Put Moodle out of Maintenance Mode.
 
 Uninstallation
 --------------
-1. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the adminstrator.
+1. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
 2. It is recommended but not essential to change all of the courses that use the format to another.  If this is not done Moodle will pick the
    last format in your list of formats to use but display in 'Edit settings' of the course the first format in the list.  You can then set the
    desired format.
 3. In '/course/format/' remove the folder 'topcoll'.
-4. In the database, remove the tables 'format_topcoll_settings' and 'format_topcoll_cookie_cnsnt' along with the entry for 'format_topcoll'
-   ('plugin' attribute) in the table 'config_plugins'.  If using the default prefix this will be 'mdl_format_topcoll_settings',
-   'mdl_format_topcoll_cookie_cnsnt' and 'mdl_config_plugins' respectively.
+4. In the database, remove the table 'format_topcoll_settings' along with the entry for 'format_topcoll'
+   ('plugin' attribute) in the table 'config_plugins'.  If using the default prefix this will be 'mdl_format_topcoll_settings'
+   and 'mdl_config_plugins' respectively.
 5. Put Moodle out of Maintenance Mode.
 
 Course Backup and Restore Instructions
@@ -50,66 +49,10 @@ Course Backup and Restore Instructions
 2. Restore as you would any other course.  If you are offered the option of 'Overwrite Course Configuration' you must say 'Yes' to have the layout configuration restored otherwise the restored course will retain the layout it previously had or the default in the 'config.php' file as mentioned in the 'Installation' instructions above depending on the situation.
 3. Note: I believe that if you restore a Collapsed Topic's course on an installation that does not have the format then it will work and become the default course format.  However the layout data will not be stored if you install Collapsed Topic's at a later date.
 
-UK / EU Cookie Law
-------------------
-On the 28th April 2012 I became aware of a new UK Cookie Law that will be in force on the 26th May 2012 and I think earlier in the EU.  In reading http://www.ico.gov.uk/for_organisations/privacy_and_electronic_communications/the_guide/cookies.aspx and the associated guidance on http://www.ico.gov.uk/for_organisations/privacy_and_electronic_communications/the_guide/~/media/documents/library/Privacy_and_electronic/Practical_application/guidance_on_the_new_cookies_regulations.ashx I considered that the cookie used for remembering the state of the toggle is 'strictly necessary' according to page nine of the guidance.  However, in reading 'http://www.international-chamber.co.uk/components/com_wordpress/wp/wp-content/uploads/2012/04/icc_uk_cookie_guide.pdf' it could be considered that it is a 'Category 3' cookie and therefore wording does need to be placed on the course before a toggle is pressed.  Therefore to support this I have created version 2.2.6 to allow you to support the law if you deem necessary as I am not a lawyer.
 
-The format creates and stores a cookie 'mdl_cf_topcoll' on the users computer.  This is a session cookie (unless changed to a persistent one in 'Remembered Toggle State Instructions' below).  The cookie consists of one or more strings of the format 'SiteshortnameCourseid=Data'.  The 'Data' is a base 36 encoded 53 bit string to represent the state of the toggles.  There are 52 bits, one for each toggle, because of the maximum number of sections that can be defined in the course settings.  The 53'rd bit is always '1' so that preceeding '0's are not eleminated in the conversion process.  Base 36 encoding is used purely for compression purposes as cookies have limited storage space and use of base 16 'hexidecimal' would be a larger string.  I consider that the statement in the guidance 'where such storage or access is strictly necessary for the provision of an information society service requested by the subscriber or user' on page nine applies because each bit is used to set the state of the toggle thus being open or closed.  When the user clicks on a toggle, it's state is remembered so that when they return / refresh the course the toggles are as they left them.  That's it, they are not transmitted or used for any other purpose.  Therefore in 'requesting' to use the course and the format it is 'essential to provide the service requested by the user' and the cookie is not stored until a toggle is clicked upon.  But it could also be said of 'Category 3' where it says 'These cookies are used to remember customer selections that change the way the site behaves or looks.' in the 'icc_uk_cookie_guide.pdf' - hence the implementation of the functionality.
-
-Cookie Consent Information
---------------------------
-The state of consent for using cookies is stored in the table 'format_topcoll_cookie_cnsnt' in the database.  When a user first accesses any 'Collapsed Topics' course an entry is made for them.  The 'id' field is a standard sequence as defined for all Moodle tables.  The 'userid' attribute is the standard Moodle user id value.  The 'cookieconsent' attribute can have one of three values, 1 - Display message (Default), 2 - Use cookie and 3 - Don't use cookie.  If you need to perform a 'reset' on all or one of the users as indicated in the consent message for whatever reason, then this is the table to alter.  It is quite safe to remove one or more records whilst the system is running.  Once a user makes a selection, then this decision will apply to all 'Collapsed Topics' courses.  There is no current code to delete an entry when a user is deleted - I'm not yet sure of how to do this.
-
-It is worth noting that the 'format_topcoll_cookie_cnsnt' table is not backed up by the format's backup code as that pertains to course backups and this is a system thing.
-
-You can turn on '$TCCFG->defaultcookieconsent' in 'config.php' at any time even when the system is being used by users.
-
-Remembered Toggle State Instructions
-------------------------------------
-To have the state of the toggles be remembered beyond the session for a user (stored as a cookie in the user's 
-web browser local storage area), edit format.php and find the following at the towards the top...
-
-    $PAGE->requires->js_init_call('M.format_topcoll.init',
-                                  array($CFG->wwwroot,
-                                        preg_replace("/[^A-Za-z0-9]/", "", $SITE->shortname),
-                                        $course->id,
-                                        null)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration.
-
-Millisecond values for standard durations are:
-a Second = 1000
-a Minute = 60000
-an Hour = 3600000
-a Day = 86400000
-a Week = 604800000 is 7 Days.
-a Month = 2419200000 is 4 Weeks.
-a Year = 31536000000 is 365 Days.
-
-The word to change is 'null' which says to create a 'session cookie' for the toggle state.  Set the time in milliseconds in the
-future.  For example a remembered state of a week would be:
-
-    $PAGE->requires->js_init_call('M.format_topcoll.init',
-                                  array($CFG->wwwroot,
-                                        preg_replace("/[^A-Za-z0-9]/", "", $SITE->shortname),
-                                        $course->id,
-                                        604800000)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration.
-
-You can combine the durations together and perform mathematical operations, for example, to have a
-duration in the future of one day 38 minutes and 30 seconds you would have:
-
-    $PAGE->requires->js_init_call('M.format_topcoll.init',
-                                   array($CFG->wwwroot,
-                                         preg_replace("/[^A-Za-z0-9]/", "", $SITE->shortname),
-                                         $course->id,
-                                         88710000)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration.
-
-Calculated by 'a Day' + ('a Minute' * 38) + ('a Second' * 30) = 86400000 + (60000 * 38) + (1000 * 30) = 88710000
-
-To revert back to session cookies, simply put back the word 'null'.
-
-NOTE: The client's browser must support the persistent storage of cookies in the user's profile for this to work.  I realise that
-      some configured systems do not allow this and therefore this mechanism will not work.  However, I anticipate that setting
-      an expiring cookie will be fine as it will simply be deleted in environments where they are removed on log out, but will have
-      use when the user is at home and remotely logs in.
+Remembered Toggle State Information
+-----------------------------------
+The state of the toggles are remembered beyond the session on a per user per course basis though the employment of a user preference.  This functionality is now built in from previous versions.  You do not need to do anything.
 
 Known Issues
 ------------
@@ -122,7 +65,6 @@ Known Issues
     And if possible, please let me know, my Moodle.org profile is 'http://moodle.org/user/profile.php?id=442195'.
 3.  Hovering over the light bulb when in a week based structure and using AJAX that it describes 'topics' and not 'weeks'.  See comment
     ten for Version 2.2.5.
-4.  User entries in the 'format_topcoll_cookie_cnsnt' table are not removed when a user is deleted.
 
 Version Information
 -------------------
@@ -423,8 +365,13 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1. Started rewrite of Collapsed Topics for Moodle 2.3 as course formats now use a completely new renderer system introduced in MDL-32508.
   2. This branch now in 'Alpha' for stability as existing code does not work and reapplying old code in a progressive manner.
 
-12th June 2012 - Version 2.3.7dev - CONTRIB-3652 development - rewrite for Moodle 2.3
+12th June 2012 - Version 2.3.7beta - CONTRIB-3652 development - rewrite for Moodle 2.3
   1. Completed bulk of code development, now 'Beta' version for testing.
+
+24th June 2012 - Version 2.3.7rc - CONTRIB-3652 development - rewrite for Moodle 2.3
+  1. Removed cookie functionality in favour of user preferences via AJAX - see MDL-17084.
+  2. Updated instructions above to reflect changes.
+  3. Tidied up code and removed redundent files in this branch.
 
 Thanks
 ------
@@ -481,6 +428,6 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 12th June 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 24th June 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

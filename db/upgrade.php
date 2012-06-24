@@ -55,7 +55,7 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         upgrade_plugin_savepoint(true, '2012031700', 'format', 'topcoll');
     }
 
-    if ($result && $oldversion < 2012042600.00) {
+    if ($result && $oldversion < 2012042600) {
 
         // Changing sign of field id on table format_topcoll_layout to signed
         $table = new xmldb_table('format_topcoll_layout');
@@ -115,7 +115,7 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         $result = $result && true;
     }
 
-    if ($result && $oldversion < 2012050100.00) {
+    if ($result && $oldversion < 2012050100) {
 
         // Define table format_topcoll_cookie_cnsnt to be created
         $table = new xmldb_table('format_topcoll_cookie_cnsnt');
@@ -133,7 +133,20 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
             $dbman->create_table($table);
         }
 
-        upgrade_plugin_savepoint(true, '2012050100.00', 'format', 'topcoll');
+        upgrade_plugin_savepoint(true, '2012050100', 'format', 'topcoll');
+
+        $result = $result && true;
+    }
+    
+    if ($result && $oldversion < 2012052400) {
+
+        // Define table format_topcoll_cookie_cnsnt to be droped.
+        $table = new xmldb_table('format_topcoll_cookie_cnsnt');
+
+        // Drop the table...
+        $dbman->drop_table($table);
+
+        upgrade_plugin_savepoint(true, '2012052400', 'format', 'topcoll');
 
         $result = $result && true;
     }

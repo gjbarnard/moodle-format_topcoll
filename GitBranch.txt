@@ -1,1 +1,1 @@
-This is the Collapsed Topics for Moodle master branch.
+This is the Collapsed Topics for Moodle 2.3 branch.

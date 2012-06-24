@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Collapsed Topics Information
  *
@@ -28,7 +29,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 //
 // Optional course format configuration file
 //
@@ -36,7 +36,7 @@
 // format.
 //
 // The default blocks layout for this course format:
-    $format['defaultblocks'] = ':search_forums,news_items,calendar_upcoming,recent_activity';
+$format['defaultblocks'] = ':search_forums,news_items,calendar_upcoming,recent_activity';
 //
 
 unset($TCCFG);
@@ -52,7 +52,6 @@ $TCCFG = new stdClass();
 // 5 => No 'Toggle' word.
 // 6 => No 'Toggle' word and no 'Topic x' / 'Week x' / 'Day x'.
 // 7 => No 'Toggle' word, no 'Topic x' / 'Week x' / 'Day x' and no section number.
-
 // Default layout to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
 $TCCFG->defaultlayoutelement = 1;
 
@@ -63,7 +62,6 @@ $TCCFG->defaultlayoutelement = 1;
 // 3 => Latest Week First 
 // 4 => Current Topic First
 // 5 => Day
-
 // Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
 $TCCFG->defaultlayoutstructure = 1;
 

@@ -56,7 +56,7 @@ $PAGE->set_pagelayout('course'); // From /course/view.php
 $PAGE->set_pagetype('course-view-topcoll'); // From /course/view.php
 $PAGE->set_other_editing_capability('moodle/course:manageactivities'); // From /course/view.php
 $PAGE->set_title(get_string('settings') . ' - ' . $course->fullname . ' ' . get_string('course'));
-$PAGE->set_heading(get_string('formatsettings','format_topcoll') . ' - ' . $course->fullname . ' ' . get_string('course'));
+$PAGE->set_heading(get_string('formatsettings', 'format_topcoll') . ' - ' . $course->fullname . ' ' . get_string('course'));
 
 require_sesskey();
 require_capability('moodle/course:update', $coursecontext);
@@ -64,7 +64,7 @@ require_capability('moodle/course:update', $coursecontext);
 $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
 
 if ($PAGE->user_is_editing()) {
-    $mform = new set_settings_form(null, array('courseid' => $courseid, 'setelement' => $layoutsetting->layoutelement, 'setstructure' => $layoutsetting->layoutstructure,'tgfgcolour' => $layoutsetting->tgfgcolour,'tgbgcolour' => $layoutsetting->tgbgcolour, 'tgbghvrcolour' => $layoutsetting->tgbghvrcolour ));
+    $mform = new set_settings_form(null, array('courseid' => $courseid, 'setelement' => $layoutsetting->layoutelement, 'setstructure' => $layoutsetting->layoutstructure, 'tgfgcolour' => $layoutsetting->tgfgcolour, 'tgbgcolour' => $layoutsetting->tgbgcolour, 'tgbghvrcolour' => $layoutsetting->tgbghvrcolour));
 
     //print_object($mform);
     if ($mform->is_cancelled()) {
@@ -72,33 +72,13 @@ if ($PAGE->user_is_editing()) {
     } else if ($formdata = $mform->get_data()) {
         //print_r($formdata);
         if ((isset($formdata->resetlayout) == true) && (isset($formdata->resetcolour) == true)) {
-            put_topcoll_setting($formdata->id,
-                                $TCCFG->defaultlayoutelement,
-                                $TCCFG->defaultlayoutstructure,
-                                $TCCFG->defaulttgfgcolour,
-                                $TCCFG->defaulttgbgcolour,
-                                $TCCFG->defaulttgbghvrcolour);
+            put_topcoll_setting($formdata->id, $TCCFG->defaultlayoutelement, $TCCFG->defaultlayoutstructure, $TCCFG->defaulttgfgcolour, $TCCFG->defaulttgbgcolour, $TCCFG->defaulttgbghvrcolour);
         } else if (isset($formdata->resetlayout) == true) {
-            put_topcoll_setting($formdata->id,
-                                $TCCFG->defaultlayoutelement,
-                                $TCCFG->defaultlayoutstructure,
-                                substr($formdata->tgfg,1),
-                                substr($formdata->tgbg,1),
-                                substr($formdata->tgbghvr,1));
+            put_topcoll_setting($formdata->id, $TCCFG->defaultlayoutelement, $TCCFG->defaultlayoutstructure, substr($formdata->tgfg, 1), substr($formdata->tgbg, 1), substr($formdata->tgbghvr, 1));
         } else if (isset($formdata->resetcolour) == true) {
-            put_topcoll_setting($formdata->id,
-                                $formdata->setelementnew,
-                                $formdata->setstructurenew,
-                                $TCCFG->defaulttgfgcolour,
-                                $TCCFG->defaulttgbgcolour,
-                                $TCCFG->defaulttgbghvrcolour);
+            put_topcoll_setting($formdata->id, $formdata->setelementnew, $formdata->setstructurenew, $TCCFG->defaulttgfgcolour, $TCCFG->defaulttgbgcolour, $TCCFG->defaulttgbghvrcolour);
         } else {
-            put_topcoll_setting($formdata->id,
-                                $formdata->setelementnew,
-                                $formdata->setstructurenew,
-                                substr($formdata->tgfg,1),
-                                substr($formdata->tgbg,1),
-                                substr($formdata->tgbghvr,1));
+            put_topcoll_setting($formdata->id, $formdata->setelementnew, $formdata->setstructurenew, substr($formdata->tgfg, 1), substr($formdata->tgbg, 1), substr($formdata->tgbghvr, 1));
         }
         redirect($courseurl);
     }

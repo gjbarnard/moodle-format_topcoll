@@ -26,102 +26,102 @@
 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+*/
 .course-content ul.topics {
-  margin:0;
+    margin:0;
 }
 
 .course-content ul.topics li.section, .course-content ul.topics li.tcsection {
-  list-style: none;
-  margin:5px 0 0 0;
-  padding:0;
+    list-style: none;
+    margin:5px 0 0 0;
+    padding:0;
 }
 
 .course-content ul.topics li.section .content, .course-content ul.topics li.tcsection .content {
-  margin: 0 40px;
-  padding: 0px;
+    margin: 0 40px;
+    padding: 0px;
 }
 
 .course-content ul.topics li.section .left, .course-content ul.topics li.tcsection .left {
-  width:40px;
-  float:left;
-  text-align:center;
+    width:40px;
+    float:left;
+    text-align:center;
 }
 
 .course-content ul.topics li.section .right, .course-content ul.topics li.tcsection .right {
-  width:40px;
-  float:right;
-  text-align:center;
+    width:40px;
+    float:right;
+    text-align:center;
 }
 
 .jumpmenu {
-  text-align:center;
+    text-align:center;
 }
- 
+
 /* -- The section name and summary of a Toggle -- */
 .course-content ul.topics li.section .content .toggle  {
-  display: block;
-  font-size: 0.9em;
-  text-align: left;
-  padding: 0 0;
-  width: auto;
-  line-height: 2em;
+    display: block;
+    font-size: 0.9em;
+    text-align: left;
+    padding: 0 0;
+    width: auto;
+    line-height: 2em;
 }
 
 /* -- The topic summary text -- */    
 .course-content ul.topics li.section .content .toggle a p {
-  font-size: 1.2em;
-  font-style: italic;
-  text-align: left;
+    font-size: 1.2em;
+    font-style: italic;
+    text-align: left;
 }
 
 /* -- For when no summary is entered */       
 .course-content ul.topics li.section .content .toggle a.cps_nosumm {
-   text-align: center;
+    text-align: center;
 }  
 
 /* -- For centring the 'Topic / Week / Day x' text -- */       
 .course-content ul.topics li.section .right span.cps_centre {
-     text-align: center;
-     font-size: 0.7em;
+    text-align: center;
+    font-size: 0.7em;
 }  
 
 .course-content ul.topics li.section .content .toggle {
-   width: 100%;
+    width: 100%;
 }
 
 /* -- Set the clickable element of the Toggle -- */
 .course-content ul.topics li.section .content .toggle a.cps_a {
-  display: block;
-  width: auto;
+    display: block;
+    width: auto;
 }
 
 /* -- Toggle text -- */
 .course-content ul.topics li.section .content .toggle a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .course-content ul.topics li.section .content .toggledsection {
-  min-height: 30px;
+    min-height: 30px;
 }
 
 /* -- Hiding the sections -- */
 body.jsenabled .toggledsection {
-  display:none; /* If JavaScript is enabled then this css will apply and the sections hidden. */
+    display:none; /* If JavaScript is enabled then this css will apply and the sections hidden. */
 }
 
 /* -- Size of the spacer row -- */
 .section .spacer {
-  height:0.5em;
+    height:0.5em;
 }
 
 /* Toggle all */
 #toggle-all .content .sectionbody h4 {
     display: block;
-	padding: 6px;
+    padding: 6px;
 }
 
-/* -- hide the children for IE7 and older -- */
+/* -- hide the children for IE7 and older --
 .collapsed_topic * {
     display: none;
-}
+}*/

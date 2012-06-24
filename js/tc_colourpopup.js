@@ -105,12 +105,12 @@ M.util.init_tccolour_popup = function(Y, id, previewconf) {
                 var colour = [255,0,0];
 
                 var matrices = [
-                    [  0,  1,  0],
-                    [ -1,  0,  0],
-                    [  0,  0,  1],
-                    [  0, -1,  0],
-                    [  1,  0,  0],
-                    [  0,  0, -1]
+                [  0,  1,  0],
+                [ -1,  0,  0],
+                [  0,  0,  1],
+                [  0, -1,  0],
+                [  1,  0,  0],
+                [  0,  0, -1]
                 ];
 
                 var matrixcount = matrices.length;
