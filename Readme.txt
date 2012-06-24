@@ -410,6 +410,9 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 14th May 2012 - Version 2.2.6.2
   1. Fixed slight issue with version number causing 'Site Administration -> Plugins -> Plugin Overview' to fail, please see 'http://moodle.org/mod/forum/discuss.php?d=202578'.
 
+31st May 2012 - Version 2.2.6.3 - CONTRIB-3682
+  1. Fixed issue with students not being able to perform cookie consent because of incorrect application of requiring the capability of course update.
+
 24th June 2012 - Version 2.2.7 - CONTRIB-3655
   1. Changes in module.js for MyMobile theme.
   2. Requires version 2.2.3+ due to keeping pace with core changes.
