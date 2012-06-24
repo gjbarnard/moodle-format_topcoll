@@ -79,7 +79,7 @@ M.format_topcoll.init = function(Y, wwwroot, moodleid, courseid, cookielifetime)
     if (document.getElementById("mymobile")) {
         mymobiletheme = true;
     }
-    //alert(mymobiletheme);
+//alert(mymobiletheme);
 }
 
 M.format_topcoll.set_current_section = function (Y, theSection) {
@@ -139,7 +139,7 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
             if (ie7OrLess == true)
             {
                 target.className += " collapsed_topic";  //add the class name
-                //alert('Added class name');
+            //alert('Added class name');
             }
 
             if (mymobiletheme == true) {
@@ -158,7 +158,7 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
             if (ie7OrLess == true)
             {
                 target.className = target.className.replace(/\b collapsed_topic\b/,'') //remove the class name
-                //alert('Removed class name');
+            //alert('Removed class name');
             }
 
             if (mymobiletheme == true) {
@@ -178,7 +178,7 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
 // Args - toggler the tag that initiated the call, toggleNum the number of the toggle for which toggler is a part of - see format.php.
 function toggle_topic(toggler,toggleNum)
 {
-   if(document.getElementById)
+    if(document.getElementById)
     {
         imageSwitch = toggler;
         targetElement = toggler.parentNode.parentNode.nextSibling; // Called from a <td>  or <div> inside a <tr> or <li> so find the next <tr> or <li>.
@@ -252,22 +252,24 @@ function savetopcollcookie(value)
         {
             // Session Cookie...
             ourYUI.use('cookie', function(Y){ 
-               Y.Cookie.setSub("mdl_cf_topcoll",thecookiesubid,value); 
-               //alert("Bongo After " + thecookiesubid + " " + value);
+                Y.Cookie.setSub("mdl_cf_topcoll",thecookiesubid,value); 
+            //alert("Bongo After " + thecookiesubid + " " + value);
             });
-            // Using Sub cookies, so, name, moodleid/courseid, value.
-            // This is not a Moodle table but in fact the cookies name.
+        // Using Sub cookies, so, name, moodleid/courseid, value.
+        // This is not a Moodle table but in fact the cookies name.
         }
         else
         {
             // Expiring Cookie...
-                ourYUI.use('cookie', function(Y){ 
+            ourYUI.use('cookie', function(Y){ 
                 var newDate = new Date();
                 newDate.setTime(newDate.getTime() + cookieExpires); 
-                Y.Cookie.setSub("mdl_cf_topcoll",thecookiesubid,value, { expires: newDate }); 
-                //alert("Bongo After " + thecookiesubid + " " + value + " " + newDate + " " + cookieExpires);
+                Y.Cookie.setSub("mdl_cf_topcoll",thecookiesubid,value, {
+                    expires: newDate
+                }); 
+            //alert("Bongo After " + thecookiesubid + " " + value + " " + newDate + " " + cookieExpires);
             });
-            // This is not a Moodle table but in fact the cookies name.
+        // This is not a Moodle table but in fact the cookies name.
         }
     }
 }
@@ -289,7 +291,9 @@ function restoretopcollcookie(daYUI)
 // 'Private' version of reload_toggles
 function reloadToggles()
 {
-    ourYUI.use('cookie', function(daYUI){ 
+    ourYUI.use('cookie', function(daYUI){
+        var section;
+        var secatag;
         // Get the cookie if there!
         var storedval = restoretopcollcookie(daYUI);
         //var storedval = daYUI.Cookie.getSub("mdl_cf_topcoll",thecookiesubid);
@@ -308,8 +312,13 @@ function reloadToggles()
         {
             if ((theToggle <= numToggles) && ((toggleBinaryGlobal.charAt(theToggle) == "1") || (theToggle == currentSection))) // Array index 0 is never tested - MSB thing.
             {
-                toggleexacttopic(document.getElementById("section-"+theToggle),document.getElementById("sectionatag-" + theToggle),theToggle,true);
-                //alert("Bongo4 " + thecookiesubid + " " + theToggle);
+                section = document.getElementById("section-"+theToggle);  // CONTRIB-3283
+                secatag = document.getElementById("sectionatag-" + theToggle);
+                if ((section != null) && (secatag != null))
+                {
+                    toggleexacttopic(section,secatag,theToggle,true);
+                }
+            //alert("Bongo4 " + thecookiesubid + " " + theToggle);
             }
         }    
     });
@@ -324,7 +333,7 @@ M.format_topcoll.reload_toggles = function (Y, aToggle) {
     numToggles = aToggle;
     
     Y.use('node-base', function(daYUI) {
-     daYUI.on("domready", reloadToggles);
+        daYUI.on("domready", reloadToggles);
     });
 }
 
@@ -337,7 +346,7 @@ M.format_topcoll.show_topic = function (Y, theTopic)
     {
         toggleexacttopic(section,secatag,theTopic,true);
     }
-    //alert("show_topic " + theTopic);
+//alert("show_topic " + theTopic);
 }
 
 // Save the toggles - called from togglebinary and an the unload event handler at the bottom of format.php which does not work for a refresh even though it should!
@@ -350,12 +359,13 @@ function save_toggles()
 // Alter the state of the toggles.  Where 'state' needs to be true for open and false for close.
 function allToggle(state)
 {
-    var target;
+    var section;
+    var secatag;
     var displaySetting;
 
     if (state == false)
     {
-         // All on to set off!
+        // All on to set off!
         if (ie == true)
         {
             displaySetting = "block"; // IE is always different from the rest!
@@ -373,9 +383,13 @@ function allToggle(state)
 
     for (var theToggle = 1; theToggle <= numToggles; theToggle++)
     {
-        target = document.getElementById("section-"+theToggle);
-        target.style.display = displaySetting;
-        toggleexacttopic(target,document.getElementById("sectionatag-" + theToggle),theToggle,false);
+        section = document.getElementById("section-"+theToggle);
+        secatag = document.getElementById("sectionatag-" + theToggle);
+        if ((section != null) && (secatag != null))
+        {
+            section.style.display = displaySetting;
+            toggleexacttopic(section,secatag,theToggle,false);
+        }
     }
 }
 

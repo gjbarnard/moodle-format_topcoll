@@ -410,8 +410,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 14th May 2012 - Version 2.2.6.2
   1. Fixed slight issue with version number causing 'Site Administration -> Plugins -> Plugin Overview' to fail, please see 'http://moodle.org/mod/forum/discuss.php?d=202578'.
 
-20th May 2012 - Version 2.2.7 - CONTRIB-3655
+24th June 2012 - Version 2.2.7 - CONTRIB-3655
   1. Changes in module.js for MyMobile theme.
+  2. Requires version 2.2.3+ due to keeping pace with core changes.
+  3. Fixed an issue with hidden sections causing open / close all to fail.
 
 Thanks
 ------
@@ -468,6 +470,6 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 20th May 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 24th June 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
