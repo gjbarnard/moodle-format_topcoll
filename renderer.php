@@ -420,24 +420,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     }
                 }
             } else {
-
-                /* $currenttopic = null;
-                  $currentweek = null;
-                  if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
-                  $currenttopic = ($course->marker == $section);
-                  } else {
-                  if (($userisediting) || ($tcsetting->layoutstructure != 3)) {
-                  $currentweek = (($weekdate <= $timenow) && ($timenow < $nextweekdate));
-                  } else {
-                  $currentweek = (($weekdate > $timenow) && ($timenow >= $nextweekdate));
-                  }
-                  }
-
-                  if ($currenttopic) {
-                  $thecurrentsection = $section;
-                  } else if ($currentweek) {
-                  $thecurrentsection = $section;
-                  } */
                 //print_object($thissection);
                 if (!$PAGE->user_is_editing() && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                     // Display section summary only.
@@ -560,52 +542,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
     }
 
     // Collapsed Topics non-overridden additions.
-    //protected $screenreader;
-    protected $cookieconsent;
-
-    //protected $tcsetting;
-    //public function set_screen_reader($screenreader) {
-    //	$this->screenreader = $screenreader;
-    //}
-
-    public function set_cookie_consent($cookieconsent) {
-        $this->cookieconsent = $cookieconsent;
-    }
-
-    /*
-      public function set_tc_setting(stdClass $setting) {
-      $this->tcsetting = $setting;
-      //print_object($this->tcsetting);
-      }
-
-      public function get_tc_setting() {
-      //print_object($this->tcsetting);
-      return $this->tcsetting;
-      } */
-
-    public function cookie_consent($course) {
-        global $USER;
-        global $tcscreenreader;
-        $o = '';
-
-        if (($tcscreenreader == false) && ($this->cookieconsent == 1)) {
-            // Display message to ask for consent.
-            $o.= html_writer::start_tag('li', array('class' => 'tcsection main clearfix'));
-
-            $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
-            $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
-
-            $o.= html_writer::start_tag('div', array('class' => 'content'));
-            $o.= html_writer::start_tag('div', array('class' => 'sectionbody cookieConsentContainer'));
-            $o.= html_writer::tag('a', html_writer::tag('div', '', array('id' => 'set-cookie-consent')), array('title' => get_string('cookieconsentform', 'format_topcoll'), 'href' => 'format/topcoll/forms/cookie_consent.php?userid=' . $USER->id . '&courseid=' . $course->id . '&sesskey=' . sesskey()));
-            $o.= html_writer::tag('div', $this->output->heading(get_string('setcookieconsent', 'format_topcoll'), 3, 'sectionname') . get_string('cookieconsent', 'format_topcoll'), null);
-            $o.= html_writer::end_tag('div');
-            $o.= html_writer::end_tag('div');
-            $o.= html_writer::end_tag('li');
-        }
-        return $o;
-    }
-
     public function settings($course) {
         global $PAGE;
 
