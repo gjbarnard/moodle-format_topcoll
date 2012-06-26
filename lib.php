@@ -169,6 +169,7 @@ function get_topcoll_setting($courseid) {
         $setting->courseid = $courseid;
         $setting->layoutelement = $TCCFG->defaultlayoutelement;
         $setting->layoutstructure = $TCCFG->defaultlayoutstructure;
+        $setting->layoutcolumns = $TCCFG->defaultlayoutcolumns;
         $setting->tgfgcolour = $TCCFG->defaulttgfgcolour;
         $setting->tgbgcolour = $TCCFG->defaulttgbgcolour;
         $setting->tgbghvrcolour = $TCCFG->defaulttgbghvrcolour;
@@ -187,12 +188,17 @@ function get_topcoll_setting($courseid) {
  * @param int $courseid The course identifier.
  * @param int $layoutelement The layout element value to set.
  * @param int $layoutstructure The layout structure value to set.
+ * @param int $layoutcolumns The layout columns value to set.
+ * @param string $tgfgcolour The toggle foreground colour to set.
+ * @param string $tgbgcolour The toggle background colour to set.
+ * @param string $tgbghvrcolour The toggle background hover colour to set.
  */
-function put_topcoll_setting($courseid, $layoutelement, $layoutstructure, $tgfgcolour, $tgbgcolour, $tgbghvrcolour) {
+function put_topcoll_setting($courseid, $layoutelement, $layoutstructure, $layoutcolumns, $tgfgcolour, $tgbgcolour, $tgbghvrcolour) {
     global $DB;
     if ($setting = $DB->get_record('format_topcoll_settings', array('courseid' => $courseid))) {
         $setting->layoutelement = $layoutelement;
         $setting->layoutstructure = $layoutstructure;
+        $setting->layoutcolumns = $layoutcolumns;
         $setting->tgfgcolour = $tgfgcolour;
         $setting->tgbgcolour = $tgbgcolour;
         $setting->tgbghvrcolour = $tgbghvrcolour;
@@ -202,6 +208,7 @@ function put_topcoll_setting($courseid, $layoutelement, $layoutstructure, $tgfgc
         $setting->courseid = $courseid;
         $setting->layoutelement = $layoutelement;
         $setting->layoutstructure = $layoutstructure;
+        $setting->layoutcolumns = $layoutcolumns;
         $setting->tgfgcolour = $tgfgcolour;
         $setting->tgbgcolour = $tgbgcolour;
         $setting->tgbghvrcolour = $tgbghvrcolour;
@@ -219,6 +226,7 @@ function reset_topcoll_setting($layout, $colour) {
 	    if ($layout) {
 	       $record->layoutelement = $TCCFG->defaultlayoutelement;
 		   $record->layoutstructure = $TCCFG->defaultlayoutstructure;
+		   $record->layoutcolumns = $TCCFG->defaultlayoutcolumns;
 	    }
 	    if ($colour) {
             $record->tgfgcolour = $TCCFG->defaulttgfgcolour;

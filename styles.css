@@ -75,8 +75,8 @@
     text-align: left;
 }
 
-/* -- For when no summary is entered */       
-.course-content ul.topics li.section .content .toggle a.cps_nosumm {
+/* -- For when no name is entered */       
+.course-content ul.topics li.section .content .toggle a.cps_noname {
     text-align: center;
 }  
 

@@ -65,6 +65,16 @@ class set_settings_form extends moodleform {
         $mform->addElement('select', 'setstructurenew', get_string('setlayoutstructure', 'format_topcoll'), $formcourselayoutstrutures);
         $mform->setDefault('setstructurenew', $instance['setstructure']);
         $mform->addHelpButton('setstructurenew', 'setlayoutstructure', 'format_topcoll', '', true);
+		
+		$formcoursecolumns =
+                array(1 => get_string('one', 'format_topcoll'), // Default
+                    2 => get_string('two', 'format_topcoll'), // Two   
+                    3 => get_string('three', 'format_topcoll'), // Three
+                    4 => get_string('four', 'format_topcoll')); // Four
+        $mform->addElement('select', 'setcolumnsnew', get_string('setlayoutcolumns', 'format_topcoll'), $formcoursecolumns);
+        $mform->setDefault('setcolumnsnew', $instance['setcolumns']);
+        $mform->addHelpButton('setcolumnsnew', 'setlayoutcolumns', 'format_topcoll', '', true);
+		
         $mform->addElement('checkbox', 'resetlayout', get_string('resetlayout', 'format_topcoll'), false);
         $mform->addHelpButton('resetlayout', 'resetlayout', 'format_topcoll', '', true);
 

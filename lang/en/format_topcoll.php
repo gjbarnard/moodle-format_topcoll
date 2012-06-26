@@ -85,6 +85,13 @@ $string['settogglebackgroundhovercolour'] = 'Toggle background hover';
 $string['resetcolour'] = 'Reset colour';
 $string['resetallcolour'] = 'Reset colours for all Collapsed Topics courses';
 
+// Columns enhancement
+$string['setlayoutcolumns'] = 'Set columns';
+$string['one'] = 'One';
+$string['two'] = 'Two';
+$string['three'] = 'Three';
+$string['four'] = 'Four';
+
 // Help
 $string['setlayoutelements_help']='How much information about the toggles / sections you wish to be displayed.';
 $string['setlayoutstructure_help']="The layout structure of the course.  You can choose between:
@@ -108,4 +115,6 @@ $string['settogglebackgroundcolour_help'] = 'Sets the background of the toggle.'
 $string['settogglebackgroundhovercolour_help'] = 'Sets the background of the toggle when the mouse moves over it.';
 $string['resetcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format.';
 $string['resetallcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/config.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
+// Columns enhancement
+$string['setlayoutcolumns_help'] = 'How many columns to use.';
 ?>

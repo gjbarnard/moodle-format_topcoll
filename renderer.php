@@ -36,12 +36,15 @@ require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
 
 class format_topcoll_renderer extends format_section_renderer_base {
 
+    private $tccolumnwidth = 100;
+    private $tccolumnpadding = 0;
+
     /**
      * Generate the starting container html for a list of sections
      * @return string HTML to output.
      */
     protected function start_section_list() {
-        return html_writer::start_tag('ul', array('class' => 'topics'));
+        return html_writer::start_tag('ul', array('class' => 'topics', 'style' => 'width:'.$this->tccolumnwidth.'%; float:left; padding:'.$this->tccolumnpadding.'px;'));
     }
 
     /**
@@ -221,8 +224,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
                 //$title = $this->section_title($section, $course);
                 $title = get_section_name($course, $section);
-                if (empty($section->summary)) {
-                    $o.= html_writer::start_tag('a', array('class' => 'cps_nosumm cps_a', 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
+                //if (empty($section->summary)) {
+				if ((string) $section->name == '') { // Name is empty.
+                    $o.= html_writer::start_tag('a', array('class' => 'cps_noname cps_a', 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
                     $o.= $title;
                     switch ($tcsetting->layoutelement) {
                         case 1:
@@ -243,7 +247,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                             $o.= ' - ' . $toggletext;
                             break;
                     }
-                    $o.='<br />' . $section->summary;
+                    //$o.='<br />' . $section->summary;
                 }
                 if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                     $url = new moodle_url('/course/editsection.php', array('id' => $section->id));
@@ -260,6 +264,19 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 if ($section->section != 0 && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                     $o.= html_writer::link(course_get_url($course, $section->section), $title);
                 }
+                $o.= html_writer::start_tag('div', array('class' => 'summary'));
+                $o.= $this->format_summary_text($section);
+
+                if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
+                    $url = new moodle_url('/course/editsection.php', array('id' => $section->id));
+
+                    if ($onsectionpage) {
+                        $url->param('sectionreturn', 1);
+                    }
+
+                    $o.= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'), 'class' => 'iconsmall edit')), array('title' => get_string('editsummary')));
+                }
+                $o.= html_writer::end_tag('div');				
             } else {
                 $o.= html_writer::start_tag('div', array('class' => 'sectionbody'));
                 $o.= $this->output->heading($this->section_title($section, $course), 3, 'sectionname');
@@ -330,6 +347,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         echo $this->course_activity_clipboard($course);
 
         // Now the list of sections..
+		$this->tccolumnwidth = 100;
         echo $this->start_section_list();
 
         // Collapsed Topics settings.
@@ -370,6 +388,16 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $weekdate = $course->enddate;      // this should be 0:00 Monday of that week
             $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems
         }
+
+		$this->tccolumnwidth = 100 / $tcsetting->layoutcolumns;
+		$columnbreakpoint = 0;
+		if ($tcsetting->layoutcolumns > 1) {
+		   $this->tccolumnpadding = 4; // px
+		   $this->tccolumnwidth -= 1; // Allow for the padding in %.
+		   $columnbreakpoint = $course->numsections / $tcsetting->layoutcolumns +1;
+		}
+        echo $this->end_section_list();
+        echo $this->start_section_list();
 
         $loopsection = 1;
         while ($loopsection <= $course->numsections) {
@@ -463,6 +491,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $loopsection = 1;
                 $section = 1;
             }
+			
+			if ($loopsection == $columnbreakpoint) {
+                echo $this->end_section_list();
+	            echo $this->start_section_list();
+				// Next breakpoint is...
+				$columnbreakpoint += $course->numsections / $tcsetting->layoutcolumns;
+			}
         }
 
         if ($PAGE->user_is_editing() and has_capability('moodle/course:update', $context)) {

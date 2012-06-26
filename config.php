@@ -65,6 +65,9 @@ $TCCFG->defaultlayoutelement = 1;
 // Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
 $TCCFG->defaultlayoutstructure = 1;
 
+// Default number of columns between 1 and 4.
+$TCCFG->defaultlayoutcolumns = 1;
+
 // Toggle colours per course - CONTRIB-3529.
 // Default toggle foreground colour in hexidecimal RGB without preceeding '#'.
 $TCCFG->defaulttgfgcolour = '000000';

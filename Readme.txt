@@ -380,6 +380,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
      so if you have previously installed a beta version please kindly follow step 4 of the 'Uninstallation Instructions' above
 	 after updating your code but before clicking on 'Notifications' to 'upgrade'.
   4. Request from Kyle Smith to implement the functionality of being able to reset to defaults for all Collapsed Topics courses.  I have made this for admins only.
+  5. Added in multi-column functionality as a layout setting.  Default in config.php.  Can have one to four columns.
   
 Thanks
 ------
