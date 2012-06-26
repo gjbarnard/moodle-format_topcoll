@@ -332,8 +332,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         // Now the list of sections..
         echo $this->start_section_list();
 
-        // Collapsed Topics settings and cookie consent.
-        echo $this->cookie_consent($course);
+        // Collapsed Topics settings.
         echo $this->settings($course);
 
         // General section if non-empty.

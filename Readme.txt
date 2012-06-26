@@ -373,6 +373,13 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2. Updated instructions above to reflect changes.
   3. Tidied up code and removed redundent files in this branch.
 
+26th June 2012 - Version 2.3.7rc2 - CONTRIB-3652 development - rewrite for Moodle 2.3
+  1. Removed line that was related to the cookie functionality - thanks Hartmut Scherer and Kyle Smith on http://moodle.org/mod/forum/discuss.php?d=204705.
+  2. Removed cookie consent code from lib.php.
+  3. To keep things clean for what will be a fresh install for all I have decided to remove the update code in update.php,
+     so if you have previously installed a beta version please kindly follow step 4 of the 'Uninstallation Instructions' above
+	 after updating your code but before clicking on 'Notifications' to 'upgrade'.
+  
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -428,6 +435,6 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 24th June 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 26th June 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
