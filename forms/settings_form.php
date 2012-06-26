@@ -34,7 +34,7 @@ require_once("$CFG->libdir/formslib.php");
 class set_settings_form extends moodleform {
 
     function definition() {
-        global $CFG;
+        global $CFG, $USER;//, $DB;
         MoodleQuickForm::registerElementType('tccolourpopup', "$CFG->dirroot/course/format/topcoll/js/tc_colourpopup.php", 'MoodleQuickForm_tccolourpopup');
 
         $mform = $this->_form;
@@ -68,6 +68,12 @@ class set_settings_form extends moodleform {
         $mform->addElement('checkbox', 'resetlayout', get_string('resetlayout', 'format_topcoll'), false);
         $mform->addHelpButton('resetlayout', 'resetlayout', 'format_topcoll', '', true);
 
+		//$user = $DB->get_record('user', array('id'=>$USER->id));
+		if (is_siteadmin($USER)) {
+            $mform->addElement('checkbox', 'resetalllayout', get_string('resetalllayout', 'format_topcoll'), false);
+            $mform->addHelpButton('resetalllayout', 'resetalllayout', 'format_topcoll', '', true);
+		}
+
         $mform->addElement('header', 'setcolour', get_string('setcolour', 'format_topcoll'));
         $mform->addHelpButton('setcolour', 'setcolour', 'format_topcoll', '', true);
 
@@ -86,6 +92,12 @@ class set_settings_form extends moodleform {
 
         $mform->addElement('checkbox', 'resetcolour', get_string('resetcolour', 'format_topcoll'), false);
         $mform->addHelpButton('resetcolour', 'resetcolour', 'format_topcoll', '', true);
+
+		if (is_siteadmin($USER)) {
+            $mform->addElement('checkbox', 'resetallcolour', get_string('resetallcolour', 'format_topcoll'), false);
+            $mform->addHelpButton('resetallcolour', 'resetallcolour', 'format_topcoll', '', true);
+		}
+
         // hidden params
         $mform->addElement('hidden', 'id', $instance['courseid']);
         $mform->setType('id', PARAM_INT);

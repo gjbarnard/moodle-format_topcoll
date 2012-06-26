@@ -379,6 +379,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   3. To keep things clean for what will be a fresh install for all I have decided to remove the update code in update.php,
      so if you have previously installed a beta version please kindly follow step 4 of the 'Uninstallation Instructions' above
 	 after updating your code but before clicking on 'Notifications' to 'upgrade'.
+  4. Request from Kyle Smith to implement the functionality of being able to reset to defaults for all Collapsed Topics courses.  I have made this for admins only.
   
 Thanks
 ------
