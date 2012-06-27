@@ -13,14 +13,15 @@ Installation
     adminstrator.
 2.  Copy 'topcoll' to '/course/format/'
 3.  If using a Unix based system, chmod 755 on config.php - I have not tested this but have been told that it needs to be done.
-4.  In 'config.php' change the values of '$TCCFG->defaultlayoutelement' and '$TCCFG->defaultlayoutstructure' for setting the default layout
-    and structure respectively for new / updating courses as desired by following the instructions contained within.
+4.  In 'config.php' change the values of '$TCCFG->defaultlayoutelement', '$TCCFG->defaultlayoutstructure' and '$TCCFG->defaultlayoutcolumns' for
+    setting the default layout, structure and columns respectively for new / updating courses as desired by following the instructions contained
+	within.
 5.  In 'config.php' change the values of '$TCCFG->defaulttgfgcolour', '$TCCFG->defaulttgbgcolour' and '$TCCFG->defaulttgbghvrcolour' for
     setting the default toggle colours.
 6.  Login as an administrator and follow standard the 'plugin' update notification.  If needed, go to 'Site administration' -> 'Notifications' if
     this does not happen.
-7.  If desired, edit the colours of the styles.css - which contains instructions on how to have per theme colours.
-8.  To change the arrow graphic you need to replace arrow_up.png and arrow_down.png.  Reuse the graphics
+7.  If desired, edit the colours of the 'styles.css' - which contains instructions on how to have per theme colours.
+8.  To change the arrow graphic you need to replace 'arrow_up.png' and 'arrow_down.png'.  Reuse the graphics
     if you want.  Created in Paint.Net.
 9.  Put Moodle out of Maintenance Mode.
 
@@ -28,8 +29,9 @@ Upgrade Instructions
 --------------------
 1. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
 2. In '/course/format/' move old 'topcoll' directory to a backup folder outside of Moodle.
-3. Follow installation instructions above.
-4. Put Moodle out of Maintenance Mode.
+3. If you have previously installed a development, beta or release candidate of version 2.3.7 you need to perform step 4 in 'Uninstallation' below.
+4. Follow installation instructions above.
+5. Put Moodle out of Maintenance Mode.
 
 Uninstallation
 --------------
@@ -58,13 +60,6 @@ Known Issues
 ------------
 1.  If you get toggle text issues in languages other than English please ensure you have the latest version of Moodle installed.  More
     information on http://moodle.org/mod/forum/discuss.php?d=184150.
-2.  AJAX drag and drop appears not to be working in IE 9 for me, but is in compatibility mode (IE 7) and same issue with the standard
-    topics format too.  Hence I consider it to be either an issue with my system or Moodle Core.  If you experience it and wish to use
-    the up and down arrows, edit lib.php and remove "'MSIE' => 6.0," from:
-    "$ajaxsupport->testedbrowsers = array('MSIE' => 6.0, 'Gecko' => 20061111, 'Opera' => 9.0, 'Safari' => 531, 'Chrome' => 6.0);"
-    And if possible, please let me know, my Moodle.org profile is 'http://moodle.org/user/profile.php?id=442195'.
-3.  Hovering over the light bulb when in a week based structure and using AJAX that it describes 'topics' and not 'weeks'.  See comment
-    ten for Version 2.2.5.
 
 Version Information
 -------------------
@@ -384,6 +379,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 
 27th June 2012 - Version 2.3.7rc3 - CONTRIB-3652 development - rewrite for Moodle 2.3
   1. Put layout columns into backup and restore code.
+  2. Tidy up instructions in this readme.
 
 Thanks
 ------
@@ -431,8 +427,6 @@ Accordion Format - Initiated the thought - http://moodle.org/mod/forum/discuss.p
 Paint.Net - http://www.getpaint.net/
 
 JavaScript: The Definitive Guide - David Flanagan - O'Reilly - ISBN: 978-0-596-10199-2
-
-Integrated 'Cookie' icon from http://www.iconfinder.com/icondetails/6279/128/cake_cookie_icon - The rest of the 'tc_logo_cookie.png' image is my own work.
 
 Desired Enhancements
 --------------------
