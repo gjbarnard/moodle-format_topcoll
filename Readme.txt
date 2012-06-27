@@ -3,9 +3,9 @@ Introduction
 Topic based course format with an individual 'toggle' for each topic except 0.  This format differs from the
 Accordion format in that two or more topics can be visible at the same time.
 
-This version works with Moodle 2.3.x.
+This version is the master development branch.
 
-Documented on http://docs.moodle.org/23/en/Collapsed_Topics_course_format
+Documented on http://docs.moodle.org/en/Collapsed_Topics_course_format
 
 Installation
 ------------
