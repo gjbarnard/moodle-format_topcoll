@@ -60,6 +60,7 @@ Known Issues
 ------------
 1.  If you get toggle text issues in languages other than English please ensure you have the latest version of Moodle installed.  More
     information on http://moodle.org/mod/forum/discuss.php?d=184150.
+2.  Does not currently work with the MyMobile theme, please see http://tracker.moodle.org/browse/MDL-33115.
 
 Version Information
 -------------------
