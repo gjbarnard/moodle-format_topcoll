@@ -129,13 +129,13 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
         
         //alert("toggleexacttopic tdisp:" + target.style.display + " disp:" + displaySetting + " ton:" + toggleNum + " rl:" + reloading);
 
-        var sectoggle = document.getElementById("toggle-" + toggleNum);
+        //var sectoggle = document.getElementById("toggle-" + toggleNum);
         if (target.style.display == displaySetting)
         {
             target.style.display = "none";
 
             if (mymobiletheme == true) {
-                sectoggle.className = sectoggle.className.replace(/\b opencps\b/,''); //remove the class name
+                image.className = image.className.replace(/\b opencps\b/,''); //remove the class name
             } else {
                 image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_down.png)";
             }
@@ -155,7 +155,7 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
             }*/
 
             if (mymobiletheme == true) {
-                sectoggle.className += " opencps";  //add the class name
+                image.className += " opencps";  //add the class name
             } else {
                 image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_up.png)";
             }
