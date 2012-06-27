@@ -381,7 +381,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 	 after updating your code but before clicking on 'Notifications' to 'upgrade'.
   4. Request from Kyle Smith to implement the functionality of being able to reset to defaults for all Collapsed Topics courses.  I have made this for admins only.
   5. Added in multi-column functionality as a layout setting.  Default in config.php.  Can have one to four columns.
-  
+
+27th June 2012 - Version 2.3.7rc3 - CONTRIB-3652 development - rewrite for Moodle 2.3
+  1. Put layout columns into backup and restore code.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -437,6 +440,6 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 26th June 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 27th June 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
