@@ -335,6 +335,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
         global $PAGE;
         global $tcsetting;
+		
+		//print_object($PAGE->theme->name);
+		$mymobiletheme = ($PAGE->theme->name == 'mymobile');  // Not brilliant, but will work!
+		
         $userisediting = $PAGE->user_is_editing();
 
         $context = context_course::instance($course->id);
@@ -389,11 +393,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems
         }
 
-		$this->tccolumnwidth = 100 / $tcsetting->layoutcolumns;
 		$columnbreakpoint = 0;
-		if ($tcsetting->layoutcolumns > 1) {
-		   $this->tccolumnpadding = 4; // px
+		if (($tcsetting->layoutcolumns > 1) && ($mymobiletheme == false)) {
+		   $this->tccolumnwidth = 100 / $tcsetting->layoutcolumns;
 		   $this->tccolumnwidth -= 1; // Allow for the padding in %.
+		   $this->tccolumnpadding = 4; // px
 		   $columnbreakpoint = $course->numsections / $tcsetting->layoutcolumns +1;
 		}
         echo $this->end_section_list();
