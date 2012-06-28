@@ -357,7 +357,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $thissection = $sections[0];
         unset($sections[0]);
         if ($thissection->summary or $thissection->sequence or $PAGE->user_is_editing()) {
-            echo $this->section_header($thissection, $course, true);
+            echo $this->section_header($thissection, $course, false);
             print_section($course, $thissection, $mods, $modnamesused, true);
             if ($PAGE->user_is_editing()) {
                 print_section_add_menus($course, 0, $modnames);
