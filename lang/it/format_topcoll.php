@@ -40,7 +40,7 @@ $string['formattopcoll']='Compresso Argomenti';
 // Used in format.php
 // Utilizzato in format.php
 $string['topcolltoggle']='Olivetta';
-$string['topcolltogglewidth']='width: 42px;';
+$string['topcollsidewidth']='50px';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='';

@@ -40,7 +40,7 @@ $string['formattopcoll']='Zwiniety Tematy';
 // Used in format.php
 // Uzywane w format.php
 $string['topcolltoggle']='Dzwignia kolankowa';
-$string['topcolltogglewidth']='width: 34px;';
+$string['topcollsidewidth']='34px';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='wszystkie przełączniki.';

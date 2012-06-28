@@ -38,6 +38,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
     private $tccolumnwidth = 100;
     private $tccolumnpadding = 0;
+	private $mymobiletheme = false;
 
     /**
      * Generate the starting container html for a list of sections
@@ -208,8 +209,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o.= html_writer::start_tag('li', array('id' => 'section-' . $section->section,
                     'class' => 'section main clearfix' . $sectionstyle));
 
-        $leftcontent = $this->section_left_content($section, $course, $onsectionpage);
-        $o.= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
+		if ($this->mymobiletheme == false) {
+            $leftcontent = $this->section_left_content($section, $course, $onsectionpage);
+            $o.= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
+	    }/* else {
+            $o.= html_writer::tag('div', $leftcontent, array('class' => 'left side','style' => 'display:none;'));
+            //$o.= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
+		}*/
 
         $rightcontent = $this->section_right_content($section, $course, $onsectionpage);
         $o.= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
@@ -337,7 +343,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         global $tcsetting;
 		
 		//print_object($PAGE->theme->name);
-		$mymobiletheme = ($PAGE->theme->name == 'mymobile');  // Not brilliant, but will work!
+		$this->mymobiletheme = ($PAGE->theme->name == 'mymobile');  // Not brilliant, but will work!
 		
         $userisediting = $PAGE->user_is_editing();
 
@@ -394,7 +400,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
 
 		$columnbreakpoint = 0;
-		if (($tcsetting->layoutcolumns > 1) && ($mymobiletheme == false)) {
+		if (($tcsetting->layoutcolumns > 1) && ($this->mymobiletheme == false)) {
 		   $this->tccolumnwidth = 100 / $tcsetting->layoutcolumns;
 		   $this->tccolumnwidth -= 1; // Allow for the padding in %.
 		   $this->tccolumnpadding = 4; // px
@@ -616,7 +622,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             $o.= html_writer::start_tag('li', array('class' => 'tcsection main clearfix', 'id' => 'toggle-all'));
 
-            $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
+		    if ($this->mymobiletheme == false) {
+   		        $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
+			}
             $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
 
             $o.= html_writer::start_tag('div', array('class' => 'content'));

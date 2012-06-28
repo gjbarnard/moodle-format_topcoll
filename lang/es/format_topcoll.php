@@ -44,7 +44,7 @@ $string['formattopcoll']='Temas plegados';
 // Used in format.php
 // Utilizado en format.php
 $string['topcolltoggle']='Activar';
-$string['topcolltogglewidth']='width: 32px;';
+$string['topcollsidewidth']='32px';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='Cambiar';

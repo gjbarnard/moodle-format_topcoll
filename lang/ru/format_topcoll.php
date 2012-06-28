@@ -37,7 +37,7 @@ $string['formattopcoll']='Сворачиваемые разделы по тем�
 
 // Used in format.php
 $string['topcolltoggle']='Показать/Скрыть';
-$string['topcolltogglewidth']='width: 32px;';
+$string['topcollsidewidth']='32px';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='все разделы.';

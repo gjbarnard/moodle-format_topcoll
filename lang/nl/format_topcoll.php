@@ -41,7 +41,7 @@ $string['formattopcoll']='Ingeklapte Onderwerpen format';
 
 // Used in format.php
 $string['topcolltoggle']='Uitklappen';
-$string['topcolltogglewidth']='width: 42px;';
+$string['topcollsidewidth']='28px';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='alle schakelt.';

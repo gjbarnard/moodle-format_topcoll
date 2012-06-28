@@ -40,7 +40,7 @@ $string['formattopcoll']='Pynciau Dymchwel';
 // Used in format.php
 // A ddefnyddir mewn format.php
 $string['topcolltoggle']='Toggle';
-$string['topcolltogglewidth']='width: 36px;';
+$string['topcollsidewidth']='36px';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='pob toglau.';

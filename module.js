@@ -88,7 +88,8 @@ M.format_topcoll.set_current_section = function (Y, theSection) {
 
 // Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the most significant bit and represents the non-toggling topic 0.
 // Args - toggleNum is an integer and toggleVal is a string which will either be "1" or "0"
-function togglebinary(toggleNum, toggleVal)
+//        savetoggles save the toggle state - used so that all_toggles does not make multiple requests but instead one.
+function togglebinary(toggleNum, toggleVal, savetoggles)
 {
     // Toggle num should be between 1 and 52 - see definition of toggleBinaryGlobal above.
     if ((toggleNum >=1) && (toggleNum <= 52))
@@ -105,7 +106,10 @@ function togglebinary(toggleNum, toggleVal)
 
         //alert("togglebinary toggleNum:" + toggleNum + " st:" + start + " ed:" + end + " tv:" + toggleVal + " tbg:" + toggleBinaryGlobal);
 
-        save_toggles();
+        if (savetoggles == true) 
+		{
+		    save_toggles();
+		}
     }
 }
 
@@ -114,7 +118,8 @@ function togglebinary(toggleNum, toggleVal)
 //        image is the img tag element in the DOM to be changed.
 //        toggleNum is the toggle number to change.
 //        reloading is a boolean that states if the function is called from reload_toggles() so that we do not have to resave what we already know - ohh for default argument values.
-function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the target tr and change the image which is the a tag within the td of the tr above target
+//        savetoggles save the toggle state - used so that all_toggles does not make multiple requests but instead one.
+function toggleexacttopic(target,image,toggleNum,reloading,savetoggles)  // Toggle the target and change the image.
 {
     if(document.getElementById)
     {
@@ -136,13 +141,14 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
 
             if (mymobiletheme == true) {
                 image.className = image.className.replace(/\b opencps\b/,''); //remove the class name
+                image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_down.png)";  // Temporary until MyMobile is fixed - MDL-33115.
             } else {
                 image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_down.png)";
             }
 
             // Save the toggle!
             if (reloading == false) {
-                togglebinary(toggleNum,"0");
+                togglebinary(toggleNum,"0",savetoggles);
             }
         }
         else
@@ -156,12 +162,13 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
 
             if (mymobiletheme == true) {
                 image.className += " opencps";  //add the class name
+                image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_up.png)";  // Temporary until MyMobile is fixed - MDL-33115.
             } else {
                 image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_up.png)";
             }
 
             // Save the toggle!
-            if (reloading == false) togglebinary(toggleNum,"1");
+            if (reloading == false) togglebinary(toggleNum,"1",savetoggles);
         }
     }
 }
@@ -176,7 +183,7 @@ function toggle_topic(toggler,toggleNum)
         imageSwitch = toggler;
         targetElement = toggler.parentNode.nextSibling; // Called from <a> in a <div> so find the next <div>.
 
-        toggleexacttopic(targetElement,imageSwitch,toggleNum,false);
+        toggleexacttopic(targetElement,imageSwitch,toggleNum,false,true);
     }
 }
 
@@ -262,7 +269,7 @@ function reloadToggles()
             var image = document.getElementById("toggle-" + theToggle);
             if ((target != null) && (image != null))
             {
-                toggleexacttopic(target,image.firstChild,theToggle,true);
+                toggleexacttopic(target,image.firstChild,theToggle,true,false);
             }
         //alert("Bongo4 " + theToggle);
         }
@@ -283,7 +290,7 @@ M.format_topcoll.reload_toggles = function (Y, aToggle) {
     });
 }
 
-// Save the toggles - called from togglebinary and an the unload event handler at the bottom of format.php which does not work for a refresh even though it should!
+// Save the toggles - called from togglebinary and allToggle.
 function save_toggles()
 {
     savetogglestate(to36baseString(toggleBinaryGlobal));
@@ -320,10 +327,12 @@ function allToggle(state)
         if ((target != null) && (image != null))
         {
             target.style.display = displaySetting;
-            toggleexacttopic(target,image.firstChild,theToggle,false);
+            toggleexacttopic(target,image.firstChild,theToggle,false,false);
         }
     //alert(theToggle);
     }
+	// Now save the state of the toggles for efficiency...
+	save_toggles();
 }
 
 // Open all toggles.

@@ -38,18 +38,22 @@
 }
 
 .course-content ul.topics li.section .content, .course-content ul.topics li.tcsection .content {
-    margin: 0 40px;
+    margin: 0 40px; /* Default used in editing mode. */
     padding: 0px;
 }
 
+#mymobile .course-content ul.topics li.tcsection .content {
+    margin: 0;
+}
+
 .course-content ul.topics li.section .left, .course-content ul.topics li.tcsection .left {
-    width:40px;
+    width: 40px; /* Default used in editing mode. */
     float:left;
     text-align:center;
 }
 
 .course-content ul.topics li.section .right, .course-content ul.topics li.tcsection .right {
-    width:40px;
+    width: 40px; /* Default used in editing mode. */
     float:right;
     text-align:center;
 }
@@ -94,6 +98,7 @@
 .course-content ul.topics li.section .content .toggle a.cps_a {
     display: block;
     width: auto;
+    padding: 7px 0 7px 35px; /* The 35px allows the arrow to be on the left and the text next to it. */
 }
 
 /* -- Toggle text -- */
@@ -118,7 +123,14 @@ body.jsenabled .toggledsection {
 /* Toggle all */
 #toggle-all .content .sectionbody h4 {
     display: block;
-    padding: 6px;
+    padding: 5px;
+}
+
+#toggle-all .content .sectionbody h4 a {
+    padding: 7px 7px 7px 30px; /* The 30px allows the arrow to be on the left and the text next to it. */
+    text-align: left;
+    width: 35px;
+    text-decoration: none;
 }
 
 /* -- hide the children for IE7 and older --

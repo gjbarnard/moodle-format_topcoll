@@ -78,19 +78,11 @@ if (!empty($displaysection) && $course->coursedisplay == COURSE_DISPLAY_MULTIPAG
 
         /* -- The clickable element of the Toggle -- */
         .course-content ul.topics li.section .content .toggle a.cps_a {
-            padding: 7px 0 7px 35px; /* The 35px allows the arrow to be on the left and the text next to it. */
             background: transparent url(<?php echo $CFG->wwwroot ?>/course/format/topcoll/images/arrow_up.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
         }
 
         body.jsenabled .course-content ul.topics li.section .content .toggle a.cps_a {
-            background: transparent url(../course/format/topcoll/images/arrow_down.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
-        }
-
-        #toggle-all .content .sectionbody h4 a {
-            padding: 7px 7px 7px 30px; /* The 30px allows the arrow to be on the left and the text next to it. */
-            text-align: left;
-            width: 35px;
-            text-decoration: none;
+            background: transparent url(<?php echo $CFG->wwwroot ?>/course/format/topcoll/images/arrow_down.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
         }
 
         #toggle-all .content .sectionbody h4 a.on {
@@ -125,6 +117,31 @@ if (!empty($displaysection) && $course->coursedisplay == COURSE_DISPLAY_MULTIPAG
         .course-content ul.topics li.section .content div.toggle:hover,body.jsenabled tr.cps td a:hover
         {
             background-color: #<?php echo $tcsetting->tgbghvrcolour; ?>;
+        }
+
+		/* Dynamically changing widths with language */
+		.course-content ul.topics li.section .content, .course-content ul.topics li.tcsection .content {
+            <?php 
+			if ((!$PAGE->user_is_editing()) && ($PAGE->theme->name != 'mymobile')) {
+			    echo 'margin: 0 '.get_string('topcollsidewidth', 'format_topcoll');
+			   }
+			?>;			
+		}
+
+		.course-content ul.topics li.section .left, .course-content ul.topics li.tcsection .left {
+            <?php 
+			if (!$PAGE->user_is_editing()) {
+			    echo 'width: '.get_string('topcollsidewidth', 'format_topcoll');
+		    }
+		    ?>;
+        }
+
+		.course-content ul.topics li.section .right, .course-content ul.topics li.tcsection .right {
+            <?php 
+			if (!$PAGE->user_is_editing()) {
+			    echo 'width: '.get_string('topcollsidewidth', 'format_topcoll');
+		    }
+		    ?>;
         }
         /* ]]> */
     </style>

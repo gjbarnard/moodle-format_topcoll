@@ -40,7 +40,7 @@ $string['formattopcoll']='Komprimiert Themen';
 // Used in format.php
 // Verwendet in format.php
 $string['topcolltoggle']='Sehen';
-$string['topcolltogglewidth']='width: 30px;';
+$string['topcollsidewidth']='30px';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='alle wechselt.';

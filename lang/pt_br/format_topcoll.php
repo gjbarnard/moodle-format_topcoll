@@ -42,7 +42,7 @@ $string['pluginname'] = 'Topicos Recolhidos';
 // Used in format.php
 // Usado em format.php
 $string['topcolltoggle']='Alternar';
-$string['topcolltogglewidth']='width: 34px;';
+$string['topcollsidewidth']='34px';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='todas as alterna.';

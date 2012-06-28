@@ -60,7 +60,7 @@ Known Issues
 ------------
 1.  If you get toggle text issues in languages other than English please ensure you have the latest version of Moodle installed.  More
     information on http://moodle.org/mod/forum/discuss.php?d=184150.
-2.  Does not currently work with the MyMobile theme, please see http://tracker.moodle.org/browse/MDL-33115.
+2.  The MyMobile theme not implemented as with previous versions but does work, please see http://tracker.moodle.org/browse/MDL-33115.
 
 Version Information
 -------------------
@@ -387,6 +387,9 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1. Corrected an issue in 'renderer.php' for the overridden method 'print_multiple_section_page()' so that section 0 has a name displayed if there
      is one - see http://moodle.org/mod/forum/discuss.php?d=205724.
   2. Ensured that only one column is present when using the MyMobile theme regardless of setting.
+  3. Made work to a greater extent with the MyMobile theme - not quite as the theme intends as all changes within CT.
+  4. Tidied up left and right sides to be language specific when not editing for variations in the words 'Topic' and 'Week'.
+  5. Optimised open and close all toggles such that peristence is now only one AJAX call to update the user preferences instead of one per section.
 
 Thanks
 ------

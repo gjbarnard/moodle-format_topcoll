@@ -41,7 +41,7 @@ $string['formattopcoll']='Sections réduites';
 // Used in format.php
 // Employée au format.php
 $string['topcolltoggle']='Basculer';
-$string['topcolltogglewidth']='width: 32px;';
+$string['topcollsidewidth']='36px';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='toutes les sections.';

@@ -38,7 +38,7 @@ $string['formattopcoll']='Collapsed Topics';
 
 // Used in format.php
 $string['topcolltoggle']='Toggle';
-$string['topcolltogglewidth']='width: 38px;';
+$string['topcollsidewidth']='40px';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
 $string['topcollall']='all toggles.';
