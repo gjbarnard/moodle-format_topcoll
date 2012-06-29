@@ -219,24 +219,24 @@ function put_topcoll_setting($courseid, $layoutelement, $layoutstructure, $layou
 function reset_topcoll_setting($layout, $colour) {
     global $DB;
     global $TCCFG;
-	
-	$records = $DB->get_records('format_topcoll_settings');
-	//print_object($records);
-	foreach($records as $record) {
-	    if ($layout) {
-	       $record->layoutelement = $TCCFG->defaultlayoutelement;
-		   $record->layoutstructure = $TCCFG->defaultlayoutstructure;
-		   $record->layoutcolumns = $TCCFG->defaultlayoutcolumns;
-	    }
-	    if ($colour) {
+
+    $records = $DB->get_records('format_topcoll_settings');
+    //print_object($records);
+    foreach ($records as $record) {
+        if ($layout) {
+            $record->layoutelement = $TCCFG->defaultlayoutelement;
+            $record->layoutstructure = $TCCFG->defaultlayoutstructure;
+            $record->layoutcolumns = $TCCFG->defaultlayoutcolumns;
+        }
+        if ($colour) {
             $record->tgfgcolour = $TCCFG->defaulttgfgcolour;
             $record->tgbgcolour = $TCCFG->defaulttgbgcolour;
             $record->tgbghvrcolour = $TCCFG->defaulttgbghvrcolour;
-	    }
-	    $DB->update_record('format_topcoll_settings', $record);
-	}
-	//$records = $DB->get_records('format_topcoll_settings');
-	//print_object($records);
+        }
+        $DB->update_record('format_topcoll_settings', $record);
+    }
+    //$records = $DB->get_records('format_topcoll_settings');
+    //print_object($records);
 }
 
 /**

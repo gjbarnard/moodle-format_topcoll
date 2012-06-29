@@ -80,13 +80,13 @@ if ($PAGE->user_is_editing()) {
         } else {
             put_topcoll_setting($formdata->id, $formdata->setelementnew, $formdata->setstructurenew, $formdata->setcolumnsnew, substr($formdata->tgfg, 1), substr($formdata->tgbg, 1), substr($formdata->tgbghvr, 1));
         }
-		if ((isset($formdata->resetalllayout) == true) && (isset($formdata->resetallcolour) == true)) {
-		    reset_topcoll_setting(true, true);
-	    } else if (isset($formdata->resetalllayout) == true) {
-		    reset_topcoll_setting(true, false);
-		} else if (isset($formdata->resetallcolour) == true) {
-		    reset_topcoll_setting(false, true);
-		}
+        if ((isset($formdata->resetalllayout) == true) && (isset($formdata->resetallcolour) == true)) {
+            reset_topcoll_setting(true, true);
+        } else if (isset($formdata->resetalllayout) == true) {
+            reset_topcoll_setting(true, false);
+        } else if (isset($formdata->resetallcolour) == true) {
+            reset_topcoll_setting(false, true);
+        }
         redirect($courseurl);
     }
 

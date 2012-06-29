@@ -29,15 +29,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 defined('MOODLE_INTERNAL') || die();
-require_once($CFG->dirroot.'/course/format/topcoll/lib.php');
+require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
 
 /**
  * restore plugin class that provides the necessary information
  * needed to restore one topcoll course format
  */
 class restore_format_topcoll_plugin extends restore_format_plugin {
+
     /**
      * Returns the paths to be handled by the plugin at course level
      */
@@ -60,7 +60,7 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
     public function process_topcoll($data) {
         global $DB;
 
-        $data = (object)$data;
+        $data = (object) $data;
 
         // We only process this information if the course we are restoring to
         // has 'topcoll' format (target format can change depending of restore options)
@@ -76,6 +76,9 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
 
         // No need to annotate anything here
     }
-    
-    protected function after_execute_structure() { }
+
+    protected function after_execute_structure() {
+        
+    }
+
 }

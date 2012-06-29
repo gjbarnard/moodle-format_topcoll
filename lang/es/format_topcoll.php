@@ -14,10 +14,7 @@
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
-<<<<<<< HEAD
-=======
  * @comment    A big thank you to Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362) for the translation.
->>>>>>> remotes/origin/CONTRIB-3378
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -86,13 +83,6 @@ $string['settoggleforegroundcolour'] = 'Cambiar primer plano';
 $string['settogglebackgroundcolour'] = 'Cambiar fondo';
 $string['settogglebackgroundhovercolour'] = 'Cambia el fondo en vuelo estacionario';
 $string['resetcolour'] = 'Restablecer el color';
-
-// Cookie consent - Moodle Tracker CONTRIB-3624
-$string['cookieconsentform'] = 'Cookie consent form' ;
-$string['cookieconsent'] = "Cookie consent is required to allow any course that uses the 'Collapsed Topics' format as you can see below to remember the state of the toggles.  Once you have given that consent using the icon to the right, the toggles will remember what you set them to when you refresh the page and when you return if this has been setup by your administrator.<br /><br />The cookie 'mdl_cf_topcoll' only contains the site short name, course id and a series of encoded 1's and 0's representing open or closed respectively.<br /><br />Once chosen this will be remembered for all 'Collapsed Topics' based courses and you will not be asked again unless your administrator performs a reset.";
-$string['setcookieconsent'] = 'Cookie consent';
-$string['cookieconsentallowed'] ='Allowed';
-$string['cookieconsentdenied'] ='Denied';
 
 // Help
 $string['setlayoutelements_help']='Cuánta información sobre las secciones / toggles quieres visualizar.';

@@ -29,13 +29,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 defined('MOODLE_INTERNAL') || die();
 
 /**
  * Provides the information to backup topcoll course format
  */
 class backup_format_topcoll_plugin extends backup_format_plugin {
+
     /**
      * Returns the format information to attach to course element
      */
@@ -45,7 +45,7 @@ class backup_format_topcoll_plugin extends backup_format_plugin {
         $plugin = $this->get_plugin_element(null, '/course/format', 'topcoll');
 
         // Create one standard named plugin element (the visible container)
-        $pluginwrapper = new backup_nested_element($this->get_recommended_name(), null, array('layoutelement','layoutstructure','layoutcolumns','tgfgcolour','tgbgcolour','tgbghvrcolour'));
+        $pluginwrapper = new backup_nested_element($this->get_recommended_name(), null, array('layoutelement', 'layoutstructure', 'layoutcolumns', 'tgfgcolour', 'tgbgcolour', 'tgbghvrcolour'));
 
         // connect the visible container ASAP
         $plugin->add_child($pluginwrapper);
@@ -58,4 +58,5 @@ class backup_format_topcoll_plugin extends backup_format_plugin {
 
         return $plugin;
     }
+
 }

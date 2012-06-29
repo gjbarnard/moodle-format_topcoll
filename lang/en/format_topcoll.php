@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Collapsed Topics Information
  *
@@ -28,20 +29,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 // Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
 // Possibly legacy to be removed after Moodle 2.0 is stable.
-$string['nametopcoll']='Collapsed Topics';
-$string['formattopcoll']='Collapsed Topics';
+$string['nametopcoll'] = 'Collapsed Topics';
+$string['formattopcoll'] = 'Collapsed Topics';
 
 // Used in format.php
-$string['topcolltoggle']='Toggle';
-$string['topcollsidewidth']='28px';
+$string['topcolltoggle'] = 'Toggle';
+$string['topcollsidewidth'] = '28px';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
-$string['topcollall']='all toggles.';
-$string['topcollopened']='Open';
-$string['topcollclosed']='Close';
+$string['topcollall'] = 'all toggles.';
+$string['topcollopened'] = 'Open';
+$string['topcollclosed'] = 'Close';
 
 // Moodle 2.0 Enhancement - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages
 $string['sectionname'] = 'Section';
@@ -68,11 +68,11 @@ $string['setlayout_no_toggle_word_toggle_section_x'] = 'No toggle word and toggl
 $string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'No toggle word, toggle section x and section number';
 $string['setlayoutelements'] = 'Set elements';
 $string['setlayoutstructure'] = 'Set structure';
-$string['setlayoutstructuretopic']='Topic';
-$string['setlayoutstructureweek']='Week';
-$string['setlayoutstructurelatweekfirst']='Latest Week First';
-$string['setlayoutstructurecurrenttopicfirst']='Current Topic First';
-$string['setlayoutstructureday']='Day';
+$string['setlayoutstructuretopic'] = 'Topic';
+$string['setlayoutstructureweek'] = 'Week';
+$string['setlayoutstructurelatweekfirst'] = 'Latest Week First';
+$string['setlayoutstructurecurrenttopicfirst'] = 'Current Topic First';
+$string['setlayoutstructureday'] = 'Day';
 $string['resetlayout'] = 'Reset layout'; //CONTRIB-3529
 $string['resetalllayout'] = 'Reset layouts for all Collapsed Topics courses';
 
@@ -93,8 +93,8 @@ $string['three'] = 'Three';
 $string['four'] = 'Four';
 
 // Help
-$string['setlayoutelements_help']='How much information about the toggles / sections you wish to be displayed.';
-$string['setlayoutstructure_help']="The layout structure of the course.  You can choose between:
+$string['setlayoutelements_help'] = 'How much information about the toggles / sections you wish to be displayed.';
+$string['setlayoutstructure_help'] = "The layout structure of the course.  You can choose between:
 
 'Topics' - where each section is presented as a topic in section number order.
 

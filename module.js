@@ -30,13 +30,12 @@
 
 // Global variables 
 var toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000"; // 53 possible toggles - current settings in Moodle for number of topics - 52 + 1 for topic 0.  Need 1 as Most Significant bit to allow toggle 1+ to be off.
-var thesparezeros = "00000000000000000000000000"; // A constant of 26 0's to be used to pad the storage state of the toggles when converting between base 2 and 36, this is because cookies need to be compact.
+var thesparezeros = "00000000000000000000000000"; // A constant of 26 0's to be used to pad the storage state of the toggles when converting between base 2 and 36, this is to be compact.
 var toggleState;
 var courseid;
-var thewwwroot;  // For the toggle graphic and extra files.
+var thewwwroot;  // For the toggle graphic.
 var numToggles = 0;
 var currentSection;
-//var ie7OrLess = false;
 //var ie = false;
 var mymobiletheme = false;
 var ourYUI;
@@ -69,21 +68,16 @@ M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate) {
         var ieversion = new Number(RegExp.$1);
         ie = true;
         //alert('Is IE ' + ieversion);
-        if (ieversion <= 7)
-        {
-            //alert('Is IE 7');
-            ie7OrLess = true;
-        }
     } */
     if (document.getElementById("mymobile")) {
         mymobiletheme = true;
     }
-    //alert(mymobiletheme);
+//alert(mymobiletheme);
 }
 
 M.format_topcoll.set_current_section = function (Y, theSection) {
     currentSection = theSection;
-    //alert(currentSection);
+//alert(currentSection);
 }
 
 // Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the most significant bit and represents the non-toggling topic 0.
@@ -107,9 +101,9 @@ function togglebinary(toggleNum, toggleVal, savetoggles)
         //alert("togglebinary toggleNum:" + toggleNum + " st:" + start + " ed:" + end + " tv:" + toggleVal + " tbg:" + toggleBinaryGlobal);
 
         if (savetoggles == true) 
-		{
-		    save_toggles();
-		}
+        {
+            save_toggles();
+        }
     }
 }
 
@@ -331,8 +325,8 @@ function allToggle(state)
         }
     //alert(theToggle);
     }
-	// Now save the state of the toggles for efficiency...
-	save_toggles();
+    // Now save the state of the toggles for efficiency...
+    save_toggles();
 }
 
 // Open all toggles.

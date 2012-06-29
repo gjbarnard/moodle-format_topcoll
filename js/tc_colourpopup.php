@@ -68,7 +68,6 @@ class MoodleQuickForm_tccolourpopup extends HTML_QuickForm_text {
      * @param array $help array of arguments to make a help button
      * @param string $function function name to call to get html
      */
-
     function setHelpButton($helpbuttonargs, $function = 'helpbutton') {
         debugging('component setHelpButton() is not used any more, please use $mform->setHelpButton() instead');
     }

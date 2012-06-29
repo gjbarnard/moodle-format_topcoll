@@ -119,29 +119,29 @@ if (!empty($displaysection) && $course->coursedisplay == COURSE_DISPLAY_MULTIPAG
             background-color: #<?php echo $tcsetting->tgbghvrcolour; ?>;
         }
 
-		/* Dynamically changing widths with language */
-		.course-content ul.topics li.section .content, .course-content ul.topics li.tcsection .content {
-            <?php 
-			if ((!$PAGE->user_is_editing()) && ($PAGE->theme->name != 'mymobile')) {
-			    echo 'margin: 0 '.get_string('topcollsidewidth', 'format_topcoll');
-			   }
-			?>;			
-		}
-
-		.course-content ul.topics li.section .left, .course-content ul.topics li.tcsection .left {
-            <?php 
-			if (!$PAGE->user_is_editing()) {
-			    echo 'width: '.get_string('topcollsidewidth', 'format_topcoll');
-		    }
-		    ?>;
+        /* Dynamically changing widths with language */
+        .course-content ul.topics li.section .content, .course-content ul.topics li.tcsection .content {
+            <?php
+            if ((!$PAGE->user_is_editing()) && ($PAGE->theme->name != 'mymobile')) {
+                echo 'margin: 0 ' . get_string('topcollsidewidth', 'format_topcoll');
+            }
+            ?>;			
         }
 
-		.course-content ul.topics li.section .right, .course-content ul.topics li.tcsection .right {
-            <?php 
-			if (!$PAGE->user_is_editing()) {
-			    echo 'width: '.get_string('topcollsidewidth', 'format_topcoll');
-		    }
-		    ?>;
+        .course-content ul.topics li.section .left, .course-content ul.topics li.tcsection .left {
+            <?php
+            if (!$PAGE->user_is_editing()) {
+                echo 'width: ' . get_string('topcollsidewidth', 'format_topcoll');
+            }
+            ?>;
+        }
+
+        .course-content ul.topics li.section .right, .course-content ul.topics li.tcsection .right {
+            <?php
+            if (!$PAGE->user_is_editing()) {
+                echo 'width: ' . get_string('topcollsidewidth', 'format_topcoll');
+            }
+            ?>;
         }
         /* ]]> */
     </style>

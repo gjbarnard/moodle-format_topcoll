@@ -34,7 +34,7 @@ require_once("$CFG->libdir/formslib.php");
 class set_settings_form extends moodleform {
 
     function definition() {
-        global $CFG, $USER;//, $DB;
+        global $CFG, $USER; //, $DB;
         MoodleQuickForm::registerElementType('tccolourpopup', "$CFG->dirroot/course/format/topcoll/js/tc_colourpopup.php", 'MoodleQuickForm_tccolourpopup');
 
         $mform = $this->_form;
@@ -65,8 +65,8 @@ class set_settings_form extends moodleform {
         $mform->addElement('select', 'setstructurenew', get_string('setlayoutstructure', 'format_topcoll'), $formcourselayoutstrutures);
         $mform->setDefault('setstructurenew', $instance['setstructure']);
         $mform->addHelpButton('setstructurenew', 'setlayoutstructure', 'format_topcoll', '', true);
-		
-		$formcoursecolumns =
+
+        $formcoursecolumns =
                 array(1 => get_string('one', 'format_topcoll'), // Default
                     2 => get_string('two', 'format_topcoll'), // Two   
                     3 => get_string('three', 'format_topcoll'), // Three
@@ -74,15 +74,15 @@ class set_settings_form extends moodleform {
         $mform->addElement('select', 'setcolumnsnew', get_string('setlayoutcolumns', 'format_topcoll'), $formcoursecolumns);
         $mform->setDefault('setcolumnsnew', $instance['setcolumns']);
         $mform->addHelpButton('setcolumnsnew', 'setlayoutcolumns', 'format_topcoll', '', true);
-		
+
         $mform->addElement('checkbox', 'resetlayout', get_string('resetlayout', 'format_topcoll'), false);
         $mform->addHelpButton('resetlayout', 'resetlayout', 'format_topcoll', '', true);
 
-		//$user = $DB->get_record('user', array('id'=>$USER->id));
-		if (is_siteadmin($USER)) {
+        //$user = $DB->get_record('user', array('id'=>$USER->id));
+        if (is_siteadmin($USER)) {
             $mform->addElement('checkbox', 'resetalllayout', get_string('resetalllayout', 'format_topcoll'), false);
             $mform->addHelpButton('resetalllayout', 'resetalllayout', 'format_topcoll', '', true);
-		}
+        }
 
         $mform->addElement('header', 'setcolour', get_string('setcolour', 'format_topcoll'));
         $mform->addHelpButton('setcolour', 'setcolour', 'format_topcoll', '', true);
@@ -103,10 +103,10 @@ class set_settings_form extends moodleform {
         $mform->addElement('checkbox', 'resetcolour', get_string('resetcolour', 'format_topcoll'), false);
         $mform->addHelpButton('resetcolour', 'resetcolour', 'format_topcoll', '', true);
 
-		if (is_siteadmin($USER)) {
+        if (is_siteadmin($USER)) {
             $mform->addElement('checkbox', 'resetallcolour', get_string('resetallcolour', 'format_topcoll'), false);
             $mform->addHelpButton('resetallcolour', 'resetallcolour', 'format_topcoll', '', true);
-		}
+        }
 
         // hidden params
         $mform->addElement('hidden', 'id', $instance['courseid']);

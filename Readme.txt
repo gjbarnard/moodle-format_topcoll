@@ -7,10 +7,18 @@ This version works with Moodle 2.3.x.
 
 Documented on http://docs.moodle.org/23/en/Collapsed_Topics_course_format
 
+New features
+------------
+1. One to four columns which can be set on the Collapsed Topics settings form (one column for MyMobile users regardless of this setting).
+2. Persistence now uses user preferences on the server which facilitates remembrance beyond the session and removal of the evil cookie.
+3. Administrators can now reset the layout and colours of all Collapsed Topics courses via the settings form.
+4. New 'Days' structure which has each section as a day.  The first section is the day of the start date.
+5. Removed the use of tables for layout and now using more conventional div's and unordered lists which should be better for theme compatibility.
+
 Installation
 ------------
 1.  Put Moodle in 'Maintenance Mode' (docs.moodle.org/en/admin/setting/maintenancemode) so that there are no users using it bar you as the
-    adminstrator.
+    administrator.
 2.  Copy 'topcoll' to '/course/format/'
 3.  If using a Unix based system, chmod 755 on config.php - I have not tested this but have been told that it needs to be done.
 4.  In 'config.php' change the values of '$TCCFG->defaultlayoutelement', '$TCCFG->defaultlayoutstructure' and '$TCCFG->defaultlayoutcolumns' for
@@ -61,6 +69,8 @@ Known Issues
 1.  If you get toggle text issues in languages other than English please ensure you have the latest version of Moodle installed.  More
     information on http://moodle.org/mod/forum/discuss.php?d=184150.
 2.  The MyMobile theme not implemented as with previous versions but does work, please see http://tracker.moodle.org/browse/MDL-33115.
+    Also has a tendency not to reload the toggle state or set the arrow icon on first load.  A page refresh fixes it - I'm not sure why,
+    but does not happen with other themes - jQuery / YUI conflict?
 
 Version Information
 -------------------
@@ -127,7 +137,7 @@ Development Notes:
   13th April 2010 - CONTRIB-1471 - Changes as a result of MDL-15252, MDL-21693 & MDL-22056.
   24th April 2010 - CONTRIB-1471 - Fixed section jump when in 'Show only topic x' mode.
   31st May 2010 - CONTRIB-1471 - thanks to Skodak in 1.120 of format.php in the topics format - summaryformat attribute in section class.
-  11th June 2010 - CONTRIB-1471 as a result of  MDL-22647 - Changes to Moodle 2.0 callbacks in lib.php.
+  11th June 2010 - CONTRIB-1471 as a result of  MDL-22647 - Changes to Moodle 2.0 call-backs in lib.php.
   3rd July 2010 - CONTRIB-1471 as a result of MDL-20475 & MDL-22950.
   30th July 2010 - CONTRIB-1471 as a result of MDL-20628 and CONTRIB-2111 - in essence, sections now have a name attribute, so this can be
                    used for the topic name instead of the section summary - far better.
@@ -144,7 +154,7 @@ Development Notes:
   1. Removed the requirement of needing js-override-topcoll.css - to make things simpler.
   2. Tidied up some of the JavaScript to be slightly more efficient.
   
-25th October 2010 - CONTRIB-1471 - Removal of redundant Javascript Code.
+25th October 2010 - CONTRIB-1471 - Removal of redundant JavaScript Code.
 
 6th November 2010 - CONTRIB-1471 - Changes as follows:
   1. ajax.php changed to add more browser support as a result of MDL-22528.
@@ -299,7 +309,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 1st March 2012 - Version 2.3.3 - Stable
   1. Integrated Git Branch CONTRIB-3378 into stable branch master.
   2. NOTE: If you have previously installed a Beta or Release Candidate please drop the table 'format_topcoll_layout' before use.
-  3. Removed redudant lib.js and lib_min.js in this branch.
+  3. Removed redundant lib.js and lib_min.js in this branch.
 
 2nd March 2012 - Version 2.3.3.1
   1. Minor fix to ensure consistent use of $coursecontext and not $context.
@@ -327,7 +337,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
    1. Added the ability to set the colour attributes of the toggle.
    2. Added the ability to reset the layout and colour attributes back to the defaults as defined in the 'config.php' file.
    3. Thank you to 'Nadav Kavalerchik' for pointing out on MDL-23320 how this can be done by modifying the colour picker code implemented by 'Iain Checkland' in his Quick Structure block 'https://github.com/drcheckers/moodle-block_quickstructure/tree/master/blocks/quickstructure', and to 'Matthew Cannings' on MDL-23320 for the colour validation rule.
-   4. Moved Javascript code into its own folder 'js' for neatness.
+   4. Moved JavaScript code into its own folder 'js' for neatness.
    5. Renamed 'format_topcoll_layout' table to 'format_topcoll_settings' so that it is a better representation of what it stores.  Restores from previous versions should work.  Raised MDL-32650 as cannot rename the comment for the renamed table in upgrading installations.
    6. Added an American English translation (en_us) because of the incorporation of the word 'colour'.  More information on 'http://en.wikipedia.org/wiki/American_and_British_English_spelling_differences'.  I may have not got everything correct!
    7. Added an English Pirate translation (en_ar) upon discovery of the 'Pirate' treasure language pack mee hearties :).
@@ -367,7 +377,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 24th June 2012 - Version 2.3.7rc - CONTRIB-3652 development - rewrite for Moodle 2.3
   1. Removed cookie functionality in favour of user preferences via AJAX - see MDL-17084.
   2. Updated instructions above to reflect changes.
-  3. Tidied up code and removed redundent files in this branch.
+  3. Tidied up code and removed redundant files in this branch.
 
 26th June 2012 - Version 2.3.7rc2 - CONTRIB-3652 development - rewrite for Moodle 2.3
   1. Removed line that was related to the cookie functionality - thanks Hartmut Scherer and Kyle Smith on http://moodle.org/mod/forum/discuss.php?d=204705.
@@ -389,7 +399,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2. Ensured that only one column is present when using the MyMobile theme regardless of setting.
   3. Made work to a greater extent with the MyMobile theme - not quite as the theme intends as all changes within CT.
   4. Tidied up left and right sides to be language specific when not editing for variations in the words 'Topic' and 'Week'.
-  5. Optimised open and close all toggles such that peristence is now only one AJAX call to update the user preferences instead of one per section.
+  5. Optimised open and close all toggles such that persistence is now only one AJAX call to update the user preferences instead of one per section.
+
+29th June 2012 - Version 2.3.7rc5 - CONTRIB-3652 development - rewrite for Moodle 2.3
+  1. Test and tidy up code.
 
 Thanks
 ------
@@ -444,6 +457,6 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 28th June 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 29th June 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
