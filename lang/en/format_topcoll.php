@@ -100,7 +100,7 @@ $string['setlayoutstructure_help'] = "The layout structure of the course.  You c
 
 'Weeks' - where each section is presented as a week in ascending week order from the start date of the course.
 
-'Latest Week First' - which is the same as weeks but the current week is shown at the top and preceding weeks in decending order are displayed below execpt in editing mode where the structure is the same as 'Weeks'.
+'Latest Week First' - which is the same as weeks but the current week is shown at the top and preceding weeks in decending order are displayed below except in editing mode where the structure is the same as 'Weeks'.
 
 'Current Topic First' - which is the same as 'Topics' except that the current topic is shown at the top if it has been set.
 

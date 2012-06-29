@@ -72,6 +72,7 @@ $string['setlayoutstructureday'] = 'Sailing Day';
 $string['setlayoutstructurelatweekfirst']='Latest Sailing Week First';
 $string['setlayoutstructurecurrenttopicfirst']='Current Treasure Chest First';
 $string['resetlayout'] = 'Reset thee layout'; //CONTRIB-3529
+$string['resetalllayout'] = 'Reset thee layouts for all thy Collapsed Topics courses';
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529
 $string['setcolour'] = 'Set thee colour';
@@ -80,26 +81,38 @@ $string['settoggleforegroundcolour'] = 'Thy toggle foreground';
 $string['settogglebackgroundcolour'] = 'Thy toggle background';
 $string['settogglebackgroundhovercolour'] = 'Thy toggle background hover';
 $string['resetcolour'] = 'Reset thee colour';
+$string['resetallcolour'] = 'Reset thee colours for all thy Collapsed Topics courses';
+
+// Columns enhancement
+$string['setlayoutcolumns'] = 'Set thee columns';
+$string['one'] = 'One';
+$string['two'] = 'Two';
+$string['three'] = 'Three';
+$string['four'] = 'Four';
 
 // Help
 $string['setlayoutelements_help']='How much information about thee toggles / sections you wish to be displayed.';
 $string['setlayoutstructure_help']="Avast ye landlubbers, this be thee layout structure of thee course.  Ye choose between:
 
-'Topics' - where each section is presented as a topic in section number order.
+'Topics' - where each section is presented as thy topic in section number order.
 
-'Weeks' - where each section is presented as a week in ascending week order.
+'Weeks' - where each section is presented as thy week in ascending week order.
 
-'Latest Week First' - which is the same as weeks but thee current week is shown at thee top and preceding weeks in decending order are displayed below execpt in editing mode where the structure is thy same as 'Weeks'.
+'Latest Week First' - which is the same as weeks but thee current week is shown at thee top and preceding weeks in decending order are displayed below except in editing mode where thee structure is thy same as 'Weeks'.
 
-'Current Topic First' - which is thee same as 'Topics' except that thee current topic is shown at thee top if it has been set.";
+'Current Topic First' - which is thee same as 'Topics' except that thee current topic is shown at thee top if it has been set.
+
+'Day' - where each section is presented as a day in thy ascending day order from thee start date of thee course.";
 $string['setlayout_help'] = 'Contains thee settings to do with thee layout of the format within thy course.';
 $string['resetlayout_help'] = 'Resets thee layout to thee default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in thy Collapsed Topics format';
+$string['resetalllayout_help'] = 'Resets the layout to the default values in "/course/format/topcoll/config.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 // Moodle Tracker CONTRIB-3529
-$string['setcolour_help'] = 'Contains the settings to do with the colour of the format within the course.';
-$string['settoggleforegroundcolour_help'] = 'Sets the colour of the text on the toggle.';
-$string['settogglebackgroundcolour_help'] = 'Sets the background of the toggle.';
-$string['settogglebackgroundhovercolour_help'] = 'Sets the background of the toggle when the mouse moves over it.';
-$string['resetcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format';
-// Moodle Tracker CONTRIB-3624
-$string['setcookieconsent_help'] = "If you choose 'Allowed' you agree that the next time you click on a toggle in any 'Collapsed Topics' based course then the 'mdl_cf_topcoll' cookie will be placed on your computer for the duration of the browser session or longer if you administrator has allowed - they can determine for how long.  It will remember the state of the toggles when you click on them.  If you choose 'Denied' the cookie will not be placed on your computer.  Once chosen this will be remembered for all 'Collapsed Topics' based courses and you will not be asked again unless your administrator performs a reset - please refer to 'Cookie Consent Information' in the 'Readme.txt' file of the format.";
+$string['setcolour_help'] = 'Contains thee settings to do with thy colour of the format within the course.';
+$string['settoggleforegroundcolour_help'] = 'Sets thee colour of thy text on the toggle.';
+$string['settogglebackgroundcolour_help'] = 'Sets thee background of thy toggle.';
+$string['settogglebackgroundhovercolour_help'] = 'Sets thee background of thy toggle when thee mouse scuttles over it.';
+$string['resetcolour_help'] = 'Resets thee colours to thee default values in "/course/format/topcoll/config.php" so it will be thee same as a course thy first time it is in thee Collapsed Topics format';
+$string['resetallcolour_help'] = 'Resets thee colours to the default values in "/course/format/topcoll/config.php" for all courses so it will be thy same as a course the first time it is in thee Collapsed Topics format.';
+// Columns enhancement
+$string['setlayoutcolumns_help'] = 'How many columns to use.';
 ?>

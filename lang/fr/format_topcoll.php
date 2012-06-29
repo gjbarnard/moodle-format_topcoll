@@ -74,7 +74,9 @@ $string['setlayoutstructuretopic']='Section';
 $string['setlayoutstructureweek']='Semaine';
 $string['setlayoutstructurelatweekfirst']='Dernière semaine en premier';
 $string['setlayoutstructurecurrenttopicfirst']='Section actuelle en premier';
+$string['setlayoutstructureday'] = 'Day';
 $string['resetlayout'] = 'Réinitialiser de disposition'; //CONTRIB-3529
+$string['resetalllayout'] = 'Reset layouts for all Collapsed Topics courses';
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529
 $string['setcolour'] = 'Réglages de la couleur';
@@ -83,13 +85,14 @@ $string['settoggleforegroundcolour'] = 'Couleur du premier plan (texte)';
 $string['settogglebackgroundcolour'] = 'Couleur du fond (bandeau)';
 $string['settogglebackgroundhovercolour'] = 'Couleur du bandeau au survol de la souris';
 $string['resetcolour'] = 'Réinitialiser la couleur';
+$string['resetallcolour'] = 'Reset colours for all Collapsed Topics courses';
 
-// Cookie consent - Moodle Tracker CONTRIB-3624
-$string['cookieconsentform'] = 'Formulaire d\'acceptation du Cookie' ;
-$string['cookieconsent'] = "L\'acceptatino du Cookie est nécessaire pour garder en mémoire pour tous les cours utilisant le format Sections Réduites l\'état des sections. Une fois que vous avez accepté en utilisant l\'icône à droite, l\'état des sections sera gardé lors d'actualisation des pages.<br /><br />Le cookie 'mdl_cf_topcoll' ne contient que le nom du site, l\'identifiant du cours et une série de 1 et de 0 signifiant ouvert ou fermé.<br /><br />Une fois ce réglage choisi, il ne vous sera pas demandé de reparamétrer le Cookie, sauf si l\'administrateur réinitialise les paramètres.";
-$string['setcookieconsent'] = 'Acceptation du Cookie';
-$string['cookieconsentallowed'] ='Autorisé';
-$string['cookieconsentdenied'] ='Refusé';
+// Columns enhancement
+$string['setlayoutcolumns'] = 'Set columns';
+$string['one'] = 'One';
+$string['two'] = 'Two';
+$string['three'] = 'Three';
+$string['four'] = 'Four';
 
 // Help
 $string['setlayoutelements_help']="Quelles informations souhaitez-vous afficher sur le bandeau ?";
@@ -101,20 +104,19 @@ $string['setlayoutstructure_help']="Structure et disposition de la page.  Vous p
 
 'Dernière semaine en premier' - basé sur le 'format hebdomadaire', la semaine en cours est affichée en haut et les semaines précédentes dans un ordre descendant, sauf en mode édition où la structure revient au format initial hebdomadaire.
 
-'Section actuelle en premier' - basé sur le 'format thématique', la secion actuelle est affichée en haut si elle a été fixée.";
+'Section actuelle en premier' - basé sur le 'format thématique', la secion actuelle est affichée en haut si elle a été fixée.
+
+'Day' - where each section is presented as a day in ascending day order from the start date of the course.";
 $string['setlayout_help'] = 'Contient les réglages pour paramétrer le format sections réduites.';
 $string['resetlayout_help'] = 'Réinitialise les réglages par les valeurs par défaut présentes dans le fichier "/course/format/topcoll/config.php", ce sera donc le format de base de cours au format sections réduites';
+$string['resetalllayout_help'] = 'Resets the layout to the default values in "/course/format/topcoll/config.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 // Moodle Tracker CONTRIB-3529
 $string['setcolour_help'] = 'Contient les réglages pour paramétrer les couleurs du format sections réduites.';
 $string['settoggleforegroundcolour_help'] = 'Définit la couleur du texte de la section réduite.';
 $string['settogglebackgroundcolour_help'] = 'Définit la couleur du fond de la section réduite.';
 $string['settogglebackgroundhovercolour_help'] = 'Définit la couleur de la section réduite au passage de la souris.';
 $string['resetcolour_help'] = 'Réinitialise les couleurs par les valeurs par défaut présentes dans le fichier "/course/format/topcoll/config.php", ce sera donc le format de base de cours au format sections réduites';
-// Moodle Tracker CONTRIB-3624
-$string['setcookieconsent_help'] = "Si vous choisissez 'Autorisé', vous acceptez qu'à la prochaine fois que vous cliquez sur les basculements de sections, dans n'importe quel cours ayant le format 'Sections Réduites', le cookie 'mdl_cf_topcoll' s'enregister dans votre ordinateur le temps de votre session.
-Il se souviendra de l'état des sections quand vous cliquerez dessus.
-
-Si vous choisissez 'Refusé', le cookie ne s'enregistre pas dans votre ordinateur. Vous ne serez pas invité à modifier ce choix, sauf si l'administrateur réinitialise le réglage du cookie.
-
-Merci de vous référer à 'Cookie Consent Information' dans le fichier 'Readme.txt'.";
+$string['resetallcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/config.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
+// Columns enhancement
+$string['setlayoutcolumns_help'] = 'How many columns to use.';
 ?>

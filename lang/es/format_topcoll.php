@@ -74,7 +74,9 @@ $string['setlayoutstructuretopic']='Temas';
 $string['setlayoutstructureweek']='Semana';
 $string['setlayoutstructurelatweekfirst']='Semana actual primero';
 $string['setlayoutstructurecurrenttopicfirst']='Tema actual primero';
+$string['setlayoutstructureday'] = 'Day';
 $string['resetlayout'] = 'Restablecer diseño'; //CONTRIB-3529
+$string['resetalllayout'] = 'Reset layouts for all Collapsed Topics courses';
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529
 $string['setcolour'] = 'Establecer el color';
@@ -83,6 +85,14 @@ $string['settoggleforegroundcolour'] = 'Cambiar primer plano';
 $string['settogglebackgroundcolour'] = 'Cambiar fondo';
 $string['settogglebackgroundhovercolour'] = 'Cambia el fondo en vuelo estacionario';
 $string['resetcolour'] = 'Restablecer el color';
+$string['resetallcolour'] = 'Reset colours for all Collapsed Topics courses';
+
+// Columns enhancement
+$string['setlayoutcolumns'] = 'Set columns';
+$string['one'] = 'One';
+$string['two'] = 'Two';
+$string['three'] = 'Three';
+$string['four'] = 'Four';
 
 // Help
 $string['setlayoutelements_help']='Cuánta información sobre las secciones / toggles quieres visualizar.';
@@ -94,15 +104,19 @@ $string['setlayoutstructure_help']="El formato o estructura del curso. Puedes el
 
 'Semana actual primero' - el cual es igual que el formato 'Semanas' pero la semana actual ocupa el primer lugar, seguida de las semanas anteriores en orden descendente. Este comportamiento no se da mientras estás en editando el curso (edición activada), es decir, la estructura mientras editas el curso es la misma que 'Semanas'.
 
-'Tema actual primero' - el cual es igual que el formato 'Temas', con la excepción de que el tema actual ocupa el primer lugar.";
+'Tema actual primero' - el cual es igual que el formato 'Temas', con la excepción de que el tema actual ocupa el primer lugar.
+
+'Day' - where each section is presented as a day in ascending day order from the start date of the course.";
 $string['setlayout_help'] = 'Contains the settings to do with the layout of the format within the course.';
 $string['resetlayout_help'] = 'Resets the layout to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format';
+$string['resetalllayout_help'] = 'Resets the layout to the default values in "/course/format/topcoll/config.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 // Moodle Tracker CONTRIB-3529
 $string['setcolour_help'] = 'Contains the settings to do with the colour of the format within the course.';
 $string['settoggleforegroundcolour_help'] = 'Sets the colour of the text on the toggle.';
 $string['settogglebackgroundcolour_help'] = 'Sets the background of the toggle.';
 $string['settogglebackgroundhovercolour_help'] = 'Sets the background of the toggle when the mouse moves over it.';
 $string['resetcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format';
-// Moodle Tracker CONTRIB-3624
-$string['setcookieconsent_help'] = "If you choose 'Allowed' you agree that the next time you click on a toggle in any 'Collapsed Topics' based course then the 'mdl_cf_topcoll' cookie will be placed on your computer for the duration of the browser session or longer if you administrator has allowed - they can determine for how long.  It will remember the state of the toggles when you click on them.  If you choose 'Denied' the cookie will not be placed on your computer.  Once chosen this will be remembered for all 'Collapsed Topics' based courses and you will not be asked again unless your administrator performs a reset - please refer to 'Cookie Consent Information' in the 'Readme.txt' file of the format.";
+$string['resetallcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/config.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
+// Columns enhancement
+$string['setlayoutcolumns_help'] = 'How many columns to use.';
 ?>
