@@ -43,8 +43,9 @@ Upgrade Instructions
 Upgrading from Moodle 2.0, 2.1 or 2.2
 -------------------------------------
 NOTE: Assuming you have release 2.0.8.1, 2.1.8.2 or 2.2.7 of Collapsed Topics or above - i.e. 2.0, 2.1 or 2.2 version,.  If not upgrade to that version before you upgrade Moodle core if possible.
-      If not possible, a clean installation is advised, so follow the 'Uninstallation' instructions below and remove the table 'format_topcoll_cookie_cnsnt' if it exists.  You will lose any settings but this is the only way I can think
-      of solving the problem from a multitude of possible scenarios.
+      If not possible attempt as many of the instructions as possible and I suspect things should still work.  Otherwise a clean installation is advised, so follow the 'Uninstallation' instructions
+      below and remove the table 'format_topcoll_cookie_cnsnt' if it exists.  You will lose any settings but this is the only way I can think of solving the problem from a multitude of possible
+      scenarios.
 1.  First ensure you start with release 2.3.7 (available from the plugins database) of the 2nd July 2012.  If you have a later version, install that afterwards following the normal upgrade
     instructions above.
 2.  This has to be performed manually because there are too many possible logic paths to follow and hence code that this will be quicker and more certain.  Additionally dropping tables in code does
@@ -57,9 +58,10 @@ NOTE: Assuming you have release 2.0.8.1, 2.1.8.2 or 2.2.7 of Collapsed Topics or
 
 Upgrading from Moodle 1.9
 -------------------------
-NOTE: Assuming you have release 1.9.10 of Collapsed Topics or above - i.e. a 1.9 version.  If not upgrade to that version before you upgrade Moodle core if possible.  If not possible, a clean installation
-      is advised, so follow the 'Uninstallation' instructions below and remove the table 'format_topcoll_cookie_cnsnt' if it exists.  You will lose any settings but this is the only way I can think
-      of solving the problem from a multitude of possible scenarios.  There is an issue with backups in that they are not compatible, please see MDL-32205.
+NOTE: Assuming you have release 1.9.10 of Collapsed Topics or above - i.e. a 1.9 version.  If not upgrade to that version before you upgrade Moodle core if possible.  If not possible attempt as many
+      of the instructions as possible and I suspect things should still work.  Otherwise a clean installation is advised, so follow the 'Uninstallation' instructions below and remove the
+      table 'format_topcoll_cookie_cnsnt' if it exists.  You will lose any settings but this is the only way I can think of solving the problem from a multitude of possible scenarios.  There is an
+      issue with backups in that they are not compatible, please see MDL-32205.
 1.  First ensure you start with release 2.3.7 (available from the plugins database) of the 2nd July 2012.  If you have a later version, install that afterwards following the normal upgrade
     instructions above.
 2.  This has to be performed manually because there are too many possible logic paths to follow and hence code that this will be quicker and more certain.
