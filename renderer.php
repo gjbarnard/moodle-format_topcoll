@@ -432,8 +432,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
             $this->tccolumnwidth = 100 / $tcsetting->layoutcolumns;
             $this->tccolumnwidth -= 1; // Allow for the padding in %.
-            $this->tccolumnpadding = 4; // px
-            $columnbreakpoint = $numsections / $tcsetting->layoutcolumns + 1;
+            $this->tccolumnpadding = 2; // px
+            //$columnbreakpoint = $numsections / $tcsetting->layoutcolumns + 1;
         } elseif ($tcsetting->layoutcolumns < 1) {
             // Default in config.php (and reset in database) or database has been changed incorrectly.
             $tcsetting->layoutcolumns = 1;
@@ -447,6 +447,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         $loopsection = 1;
         $canbreak = false; // Once the first section is shown we can decide if we break on another column.
+		$columncount = 1;
+		$shownsectioncount = 0;
         while ($loopsection <= $course->numsections) {
             if (($tcsetting->layoutstructure == 3) && ($userisediting == false)) {
                 $nextweekdate = $weekdate - ($weekofseconds);
@@ -490,6 +492,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     }
                 }
             } else {
+			    $shownsectioncount++;
                 if (!$PAGE->user_is_editing() && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                     // Display section summary only.
                     echo $this->section_summary($thissection, $course, $mods);
@@ -524,23 +527,31 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     $weekdate = $nextweekdate;
                 }
             }
+
+            if (($canbreak == false) && ($currentsectionfirst == false) && ($showsection == true)) {
+                $canbreak = true;
+				$columnbreakpoint = ($shownsectioncount + ($numsections / $tcsetting->layoutcolumns)) -1;
+				if ($tcsetting->layoutstructure == 4) {
+				    $columnbreakpoint -= 1;
+				}
+            }
+			//print($shownsectioncount);
+			//print($columnbreakpoint);
+			//print($showsection);
+            if (($currentsectionfirst == false) && ($canbreak == true) && ($shownsectioncount >= $columnbreakpoint) && ($columncount < $tcsetting->layoutcolumns)) {
+                echo $this->end_section_list();
+                echo $this->start_section_list();
+				$columncount++;
+				// Next breakpoint is...
+                $columnbreakpoint += $numsections / $tcsetting->layoutcolumns;				
+            }
             $loopsection++;
             if (($currentsectionfirst == true) && ($loopsection > $course->numsections)) {
                 // Now show the rest.
                 $currentsectionfirst = false;
                 $loopsection = 1;
                 $section = 1;
-            }
-
-            if (($canbreak == false) && ($currentsectionfirst == false) && ($showsection == true)) {
-                $canbreak = true;
-            }
-            if (($currentsectionfirst == false) && ($canbreak == true) && ($loopsection >= $columnbreakpoint)) {
-                echo $this->end_section_list();
-                echo $this->start_section_list();
-                // Next breakpoint is...
-                $columnbreakpoint += $numsections / $tcsetting->layoutcolumns;
-            }
+            }			
         }
 
         if ($PAGE->user_is_editing() and has_capability('moodle/course:update', $context)) {
