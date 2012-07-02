@@ -1,23 +1,34 @@
 <?php
 
 /**
-  This file contains general functions for the course format Collapsed Topics
-  Thanks to Sam Hemelryk who modified the Moodle core code for 2.0, and
-  I have copied and modified under the terms of the following license:
-  http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Collapsed Topics Information
+ *
+ * A topic based format that solves the issue of the 'Scroll of Death' when a course has many topics. All topics
+ * except zero have a toggle that displays that topic. One or more topics can be displayed at any given time.
+ * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
+ * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
+ *
+ * @package    course/format
+ * @subpackage topcoll
+ * @version    See the value of '$plugin->version' in version.php.
+ * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
+ * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
+ * @author     Based on code originally written by Dan Poltawski.
+ * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
 
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see http://www.gnu.org/licenses/.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 require_once('config.php'); // For Collaped Topics defaults.
 
@@ -36,39 +47,29 @@ function callback_topcoll_uses_sections() {
  * This is called automatically by {@link load_course()} if the current course
  * format = Collapsed Topics.
  *
- * @param navigation_node $navigation The course node
- * @param array $path An array of keys to the course node
- * @param stdClass $course The course we are loading the section for
+ * @param navigation_node $navigation The course node.
+ * @param array $path An array of keys to the course node.
+ * @param stdClass $course The course we are loading the section for.
  */
 function callback_topcoll_load_content(&$navigation, $course, $coursenode) {
     return $navigation->load_generic_course_sections($course, $coursenode, 'topcoll');
 }
 
 /**
- * The string that is used to describe a section of the course
+ * The string that is used to describe a section of the course.
  *
- * @return string
+ * @return string The section description.
  */
 function callback_topcoll_definition() {
     return get_string('sectionname', 'format_topcoll');
 }
 
 /**
- * The GET argument variable that is used to identify the section being
- * viewed by the user (if there is one)
- *
- * @return string
- */
-function callback_topcoll_request_key() {
-    return 'topcoll';
-}
-
-/**
  * Gets the name for the provided section.
  *
- * @param stdClass $course
- * @param stdClass $section
- * @return string
+ * @param stdClass $course The course.
+ * @param stdClass $section The section.
+ * @return string The section name.
  */
 function callback_topcoll_get_section_name($course, $section) {
 
@@ -82,9 +83,6 @@ function callback_topcoll_get_section_name($course, $section) {
         if (empty($tcsetting) == true) {
             $tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
         }
-        //$renderer = $PAGE->get_renderer('format_topcoll');
-        //$setting = $renderer->get_tc_setting();
-        //print_object($tcsetting);
         if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
             return get_string('sectionname', 'format_topcoll') . ' ' . $section->section;
         } else {
@@ -109,33 +107,33 @@ function callback_topcoll_get_section_name($course, $section) {
 }
 
 /**
- * Declares support for course AJAX features
+ * Declares support for course AJAX features.
  *
- * @see course_format_ajax_support()
- * @return stdClass
+ * @see course_format_ajax_support().
+ * @return stdClass.
  */
 function callback_topcoll_ajax_support() {
     $ajaxsupport = new stdClass();
     $ajaxsupport->capable = true;
-    $ajaxsupport->testedbrowsers = array('MSIE' => 6.0, 'Gecko' => 20061111, 'Opera' => 9.0, 'Safari' => 531, 'Chrome' => 6.0);
+    $ajaxsupport->testedbrowsers = array('MSIE' => 8.0, 'Gecko' => 20061111, 'Opera' => 9.0, 'Safari' => 531, 'Chrome' => 6.0);
     return $ajaxsupport;
 }
 
 /**
- * Returns a URL to arrive directly at a section
+ * Returns a URL to arrive directly at a section.
  *
- * @param int $courseid The id of the course to get the link for
- * @param int $sectionnum The section number to jump to
- * @return moodle_url
+ * @param int $courseid The id of the course to get the link for.
+ * @param int $sectionnum The section number to jump to.
+ * @return moodle_url.
  */
 function callback_topcoll_get_section_url($courseid, $sectionnum) {
     return new moodle_url('/course/view.php', array('id' => $courseid, 'ctopic' => $sectionnum));
 }
 
 /**
- * Callback function to do some action after section move
+ * Callback function to do some action after section move.
  *
- * @param stdClass $course The course entry from DB
+ * @param stdClass $course The course entry from DB.
  * @return array This will be passed in ajax respose.
  */
 function callback_topcoll_ajax_section_move($course) {
@@ -155,7 +153,7 @@ function callback_topcoll_ajax_section_move($course) {
 
 /**
  * Gets the format setting for the course or if it does not exist, create it.
- * CONTRIB-3378
+ * CONTRIB-3378.
  * @param int $courseid The course identifier.
  * @return int The format setting.
  */
@@ -184,7 +182,7 @@ function get_topcoll_setting($courseid) {
 
 /**
  * Sets the format setting for the course or if it does not exist, create it.
- * CONTRIB-3378
+ * CONTRIB-3378.
  * @param int $courseid The course identifier.
  * @param int $layoutelement The layout element value to set.
  * @param int $layoutstructure The layout structure value to set.
@@ -216,6 +214,12 @@ function put_topcoll_setting($courseid, $layoutelement, $layoutstructure, $layou
     }
 }
 
+/**
+ * Rests the format setting to the default for all courses that use Collapsed Topics.
+ * CONTRIB-3652
+ * @param int $layout If true, reset the layout to the default in config.php.
+ * @param int $colour If true, reset the colour to the default in config.php.
+ */
 function reset_topcoll_setting($layout, $colour) {
     global $DB;
     global $TCCFG;
@@ -240,8 +244,8 @@ function reset_topcoll_setting($layout, $colour) {
 }
 
 /**
- * Deletes the layout entry for the given course.
- * CONTRIB-3520
+ * Deletes the settings entry for the given course upon course deletion.
+ * CONTRIB-3520.
  */
 function format_topcoll_delete_course($courseid) {
     global $DB;
@@ -251,11 +255,11 @@ function format_topcoll_delete_course($courseid) {
 }
 
 /**
- * Return the start and end date of the passed section
+ * Return the start and end date of the passed section.
  *
- * @param stdClass $section The course_section entry from the DB
- * @param stdClass $course The course entry from DB
- * @return stdClass property start for startdate, property end for enddate
+ * @param stdClass $section The course_section entry from the DB.
+ * @param stdClass $course The course entry from DB.
+ * @return stdClass property start for startdate, property end for enddate.
  */
 function format_topcoll_get_section_dates($section, $course) {
     $oneweekseconds = 604800;
@@ -271,11 +275,11 @@ function format_topcoll_get_section_dates($section, $course) {
 }
 
 /**
- * Return the start and end date of the passed section
+ * Return the date of the passed section.
  *
- * @param stdClass $section The course_section entry from the DB
- * @param stdClass $course The course entry from DB
- * @return stdClass property start for startdate, property end for enddate
+ * @param stdClass $section The course_section entry from the DB.
+ * @param stdClass $course The course entry from DB.
+ * @return stdClass property date.
  */
 function format_topcoll_get_section_day($section, $course) {
     $onedayseconds = 86400;

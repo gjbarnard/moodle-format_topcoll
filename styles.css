@@ -132,8 +132,3 @@ body.jsenabled .toggledsection {
     width: 35px;
     text-decoration: none;
 }
-
-/* -- hide the children for IE7 and older --
-.collapsed_topic * {
-    display: none;
-}*/

@@ -108,7 +108,7 @@ function togglebinary(toggleNum, toggleVal, savetoggles)
 }
 
 // Toggle functions
-// Args - target is the table row element in the DOM to be toggled.
+// Args - target is the list item element in the DOM to be toggled.
 //        image is the img tag element in the DOM to be changed.
 //        toggleNum is the toggle number to change.
 //        reloading is a boolean that states if the function is called from reload_toggles() so that we do not have to resave what we already know - ohh for default argument values.
@@ -148,11 +148,6 @@ function toggleexacttopic(target,image,toggleNum,reloading,savetoggles)  // Togg
         else
         {
             target.style.display = displaySetting;
-            /*if (ie7OrLess == true)
-            {
-                target.className = target.className.replace(/\b collapsed_topic\b/,'') //remove the class name
-            //alert('Removed class name');
-            }*/
 
             if (mymobiletheme == true) {
                 image.className += " opencps";  //add the class name
@@ -234,6 +229,8 @@ function to36baseString(two)
     return fps + sps;
 }
 
+// AJAX call to server to save the state of the toggles for this course for the current user.
+// Args - value is the base 36 state of the toggles.
 function savetogglestate(value)
 {
     M.util.set_user_preference('topcoll_toggle_'+courseid , value);

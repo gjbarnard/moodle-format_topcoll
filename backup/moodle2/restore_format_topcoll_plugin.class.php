@@ -11,7 +11,7 @@
  * @package    course/format
  * @subpackage topcoll
  * @version    See the value of '$plugin->version' in below.
- * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
+ * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
@@ -71,8 +71,14 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
 
         $data->courseid = $this->task->get_courseid();
 
-        // In $CFG->dirroot.'/course/format/topcoll/lib.php'...
-        put_topcoll_setting($data->courseid, $data->layoutelement, $data->layoutstructure, $data->layoutcolumns, $data->tgfgcolour, $data->tgbgcolour, $data->tgbghvrcolour);
+        if (isset($data->layoutcolumns)) {
+            // In $CFG->dirroot.'/course/format/topcoll/lib.php'...
+            put_topcoll_setting($data->courseid, $data->layoutelement, $data->layoutstructure, $data->layoutcolumns, $data->tgfgcolour, $data->tgbgcolour, $data->tgbghvrcolour);
+        } else {
+            // Cope with backups from Moodle 2.0, 2.1 and 2.2 versions.
+            global $TCCFG;
+            put_topcoll_setting($data->courseid, $data->layoutelement, $data->layoutstructure, $TCCFG->defaultlayoutcolumns, $data->tgfgcolour, $data->tgbgcolour, $data->tgbghvrcolour);
+        }
 
         // No need to annotate anything here
     }

@@ -1,14 +1,13 @@
 Introduction
 ------------
-Topic based course format with an individual 'toggle' for each topic except 0.  This format differs from the
-Accordion format in that two or more topics can be visible at the same time.
+Topic based course format with an individual 'toggle' for each topic except 0.
 
 This version works with Moodle 2.3.x.
 
 Documented on http://docs.moodle.org/23/en/Collapsed_Topics_course_format
 
-New features
-------------
+New features for this Moodle 2.3.x version
+------------------------------------------
 1. One to four columns which can be set on the Collapsed Topics settings form (one column for MyMobile users regardless of this setting).
 2. Persistence now uses user preferences on the server which facilitates remembrance beyond the session and removal of the evil cookie.
 3. Administrators can now reset the layout and colours of all Collapsed Topics courses via the settings form.
@@ -40,6 +39,35 @@ Upgrade Instructions
 3. If you have previously installed a development, beta or release candidate of version 2.3.7 you need to perform step 4 in 'Uninstallation' below.
 4. Follow installation instructions above.
 5. Put Moodle out of Maintenance Mode.
+
+Upgrading from Moodle 2.0, 2.1 or 2.2
+-------------------------------------
+NOTE: Assuming you have release 2.0.8.1, 2.1.8.2 or 2.2.7 of Collapsed Topics or above - i.e. 2.0, 2.1 or 2.2 version,.  If not upgrade to that version before you upgrade Moodle core if possible.
+      If not possible, a clean installation is advised, so follow the 'Uninstallation' instructions below and remove the table 'format_topcoll_cookie_cnsnt' if it exists.  You will lose any settings but this is the only way I can think
+      of solving the problem from a multitude of possible scenarios.
+1.  First ensure you start with release 2.3.7 (available from the plugins database) of the 2nd July 2012.  If you have a later version, install that afterwards following the normal upgrade
+    instructions above.
+2.  This has to be performed manually because there are too many possible logic paths to follow and hence code that this will be quicker and more certain.  Additionally dropping tables in code does
+    not appear to work.
+3.  In your database:
+3.1 With the table (prefix not stated) 'topcoll_settings' change all integer types to signed.
+3.2 With the table (prefix not stated) 'topcoll_settings' append a new field 'layoutcolumns' after the 'layoutstructure' field and with identical size, type and attributes.  The default is '1'.
+3.3 Drop the table (prefix not stated) 'format_topcoll_cookie_cnsnt'.
+4.  Follow the 'Upgrade Instructions' above.
+
+Upgrading from Moodle 1.9
+-------------------------
+NOTE: Assuming you have release 1.9.10 of Collapsed Topics or above - i.e. a 1.9 version.  If not upgrade to that version before you upgrade Moodle core if possible.  If not possible, a clean installation
+      is advised, so follow the 'Uninstallation' instructions below and remove the table 'format_topcoll_cookie_cnsnt' if it exists.  You will lose any settings but this is the only way I can think
+      of solving the problem from a multitude of possible scenarios.  There is an issue with backups in that they are not compatible, please see MDL-32205.
+1.  First ensure you start with release 2.3.7 (available from the plugins database) of the 2nd July 2012.  If you have a later version, install that afterwards following the normal upgrade
+    instructions above.
+2.  This has to be performed manually because there are too many possible logic paths to follow and hence code that this will be quicker and more certain.
+3.  In your database:
+3.1 Rename the table (prefix not stated) 'topcoll_layout' to 'topcoll_settings'.
+3.2 With the table 'topcoll_settings' append three new fields of 'VARCHAR(6)' type, not null, called 'tgfgcolour', 'tgbgcolour' and 'tgbghvrcolour' in that order with the default values of
+    '000000', 'e2e2f2' and 'eeeeff' respectively.
+4.  Follow the instructions for 'Upgrading from Moodle 2.0, 2.1 or 2.2' above. 
 
 Uninstallation
 --------------
@@ -238,7 +266,7 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
   2. Added Russian translation, thanks to Pavel Evgenjevich Timoshenko (http://moodle.org/user/profile.php?id=1322784).
 
 2nd February 2012 - Version 2.3.3 - BETA
-  1. Added capability for layouts with persisence in the database.
+  1. Added capability for layouts with persistence in the database.
 
 4th February 2012 - Version 2.3.3 - BETA 2
   1. A big thank you to Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362) for his help in discovering the install.xml bug.
@@ -404,6 +432,11 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 29th June 2012 - Version 2.3.7rc5 - CONTRIB-3652 development - rewrite for Moodle 2.3
   1. Test and tidy up code.
 
+2nd July 2012 - Version 2.3.7 Stable - Completion of CONTRIB-3652 development - rewrite for Moodle 2.3.
+  1. Test and tidy up code.
+  2. Placed check and correction for columns out of range 1-4 in renderer.php.
+  3. Cope with backups from Moodle 2.0, 2.1 and 2.2.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -453,10 +486,8 @@ JavaScript: The Definitive Guide - David Flanagan - O'Reilly - ISBN: 978-0-596-1
 
 Desired Enhancements
 --------------------
-1. Use ordered lists / divs instead of tables to fall in line with current web design theory.  Older versions of
-   'certain' browsers causing issues in making this happen.
-2. Smoother animated toggle action.
+1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 29th June 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 2nd July 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

@@ -29,6 +29,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// NOTE: This code is here pending outcome of CONTRIB-3552 which is blocked by MDL-32205.
+
 /**
  * Format's backup routine
  *

@@ -56,10 +56,10 @@ M.course.format.get_config = function() {
 /**
  * Swap section
  *
- * @param {YUI} Y YUI3 instance
- * @param {string} node1 node to swap to
- * @param {string} node2 node to swap with
- * @return {NodeList} section list
+ * @param {YUI} Y YUI3 instance.
+ * @param {string} node1 node to swap to.
+ * @param {string} node2 node to swap with.
+ * @return {NodeList} section list.
  */
 M.course.format.swap_sections = function(Y, node1, node2) {
     var CSS = {

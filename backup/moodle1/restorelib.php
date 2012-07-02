@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Collapsed Topics Information
  *
@@ -28,7 +29,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-require_once($CFG->dirroot.'/course/format/topcoll/lib.php');
+// NOTE: This code is here pending outcome of CONTRIB-3552 which is blocked by MDL-32205.
+
+require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
 
 function topcoll_restore_format_data($restore, $data) {
     global $CFG;
@@ -59,11 +62,11 @@ function topcoll_restore_format_data($restore, $data) {
  *
  * @param object $restore Standard restore object
  * @return boolean
- **/
+ * */
 function topcoll_decode_format_content_links_caller($restore) {
     return true;
 }
-    
+
 /**
  * Return content decoded to support interactivities linking.
  * This is called automatically from
@@ -73,7 +76,7 @@ function topcoll_decode_format_content_links_caller($restore) {
  * @param string $content Content to be dencoded
  * @param object $restore Restore preferences object
  * @return string The dencoded content
- **/
+ * */
 function topcoll_decode_format_content_links($content, $restore) {
     //TODO: Convert universal id to link;
     return $content;
