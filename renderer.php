@@ -383,7 +383,44 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems
         }
 
+        $numsections = $course->numsections; // Because we want to manipulate this for column breakpoints.
+        if (($tcsetting->layoutstructure == 3) && ($userisediting == false)) {
+            $loopsection = 1;
+            $numsections = 0;
+            while ($loopsection <= $course->numsections) {
+                $nextweekdate = $weekdate - ($weekofseconds);
+                if (!empty($sections[$section])) {
+                    $thissection = $sections[$section];
+                } else {
+                    // This will create a course section if it doesn't exist..
+                    $thissection = get_course_section($section, $course->id);
+
+                    // The returned section is only a bare database object rather than
+                    // a section_info object - we will need at least the uservisible
+                    // field in it.
+                    $thissection->uservisible = true;
+                    $thissection->availableinfo = null;
+                    $thissection->showavailability = 0;
+                }
+                if ((($thissection->uservisible ||
+                        ($thissection->visible && !$thissection->available && $thissection->showavailability))
+                        && ($nextweekdate <= $timenow)) == true) {
+                    $numsections++; // Section not shown so do not count in columns calculation.
+                }
+                $weekdate = $nextweekdate;
+                $section--;
+                $loopsection++;
+            }
+            // Reset
+            $section = $course->numsections;
+            $weekdate = $course->enddate;      // this should be 0:00 Monday of that week
+            $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems
+        }
+
         $columnbreakpoint = 0;
+        if ($numsections < $tcsetting->layoutcolumns) {
+            $tcsetting->layoutcolumns = $numsections;  // Help to ensure a reasonable display.
+        }
         if (($tcsetting->layoutcolumns > 1) && ($this->mymobiletheme == false)) {
             if ($tcsetting->layoutcolumns > 4) {
                 // Default in config.php (and reset in database) or database has been changed incorrectly.
@@ -396,7 +433,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $this->tccolumnwidth = 100 / $tcsetting->layoutcolumns;
             $this->tccolumnwidth -= 1; // Allow for the padding in %.
             $this->tccolumnpadding = 4; // px
-            $columnbreakpoint = $course->numsections / $tcsetting->layoutcolumns + 1;
+            $columnbreakpoint = $numsections / $tcsetting->layoutcolumns + 1;
         } elseif ($tcsetting->layoutcolumns < 1) {
             // Default in config.php (and reset in database) or database has been changed incorrectly.
             $tcsetting->layoutcolumns = 1;
@@ -409,6 +446,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         echo $this->start_section_list();
 
         $loopsection = 1;
+        $canbreak = false; // Once the first section is shown we can decide if we break on another column.
         while ($loopsection <= $course->numsections) {
             if (($tcsetting->layoutstructure == 3) && ($userisediting == false)) {
                 $nextweekdate = $weekdate - ($weekofseconds);
@@ -494,11 +532,14 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $section = 1;
             }
 
-            if ($loopsection == $columnbreakpoint) {
+            if (($canbreak == false) && ($currentsectionfirst == false) && ($showsection == true)) {
+                $canbreak = true;
+            }
+            if (($currentsectionfirst == false) && ($canbreak == true) && ($loopsection >= $columnbreakpoint)) {
                 echo $this->end_section_list();
                 echo $this->start_section_list();
                 // Next breakpoint is...
-                $columnbreakpoint += $course->numsections / $tcsetting->layoutcolumns;
+                $columnbreakpoint += $numsections / $tcsetting->layoutcolumns;
             }
         }
 

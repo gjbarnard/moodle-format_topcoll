@@ -438,6 +438,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1. Test and tidy up code.
   2. Placed check and correction for columns out of range 1-4 in renderer.php.
   3. Cope with backups from Moodle 2.0, 2.1 and 2.2.
+  4. Cope when sections are not shown in column calculations.
 
 Thanks
 ------
