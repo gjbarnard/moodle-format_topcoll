@@ -13,6 +13,7 @@ New features for this Moodle 2.3.x version
 3. Administrators can now reset the layout and colours of all Collapsed Topics courses via the settings form.
 4. New 'Days' structure which has each section as a day.  The first section is the day of the start date.
 5. Removed the use of tables for layout and now using more conventional div's and unordered lists which should be better for theme compatibility.
+6. A slight reworking to operate with the MyMobile theme - a few issues to resolve, please see 'Known Issues' below.
 
 Installation
 ------------
@@ -98,9 +99,9 @@ Known Issues
 ------------
 1.  If you get toggle text issues in languages other than English please ensure you have the latest version of Moodle installed.  More
     information on http://moodle.org/mod/forum/discuss.php?d=184150.
-2.  The MyMobile theme not implemented as with previous versions but does work, please see http://tracker.moodle.org/browse/MDL-33115.
-    Also has a tendency not to reload the toggle state or set the arrow icon on first load.  A page refresh fixes it - I'm not sure why,
-    but does not happen with other themes - jQuery / YUI conflict?
+2.  The MyMobile theme is not quite as implemented as the previous versions but does work, please see http://tracker.moodle.org/browse/MDL-33115.
+    Also has a tendency not to reload the toggle state or set the arrow icon on first load.  A page refresh fixes it - something to do with the inclusion
+	of a '#' in the url.  I have contacted 'John Stabinger' on 'MDL-33115' and he will be looking into it.
 
 Version Information
 -------------------
@@ -434,11 +435,12 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 29th June 2012 - Version 2.3.7rc5 - CONTRIB-3652 development - rewrite for Moodle 2.3
   1. Test and tidy up code.
 
-2nd July 2012 - Version 2.3.7 Stable - Completion of CONTRIB-3652 development - rewrite for Moodle 2.3.
+3rd July 2012 - Version 2.3.7 Stable - Completion of CONTRIB-3652 development - rewrite for Moodle 2.3.
   1. Test and tidy up code.
   2. Placed check and correction for columns out of range 1-4 in renderer.php.
   3. Cope with backups from Moodle 2.0, 2.1 and 2.2.
   4. Cope when sections are not shown in column calculations.
+  5. Test with MyMobile to understand underlying issue.
 
 Thanks
 ------
@@ -491,6 +493,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 2nd July 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 3rd July 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
