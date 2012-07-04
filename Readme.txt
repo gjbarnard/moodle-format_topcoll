@@ -52,8 +52,8 @@ NOTE: Assuming you have release 2.0.8.1, 2.1.8.2 or 2.2.7 of Collapsed Topics or
 2.  This has to be performed manually because there are too many possible logic paths to follow and hence code that this will be quicker and more certain.  Additionally dropping tables in code does
     not appear to work.
 3.  In your database:
-3.1 With the table (prefix not stated) 'topcoll_settings' change all integer types to signed.
-3.2 With the table (prefix not stated) 'topcoll_settings' append a new field 'layoutcolumns' after the 'layoutstructure' field and with identical size, type and attributes.  The default is '1'.
+3.1 With the table (prefix not stated) 'format_topcoll_settings' change all integer types to signed.
+3.2 With the table (prefix not stated) 'format_topcoll_settings' append a new field 'layoutcolumns' after the 'layoutstructure' field and with identical size, type and attributes.  The default is '1'.
 3.3 Drop the table (prefix not stated) 'format_topcoll_cookie_cnsnt'.
 4.  Follow the 'Upgrade Instructions' above.
 
@@ -67,8 +67,8 @@ NOTE: Assuming you have release 1.9.10 of Collapsed Topics or above - i.e. a 1.9
     instructions above.
 2.  This has to be performed manually because there are too many possible logic paths to follow and hence code that this will be quicker and more certain.
 3.  In your database:
-3.1 Rename the table (prefix not stated) 'topcoll_layout' to 'topcoll_settings'.
-3.2 With the table 'topcoll_settings' append three new fields of 'VARCHAR(6)' type, not null, called 'tgfgcolour', 'tgbgcolour' and 'tgbghvrcolour' in that order with the default values of
+3.1 Rename the table (prefix not stated) 'format_topcoll_layout' to 'format_topcoll_settings'.
+3.2 With the table 'format_topcoll_settings' append three new fields of 'VARCHAR(6)' type, not null, called 'tgfgcolour', 'tgbgcolour' and 'tgbghvrcolour' in that order with the default values of
     '000000', 'e2e2f2' and 'eeeeff' respectively.
 4.  Follow the instructions for 'Upgrading from Moodle 2.0, 2.1 or 2.2' above. 
 
