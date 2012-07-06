@@ -265,23 +265,24 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 if ($section->section != 0 && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                     $o.= html_writer::link(course_get_url($course, $section->section), $title);
                 }
-                $o.= html_writer::start_tag('div', array('class' => 'summary'));
-                $o.= $this->format_summary_text($section);
-
-                if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
-                    $url = new moodle_url('/course/editsection.php', array('id' => $section->id));
-
-                    if ($onsectionpage) {
-                        $url->param('sectionreturn', 1);
-                    }
-
-                    $o.= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'), 'class' => 'iconsmall edit')), array('title' => get_string('editsummary')));
-                }
-                $o.= html_writer::end_tag('div');
             } else {
                 $o.= html_writer::start_tag('div', array('class' => 'sectionbody'));
                 $o.= $this->output->heading($this->section_title($section, $course), 3, 'sectionname');
             }
+
+            $o.= html_writer::start_tag('div', array('class' => 'summary'));
+            $o.= $this->format_summary_text($section);
+
+            if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
+                $url = new moodle_url('/course/editsection.php', array('id' => $section->id));
+
+                if ($onsectionpage) {
+                    $url->param('sectionreturn', 1);
+                }
+
+                $o.= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'), 'class' => 'iconsmall edit')), array('title' => get_string('editsummary')));
+            }
+            $o.= html_writer::end_tag('div');
 
             $o .= $this->section_availability_message($section);
         } else {
