@@ -442,6 +442,11 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   4. Cope when sections are not shown in column calculations.
   5. Test with MyMobile to understand underlying issue.
 
+6th July 2012 - Version 2.3.7.1
+  1. Updated french lanugage file thanks to Luiggi Sansonetti.
+  2. Fixed an issue with section zero summary not showing - thanks Chris Adams on http://moodle.org/mod/forum/discuss.php?d=206423
+  3. Corrected typo on upgrade instructions.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -493,6 +498,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 3rd July 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 6th July 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
