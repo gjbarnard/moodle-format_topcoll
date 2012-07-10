@@ -17,60 +17,69 @@ New features for this Moodle 2.3.x version
 
 Installation
 ------------
-1.  Put Moodle in 'Maintenance Mode' (docs.moodle.org/en/admin/setting/maintenancemode) so that there are no users using it bar you as the
+ 1. If upgrading from a previous version of Moodle please see 'Upgrading from Moodle 1.9, 2.0, 2.1 or 2.2' below.
+ 2. Put Moodle in 'Maintenance Mode' (docs.moodle.org/en/admin/setting/maintenancemode) so that there are no users using it bar you as the
     administrator.
-2.  Copy 'topcoll' to '/course/format/'
-3.  If using a Unix based system, chmod 755 on config.php - I have not tested this but have been told that it needs to be done.
-4.  In 'config.php' change the values of '$TCCFG->defaultlayoutelement', '$TCCFG->defaultlayoutstructure' and '$TCCFG->defaultlayoutcolumns' for
+ 3. Copy 'topcoll' to '/course/format/'
+ 4. If using a Unix based system, chmod 755 on config.php - I have not tested this but have been told that it needs to be done.
+ 5. In 'config.php' change the values of '$TCCFG->defaultlayoutelement', '$TCCFG->defaultlayoutstructure' and '$TCCFG->defaultlayoutcolumns' for
     setting the default layout, structure and columns respectively for new / updating courses as desired by following the instructions contained
 	within.
-5.  In 'config.php' change the values of '$TCCFG->defaulttgfgcolour', '$TCCFG->defaulttgbgcolour' and '$TCCFG->defaulttgbghvrcolour' for
+ 6. In 'config.php' change the values of '$TCCFG->defaulttgfgcolour', '$TCCFG->defaulttgbgcolour' and '$TCCFG->defaulttgbghvrcolour' for
     setting the default toggle colours.
-6.  Login as an administrator and follow standard the 'plugin' update notification.  If needed, go to 'Site administration' -> 'Notifications' if
+ 7. Login as an administrator and follow standard the 'plugin' update notification.  If needed, go to 'Site administration' -> 'Notifications' if
     this does not happen.
-7.  If desired, edit the colours of the 'styles.css' - which contains instructions on how to have per theme colours.
-8.  To change the arrow graphic you need to replace 'arrow_up.png' and 'arrow_down.png'.  Reuse the graphics
+ 8.  If desired, edit the colours of the 'styles.css' - which contains instructions on how to have per theme colours.
+ 9.  To change the arrow graphic you need to replace 'arrow_up.png' and 'arrow_down.png'.  Reuse the graphics
     if you want.  Created in Paint.Net.
-9.  Put Moodle out of Maintenance Mode.
+10. Put Moodle out of Maintenance Mode.
 
 Upgrade Instructions
 --------------------
-1. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
-2. In '/course/format/' move old 'topcoll' directory to a backup folder outside of Moodle.
-3. If you have previously installed a development, beta or release candidate of version 2.3.7 you need to perform step 4 in 'Uninstallation' below.
-4. Follow installation instructions above.
-5. Put Moodle out of Maintenance Mode.
+1. If upgrading from a previous version of Moodle please see 'Upgrading from Moodle 1.9, 2.0, 2.1 or 2.2' below.
+2. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
+3. In '/course/format/' move old 'topcoll' directory to a backup folder outside of Moodle.
+4. If you have previously installed a development, beta or release candidate of version 2.3.7 you need to perform step 4 in 'Uninstallation' below.
+5. Follow installation instructions above.
+6. Put Moodle out of Maintenance Mode.
 
-Upgrading from Moodle 2.0, 2.1 or 2.2
--------------------------------------
-NOTE: Assuming you have release 2.0.8.1, 2.1.8.2 or 2.2.7 of Collapsed Topics or above - i.e. 2.0, 2.1 or 2.2 version,.  If not upgrade to that version before you upgrade Moodle core if possible.
-      If not possible attempt as many of the instructions as possible and I suspect things should still work.  Otherwise a clean installation is advised, so follow the 'Uninstallation' instructions
-      below and remove the table 'format_topcoll_cookie_cnsnt' if it exists.  You will lose any settings but this is the only way I can think of solving the problem from a multitude of possible
-      scenarios.
-1.  First ensure you start with release 2.3.7 (available from the plugins database) of the 2nd July 2012.  If you have a later version, install that afterwards following the normal upgrade
-    instructions above.
-2.  This has to be performed manually because there are too many possible logic paths to follow and hence code that this will be quicker and more certain.  Additionally dropping tables in code does
-    not appear to work.
-3.  In your database:
-3.1 With the table (prefix not stated) 'format_topcoll_settings' change all integer types to signed.
-3.2 With the table (prefix not stated) 'format_topcoll_settings' append a new field 'layoutcolumns' after the 'layoutstructure' field and with identical size, type and attributes.  The default is '1'.
-3.3 Drop the table (prefix not stated) 'format_topcoll_cookie_cnsnt'.
-4.  Follow the 'Upgrade Instructions' above.
+Upgrading from Moodle 1.9, 2.0, 2.1 or 2.2
+------------------------------------------
+NOTE: If the automated upgrade fails, please follow this.  Please carry on if a table / field has been removed /
+      changed / already exists as it should still work - this is to cope with the different possible scenarios.
+	  These instructions are written with the MySQL database in mind, however should work with other database
+	  engines but the types should be compared with other tables in the database to get an idea of what they
+	  should be.  If possible please kindly feedback to me any additional information you discover so I can
+	  update these instructions.
+	  The table prefix i.e, 'mdl_' is not stated in the instructions but ensure you know what yours is and use
+	  it with the table names.
+1.  First ensure you start with release 2.3.7 (available from the plugins database) of the 3rd July 2012 or above.
+2.  In your database:
+2.1   Rename the table 'format_topcoll_layout' to 'format_topcoll_settings'.
+2.2   With the table 'format_topcoll_settings' change all integer types to signed.
+2.3   If the table 'format_topcoll_settings' does not exist, then create it and add the following fields 
+      in this order:
+2.3.1 'id' of type 'BIGINT(10)' type, not null, auto increment, no zero fill with a null default value - the same 
+       as any other 'id' field in the other tables.  Make it the primary key.
+2.3.2 'courseid' of type 'BIGINT(10)' type, not null, no auto increment, no zero fill with a null default value - the
+      same as any other 'course' field in the 'course_sections' table bar the default value.
+2.3.3 'layoutelement' of type 'TINYINT(2)' type, not null, no auto increment, no zero fill with a default value
+      of '1'.
+2.3.4 'layoutstructure' of type 'TINYINT(1)' type, not null, no auto increment, no zero fill with a default value
+      of '1'.
+2.4   With the table 'format_topcoll_settings' append three new fields of 'VARCHAR(6)' type, not null, called
+      'tgfgcolour', 'tgbgcolour' and 'tgbghvrcolour' in that order with the default values of '000000', 'e2e2f2'
+      and 'eeeeff' respectively.
+2.5   With the table 'format_topcoll_settings' append a new field 'layoutcolumns' after the 'layoutstructure' field
+      and with identical size, type and attributes.  The default is '1'. i.e:
+2.5.1 'layoutcolumns' of type 'TINYINT(1)' type, not null, no auto increment, no zero fill with a default value
+      of '1'.
+2.6   Drop the table 'format_topcoll_cookie_cnsnt'.
+4.    Follow the 'Upgrade Instructions' above.
 
-Upgrading from Moodle 1.9
--------------------------
-NOTE: Assuming you have release 1.9.10 of Collapsed Topics or above - i.e. a 1.9 version.  If not upgrade to that version before you upgrade Moodle core if possible.  If not possible attempt as many
-      of the instructions as possible and I suspect things should still work.  Otherwise a clean installation is advised, so follow the 'Uninstallation' instructions below and remove the
-      table 'format_topcoll_cookie_cnsnt' if it exists.  You will lose any settings but this is the only way I can think of solving the problem from a multitude of possible scenarios.  There is an
-      issue with backups in that they are not compatible, please see MDL-32205.
-1.  First ensure you start with release 2.3.7 (available from the plugins database) of the 2nd July 2012.  If you have a later version, install that afterwards following the normal upgrade
-    instructions above.
-2.  This has to be performed manually because there are too many possible logic paths to follow and hence code that this will be quicker and more certain.
-3.  In your database:
-3.1 Rename the table (prefix not stated) 'format_topcoll_layout' to 'format_topcoll_settings'.
-3.2 With the table 'format_topcoll_settings' append three new fields of 'VARCHAR(6)' type, not null, called 'tgfgcolour', 'tgbgcolour' and 'tgbghvrcolour' in that order with the default values of
-    '000000', 'e2e2f2' and 'eeeeff' respectively.
-4.  Follow the instructions for 'Upgrading from Moodle 2.0, 2.1 or 2.2' above. 
+Upgrading from a beta or release candidate version for Moodle 2.3
+-----------------------------------------------------------------
+1. Please perform step 4 of uninstallation instructions below then follow installation instructions above.
 
 Uninstallation
 --------------
@@ -442,10 +451,13 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   4. Cope when sections are not shown in column calculations.
   5. Test with MyMobile to understand underlying issue.
 
-6th July 2012 - Version 2.3.7.1
+10th July 2012 - Version 2.3.7.1
   1. Updated french lanugage file thanks to Luiggi Sansonetti.
   2. Fixed an issue with section zero summary not showing - thanks Chris Adams on http://moodle.org/mod/forum/discuss.php?d=206423
-  3. Corrected typo on upgrade instructions.
+  3. Attempted automated upgrade in 'upgrade.php' to cope with issues users are experiencing.  Altered upgrade from
+     Moodle 1.9, 2.0, 2.1 and 2.2 instructions to reflect this.  Version control for older versions less than Moodle 2.3
+	 needs to follow a 'branching date' strategy for this to work properly (http://moodle.org/mod/forum/discuss.php?d=206647#p901061).
+	 This was sparked by CONTRIB-3765.
 
 Thanks
 ------
@@ -498,6 +510,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 6th July 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 10th July 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
