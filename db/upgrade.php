@@ -39,7 +39,7 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         // Rename table format_topcoll_layout if it exists.
         $table = new xmldb_table('format_topcoll_layout');
         // Rename the table...
-		if (!$dbman->table_exists($table)) {
+		if ($dbman->table_exists($table)) {
             $dbman->rename_table($table, 'format_topcoll_settings');
 		}
         $table = new xmldb_table('format_topcoll_settings');   // Use the new table.
@@ -55,7 +55,8 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
             $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
 
             // Create table.
-            $result = $result && $dbman->create_table($table);		
+            //$result = $result && $dbman->create_table($table);		
+            $dbman->create_table($table);		
 		}
 		// Moodle 2.3 uses signed integers.
         // Changing sign of field id on table format_topcoll_settings to signed
@@ -117,13 +118,13 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         $table = new xmldb_table('format_topcoll_cookie_cnsnt');
 
         // Drop the table...
-		if (!$dbman->table_exists($table)) {
+		if ($dbman->table_exists($table)) {
            $dbman->drop_table($table);
 		}
 
-        upgrade_plugin_savepoint(true, '2012070300', 'format', 'topcoll');
+        //upgrade_plugin_savepoint(true, '2012070300', 'format', 'topcoll');
 
-        $result = $result && true;
+        //$result = $result && true;
     }
     return $result;
 }
