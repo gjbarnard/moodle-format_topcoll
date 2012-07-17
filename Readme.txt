@@ -2,9 +2,9 @@ Introduction
 ------------
 Topic based course format with an individual 'toggle' for each topic except 0.
 
-This version works with Moodle 2.3.1 Build: 20120706 and above until the next release.
+This version is the master development branch.
 
-Documented on http://docs.moodle.org/23/en/Collapsed_Topics_course_format
+Documented on http://docs.moodle.org/en/Collapsed_Topics_course_format
 
 New features for this Moodle 2.3.1 version
 ------------------------------------------
