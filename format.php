@@ -46,11 +46,12 @@ $userisediting = $PAGE->user_is_editing();
     <link rel="stylesheet" type="text/css" href="<?php echo $CFG->wwwroot ?>/course/format/topcoll/css/ie-7-hacks.css" media="screen" />
 <![endif]-->
 <?php
-$PAGE->requires->js_init_call('M.format_topcoll.init', 
-                               array($CFG->wwwroot,
-                               preg_replace("/[^A-Za-z0-9]/", "", $SITE->shortname),
-                               $course->id,
-                               null)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration - see Readme.txt.
+    user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_ALPHANUM);
+
+    $PAGE->requires->js_init_call('M.format_topcoll.init', array($CFG->wwwroot,
+        $course->id,
+        get_user_preferences('topcoll_toggle_' . $course->id)));
+
 if (ajaxenabled() && $userisediting) {
     // This overrides the 'swap_with_section' function in /lib/ajax/section_classes.js
     $PAGE->requires->js('/course/format/topcoll/js/tc_section_classes_min.js');
@@ -148,31 +149,6 @@ tr.cps td a:hover, body.jsenabled tr.cps td a:hover {
     /* ]]> */
 </style>
 <?php
-// CONTRIB-3624 - Cookie consent.
-if ($TCCFG->defaultcookieconsent  == true) {
-    $usercookieconsent = get_topcoll_cookie_consent($USER->id); // In topcoll/lib.php
-
-    // Tell the JavaScript code of the state.  Upon user choice, this page will refresh and a new value sent...
-    echo $PAGE->requires->js_init_call('M.format_topcoll.set_cookie_consent', array($usercookieconsent->cookieconsent));
-
-    if ($usercookieconsent->cookieconsent == 1) {
-        // Display message to ask for consent.
-        echo '<tr class="section main">';
-        echo '<td class="left side">&nbsp;</td>';
-        echo '<td class="content">';
-        echo '<div class="cookieConsentContainer">';
-        echo '<a "title="' . get_string('cookieconsentform','format_topcoll') . '" href="format/topcoll/forms/cookie_consent.php?userid=' . $USER->id . '&courseid=' . $course->id . '&sesskey=' . sesskey() . '"><div id="set-cookie-consent"></div></a>';
-        echo '<div>'.$OUTPUT->heading(get_string('setcookieconsent','format_topcoll'), 2, 'sectionname').get_string('cookieconsent','format_topcoll').'</div>';
-        echo '</div>';
-        echo '</td>';
-        echo '<td class="right side">&nbsp;</td>';
-        echo '</tr>';
-        echo '<tr class="section separator"><td colspan="3" class="spacer"></td></tr>';
-    }
-} else {
-    // Cookie consent turned off by administrator, so allow...
-    echo $PAGE->requires->js_init_call('M.format_topcoll.set_cookie_consent', array(2));
-}
 
 if ($userisediting && has_capability('moodle/course:update', $coursecontext)) {
     echo '<tr class="section main">';
@@ -600,8 +576,8 @@ if (!empty($sectionmenu)) {
 // Only toggle if no Screen Reader
 if ($screenreader == false) {
 // Establish persistance when we have loaded.
-// Reload the state of the toggles from the data contained within the cookie.
-// Restore the state of the toggles from the cookie if not in 'Show topic x' mode, otherwise show that topic.
+// Reload the state of the toggles from the data contained within the topcoll_toggle_courseid user preference.
+// Restore the state of the toggles from the user preference if not in 'Show topic x' mode, otherwise show that topic.
     if ($displaysection == 0) {
         echo $PAGE->requires->js_init_call('M.format_topcoll.set_current_section', array($thecurrentsection)); // If thecurrentsection is 0 because it has not been changed from the defualt, then as section 0 is never tested so can be used to set none.
         echo $PAGE->requires->js_init_call('M.format_topcoll.reload_toggles', array($course->numsections)); // reload_toggles uses the value set above.

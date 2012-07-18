@@ -27,7 +27,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- // Replaces by overriding the original function in /lib/ajax/section_classes.js
+// Replaces by overriding the original function in /lib/ajax/section_classes.js
 section_class.prototype.swap_with_section = function(sectionIn)
 {
     var tmpStore = null;
