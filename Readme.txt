@@ -67,8 +67,6 @@ Known Issues
     the up and down arrows, edit lib.php and remove "'MSIE' => 6.0," from:
     "$ajaxsupport->testedbrowsers = array('MSIE' => 6.0, 'Gecko' => 20061111, 'Opera' => 9.0, 'Safari' => 531, 'Chrome' => 6.0);"
     And if possible, please let me know, my Moodle.org profile is 'http://moodle.org/user/profile.php?id=442195'.
-3.  Hovering over the light bulb when in a week based structure and using AJAX that it describes 'topics' and not 'weeks'.  See comment
-    ten for Version 2.2.5.
 
 Version Information
 -------------------
