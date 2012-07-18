@@ -75,7 +75,4 @@ $TCCFG->defaulttgbgcolour = 'e2e2f2';
 
 // Default toggle background hover colour in hexidecimal RGB without preceeding '#'.
 $TCCFG->defaulttgbghvrcolour = 'eeeeff';
-
-// Request Cookie Consent - CONTRIB-3624
-$TCCFG->defaultcookieconsent = false; // Set to true if your country does implement cookie consent law - details on CONTRIB-3624 (http://tracker.moodle.org/browse/CONTRIB-3624).
 ?>

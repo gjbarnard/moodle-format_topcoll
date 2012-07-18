@@ -78,13 +78,6 @@ $string['settogglebackgroundcolour'] = 'Toggle background';
 $string['settogglebackgroundhovercolour'] = 'Toggle background hover';
 $string['resetcolour'] = 'Reset colour';
 
-// Cookie consent - Moodle Tracker CONTRIB-3624
-$string['cookieconsentform'] = 'Cookie consent form' ;
-$string['cookieconsent'] = "Cookie consent is required to allow any course that uses the 'Collapsed Topics' format as you can see below to remember the state of the toggles.  Once you have given that consent using the icon to the right, the toggles will remember what you set them to when you refresh the page and when you return if this has been setup by your administrator.<br /><br />The cookie 'mdl_cf_topcoll' only contains the site short name, course id and a series of encoded 1's and 0's representing open or closed respectively.<br /><br />Once chosen this will be remembered for all 'Collapsed Topics' based courses and you will not be asked again unless your administrator performs a reset.";
-$string['setcookieconsent'] = 'Cookie consent';
-$string['cookieconsentallowed'] ='Allowed';
-$string['cookieconsentdenied'] ='Denied';
-
 // Help
 $string['setlayoutelements_help']='How much information about the toggles / sections you wish to be displayed.';
 $string['setlayoutstructure_help']="The layout structure of the course.  You can choose between:
@@ -104,6 +97,4 @@ $string['settoggleforegroundcolour_help'] = 'Sets the colour of the text on the 
 $string['settogglebackgroundcolour_help'] = 'Sets the background of the toggle.';
 $string['settogglebackgroundhovercolour_help'] = 'Sets the background of the toggle when the mouse moves over it.';
 $string['resetcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format';
-// Moodle Tracker CONTRIB-3624
-$string['setcookieconsent_help'] = "If you choose 'Allowed' you agree that the next time you click on a toggle in any 'Collapsed Topics' based course then the 'mdl_cf_topcoll' cookie will be placed on your computer for the duration of the browser session or longer if you administrator has allowed - they can determine for how long.  It will remember the state of the toggles when you click on them.  If you choose 'Denied' the cookie will not be placed on your computer.  Once chosen this will be remembered for all 'Collapsed Topics' based courses and you will not be asked again unless your administrator performs a reset - please refer to 'Cookie Consent Information' in the 'Readme.txt' file of the format.";
 ?>
