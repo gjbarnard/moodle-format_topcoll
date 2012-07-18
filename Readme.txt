@@ -67,8 +67,6 @@ Known Issues
     the up and down arrows, edit lib.php and remove "'MSIE' => 6.0," from:
     "$ajaxsupport->testedbrowsers = array('MSIE' => 6.0, 'Gecko' => 20061111, 'Opera' => 9.0, 'Safari' => 531, 'Chrome' => 6.0);"
     And if possible, please let me know, my Moodle.org profile is 'http://moodle.org/user/profile.php?id=442195'.
-3.  Hovering over the light bulb when in a week based structure and using AJAX that it describes 'topics' and not 'weeks'.  See comment
-    ten for Version 2.2.5.
 
 Version Information
 -------------------
@@ -362,8 +360,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 17th July 2012 - Version 2.2.6.4
   1. Fixed issue with open / close all toggles not working correctly when a section was hidden and not displayed.
   2. Removed cookie functionality in favour of a user preference in the database on a per user per course basis using code
-     developed for Moodle 2.3.  This helps to eliminate the effects of the UK / EU Cookie Law.  You might need to remove
-     the table 'format_topcoll_cookie_cnsnt' if it still exists in the database as the automatic drop has failed.
+     developed for Moodle 2.3.  This helps to eliminate the effects of the UK / EU Cookie Law.
 
 Thanks
 ------
