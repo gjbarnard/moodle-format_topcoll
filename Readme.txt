@@ -36,9 +36,9 @@ Uninstallation
 1. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the adminstrator.
 2. It is recommended but not essential to change all of the courses that use the format to another.  If this is not done Moodle will pick the last format in your list of formats to use but display in 'Edit settings' of the course the first format in the list.  You can then set the desired format.
 3. In '/course/format/' remove the folder 'topcoll'.
-4. In the database, remove the tables 'format_topcoll_layout' and 'format_topcoll_cookie_cnsnt' along with the entry for 'format_topcoll'
-   ('plugin' attribute) in the table 'config_plugins'.  If using the default prefix this will be 'mdl_format_topcoll_layout',
-   'mdl_format_topcoll_cookie_cnsnt' and 'mdl_config_plugins' respectively.
+4. In the database, remove the tables 'format_topcoll_layout' and 'format_topcoll_cookie_cnsnt' along with the entry for 'format_topcoll_version'
+   ('name' attribute) in the table 'config'.  If using the default prefix this will be 'mdl_format_topcoll_layout',
+   'mdl_format_topcoll_cookie_cnsnt' and 'mdl_config' respectively.
 5. Put Moodle out of Maintenance Mode.
 
 Course Backup and Restore Instructions
@@ -268,6 +268,9 @@ Version Information
      see 'UK / EU Cookie Law' at the top of this file.
   2. Created a '$TCCFG' object in the 'config.php' file to solve the 'globals' issue in 'lib.php'.
   3. Added the ability to reset the layout attributes back to the defaults as defined in the 'config.php' file.
+
+17th July 2012 - Version 1.9.10.1
+  1. Fixed issue with open / close all toggles not working correctly when a section was hidden and not displayed.
 
 Thanks
 ------

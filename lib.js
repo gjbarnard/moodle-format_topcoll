@@ -294,7 +294,12 @@ function reload_toggles()
     {
         if ((theToggle <= numToggles) && ((toggleBinaryGlobal.charAt(theToggle) == "1") || (theToggle == currentSection))) // Array index 0 is never tested - MSB thing.
         {
-            toggleexacttopic(document.getElementById("section-"+theToggle),document.getElementById("sectionatag-" + theToggle),theToggle,true);
+            var section = document.getElementById("section-"+theToggle);
+            var secatag = document.getElementById("sectionatag-" + theToggle);
+            if ((section != null) && (secatag != null))
+            {
+                toggleexacttopic(section,secatag,theToggle,true);
+            }
         }
     }
 }
@@ -320,7 +325,6 @@ function save_toggles()
 // Alter the state of the toggles.  Where 'state' needs to be true for open and false for close.
 function allToggle(state)
 {
-    var target;
     var displaySetting;
 
     if (state == false)
@@ -343,9 +347,14 @@ function allToggle(state)
 
     for (var theToggle = 1; theToggle <= numToggles; theToggle++)
     {
-        target = document.getElementById("section-"+theToggle);
-        target.style.display = displaySetting;
-        toggleexacttopic(target,document.getElementById("sectionatag-" + theToggle),theToggle,false);
+        var section = document.getElementById("section-"+theToggle);
+        var secatag = document.getElementById("sectionatag-" + theToggle);
+        if ((section != null) && (secatag != null))
+        {
+            section.style.display = displaySetting;
+            toggleexacttopic(section,secatag,theToggle,false);
+        }
+    //alert(theToggle);
     }
 }
 
