@@ -18,4 +18,5 @@
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
     </TABLE>
+  </TABLES>
 </XMLDB>

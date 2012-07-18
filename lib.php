@@ -163,54 +163,11 @@ function put_topcoll_setting($courseid, $layoutelement, $layoutstructure, $tgfgc
 }
 
 /**
- * Deletes the layout entry for the given course.
+ * Deletes the settings entry for the given course.
  * CONTRIB-3520
  */
 function format_topcoll_delete_course($courseid) {
     global $DB;
 
     $DB->delete_records("format_topcoll_settings", array("courseid"=>$courseid));
-}
-
-/**
- * Gets the format cookie consent for the user or if it does not exist, create it.
- * CONTRIB-3624
- * @param int $userid The user identifier.
- * @return int The format cookie consent.
- */
-function get_topcoll_cookie_consent($userid) {
-    global $DB;
-
-    if (!$cookie = $DB->get_record('format_topcoll_cookie_cnsnt', array('userid' => $userid))) {
-
-        // Default values...
-        $cookie = new stdClass();
-        $cookie->userid = $userid;
-        $cookie->cookieconsent = 1;
-
-        if (!$cookie->id = $DB->insert_record('format_topcoll_cookie_cnsnt', $cookie)) {
-            error('Could not set format cookie consent. Collapsed Topics format database is not ready.  An admin must visit notifications.');
-        }
-    }
-
-    return $cookie;
-}
-
-/**
- * Sets the format cookie consent for the user or if it does not exist, create it.
- * CONTRIB-3624
- * @param int $userid The user identifier.
- * @param int $cookieconsent The layout element value to set.
- */
-function put_topcoll_cookie_consent($userid, $cookieconsent) {
-    global $DB;
-    if ($cookie = $DB->get_record('format_topcoll_cookie_cnsnt', array('userid' => $userid))) {
-        $cookie->cookieconsent = $cookieconsent;
-        $DB->update_record('format_topcoll_cookie_cnsnt', $cookie);
-    } else {
-        $cookie = new stdClass();
-        $cookie->courseid = $userid;
-        $cookie->cookieconsent = $cookieconsent;
-        $DB->insert_record('format_topcoll_cookie_cnsnt', $cookie);
-    }
 }

@@ -9,21 +9,20 @@ Documented on http://docs.moodle.org/22/en/Collapsed_Topics_course_format
 
 Installation
 ------------
-1.  Put Moodle in 'Maintenance Mode' (docs.moodle.org/en/admin/setting/maintenancemode) so that there are no users using it bar you as the
-    adminstrator.
-2.  Copy 'topcoll' to '/course/format/'
-3.  If using a Unix based system, chmod 755 on config.php - I have not tested this but have been told that it needs to be done.
-4.  In 'config.php' change the values of '$TCCFG->defaultlayoutelement' and '$TCCFG->defaultlayoutstructure' for setting the default layout
-    and structure respectively for new / updating courses as desired by following the instructions contained within.
-5.  In 'config.php' change the values of '$TCCFG->defaulttgfgcolour', '$TCCFG->defaulttgbgcolour' and '$TCCFG->defaulttgbghvrcolour' for
-    setting the default toggle colours.
-6.  In 'config.php' change the value of '$TCCFG->defaultcookieconsent' in line with your countries law on cookies.
-7.  Login as an administrator and follow standard the 'plugin' update notification.  If needed, go to 'Site administration' -> 'Notifications' if
-    this does not happen.
-8.  If desired, edit the colours of the topics_collapsed.css - which contains instructions on how to have per theme colours.
-9.  To change the arrow graphic you need to replace arrow_up.png and arrow_down.png.  Reuse the graphics
-    if you want.  Created in Paint.Net.
-10. Put Moodle out of Maintenance Mode.
+1. Put Moodle in 'Maintenance Mode' (docs.moodle.org/en/admin/setting/maintenancemode) so that there are no users using it bar you as the
+   adminstrator.
+2. Copy 'topcoll' to '/course/format/'
+3. If using a Unix based system, chmod 755 on config.php - I have not tested this but have been told that it needs to be done.
+4. In 'config.php' change the values of '$TCCFG->defaultlayoutelement' and '$TCCFG->defaultlayoutstructure' for setting the default layout
+   and structure respectively for new / updating courses as desired by following the instructions contained within.
+5. In 'config.php' change the values of '$TCCFG->defaulttgfgcolour', '$TCCFG->defaulttgbgcolour' and '$TCCFG->defaulttgbghvrcolour' for
+   setting the default toggle colours.
+6. Login as an administrator and follow standard the 'plugin' update notification.  If needed, go to 'Site administration' -> 'Notifications' if
+   this does not happen.
+7. If desired, edit the colours of the topics_collapsed.css - which contains instructions on how to have per theme colours.
+8. To change the arrow graphic you need to replace arrow_up.png and arrow_down.png.  Reuse the graphics
+   if you want.  Created in Paint.Net.
+9. Put Moodle out of Maintenance Mode.
 
 Upgrade Instructions
 --------------------
@@ -363,7 +362,8 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 17th July 2012 - Version 2.2.6.4
   1. Fixed issue with open / close all toggles not working correctly when a section was hidden and not displayed.
   2. Removed cookie functionality in favour of a user preference in the database on a per user per course basis using code
-     developed for Moodle 2.3.  This helps to eliminate the effects of the UK / EU Cookie Law.
+     developed for Moodle 2.3.  This helps to eliminate the effects of the UK / EU Cookie Law.  You might need to remove
+     the table 'format_topcoll_cookie_cnsnt' if it still exists in the database as the automatic drop has failed.
 
 Thanks
 ------
