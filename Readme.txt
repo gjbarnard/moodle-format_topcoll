@@ -358,8 +358,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 17th July 2012 - Version 2.1.8.4
   1. Fixed issue with open / close all toggles not working correctly when a section was hidden and not displayed.
   2. Removed cookie functionality in favour of a user preference in the database on a per user per course basis using code
-     developed for Moodle 2.3.  This helps to eliminate the effects of the UK / EU Cookie Law.  You might need to remove 
-     the table 'format_topcoll_cookie_cnsnt' if it still exists in the database as the automatic drop has failed.
+     developed for Moodle 2.3.  This helps to eliminate the effects of the UK / EU Cookie Law.
 
 Thanks
 ------
