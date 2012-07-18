@@ -269,7 +269,10 @@ Version Information
   2. Created a '$TCCFG' object in the 'config.php' file to solve the 'globals' issue in 'lib.php'.
   3. Added the ability to reset the layout attributes back to the defaults as defined in the 'config.php' file.
 
-17th July 2012 - Version 1.9.10.1
+31st May 2012 - Version 1.9.10.1 - CONTRIB-3682
+  1. Fixed issue with students not being able to perform cookie consent because of incorrect application of requiring the capability of course update.
+
+17th July 2012 - Version 1.9.10.2
   1. Fixed issue with open / close all toggles not working correctly when a section was hidden and not displayed.
 
 Thanks
@@ -322,4 +325,6 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard - MSc, BSc(Hons)(Sndw), MBCS, CEng, CITP, PGCE - 2nd May 2012. 
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th July 2012.
+Moodle profile: moodle.org/user/profile.php?id=442195.
+Web profile   : about.me/gjbarnard

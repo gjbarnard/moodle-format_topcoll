@@ -58,7 +58,6 @@ require_login($course); // From /course/view.php - Facilitates the correct popul
 //$PAGE->set_heading(get_string('cookieconsentform','format_topcoll'));
 
 require_sesskey();
-require_capability('moodle/course:update', $coursecontext);
 
 $courseurl = $CFG->wwwroot . '/course/view.php?id=' . $courseid;
 
@@ -74,7 +73,7 @@ if ($mform->is_cancelled()) {
 $PAGE = page_create_object(PAGE_COURSE_VIEW, $course->id);
 $pageblocks = blocks_setup($PAGE, BLOCKS_PINNED_BOTH);
 
-$PAGE->print_header(get_string('formatsettings','format_topcoll') . ' - ' . $course->fullname . ' ' . get_string('course'), null, '', null);
+$PAGE->print_header(get_string('cookieconsentform','format_topcoll') . ' - ' . $course->fullname . ' ' . get_string('course'), null, '', null);
 
 // Layout from format.php.
 // Bounds for block widths
