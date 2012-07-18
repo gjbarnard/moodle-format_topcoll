@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="course/format/topcoll/db" VERSION="20120503" COMMENT="XMLDB file for Moodle course/format/topcoll"
+<XMLDB PATH="course/format/topcoll/db" VERSION="20120531" COMMENT="XMLDB file for Moodle course/format/topcoll"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
 >
