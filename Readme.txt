@@ -2,7 +2,7 @@ Introduction
 ------------
 Topic based course format with an individual 'toggle' for each topic except 0.
 
-This version works with Moodle 2.3.1 Build: 20120706 and above until the next release.
+This version works with Moodle 2.3.1, version 2012062501.03 (Build: 20120719) and above until the next release.
 
 Documented on http://docs.moodle.org/23/en/Collapsed_Topics_course_format
 
@@ -505,6 +505,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 	 This was sparked by CONTRIB-3765.
   4. Tidied up and clarified the instructions for upgrading.
 
+27th July 2012 - Version 2.3.7.2
+  1. Changes to 'renderer.php' because of MDL-33767.
+  2. Tidied up some of the logic in 'renderer.php'.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -556,6 +560,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 11th July 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 27th July 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
