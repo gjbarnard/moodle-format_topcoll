@@ -362,6 +362,9 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2. Removed cookie functionality in favour of a user preference in the database on a per user per course basis using code
      developed for Moodle 2.3.  This helps to eliminate the effects of the UK / EU Cookie Law.
 
+27th July 2012 - Version 2.2.6.4 - CONTRIB-3552
+  1. Implemented Moodle 1 course restore code in conjunction with MDL-32205.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -417,6 +420,6 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th July 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 27th July 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
