@@ -505,9 +505,11 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 	 This was sparked by CONTRIB-3765.
   4. Tidied up and clarified the instructions for upgrading.
 
-27th July 2012 - Version 2.3.7.2
+30th July 2012 - Version 2.3.7.2
   1. Changes to 'renderer.php' because of MDL-33767.
   2. Tidied up some of the logic in 'renderer.php'.
+  3. Made 'format.php' more adaptable to old style section 'x' only urls.
+  4. Made inclusion of 'config.php' in 'lib.php' more precise.
 
 Thanks
 ------
@@ -560,6 +562,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 27th July 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 30th July 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
