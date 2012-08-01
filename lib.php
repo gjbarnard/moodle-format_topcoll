@@ -120,17 +120,6 @@ function callback_topcoll_ajax_support() {
 }
 
 /**
- * Returns a URL to arrive directly at a section.
- *
- * @param int $courseid The id of the course to get the link for.
- * @param int $sectionnum The section number to jump to.
- * @return moodle_url.
- */
-function callback_topcoll_get_section_url($courseid, $sectionnum) {
-    return new moodle_url('/course/view.php', array('id' => $courseid, 'ctopic' => $sectionnum));
-}
-
-/**
  * Callback function to do some action after section move.
  *
  * @param stdClass $course The course entry from DB.

@@ -87,7 +87,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if ($section->section != 0) {
             $controls = $this->section_edit_controls($course, $section, $onsectionpage);
             if (!empty($controls)) {
-                $o = implode('<br />', $controls);
+                $o .= implode('<br />', $controls);
             } else {
                 global $tcsetting;
                 switch ($tcsetting->layoutelement) {
@@ -104,7 +104,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                             $topictext = get_string('setlayoutstructureday', 'format_topcoll');
                         }
 
-                        $o = html_writer::tag('span', $topictext . '<br />' . $section->section, array('class' => 'cps_centre'));
+                        $o .= html_writer::tag('span', $topictext . '<br />' . $section->section, array('class' => 'cps_centre'));
                         break;
                 }
             }
@@ -128,7 +128,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if ($section->section != 0) {
             // Only in the non-general sections.
             if ($this->is_section_current($section, $course)) {
-                $o = get_accesshide(get_string('currentsection', 'format_' . $course->format));
+                $o .= get_accesshide(get_string('currentsection', 'format_' . $course->format));
             }
             global $tcsetting;
             switch ($tcsetting->layoutelement) {
@@ -136,7 +136,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 case 2:
                 case 5:
                 case 6:
-                    $o = html_writer::tag('span', $section->section, array('class' => 'cps_centre'));
+                    $o .= html_writer::tag('span', $section->section, array('class' => 'cps_centre'));
                     break;
             }
         }
@@ -215,34 +215,34 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
         }
 
-        $o.= html_writer::start_tag('li', array('id' => 'section-' . $section->section,
+        $o .= html_writer::start_tag('li', array('id' => 'section-' . $section->section,
                     'class' => 'section main clearfix' . $sectionstyle));
 
         if ($this->mymobiletheme == false) {
             $leftcontent = $this->section_left_content($section, $course, $onsectionpage);
-            $o.= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
+            $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
         }
 
         $rightcontent = $this->section_right_content($section, $course, $onsectionpage);
-        $o.= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
-        $o.= html_writer::start_tag('div', array('class' => 'content'));
+        $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
+        $o .= html_writer::start_tag('div', array('class' => 'content'));
 
         $context = context_course::instance($course->id);
 
         global $tcscreenreader;
         if (($onsectionpage == false) && ($tcscreenreader == false) && ($section->section != 0)) {
-            $o.= html_writer::start_tag('div', array('class' => 'sectionhead toggle', 'id' => 'toggle-' . $section->section));
+            $o .= html_writer::start_tag('div', array('class' => 'sectionhead toggle', 'id' => 'toggle-' . $section->section));
 
             $title = get_section_name($course, $section);
             if ((string) $section->name == '') { // Name is empty.
-                $o.= html_writer::start_tag('a', array('class' => 'cps_noname cps_a', 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
-                $o.= $title;
+                $o .= html_writer::start_tag('a', array('class' => 'cps_noname cps_a', 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
+                $o .= $title;
                 switch ($tcsetting->layoutelement) {
                     case 1:
                     case 2:
                     case 3:
                     case 4:
-                        $o.= ' - ' . $toggletext;
+                        $o .= ' - ' . $toggletext;
                         break;
                 }
             } else {
@@ -253,7 +253,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     case 2:
                     case 3:
                     case 4:
-                        $o.= ' - ' . $toggletext;
+                        $o .= ' - ' . $toggletext;
                         break;
                 }
                 //$o.='<br />' . $section->summary;
@@ -261,23 +261,23 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
 
-                $o.= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'), 'class' => 'iconsmall edit')), array('title' => get_string('editsummary')));
+                $o .= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'), 'class' => 'iconsmall edit')), array('title' => get_string('editsummary')));
             }
-            $o.= html_writer::end_tag('a');
-            $o.= html_writer::end_tag('div');
-            $o.= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection', 'id' => 'toggledsection-' . $section->section));
+            $o .= html_writer::end_tag('a');
+            $o .= html_writer::end_tag('div');
+            $o .= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection', 'id' => 'toggledsection-' . $section->section));
             if ($section->section != 0 && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
-                $o.= html_writer::link(course_get_url($course, $section->section), $title);
+                $o .= html_writer::link(course_get_url($course, $section->section), $title);
             }
 
-            $o.= html_writer::start_tag('div', array('class' => 'summary'));
-            $o.= $this->format_summary_text($section);
+            $o .= html_writer::start_tag('div', array('class' => 'summary'));
+            $o .= $this->format_summary_text($section);
 
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
                 $o.= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'), 'class' => 'iconsmall edit')), array('title' => get_string('editsummary')));
             }
-            $o.= html_writer::end_tag('div');
+            $o .= html_writer::end_tag('div');
 
             $o .= $this->section_availability_message($section);
         } else {
@@ -285,17 +285,17 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $hasnamesecpg = ($section->section == 0 && !is_null($section->name));
 
             if ($hasnamesecpg) {
-                $o.= $this->output->heading($this->section_title($section, $course), 3, 'sectionname');
+                $o .= $this->output->heading($this->section_title($section, $course), 3, 'sectionname');
             }
             //$o .= parent::section_header($section, $course, $onsectionpage);
-            $o.= html_writer::start_tag('div', array('class' => 'summary'));
-            $o.= $this->format_summary_text($section);
+            $o .= html_writer::start_tag('div', array('class' => 'summary'));
+            $o .= $this->format_summary_text($section);
 
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
-                $o.= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'), 'class' => 'iconsmall edit')), array('title' => get_string('editsummary')));
+                $o .= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'), 'class' => 'iconsmall edit')), array('title' => get_string('editsummary')));
             }
-            $o.= html_writer::end_tag('div');
+            $o .= html_writer::end_tag('div');
 
             $o .= $this->section_availability_message($section);
         }
@@ -309,7 +309,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
      */
     protected function section_footer() {
         $o = html_writer::end_tag('div');
-        $o.= html_writer::end_tag('li');
+        $o .= html_writer::end_tag('li');
 
         return $o;
     }
@@ -369,12 +369,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $currentsectionfirst = true;
         }
 
-        $timenow = time();
-        $weekofseconds = 604800;
-        $course->enddate = $course->startdate + ($weekofseconds * $course->numsections);
         if (($tcsetting->layoutstructure != 3) || ($userisediting)) {
             $section = 1;
         } else {
+            $timenow = time();
+            $weekofseconds = 604800;
+            $course->enddate = $course->startdate + ($weekofseconds * $course->numsections);
             $section = $course->numsections;
             $weekdate = $course->enddate;      // this should be 0:00 Monday of that week
             $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems
@@ -630,18 +630,21 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         $coursecontext = context_course::instance($course->id);
         if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $coursecontext)) {
-            $o.= html_writer::start_tag('li', array('class' => 'tcsection main clearfix'));
+            $o .= html_writer::start_tag('li', array('class' => 'tcsection main clearfix'));
 
-            $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
+            $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
 
-            $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
+            $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
 
-            $o.= html_writer::start_tag('div', array('class' => 'content'));
-            $o.= html_writer::start_tag('div', array('class' => 'sectionbody'));
-            $o.= html_writer::tag('a', html_writer::tag('div', '', array('id' => 'set-settings')), array('title' => get_string("settings"), 'href' => 'format/topcoll/forms/settings.php?id=' . $course->id . '&sesskey=' . sesskey()));
-            $o.= html_writer::end_tag('div');
-            $o.= html_writer::end_tag('div');
-            $o.= html_writer::end_tag('li');
+            $o .= html_writer::start_tag('div', array('class' => 'content'));
+            $o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
+            $o .= html_writer::start_tag('div', array('class' => 'tcsettingscontainer'));
+            $o .= html_writer::tag('a', html_writer::tag('div', '', array('id' => 'tc-set-settings')), array('title' => get_string("settings"), 'href' => 'format/topcoll/forms/settings.php?id=' . $course->id . '&sesskey=' . sesskey()));
+            $o .= html_writer::tag('div',get_string('formatsettingsinformation','format_topcoll'));
+            $o .= html_writer::end_tag('div');
+            $o .= html_writer::end_tag('div');
+            $o .= html_writer::end_tag('div');
+            $o .= html_writer::end_tag('li');
         }
         return $o;
     }
@@ -657,23 +660,23 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $toggletext = get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
             // Toggle all.
 
-            $o.= html_writer::start_tag('li', array('class' => 'tcsection main clearfix', 'id' => 'toggle-all'));
+            $o .= html_writer::start_tag('li', array('class' => 'tcsection main clearfix', 'id' => 'toggle-all'));
 
             if ($this->mymobiletheme == false) {
                 $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
             }
-            $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
+            $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
 
-            $o.= html_writer::start_tag('div', array('class' => 'content'));
-            $o.= html_writer::start_tag('div', array('class' => 'sectionbody'));
-            $o.= html_writer::start_tag('h4', null);
-            $o.= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'onclick' => 'all_opened(); return false;'));
-            $o.= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'onclick' => 'all_closed(); return false;'));
-            $o.= html_writer::tag('span', get_string('topcollall', 'format_topcoll'), null);
-            $o.= html_writer::end_tag('h4');
-            $o.= html_writer::end_tag('div');
-            $o.= html_writer::end_tag('div');
-            $o.= html_writer::end_tag('li');
+            $o .= html_writer::start_tag('div', array('class' => 'content'));
+            $o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
+            $o .= html_writer::start_tag('h4', null);
+            $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'onclick' => 'all_opened(); return false;'));
+            $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'onclick' => 'all_closed(); return false;'));
+            $o .= html_writer::tag('span', get_string('topcollall', 'format_topcoll'), null);
+            $o .= html_writer::end_tag('h4');
+            $o .= html_writer::end_tag('div');
+            $o .= html_writer::end_tag('div');
+            $o .= html_writer::end_tag('li');
         }
         return $o;
     }

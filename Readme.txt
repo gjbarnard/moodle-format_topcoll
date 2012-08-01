@@ -505,11 +505,18 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 	 This was sparked by CONTRIB-3765.
   4. Tidied up and clarified the instructions for upgrading.
 
-30th July 2012 - Version 2.3.7.2
+1st August 2012 - Version 2.3.7.2
   1. Changes to 'renderer.php' because of MDL-33767.
   2. Tidied up some of the logic in 'renderer.php'.
   3. Made 'format.php' more adaptable to old style section 'x' only urls.
   4. Made inclusion of 'config.php' in 'lib.php' more precise.
+  5. Removed 'callback_topcoll_get_section_url' in 'lib.php' because it is no longer required by
+     'load_generic_course_sections' in '/lib/navigationlib.php'.
+  6. Added 'currentsection' string to '/lang/en/format_topcoll.php' - thanks to Carlos Kiyan Tsunami on
+     http://moodle.org/mod/forum/discuss.php?d=208066.
+  7. Shrunk the settings icon to 75% of the original size so that it is not so 'in your face' and added
+     instructions on the left.  The instructions are in the 'en' langauge file as the 'formatsettingsinformation'
+     string for translation.
 
 Thanks
 ------
@@ -562,6 +569,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 30th July 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 1st August 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

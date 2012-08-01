@@ -106,12 +106,13 @@ if (!empty($displaysection) && $course->coursedisplay == COURSE_DISPLAY_MULTIPAG
         }
 
         /* Set settings */
-        #set-settings {
+        #tc-set-settings {
             background: transparent url(<?php echo $CFG->wwwroot ?>/course/format/topcoll/images/tc_logo_spanner.png) no-repeat 0px 0px; 
-            width: 128px;
-            height: 100px;
+            width: 96px;
+            height: 75px;
             float: right;
             margin: 4px;
+            vertical-align: text-top;
         }
 
         /* -- Toggle -- */
