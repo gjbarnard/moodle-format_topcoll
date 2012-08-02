@@ -6,21 +6,6 @@ This version is the master development branch.
 
 Documented on http://docs.moodle.org/en/Collapsed_Topics_course_format
 
-New features for this Moodle 2.3.1 version
-------------------------------------------
-1. One to four columns which can be set on the Collapsed Topics settings form (one column for MyMobile users 
-   regardless of this setting).
-2. Persistence now uses user preferences on the server which facilitates remembrance beyond the session and
-   removal of the evil cookie.
-3. Administrators can now reset the layout and colours of all Collapsed Topics courses via the settings form.
-4. New 'Days' structure which has each section as a day.  The first section is the day of the start date.
-5. Removed the use of tables for layout and now using more conventional div's and unordered lists which should
-   be better for theme compatibility.
-6. A slight reworking to operate with the MyMobile theme - a few issues to resolve, please see 'Known Issues' below.
-7. When the course layout setting is "Show one section per page" in the course settings then the toggles are not
-   displayed as each section just contains a link to the section with the content.  But when editing toggles are
-   shown as the section contains the content.  The column functionality is implemented in both instances.
-
 Installation
 ------------
  1. If upgrading from a previous version of Moodle please see 'Upgrading from Moodle 1.9, 2.0, 2.1' and
@@ -518,6 +503,9 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
      instructions on the left.  The instructions are in the 'en' langauge file as the 'formatsettingsinformation'
      string for translation.
 
+2nd August 2012 - Version 2.4.0.1
+  1. Alpha started development of Moodle 2.4 version.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -569,6 +557,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 1st August 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 2nd August 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
