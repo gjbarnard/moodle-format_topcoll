@@ -30,7 +30,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-require_once('config.php'); // For Collaped Topics defaults.
+require_once($CFG->dirroot . '/course/format/topcoll/config.php'); // For Collaped Topics defaults.
 
 /**
  * Indicates this format uses sections.
@@ -117,17 +117,6 @@ function callback_topcoll_ajax_support() {
     $ajaxsupport->capable = true;
     $ajaxsupport->testedbrowsers = array('MSIE' => 8.0, 'Gecko' => 20061111, 'Opera' => 9.0, 'Safari' => 531, 'Chrome' => 6.0);
     return $ajaxsupport;
-}
-
-/**
- * Returns a URL to arrive directly at a section.
- *
- * @param int $courseid The id of the course to get the link for.
- * @param int $sectionnum The section number to jump to.
- * @return moodle_url.
- */
-function callback_topcoll_get_section_url($courseid, $sectionnum) {
-    return new moodle_url('/course/view.php', array('id' => $courseid, 'ctopic' => $sectionnum));
 }
 
 /**

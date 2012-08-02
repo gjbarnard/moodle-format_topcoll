@@ -132,3 +132,10 @@ body.jsenabled .toggledsection {
     width: 35px;
     text-decoration: none;
 }
+
+/* Settings */
+div.tcsettingscontainer {
+  width:100%;
+  float:left;
+  display: block;
+}
