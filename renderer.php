@@ -225,7 +225,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         $rightcontent = $this->section_right_content($section, $course, $onsectionpage);
         $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
-        $o .= html_writer::start_tag('div', array('class' => 'content'));
+
+        $o .= html_writer::start_tag('div', array('class' => 'content toggledcontent'));
 
         $context = context_course::instance($course->id);
 
@@ -234,29 +235,19 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $o .= html_writer::start_tag('div', array('class' => 'sectionhead toggle', 'id' => 'toggle-' . $section->section));
 
             $title = get_section_name($course, $section);
+            $cpsnoname = '';
             if ((string) $section->name == '') { // Name is empty.
-                $o .= html_writer::start_tag('a', array('class' => 'cps_noname cps_a', 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
-                $o .= $title;
-                switch ($tcsetting->layoutelement) {
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                        $o .= ' - ' . $toggletext;
-                        break;
-                }
-            } else {
-                $o.= html_writer::start_tag('a', array('class' => 'cps_a', 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
-                $o.= $title;
-                switch ($tcsetting->layoutelement) {
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                        $o .= ' - ' . $toggletext;
-                        break;
-                }
-                //$o.='<br />' . $section->summary;
+                $cpsnoname = ' cps_noname';
+            }
+            $o .= html_writer::start_tag('a', array('class' => 'cps_a'.$cpsnoname, 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
+            $o .= $title;
+            switch ($tcsetting->layoutelement) {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    $o .= ' - ' . $toggletext;
+                    break;
             }
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));

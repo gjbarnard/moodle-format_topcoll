@@ -37,9 +37,9 @@
     padding:0;
 }
 
-.course-content ul.topics li.section .content, .course-content ul.topics li.tcsection .content {
+.course-content ul.topics li.section .toggledcontent, .course-content ul.topics li.tcsection .content {
     margin: 0 40px; /* Default used in editing mode. */
-    padding: 0px;
+    padding: 0px; /* Needed to make the toggle flush against the left and right divisions within the section. */
 }
 
 #mymobile .course-content ul.topics li.tcsection .content {
