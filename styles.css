@@ -27,32 +27,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-.course-content ul.topics {
+.course-content ul.ctopics {
     margin:0;
 }
 
-.course-content ul.topics li.section, .course-content ul.topics li.tcsection {
+.course-content ul.ctopics li.section, .course-content ul.ctopics li.tcsection {
     list-style: none;
     margin:5px 0 0 0;
     padding:0;
 }
 
-.course-content ul.topics li.section .toggledcontent, .course-content ul.topics li.tcsection .content {
+.course-content ul.ctopics li.section .content, .course-content ul.ctopics li.tcsection .content {
     margin: 0 40px; /* Default used in editing mode. */
-    padding: 0px; /* Needed to make the toggle flush against the left and right divisions within the section. */
+    padding: 0px;
 }
 
-#mymobile .course-content ul.topics li.tcsection .content {
+#mymobile .course-content ul.ctopics li.tcsection .content {
     margin: 0;
 }
 
-.course-content ul.topics li.section .left, .course-content ul.topics li.tcsection .left {
+.course-content ul.ctopics li.section .left, .course-content ul.ctopics li.tcsection .left {
     width: 40px; /* Default used in editing mode. */
     float:left;
     text-align:center;
 }
 
-.course-content ul.topics li.section .right, .course-content ul.topics li.tcsection .right {
+.course-content ul.ctopics li.section .right, .course-content ul.ctopics li.tcsection .right {
     width: 40px; /* Default used in editing mode. */
     float:right;
     text-align:center;
@@ -63,7 +63,7 @@
 }
 
 /* -- The section name and summary of a Toggle -- */
-.course-content ul.topics li.section .content .toggle  {
+.course-content ul.ctopics li.section .content .toggle  {
     display: block;
     font-size: 0.9em;
     text-align: left;
@@ -73,40 +73,40 @@
 }
 
 /* -- The topic summary text -- */    
-.course-content ul.topics li.section .content .toggle a p {
+.course-content ul.ctopics li.section .content .toggle a p {
     font-size: 1.2em;
     font-style: italic;
     text-align: left;
 }
 
 /* -- For when no name is entered */       
-.course-content ul.topics li.section .content .toggle a.cps_noname {
+.course-content ul.ctopics li.section .content .toggle a.cps_noname {
     text-align: center;
 }  
 
 /* -- For centring the 'Topic / Week / Day x' text -- */       
-.course-content ul.topics li.section .right span.cps_centre {
+.course-content ul.ctopics li.section .right span.cps_centre {
     text-align: center;
     font-size: 0.7em;
 }  
 
-.course-content ul.topics li.section .content .toggle {
+.course-content ul.ctopics li.section .content .toggle {
     width: 100%;
 }
 
 /* -- Set the clickable element of the Toggle -- */
-.course-content ul.topics li.section .content .toggle a.cps_a {
+.course-content ul.ctopics li.section .content .toggle a.cps_a {
     display: block;
     width: auto;
     padding: 7px 0 7px 35px; /* The 35px allows the arrow to be on the left and the text next to it. */
 }
 
 /* -- Toggle text -- */
-.course-content ul.topics li.section .content .toggle a {
+.course-content ul.ctopics li.section .content .toggle a {
     text-decoration: none;
 }
 
-.course-content ul.topics li.section .content .toggledsection {
+.course-content ul.ctopics li.section .content .toggledsection {
     min-height: 30px;
 }
 
