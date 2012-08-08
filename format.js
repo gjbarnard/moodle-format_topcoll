@@ -86,11 +86,18 @@ M.course.format.process_sections = function(Y, sectionlist, response, sectionfro
     var CSS = {
         SECTIONNAME : 'sectionname'
     };
-
+    
     if (response.action == 'move') {
         // update titles in all affected sections
+        if (sectionfrom > sectionto) {
+            // Swap.
+            var temp = sectionto;
+            sectionto = sectionfrom;
+            sectionfrom = temp;
+        }
         for (var i = sectionfrom; i <= sectionto; i++) {
             sectionlist.item(i).one('.'+CSS.SECTIONNAME).setContent(response.sectiontitles[i]);
+            //sectionlist.item(i).one('.'+CSS.SECTIONLEFT).setContent(i);
         }
     }
 }
