@@ -88,13 +88,13 @@ M.course.format.process_sections = function(Y, sectionlist, response, sectionfro
     };
     
     if (response.action == 'move') {
-        // update titles in all affected sections
-        if (sectionfrom > sectionto) {
+        if (sectionfrom > sectionto) { // MDL-34798
             // Swap.
             var temp = sectionto;
             sectionto = sectionfrom;
             sectionfrom = temp;
         }
+        // update titles in all affected sections
         for (var i = sectionfrom; i <= sectionto; i++) {
             sectionlist.item(i).one('.'+CSS.SECTIONNAME).setContent(response.sectiontitles[i]);
         }
