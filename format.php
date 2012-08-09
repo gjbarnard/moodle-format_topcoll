@@ -138,10 +138,10 @@ if (!empty($displaysection) && $course->coursedisplay == COURSE_DISPLAY_MULTIPAG
             if ((!$PAGE->user_is_editing()) && ($PAGE->theme->name != 'mymobile')) {
                 echo 'margin: 0 ' . get_string('topcollsidewidth', 'format_topcoll');
             }
-            ?>;			
+            ?>;
         }
 
-        .course-content ul.ctopics li.section .left, .course-content ul.ctopics li.tcsection .left {
+        .course-content ul.ctopics li.section .side, .course-content ul.ctopics li.tcsection .side {
             <?php
             if (!$PAGE->user_is_editing()) {
                 echo 'width: ' . get_string('topcollsidewidth', 'format_topcoll');
@@ -149,13 +149,6 @@ if (!empty($displaysection) && $course->coursedisplay == COURSE_DISPLAY_MULTIPAG
             ?>;
         }
 
-        .course-content ul.ctopics li.section .right, .course-content ul.ctopics li.tcsection .right {
-            <?php
-            if (!$PAGE->user_is_editing()) {
-                echo 'width: ' . get_string('topcollsidewidth', 'format_topcoll');
-            }
-            ?>;
-        }
         /* ]]> */
     </style>
     <?php

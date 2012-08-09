@@ -50,16 +50,26 @@
     padding: 10px;
 }
 
-.course-content ul.ctopics li.section .left, .course-content ul.ctopics li.tcsection .left {
+.course-content ul.ctopics li.section .side, .course-content ul.ctopics li.tcsection .side {
     width: 40px; /* Default used in editing mode. */
+    text-align: center;
+    padding: 0px;
+}
+
+.course-content ul.ctopics li.section .left, .course-content ul.ctopics li.tcsection .left {
     float:left;
-    text-align:center;
+}
+
+.course-content ul.ctopics li.section .left {
+    padding: 10px 0px 0px 0px;
 }
 
 .course-content ul.ctopics li.section .right, .course-content ul.ctopics li.tcsection .right {
-    width: 40px; /* Default used in editing mode. */
     float:right;
-    text-align:center;
+}
+
+.course-content ul.ctopics li.section .right {
+    line-height: 1.3;
 }
 
 .jumpmenu {
