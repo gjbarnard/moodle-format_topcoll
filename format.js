@@ -97,7 +97,6 @@ M.course.format.process_sections = function(Y, sectionlist, response, sectionfro
         }
         for (var i = sectionfrom; i <= sectionto; i++) {
             sectionlist.item(i).one('.'+CSS.SECTIONNAME).setContent(response.sectiontitles[i]);
-            //sectionlist.item(i).one('.'+CSS.SECTIONLEFT).setContent(i);
         }
     }
 }
