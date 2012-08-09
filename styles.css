@@ -46,6 +46,10 @@
     margin: 0;
 }
 
+.course-content ul.ctopics #section-0 .content{
+    padding: 10px;
+}
+
 .course-content ul.ctopics li.section .left, .course-content ul.ctopics li.tcsection .left {
     width: 40px; /* Default used in editing mode. */
     float:left;
@@ -123,7 +127,8 @@ body.jsenabled .toggledsection {
 /* Toggle all */
 #toggle-all .content .sectionbody h4 {
     display: block;
-    padding: 5px;
+    padding: 6px;
+    margin-bottom: 0em;
 }
 
 #toggle-all .content .sectionbody h4 a {
@@ -131,6 +136,10 @@ body.jsenabled .toggledsection {
     text-align: left;
     width: 35px;
     text-decoration: none;
+}
+
+#toggle-all {
+  background: none repeat scroll 0 0 transparent;
 }
 
 /* Settings */
