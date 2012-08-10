@@ -68,7 +68,7 @@ if ($USER->screenreader == 1) {
 
 $renderer = $PAGE->get_renderer('format_topcoll');
 
-if (!empty($displaysection) && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
+if (!empty($displaysection)) {
     $renderer->print_single_section_page($course, $sections, $mods, $modnames, $modnamesused, $displaysection);
 } else {
     require_once($CFG->dirroot . '/course/format/topcoll/config.php');
