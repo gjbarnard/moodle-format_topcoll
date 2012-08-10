@@ -39,12 +39,12 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         // Rename table format_topcoll_layout if it exists.
         $table = new xmldb_table('format_topcoll_layout');
         // Rename the table...
-		if ($dbman->table_exists($table)) {
+        if ($dbman->table_exists($table)) {
             $dbman->rename_table($table, 'format_topcoll_settings');
-		}
+        }
         $table = new xmldb_table('format_topcoll_settings');   // Use the new table.
-		// If the table does not exist, create it along with its fields.
-		if (!$dbman->table_exists($table)) {
+        // If the table does not exist, create it along with its fields.
+        if (!$dbman->table_exists($table)) {
             // Adding fields.
             $table->add_field('id', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null);
             $table->add_field('courseid', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, '0', null);
@@ -55,33 +55,35 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
             $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
 
             // Create table.
-            //$result = $result && $dbman->create_table($table);		
-            $dbman->create_table($table);		
-		}
-		// Moodle 2.3 uses signed integers.
-        // Changing sign of field id on table format_topcoll_settings to signed
-        $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null);
+            //$result = $result && $dbman->create_table($table);
+            $dbman->create_table($table);
+        }
+        // Moodle 2.3 uses signed integers.
+        // Changing sign of field id on table format_topcoll_settings to signed - mysql only, see 'upgrade_mysql_fix_unsigned_columns()' in '/lib/db/upgradelib.php'.
+        if ($DB->get_dbfamily() == 'mysql') {
+            $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null);
 
-        // Launch change of sign for field id
-        $dbman->change_field_unsigned($table, $field);
+            // Launch change of sign for field id
+            $dbman->change_field_unsigned($table, $field);
 
-        // Changing sign of field courseid on table format_topcoll_settings to signed
-        $field = new xmldb_field('courseid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null, 'id');
+            // Changing sign of field courseid on table format_topcoll_settings to signed
+            $field = new xmldb_field('courseid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null, 'id');
 
-        // Launch change of sign for field courseid
-        $dbman->change_field_unsigned($table, $field);
+            // Launch change of sign for field courseid
+            $dbman->change_field_unsigned($table, $field);
 
-        // Changing sign of field layoutelement on table format_topcoll_settings to signed
-        $field = new xmldb_field('layoutelement', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, '1', 'courseid');
+            // Changing sign of field layoutelement on table format_topcoll_settings to signed
+            $field = new xmldb_field('layoutelement', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, '1', 'courseid');
 
-        // Launch change of sign for field layoutelement
-        $dbman->change_field_unsigned($table, $field);
+            // Launch change of sign for field layoutelement
+            $dbman->change_field_unsigned($table, $field);
 
-        // Changing sign of field layoutstructure on table format_topcoll_settings to signed
-        $field = new xmldb_field('layoutstructure', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '1', 'layoutelement');
+            // Changing sign of field layoutstructure on table format_topcoll_settings to signed
+            $field = new xmldb_field('layoutstructure', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '1', 'layoutelement');
 
-        // Launch change of sign for field layoutstructure
-        $dbman->change_field_unsigned($table, $field);
+            // Launch change of sign for field layoutstructure
+            $dbman->change_field_unsigned($table, $field);
+        }
 
         // Define field tgfgcolour to be added to format_topcoll_settings
         $field = new xmldb_field('tgfgcolour', XMLDB_TYPE_CHAR, '6', null, XMLDB_NOTNULL, null, '000000', 'layoutstructure');
@@ -107,7 +109,7 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
             $dbman->add_field($table, $field);
         }
 
-	    // New field layoutcolumns on table format_topcoll_settings.  This is not the same place as install.xml because of altering previous field issue but will work. 
+        // New field layoutcolumns on table format_topcoll_settings.  This is not the same place as install.xml because of altering previous field issue but will work. 
         $field = new xmldb_field('layoutcolumns', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '1', 'tgbghvrcolour');
         // Conditionally launch add field layoutcolumns
         if (!$dbman->field_exists($table, $field)) {
@@ -118,9 +120,9 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         $table = new xmldb_table('format_topcoll_cookie_cnsnt');
 
         // Drop the table...
-		if ($dbman->table_exists($table)) {
+        if ($dbman->table_exists($table)) {
            $dbman->drop_table($table);
-		}
+        }
 
         //upgrade_plugin_savepoint(true, '2012070300', 'format', 'topcoll');
 

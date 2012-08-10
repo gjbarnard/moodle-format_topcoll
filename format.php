@@ -138,6 +138,7 @@ if (!empty($displaysection)) {
             if ((!$PAGE->user_is_editing()) && ($PAGE->theme->name != 'mymobile')) {
                 echo 'margin: 0 ' . get_string('topcollsidewidth', 'format_topcoll');
             }
+
             ?>;
         }
 
