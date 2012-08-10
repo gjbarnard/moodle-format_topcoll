@@ -236,29 +236,19 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $o .= html_writer::start_tag('div', array('class' => 'sectionhead toggle', 'id' => 'toggle-' . $section->section));
 
             $title = get_section_name($course, $section);
+            $toggleclass = 'cps_a';
             if ((string) $section->name == '') { // Name is empty.
-                $o .= html_writer::start_tag('a', array('class' => 'cps_noname cps_a', 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
-                $o .= $title;
-                switch ($tcsetting->layoutelement) {
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                        $o .= ' - ' . $toggletext;
-                        break;
-                }
-            } else {
-                $o.= html_writer::start_tag('a', array('class' => 'cps_a', 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
-                $o.= $title;
-                switch ($tcsetting->layoutelement) {
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                        $o .= ' - ' . $toggletext;
-                        break;
-                }
-                //$o.='<br />' . $section->summary;
+                $toggleclass .= ' cps_noname';
+            }
+            $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
+            $o .= $title;
+            switch ($tcsetting->layoutelement) {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    $o .= ' - ' . $toggletext;
+                    break;
             }
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
