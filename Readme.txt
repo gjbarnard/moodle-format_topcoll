@@ -531,6 +531,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   4. Change to 'format.php' because of MDL-34829.
   5. Sorted wording of 'light bulb' when editing.
   6. Integrated CONTRIB-3825 to fix upgrade issue when converting a non-MySQL the database.
+  7. Implemented MDL-34858 which I reported as a section zero default name issue.
 
 Thanks
 ------
