@@ -274,7 +274,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $o .= $this->section_availability_message($section);
         } else {
             // When on a section page, we only display the general section title, if title is not the default one
-            $hasnamesecpg = ($section->section == 0 && !is_null($section->name));
+            $hasnamesecpg = ($section->section == 0 && (string)$section->name !== '');
 
             if ($hasnamesecpg) {
                 $o .= $this->output->heading($this->section_title($section, $course), 3, 'sectionname');
