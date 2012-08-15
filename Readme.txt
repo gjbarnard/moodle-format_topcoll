@@ -524,7 +524,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
      instructions on the left.  The instructions are in the 'en' langauge file as the 'formatsettingsinformation'
      string for translation.
  
-10th August 2012 - Version 2.3.7.3
+16th August 2012 - Version 2.3.7.3
   1. Changes to 'renderer.php' because of MDL-28207 - thus requiring Moodle 2.3.1 2012062501.09 (Build: 20120809).
   2. Implemented MDL-34798 which I reported for AJAX section moving.
   3. Integrated CONTRIB-3827 to fix proliferation of CSS styles across other course formats.
@@ -532,6 +532,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   5. Sorted wording of 'light bulb' when editing.
   6. Integrated CONTRIB-3825 to fix upgrade issue when converting a non-MySQL the database.
   7. Implemented MDL-34858 which I reported as a section zero default name issue.
+  8. Implemented MDL-34917 which I reported as an improvement.
 
 Thanks
 ------
@@ -584,6 +585,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 10th August 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 16th August 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
