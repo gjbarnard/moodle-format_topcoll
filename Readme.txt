@@ -3,7 +3,9 @@ Introduction
 Topic based course format with an individual 'toggle' for each topic except 0.  This format differs from the
 Accordion format in that two or more topics can be visible at the same time.
 
-This version works with Moodle 2.2.x.
+Required version of Moodle
+--------------------------
+This version works with Moodle 2.2.4+ (Build: 20120816), version 2011120504.07 and above until the next release.
 
 Documented on http://docs.moodle.org/22/en/Collapsed_Topics_course_format
 
@@ -362,6 +364,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2. Removed cookie functionality in favour of a user preference in the database on a per user per course basis using code
      developed for Moodle 2.3.  This helps to eliminate the effects of the UK / EU Cookie Law.
 
+17th August 2012 - Version 2.2.6.5
+  1. Changes to 'format.php' because of MDL-28207 - thus requiring Moodle 2.2.4+ (Build: 20120809).
+  2. Integrated CONTRIB-3805 - fix to 'lib.php'.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -417,6 +423,6 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th July 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th August 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
