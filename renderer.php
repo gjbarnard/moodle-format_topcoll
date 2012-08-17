@@ -318,6 +318,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o = '';
         $section = 1;
         $sectionmenu = array();
+        $sectionmenu[0] = get_string('returntomaincoursepage');  // Section 0 is never jumped to and is therefore used to indicate the main page.
         $context = context_course::instance($course->id);
         while ($section <= $course->numsections) {
             if (!empty($sections[$section])) {
@@ -341,13 +342,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $section++;
         }
 
-        if (!empty($sectionmenu)) {
-            $select = new single_select(new moodle_url('/course/view.php', array('id'=>$course->id)), 'section', $sectionmenu);
-            $select->label = get_string('jumpto');
-            $select->class = 'jumpmenu';
-            $select->formid = 'sectionmenu';
-            $o .= $this->output->render($select);
-        }
+        $select = new single_select(new moodle_url('/course/view.php', array('id'=>$course->id)), 'section', $sectionmenu);
+        $select->label = get_string('jumpto');
+        $select->class = 'jumpmenu';
+        $select->formid = 'sectionmenu';
+        $o .= $this->output->render($select);
+
         return $o;
     }
 
@@ -436,23 +436,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
         echo $this->end_section_list();
 
         // Display section bottom navigation.
-        $courselink = html_writer::link(course_get_url($course), get_string('returntomaincoursepage'));
         $sectionbottomnav = '';
         $sectionbottomnav .= html_writer::start_tag('div', array('class' => 'section-navigation mdl-bottom'));
         $sectionbottomnav .= html_writer::tag('span', $sectionnavlinks['previous'], array('class' => 'mdl-left'));
         $sectionbottomnav .= html_writer::tag('span', $sectionnavlinks['next'], array('class' => 'mdl-right'));
-        $sectionbottomnav .= html_writer::tag('div', $courselink, array('class' => 'mdl-align'));
+        $sectionbottomnav .= html_writer::tag('div', $this->section_nav_selection($course, $sections), array('class' => 'mdl-align'));
         $sectionbottomnav .= html_writer::end_tag('div');
         echo $sectionbottomnav;
-
-        // Display section bottom jumpto.
-        $sectionbottomjt = '';
-        $sectionbottomjt .= html_writer::start_tag('div', array('class' => 'section-navigation mdl-bottom'));
-        $sectionbottomjt .= html_writer::tag('span', '&nbsp;', array('class' => 'mdl-left'));
-        $sectionbottomjt .= html_writer::tag('span', '&nbsp;', array('class' => 'mdl-right'));
-        $sectionbottomjt .= html_writer::tag('div', $this->section_nav_selection($course, $sections), array('class' => 'mdl-align'));
-        $sectionbottomjt .= html_writer::end_tag('div');
-        echo $sectionbottomjt;
 
         // close single-section div.
         echo html_writer::end_tag('div');
