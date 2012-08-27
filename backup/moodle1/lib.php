@@ -48,6 +48,10 @@ class moodle1_format_topcoll_handler extends moodle1_xml_handler {
      */
     public function process_layout($data) {
         print_object($data);
+		$this->open_xml_writer('course/course.xml');
+		$this->container_xml('course');
+        $this->write_xml('plugin_format_topcoll_course', $data, null);
+        $this->close_xml_writer();
     }
  }
  
