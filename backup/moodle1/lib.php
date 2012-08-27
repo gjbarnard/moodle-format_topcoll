@@ -31,12 +31,16 @@
  
 defined('MOODLE_INTERNAL') || die();
  
+require_once($CFG->dirroot . '/course/format/topcoll/config.php'); // For Collaped Topics defaults.
+
 class moodle1_format_topcoll_handler extends moodle1_xml_handler {
- 
+    
+    
     /**
      * Declare the paths in moodle.xml we are able to convert
      */
     public function get_paths() {
+        // Obtained through examination of the 'course' element in the 'moodle.xml' file in the Moodle 1.9 backup zip file for a course using the format.
         return array(
             new convert_path('layout', '/MOODLE_BACKUP/COURSE/FORMATDATA/LAYOUT')
         );
@@ -47,11 +51,13 @@ class moodle1_format_topcoll_handler extends moodle1_xml_handler {
      * data available
      */
     public function process_layout($data) {
-        print_object($data);
-		$this->open_xml_writer('course/course.xml');
-		$this->container_xml('course');
-        $this->write_xml('plugin_format_topcoll_course', $data, null);
-        $this->close_xml_writer();
+        global $TCCFG;
+        // Default values...
+        $colourdefaults = array('tgfgcolour' => $TCCFG->defaulttgfgcolour, 'tgbgcolour' => $TCCFG->defaulttgbgcolour, 'tgbghvrcolour' => $TCCFG->defaulttgbghvrcolour );
+        $data = array_merge($data, $colourdefaults);
+        // MDL-32205 - Currently only works for course level data in the course format, not sections or modules.
+        $completedata = array('plugin_format_topcoll_course' => $data); // Tag name obtained through examination of the 'course/course.xml' file in a Moodle 2 backup 'mbz' (zip) file for a course using the format.
+        $this->converter->set_stash('course_formatdata', $completedata);
     }
  }
  
