@@ -274,7 +274,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $o .= $this->section_availability_message($section);
         } else {
             // When on a section page, we only display the general section title, if title is not the default one
-            $hasnamesecpg = ($section->section == 0 && !is_null($section->name));
+            $hasnamesecpg = ($section->section == 0 && (string)$section->name !== '');
 
             if ($hasnamesecpg) {
                 $o .= $this->output->heading($this->section_title($section, $course), 3, 'sectionname');
@@ -304,6 +304,148 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::end_tag('li');
 
         return $o;
+    }
+
+    /**
+     * Generate the html for the 'Jump to' menu on a single section page.
+     *
+     * @param stdClass $course The course entry from DB
+     * @param array $sections The course_sections entries from the DB
+     *
+     * @return string HTML to output.
+     */
+    protected function section_nav_selection($course, $sections) {
+        $o = '';
+        $section = 1;
+        $sectionmenu = array();
+        $sectionmenu[0] = get_string('returntomaincoursepage');  // Section 0 is never jumped to and is therefore used to indicate the main page.
+        $context = context_course::instance($course->id);
+        while ($section <= $course->numsections) {
+            if (!empty($sections[$section])) {
+                $thissection = $sections[$section];
+            } else {
+                // This will create a course section if it doesn't exist..
+                $thissection = get_course_section($section, $course->id);
+
+                // The returned section is only a bare database object rather than
+                // a section_info object - we will need at least the uservisible
+                // field in it.
+                $thissection->uservisible = true;
+                $thissection->availableinfo = null;
+                $thissection->showavailability = 0;
+            }
+            $showsection = (has_capability('moodle/course:viewhiddensections', $context) or $thissection->visible or !$course->hiddensections);
+
+            if ($showsection) {
+                $sectionmenu[$section] = get_section_name($course, $thissection);
+            }
+            $section++;
+        }
+
+        $select = new single_select(new moodle_url('/course/view.php', array('id'=>$course->id)), 'section', $sectionmenu);
+        $select->label = get_string('jumpto');
+        $select->class = 'jumpmenu';
+        $select->formid = 'sectionmenu';
+        $o .= $this->output->render($select);
+
+        return $o;
+    }
+
+    /**
+     * Output the html for a single section page.
+     *
+     * @param stdClass $course The course entry from DB
+     * @param array $sections The course_sections entries from the DB
+     * @param array $mods used for print_section()
+     * @param array $modnames used for print_section()
+     * @param array $modnamesused used for print_section()
+     * @param int $displaysection The section number in the course which is being displayed
+     */
+    public function print_single_section_page($course, $sections, $mods, $modnames, $modnamesused, $displaysection) {
+        global $PAGE;
+
+        // Can we view the section in question?
+        $context = context_course::instance($course->id);
+        $canviewhidden = has_capability('moodle/course:viewhiddensections', $context);
+
+        if (!isset($sections[$displaysection])) {
+            // This section doesn't exist
+            print_error('unknowncoursesection', 'error', null, $course->fullname);
+            return;
+        }
+
+        if (!$sections[$displaysection]->visible && !$canviewhidden) {
+            if (!$course->hiddensections) {
+                echo $this->start_section_list();
+                echo $this->section_hidden($displaysection);
+                echo $this->end_section_list();
+            }
+            // Can't view this section.
+            return;
+        }
+
+        // Copy activity clipboard..
+        echo $this->course_activity_clipboard($course, $displaysection);
+
+        // General section if non-empty.
+        $thissection = $sections[0];
+        if ($thissection->summary or $thissection->sequence or $PAGE->user_is_editing()) {
+            echo $this->start_section_list();
+            echo $this->section_header($thissection, $course, true, $displaysection);
+            print_section($course, $thissection, $mods, $modnamesused, true, "100%", false, $displaysection);
+            if ($PAGE->user_is_editing()) {
+                print_section_add_menus($course, 0, $modnames, false, false, $displaysection);
+            }
+            echo $this->section_footer();
+            echo $this->end_section_list();
+        }
+
+        // Start single-section div
+        echo html_writer::start_tag('div', array('class' => 'single-section'));
+
+        // Title with section navigation links.
+        $sectionnavlinks = $this->get_nav_links($course, $sections, $displaysection);
+        $sectiontitle = '';
+        $sectiontitle .= html_writer::start_tag('div', array('class' => 'section-navigation header headingblock'));
+        $sectiontitle .= html_writer::tag('span', $sectionnavlinks['previous'], array('class' => 'mdl-left'));
+        $sectiontitle .= html_writer::tag('span', $sectionnavlinks['next'], array('class' => 'mdl-right'));
+        // Title attributes
+        $titleattr = 'mdl-align title';
+        if (!$sections[$displaysection]->visible) {
+            $titleattr .= ' dimmed_text';
+        }
+        $sectiontitle .= html_writer::tag('div', get_section_name($course, $sections[$displaysection]), array('class' => $titleattr));
+        $sectiontitle .= html_writer::end_tag('div');
+        echo $sectiontitle;
+
+        // Now the list of sections..
+        echo $this->start_section_list();
+
+        // The requested section page.
+        $thissection = $sections[$displaysection];
+        echo $this->section_header($thissection, $course, true, $displaysection);
+        // Show completion help icon.
+        $completioninfo = new completion_info($course);
+        echo $completioninfo->display_help_icon();
+
+        print_section($course, $thissection, $mods, $modnamesused, true, '100%', false, $displaysection);
+        if ($PAGE->user_is_editing()) {
+            print_section_add_menus($course, $displaysection, $modnames, false, false, $displaysection);
+        }
+        echo $this->section_footer();
+        echo $this->end_section_list();
+
+        // Display section bottom navigation.
+        $sectionbottomnav = '';
+        $sectionbottomnav .= html_writer::start_tag('div', array('class' => 'section-navigation mdl-bottom'));
+        $sectionbottomnav .= html_writer::tag('span', $sectionnavlinks['previous'], array('class' => 'mdl-left'));
+        $sectionbottomnav .= html_writer::tag('span', $sectionnavlinks['next'], array('class' => 'mdl-right'));
+        $sectionbottomnav .= html_writer::tag('div', $this->section_nav_selection($course, $sections), array('class' => 'mdl-align'));
+        $sectionbottomnav .= html_writer::end_tag('div');
+        echo $sectionbottomnav;
+
+        // close single-section div.
+        echo html_writer::end_tag('div');
     }
 
     /**

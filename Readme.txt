@@ -531,7 +531,9 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   4. Change to 'format.php' because of MDL-34829.
   5. Sorted wording of 'light bulb' when editing.
   6. Integrated CONTRIB-3825 to fix upgrade issue when converting a non-MySQL the database.
-  7. Make toggle titles bold and change 'all toggles' to 'all sections', from comments made on MDL-35048.
+  7. Implemented MDL-34858 which I reported as a section zero default name issue.
+  8. Implemented MDL-34917 which I reported as an improvement.
+  9. Make toggle titles bold and change 'all toggles' to 'all sections', from comments made on MDL-35048.
 
 Thanks
 ------
