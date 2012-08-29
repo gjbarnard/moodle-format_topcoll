@@ -118,6 +118,7 @@
 /* -- Toggle text -- */
 .course-content ul.ctopics li.section .content .toggle a {
     text-decoration: none;
+	font-weight: bold;
 }
 
 .course-content ul.ctopics li.section .content .toggledsection {
