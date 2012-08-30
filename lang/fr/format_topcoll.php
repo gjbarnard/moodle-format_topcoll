@@ -58,8 +58,16 @@ $string['section0name'] = 'Général';
 $string['page-course-view-topcoll'] = 'Toutes les pages du cours principal au format sections réduites';
 $string['page-course-view-topcoll-x'] = 'Toutes les pages du cours au format sections réduites';
 
+// Moodle 2.3 Enhancement
+$string['hidefromothers'] = 'Cacher la section';
+$string['showfromothers'] = 'Afficher la section';
+$string['currentsection'] = 'Cette section';
+$string['markedthissection'] = 'Cette section est mise en surbrillance comme section courante';
+$string['markthissection'] = 'Mettre en surbrillance cette section comme section courante';
+
 // Layout enhancement - Moodle Tracker CONTRIB-3378
 $string['formatsettings'] = 'Parametres du format de'; // CONTRIB-3529
+$string['formatsettingsinformation'] = '<br />Pour modifier les paramètres du format du cours, cliquez sur l\'icône à droite.';
 $string['setlayout'] = 'Paramètres de base';
 $string['setlayout_default'] = 'Par défaut';
 $string['setlayout_no_toggle_section_x'] = "Pas de 'section x à basculer'";
