@@ -68,7 +68,7 @@ if ($USER->screenreader == 1) {
 
 $renderer = $PAGE->get_renderer('format_topcoll');
 
-if (!empty($displaysection) && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
+if (!empty($displaysection)) {
     $renderer->print_single_section_page($course, $sections, $mods, $modnames, $modnamesused, $displaysection);
 } else {
     require_once($CFG->dirroot . '/course/format/topcoll/config.php');
@@ -89,11 +89,11 @@ if (!empty($displaysection) && $course->coursedisplay == COURSE_DISPLAY_MULTIPAG
         /* -- Images here as need to know the full url due to [[pix:****]] not working with course formats in the css file and the relative position changes between theme designer mode on / off.  -- */
 
         /* -- The clickable element of the Toggle -- */
-        .course-content ul.topics li.section .content .toggle a.cps_a {
+        .course-content ul.ctopics li.section .content .toggle a.cps_a {
             background: transparent url(<?php echo $CFG->wwwroot ?>/course/format/topcoll/images/arrow_up.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
         }
 
-        body.jsenabled .course-content ul.topics li.section .content .toggle a.cps_a {
+        body.jsenabled .course-content ul.ctopics li.section .content .toggle a.cps_a {
             background: transparent url(<?php echo $CFG->wwwroot ?>/course/format/topcoll/images/arrow_down.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
         }
 
@@ -116,32 +116,33 @@ if (!empty($displaysection) && $course->coursedisplay == COURSE_DISPLAY_MULTIPAG
         }
 
         /* -- Toggle -- */
-        .course-content ul.topics li.section .content .toggle {
+        .course-content ul.ctopics li.section .content .toggle {
             background-color: #<?php echo $tcsetting->tgbgcolour; ?>;
             color: #<?php echo $tcsetting->tgfgcolour; ?>; /* 'Topic x' text colour */
         }
 
         /* -- Toggle text -- */
-        .course-content ul.topics li.section .content .toggle a {
+        .course-content ul.ctopics li.section .content .toggle a {
             color: #<?php echo $tcsetting->tgfgcolour; ?>;
         }
 
         /* -- What happens when a toggle is hovered over -- */
-        .course-content ul.topics li.section .content div.toggle:hover,body.jsenabled tr.cps td a:hover
+        .course-content ul.ctopics li.section .content div.toggle:hover,body.jsenabled tr.cps td a:hover
         {
             background-color: #<?php echo $tcsetting->tgbghvrcolour; ?>;
         }
 
         /* Dynamically changing widths with language */
-        .course-content ul.topics li.section .content, .course-content ul.topics li.tcsection .content {
+        .course-content ul.ctopics li.section .content, .course-content ul.ctopics li.tcsection .content {
             <?php
             if ((!$PAGE->user_is_editing()) && ($PAGE->theme->name != 'mymobile')) {
                 echo 'margin: 0 ' . get_string('topcollsidewidth', 'format_topcoll');
             }
-            ?>;			
+
+            ?>;
         }
 
-        .course-content ul.topics li.section .left, .course-content ul.topics li.tcsection .left {
+        .course-content ul.ctopics li.section .side, .course-content ul.ctopics li.tcsection .side {
             <?php
             if (!$PAGE->user_is_editing()) {
                 echo 'width: ' . get_string('topcollsidewidth', 'format_topcoll');
@@ -149,13 +150,6 @@ if (!empty($displaysection) && $course->coursedisplay == COURSE_DISPLAY_MULTIPAG
             ?>;
         }
 
-        .course-content ul.topics li.section .right, .course-content ul.topics li.tcsection .right {
-            <?php
-            if (!$PAGE->user_is_editing()) {
-                echo 'width: ' . get_string('topcollsidewidth', 'format_topcoll');
-            }
-            ?>;
-        }
         /* ]]> */
     </style>
     <?php
