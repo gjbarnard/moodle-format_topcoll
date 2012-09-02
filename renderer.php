@@ -236,7 +236,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $o .= html_writer::start_tag('div', array('class' => 'sectionhead toggle', 'id' => 'toggle-' . $section->section));
 
             $title = get_section_name($course, $section);
-            $toggleclass = 'cps_a';
+            $toggleclass = 'toggle_closed';
             if ((string) $section->name == '') { // Name is empty.
                 $toggleclass .= ' cps_noname';
             }

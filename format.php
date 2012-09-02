@@ -86,34 +86,6 @@ if (!empty($displaysection)) {
     ?>
     <style type="text/css" media="screen">
         /* <![CDATA[ */
-        /* -- Images here as need to know the full url due to [[pix:****]] not working with course formats in the css file and the relative position changes between theme designer mode on / off.  -- */
-
-        /* -- The clickable element of the Toggle -- */
-        .course-content ul.ctopics li.section .content .toggle a.cps_a {
-            background: transparent url(<?php echo $CFG->wwwroot ?>/course/format/topcoll/images/arrow_up.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
-        }
-
-        body.jsenabled .course-content ul.ctopics li.section .content .toggle a.cps_a {
-            background: transparent url(<?php echo $CFG->wwwroot ?>/course/format/topcoll/images/arrow_down.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
-        }
-
-        #toggle-all .content .sectionbody h4 a.on {
-            background: transparent url(<?php echo $CFG->wwwroot ?>/course/format/topcoll/images/arrow_down.png) no-repeat 0px 45%; 
-        }
-
-        #toggle-all .content .sectionbody h4 a.off {
-            background: transparent url(<?php echo $CFG->wwwroot ?>/course/format/topcoll/images/arrow_up.png) no-repeat 0px 45%; 
-        }
-
-        /* Set settings */
-        #tc-set-settings {
-            background: transparent url(<?php echo $CFG->wwwroot ?>/course/format/topcoll/images/tc_logo_spanner.png) no-repeat 0px 0px; 
-            width: 96px;
-            height: 75px;
-            float: right;
-            margin: 4px;
-            vertical-align: text-top;
-        }
 
         /* -- Toggle -- */
         .course-content ul.ctopics li.section .content .toggle {

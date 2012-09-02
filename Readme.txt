@@ -42,8 +42,17 @@ Installation
  8. Login as an administrator and follow standard the 'plugin' update notification.  If needed, go to
     'Site administration' -> 'Notifications' if this does not happen.
  9.  If desired, edit the colours of the 'styles.css' - which contains instructions on how to have per theme colours.
-10.  To change the arrow graphic you need to replace 'arrow_up.png' and 'arrow_down.png'.  Reuse the graphics
-     if you want.  Created in Paint.Net.
+10.  To change the arrow graphic you need to replace 'arrow_up.png' and 'arrow_down.png' in the 'pix' folder.  Or override the
+     css by using the selectors for the various images, override the 'background' attribute:
+
+     body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_open - For the 'up' arrow in the toggle - original is 24px.
+     body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_closed - For the 'down' arrow in the toggle - original is 24px.
+     .course-content ul.ctopics li.section .content .toggle a.toggle_closed - For the 'up' arrow in the toggle when JavaScript is disabled and the toggles default to open.
+     #toggle-all .content .sectionbody h4 a.on - For the 'open all sections' image - original is 24px.
+     #toggle-all .content .sectionbody h4 a.off - For the 'closed all sections' image - original is 24px.
+     #tc-set-settings - For the 'settings' image.
+
+     If in doubt, please consult 'styles.css' in the format.
 11.  Put Moodle out of Maintenance Mode.
 
 Upgrade Instructions
@@ -524,7 +533,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
      instructions on the left.  The instructions are in the 'en' langauge file as the 'formatsettingsinformation'
      string for translation.
  
-30th August 2012 - Version 2.3.7.3
+2nd September 2012 - Version 2.3.7.3
   1. Changes to 'renderer.php' because of MDL-28207 - thus requiring Moodle 2.3.1 2012062501.09 (Build: 20120809).
   2. Implemented MDL-34798 which I reported for AJAX section moving.
   3. Integrated CONTRIB-3827 to fix proliferation of CSS styles across other course formats.
@@ -535,6 +544,18 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   8. Implemented MDL-34917 which I reported as an improvement.
   9. Make toggle titles bold and change 'all toggles' to 'all sections', from comments made on MDL-35048.
  10. Cherry picked Luiggi's change https://github.com/luiggisanso/moodle-format_topcoll/commit/9bd818f5a4efb347aef4f5154ea2930526552bfc
+ 11. Figured out how to use 'pix:' for URL's in css for the format, so have changed so that the images are now controlled by css classes.  This
+     means that it is now possible to override them in your theme in css.  The following is the selectors for the various images, override
+     the 'background' attribute:
+
+     body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_open - For the 'up' arrow in the toggle - original is 24px.
+     body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_closed - For the 'down' arrow in the toggle - original is 24px.
+     .course-content ul.ctopics li.section .content .toggle a.toggle_closed - For the 'up' arrow in the toggle when JavaScript is disabled and the toggles default to open.
+     #toggle-all .content .sectionbody h4 a.on - For the 'open all sections' image - original is 24px.
+     #toggle-all .content .sectionbody h4 a.off - For the 'closed all sections' image - original is 24px.
+     #tc-set-settings - For the 'settings' image.
+
+     If in doubt, please consult 'styles.css' in the format.
 
 Thanks
 ------
@@ -587,6 +608,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 30th August 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 2nd September 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

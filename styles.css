@@ -42,6 +42,26 @@
     padding: 0px;
 }
 
+
+/* -- Set the clickable element of the Toggle -- */
+.course-content ul.ctopics li.section .content .toggle a {
+    display: block;
+    width: auto;
+    padding: 7px 0 7px 35px; /* The 35px allows the arrow to be on the left and the text next to it. */
+}
+
+.course-content ul.ctopics li.section .content .toggle a.toggle_closed {
+    background: transparent url([[pix:format_topcoll|arrow_up]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_open {
+    background: transparent url([[pix:format_topcoll|arrow_up]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_closed {
+    background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
+}
+
 #mymobile .course-content ul.ctopics li.tcsection .content {
     margin: 0;
 }
@@ -108,13 +128,6 @@
     width: 100%;
 }
 
-/* -- Set the clickable element of the Toggle -- */
-.course-content ul.ctopics li.section .content .toggle a.cps_a {
-    display: block;
-    width: auto;
-    padding: 7px 0 7px 35px; /* The 35px allows the arrow to be on the left and the text next to it. */
-}
-
 /* -- Toggle text -- */
 .course-content ul.ctopics li.section .content .toggle a {
     text-decoration: none;
@@ -153,9 +166,27 @@ body.jsenabled .toggledsection {
   background: none repeat scroll 0 0 transparent;
 }
 
+#toggle-all .content .sectionbody h4 a.on {
+    background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 0px 45%; 
+}
+
+#toggle-all .content .sectionbody h4 a.off {
+    background: transparent url([[pix:format_topcoll|arrow_up]]) no-repeat 0px 45%; 
+}
+
 /* Settings */
 div.tcsettingscontainer {
   width:100%;
   float:left;
   display: block;
+}
+
+/* Set settings */
+#tc-set-settings {
+    background: transparent url([[pix:format_topcoll|tc_logo_spanner]]) no-repeat 0px 0px; 
+    width: 96px;
+    height: 75px;
+    float: right;
+    margin: 4px;
+    vertical-align: text-top;
 }
