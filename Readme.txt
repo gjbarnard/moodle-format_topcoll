@@ -542,7 +542,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   5. Sorted wording of 'light bulb' when editing.
   6. Integrated CONTRIB-3825 to fix upgrade issue when converting a non-MySQL the database.
   7. Implemented MDL-34858 which I reported as a section zero default name issue.
-  8. Implemented MDL-34917 which I reported as an improvement.
+  8. Implemented MDL-34917 which I reported as an improvement.  Code is slightly different, feedback appreciated.
   9. Make toggle titles bold and change 'all toggles' to 'all sections', from comments made on MDL-35048.
  10. Cherry picked Luiggi's change https://github.com/luiggisanso/moodle-format_topcoll/commit/9bd818f5a4efb347aef4f5154ea2930526552bfc
  11. Figured out how to use 'pix:' for URL's in css for the format, so have changed so that the images are now controlled by css classes.  This
