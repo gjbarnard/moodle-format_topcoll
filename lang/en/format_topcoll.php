@@ -96,6 +96,9 @@ $string['two'] = 'Two';
 $string['three'] = 'Three';
 $string['four'] = 'Four';
 
+// Temporary until MDL-34917 in core.
+$string['maincoursepage'] = 'Main course page';
+
 // Help
 $string['setlayoutelements_help'] = 'How much information about the toggles / sections you wish to be displayed.';
 $string['setlayoutstructure_help'] = "The layout structure of the course.  You can choose between:

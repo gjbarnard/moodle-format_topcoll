@@ -87,6 +87,9 @@ $string['settogglebackgroundhovercolour'] = 'Toggle background hover';
 $string['resetcolour'] = 'Reset colour';
 $string['resetallcolour'] = 'Reset colours for all Collapsed Topics courses';
 
+// Temporary until MDL-34917 in core.
+$string['maincoursepage'] = 'Main course page';
+
 // Columns enhancement
 $string['setlayoutcolumns'] = 'Set columns';
 $string['one'] = 'One';

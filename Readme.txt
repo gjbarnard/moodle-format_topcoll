@@ -154,7 +154,7 @@ Course Backup and Restore Instructions
    instructions above depending on the situation.
 3. Note: I believe that if you restore a Collapsed Topic's course on an installation that does not have the
          format then it will work and become the default course format.  However the layout data will not be
-		 stored if you install Collapsed Topic's at a later date.
+         stored if you install Collapsed Topic's at a later date.
 
 
 Remembered Toggle State Information
@@ -166,8 +166,9 @@ Known Issues
 1.  If you get toggle text issues in languages other than English please ensure you have the latest version of Moodle installed.  More
     information on http://moodle.org/mod/forum/discuss.php?d=184150.
 2.  The MyMobile theme is not quite as implemented as the previous versions but does work, please see http://tracker.moodle.org/browse/MDL-33115.
-    Also has a tendency not to reload the toggle state or set the arrow icon on first load.  A page refresh fixes it - something to do with the inclusion
-    of a '#' in the url.  I have contacted 'John Stabinger' on 'MDL-33115' and he will be looking into it.
+    It has a tendency not to reload the toggle state or set the arrow icon on first load.  A page refresh fixes it - something to do with the
+    inclusion of a '#' in the url.  The bottom left and right navigation links in 'One section per page' mode do not appear to work.  I have
+    contacted 'John Stabinger' on 'MDL-33115' and he will be looking into it.
 3.  Importing a Moodle 1.9 course does not currently work, please see CONTRIB-3552 which depends on MDL-32205 - as
     a workaround, please select the 'Topics' format first in 1.9, backup and restore then select the Collapsed Topics
     course format in the course settings.  You will have to reset your decisions on structure etc.
@@ -533,7 +534,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
      instructions on the left.  The instructions are in the 'en' langauge file as the 'formatsettingsinformation'
      string for translation.
  
-2nd September 2012 - Version 2.3.7.3
+3rd September 2012 - Version 2.3.8
   1. Changes to 'renderer.php' because of MDL-28207 - thus requiring Moodle 2.3.1 2012062501.09 (Build: 20120809).
   2. Implemented MDL-34798 which I reported for AJAX section moving.
   3. Integrated CONTRIB-3827 to fix proliferation of CSS styles across other course formats.
@@ -556,6 +557,9 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
      #tc-set-settings - For the 'settings' image.
 
      If in doubt, please consult 'styles.css' in the format.
+ 12. Checked operation in 'MyMobile' theme, all seems good except bottom left and right navigation links in 'One section per page' mode.  HTML is
+     identical to that of 'Topics' format bar difference classes higher up the document object model to distinguish 'Collapsed Topics' from 'Topics'.
+     Hopefully will be resolved when MDL-33115 implemented.
 
 Thanks
 ------
@@ -608,6 +612,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 2nd September 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 3rd September 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
