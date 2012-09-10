@@ -236,7 +236,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $o .= html_writer::start_tag('div', array('class' => 'sectionhead toggle', 'id' => 'toggle-' . $section->section));
 
             $title = get_section_name($course, $section);
-            $toggleclass = 'cps_a';
+            $toggleclass = 'toggle_closed';
             if ((string) $section->name == '') { // Name is empty.
                 $toggleclass .= ' cps_noname';
             }
@@ -308,17 +308,18 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
     /**
      * Generate the html for the 'Jump to' menu on a single section page.
-     *
+     * Temporary until MDL-34917 in core.
      * @param stdClass $course The course entry from DB
      * @param array $sections The course_sections entries from the DB
+     * @param $displaysection the current displayed section number.
      *
      * @return string HTML to output.
      */
-    protected function section_nav_selection($course, $sections) {
+    protected function section_nav_selection($course, $sections, $displaysection) {
         $o = '';
         $section = 1;
         $sectionmenu = array();
-        $sectionmenu[0] = get_string('returntomaincoursepage');  // Section 0 is never jumped to and is therefore used to indicate the main page.
+        $sectionmenu[0] = get_string('maincoursepage','format_topcoll');  // Section 0 is never jumped to and is therefore used to indicate the main page.  And temporary until MDL-34917 in core.
         $context = context_course::instance($course->id);
         while ($section <= $course->numsections) {
             if (!empty($sections[$section])) {
@@ -336,14 +337,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
             $showsection = (has_capability('moodle/course:viewhiddensections', $context) or $thissection->visible or !$course->hiddensections);
 
-            if ($showsection) {
+            if (($showsection) && ($section != $displaysection)) {
                 $sectionmenu[$section] = get_section_name($course, $thissection);
             }
             $section++;
         }
 
         $select = new single_select(new moodle_url('/course/view.php', array('id'=>$course->id)), 'section', $sectionmenu);
-        $select->label = get_string('jumpto');
         $select->class = 'jumpmenu';
         $select->formid = 'sectionmenu';
         $o .= $this->output->render($select);
@@ -440,7 +440,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $sectionbottomnav .= html_writer::start_tag('div', array('class' => 'section-navigation mdl-bottom'));
         $sectionbottomnav .= html_writer::tag('span', $sectionnavlinks['previous'], array('class' => 'mdl-left'));
         $sectionbottomnav .= html_writer::tag('span', $sectionnavlinks['next'], array('class' => 'mdl-right'));
-        $sectionbottomnav .= html_writer::tag('div', $this->section_nav_selection($course, $sections), array('class' => 'mdl-align'));
+        $sectionbottomnav .= html_writer::tag('div', $this->section_nav_selection($course, $sections, $displaysection), array('class' => 'mdl-align'));
         $sectionbottomnav .= html_writer::end_tag('div');
         echo $sectionbottomnav;
 

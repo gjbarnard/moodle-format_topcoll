@@ -32,7 +32,7 @@
 require_once('../../../../config.php');
 require_once('../lib.php');
 require_once('./settings_form.php');
-require_once('../config.php');
+require_once($CFG->dirroot . '/course/format/topcoll/tcconfig.php'); // For Collaped Topics defaults.
 
 defined('MOODLE_INTERNAL') || die();
 

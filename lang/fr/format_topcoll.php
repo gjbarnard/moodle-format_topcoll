@@ -116,15 +116,15 @@ $string['setlayoutstructure_help']="Structure et disposition de la page.  Vous p
 
 'Jour' - chaque section est présentée par un jour, à partir de la date du début du cours.";
 $string['setlayout_help'] = 'Contient les réglages pour paramétrer le format sections réduites.';
-$string['resetlayout_help'] = 'Réinitialise les réglages par les valeurs par défaut présentes dans le fichier "/course/format/topcoll/config.php", ce sera donc le format de base de cours au format sections réduites.';
-$string['resetalllayout_help'] = 'Réinitialise les réglages par les valeurs par défaut présentes dans le fichier "/course/format/topcoll/config.php" pour tous les cours, ce sera donc le format de base de cours au format sections réduites.';
+$string['resetlayout_help'] = 'Réinitialise les réglages par les valeurs par défaut présentes dans le fichier "/course/format/topcoll/tcconfig.php", ce sera donc le format de base de cours au format sections réduites.';
+$string['resetalllayout_help'] = 'Réinitialise les réglages par les valeurs par défaut présentes dans le fichier "/course/format/topcoll/tcconfig.php" pour tous les cours, ce sera donc le format de base de cours au format sections réduites.';
 // Moodle Tracker CONTRIB-3529
 $string['setcolour_help'] = 'Contient les réglages pour paramétrer les couleurs du format sections réduites.';
 $string['settoggleforegroundcolour_help'] = 'Définit la couleur du texte de la section réduite.';
 $string['settogglebackgroundcolour_help'] = 'Définit la couleur du fond de la section réduite.';
 $string['settogglebackgroundhovercolour_help'] = 'Définit la couleur de la section réduite au passage de la souris.';
-$string['resetcolour_help'] = 'Réinitialise les couleurs par les valeurs par défaut présentes dans le fichier "/course/format/topcoll/config.php", ce sera donc le format de base de cours au format sections réduites.';
-$string['resetallcolour_help'] = 'Réinitialise les couleurs par les valeurs par défaut présentes dans le fichier "/course/format/topcoll/config.php" pour tous les cours, ce sera donc le format de base de cours au format sections réduites.';
+$string['resetcolour_help'] = 'Réinitialise les couleurs par les valeurs par défaut présentes dans le fichier "/course/format/topcoll/tcconfig.php", ce sera donc le format de base de cours au format sections réduites.';
+$string['resetallcolour_help'] = 'Réinitialise les couleurs par les valeurs par défaut présentes dans le fichier "/course/format/topcoll/tcconfig.php" pour tous les cours, ce sera donc le format de base de cours au format sections réduites.';
 // Columns enhancement
 $string['setlayoutcolumns_help'] = 'Définit le nombre de colonnes à utiliser.';
 ?>

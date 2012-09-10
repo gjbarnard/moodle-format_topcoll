@@ -135,9 +135,9 @@ function toggleexacttopic(target,image,toggleNum,reloading,savetoggles)  // Togg
 
             if (mymobiletheme == true) {
                 image.className = image.className.replace(/\b opencps\b/,''); //remove the class name
-                image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_down.png)";  // Temporary until MyMobile is fixed - MDL-33115.
+                image.className = image.className.replace('toggle_open','toggle_closed');  // Temporary until MyMobile is fixed - MDL-33115.
             } else {
-                image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_down.png)";
+                image.className = image.className.replace('toggle_open','toggle_closed'); //change the class name
             }
 
             // Save the toggle!
@@ -151,15 +151,15 @@ function toggleexacttopic(target,image,toggleNum,reloading,savetoggles)  // Togg
 
             if (mymobiletheme == true) {
                 image.className += " opencps";  //add the class name
-                image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_up.png)";  // Temporary until MyMobile is fixed - MDL-33115.
+                image.className = image.className.replace('toggle_closed','toggle_open');  // Temporary until MyMobile is fixed - MDL-33115.
             } else {
-                image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_up.png)";
+                image.className = image.className.replace('toggle_closed','toggle_open'); //change the class name
             }
 
             // Save the toggle!
             if (reloading == false) {
-			    togglebinary(toggleNum,"1",savetoggles);
-			}
+                togglebinary(toggleNum,"1",savetoggles);
+            }
         }
     }
 }

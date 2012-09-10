@@ -90,6 +90,9 @@ $string['two'] = 'Two';
 $string['three'] = 'Three';
 $string['four'] = 'Four';
 
+// Temporary until MDL-34917 in core.
+$string['maincoursepage'] = 'Ye main course page';
+
 // Help
 $string['setlayoutelements_help']='How much information about thee toggles / sections you wish to be displayed.';
 $string['setlayoutstructure_help']="Avast ye landlubbers, this be thee layout structure of thee course.  Ye choose between:
@@ -104,15 +107,15 @@ $string['setlayoutstructure_help']="Avast ye landlubbers, this be thee layout st
 
 'Day' - where each section is presented as a day in thy ascending day order from thee start date of thee course.";
 $string['setlayout_help'] = 'Contains thee settings to do with thee layout of the format within thy course.';
-$string['resetlayout_help'] = 'Resets thee layout to thee default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in thy Collapsed Topics format';
-$string['resetalllayout_help'] = 'Resets the layout to the default values in "/course/format/topcoll/config.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resetlayout_help'] = 'Resets thee layout to thee default values in "/course/format/topcoll/tcconfig.php" so it will be the same as a course the first time it is in thy Collapsed Topics format';
+$string['resetalllayout_help'] = 'Resets the layout to the default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 // Moodle Tracker CONTRIB-3529
 $string['setcolour_help'] = 'Contains thee settings to do with thy colour of the format within the course.';
 $string['settoggleforegroundcolour_help'] = 'Sets thee colour of thy text on the toggle.';
 $string['settogglebackgroundcolour_help'] = 'Sets thee background of thy toggle.';
 $string['settogglebackgroundhovercolour_help'] = 'Sets thee background of thy toggle when thee mouse scuttles over it.';
-$string['resetcolour_help'] = 'Resets thee colours to thee default values in "/course/format/topcoll/config.php" so it will be thee same as a course thy first time it is in thee Collapsed Topics format';
-$string['resetallcolour_help'] = 'Resets thee colours to the default values in "/course/format/topcoll/config.php" for all courses so it will be thy same as a course the first time it is in thee Collapsed Topics format.';
+$string['resetcolour_help'] = 'Resets thee colours to thee default values in "/course/format/topcoll/tcconfig.php" so it will be thee same as a course thy first time it is in thee Collapsed Topics format';
+$string['resetallcolour_help'] = 'Resets thee colours to the default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be thy same as a course the first time it is in thee Collapsed Topics format.';
 // Columns enhancement
 $string['setlayoutcolumns_help'] = 'How many columns to use.';
 ?>
