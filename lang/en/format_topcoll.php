@@ -113,15 +113,15 @@ $string['setlayoutstructure_help'] = "The layout structure of the course.  You c
 
 'Day' - where each section is presented as a day in ascending day order from the start date of the course.";
 $string['setlayout_help'] = 'Contains the settings to do with the layout of the format within the course.';
-$string['resetlayout_help'] = 'Resets the layout to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format.';
-$string['resetalllayout_help'] = 'Resets the layout to the default values in "/course/format/topcoll/config.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resetlayout_help'] = 'Resets the layout to the default values in "/course/format/topcoll/tcconfig.php" so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resetalllayout_help'] = 'Resets the layout to the default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 // Moodle Tracker CONTRIB-3529
 $string['setcolour_help'] = 'Contains the settings to do with the colour of the format within the course.';
 $string['settoggleforegroundcolour_help'] = 'Sets the colour of the text on the toggle.';
 $string['settogglebackgroundcolour_help'] = 'Sets the background of the toggle.';
 $string['settogglebackgroundhovercolour_help'] = 'Sets the background of the toggle when the mouse moves over it.';
-$string['resetcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format.';
-$string['resetallcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/config.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resetcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/tcconfig.php" so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resetallcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 // Columns enhancement
 $string['setlayoutcolumns_help'] = 'How many columns to use.';
 ?>

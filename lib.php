@@ -30,7 +30,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-require_once($CFG->dirroot . '/course/format/topcoll/config.php'); // For Collaped Topics defaults.
+require_once($CFG->dirroot . '/course/format/topcoll/tcconfig.php'); // For Collaped Topics defaults.
 
 /**
  * Indicates this format uses sections.

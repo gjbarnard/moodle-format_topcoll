@@ -36,45 +36,5 @@
 // format.
 //
 // The default blocks layout for this course format:
-$format['defaultblocks'] = ':search_forums,news_items,calendar_upcoming,recent_activity';
+    $format['defaultblocks'] = ':search_forums,news_items,calendar_upcoming,recent_activity';
 //
-
-unset($TCCFG);
-global $TCCFG;
-$TCCFG = new stdClass();
-
-// Layout configuration.
-// Here you can see what numbers in the array represent what layout for setting the default value below.
-// 1 => Default.
-// 2 => No 'Topic x' / 'Week x' / 'Day x'.
-// 3 => No section number.
-// 4 => No 'Topic x' / 'Week x' / 'Day x' and no section number.
-// 5 => No 'Toggle' word.
-// 6 => No 'Toggle' word and no 'Topic x' / 'Week x' / 'Day x'.
-// 7 => No 'Toggle' word, no 'Topic x' / 'Week x' / 'Day x' and no section number.
-// Default layout to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
-$TCCFG->defaultlayoutelement = 1;
-
-// Structure configuration.
-// Here so you can see what numbers in the array represent what structure for setting the default value below.
-// 1 => Topic
-// 2 => Week   
-// 3 => Latest Week First 
-// 4 => Current Topic First
-// 5 => Day
-// Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
-$TCCFG->defaultlayoutstructure = 1;
-
-// Default number of columns between 1 and 4.
-$TCCFG->defaultlayoutcolumns = 1;
-
-// Toggle colours per course - CONTRIB-3529.
-// Default toggle foreground colour in hexidecimal RGB without preceeding '#'.
-$TCCFG->defaulttgfgcolour = '000000';
-
-// Default toggle background colour in hexidecimal RGB without preceeding '#'.
-$TCCFG->defaulttgbgcolour = 'e2e2f2';
-
-// Default toggle background hover colour in hexidecimal RGB without preceeding '#'.
-$TCCFG->defaulttgbghvrcolour = 'eeeeff';
-?>
