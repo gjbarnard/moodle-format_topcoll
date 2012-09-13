@@ -368,6 +368,13 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1. Changes to 'format.php' because of MDL-28207 - thus requiring Moodle 2.2.4+ (Build: 20120809).
   2. Integrated CONTRIB-3805 - fix to 'lib.php'.
 
+14th September 2012 - Version 2.2.6.6
+  1. Fixed 'Warning: Illegal string offset 'defaultblocks' in ...\topcoll\config.php on line 39' issue when
+     operating with developer level debugging messages under PHP 5.4.3.  This was due to 'config.php's inclusion in 'lib.php'
+     with a 'require_once' function call.  Somehow Moodle core must include this file in another way.  Therefore collapsed topics
+     specific settings have been placed in a new file 'tcconfig.php' and all files changed to reflect this.
+     Thanks to Paul Nijbakker (http://moodle.org/user/profile.php?id=10036) for spotting this issue.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -423,6 +430,6 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th August 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 14th September 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

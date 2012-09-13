@@ -92,11 +92,11 @@ $string['setlayoutstructure_help']="Avast ye landlubbers, this be thee layout st
 
 'Current Topic First' - which is thee same as 'Topics' except that thee current topic is shown at thee top if it has been set.";
 $string['setlayout_help'] = 'Contains thee settings to do with thee layout of the format within thy course.';
-$string['resetlayout_help'] = 'Resets thee layout to thee default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in thy Collapsed Topics format';
+$string['resetlayout_help'] = 'Resets thee layout to thee default values in "/course/format/topcoll/tcconfig.php" so it will be the same as a course the first time it is in thy Collapsed Topics format';
 // Moodle Tracker CONTRIB-3529
 $string['setcolour_help'] = 'Contains the settings to do with the colour of the format within the course.';
 $string['settoggleforegroundcolour_help'] = 'Sets the colour of the text on the toggle.';
 $string['settogglebackgroundcolour_help'] = 'Sets the background of the toggle.';
 $string['settogglebackgroundhovercolour_help'] = 'Sets the background of the toggle when the mouse moves over it.';
-$string['resetcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/config.php" so it will be the same as a course the first time it is in the Collapsed Topics format';
+$string['resetcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/tcconfig.php" so it will be the same as a course the first time it is in the Collapsed Topics format';
 ?>
