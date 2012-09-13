@@ -566,6 +566,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
      operating with developer level debugging messages under PHP 5.4.3.  This was due to 'config.php's inclusion in 'lib.php'
      with a 'require_once' function call.  Somehow Moodle core must include this file in another way.  Therefore collapsed topics
      specific settings have been placed in a new file 'tcconfig.php' and all files changed to reflect this.
+     Thanks to Paul Nijbakker (http://moodle.org/user/profile.php?id=10036) for spotting this issue.
 
 Thanks
 ------
