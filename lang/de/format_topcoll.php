@@ -42,7 +42,7 @@ $string['topcolltoggle'] = 'Sehen';
 $string['topcollsidewidth'] = '30px';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
-$string['topcollall'] = 'alle thema.';
+$string['topcollall'] = 'alle Themen';
 $string['topcollopened'] = 'Geöffnet';
 $string['topcollclosed'] = 'Schließen sie';
 
