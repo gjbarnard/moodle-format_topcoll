@@ -61,15 +61,25 @@ if (($marker >= 0) && has_capability('moodle/course:setcurrentsection', $context
     course_set_marker($course->id, $marker);
 }
 
-$tcscreenreader = false;
-if ($USER->screenreader == 1) {
-    $tcscreenreader = true; // CONTRIB-3225 - If screenreader default back to a non-toggle based topics type format.
+
+// Property no longer exists MDL-30901 - keeping code just in case I need to react to another setting.
+//$tcscreenreader = false;
+//if ($USER->screenreader == 1) {
+//    $tcscreenreader = true; // CONTRIB-3225 - If screenreader default back to a non-toggle based topics type format.
+//}
+
+// make sure all sections are created
+$modinfo = get_fast_modinfo($course);
+for ($sectionnum = 0; $sectionnum <= $course->numsections; $sectionnum++) {
+    if (!$modinfo->get_section_info($sectionnum)) {
+        get_course_section($sectionnum, $course->id);
+    }
 }
 
 $renderer = $PAGE->get_renderer('format_topcoll');
 
 if (!empty($displaysection)) {
-    $renderer->print_single_section_page($course, $sections, $mods, $modnames, $modnamesused, $displaysection);
+    $renderer->print_single_section_page($course, $sections, $mods, $modnames, null, $displaysection);
 } else {
     require_once($CFG->dirroot . '/course/format/topcoll/tcconfig.php');
 
@@ -126,16 +136,17 @@ if (!empty($displaysection)) {
     </style>
     <?php
     $thecurrentsection = 0; // The section that will be the current section - manipulated in section_header in the renderer.
-    $renderer->print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused);
+    $renderer->print_multiple_section_page($course, null, $mods, $modnames, null);
     //print ($thecurrentsection);
-    // Only toggle if no Screen Reader
-    if ($tcscreenreader == false) {
+
+    // Only toggle if no Screen Reader - property no longer exists MDL-30901 - keeping code just in case I need to react to another setting.
+    //if ($tcscreenreader == false) {
         // Establish persistance when we have loaded.
         // Reload the state of the toggles from the data contained within the cookie.
         // Restore the state of the toggles from the cookie.
         echo $PAGE->requires->js_init_call('M.format_topcoll.set_current_section', array($thecurrentsection)); // If thecurrentsection is 0 because it has not been changed from the defualt, then as section 0 is never tested so can be used to set none.
         echo $PAGE->requires->js_init_call('M.format_topcoll.reload_toggles', array($course->numsections)); // reload_toggles uses the value set above.
-    }
+    //}
 }
 
 // Include course format js module
