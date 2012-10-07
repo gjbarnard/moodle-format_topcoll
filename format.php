@@ -31,7 +31,7 @@
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir . '/filelib.php');
 require_once($CFG->libdir . '/completionlib.php');
-require_once($CFG->dirroot . '/course/format/topcoll/config.php');
+require_once($CFG->dirroot . '/course/format/topcoll/tcconfig.php');
 
 $userisediting = $PAGE->user_is_editing();
 
@@ -46,11 +46,12 @@ $userisediting = $PAGE->user_is_editing();
     <link rel="stylesheet" type="text/css" href="<?php echo $CFG->wwwroot ?>/course/format/topcoll/css/ie-7-hacks.css" media="screen" />
 <![endif]-->
 <?php
-$PAGE->requires->js_init_call('M.format_topcoll.init', 
-                               array($CFG->wwwroot,
-                               preg_replace("/[^A-Za-z0-9]/", "", $SITE->shortname),
-                               $course->id,
-                               null)); // Expiring Cookie Initialisation - replace 'null' with your chosen duration - see Readme.txt.
+    user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_ALPHANUM);
+
+    $PAGE->requires->js_init_call('M.format_topcoll.init', array($CFG->wwwroot,
+        $course->id,
+        get_user_preferences('topcoll_toggle_' . $course->id)));
+
 if (ajaxenabled() && $userisediting) {
     // This overrides the 'swap_with_section' function in /lib/ajax/section_classes.js
     $PAGE->requires->js('/course/format/topcoll/js/tc_section_classes_min.js');
@@ -64,7 +65,7 @@ if ($topic != -1) {
     $displaysection = course_get_display($course->id); // MDL-23939
 }
 
-$coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
+$coursecontext = context_course::instance($course->id);
 
 if (($marker >= 0) && has_capability('moodle/course:setcurrentsection', $coursecontext) && confirm_sesskey()) {
     $course->marker = $marker;
@@ -148,31 +149,6 @@ tr.cps td a:hover, body.jsenabled tr.cps td a:hover {
     /* ]]> */
 </style>
 <?php
-// CONTRIB-3624 - Cookie consent.
-if ($TCCFG->defaultcookieconsent  == true) {
-    $usercookieconsent = get_topcoll_cookie_consent($USER->id); // In topcoll/lib.php
-
-    // Tell the JavaScript code of the state.  Upon user choice, this page will refresh and a new value sent...
-    echo $PAGE->requires->js_init_call('M.format_topcoll.set_cookie_consent', array($usercookieconsent->cookieconsent));
-
-    if ($usercookieconsent->cookieconsent == 1) {
-        // Display message to ask for consent.
-        echo '<tr class="section main">';
-        echo '<td class="left side">&nbsp;</td>';
-        echo '<td class="content">';
-        echo '<div class="cookieConsentContainer">';
-        echo '<a "title="' . get_string('cookieconsentform','format_topcoll') . '" href="format/topcoll/forms/cookie_consent.php?userid=' . $USER->id . '&courseid=' . $course->id . '&sesskey=' . sesskey() . '"><div id="set-cookie-consent"></div></a>';
-        echo '<div>'.$OUTPUT->heading(get_string('setcookieconsent','format_topcoll'), 2, 'sectionname').get_string('cookieconsent','format_topcoll').'</div>';
-        echo '</div>';
-        echo '</td>';
-        echo '<td class="right side">&nbsp;</td>';
-        echo '</tr>';
-        echo '<tr class="section separator"><td colspan="3" class="spacer"></td></tr>';
-    }
-} else {
-    // Cookie consent turned off by administrator, so allow...
-    echo $PAGE->requires->js_init_call('M.format_topcoll.set_cookie_consent', array(2));
-}
 
 if ($userisediting && has_capability('moodle/course:update', $coursecontext)) {
     echo '<tr class="section main">';
@@ -296,7 +272,7 @@ while ($loopsection <= $course->numsections) {
         $thissection->summaryformat = FORMAT_HTML;
         $thissection->visible = 1;
         $thissection->id = $DB->insert_record('course_sections', $thissection);
-        $sections[$section] = $thissection; // Ensure that the '!empty' works above if we are looped twice in the Current Topic First format when creating a new course and it is the default as set in 'config.php' of this course format.
+        $sections[$section] = $thissection; // Ensure that the '!empty' works above if we are looped twice in the Current Topic First format when creating a new course and it is the default as set in 'tcconfig.php' of this course format.
     }
 
     //$showsection = (has_capability('moodle/course:viewhiddensections', $coursecontext) or $thissection->visible or !$course->hiddensections);
@@ -517,31 +493,35 @@ while ($loopsection <= $course->numsections) {
             '<img src="' . $OUTPUT->pix_url('i/one') . '" class="icon" alt="' . $strshowonlytopic . '" /></a><br />';
         }
 
-        if ($userisediting && has_capability('moodle/course:update', $coursecontext)) {
-            if ($course->marker == $section) {  // Show the "light globe" on/off
-                echo '<a href="view.php?id=' . $course->id . '&amp;marker=0&amp;sesskey=' . sesskey() . '#section-' . $section . '" title="' . $strmarkedthistopic . '">' . '<img src="' . $OUTPUT->pix_url('i/marked') . '" alt="' . $strmarkedthistopic . '" class="icon"/></a><br />'; // MDL-32145
-            } else {
-                if (($setting->layoutstructure == 2) || ($setting->layoutstructure == 3)) {
-                    $strmarkthistopic = get_string("showonlyweek", "", $section);
+        if ($userisediting) {  // MDL-28207
+            if (has_capability('moodle/course:setcurrentsection', $coursecontext)) {
+                if ($course->marker == $section) {  // Show the "light globe" on/off
+                    echo '<a href="view.php?id='.$course->id.'&amp;marker=0&amp;sesskey='.sesskey().'#section-'.$section.'" title="'.$strmarkedthistopic.'">'.'<img src="'.$OUTPUT->pix_url('i/marked') . '" alt="'.$strmarkedthistopic.'" class="icon"/></a><br />';
+                } else {
+                    if (($setting->layoutstructure == 2) || ($setting->layoutstructure == 3)) {
+                        $strmarkthistopic = get_string("showonlyweek", "", $section);
+                    }
+                    echo '<a href="view.php?id='.$course->id.'&amp;marker='.$section.'&amp;sesskey='.sesskey().'#section-'.$section.'" title="'.$strmarkthistopic.'">'.'<img src="'.$OUTPUT->pix_url('i/marker') . '" alt="'.$strmarkthistopic.'" class="icon"/></a><br />';
                 }
-                echo '<a href="view.php?id=' . $course->id . '&amp;marker=' . $section . '&amp;sesskey=' . sesskey() . '#section-' . $section . '" title="' . $strmarkthistopic . '">' . '<img src="' . $OUTPUT->pix_url('i/marker') . '" alt="' . $strmarkthistopic . '" class="icon"/></a><br />';
-            } // MDL-32145
-
-            if ($thissection->visible) { // Show the hide/show eye
-                echo '<a href="view.php?id=' . $course->id . '&amp;hide=' . $section . '&amp;sesskey=' . sesskey() . '#section-' . $section . '" title="' . $strtopichide . '">' .
-                '<img src="' . $OUTPUT->pix_url('i/hide') . '" class="icon hide" alt="' . $strtopichide . '" /></a><br />';
-            } else {
-                echo '<a href="view.php?id=' . $course->id . '&amp;show=' . $section . '&amp;sesskey=' . sesskey() . '#section-' . $section . '" title="' . $strtopicshow . '">' .
-                '<img src="' . $OUTPUT->pix_url('i/show') . '" class="icon hide" alt="' . $strtopicshow . '" /></a><br />';
             }
-            if ($section > 1) { // Add a arrow to move section up
-                echo '<a href="view.php?id=' . $course->id . '&amp;random=' . rand(1, 10000) . '&amp;section=' . $section . '&amp;move=-1&amp;sesskey=' . sesskey() . '#section-' . ($section - 1) . '" title="' . $strmoveup . '">' .
-                '<img src="' . $OUTPUT->pix_url('t/up') . '" class="icon up" alt="' . $strmoveup . '" /></a><br />';
+            if (has_capability('moodle/course:sectionvisibility', $coursecontext)) {
+                if ($thissection->visible) {        // Show the hide/show eye
+                    echo '<a href="view.php?id='.$course->id.'&amp;hide='.$section.'&amp;sesskey='.sesskey().'#section-'.$section.'" title="'.$strtopichide.'">'.
+                         '<img src="'.$OUTPUT->pix_url('i/hide') . '" class="icon hide" alt="'.$strtopichide.'" /></a><br />';
+                } else {
+                    echo '<a href="view.php?id='.$course->id.'&amp;show='.$section.'&amp;sesskey='.sesskey().'#section-'.$section.'" title="'.$strtopicshow.'">'.
+                         '<img src="'.$OUTPUT->pix_url('i/show') . '" class="icon hide" alt="'.$strtopicshow.'" /></a><br />';
+                }
             }
-
-            if ($section < $course->numsections) { // Add a arrow to move section down
-                echo '<a href="view.php?id=' . $course->id . '&amp;random=' . rand(1, 10000) . '&amp;section=' . $section . '&amp;move=1&amp;sesskey=' . sesskey() . '#section-' . ($section + 1) . '" title="' . $strmovedown . '">' .
-                '<img src="' . $OUTPUT->pix_url('t/down') . '" class="icon down" alt="' . $strmovedown . '" /></a><br />';
+            if (has_capability('moodle/course:update', $coursecontext)) {
+                if ($section > 1) {                       // Add a arrow to move section up
+                    echo '<a href="view.php?id='.$course->id.'&amp;random='.rand(1,10000).'&amp;section='.$section.'&amp;move=-1&amp;sesskey='.sesskey().'#section-'.($section-1).'" title="'.$strmoveup.'">'.
+                         '<img src="'.$OUTPUT->pix_url('t/up') . '" class="icon up" alt="'.$strmoveup.'" /></a><br />';
+                }
+                if ($section < $course->numsections) {    // Add a arrow to move section down
+                    echo '<a href="view.php?id='.$course->id.'&amp;random='.rand(1,10000).'&amp;section='.$section.'&amp;move=1&amp;sesskey='.sesskey().'#section-'.($section+1).'" title="'.$strmovedown.'">'.
+                         '<img src="'.$OUTPUT->pix_url('t/down') . '" class="icon down" alt="'.$strmovedown.'" /></a><br />';
+                }
             }
         }
         echo '</td></tr>';
@@ -600,8 +580,8 @@ if (!empty($sectionmenu)) {
 // Only toggle if no Screen Reader
 if ($screenreader == false) {
 // Establish persistance when we have loaded.
-// Reload the state of the toggles from the data contained within the cookie.
-// Restore the state of the toggles from the cookie if not in 'Show topic x' mode, otherwise show that topic.
+// Reload the state of the toggles from the data contained within the topcoll_toggle_courseid user preference.
+// Restore the state of the toggles from the user preference if not in 'Show topic x' mode, otherwise show that topic.
     if ($displaysection == 0) {
         echo $PAGE->requires->js_init_call('M.format_topcoll.set_current_section', array($thecurrentsection)); // If thecurrentsection is 0 because it has not been changed from the defualt, then as section 0 is never tested so can be used to set none.
         echo $PAGE->requires->js_init_call('M.format_topcoll.reload_toggles', array($course->numsections)); // reload_toggles uses the value set above.

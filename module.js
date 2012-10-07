@@ -31,12 +31,12 @@
 // Global variables 
 var toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000"; // 53 possible toggles - current settings in Moodle for number of topics - 52 + 1 for topic 0.  Need 1 as Most Significant bit to allow toggle 1+ to be off.
 var thesparezeros = "00000000000000000000000000"; // A constant of 26 0's to be used to pad the storage state of the toggles when converting between base 2 and 36, this is because cookies need to be compact.
+var toggleState;
+var courseid;
 var thewwwroot;  // For the toggle graphic and extra files.
 var thecookiesubid; // For the cookie sub name.
 var numToggles = 0;
 var currentSection;
-var cookieConsent = 3; // Off by default as a 'just in case'.
-var cookieExpires;
 var ie7OrLess = false;
 var ie = false;
 var mymobiletheme = false;
@@ -53,16 +53,15 @@ M.format_topcoll = M.format_topcoll || {};
  * Initialise with the information supplied from the course format 'format.php' so we can operate.
  * @param {Object} Y YUI instance
  * @param {String} wwwroot the URL of the Moodle site
- * @param {Integer} moodleid the site short name (courseid 0)
- * @param {Integer} courseid the id of the current course to allow for settings for each course.
- * @param {Integer} cookielifetime how long the cookie should live for or null if a session cookie.
+ * @param {Integer} thecourseid the id of the current course to allow for settings for each course.
+ * @param {String} thetogglestate the current state of the toggles.
  */
-M.format_topcoll.init = function(Y, wwwroot, moodleid, courseid, cookielifetime) {
+M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate) {
     // Init.
     ourYUI = Y;
     thewwwroot = wwwroot;
-    thecookiesubid = moodleid + courseid;
-    cookieExpires = cookielifetime; // null indicates that it is a session cookie.
+    courseid = thecourseid;
+    toggleState = thetogglestate;
     //alert('Init');
     if (/MSIE (\d+\.\d+);/.test(navigator.userAgent))
     {
@@ -86,13 +85,10 @@ M.format_topcoll.set_current_section = function (Y, theSection) {
     currentSection = theSection;
 }
 
-M.format_topcoll.set_cookie_consent = function (Y, theConsent) {
-    cookieConsent = theConsent;
-}
-
 // Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the most significant bit and represents the non-toggling topic 0.
 // Args - toggleNum is an integer and toggleVal is a string which will either be "1" or "0"
-function togglebinary(toggleNum, toggleVal)
+//        savetoggles save the toggle state - used so that all_toggles does not make multiple requests but instead one.
+function togglebinary(toggleNum, toggleVal, savetoggles)
 {
     // Toggle num should be between 1 and 52 - see definition of toggleBinaryGlobal above.
     if ((toggleNum >=1) && (toggleNum <= 52))
@@ -109,7 +105,10 @@ function togglebinary(toggleNum, toggleVal)
 
         //alert("togglebinary toggleNum:" + toggleNum + " st:" + start + " ed:" + end + " tv:" + toggleVal + " tbg:" + toggleBinaryGlobal);
 
-        save_toggles();
+        if (savetoggles == true) 
+        {
+            save_toggles();
+        }
     }
 }
 
@@ -118,7 +117,8 @@ function togglebinary(toggleNum, toggleVal)
 //        image is the img tag element in the DOM to be changed.
 //        toggleNum is the toggle number to change.
 //        reloading is a boolean that states if the function is called from reload_toggles() so that we do not have to resave what we already know - ohh for default argument values.
-function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the target tr and change the image which is the a tag within the td of the tr above target
+//        savetoggles save the toggle state - used so that all_toggles does not make multiple requests but instead one.
+function toggleexacttopic(target,image,toggleNum,reloading,savetoggles)  // Toggle the target tr and change the image which is the a tag within the td of the tr above target
 {
     if(document.getElementById)
     {
@@ -150,7 +150,7 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
             }
 
             // Save the toggle!
-            if (reloading == false)    togglebinary(toggleNum,"0");
+            if (reloading == false)    togglebinary(toggleNum,"0",savetoggles);
         }
         else
         {
@@ -169,7 +169,7 @@ function toggleexacttopic(target,image,toggleNum,reloading)  // Toggle the targe
             }
 
             // Save the toggle!
-            if (reloading == false) togglebinary(toggleNum,"1");
+            if (reloading == false) togglebinary(toggleNum,"1",savetoggles);
         }
     }
 }
@@ -183,7 +183,7 @@ function toggle_topic(toggler,toggleNum)
         imageSwitch = toggler;
         targetElement = toggler.parentNode.parentNode.nextSibling; // Called from a <td>  or <div> inside a <tr> or <li> so find the next <tr> or <li>.
 
-        toggleexacttopic(targetElement,imageSwitch,toggleNum,false);
+        toggleexacttopic(targetElement,imageSwitch,toggleNum,false,true);
     }
 }
 
@@ -240,88 +240,40 @@ function to36baseString(two)
     return fps + sps;
 }
 
-// Cookie Monster
-// Args - value to save to the cookie
-function savetopcollcookie(value)
+// AJAX call to server to save the state of the toggles for this course for the current user.
+// Args - value is the base 36 state of the toggles.
+function savetogglestate(value)
 {
-    // Only save the cookie if consent has been given or not required for the installations country.
-    if (cookieConsent == 2)
-    {
-        // Use our YUI instance and use the cookie module. 
-        if (cookieExpires == null)
-        {
-            // Session Cookie...
-            ourYUI.use('cookie', function(Y){ 
-                Y.Cookie.setSub("mdl_cf_topcoll",thecookiesubid,value); 
-            //alert("Bongo After " + thecookiesubid + " " + value);
-            });
-        // Using Sub cookies, so, name, moodleid/courseid, value.
-        // This is not a Moodle table but in fact the cookies name.
-        }
-        else
-        {
-            // Expiring Cookie...
-            ourYUI.use('cookie', function(Y){ 
-                var newDate = new Date();
-                newDate.setTime(newDate.getTime() + cookieExpires); 
-                Y.Cookie.setSub("mdl_cf_topcoll",thecookiesubid,value, {
-                    expires: newDate
-                }); 
-            //alert("Bongo After " + thecookiesubid + " " + value + " " + newDate + " " + cookieExpires);
-            });
-        // This is not a Moodle table but in fact the cookies name.
-        }
-    }
-}
-
-// Get the cookie - yum.
-function restoretopcollcookie(daYUI)
-{
-    // Only load the cookie if consent has been given or not required for the installations country.
-    if (cookieConsent == 2)
-    {
-        return daYUI.Cookie.getSub("mdl_cf_topcoll",thecookiesubid); 
-    }
-    else
-    {
-        return null;
-    }
+    M.util.set_user_preference('topcoll_toggle_'+courseid , value);
 }
 
 // 'Private' version of reload_toggles
 function reloadToggles()
 {
-    ourYUI.use('cookie', function(daYUI){
-        var section;
-        var secatag;
-        // Get the cookie if there!
-        var storedval = restoretopcollcookie(daYUI);
-        //var storedval = daYUI.Cookie.getSub("mdl_cf_topcoll",thecookiesubid);
-        if (storedval != null)
-        {
-            toggleBinaryGlobal = to2baseString(storedval);
-        }
-        else
-        {
-            // Reset to default.
-            toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
-        }
-        //alert("Bongo3 " + thecookiesubid + " " + storedval + " " + numToggles + " " + toggleBinaryGlobal);
-    
+    if (toggleState != null)
+    {
+        toggleBinaryGlobal = to2baseString(toggleState);
+    }
+    else
+    {
+        // Reset to default.
+        toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
+    }
+    //alert("Bongo3 " + toggleState + " " + numToggles + " " + toggleBinaryGlobal);
+
         for (var theToggle = 1; theToggle <= numToggles; theToggle++)
         {
             if ((theToggle <= numToggles) && ((toggleBinaryGlobal.charAt(theToggle) == "1") || (theToggle == currentSection))) // Array index 0 is never tested - MSB thing.
             {
-                section = document.getElementById("section-"+theToggle);  // CONTRIB-3283
-                secatag = document.getElementById("sectionatag-" + theToggle);
-                if ((section != null) && (secatag != null))
+                var target = document.getElementById("section-"+theToggle);
+                var secatag = document.getElementById("sectionatag-" + theToggle);
+                if ((target != null) && (secatag != null))
                 {
-                    toggleexacttopic(section,secatag,theToggle,true);
+                    toggleexacttopic(target,secatag,theToggle,true,false);
                 }
             //alert("Bongo4 " + thecookiesubid + " " + theToggle);
             }
         }    
-    });
 }
 
 // Toggle persistence functions
@@ -344,15 +296,15 @@ M.format_topcoll.show_topic = function (Y, theTopic)
     var secatag = document.getElementById("sectionatag-" + theTopic);
     if ((section != null) && (secatag != null))
     {
-        toggleexacttopic(section,secatag,theTopic,true);
+        toggleexacttopic(section,secatag,theTopic,true,false);
     }
 //alert("show_topic " + theTopic);
 }
 
-// Save the toggles - called from togglebinary and an the unload event handler at the bottom of format.php which does not work for a refresh even though it should!
+// Save the toggles - called from togglebinary and allToggle.
 function save_toggles()
 {
-    savetopcollcookie(to36baseString(toggleBinaryGlobal));
+    savetogglestate(to36baseString(toggleBinaryGlobal));
 }
 
 // Functions that turn on or off all toggles.
@@ -383,14 +335,17 @@ function allToggle(state)
 
     for (var theToggle = 1; theToggle <= numToggles; theToggle++)
     {
-        section = document.getElementById("section-"+theToggle);
-        secatag = document.getElementById("sectionatag-" + theToggle);
-        if ((section != null) && (secatag != null))
+        var target = document.getElementById("section-"+theToggle);
+        var secatag = document.getElementById("sectionatag-" + theToggle);
+        if ((target != null) && (secatag != null))
         {
-            section.style.display = displaySetting;
-            toggleexacttopic(section,secatag,theToggle,false);
+            target.style.display = displaySetting;
+            toggleexacttopic(target,secatag,theToggle,false,false);
         }
+    //alert(theToggle);
     }
+    // Now save the state of the toggles for efficiency...
+    save_toggles();
 }
 
 // Open all toggles.

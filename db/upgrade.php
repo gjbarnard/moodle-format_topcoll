@@ -33,9 +33,8 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
 
     global $DB;
     $dbman = $DB->get_manager();
-    $result = true;
 
-    if ($result && $oldversion < 2012030100) {
+    if ($oldversion < 2012030100) {
 
         // Define table format_topcoll_layout.
         $table = new xmldb_table('format_topcoll_layout');
@@ -50,17 +49,16 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
 
         // Create table.
-        $result = $result && $dbman->create_table($table);
+        $dbman->create_table($table);
 
         upgrade_plugin_savepoint(true, '2012030100', 'format', 'topcoll');
     }
 
-    if ($result && $oldversion < 2012042600.00) {
+    if ($oldversion < 2012042600) {
         // Change table name...
         $table = new xmldb_table('format_topcoll_layout');
         $dbman->rename_table($table, 'format_topcoll_settings');
         $table = new xmldb_table('format_topcoll_settings');   // Use the new table.
-
         // Define field tgfgcolour to be added to format_topcoll_settings
         $field = new xmldb_field('tgfgcolour', XMLDB_TYPE_CHAR, '6', null, XMLDB_NOTNULL, null, '000000', 'layoutstructure');
 
@@ -85,12 +83,10 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
             $dbman->add_field($table, $field);
         }
 
-        upgrade_plugin_savepoint(true, '2012042600.00', 'format', 'topcoll');
-
-        $result = $result && true;
+        upgrade_plugin_savepoint(true, '2012042600', 'format', 'topcoll');
     }
 
-    if ($result && $oldversion < 2012050300.00) {
+    if ($oldversion < 2012050300) {
 
         // Define table format_topcoll_cookie_cnsnt to be created
         $table = new xmldb_table('format_topcoll_cookie_cnsnt');
@@ -108,9 +104,19 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
             $dbman->create_table($table);
         }
 
-        upgrade_plugin_savepoint(true, '2012050300.00', 'format', 'topcoll');
-
-        $result = $result && true;
+        upgrade_plugin_savepoint(true, '2012050300', 'format', 'topcoll');
     }
-    return $result;
+
+    if ($oldversion < 2012053101) {
+        // Drop table format_topcoll_cookie_cnsnt if it exists - this may not work, please check db to see that the table has really gone.
+        $table = new xmldb_table('format_topcoll_cookie_cnsnt');
+
+        // Drop the table...
+        if ($dbman->table_exists($table)) {
+            $dbman->drop_table($table);
+        }
+
+        upgrade_plugin_savepoint(true, '2012053101', 'format', 'topcoll');
+    }
+    return true;
 }

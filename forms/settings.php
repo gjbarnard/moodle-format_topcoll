@@ -30,9 +30,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 require_once('../../../../config.php');
-require_once('../lib.php');
-require_once('./settings_form.php');
-require_once('../config.php');
+require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
+require_once($CFG->dirroot . '/course/format/topcoll/forms/settings_form.php');
+require_once($CFG->dirroot . '/course/format/topcoll/tcconfig.php'); // For Collaped Topics defaults.
 
 defined('MOODLE_INTERNAL') || die();
 
