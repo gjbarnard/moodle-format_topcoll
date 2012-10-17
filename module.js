@@ -40,8 +40,6 @@ var currentSection;
 var mymobiletheme = false;
 var ourYUI;
 
-// Because I like the idea of private and public methods, public will have an underscore in the name.
-
 /**
  * @namespace
  */
@@ -53,31 +51,29 @@ M.format_topcoll = M.format_topcoll || {};
  * @param {String} wwwroot the URL of the Moodle site
  * @param {Integer} thecourseid the id of the current course to allow for settings for each course.
  * @param {String} thetogglestate the current state of the toggles.
+ * @param {Integer} noOfToggles The number of toggles.
  */
-M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate) {
+M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate, noOfToggles) {
     // Init.
     ourYUI = Y;
     thewwwroot = wwwroot;
     courseid = thecourseid;
     toggleState = thetogglestate;
-    //alert(toggleState);
-    //alert('Init: www: ' + wwwroot + ' mooid: ' + moodleid + ' corid: ' + courseid + ' cookielt: ' + cookielifetime);
-    /* if (/MSIE (\d+\.\d+);/.test(navigator.userAgent))
+    numToggles = noOfToggles;
+
+    if (toggleState != null)
     {
-        // Info from: http://www.javascriptkit.com/javatutors/navigator.shtml - accessed 2nd September 2011.
-        var ieversion = new Number(RegExp.$1);
-        ie = true;
-        //alert('Is IE ' + ieversion);
-    } */
+        toggleBinaryGlobal = to2baseString(toggleState);
+    }
+    else
+    {
+        // Reset to default.
+        toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
+    }
+
     if (document.getElementById("mymobile")) {
         mymobiletheme = true;
     }
-//alert(mymobiletheme);
-}
-
-M.format_topcoll.set_current_section = function (Y, theSection) {
-    currentSection = theSection;
-//alert(currentSection);
 }
 
 // Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the most significant bit and represents the non-toggling topic 0.
@@ -88,18 +84,11 @@ function togglebinary(toggleNum, toggleVal, savetoggles)
     // Toggle num should be between 1 and 52 - see definition of toggleBinaryGlobal above.
     if ((toggleNum >=1) && (toggleNum <= 52))
     {
-        //alert("togglebinary tbg:" + toggleBinaryGlobal);
-        
         // Safe to use.
         var start = toggleBinaryGlobal.substring(0,toggleNum);
         var end = toggleBinaryGlobal.substring(toggleNum+1);
-        //var newval = start + toggleVal + end;
         toggleBinaryGlobal = start + toggleVal + end;
         
-        //toggleBinaryGlobal = newval;
-
-        //alert("togglebinary toggleNum:" + toggleNum + " st:" + start + " ed:" + end + " tv:" + toggleVal + " tbg:" + toggleBinaryGlobal);
-
         if (savetoggles == true) 
         {
             save_toggles();
@@ -117,18 +106,8 @@ function toggleexacttopic(target,image,toggleNum,reloading,savetoggles)  // Togg
 {
     if(document.getElementById)
     {
-        //if (ie == true)
-        //{
-        //var displaySetting = "table-row";
-        //}
-        //else
-        //{
         var displaySetting = "block";
-        //}
-        
-        //alert("toggleexacttopic tdisp:" + target.style.display + " disp:" + displaySetting + " ton:" + toggleNum + " rl:" + reloading);
 
-        //var sectoggle = document.getElementById("toggle-" + toggleNum);
         if (target.style.display == displaySetting)
         {
             target.style.display = "none";
@@ -168,7 +147,6 @@ function toggleexacttopic(target,image,toggleNum,reloading,savetoggles)  // Togg
 // Args - toggler the tag that initiated the call, toggleNum the number of the toggle for which toggler is a part of - see format.php.
 function toggle_topic(toggler,toggleNum)
 {
-    //alert('toggle_topic ' + toggleNum);
     if(document.getElementById)
     {
         imageSwitch = toggler;
@@ -238,51 +216,6 @@ function savetogglestate(value)
     M.util.set_user_preference('topcoll_toggle_'+courseid , value);
 }
 
-// 'Private' version of reload_toggles
-function reloadToggles()
-{
-    if (toggleState != null)
-    {
-        toggleBinaryGlobal = to2baseString(toggleState);
-    }
-    else
-    {
-        // Reset to default.
-        toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
-    }
-    //alert("Bongo3 " + toggleState + " " + numToggles + " " + toggleBinaryGlobal);
-    
-    //alert(toggleBinaryGlobal);
-    for (var theToggle = 1; theToggle <= numToggles; theToggle++)
-    {
-        if ((theToggle <= numToggles) && ((toggleBinaryGlobal.charAt(theToggle) == "1") || (theToggle == currentSection))) // Array index 0 is never tested - MSB thing.
-        {
-            //alert(theToggle);
-            var target = document.getElementById("toggledsection-"+theToggle);
-            var image = document.getElementById("toggle-" + theToggle);
-            if ((target != null) && (image != null))
-            {
-                toggleexacttopic(target,image.firstChild,theToggle,true,false);
-            }
-        //alert("Bongo4 " + theToggle);
-        }
-    }    
-}
-
-// Toggle persistence functions
-// Reload the toggles - called from an onload event handler setup at the bottom of format.php
-// aToggle sets the number of toggles we have on this course so that when restoring the state we do not attempt to set something that
-// no longer exists.  This can happen when the number of sections is reduced and we return to the course and reload the page
-// using the data from the cookie.
-M.format_topcoll.reload_toggles = function (Y, aToggle) {
-    //alert('reload_toggles(' + aToggle + ')');
-    numToggles = aToggle;
-    
-    Y.use('node-base', function(daYUI) {
-        daYUI.on("domready", reloadToggles);
-    });
-}
-
 // Save the toggles - called from togglebinary and allToggle.
 function save_toggles()
 {
@@ -297,15 +230,7 @@ function allToggle(state)
 
     if (state == false)
     {
-        // All on to set off!
-        //if (ie == false)
-        //{
         displaySetting = "block";
-    //}
-    //else
-    //{
-    //  displaySetting = "table-row";
-    //}
     }
     else
     {
@@ -322,7 +247,6 @@ function allToggle(state)
             target.style.display = displaySetting;
             toggleexacttopic(target,image.firstChild,theToggle,false,false);
         }
-    //alert(theToggle);
     }
     // Now save the state of the toggles for efficiency...
     save_toggles();

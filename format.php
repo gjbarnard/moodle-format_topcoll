@@ -77,7 +77,8 @@ if (!empty($displaysection)) {
 
     $PAGE->requires->js_init_call('M.format_topcoll.init', array($CFG->wwwroot,
         $course->id,
-        get_user_preferences('topcoll_toggle_' . $course->id)));
+        get_user_preferences('topcoll_toggle_' . $course->id),
+        $course->numsections));
 
     global $tcsetting;
     if (empty($tcsetting) == true) {
@@ -125,17 +126,7 @@ if (!empty($displaysection)) {
         /* ]]> */
     </style>
     <?php
-    $thecurrentsection = 0; // The section that will be the current section - manipulated in section_header in the renderer.
     $renderer->print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused);
-    //print ($thecurrentsection);
-    // Only toggle if no Screen Reader
-    if ($tcscreenreader == false) {
-        // Establish persistance when we have loaded.
-        // Reload the state of the toggles from the data contained within the cookie.
-        // Restore the state of the toggles from the cookie.
-        echo $PAGE->requires->js_init_call('M.format_topcoll.set_current_section', array($thecurrentsection)); // If thecurrentsection is 0 because it has not been changed from the defualt, then as section 0 is never tested so can be used to set none.
-        echo $PAGE->requires->js_init_call('M.format_topcoll.reload_toggles', array($course->numsections)); // reload_toggles uses the value set above.
-    }
 }
 
 // Include course format js module

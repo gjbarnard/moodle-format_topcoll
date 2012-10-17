@@ -211,8 +211,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if (!$section->visible) {
                 $sectionstyle = ' hidden';
             } else if ($this->is_section_current($section, $course)) {
-                global $thecurrentsection;
-                $thecurrentsection = $section->section;
+                //global $thecurrentsection;
+                //$thecurrentsection = $section->section;
+                $section->toggle = '1'; // Open current section regardless of toggle state.
                 $sectionstyle = ' current';
             }
         }
@@ -236,7 +237,18 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $o .= html_writer::start_tag('div', array('class' => 'sectionhead toggle', 'id' => 'toggle-' . $section->section));
 
             $title = get_section_name($course, $section);
-            $toggleclass = 'toggle_closed';
+            if ((!($section->toggle === NULL)) && ($section->toggle == '1')) {
+                $toggleclass = 'toggle_open';
+                $sectionstyle = 'display: block;';
+                if ($this->mymobiletheme == true) {
+                    $toggleclass .= ' opencps';
+                }
+                //print("Toggle ".$section->section." open");
+            } else {
+                $toggleclass = 'toggle_closed';
+                //$sectionstyle = 'display: none;'; // Will be done by CSS when 'body .jsenabled' not present.
+                $sectionstyle = '';
+            }
             if ((string) $section->name == '') { // Name is empty.
                 $toggleclass .= ' cps_noname';
             }
@@ -260,7 +272,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
             $o .= html_writer::end_tag('a');
             $o .= html_writer::end_tag('div');
-            $o .= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection', 'id' => 'toggledsection-' . $section->section));
+            $o .= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection', 'id' => 'toggledsection-'.$section->section,'style' => $sectionstyle));
             if ($section->section != 0 && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                 $o .= html_writer::link(course_get_url($course, $section->section), $title);
             }
@@ -589,6 +601,25 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $canbreak = false; // Once the first section is shown we can decide if we break on another column.
         $columncount = 1;
         $shownsectioncount = 0;
+        
+        $toggleState = get_user_preferences('topcoll_toggle_' . $course->id);
+        //print("Toggle state:".$toggleState);
+        $ts1 = base_convert(substr($toggleState,0,6),36,2);
+        $ts2 = base_convert(substr($toggleState,6,12),36,2);
+        //print("Toggle state two, 1:".$ts1);
+        //print("Toggle state two, 2:".$ts2);
+        $thesparezeros = "00000000000000000000000000";
+        if (strlen($ts1) < 26) {
+            // Need to PAD.
+            $ts1 = substr($thesparezeros,0,(26 - strlen($ts1))).$ts1;
+        }
+        if (strlen($ts2) < 27) {
+            // Need to PAD.
+            $ts2 = substr($thesparezeros,0,(27 - strlen($ts2))).$ts2;
+        }
+        $tb = $ts1.$ts2;
+        //print("TB:".$tb);
+        
         while ($loopsection <= $course->numsections) {
             if (($tcsetting->layoutstructure == 3) && ($userisediting == false)) {
                 $nextweekdate = $weekdate - ($weekofseconds);
@@ -637,6 +668,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     // Display section summary only.
                     echo $this->section_summary($thissection, $course, $mods);
                 } else {
+                    $thissection->toggle = substr($tb,$section,1);
                     echo $this->section_header($thissection, $course, false, 0);
                     if ($thissection->uservisible) {
                         print_section($course, $thissection, $mods, $modnamesused, true, "100%", false, 0);

@@ -140,7 +140,7 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_c
 
 /* -- Hiding the sections -- */
 body.jsenabled .toggledsection {
-    display:none; /* If JavaScript is enabled then this css will apply and the sections hidden. */
+    display:none; /* If JavaScript is enabled then this css will apply and the section will be hidden. */
 }
 
 /* -- Size of the spacer row -- */

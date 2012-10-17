@@ -571,6 +571,13 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 7th October 2012 - Version 2.3.8.2
   1. Changes to 'renderer.php' because of MDL-31976 and MDL-35276 - thus requiring Moodle 2.3.2+, version 2012062502.05 (Build: 20121005).
 
+17th October 2012 - Version 2.3.9
+  1. Idea posed on https://moodle.org/mod/forum/discuss.php?d=213138 (implemented in 2.3.2 first as it is currently the main development branch),
+     led to the thought that the code could now be optimised to set the toggle state at the server end as that is where the persistence is now
+     stored.  So to speed things up this version should reduce page load times by about 0.4 of a second.  This has been achieved by setting the
+     state of the toggle when writing out the HTML at the server end instead of making all toggles initially closed and then getting the client
+     side JavaScript to open them as required.  Until the move to server side persistence this would not have been possible.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -578,7 +585,7 @@ I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org
 Craig Grannell of Snub Communications who wrote the article on Collapsed Tables in .Net Magazine Issue 186 from whom
 the original code is based and concept used with his permission.
 
-For the Peristence upgrade I would like to thank all those who contributed to the developer forum -
+For the persistence upgrade I would like to thank all those who contributed to the developer forum -
 http://moodle.org/mod/forum/discuss.php?d=124264 - Frank Ralf, Matt Gibson, Howard Miller and Tim Hunt.  And
 indeed all those who have worked on the developer documentation - http://docs.moodle.org/en/Javascript_FAQ.
 
@@ -622,6 +629,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 7th October 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th October 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
