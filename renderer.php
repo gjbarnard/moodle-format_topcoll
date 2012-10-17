@@ -198,7 +198,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @param int $sectionreturn The section to return to after an action
      * @return string HTML to output.
      */
-    protected function section_header($section, $course, $onsectionpage, $sectionreturn = 0) {
+    protected function section_header($section, $course, $onsectionpage, $sectionreturn = null) {
         $o = '';
         global $PAGE;
 
@@ -267,7 +267,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
-                $o.= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'), 'class' => 'iconsmall edit')), array('title' => get_string('editsummary')));
+                $o.= html_writer::link($url,
+                     html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
+                        'class' => 'iconsmall edit', 'alt' => get_string('edit'))),
+                         array('title' => get_string('editsummary')));
             }
             $o .= html_writer::end_tag('div');
 
@@ -285,7 +288,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
-                $o .= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'), 'class' => 'iconsmall edit')), array('title' => get_string('editsummary')));
+                $o.= html_writer::link($url,
+                     html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
+                        'class' => 'iconsmall edit', 'alt' => get_string('edit'))),
+                         array('title' => get_string('editsummary')));
             }
             $o .= html_writer::end_tag('div');
 
@@ -472,7 +478,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         echo $this->output->heading($this->page_title(), 2, 'accesshide');
 
         // Copy activity clipboard..
-        echo $this->course_activity_clipboard($course);
+        echo $this->course_activity_clipboard($course,0);
 
         // Now the list of sections..
         $this->tccolumnwidth = 100; // Reset to default.
@@ -485,10 +491,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $thissection = $sections[0];
         unset($sections[0]);
         if ($thissection->summary or $thissection->sequence or $PAGE->user_is_editing()) {
-            echo $this->section_header($thissection, $course, false);
-            print_section($course, $thissection, $mods, $modnamesused, true);
+            echo $this->section_header($thissection, $course, false, 0);
+            print_section($course, $thissection, $mods, $modnamesused, true, "100%", false, 0);
             if ($PAGE->user_is_editing()) {
-                print_section_add_menus($course, 0, $modnames);
+                print_section_add_menus($course, 0, $modnames, false, false, 0);
             }
             echo $this->section_footer();
         }
@@ -628,12 +634,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     // Display section summary only.
                     echo $this->section_summary($thissection, $course, $mods);
                 } else {
-                    echo $this->section_header($thissection, $course, false);
+                    echo $this->section_header($thissection, $course, false, 0);
                     if ($thissection->uservisible) {
-                        print_section($course, $thissection, $mods, $modnamesused);
+                        print_section($course, $thissection, $mods, $modnamesused, true, "100%", false, 0);
 
                         if ($PAGE->user_is_editing()) {
-                            print_section_add_menus($course, $section, $modnames);
+                            print_section_add_menus($course, $section, $modnames, false, false, 0);
                         }
                     }
                     echo html_writer::end_tag('div');
@@ -685,7 +691,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     continue;
                 }
                 echo $this->stealth_section_header($section);
-                print_section($course, $thissection, $mods, $modnamesused);
+                print_section($course, $thissection, $mods, $modnamesused, true, "100%", false, $displaysection);
                 echo $this->stealth_section_footer();
             }
 
