@@ -175,7 +175,8 @@ Known Issues
 4.  Sometimes when restoring a course, it is accessed for the first time and a toggle is clicked a 'Error updating user preference
     'topcoll_toggle_x'' (where 'x' is the course id as shown in the URL 'id=x') can occur.  I'm not completely sure why this is happening
     as the 'user_preference_allow_ajax_update' call in 'format.php' should establish that the user preference can be set.  Could be a page cache
-    thing as the 'init' code is getting the course id unlike an issue I'm currently experiencing with the MyMobile theme - MDL-33115.
+    thing as the 'init' code is getting the course id unlike an issue I'm currently experiencing with the MyMobile theme - MDL-33115.  The
+    work around is to refresh the page.
 
 Version Information
 -------------------
@@ -587,7 +588,8 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2. Identified that sometimes when restoring a course, it is accessed for the first time and a toggle is clicked a 'Error updating user preference
      'topcoll_toggle_x'' (where 'x' is the course id as shown in the URL 'id=x') can occur.  I'm not completely sure why this is happening
      as the 'user_preference_allow_ajax_update' call in 'format.php' should establish that the user preference can be set.  Could be a page cache
-     thing as the 'init' code is getting the course id unlike an issue I'm currently experiencing with the MyMobile theme - MDL-33115.
+     thing as the 'init' code is getting the course id unlike an issue I'm currently experiencing with the MyMobile theme - MDL-33115.  The
+     work around is to refresh the page.
 
 Thanks
 ------
