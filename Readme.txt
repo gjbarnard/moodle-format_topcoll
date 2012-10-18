@@ -69,6 +69,11 @@ Known Issues
     the up and down arrows, edit lib.php and remove "'MSIE' => 6.0," from:
     "$ajaxsupport->testedbrowsers = array('MSIE' => 6.0, 'Gecko' => 20061111, 'Opera' => 9.0, 'Safari' => 531, 'Chrome' => 6.0);"
     And if possible, please let me know, my Moodle.org profile is 'http://moodle.org/user/profile.php?id=442195'.
+3.  Sometimes when restoring a course, it is accessed for the first time and a toggle is clicked a 'Error updating user preference
+    'topcoll_toggle_x'' (where 'x' is the course id as shown in the URL 'id=x') can occur.  I'm not completely sure why this is happening
+    as the 'user_preference_allow_ajax_update' call in 'format.php' should establish that the user preference can be set.  Could be a page cache
+    thing as the 'init' code is getting the course id unlike an issue I'm currently experiencing with the MyMobile theme - MDL-33115.  The
+    work around is to refresh the page.
 
 Version Information
 -------------------
@@ -375,6 +380,19 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
      specific settings have been placed in a new file 'tcconfig.php' and all files changed to reflect this.
      Thanks to Paul Nijbakker (http://moodle.org/user/profile.php?id=10036) for spotting this issue.
 
+18th October 2012 - Version 2.2.7
+  1. Idea posed on https://moodle.org/mod/forum/discuss.php?d=213138, led to the thought that the code could now be optimised to set the toggle
+     state at the server end as that is where the persistence is now stored.  So to speed things up this version should reduce page load times
+     by about 0.4 of a second.  This has been achieved by setting the state of the toggle when writing out the HTML at the server end instead of
+     making all toggles initially closed and then getting the client side JavaScript to open them as required.  Until the move to server side
+     persistence this would not have been possible.
+  2. Identified that sometimes when restoring a course, it is accessed for the first time and a toggle is clicked a 'Error updating user preference
+     'topcoll_toggle_x'' (where 'x' is the course id as shown in the URL 'id=x') can occur.  I'm not completely sure why this is happening
+     as the 'user_preference_allow_ajax_update' call in 'format.php' should establish that the user preference can be set.  Could be a page cache
+     thing as the 'init' code is getting the course id unlike an issue I'm currently experiencing with the MyMobile theme - MDL-33115.  The
+     work around is to refresh the page.
+  3. Changed 'show topic x' mode to not display the toggle to save opening it and causing possible toggle state retention issues.
+ 
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -430,6 +448,6 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 14th September 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 18th October 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

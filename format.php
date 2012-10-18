@@ -46,11 +46,49 @@ $userisediting = $PAGE->user_is_editing();
     <link rel="stylesheet" type="text/css" href="<?php echo $CFG->wwwroot ?>/course/format/topcoll/css/ie-7-hacks.css" media="screen" />
 <![endif]-->
 <?php
-    user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_ALPHANUM);
+user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_ALPHANUM);
 
-    $PAGE->requires->js_init_call('M.format_topcoll.init', array($CFG->wwwroot,
-        $course->id,
-        get_user_preferences('topcoll_toggle_' . $course->id)));
+// Server side decoding of toggle state for optimised loading...
+$toggleState = get_user_preferences('topcoll_toggle_' . $course->id);
+if ($toggleState != null) {
+    $ts1 = base_convert(substr($toggleState,0,6),36,2);
+    $ts2 = base_convert(substr($toggleState,6,12),36,2);
+    $thesparezeros = "00000000000000000000000000";
+    if (strlen($ts1) < 26) {
+        // Need to PAD.
+        $ts1 = substr($thesparezeros,0,(26 - strlen($ts1))).$ts1;
+    }
+    if (strlen($ts2) < 27) {
+        // Need to PAD.
+        $ts2 = substr($thesparezeros,0,(27 - strlen($ts2))).$ts2;
+    }
+    $tb = $ts1.$ts2;
+} else {
+    $tb = '10000000000000000000000000000000000000000000000000000';
+}
+//print("TS:".$toggleState." TB:".$tb);
+
+// Server side browser detection for optimised loading...
+// Info from: http://www.dauidusdesign.com/server-side-detection/  - accessed 18th October 2012.
+$useragent = $_SERVER['HTTP_USER_AGENT']; 
+if (preg_match('/MSIE/', $useragent)) {
+    $isIE = true;
+    if (preg_match('/(?i)MSIE [1-7]/', $useragent)) {
+        $isIE7OrLess = true;
+    } else {
+        $isIE7OrLess = false;
+    }
+} else {
+    $isIE = false;
+    $isIE7OrLess = false;
+}
+
+$PAGE->requires->js_init_call('M.format_topcoll.init', array($CFG->wwwroot,
+    $course->id,
+    $toggleState,
+    $course->numsections,
+    $isIE,
+    $isIE7OrLess));
 
 if (ajaxenabled() && $userisediting) {
     // This overrides the 'swap_with_section' function in /lib/ajax/section_classes.js
@@ -320,6 +358,7 @@ while ($loopsection <= $course->numsections) {
             }
         }
 
+        $thissection->toggle = substr($tb,$section,1);
         $currenttext = '';
         if (!$thissection->visible) {
             $sectionstyle = ' hidden';
@@ -331,19 +370,31 @@ while ($loopsection <= $course->numsections) {
             $sectionstyle = ' current';
             $currenttext = get_accesshide(get_string('currentweek', 'access'));
             $thecurrentsection = $section;
+            $thissection->toggle = '1'; // Open current section regardless of toggle state.
         } else {
             $sectionstyle = '';
         }
 
         $weekperiod = $weekday . ' - ' . $endweekday;
 
-        if ($screenreader == false) {
-
+        if (($screenreader == false) && ($displaysection == 0)) {
+            if ((!($thissection->toggle === NULL)) && ($thissection->toggle == '1')) {
+                $toggleclass = 'toggle_open';
+                if ($isIE == true) {
+                    $togglesectionstyle = 'display: block;';
+                } else {
+                    $togglesectionstyle = 'display: table-row;';
+                }
+            } else {
+                $toggleclass = 'toggle_closed';
+                //$togglesectionstyle = 'display: none;'; // Will be done by CSS when 'body .jsenabled' not present.
+                $togglesectionstyle = '';
+            }
             echo '<tr class="cps" id="sectionhead-' . $section . '">';
 
             // Have a different look depending on if the section summary has been completed.
             if (is_null($thissection->name)) {
-                echo '<td colspan="3"><a id="sectionatag-' . $section . '" class="cps_nosumm" href="#" onclick="toggle_topic(this,' . $section . '); return false;">';
+                echo '<td colspan="3"><a id="sectionatag-' . $section . '" class="'.$toggleclass.' cps_nosumm" href="#" onclick="toggle_topic(this,' . $section . '); return false;">';
                 if (($setting->layoutstructure != 1) && ($setting->layoutstructure != 4)) {
                     echo '<span>' . $weekperiod . '</span><br />';
                 }
@@ -378,7 +429,7 @@ while ($loopsection <= $course->numsections) {
                         $colspan = 3;
                         break;
                 }
-                echo '<td colspan="' . $colspan . '"><a id="sectionatag-' . $section . '" href="#" onclick="toggle_topic(this,' . $section . '); return false;"><span>';
+                echo '<td colspan="' . $colspan . '"><a id="sectionatag-' . $section . '" class="'.$toggleclass.'" href="#" onclick="toggle_topic(this,' . $section . '); return false;"><span>';
                 if (($setting->layoutstructure != 1) && ($setting->layoutstructure != 4)) {
                     echo $weekperiod . '<br />';
                 }
@@ -410,13 +461,13 @@ while ($loopsection <= $course->numsections) {
         // Now the section itself.  The css class of 'hid' contains the display attribute that manipulated by the JavaScript to show and hide the section.  It is defined in js-override-topcoll.css which 
         // is loaded into the DOM by the JavaScript function topcoll_init.  Therefore having a logical separation between static and JavaScript manipulated css.  Nothing else here differs from 
         // the standard Topics format in the core distribution.  The next change is at the bottom.
-        if ($screenreader == true) {
+        if (($screenreader == true) || ($displaysection != 0)) {
             echo '<tr id="section-' . $section . '" class="section main' . $sectionstyle . '">';
         } else {
-            echo '<tr id="section-' . $section . '" class="section main togglesection' . $sectionstyle . '">';
+            echo '<tr id="section-' . $section . '" class="section main togglesection' . $sectionstyle . '" style="'.$togglesectionstyle.'">';
         }
 
-        if ($screenreader == true) {
+        if (($screenreader == true) || ($displaysection != 0)) {
             echo '<td class="left side">' . $currenttext . $section . '</td>';
         } else {
             switch ($setting->layoutelement) {
@@ -438,7 +489,7 @@ while ($loopsection <= $course->numsections) {
         if (!has_capability('moodle/course:viewhiddensections', $coursecontext) and !$thissection->visible) {   // Hidden for students
             //echo get_string('notavailable');
         } else {
-            if ($screenreader == true) {
+            if (($screenreader == true) || ($displaysection != 0)) {
                 if (($setting->layoutstructure == 1) || ($setting->layoutstructure == 4)) {
                     // Topic type structure.
                     if (!is_null($thissection->name)) {
@@ -575,17 +626,4 @@ if (!empty($sectionmenu)) {
     $select->class = 'jumpmenu';
     $select->formid = 'sectionmenu';
     echo $OUTPUT->render($select);
-}
-
-// Only toggle if no Screen Reader
-if ($screenreader == false) {
-// Establish persistance when we have loaded.
-// Reload the state of the toggles from the data contained within the topcoll_toggle_courseid user preference.
-// Restore the state of the toggles from the user preference if not in 'Show topic x' mode, otherwise show that topic.
-    if ($displaysection == 0) {
-        echo $PAGE->requires->js_init_call('M.format_topcoll.set_current_section', array($thecurrentsection)); // If thecurrentsection is 0 because it has not been changed from the defualt, then as section 0 is never tested so can be used to set none.
-        echo $PAGE->requires->js_init_call('M.format_topcoll.reload_toggles', array($course->numsections)); // reload_toggles uses the value set above.
-    } else {
-        echo $PAGE->requires->js_init_call('M.format_topcoll.show_topic', array($displaysection));
-    }
 }

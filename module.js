@@ -54,30 +54,31 @@ M.format_topcoll = M.format_topcoll || {};
  * @param {String} wwwroot the URL of the Moodle site
  * @param {Integer} thecourseid the id of the current course to allow for settings for each course.
  * @param {String} thetogglestate the current state of the toggles.
+ * @param {Integer} noOfToggles The number of toggles.
+ * @param {Boolean} isIE states if the browser is Internet Explorer.
+ * @param {Boolean} isIE7OrLess states if the browser is Internet Explorer 7 or less. 
  */
-M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate) {
+M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate, noOfToggles, isIE, isIE7OrLess) {
     // Init.
     ourYUI = Y;
     thewwwroot = wwwroot;
     courseid = thecourseid;
     toggleState = thetogglestate;
-    //alert('Init');
-    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent))
-    {
-        // Info from: http://www.javascriptkit.com/javatutors/navigator.shtml - accessed 2nd September 2011.
-        var ieversion = new Number(RegExp.$1);
-        ie = true;
-        //alert('Is IE ' + ieversion);
-        if (ieversion <= 7)
-        {
-            //alert('Is IE 7');
-            ie7OrLess = true;
-        }
-    }
-}
+    numToggles = noOfToggles;
 
-M.format_topcoll.set_current_section = function (Y, theSection) {
-    currentSection = theSection;
+    if (toggleState != null)
+    {
+        toggleBinaryGlobal = to2baseString(toggleState);
+    }
+    else
+    {
+        // Reset to default.
+        toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
+    }
+
+    ie = isIE;
+    ie7OrLess = isIE7OrLess;
+    //alert('IE '+ie+' IE7< '+ie7OrLess);
 }
 
 // Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the most significant bit and represents the non-toggling topic 0.
@@ -88,18 +89,11 @@ function togglebinary(toggleNum, toggleVal, savetoggles)
     // Toggle num should be between 1 and 52 - see definition of toggleBinaryGlobal above.
     if ((toggleNum >=1) && (toggleNum <= 52))
     {
-        //alert("togglebinary tbg:" + toggleBinaryGlobal);
-        
         // Safe to use.
         var start = toggleBinaryGlobal.substring(0,toggleNum);
         var end = toggleBinaryGlobal.substring(toggleNum+1);
-        //var newval = start + toggleVal + end;
         toggleBinaryGlobal = start + toggleVal + end;
         
-        //toggleBinaryGlobal = newval;
-
-        //alert("togglebinary toggleNum:" + toggleNum + " st:" + start + " ed:" + end + " tv:" + toggleVal + " tbg:" + toggleBinaryGlobal);
-
         if (savetoggles == true) 
         {
             save_toggles();
@@ -134,9 +128,10 @@ function toggleexacttopic(target,image,toggleNum,reloading,savetoggles)  // Togg
             if (ie7OrLess == true)
             {
                 target.className += " collapsed_topic";  //add the class name
-            //alert('Added class name');
+                //alert("ie7Add"+target.className);
             }
-            image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_down.png)";
+            //image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_down.png)";
+            image.className = image.className.replace('toggle_open','toggle_closed'); //change the class name
             // Save the toggle!
             if (reloading == false)    togglebinary(toggleNum,"0",savetoggles);
         }
@@ -146,9 +141,10 @@ function toggleexacttopic(target,image,toggleNum,reloading,savetoggles)  // Togg
             if (ie7OrLess == true)
             {
                 target.className = target.className.replace(/\b collapsed_topic\b/,'') //remove the class name
-            //alert('Removed class name');
+                //alert("ie7Remove"+target.className);
             }
-            image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_up.png)";
+            //image.style.backgroundImage = "url(" + thewwwroot + "/course/format/topcoll/images/arrow_up.png)";
+            image.className = image.className.replace('toggle_closed','toggle_open'); //change the class name
             // Save the toggle!
             if (reloading == false) togglebinary(toggleNum,"1",savetoggles);
         }
@@ -226,60 +222,6 @@ function to36baseString(two)
 function savetogglestate(value)
 {
     M.util.set_user_preference('topcoll_toggle_'+courseid , value);
-}
-
-// 'Private' version of reload_toggles
-function reloadToggles()
-{
-    if (toggleState != null)
-    {
-        toggleBinaryGlobal = to2baseString(toggleState);
-    }
-    else
-    {
-        // Reset to default.
-        toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
-    }
-    //alert("Bongo3 " + toggleState + " " + numToggles + " " + toggleBinaryGlobal);
-
-        for (var theToggle = 1; theToggle <= numToggles; theToggle++)
-        {
-            if ((theToggle <= numToggles) && ((toggleBinaryGlobal.charAt(theToggle) == "1") || (theToggle == currentSection))) // Array index 0 is never tested - MSB thing.
-            {
-                var target = document.getElementById("section-"+theToggle);
-                var secatag = document.getElementById("sectionatag-" + theToggle);
-                if ((target != null) && (secatag != null))
-                {
-                    toggleexacttopic(target,secatag,theToggle,true,false);
-                }
-            //alert("Bongo4 " + thecookiesubid + " " + theToggle);
-            }
-        }    
-}
-
-// Toggle persistence functions
-// Reload the toggles - called from an onload event handler setup at the bottom of format.php
-// aToggle sets the number of toggles we have on this course so that when restoring the state we do not attempt to set something that
-// no longer exists.  This can happen when the number of sections is reduced and we return to the course and reload the page
-// using the data from the cookie.
-M.format_topcoll.reload_toggles = function (Y, aToggle) {
-    numToggles = aToggle;
-    
-    Y.use('node-base', function(daYUI) {
-        daYUI.on("domready", reloadToggles);
-    });
-}
-
-// Show a specific topic - used when in 'Show topic x' mode.
-M.format_topcoll.show_topic = function (Y, theTopic)
-{
-    var section = document.getElementById("section-"+theTopic);  // CONTRIB-3283
-    var secatag = document.getElementById("sectionatag-" + theTopic);
-    if ((section != null) && (secatag != null))
-    {
-        toggleexacttopic(section,secatag,theTopic,true,false);
-    }
-//alert("show_topic " + theTopic);
 }
 
 // Save the toggles - called from togglebinary and allToggle.
