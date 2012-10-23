@@ -42,6 +42,10 @@
     padding: 0px;
 }
 
+.course-content ul.ctopics li.current .content .toggledsection {
+    padding: 0px 0px 5px 0px;
+}
+
 
 /* -- Set the clickable element of the Toggle -- */
 .course-content ul.ctopics li.section .content .toggle a {
