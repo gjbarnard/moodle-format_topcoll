@@ -603,22 +603,23 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $shownsectioncount = 0;
         
         $toggleState = get_user_preferences('topcoll_toggle_' . $course->id);
-        //print("Toggle state:".$toggleState);
-        $ts1 = base_convert(substr($toggleState,0,6),36,2);
-        $ts2 = base_convert(substr($toggleState,6,12),36,2);
-        //print("Toggle state two, 1:".$ts1);
-        //print("Toggle state two, 2:".$ts2);
-        $thesparezeros = "00000000000000000000000000";
-        if (strlen($ts1) < 26) {
-            // Need to PAD.
-            $ts1 = substr($thesparezeros,0,(26 - strlen($ts1))).$ts1;
+        if ($toggleState != null) {
+            $ts1 = base_convert(substr($toggleState,0,6),36,2);
+            $ts2 = base_convert(substr($toggleState,6,12),36,2);
+            $thesparezeros = "00000000000000000000000000";
+            if (strlen($ts1) < 26) {
+                // Need to PAD.
+                $ts1 = substr($thesparezeros,0,(26 - strlen($ts1))).$ts1;
+            }
+            if (strlen($ts2) < 27) {
+                // Need to PAD.
+                $ts2 = substr($thesparezeros,0,(27 - strlen($ts2))).$ts2;
+            }
+            $tb = $ts1.$ts2;
+        } else {
+            $tb = '10000000000000000000000000000000000000000000000000000';
         }
-        if (strlen($ts2) < 27) {
-            // Need to PAD.
-            $ts2 = substr($thesparezeros,0,(27 - strlen($ts2))).$ts2;
-        }
-        $tb = $ts1.$ts2;
-        //print("TB:".$tb);
+        //print("TS:".$toggleState." TB:".$tb);
         
         while ($loopsection <= $course->numsections) {
             if (($tcsetting->layoutstructure == 3) && ($userisediting == false)) {

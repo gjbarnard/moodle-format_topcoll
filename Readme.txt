@@ -155,6 +155,11 @@ Known Issues
 3.  Importing a Moodle 1.9 course does not currently work, please see CONTRIB-3552 which depends on MDL-32205 - as
     a workaround, please select the 'Topics' format first in 1.9, backup and restore then select the Collapsed Topics
     course format in the course settings.  You will have to reset your decisions on structure etc.
+4.  Sometimes when restoring a course, it is accessed for the first time and a toggle is clicked a 'Error updating user preference
+    'topcoll_toggle_x'' (where 'x' is the course id as shown in the URL 'id=x') can occur.  I'm not completely sure why this is happening
+    as the 'user_preference_allow_ajax_update' call in 'format.php' should establish that the user preference can be set.  Could be a page cache
+    thing as the 'init' code is getting the course id unlike an issue I'm currently experiencing with the MyMobile theme - MDL-33115.  The
+    work around is to refresh the page.
 
 Version Information
 -------------------
@@ -560,8 +565,15 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
      state of the toggle when writing out the HTML at the server end instead of making all toggles initially closed and then getting the client
      side JavaScript to open them as required.  Until the move to server side persistence this would not have been possible.
 
+18th October 2012 - Version 2.3.9.1
+  1. Fixed potenial issue when the course is first accessed and there is no user preference.
+  2. Identified that sometimes when restoring a course, it is accessed for the first time and a toggle is clicked a 'Error updating user preference
+     'topcoll_toggle_x'' (where 'x' is the course id as shown in the URL 'id=x') can occur.  I'm not completely sure why this is happening
+     as the 'user_preference_allow_ajax_update' call in 'format.php' should establish that the user preference can be set.  Could be a page cache
+     thing as the 'init' code is getting the course id unlike an issue I'm currently experiencing with the MyMobile theme - MDL-33115.  The
+     work around is to refresh the page.
+
 2nd August 2012 - Version 2.4.0.1
-  1. Alpha started development of Moodle 2.4 version.
 
 Thanks
 ------
@@ -614,6 +626,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th October 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 18th October 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
