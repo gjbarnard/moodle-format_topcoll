@@ -573,6 +573,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
      thing as the 'init' code is getting the course id unlike an issue I'm currently experiencing with the MyMobile theme - MDL-33115.  The
      work around is to refresh the page.
 
+23rd October 2012 - Version 2.3.9.2
+  1.  Fixed issue with wrong colour being used for current section background.  Thanks to Rick Jerz
+      (https://moodle.org/user/profile.php?id=520965) for reporting this.
+
 2nd August 2012 - Version 2.4.0.1
 
 Thanks
@@ -626,6 +630,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 18th October 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 23rd October 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
