@@ -61,10 +61,13 @@ if (($marker >= 0) && has_capability('moodle/course:setcurrentsection', $context
     course_set_marker($course->id, $marker);
 }
 
+// make sure all sections are created
+course_create_sections_if_missing($course, range(0, $course->numsections));
+
 $renderer = $PAGE->get_renderer('format_topcoll');
 
 if (!empty($displaysection)) {
-    $renderer->print_single_section_page($course, $sections, $mods, $modnames, $modnamesused, $displaysection);
+    $renderer->print_single_section_page($course, null, null, null, null, $displaysection);
 } else {
     require_once($CFG->dirroot . '/course/format/topcoll/tcconfig.php');
 
@@ -121,7 +124,7 @@ if (!empty($displaysection)) {
         /* ]]> */
     </style>
     <?php
-    $renderer->print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused);
+    $renderer->print_multiple_section_page($course, null, null, null, null);
 }
 
 // Include course format js module
