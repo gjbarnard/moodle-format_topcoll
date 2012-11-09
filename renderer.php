@@ -203,6 +203,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         global $PAGE;
 
         $sectionstyle = '';
+        $rightcurrent = '';
         global $tcsetting;
         $toggletext = get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
 
@@ -215,6 +216,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 //$thecurrentsection = $section->section;
                 $section->toggle = '1'; // Open current section regardless of toggle state.
                 $sectionstyle = ' current';
+                $rightcurrent = ' left';
             }
         }
 
@@ -227,7 +229,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
 
         $rightcontent = $this->section_right_content($section, $course, $onsectionpage);
-        $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
+        $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'.$rightcurrent));
         $o .= html_writer::start_tag('div', array('class' => 'content'));
 
         $context = context_course::instance($course->id);

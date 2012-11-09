@@ -592,8 +592,14 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
      work around is to refresh the page.
 
 23rd October 2012 - Version 2.3.9.2
-  1.  Fixed issue with wrong colour being used for current section background.  Thanks to Rick Jerz
-      (https://moodle.org/user/profile.php?id=520965) for reporting this.
+  1.  Fixed issue with wrong colour being used for current section background.
+      Thanks to Rick Jerz (https://moodle.org/user/profile.php?id=520965) for reporting this.
+
+9th November 2012 - Version 2.3.9.3
+  1.  Fixed issue with wrong text colour being used for the current right section text.  Had to use 'left' side selector for getting the correct text
+      colour on the right for the current section.  This is because the selector '.course-content .current .left' defines the colour in the theme and
+      therefore any CT specific 'right' implementation would not work for all themes.
+  2.  Tweaked CSS for 'Anomaly', 'Afterburner', 'MyMobile' and 'Rocket' themes.
 
 Thanks
 ------
@@ -646,6 +652,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 23rd October 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 9th November 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

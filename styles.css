@@ -31,13 +31,13 @@
     margin:0;
 }
 
-.course-content ul.ctopics li.section, .course-content ul.ctopics li.tcsection {
+.course-content ul.ctopics li.section.main, .course-content ul.ctopics li.tcsection {
     list-style: none;
-    margin:5px 0 0 0;
-    padding:0;
+    margin: 5px 0 0 0;
+    padding: 0px;
 }
 
-.course-content ul.ctopics li.section .content, .course-content ul.ctopics li.tcsection .content {
+.course-content ul.ctopics li.section.main .content, .course-content ul.ctopics li.tcsection .content {
     margin: 0 40px; /* Default used in editing mode. */
     padding: 0px;
 }
@@ -66,7 +66,7 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_c
     background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
 }
 
-#mymobile .course-content ul.ctopics li.tcsection .content {
+#mymobile .course-content ul.ctopics li.tcsection .content, #mymobile .course-content ul.ctopics li.section.main .content{
     margin: 0;
 }
 
@@ -74,7 +74,7 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_c
     padding: 10px;
 }
 
-.course-content ul.ctopics li.section .side, .course-content ul.ctopics li.tcsection .side {
+.course-content ul.ctopics li.section.main .side, .course-content ul.ctopics li.tcsection .side {
     width: 40px; /* Default used in editing mode. */
     text-align: center;
     padding: 0px;
@@ -84,8 +84,12 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_c
     float:left;
 }
 
-.course-content ul.ctopics li.section .left {
+.course-content ul.ctopics li.section.main .left {
     padding: 10px 0px 0px 0px;
+}
+
+.course-content ul.ctopics li.current.main .right {
+    padding: 0px 0px 0px 0px; /* Cancel out effect of above when having to use 'left' side selector for getting the correct text colour on the right for the current section.  This is because the selector '.course-content .current .left' defines the colour in the theme and therefore any CT specific 'right' implementation would not work for all themes. */
 }
 
 .course-content ul.ctopics li.section .right, .course-content ul.ctopics li.tcsection .right {
@@ -136,6 +140,10 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_c
 .course-content ul.ctopics li.section .content .toggle a {
     text-decoration: none;
     font-weight: bold;
+}
+
+#mymobile .course-content ul.ctopics li.section .content .toggle a {
+    font-weight: normal; /* So not blurred on mobile devices. */
 }
 
 .course-content ul.ctopics li.section .content .toggledsection {
