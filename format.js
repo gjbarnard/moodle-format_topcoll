@@ -86,7 +86,7 @@ M.course.format.process_sections = function(Y, sectionlist, response, sectionfro
     var CSS = {
         SECTIONNAME : 'sectionname'
     };
-    
+
     if (response.action == 'move') {
         if (sectionfrom > sectionto) { // MDL-34798
             // Swap.

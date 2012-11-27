@@ -31,48 +31,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 require_once($CFG->dirroot . '/course/format/topcoll/tcconfig.php'); // For Collaped Topics defaults.
+require_once($CFG->dirroot . '/course/format/lib.php'); // For format_base.
+
+class format_topcoll extends format_base {
 
 /**
  * Indicates this format uses sections.
  *
  * @return bool Returns true
  */
-function callback_topcoll_uses_sections() {
+    public function uses_sections() {
     return true;
-}
-
-/**
- * Used to display the course structure for a course where format=Collapsed Topics
- *
- * This is called automatically by {@link load_course()} if the current course
- * format = Collapsed Topics.
- *
- * @param navigation_node $navigation The course node.
- * @param array $path An array of keys to the course node.
- * @param stdClass $course The course we are loading the section for.
- */
-function callback_topcoll_load_content(&$navigation, $course, $coursenode) {
-    return $navigation->load_generic_course_sections($course, $coursenode, 'topcoll');
-}
-
-/**
- * The string that is used to describe a section of the course.
- *
- * @return string The section description.
- */
-function callback_topcoll_definition() {
-    return get_string('sectionname', 'format_topcoll');
 }
 
 /**
  * Gets the name for the provided section.
  *
- * @param stdClass $course The course.
  * @param stdClass $section The section.
  * @return string The section name.
  */
-function callback_topcoll_get_section_name($course, $section) {
-
+    public function get_section_name($section) {
+        $course = $this->get_course();
+        $section = $this->get_section($section);
     // We can't add a node without any text
     if ((string) $section->name !== '') {
         return format_string($section->name, true, array('context' => context_course::instance($course->id)));
@@ -106,39 +86,269 @@ function callback_topcoll_get_section_name($course, $section) {
     }
 }
 
-/**
- * Declares support for course AJAX features.
- *
- * @see course_format_ajax_support().
- * @return stdClass.
- */
-function callback_topcoll_ajax_support() {
-    $ajaxsupport = new stdClass();
-    $ajaxsupport->capable = true;
-    $ajaxsupport->testedbrowsers = array('MSIE' => 8.0, 'Gecko' => 20061111, 'Opera' => 9.0, 'Safari' => 531, 'Chrome' => 6.0);
-    return $ajaxsupport;
-}
+    /**
+     * The URL to use for the specified course (with section)
+     *
+     * @param int|stdClass $section Section object from database or just field course_sections.section
+     *     if omitted the course view page is returned
+     * @param array $options options for view URL. At the moment core uses:
+     *     'navigation' (bool) if true and section has no separate page, the function returns null
+     *     'sr' (int) used by multipage formats to specify to which section to return
+     * @return null|moodle_url
+     */
+    public function get_view_url($section, $options = array()) {
+        $course = $this->get_course();
+        $url = new moodle_url('/course/view.php', array('id' => $course->id));
 
-/**
- * Callback function to do some action after section move.
- *
- * @param stdClass $course The course entry from DB.
- * @return array This will be passed in ajax respose.
- */
-function callback_topcoll_ajax_section_move($course) {
-    global $COURSE, $PAGE;
+        $sr = null;
+        if (array_key_exists('sr', $options)) {
+            $sr = $options['sr'];
+        }
+        if (is_object($section)) {
+            $sectionno = $section->section;
+        } else {
+            $sectionno = $section;
+        }
+        if ($sectionno !== null) {
+            if ($sr !== null) {
+                if ($sr) {
+                    $usercoursedisplay = COURSE_DISPLAY_MULTIPAGE;
+                    $sectionno = $sr;
+                } else {
+                    $usercoursedisplay = COURSE_DISPLAY_SINGLEPAGE;
+                }
+            } else {
+                $usercoursedisplay = $course->coursedisplay;
+            }
+            if ($sectionno != 0 && $usercoursedisplay == COURSE_DISPLAY_MULTIPAGE) {
+                $url->param('section', $sectionno);
+            } else {
+                if (!empty($options['navigation'])) {
+                    return null;
+                }
+                $url->set_anchor('section-'.$sectionno);
+            }
+        }
+        return $url;
+    }
 
-    $titles = array();
-    rebuild_course_cache($course->id);
-    $modinfo = get_fast_modinfo($COURSE);
-    $renderer = $PAGE->get_renderer('format_topcoll');
-    if ($renderer && ($sections = $modinfo->get_section_info_all())) {
-        foreach ($sections as $number => $section) {
-            $titles[$number] = $renderer->section_title($section, $course);
+    /**
+     * Returns the information about the ajax support in the given source format
+     *
+     * The returned object's property (boolean)capable indicates that
+     * the course format supports Moodle course ajax features.
+     * The property (array)testedbrowsers can be used as a parameter for {@link ajaxenabled()}.
+     *
+     * @return stdClass
+     */
+    public function supports_ajax() {
+        $ajaxsupport = new stdClass();
+        $ajaxsupport->capable = true;
+        $ajaxsupport->testedbrowsers = array('MSIE' => 8.0, 'Gecko' => 20061111, 'Opera' => 9.0, 'Safari' => 531, 'Chrome' => 6.0);
+        return $ajaxsupport;
+    }
+
+    /**
+     * Custom action after section has been moved in AJAX mode
+     *
+     * Used in course/rest.php
+     *
+     * @return array This will be passed in ajax respose
+     */
+    function ajax_section_move() {
+        global $PAGE;
+        $titles = array();
+        $course = $this->get_course();
+        $modinfo = get_fast_modinfo($course);
+        $renderer = $this->get_renderer($PAGE);
+        if ($renderer && ($sections = $modinfo->get_section_info_all())) {
+            foreach ($sections as $number => $section) {
+                $titles[$number] = $renderer->section_title($section, $course);
+            }
+        }
+        return array('sectiontitles' => $titles, 'action' => 'move');
+    }
+
+    /**
+     * Returns the list of blocks to be automatically added for the newly created course
+     *
+     * @return array of default blocks, must contain two keys BLOCK_POS_LEFT and BLOCK_POS_RIGHT
+     *     each of values is an array of block names (for left and right side columns)
+     */
+    public function get_default_blocks() {
+        return array(
+            BLOCK_POS_LEFT => array(),
+            BLOCK_POS_RIGHT => array('search_forums', 'news_items', 'calendar_upcoming', 'recent_activity')
+        );
+    }
+
+    /**
+     * Definitions of the additional options that this course format uses for course
+     *
+     * Collapsed Topics format uses the following options (until extras are migrated):
+     * - coursedisplay
+     * - numsections
+     * - hiddensections
+     *
+     * @param bool $foreditform
+     * @return array of options
+     */
+    public function course_format_options($foreditform = false) {
+        static $courseformatoptions = false;
+        if ($courseformatoptions === false) {
+            $courseconfig = get_config('moodlecourse');
+            $courseformatoptions = array(
+                'numsections' => array(
+                    'default' => $courseconfig->numsections,
+                    'type' => PARAM_INT,
+                ),
+                'hiddensections' => array(
+                    'default' => $courseconfig->hiddensections,
+                    'type' => PARAM_INT,
+                ),
+                'coursedisplay' => array(
+                    'default' => $courseconfig->coursedisplay,
+                    'type' => PARAM_INT,
+                ),
+            );
+        }
+        if ($foreditform && !isset($courseformatoptions['coursedisplay']['label'])) {
+            $courseconfig = get_config('moodlecourse');
+            $sectionmenu = array();
+            for ($i = 0; $i <= $courseconfig->maxsections; $i++) {
+                $sectionmenu[$i] = "$i";
+            }
+            $courseformatoptionsedit = array(
+                'numsections' => array(
+                    'label' => new lang_string('numberweeks'),
+                    'element_type' => 'select',
+                    'element_attributes' => array($sectionmenu),
+                ),
+                'hiddensections' => array(
+                    'label' => new lang_string('hiddensections'),
+                    'help' => 'hiddensections',
+                    'help_component' => 'moodle',
+                    'element_type' => 'select',
+                    'element_attributes' => array(
+                        array(
+                            0 => new lang_string('hiddensectionscollapsed'),
+                            1 => new lang_string('hiddensectionsinvisible')
+                        )
+                    ),
+                ),
+                'coursedisplay' => array(
+                    'label' => new lang_string('coursedisplay'),
+                    'element_type' => 'select',
+                    'element_attributes' => array(
+                        array(
+                            COURSE_DISPLAY_SINGLEPAGE => new lang_string('coursedisplay_single'),
+                            COURSE_DISPLAY_MULTIPAGE => new lang_string('coursedisplay_multi')
+                        )
+                    ),
+                    'help' => 'coursedisplay',
+                    'help_component' => 'moodle',
+                )
+            );
+            $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
+        }
+        return $courseformatoptions;
+    }
+
+    /**
+     * Is the section passed in the current section?
+     *
+     * @param stdClass $section The course_section entry from the DB
+     * @param stdClass $course The course entry from DB
+     * @return bool true if the section is current
+     */
+    public function is_section_current($section) {
+        global $tcsetting;
+        if (($tcsetting->layoutstructure == 2) || ($tcsetting->layoutstructure == 3)) {
+            if ($section->section < 1) {
+                return false;
+            }
+
+            $timenow = time();
+            $dates = format_topcoll_get_section_dates($section, $this->get_course());
+
+            return (($timenow >= $dates->start) && ($timenow < $dates->end));
+        } else if ($tcsetting->layoutstructure == 5) {
+            if ($section->section < 1) {
+                return false;
+            }
+
+            $timenow = time();
+            $day = format_topcoll_get_section_day($section, $this->get_course());
+            $onedayseconds = 86400;
+            return (($timenow >= $day) && ($timenow < ($day + $onedayseconds)));
+        } else {
+            return parent::is_section_current($section);
         }
     }
-    return array('sectiontitles' => $titles, 'action' => 'move');
+
+/**
+ * Return the start and end date of the passed section.
+ *
+ * @param stdClass $section The course_section entry from the DB.
+ * @param stdClass $course The course entry from DB.
+ * @return stdClass property start for startdate, property end for enddate.
+ */
+private function format_topcoll_get_section_dates($section, $course) {
+    $oneweekseconds = 604800;
+    // Hack alert. We add 2 hours to avoid possible DST problems. (e.g. we go into daylight
+    // savings and the date changes.
+    $startdate = $course->startdate + 7200;
+
+    $dates = new stdClass();
+    $dates->start = $startdate + ($oneweekseconds * ($section->section - 1));
+    $dates->end = $dates->start + $oneweekseconds;
+
+    return $dates;
 }
+
+/**
+ * Return the date of the passed section.
+ *
+ * @param stdClass $section The course_section entry from the DB.
+ * @param stdClass $course The course entry from DB.
+ * @return stdClass property date.
+ */
+private function format_topcoll_get_section_day($section, $course) {
+    $onedayseconds = 86400;
+    // Hack alert. We add 2 hours to avoid possible DST problems. (e.g. we go into daylight
+    // savings and the date changes.
+    $startdate = $course->startdate + 7200;
+
+    $day = $startdate + ($onedayseconds * ($section->section - 1));
+
+    return $day;
+}
+
+}
+
+/**
+ * Used to display the course structure for a course where format=Collapsed Topics
+ *
+ * This is called automatically by {@link load_course()} if the current course
+ * format = Collapsed Topics.
+ *
+ * @param navigation_node $navigation The course node.
+ * @param array $path An array of keys to the course node.
+ * @param stdClass $course The course we are loading the section for.
+ */
+function callback_topcoll_load_content(&$navigation, $course, $coursenode) {
+    return $navigation->load_generic_course_sections($course, $coursenode, 'topcoll');
+}
+
+/**
+ * The string that is used to describe a section of the course.
+ *
+ * @return string The section description.
+ */
+function callback_topcoll_definition() {
+    return get_string('sectionname', 'format_topcoll');
+}
+
 
 /**
  * Gets the format setting for the course or if it does not exist, create it.
@@ -241,42 +451,4 @@ function format_topcoll_delete_course($courseid) {
 
     $DB->delete_records("format_topcoll_settings", array("courseid" => $courseid));
     $DB->delete_records("user_preferences", array("name" => 'topcoll_toggle_' . $courseid));
-}
-
-/**
- * Return the start and end date of the passed section.
- *
- * @param stdClass $section The course_section entry from the DB.
- * @param stdClass $course The course entry from DB.
- * @return stdClass property start for startdate, property end for enddate.
- */
-function format_topcoll_get_section_dates($section, $course) {
-    $oneweekseconds = 604800;
-    // Hack alert. We add 2 hours to avoid possible DST problems. (e.g. we go into daylight
-    // savings and the date changes.
-    $startdate = $course->startdate + 7200;
-
-    $dates = new stdClass();
-    $dates->start = $startdate + ($oneweekseconds * ($section->section - 1));
-    $dates->end = $dates->start + $oneweekseconds;
-
-    return $dates;
-}
-
-/**
- * Return the date of the passed section.
- *
- * @param stdClass $section The course_section entry from the DB.
- * @param stdClass $course The course entry from DB.
- * @return stdClass property date.
- */
-function format_topcoll_get_section_day($section, $course) {
-    $onedayseconds = 86400;
-    // Hack alert. We add 2 hours to avoid possible DST problems. (e.g. we go into daylight
-    // savings and the date changes.
-    $startdate = $course->startdate + 7200;
-
-    $day = $startdate + ($onedayseconds * ($section->section - 1));
-
-    return $day;
 }

@@ -127,7 +127,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         if ($section->section != 0) {
             // Only in the non-general sections.
-            if ($this->is_section_current($section, $course)) {
+            if (course_get_format($course)->is_section_current($section)) {
                 $o .= get_accesshide(get_string('currentsection', 'format_' . $course->format));
             }
             global $tcsetting;
@@ -203,6 +203,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         global $PAGE;
 
         $sectionstyle = '';
+        $rightcurrent = '';
         global $tcsetting;
         $toggletext = get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
 
@@ -210,11 +211,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
             // Only in the non-general sections.
             if (!$section->visible) {
                 $sectionstyle = ' hidden';
-            } else if ($this->is_section_current($section, $course)) {
+            } else if (course_get_format($course)->is_section_current($section)) {
                 //global $thecurrentsection;
                 //$thecurrentsection = $section->section;
                 $section->toggle = '1'; // Open current section regardless of toggle state.
                 $sectionstyle = ' current';
+                $rightcurrent = ' left';
             }
         }
 
@@ -490,6 +492,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $userisediting = $PAGE->user_is_editing();
 
         $modinfo = get_fast_modinfo($course);
+        $course = course_get_format($course)->get_course();
 
         $context = context_course::instance($course->id);
         // Title with completion help icon.
@@ -755,38 +758,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
             echo html_writer::end_tag('div');
         } else {
             echo $this->end_section_list();
-        }
-    }
-
-    /**
-     * Is the section passed in the current section?
-     *
-     * @param stdClass $section The course_section entry from the DB
-     * @param stdClass $course The course entry from DB
-     * @return bool true if the section is current
-     */
-    protected function is_section_current($section, $course) {
-        global $tcsetting;
-        if (($tcsetting->layoutstructure == 2) || ($tcsetting->layoutstructure == 3)) {
-            if ($section->section < 1) {
-                return false;
-            }
-
-            $timenow = time();
-            $dates = format_topcoll_get_section_dates($section, $course);
-
-            return (($timenow >= $dates->start) && ($timenow < $dates->end));
-        } else if ($tcsetting->layoutstructure == 5) {
-            if ($section->section < 1) {
-                return false;
-            }
-
-            $timenow = time();
-            $day = format_topcoll_get_section_day($section, $course);
-            $onedayseconds = 86400;
-            return (($timenow >= $day) && ($timenow < ($day + $onedayseconds)));
-        } else {
-            return parent::is_section_current($section, $course);
         }
     }
 
