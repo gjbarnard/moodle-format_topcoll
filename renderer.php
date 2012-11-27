@@ -226,8 +226,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
         }
 
-        $rightcontent = $this->section_right_content($section, $course, $onsectionpage);
-        $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
+        if ($this->mymobiletheme == false) {
+            $rightcontent = $this->section_right_content($section, $course, $onsectionpage);
+            $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
+        }
         $o .= html_writer::start_tag('div', array('class' => 'content'));
 
         $context = context_course::instance($course->id);
