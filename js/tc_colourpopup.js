@@ -61,7 +61,7 @@ M.util.init_tccolour_popup = function(Y, id, previewconf) {
             },            
             setColour : function(e){
                 var colour = this.input.get('value');
-                this.swatch.setStyle('backgroundColor', colour);
+                this.swatch.setStyle('backgroundColor', '#'+colour);
             },             
             startFollow : function(e) {
                 this.eventMouseEnter.detach();
@@ -69,7 +69,7 @@ M.util.init_tccolour_popup = function(Y, id, previewconf) {
                 this.eventMouseMove = this.image.on('mousemove', function(e){
                     var colour = this.determineColour(e);
                     //this.swatch.setStyle('backgroundColor', colour);
-                    this.preview.setStyle('backgroundColor', colour);
+                    this.preview.setStyle('backgroundColor', '#'+colour);
                 }, this);
             },
             /**
@@ -88,8 +88,8 @@ M.util.init_tccolour_popup = function(Y, id, previewconf) {
                 var colour = this.determineColour(e);
                 this.input.set('value', colour);
                 this.input.focus();
-                this.swatch.setStyle('backgroundColor', colour);
-                this.current.setStyle('backgroundColor', colour);
+                this.swatch.setStyle('backgroundColor', '#'+colour);
+                this.current.setStyle('backgroundColor', '#'+colour);
                 this.box.ancestor().setStyle('display','none');
             },
             /**
@@ -147,7 +147,7 @@ M.util.init_tccolour_popup = function(Y, id, previewconf) {
              * Converts an RGB value to Hex
              */
             convert_rgb_to_hex : function(rgb) {
-                var hex = '#';
+                var hex = '';
                 var hexchars = "0123456789ABCDEF";
                 for (var i=0; i<3; i++) {
                     var number = Math.abs(rgb[i]);

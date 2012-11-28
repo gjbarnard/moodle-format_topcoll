@@ -195,6 +195,13 @@ class format_topcoll extends format_base {
      */
     public function course_format_options($foreditform = false) {
         static $courseformatoptions = false;
+		global $TCCFG;
+		//$currentoptions = $this->get_format_options();
+		//print_object($currentoptions);
+		//print_object($this);
+		//if (!empty($this->formatoptions)) {
+		//print_object($this->formatoptions[0]);
+		//}
         if ($courseformatoptions === false) {
             $courseconfig = get_config('moodlecourse');
             $courseformatoptions = array(
@@ -210,6 +217,14 @@ class format_topcoll extends format_base {
                     'default' => $courseconfig->coursedisplay,
                     'type' => PARAM_INT,
                 ),
+                'layoutelement' => array(
+                    'default' => $TCCFG->defaultlayoutelement,
+                    'type' => PARAM_INT,
+                ),
+                'toggleforegroundcolour' => array(
+                    'default' => $TCCFG->defaulttgfgcolour,
+                    'type' => PARAM_ALPHANUM,
+                ),
             );
         }
         if ($foreditform && !isset($courseformatoptions['coursedisplay']['label'])) {
@@ -220,7 +235,7 @@ class format_topcoll extends format_base {
             }
             $courseformatoptionsedit = array(
                 'numsections' => array(
-                    'label' => new lang_string('numberweeks'),
+                    'label' => new lang_string('numbersections','format_topcoll'),
                     'element_type' => 'select',
                     'element_attributes' => array($sectionmenu),
                 ),
@@ -247,18 +262,95 @@ class format_topcoll extends format_base {
                     ),
                     'help' => 'coursedisplay',
                     'help_component' => 'moodle',
+                ),
+				'layoutelement' => array(
+                    'label' => new lang_string('setlayoutelements', 'format_topcoll'),
+                    'help' => 'setlayoutelements',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => array(
+                array(1 => new lang_string('setlayout_default', 'format_topcoll'), // Default.
+                    2 => new lang_string('setlayout_no_toggle_section_x', 'format_topcoll'), // No 'Topic x' / 'Week x'.
+                    3 => new lang_string('setlayout_no_section_no', 'format_topcoll'), // No section number.
+                    4 => new lang_string('setlayout_no_toggle_section_x_section_no', 'format_topcoll'), // No 'Topic x' / 'Week x' and no section number.
+                    5 => new lang_string('setlayout_no_toggle_word', 'format_topcoll'), // No 'Toggle' word.
+                    6 => new lang_string('setlayout_no_toggle_word_toggle_section_x', 'format_topcoll'), // No 'Toggle' word and no 'Topic x' / 'Week x'.
+                    7 => new lang_string('setlayout_no_toggle_word_toggle_section_x_section_no', 'format_topcoll')) // No 'Toggle' word, no 'Topic x' / 'Week x'  and no section number.
+                                            ),
+                ),
+				'toggleforegroundcolour' => array(
+                    'label' => new lang_string('settoggleforegroundcolour', 'format_topcoll'),
+                    'help' => 'settoggleforegroundcolour',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'tccolourpopup',
+                    'element_attributes' => array(
+                array('tabindex' => -1, 'value' => $TCCFG->defaulttgfgcolour)
+                                            ),
                 )
             );
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
         return $courseformatoptions;
     }
+    /**
+     * Adds format options elements to the course/section edit form
+     *
+     * This function is called from {@link course_edit_form::definition_after_data()}
+     *
+     * @param MoodleQuickForm $mform form the elements are added to
+     * @param bool $forsection 'true' if this is a section edit form, 'false' if this is course edit form
+     * @return array array of references to the added form elements
+     */
+    public function create_edit_form_elements(&$mform, $forsection = false) {
+	    global $CFG;
+        MoodleQuickForm::registerElementType('tccolourpopup', "$CFG->dirroot/course/format/topcoll/js/tc_colourpopup.php", 'MoodleQuickForm_tccolourpopup');
+
+	    return parent::create_edit_form_elements($mform, $forsection);
+    }
+	
+    /**
+     * Updates format options for a course
+     *
+     * In case if course format was changed to 'Collapsed Topics', we try to copy options
+     * 'coursedisplay', 'numsections' and 'hiddensections' from the previous format.
+     * If previous course format did not have 'numsections' option, we populate it with the
+     * current number of sections
+     *
+     * @param stdClass|array $data return value from {@link moodleform::get_data()} or array with data
+     * @param stdClass $oldcourse if this function is called from {@link update_course()}
+     *     this object contains information about the course before update
+     * @return bool whether there were any changes to the options values
+     */
+    public function update_course_format_options($data, $oldcourse = null) {
+        if ($oldcourse !== null) {
+            $data = (array)$data;
+            $oldcourse = (array)$oldcourse;
+            $options = $this->course_format_options();
+            foreach ($options as $key => $unused) {
+                if (!array_key_exists($key, $data)) {
+                    if (array_key_exists($key, $oldcourse)) {
+                        $data[$key] = $oldcourse[$key];
+                    } else if ($key === 'numsections') {
+                        // If previous format does not have the field 'numsections'
+                        // and $data['numsections'] is not set,
+                        // we fill it with the maximum section number from the DB
+                        $maxsection = $DB->get_field_sql('SELECT max(section) from {course_sections}
+                            WHERE course = ?', array($this->courseid));
+                        if ($maxsection) {
+                            // If there are no sections, or just default 0-section, 'numsections' will be set to default
+                            $data['numsections'] = $maxsection;
+                        }
+                    }
+                }
+            }
+        }
+        return $this->update_format_options($data);
+    }
 
     /**
      * Is the section passed in the current section?
      *
      * @param stdClass $section The course_section entry from the DB
-     * @param stdClass $course The course entry from DB
      * @return bool true if the section is current
      */
     public function is_section_current($section) {

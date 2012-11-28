@@ -124,4 +124,7 @@ $string['resetcolour_help'] = 'Resets the colours to the default values in "/cou
 $string['resetallcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 // Columns enhancement
 $string['setlayoutcolumns_help'] = 'How many columns to use.';
+
+// Moodle 2.4 Course format refactoring - MDL-35218
+$string['numbersections'] = 'Number of sections';
 ?>
