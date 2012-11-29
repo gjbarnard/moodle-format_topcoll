@@ -61,13 +61,15 @@ class format_topcoll extends format_base {
     } else {
         global $tcsetting;
         if (empty($tcsetting) == true) {
-            $tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
+            //$tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
+			$tcsetting = $this->get_format_options();
+			//print_r($tcsetting);
         }
-        if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
+        if (($tcsetting['layoutstructure'] == 1) || ($tcsetting['layoutstructure'] == 4)) {
             return get_string('sectionname', 'format_topcoll') . ' ' . $section->section;
         } else {
             $dateformat = ' ' . get_string('strftimedateshort');
-            if ($tcsetting->layoutstructure == 5) {
+            if ($tcsetting['layoutstructure'] == 5) {
                 $day = format_topcoll_get_section_day($section, $course);
 
                 $weekday = userdate($day, $dateformat);
@@ -221,8 +223,24 @@ class format_topcoll extends format_base {
                     'default' => $TCCFG->defaultlayoutelement,
                     'type' => PARAM_INT,
                 ),
+                'layoutstructure' => array(
+                    'default' => $TCCFG->defaultlayoutstructure,
+                    'type' => PARAM_INT,
+                ),
+                'layoutcolumns' => array(
+                    'default' => $TCCFG->defaultlayoutcolumns,
+                    'type' => PARAM_INT,
+                ),
                 'toggleforegroundcolour' => array(
                     'default' => $TCCFG->defaulttgfgcolour,
+                    'type' => PARAM_ALPHANUM,
+                ),
+                'togglebackgroundcolour' => array(
+                    'default' => $TCCFG->defaulttgbgcolour,
+                    'type' => PARAM_ALPHANUM,
+                ),
+                'togglebackgroundhovercolour' => array(
+                    'default' => $TCCFG->defaulttgbghvrcolour,
                     'type' => PARAM_ALPHANUM,
                 ),
             );
@@ -276,8 +294,33 @@ class format_topcoll extends format_base {
                     5 => new lang_string('setlayout_no_toggle_word', 'format_topcoll'), // No 'Toggle' word.
                     6 => new lang_string('setlayout_no_toggle_word_toggle_section_x', 'format_topcoll'), // No 'Toggle' word and no 'Topic x' / 'Week x'.
                     7 => new lang_string('setlayout_no_toggle_word_toggle_section_x_section_no', 'format_topcoll')) // No 'Toggle' word, no 'Topic x' / 'Week x'  and no section number.
-                                            ),
+                                            )
                 ),
+				'layoutstructure' => array(
+                    'label' => new lang_string('setlayoutstructure', 'format_topcoll'),
+                    'help' => 'setlayoutstructure',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => array(
+              array(1 => get_string('setlayoutstructuretopic', 'format_topcoll'), // Topic
+                    2 => get_string('setlayoutstructureweek', 'format_topcoll'), // Week   
+                    3 => get_string('setlayoutstructurelatweekfirst', 'format_topcoll'), // Latest Week First 
+                    4 => get_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'), // Current Topic First
+                    5 => get_string('setlayoutstructureday', 'format_topcoll'))                // Day                                            ),
+                                            )
+                ),
+				'layoutcolumns' => array(
+                    'label' => new lang_string('setlayoutcolumns', 'format_topcoll'),
+                    'help' => 'setlayoutcolumns',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => array(
+                array(1 => get_string('one', 'format_topcoll'), // Default
+                    2 => get_string('two', 'format_topcoll'), // Two   
+                    3 => get_string('three', 'format_topcoll'), // Three
+                    4 => get_string('four', 'format_topcoll')) // Four
+					)
+                                            ),					
 				'toggleforegroundcolour' => array(
                     'label' => new lang_string('settoggleforegroundcolour', 'format_topcoll'),
                     'help' => 'settoggleforegroundcolour',
@@ -285,7 +328,25 @@ class format_topcoll extends format_base {
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => array(
                 array('tabindex' => -1, 'value' => $TCCFG->defaulttgfgcolour)
-                                            ),
+                                            )
+                ),
+				'togglebackgroundcolour' => array(
+                    'label' => new lang_string('settogglebackgroundcolour', 'format_topcoll'),
+                    'help' => 'settogglebackgroundcolour',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'tccolourpopup',
+                    'element_attributes' => array(
+                array('tabindex' => -1, 'value' => $TCCFG->defaulttgbgcolour)
+                                            )
+                ),
+				'togglebackgroundhovercolour' => array(
+                    'label' => new lang_string('settogglebackgroundhovercolour', 'format_topcoll'),
+                    'help' => 'settogglebackgroundhovercolour',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'tccolourpopup',
+                    'element_attributes' => array(
+                array('tabindex' => -1, 'value' => $TCCFG->defaulttgbghvrcolour)
+                                            )
                 )
             );
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
@@ -355,7 +416,7 @@ class format_topcoll extends format_base {
      */
     public function is_section_current($section) {
         global $tcsetting;
-        if (($tcsetting->layoutstructure == 2) || ($tcsetting->layoutstructure == 3)) {
+        if (($tcsetting['layoutstructure'] == 2) || ($tcsetting['layoutstructure'] == 3)) {
             if ($section->section < 1) {
                 return false;
             }
@@ -364,7 +425,7 @@ class format_topcoll extends format_base {
             $dates = format_topcoll_get_section_dates($section, $this->get_course());
 
             return (($timenow >= $dates->start) && ($timenow < $dates->end));
-        } else if ($tcsetting->layoutstructure == 5) {
+        } else if ($tcsetting['layoutstructure'] == 5) {
             if ($section->section < 1) {
                 return false;
             }

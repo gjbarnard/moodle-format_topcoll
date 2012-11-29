@@ -67,4 +67,7 @@ $TCCFG->defaulttgbgcolour = 'e2e2f2';
 
 // Default toggle background hover colour in hexidecimal RGB without preceeding '#'.
 $TCCFG->defaulttgbghvrcolour = 'eeeeff';
+
+// Toggle persistence - 1 = on, 0 = off.  You may wish to disable for AJAX performance increase.
+$TCCFG->togglepersistence = 1;
 ?>

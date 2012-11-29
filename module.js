@@ -36,6 +36,7 @@ var courseid;
 var thewwwroot;  // For the toggle graphic.
 var numToggles = 0;
 var currentSection;
+var togglePersistence = 1; // Toggle persistence - 1 = on, 0 = off.
 //var ie = false;
 var mymobiletheme = false;
 var ourYUI;
@@ -53,13 +54,14 @@ M.format_topcoll = M.format_topcoll || {};
  * @param {String} thetogglestate the current state of the toggles.
  * @param {Integer} noOfToggles The number of toggles.
  */
-M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate, noOfToggles) {
+M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate, noOfToggles, theTogglePersistence) {
     // Init.
     ourYUI = Y;
     thewwwroot = wwwroot;
     courseid = thecourseid;
     toggleState = thetogglestate;
     numToggles = noOfToggles;
+	togglePersistence = theTogglePersistence;
 
     if (toggleState != null)
     {
@@ -209,17 +211,14 @@ function to36baseString(two)
     return fps + sps;
 }
 
-// AJAX call to server to save the state of the toggles for this course for the current user.
-// Args - value is the base 36 state of the toggles.
-function savetogglestate(value)
-{
-    M.util.set_user_preference('topcoll_toggle_'+courseid , value);
-}
-
 // Save the toggles - called from togglebinary and allToggle.
+// AJAX call to server to save the state of the toggles for this course for the current user.
 function save_toggles()
 {
-    savetogglestate(to36baseString(toggleBinaryGlobal));
+    if (togglePersistence == 1) // Toggle persistence - 1 = on, 0 = off.
+	{
+	    M.util.set_user_preference('topcoll_toggle_'+courseid , to36baseString(toggleBinaryGlobal));
+	}
 }
 
 // Functions that turn on or off all toggles.

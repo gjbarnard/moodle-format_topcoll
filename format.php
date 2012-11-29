@@ -79,31 +79,36 @@ if (!empty($displaysection)) {
     $PAGE->requires->js_init_call('M.format_topcoll.init', array($CFG->wwwroot,
         $course->id,
         get_user_preferences('topcoll_toggle_' . $course->id),
-        $course->numsections));
+        $course->numsections,
+		$TCCFG->togglepersistence));
 
     global $tcsetting;
     if (empty($tcsetting) == true) {
-        $tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
-    }
+        //$tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
+		$tcsetting = course_get_format($course)->get_format_options();
+			print('format.php ->');
+		print_r($tcsetting);
+		}
+
     ?>
     <style type="text/css" media="screen">
         /* <![CDATA[ */
 
         /* -- Toggle -- */
         .course-content ul.ctopics li.section .content .toggle {
-            background-color: #<?php echo $tcsetting->tgbgcolour; ?>;
-            color: #<?php echo $tcsetting->tgfgcolour; ?>; /* 'Topic x' text colour */
+            background-color: #<?php echo $tcsetting['togglebackgroundcolour']; ?>;
+            color: #<?php echo $tcsetting['toggleforegroundcolour']; ?>; /* 'Topic x' text colour */
         }
 
         /* -- Toggle text -- */
         .course-content ul.ctopics li.section .content .toggle a {
-            color: #<?php echo $tcsetting->tgfgcolour; ?>;
+            color: #<?php echo $tcsetting['toggleforegroundcolour']; ?>;
         }
 
         /* -- What happens when a toggle is hovered over -- */
         .course-content ul.ctopics li.section .content div.toggle:hover,body.jsenabled tr.cps td a:hover
         {
-            background-color: #<?php echo $tcsetting->tgbghvrcolour; ?>;
+            background-color: #<?php echo $tcsetting['togglebackgroundhovercolour']; ?>;
         }
 
         /* Dynamically changing widths with language */
