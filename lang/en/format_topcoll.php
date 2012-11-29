@@ -60,8 +60,8 @@ $string['markedthissection'] = 'This section is highlighted as the current secti
 $string['markthissection'] = 'Highlight this section as the current section';
 
 // Layout enhancement - Moodle Tracker CONTRIB-3378
-$string['formatsettings'] = 'Format settings'; // CONTRIB-3529
-$string['formatsettingsinformation'] = '<br />To change the settings of the course format, click on the icon to the right.';
+$string['formatsettings'] = 'Format reset settings'; // CONTRIB-3529
+$string['formatsettingsinformation'] = '<br />To reset the settings of the course format to the defaults, click on the icon to the right.';
 $string['setlayout'] = 'Set layout';
 $string['setlayout_default'] = 'Default';
 $string['setlayout_no_toggle_section_x'] = 'No toggle section x';
@@ -82,7 +82,7 @@ $string['resetalllayout'] = 'Reset layouts for all Collapsed Topics courses';
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529
 $string['setcolour'] = 'Set colour';
-$string['colourrule'] = "Please enter a valid RGB colour, a '#' and then six hexadecimal digits.";
+$string['colourrule'] = "Please enter a valid RGB colour, six hexadecimal digits.";
 $string['settoggleforegroundcolour'] = 'Toggle foreground';
 $string['settogglebackgroundcolour'] = 'Toggle background';
 $string['settogglebackgroundhovercolour'] = 'Toggle background hover';
@@ -127,4 +127,6 @@ $string['setlayoutcolumns_help'] = 'How many columns to use.';
 
 // Moodle 2.4 Course format refactoring - MDL-35218
 $string['numbersections'] = 'Number of sections';
+$string['ctreset'] = 'Collapsed Topics reset options';
+$string['ctreset_help'] = 'Reset to Collapsed Topics defaults that are in the tcconfig.php file.';
 ?>

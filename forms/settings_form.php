@@ -35,14 +35,14 @@ class set_settings_form extends moodleform {
 
     function definition() {
         global $CFG, $USER; //, $DB;
-        MoodleQuickForm::registerElementType('tccolourpopup', "$CFG->dirroot/course/format/topcoll/js/tc_colourpopup.php", 'MoodleQuickForm_tccolourpopup');
+        //MoodleQuickForm::registerElementType('tccolourpopup', "$CFG->dirroot/course/format/topcoll/js/tc_colourpopup.php", 'MoodleQuickForm_tccolourpopup');
 
         $mform = $this->_form;
         $instance = $this->_customdata;
 
-        $mform->addElement('header', 'setlayout', get_string('setlayout', 'format_topcoll'));
-        $mform->addHelpButton('setlayout', 'setlayout', 'format_topcoll', '', true);
-        $formcourselayoutelements =
+        $mform->addElement('header', 'ctreset', get_string('ctreset', 'format_topcoll'));
+        $mform->addHelpButton('ctreset', 'ctreset', 'format_topcoll', '', true);
+        /*$formcourselayoutelements =
                 array(1 => get_string('setlayout_default', 'format_topcoll'), // Default.
                     2 => get_string('setlayout_no_toggle_section_x', 'format_topcoll'), // No 'Topic x' / 'Week x'.
                     3 => get_string('setlayout_no_section_no', 'format_topcoll'), // No section number.
@@ -73,7 +73,7 @@ class set_settings_form extends moodleform {
                     4 => get_string('four', 'format_topcoll')); // Four
         $mform->addElement('select', 'setcolumnsnew', get_string('setlayoutcolumns', 'format_topcoll'), $formcoursecolumns);
         $mform->setDefault('setcolumnsnew', $instance['setcolumns']);
-        $mform->addHelpButton('setcolumnsnew', 'setlayoutcolumns', 'format_topcoll', '', true);
+        $mform->addHelpButton('setcolumnsnew', 'setlayoutcolumns', 'format_topcoll', '', true);*/
 
         $mform->addElement('checkbox', 'resetlayout', get_string('resetlayout', 'format_topcoll'), false);
         $mform->addHelpButton('resetlayout', 'resetlayout', 'format_topcoll', '', true);
@@ -84,8 +84,8 @@ class set_settings_form extends moodleform {
             $mform->addHelpButton('resetalllayout', 'resetalllayout', 'format_topcoll', '', true);
         }
 
-        $mform->addElement('header', 'setcolour', get_string('setcolour', 'format_topcoll'));
-        $mform->addHelpButton('setcolour', 'setcolour', 'format_topcoll', '', true);
+        //$mform->addElement('header', 'setcolour', get_string('setcolour', 'format_topcoll'));
+        /*$mform->addHelpButton('setcolour', 'setcolour', 'format_topcoll', '', true);
 
         $mform->addElement('tccolourpopup', 'tgfg', get_string('settoggleforegroundcolour', 'format_topcoll'), array('tabindex' => -1, 'value' => '#' . $instance['tgfgcolour']));
         $mform->addHelpButton('tgfg', 'settoggleforegroundcolour', 'format_topcoll', '', true);
@@ -98,7 +98,7 @@ class set_settings_form extends moodleform {
 
         $mform->addElement('tccolourpopup', 'tgbghvr', get_string('settogglebackgroundhovercolour', 'format_topcoll'), array('tabindex' => -1, 'value' => '#' . $instance['tgbghvrcolour']));
         $mform->addHelpButton('tgbghvr', 'settogglebackgroundhovercolour', 'format_topcoll', '', true);
-        $mform->addRule('tgbghvr', get_string('colourrule', 'format_topcoll'), 'colour');
+        $mform->addRule('tgbghvr', get_string('colourrule', 'format_topcoll'), 'colour');*/
 
         $mform->addElement('checkbox', 'resetcolour', get_string('resetcolour', 'format_topcoll'), false);
         $mform->addHelpButton('resetcolour', 'resetcolour', 'format_topcoll', '', true);

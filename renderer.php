@@ -507,9 +507,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $this->tccolumnwidth = 100; // Reset to default.
         echo $this->start_section_list();
 
-        // Collapsed Topics settings.
-        //echo $this->settings($course);
-
         $sections = $modinfo->get_section_info_all();
         // General section if non-empty.
         $thissection = $sections[0];
@@ -758,11 +755,14 @@ class format_topcoll_renderer extends format_section_renderer_base {
         } else {
             echo $this->end_section_list();
         }
+		
+		        // Collapsed Topics reset settings.
+        echo $this->settings($course);
     }
 
     // Collapsed Topics non-overridden additions.
     /**
-     * Displays the settings icon for the course if required.
+     * Displays the reset settings icon for the course if required.
      * @param stdClass $course The course entry from DB
      * @return string HTML to output.
      */
@@ -773,7 +773,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         $coursecontext = context_course::instance($course->id);
         if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $coursecontext)) {
-            $o .= html_writer::start_tag('li', array('class' => 'tcsection main clearfix'));
+           $o .= $this->start_section_list(); // For the bottom of the course.
+           $o .= html_writer::start_tag('li', array('class' => 'tcsection main clearfix'));
 
             $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
 
@@ -782,12 +783,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $o .= html_writer::start_tag('div', array('class' => 'content'));
             $o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
             $o .= html_writer::start_tag('div', array('class' => 'tcsettingscontainer'));
-            $o .= html_writer::tag('a', html_writer::tag('div', '', array('id' => 'tc-set-settings')), array('title' => get_string("settings"), 'href' => 'format/topcoll/forms/settings.php?id=' . $course->id . '&sesskey=' . sesskey()));
+            $o .= html_writer::tag('a', html_writer::tag('div', '', array('id' => 'tc-set-settings')), array('title' => get_string("formatsettings","format_topcoll"), 'href' => 'format/topcoll/forms/settings.php?id=' . $course->id . '&sesskey=' . sesskey()));
             $o .= html_writer::tag('div',get_string('formatsettingsinformation','format_topcoll'));
             $o .= html_writer::end_tag('div');
             $o .= html_writer::end_tag('div');
             $o .= html_writer::end_tag('div');
             $o .= html_writer::end_tag('li');
+           $o .= $this->end_section_list();
         }
         return $o;
     }
