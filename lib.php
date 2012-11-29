@@ -608,11 +608,11 @@ private function format_topcoll_get_section_day($section, $course) {
  * @param int $layout If true, reset the layout to the default in tcconfig.php.
  * @param int $colour If true, reset the colour to the default in tcconfig.php.
  */
-public function reset_topcoll_setting($thiscourse, $layout, $colour) {
+public function reset_topcoll_setting($courseid, $layout, $colour) {
     global $DB;
     global $TCCFG;
 
-	if ($thiscourse == 0) {
+	if ($courseid == 0) {
     $records = $DB->get_records('course_format_options', array('format' => $this->format));//, '', 'name,id,value');
 	} else {
 	        $cached = array();
@@ -624,9 +624,9 @@ public function reset_topcoll_setting($thiscourse, $layout, $colour) {
             }
             $cached[$key] = !empty($option['cache']);
 			}
-    $records = $DB->get_records('course_format_options', array('courseid' => $thiscourse,'format' => $this->format));//, '', 'name,id,value');
+    $records = $DB->get_records('course_format_options', array('courseid' => $courseid,'format' => $this->format));//, '', 'name,id,value');
    }
-	//print($thiscourse);
+	//print($courseid);
 	//print_r($records);
     //print_object($records);
 	$changed = $needrebuild = false;
@@ -636,21 +636,21 @@ public function reset_topcoll_setting($thiscourse, $layout, $colour) {
 		    if ($record->name == 'layoutelement') {
             $record->value = $TCCFG->defaultlayoutelement;
                     $changed = true;
-					if ($thiscourse != null) {
+					if ($courseid != 0) {
                     $needrebuild = $needrebuild || $cached['layoutelement'];
 					}					
 			}
-		    if ($record->name == 'layoutstructure') {
+		    else if ($record->name == 'layoutstructure') {
             $record->value = $TCCFG->defaultlayoutstructure;
                     $changed = true;
-					if ($thiscourse != null) {
+					if ($courseid != 0) {
                     $needrebuild = $needrebuild || $cached['layoutstructure'];
 					}					
 			}
-		    if ($record->name == 'layoutcolumns') {
+		    else if ($record->name == 'layoutcolumns') {
             $record->value = $TCCFG->defaultlayoutcolumns;
                     $changed = true;
-					if ($thiscourse != null) {
+					if ($courseid != 0) {
                     $needrebuild = $needrebuild || $cached['layoutcolumns'];
 					}					
 			}
@@ -659,17 +659,23 @@ public function reset_topcoll_setting($thiscourse, $layout, $colour) {
 		    if ($record->name == 'toggleforegroundcolour') {
             $record->value = $TCCFG->defaulttgfgcolour;
                     $changed = true;
+					if ($courseid != 0) {
                     $needrebuild = $needrebuild || $cached[$key];			
+}
 			}
-		    if ($record->name == 'togglebackgroundcolour') {
+		    else if ($record->name == 'togglebackgroundcolour') {
             $record->value = $TCCFG->defaulttgbgcolour;
                     $changed = true;
+					if ($courseid != 0) {
                     $needrebuild = $needrebuild || $cached[$key];			
+}
 			}
-		    if ($record->name == 'togglebackgroundhovercolour') {
+		    else if ($record->name == 'togglebackgroundhovercolour') {
             $record->value = $TCCFG->defaulttgbghvrcolour;
                     $changed = true;
+					if ($courseid != 0) {
                     $needrebuild = $needrebuild || $cached[$key];			
+}
 			}
         }
 		if ($changed == true) {		
@@ -693,7 +699,91 @@ public function reset_topcoll_setting($thiscourse, $layout, $colour) {
     //print_object($records);
 }
 
+public function restore_topcoll_setting($courseid, $layoutelement, $layoutstructure, $layoutcolumns, $tgfgcolour, $tgbgcolour, $tgbghvrcolour) {
+      global $DB;
+	  	        $cached = array();
+			$allformatoptions = $this->course_format_options();
+        foreach ($allformatoptions as $key => $option) {
+            $defaultoptions[$key] = null;
+            if (array_key_exists('default', $option)) {
+                $defaultoptions[$key] = $option['default'];
+            }
+            $cached[$key] = !empty($option['cache']);
+			}
+      $records = $DB->get_records('course_format_options', array('courseid' => $courseid,'format' => $this->format));//, '', 'name,id,value');
+  //print_r($records);
+  	$changed = $needrebuild = false;
+	$recordupdated = false;
+    foreach ($records as $record) {
+			    if ($record->name == 'layoutelement') {
+            $record->value = $layoutelement;
+                    $changed = true;
+                    $recordupdated = true;
+					if ($courseid != 0) {
+                    $needrebuild = $needrebuild || $cached['layoutelement'];
+					}					
+			}
+		    else if ($record->name == 'layoutstructure') {
+            $record->value = $layoutstructure;
+                    $changed = true;
+                    $recordupdated = true;
+					if ($courseid != 0) {
+                    $needrebuild = $needrebuild || $cached['layoutstructure'];
+					}					
+			}
+		    else if ($record->name == 'layoutcolumns') {
+            $record->value = $layoutcolumns;
+                    $changed = true;
+                    $recordupdated = true;
+					if ($courseid != 0) {
+                    $needrebuild = $needrebuild || $cached['layoutcolumns'];
+					}					
+			}
+		    else if ($record->name == 'toggleforegroundcolour') {
+            $record->value = $tgfgcolour;
+                    $changed = true;
+                    $recordupdated = true;
+					if ($courseid != 0) {
+                    $needrebuild = $needrebuild || $cached[$key];			
+}
+			}
+		    else if ($record->name == 'togglebackgroundcolour') {
+            $record->value = $tgbgcolour;
+                    $changed = true;
+                    $recordupdated = true;
+					if ($courseid != 0) {
+                    $needrebuild = $needrebuild || $cached[$key];			
+}
+			}
+		    else if ($record->name == 'togglebackgroundhovercolour') {
+            $record->value = $tgbghvrcolour;
+                    $changed = true;
+                    $recordupdated = true;
+					if ($courseid != 0) {
+                    $needrebuild = $needrebuild || $cached[$key];			
+}
+			}
 
+
+		if ($recordupdated == true) {		
+					//print('A record:');
+			    //print_object($record);
+        $DB->update_record('course_format_options', $record);
+		                    //$DB->set_field('course_format_options', 'value',
+                            //$record->value, array('id' => $record->id));
+		$recordupdated = false;
+		}
+		}
+        if ($needrebuild) {
+		// TODO for all.
+            rebuild_course_cache($this->courseid, true);
+        }
+        if ($changed) {
+            // reset internal caches
+                $this->course = false;
+            unset($this->formatoptions[0]);
+        }
+}
 }
 
 /**
