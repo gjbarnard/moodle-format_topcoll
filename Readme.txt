@@ -585,6 +585,8 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 
 2nd August 2012+ - Version 2.4.0.1
   1.  Development for Moodle 2.4.
+  2.  Major changes for course formats refactoring - MDL-35218 - mainly to do with moving the settings into the course
+      settings.
 
 Thanks
 ------
@@ -637,6 +639,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 28th November 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 29th November 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
