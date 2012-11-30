@@ -4,23 +4,26 @@ Topic based course format with an individual 'toggle' for each topic except 0.
 
 This version is the master development branch.
 
+Required version of Moodle
+--------------------------
+This version works with Moodle 2.4beta+ version 2012112301.00 (Build: 20121123) and above until the next release.
+
 Documented on http://docs.moodle.org/en/Collapsed_Topics_course_format
 
 Installation
 ------------
  1. Ensure you have the version of Moodle as stated above in 'Required version of Moodle'.  This is essential as the
     format relies on underlying core code that is out of my control.
- 2. If upgrading from a previous version of Moodle please see 'Upgrading from Moodle 1.9, 2.0, 2.1' and
-    'Upgrading from Moodle 2.2.x' below.
+ 2. If upgrading from a previous version of Moodle please see 'Upgrade Instructions' below.
  3. Put Moodle in 'Maintenance Mode' (docs.moodle.org/en/admin/setting/maintenancemode) so that there are no 
     users using it bar you as the administrator - if you have not already done so.
  4. Copy 'topcoll' to '/course/format/' if you have not already done so.
- 5. If using a Unix based system, chmod 755 on config.php - I have not tested this but have been told that it
+ 5. If using a Unix based system, chmod 755 on config.php and tcconfig.php - I have not tested this but have been told that it
     needs to be done.
- 6. In 'config.php' change the values of '$TCCFG->defaultlayoutelement', '$TCCFG->defaultlayoutstructure' and
+ 6. In 'tcconfig.php' change the values of '$TCCFG->defaultlayoutelement', '$TCCFG->defaultlayoutstructure' and
     '$TCCFG->defaultlayoutcolumns' for setting the default layout, structure and columns respectively for
     new / updating courses as desired by following the instructions contained within.
- 7. In 'config.php' change the values of '$TCCFG->defaulttgfgcolour', '$TCCFG->defaulttgbgcolour' and
+ 7. In 'tcconfig.php' change the values of '$TCCFG->defaulttgfgcolour', '$TCCFG->defaulttgbgcolour' and
     '$TCCFG->defaulttgbghvrcolour' for setting the default toggle colours.
  8. Login as an administrator and follow standard the 'plugin' update notification.  If needed, go to
     'Site administration' -> 'Notifications' if this does not happen.
@@ -40,81 +43,17 @@ Installation
 
 Upgrade Instructions
 --------------------
+Note: You must upgrade from the Moodle 2.3 only, therefore if you have Moodle 1.9, 2.0 or 2.1, upgrade to 2.2 then 2.3
+      as per the instructions in those versions.  However as the settings are to do with layout and colour options, you
+      can choose to simply unistall Collapsed Topics, upgrade to 2.4 and then install this version and reapply the layout
+      and colour differences to the courses that are differerent.
 1. Ensure you have the version of Moodle as stated above in 'Required version of Moodle'.  This is essential as the
    format relies on underlying core code that is out of my control.
-2. If upgrading from a previous version of Moodle please see 'Upgrading from Moodle 1.9, 2.0 or 2.1' and
-   'Upgrading from Moodle 2.2' below.
+2. If upgrading from a previous version of Moodle please see the note above.
 3. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
 4. In '/course/format/' move old 'topcoll' directory to a backup folder outside of Moodle.
-5. If you have previously installed a development, beta or release candidate of version 2.3.7 you need to
-   perform step 4 in 'Uninstallation' below.
-6. Follow installation instructions above.
-7. Put Moodle out of Maintenance Mode.
-
-Upgrading from Moodle 1.9, 2.0 or 2.1
--------------------------------------
-Moodle 2.3.1 requires that Moodle 2.2 is installed to upgrade from, so therefore Moodle 2.2 is an intermediate step.
-So:
-1. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
-2. In '/course/format/' move old 'topcoll' directory to a backup folder outside of Moodle.
-3. Do not copy in the new version of 'topcoll' yet!  As this will cause the upgrade to fail.
-4. Upgrade to Moodle 2.2 first - http://docs.moodle.org/22/en/Upgrading_to_Moodle_2.2.
-5. After you have installed Moodle 2.2, now upgrade to Moodle 2.3.1 with this new topcoll - 
-   http://docs.moodle.org/23/en/Upgrading_to_Moodle_2.3 - but before initiating the upgrade you can copy the
-   new (i.e. this) 'topcoll' folder to '/course/format'.
-6. Now follow 'Upgrading from Moodle 2.2.x' below please.
-INFO: Having no 'topcoll' folder in '/course/format' is fine as the courses that use it are not accessed and
-      both the old and new versions will confuse an intermediate 2.2 version and cause it's installation to fail.
-
-Upgrading from Moodle 2.2.x
----------------------------
-1.    First ensure you start with release 2.3.7.1 of Collapsed Topics (available from the plugins database) of the
-      11th July 2012 or above.
-2.    Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator - if you have
-      not already done so.
-3.    In '/course/format/' move old 'topcoll' directory to a backup folder outside of Moodle - if you have not
-      already done so.
-4.    Copy this new 'topcoll' folder to '/course/format/'.
-5.    Upgrade to Moodle 2.3.1 by being logged in as admin and clicking on 'Home'.  If you have previously upgraded but
-      'topcoll' was an old version and the upgrade failed, this should still work.
-5.    Follow installation instructions above.
-6.    Put Moodle out of Maintenance Mode.
-NOTE: If the automated upgrade fails for which can be seen by getting errors when using a Collapsed Topics course,
-      then please follow this.
-      Please carry on if a table / field has been removed / changed / already exists as it should still work - this 
-      is to cope with the different possible scenarios.  These instructions are written with the MySQL database in
-      mind, however should work with other database engines but the types should be compared with other tables in 
-      the database to get an idea of what they should be.  If possible please kindly feedback to me any additional
-      information you discover so I can update these instructions - contact details at the very bottom.
-      The table prefix i.e, 'mdl_' is not stated in the instructions but ensure you know what yours is and use
-      it with the table names.
-1.    In your database:
-2.1   Rename the table 'format_topcoll_layout' to 'format_topcoll_settings'.
-2.2   With the table 'format_topcoll_settings' change all integer types to signed if using a MySQL database.
-2.3   If the table 'format_topcoll_settings' does not exist, then create it and add the following fields 
-      in this order:
-2.3.1 'id' of type 'BIGINT(10)' type, not null, auto increment, no zero fill with a null default value - the same 
-       as any other 'id' field in the other tables.  Make it the primary key.
-2.3.2 'courseid' of type 'BIGINT(10)' type, not null, no auto increment, no zero fill with a null default value - the
-      same as the 'course' field in the 'course_sections' table bar the default value.
-2.3.3 'layoutelement' of type 'TINYINT(2)' type, not null, no auto increment, no zero fill with a default value
-      of '1'.
-2.3.4 'layoutstructure' of type 'TINYINT(1)' type, not null, no auto increment, no zero fill with a default value
-      of '1'.
-2.4   With the table 'format_topcoll_settings' append three new fields of 'VARCHAR(6)' type, not null, called
-      'tgfgcolour', 'tgbgcolour' and 'tgbghvrcolour' in that order with the default values of '000000', 'e2e2f2'
-      and 'eeeeff' respectively.
-2.5   With the table 'format_topcoll_settings' append a new field 'layoutcolumns' after the 'layoutstructure' field
-      and with identical size, type and attributes.  The default is '1'. i.e:
-2.5.1 'layoutcolumns' of type 'TINYINT(1)' type, not null, no auto increment, no zero fill with a default value
-      of '1'.
-2.6   Drop the table 'format_topcoll_cookie_cnsnt'.
-
-Upgrading from a beta or release candidate version of Collapsed Topics for Moodle 2.3
--------------------------------------------------------------------------------------
-1. Please perform step 4 of uninstallation instructions below.
-2. Drop the table 'format_topcoll_cookie_cnsnt' if it exists.
-3. Follow installation instructions above.
+5. Follow installation instructions above.
+6. Put Moodle out of Maintenance Mode.
 
 Uninstallation
 --------------
@@ -639,6 +578,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 29th November 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 30th November 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

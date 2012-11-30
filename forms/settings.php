@@ -41,7 +41,6 @@ $courseid = required_param('id', PARAM_INT); // course id
 if (!($course = $DB->get_record('course', array('id' => $courseid)))) {
     print_error('invalidcourseid', 'error');
 } // From /course/view.php
-
 //$layoutsetting = get_topcoll_setting($course->id);
 
 preload_course_contexts($courseid); // From /course/view.php
@@ -72,28 +71,28 @@ if ($PAGE->user_is_editing()) {
         redirect($courseurl);
     } else if ($formdata = $mform->get_data()) {
         //print_r($formdata);
-		$courseformat = course_get_format($course);
+        $courseformat = course_get_format($course);
         if ((isset($formdata->resetlayout) == true) && (isset($formdata->resetcolour) == true)) {
-            $courseformat->reset_topcoll_setting($courseid,true, true);
+            $courseformat->reset_topcoll_setting($courseid, true, true);
         } else if (isset($formdata->resetlayout) == true) {
-            $courseformat->reset_topcoll_setting($courseid,true, false);
+            $courseformat->reset_topcoll_setting($courseid, true, false);
         } else if (isset($formdata->resetcolour) == true) {
-            $courseformat->reset_topcoll_setting($courseid,false, true);
+            $courseformat->reset_topcoll_setting($courseid, false, true);
         }
-		
+
         if ((isset($formdata->resetalllayout) == true) && (isset($formdata->resetallcolour) == true)) {
-            $courseformat->reset_topcoll_setting(0,true, true);
+            $courseformat->reset_topcoll_setting(0, true, true);
         } else if (isset($formdata->resetalllayout) == true) {
-            $courseformat->reset_topcoll_setting(0,true, false);
+            $courseformat->reset_topcoll_setting(0, true, false);
         } else if (isset($formdata->resetallcolour) == true) {
-            $courseformat->reset_topcoll_setting(0,false, true);
+            $courseformat->reset_topcoll_setting(0, false, true);
         }
         redirect($courseurl);
     }
 
     echo $OUTPUT->header();
     //echo $OUTPUT->box_start('generalbox');
-	//echo $OUTPUT->heading(get_string('ctreset', 'format_topcoll'));
+    //echo $OUTPUT->heading(get_string('ctreset', 'format_topcoll'));
     $mform->display();
     //echo $OUTPUT->box_end();
     echo $OUTPUT->footer();

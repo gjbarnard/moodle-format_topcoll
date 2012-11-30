@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Collapsed Topics Information
  *
@@ -28,43 +29,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
 
-// NOTE: This code is here pending outcome of CONTRIB-3552 which is blocked by MDL-32205.
+function xmldb_format_topcoll_upgrade($oldversion = 0) {
 
-/**
- * Format's backup routine
- *
- * @param handler $bf Backup file handler
- * @param object $preferences Backup preferences
- * @return boolean Success
- **/
-function topcoll_backup_format_data($bf, $preferences) {
-    $status = true;
+    global $DB;
+    $dbman = $DB->get_manager();
+    $result = true;
 
-    if ($layout = get_record('format_topcoll_layout', 'courseid',
-        $preferences->backup_course)) {
-
-        $status = $status and fwrite ($bf, start_tag('LAYOUT', 3, true));
-        $status = $status and fwrite ($bf, full_tag('LAYOUTELEMENT', 4, false, $layout->layoutelement));
-        $status = $status and fwrite ($bf, full_tag('LAYOUTSTRUCTURE', 4, false, $layout->layoutstructure));
-        $status = $status and fwrite ($bf, end_tag('LAYOUT',3, true));
+    // Note: You must upgrade to 2.3 version before transitioning to 2.4.
+    if ($result && $oldversion < 2012113000) { // Note to self, Moodle 2.3 version cannot now be greater than this.
+        // Rename table format_topcoll_layout if it exists.
+        $table = new xmldb_table('format_topcoll_settings');
+        // Rename the table...
+        if ($dbman->table_exists($table)) {
+            $courseformat = new format_topcoll('topcoll', 0);  // Instance to help us - '/course/format/topcoll/lib.php'.
+            // Extract data out of table and put in course settings table for 2.4.
+            $records = $DB->get_records('format_topcoll_settings');
+            foreach ($records as $record) {
+                $courseformat->restore_topcoll_setting($record->courseid, $record->layoutelement, $record->layoutstructure, $record->layoutcolumns, $record->tgfgcolour, $record->tgbgcolour, $record->tgbghvrcolour);
+            }
+            // Farewell old settings table.
+            $dbman->drop_table($table);
+        } //else Nothing to do as settings put in DB on first use.
     }
-    return $status;
-}
-
-/**
- * Return a content encoded to support interactivities linking. This function is
- * called automatically from the backup procedure by {@link backup_encode_absolute_links()}.
- *
- * @param string $content Content to be encoded
- * @param object $restore Restore preferences object
- * @return string The encoded content
- **/
-function topcoll_encode_format_content_links($content, $restore) {
-    global $CFG;
-
-    $base = preg_quote($CFG->wwwroot, '/');
-
-    //TODO: Convert lins to universal id;
-    return $content;
+    return $result;
 }

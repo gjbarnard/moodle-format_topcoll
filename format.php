@@ -80,16 +80,15 @@ if (!empty($displaysection)) {
         $course->id,
         get_user_preferences('topcoll_toggle_' . $course->id),
         $course->numsections,
-		$TCCFG->togglepersistence));
+        $TCCFG->togglepersistence));
 
     global $tcsetting;
     if (empty($tcsetting) == true) {
         //$tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
-		$tcsetting = course_get_format($course)->get_format_options();
-			print('format.php ->');
-		print_r($tcsetting);
-		}
-
+        $tcsetting = course_get_format($course)->get_format_options();
+        print('format.php ->');
+        print_r($tcsetting);
+    }
     ?>
     <style type="text/css" media="screen">
         /* <![CDATA[ */
@@ -117,16 +116,15 @@ if (!empty($displaysection)) {
             if ((!$PAGE->user_is_editing()) && ($PAGE->theme->name != 'mymobile')) {
                 echo 'margin: 0 ' . get_string('topcollsidewidth', 'format_topcoll');
             }
-
             ?>;
         }
 
         .course-content ul.ctopics li.section.main .side, .course-content ul.ctopics li.tcsection .side {
-            <?php
-            if (!$PAGE->user_is_editing()) {
-                echo 'width: ' . get_string('topcollsidewidth', 'format_topcoll');
-            }
-            ?>;
+    <?php
+    if (!$PAGE->user_is_editing()) {
+        echo 'width: ' . get_string('topcollsidewidth', 'format_topcoll');
+    }
+    ?>;
         }
 
         /* ]]> */

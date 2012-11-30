@@ -70,24 +70,23 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
         }
 
         $data->courseid = $this->task->get_courseid();
-		
-		if (!($course = $DB->get_record('course', array('id' => $data->courseid)))) {
-    print_error('invalidcourseid', 'error');
-} // From /course/view.php
 
+        if (!($course = $DB->get_record('course', array('id' => $data->courseid)))) {
+            print_error('invalidcourseid', 'error');
+        } // From /course/view.php
 //print_object($course);
-$courseformat = course_get_format($course);
+        $courseformat = course_get_format($course);
 //print_object($courseformat);
 
 
         if (isset($data->layoutcolumns)) {
             // In $CFG->dirroot.'/course/format/topcoll/lib.php'...
             //put_topcoll_setting($data->courseid, $data->layoutelement, $data->layoutstructure, $data->layoutcolumns, $data->tgfgcolour, $data->tgbgcolour, $data->tgbghvrcolour);
-			$courseformat->restore_topcoll_setting($data->courseid, $data->layoutelement, $data->layoutstructure, $data->layoutcolumns, $data->tgfgcolour, $data->tgbgcolour, $data->tgbghvrcolour);
+            $courseformat->restore_topcoll_setting($data->courseid, $data->layoutelement, $data->layoutstructure, $data->layoutcolumns, $data->tgfgcolour, $data->tgbgcolour, $data->tgbghvrcolour);
         } else {
             // Cope with backups from Moodle 2.0, 2.1 and 2.2 versions.
             global $TCCFG;
-		    $courseformat->restore_topcoll_setting($data->courseid, $data->layoutelement, $data->layoutstructure, $TCCFG->defaultlayoutcolumns, $data->tgfgcolour, $data->tgbgcolour, $data->tgbghvrcolour);
+            $courseformat->restore_topcoll_setting($data->courseid, $data->layoutelement, $data->layoutstructure, $TCCFG->defaultlayoutcolumns, $data->tgfgcolour, $data->tgbgcolour, $data->tgbghvrcolour);
             //put_topcoll_setting($data->courseid, $data->layoutelement, $data->layoutstructure, $TCCFG->defaultlayoutcolumns, $data->tgfgcolour, $data->tgbgcolour, $data->tgbghvrcolour);
         }
 
