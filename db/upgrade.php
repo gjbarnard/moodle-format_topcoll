@@ -29,6 +29,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+require_once($CFG->dirroot . '/course/format/lib.php');
 require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
 
 function xmldb_format_topcoll_upgrade($oldversion = 0) {
@@ -43,10 +44,12 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         $table = new xmldb_table('format_topcoll_settings');
         // Rename the table...
         if ($dbman->table_exists($table)) {
-            $courseformat = new format_topcoll('topcoll', 0);  // Instance to help us - '/course/format/topcoll/lib.php'.
+            //$courseformat = new format_topcoll('topcoll', 0);  // Instance to help us - '/course/format/topcoll/lib.php'.
             // Extract data out of table and put in course settings table for 2.4.
             $records = $DB->get_records('format_topcoll_settings');
+            print_object($records);
             foreach ($records as $record) {
+                $courseformat = course_get_format($record->courseid);
                 $courseformat->restore_topcoll_setting($record->courseid, $record->layoutelement, $record->layoutstructure, $record->layoutcolumns, $record->tgfgcolour, $record->tgbgcolour, $record->tgbghvrcolour);
             }
             // Farewell old settings table.
