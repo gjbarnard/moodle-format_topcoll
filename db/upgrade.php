@@ -47,10 +47,10 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
             //$courseformat = new format_topcoll('topcoll', 0);  // Instance to help us - '/course/format/topcoll/lib.php'.
             // Extract data out of table and put in course settings table for 2.4.
             $records = $DB->get_records('format_topcoll_settings');
-            print_object($records);
+            //print_object($records);
             foreach ($records as $record) {
-                $courseformat = course_get_format($record->courseid);
-                $courseformat->restore_topcoll_setting($record->courseid, $record->layoutelement, $record->layoutstructure, $record->layoutcolumns, $record->tgfgcolour, $record->tgbgcolour, $record->tgbghvrcolour);
+                $courseformat = course_get_format($record->courseid);  // In '/course/format/lib.php'.
+                $courseformat->restore_topcoll_setting($record->courseid, $record->layoutelement, $record->layoutstructure, $record->layoutcolumns, $record->tgfgcolour, $record->tgbgcolour, $record->tgbghvrcolour); // In '/course/format/topcoll/lib.php'.
             }
             // Farewell old settings table.
             $dbman->drop_table($table);
