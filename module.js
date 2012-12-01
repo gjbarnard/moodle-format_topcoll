@@ -53,6 +53,7 @@ M.format_topcoll = M.format_topcoll || {};
  * @param {Integer} thecourseid the id of the current course to allow for settings for each course.
  * @param {String} thetogglestate the current state of the toggles.
  * @param {Integer} noOfToggles The number of toggles.
+ * @param {Integer} theTogglePersistence Persistence on (1) or off (0).
  */
 M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate, noOfToggles, theTogglePersistence) {
     // Init.
@@ -61,7 +62,7 @@ M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate, noOfTo
     courseid = thecourseid;
     toggleState = thetogglestate;
     numToggles = noOfToggles;
-	togglePersistence = theTogglePersistence;
+    togglePersistence = theTogglePersistence;
 
     if (toggleState != null)
     {
@@ -78,7 +79,8 @@ M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate, noOfTo
     }
 }
 
-// Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the most significant bit and represents the non-toggling topic 0.
+// Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the
+// most significant bit and represents the non-toggling topic 0.
 // Args - toggleNum is an integer and toggleVal is a string which will either be "1" or "0"
 //        savetoggles save the toggle state - used so that all_toggles does not make multiple requests but instead one.
 function togglebinary(toggleNum, toggleVal, savetoggles)
@@ -102,7 +104,8 @@ function togglebinary(toggleNum, toggleVal, savetoggles)
 // Args - target is the list item element in the DOM to be toggled.
 //        image is the img tag element in the DOM to be changed.
 //        toggleNum is the toggle number to change.
-//        reloading is a boolean that states if the function is called from reload_toggles() so that we do not have to resave what we already know - ohh for default argument values.
+//        reloading is a boolean that states if the function is called from reload_toggles() so that we do not have to resave
+//        what we already know - ohh for default argument values.
 //        savetoggles save the toggle state - used so that all_toggles does not make multiple requests but instead one.
 function toggleexacttopic(target,image,toggleNum,reloading,savetoggles)  // Toggle the target and change the image.
 {
@@ -158,14 +161,16 @@ function toggle_topic(toggler,toggleNum)
     }
 }
 
-// Current maximum number of topics is 52, but as the converstion utilises integers which are 32 bit signed, this must be broken into two string segments for the
-// process to work.  Therefore each 6 character base 36 string will represent 26 characters for part 1 and 27 for part 2 in base 2.
+// Current maximum number of topics is 52, but as the converstion utilises integers which are 32 bit signed, this must be broken
+// into two string segments for the process to work.  Therefore each 6 character base 36 string will represent 26 characters for
+// part 1 and 27 for part 2 in base 2.
 // This is all required to save cookie space, so instead of using 53 bytes (characters) per course, only 12 are used.
 // Convert from a base 36 string to a base 2 string - effectively a private function.
 // Args - thirtysix - a 12 character string representing a base 36 number.
 function to2baseString(thirtysix)
 {
-    // Break apart the string because integers are signed 32 bit and therefore can only store 31 bits, therefore a 53 bit number will cause overflow / carry with loss of resolution.
+    // Break apart the string because integers are signed 32 bit and therefore can only store 31 bits, therefore a 53 bit number
+    // will cause overflow / carry with loss of resolution.
     var firstpart = parseInt(thirtysix.substring(0,6),36);
     var secondpart = parseInt(thirtysix.substring(6,12),36);
     var fps = firstpart.toString(2);
@@ -190,7 +195,8 @@ function to2baseString(thirtysix)
 // Args - two - a 52 character string representing a base 2 number.
 function to36baseString(two)
 {
-    // Break apart the string because integers are signed 32 bit and therefore can only store 31 bits, therefore a 52 bit number will cause overflow / carry with loss of resolution.
+    // Break apart the string because integers are signed 32 bit and therefore can only store 31 bits, therefore a 52 bit number
+    // will cause overflow / carry with loss of resolution.
     var firstpart = parseInt(two.substring(0,26),2);
     var secondpart = parseInt(two.substring(26,53),2);
     var fps = firstpart.toString(36);
@@ -216,9 +222,9 @@ function to36baseString(two)
 function save_toggles()
 {
     if (togglePersistence == 1) // Toggle persistence - 1 = on, 0 = off.
-	{
-	    M.util.set_user_preference('topcoll_toggle_'+courseid , to36baseString(toggleBinaryGlobal));
-	}
+    {
+        M.util.set_user_preference('topcoll_toggle_'+courseid , to36baseString(toggleBinaryGlobal));
+    }
 }
 
 // Functions that turn on or off all toggles.

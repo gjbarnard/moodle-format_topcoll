@@ -198,12 +198,7 @@ class format_topcoll extends format_base {
     public function course_format_options($foreditform = false) {
         static $courseformatoptions = false;
         global $TCCFG;
-        //$currentoptions = $this->get_format_options();
-        //print_object($currentoptions);
-        //print_object($this);
-        //if (!empty($this->formatoptions)) {
-        //print_object($this->formatoptions[0]);
-        //}
+
         if ($courseformatoptions === false) {
             $courseconfig = get_config('moodlecourse');
             $courseformatoptions = array(
@@ -322,14 +317,6 @@ class format_topcoll extends format_base {
                             4 => get_string('four', 'format_topcoll')) // Four
                     )
                 ),
-                /* 'resetlayout' => array(
-                  'label' => new lang_string('resetlayout', 'format_topcoll'),
-                  'help' => 'resetlayout',
-                  'help_component' => 'format_topcoll',
-                  'element_type' => 'checkbox',
-                  'element_attributes' => array(
-                  )
-                  ), */
                 'toggleforegroundcolour' => array(
                     'label' => new lang_string('settoggleforegroundcolour', 'format_topcoll'),
                     'help' => 'settoggleforegroundcolour',
@@ -356,37 +343,8 @@ class format_topcoll extends format_base {
                     'element_attributes' => array(
                         array('tabindex' => -1, 'value' => $TCCFG->defaulttgbghvrcolour)
                     )
-                )/* ,
-                      'resetcolour' => array(
-                      'label' => new lang_string('resetcolour', 'format_topcoll'),
-                      'help' => 'resetcolour',
-                      'help_component' => 'format_topcoll',
-                      'element_type' => 'checkbox',
-                      'element_attributes' => array(
-                      )
-                      ) */
+                )
             );
-            /* if (is_siteadmin($USER)) {
-              $courseformatoptionsadmin = array (
-              'resetalllayout' => array(
-              'label' => new lang_string('resetalllayout', 'format_topcoll'),
-              'help' => 'resetalllayout',
-              'help_component' => 'format_topcoll',
-              'element_type' => 'checkbox',
-              'element_attributes' => array(
-              )
-              ),
-              'resetallcolour' => array(
-              'label' => new lang_string('resetallcolour', 'format_topcoll'),
-              'help' => 'resetallcolour',
-              'help_component' => 'format_topcoll',
-              'element_type' => 'checkbox',
-              'element_attributes' => array(
-              )
-              )
-              );
-              $courseformatoptionsedit = array_merge_recursive($courseformatoptionsedit, $courseformatoptionsadmin);
-              } */
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
         return $courseformatoptions;
@@ -404,94 +362,8 @@ class format_topcoll extends format_base {
     public function create_edit_form_elements(&$mform, $forsection = false) {
         global $CFG;
         MoodleQuickForm::registerElementType('tccolourpopup', "$CFG->dirroot/course/format/topcoll/js/tc_colourpopup.php", 'MoodleQuickForm_tccolourpopup');
-        /* if ($forsection == false) {
-          global $CFG, $USER;
 
-          //$mform->insertElementBefore($mform->createElement('header', 'setlayout', get_string('setlayout', 'format_topcoll')),'numsections');
-          $mform->addElement('header', 'ctreset', get_string('ctreset', 'format_topcoll'));
-          $mform->addHelpButton('ctreset', 'ctreset', 'format_topcoll', '', true);
-          //$mform->insertElementBefore($mform->removeElement('setlayout', false),'numsections');
-          //print_object($mform);
-          $mform->addElement('checkbox', 'resetlayout', get_string('resetlayout', 'format_topcoll'), false);
-          $mform->setAdvanced('resetlayout');
-          //$mform->insertElementBefore($mform->createElement('checkbox', 'resetlayout', get_string('resetlayout', 'format_topcoll'), false),'numsections');
-          //$mform->insertElementBefore($mform->removeElement('resetlayout', false),'numsections');
-          $mform->addHelpButton('resetlayout', 'resetlayout', 'format_topcoll', '', true);
-
-          $mform->addElement('checkbox', 'resetcolour', get_string('resetcolour', 'format_topcoll'), false);
-          $mform->addHelpButton('resetcolour', 'resetcolour', 'format_topcoll', '', true);
-          $mform->setAdvanced('resetcolour');
-
-          //$user = $DB->get_record('user', array('id'=>$USER->id));
-          if (is_siteadmin($USER)) {
-          $mform->addElement('checkbox', 'resetalllayout', get_string('resetalllayout', 'format_topcoll'), false);
-          $mform->addHelpButton('resetalllayout', 'resetalllayout', 'format_topcoll', '', true);
-          $mform->setAdvanced('resetalllayout');
-
-          $mform->addElement('checkbox', 'resetallcolour', get_string('resetallcolour', 'format_topcoll'), false);
-          $mform->addHelpButton('resetallcolour', 'resetallcolour', 'format_topcoll', '', true);
-          $mform->setAdvanced('resetallcolour');
-          }
-          } */
-
-        $elements = parent::create_edit_form_elements($mform, $forsection);
-
-        //print_r($elements);
-
-        return $elements;
-    }
-
-    /**
-     * Hijack the format options to reset certain things.
-     *
-     * @param array $data array of ("fieldname"=>value) of submitted data
-     * @param array $files array of uploaded files "element_name"=>tmp_file_path
-     * @param array $errors errors already discovered in edit form validation
-     * @return array of "element_name"=>"error_description" if there are errors,
-     *         or an empty array if everything is OK.
-     *         Do not repeat errors from $errors param here
-     */
-    public function edit_form_validation($data, $files, $errors) {
-        //global $TCCFG;
-        //print_object($data);
-        /* if (isset($data['id'])) { // Course Id.
-          $courseid = $data['id'];
-          } else {
-          // Error?
-          $courseid = 0;
-          } */
-
-        //print_r($data);
-
-        /* if ((isset($data['resetlayout']) == true) && (isset($data['resetcolour']) == true)) {
-          $data['layoutelement'] = $TCCFG->defaultlayoutelement;
-          $data['layoutstructure'] = $TCCFG->defaultlayoutstructure;
-          $data['layoutcolumns'] = $TCCFG->defaultlayoutcolumns;
-          $data['toggleforegroundcolour'] = $TCCFG->defaulttgfgcolour;
-          $data['togglebackgroundcolour'] = $TCCFG->defaulttgbgcolour;
-          $data['togglebackgroundhovercolour'] = $TCCFG->defaulttgbghvrcolour;
-          //$this->reset_topcoll_setting($courseid, true, true);
-          } else if (isset($data['resetlayout']) == true) {
-          $data['layoutelement'] = $TCCFG->defaultlayoutelement;
-          $data['layoutstructure'] = $TCCFG->defaultlayoutstructure;
-          $data['layoutcolumns'] = $TCCFG->defaultlayoutcolumns;
-          //$this->reset_topcoll_setting($courseid, true, false);
-          } else if (isset($data['resetcolour']) == true) {
-          $data['toggleforegroundcolour'] = $TCCFG->defaulttgfgcolour;
-          $data['togglebackgroundcolour'] = $TCCFG->defaulttgbgcolour;
-          $data['togglebackgroundhovercolour'] = $TCCFG->defaulttgbghvrcolour;
-          //$this->reset_topcoll_setting($courseid, false, true);
-          }
-
-          if ((isset($data['resetalllayout']) == true) && (isset($data['resetallcolour']) == true)) {
-          $this->reset_topcoll_setting(true, true);
-          } else if (isset($data['resetalllayout']) == true) {
-          $this->reset_topcoll_setting(true, false);
-          } else if (isset($data['resetallcolour']) == true) {
-          $this->reset_topcoll_setting(false, true);
-          } */
-
-        return array();
+        return parent::create_edit_form_elements($mform, $forsection);
     }
 
     /**
@@ -500,7 +372,7 @@ class format_topcoll extends format_base {
      * In case if course format was changed to 'Collapsed Topics', we try to copy options
      * 'coursedisplay', 'numsections' and 'hiddensections' from the previous format.
      * If previous course format did not have 'numsections' option, we populate it with the
-     * current number of sections
+     * current number of sections.  The layout and colour defaults will come from 'course_format_options'.
      *
      * @param stdClass|array $data return value from {@link moodleform::get_data()} or array with data
      * @param stdClass $oldcourse if this function is called from {@link update_course()}
@@ -609,100 +481,6 @@ class format_topcoll extends format_base {
      * @param int $layout If true, reset the layout to the default in tcconfig.php.
      * @param int $colour If true, reset the colour to the default in tcconfig.php.
      */
-    /* public function reset_topcoll_setting($courseid, $layout, $colour) {
-      global $DB;
-      global $TCCFG;
-
-      if ($courseid == 0) {
-      $records = $DB->get_records('course_format_options', array('format' => $this->format)); //, '', 'name,id,value');
-      } else {
-      $cached = array();
-      $allformatoptions = $this->course_format_options();
-      foreach ($allformatoptions as $key => $option) {
-      $defaultoptions[$key] = null;
-      if (array_key_exists('default', $option)) {
-      $defaultoptions[$key] = $option['default'];
-      }
-      $cached[$key] = !empty($option['cache']);
-      }
-      $records = $DB->get_records('course_format_options', array('courseid' => $courseid, 'format' => $this->format)); //, '', 'name,id,value');
-      }
-      //print($courseid);
-      //print_r($records);
-      //print_object($records);
-      $changed = $needrebuild = false;
-
-      foreach ($records as $record) {
-      if ($layout) {
-      if ($record->name == 'layoutelement') {
-      $record->value = $TCCFG->defaultlayoutelement;
-      $changed = true;
-      if ($courseid != 0) {
-      $needrebuild = $needrebuild || $cached['layoutelement'];
-      }
-      } else if ($record->name == 'layoutstructure') {
-      $record->value = $TCCFG->defaultlayoutstructure;
-      $changed = true;
-      if ($courseid != 0) {
-      $needrebuild = $needrebuild || $cached['layoutstructure'];
-      }
-      } else if ($record->name == 'layoutcolumns') {
-      $record->value = $TCCFG->defaultlayoutcolumns;
-      $changed = true;
-      if ($courseid != 0) {
-      $needrebuild = $needrebuild || $cached['layoutcolumns'];
-      }
-      }
-      }
-      if ($colour) {
-      if ($record->name == 'toggleforegroundcolour') {
-      $record->value = $TCCFG->defaulttgfgcolour;
-      $changed = true;
-      if ($courseid != 0) {
-      $needrebuild = $needrebuild || $cached[$key];
-      }
-      } else if ($record->name == 'togglebackgroundcolour') {
-      $record->value = $TCCFG->defaulttgbgcolour;
-      $changed = true;
-      if ($courseid != 0) {
-      $needrebuild = $needrebuild || $cached[$key];
-      }
-      } else if ($record->name == 'togglebackgroundhovercolour') {
-      $record->value = $TCCFG->defaulttgbghvrcolour;
-      $changed = true;
-      if ($courseid != 0) {
-      $needrebuild = $needrebuild || $cached[$key];
-      }
-      }
-      }
-      if ($changed == true) {
-      //print('A record:');
-      //print_object($record);
-      $DB->update_record('course_format_options', $record);
-      //$DB->set_field('course_format_options', 'value',
-      //$record->value, array('id' => $record->id));
-      }
-      }
-      if ($needrebuild) {
-      // TODO for all.
-      rebuild_course_cache($this->courseid, true);
-      }
-      if ($changed) {
-      // reset internal caches
-      $this->course = false;
-      unset($this->formatoptions[0]);
-      }
-      //$records = $DB->get_records('format_topcoll_settings');
-      //print_object($records);
-      } */
-
-    /**
-     * Resets the format setting to the default for all courses that use Collapsed Topics.
-     * CONTRIB-3652
-     * @param int $courseid If not 0, then a specific course to reset.
-     * @param int $layout If true, reset the layout to the default in tcconfig.php.
-     * @param int $colour If true, reset the colour to the default in tcconfig.php.
-     */
     public function reset_topcoll_setting($courseid, $layout, $colour) {
         global $DB;
         global $TCCFG;
@@ -713,9 +491,6 @@ class format_topcoll extends format_base {
         } else {
             $records = $DB->get_records('course_format_options', array('courseid' => $courseid, 'format' => $this->format)); //, '', 'courseid,name,id,value');            
         }
-        //print($courseid);
-        //print_r($records);
-        //print_object($records);
 
         foreach ($records as $record) {
             if ($currentcourseid != $record->courseid) {
@@ -744,86 +519,16 @@ class format_topcoll extends format_base {
         }
     }
 
-    /* public function restore_topcoll_setting($courseid, $layoutelement, $layoutstructure, $layoutcolumns, $tgfgcolour, $tgbgcolour, $tgbghvrcolour) {
-      global $DB;
-      $cached = array();
-      $allformatoptions = $this->course_format_options();
-      foreach ($allformatoptions as $key => $option) {
-      $defaultoptions[$key] = null;
-      if (array_key_exists('default', $option)) {
-      $defaultoptions[$key] = $option['default'];
-      }
-      $cached[$key] = !empty($option['cache']);
-      }
-      $records = $DB->get_records('course_format_options', array('courseid' => $courseid, 'format' => $this->format)); //, '', 'name,id,value');
-      //print_r($records);
-      $changed = $needrebuild = false;
-      $recordupdated = false;
-      foreach ($records as $record) {
-      if ($record->name == 'layoutelement') {
-      $record->value = $layoutelement;
-      $changed = true;
-      $recordupdated = true;
-      if ($courseid != 0) {
-      $needrebuild = $needrebuild || $cached['layoutelement'];
-      }
-      } else if ($record->name == 'layoutstructure') {
-      $record->value = $layoutstructure;
-      $changed = true;
-      $recordupdated = true;
-      if ($courseid != 0) {
-      $needrebuild = $needrebuild || $cached['layoutstructure'];
-      }
-      } else if ($record->name == 'layoutcolumns') {
-      $record->value = $layoutcolumns;
-      $changed = true;
-      $recordupdated = true;
-      if ($courseid != 0) {
-      $needrebuild = $needrebuild || $cached['layoutcolumns'];
-      }
-      } else if ($record->name == 'toggleforegroundcolour') {
-      $record->value = $tgfgcolour;
-      $changed = true;
-      $recordupdated = true;
-      if ($courseid != 0) {
-      $needrebuild = $needrebuild || $cached[$key];
-      }
-      } else if ($record->name == 'togglebackgroundcolour') {
-      $record->value = $tgbgcolour;
-      $changed = true;
-      $recordupdated = true;
-      if ($courseid != 0) {
-      $needrebuild = $needrebuild || $cached[$key];
-      }
-      } else if ($record->name == 'togglebackgroundhovercolour') {
-      $record->value = $tgbghvrcolour;
-      $changed = true;
-      $recordupdated = true;
-      if ($courseid != 0) {
-      $needrebuild = $needrebuild || $cached[$key];
-      }
-      }
-
-      if ($recordupdated == true) {
-      //print('A record:');
-      //print_object($record);
-      $DB->update_record('course_format_options', $record);
-      //$DB->set_field('course_format_options', 'value',
-      //$record->value, array('id' => $record->id));
-      $recordupdated = false;
-      }
-      }
-      if ($needrebuild) {
-      // TODO for all.
-      rebuild_course_cache($this->courseid, true);
-      }
-      if ($changed) {
-      // reset internal caches
-      $this->course = false;
-      unset($this->formatoptions[0]);
-      }
-      } */
-
+    /**
+     * Restores the course settings when restoring a Moodle 2.3 or below (bar 1.9) course and sets the settings when upgrading.
+     * @param int $courseid If not 0, then a specific course to reset.
+     * @param int $layoutelement The layout element to use, see tcconfig.php.
+     * @param int $layoutstructure The layout structure to use, see tcconfig.php.
+     * @param int $layoutcolumns The layout columns to use, see tcconfig.php.
+     * @param int $tgfgcolour The foreground colour to use, see tcconfig.php.
+     * @param int $tgbgcolour The background colour to use, see tcconfig.php.
+     * @param int $tgbghvrcolour The background hover colour to use, see tcconfig.php.
+     */
     public function restore_topcoll_setting($courseid, $layoutelement, $layoutstructure, $layoutcolumns, $tgfgcolour, $tgbgcolour, $tgbghvrcolour) {
         $currentcourseid = $this->courseid;  // Save for later - stack data model.        
         $this->courseid = $courseid;
@@ -841,6 +546,16 @@ class format_topcoll extends format_base {
         $this->courseid = $currentcourseid;
     }
 
+    /**
+     * Updates the number of columns when the renderer detects that they are wrong.
+     * @param int $layoutcolumns The layout columns to use, see tcconfig.php.
+     */
+    public function update_topcoll_columns_setting($layoutcolumns) {
+        // Create data array.
+        $data = array('layoutcolumns' => $layoutcolumns);
+
+        $this->update_format_options($data);
+    }
 }
 
 /**
@@ -872,6 +587,5 @@ function callback_topcoll_definition() {
  */
 function format_topcoll_delete_course($courseid) {
     global $DB;
-
     $DB->delete_records("user_preferences", array("name" => 'topcoll_toggle_' . $courseid));
 }

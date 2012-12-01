@@ -96,7 +96,6 @@ if (!empty($displaysection)) {
         /* -- Toggle -- */
         .course-content ul.ctopics li.section .content .toggle {
             background-color: #<?php echo $tcsetting['togglebackgroundcolour']; ?>;
-            color: #<?php echo $tcsetting['toggleforegroundcolour']; ?>; /* 'Topic x' text colour */
         }
 
         /* -- Toggle text -- */
@@ -105,7 +104,7 @@ if (!empty($displaysection)) {
         }
 
         /* -- What happens when a toggle is hovered over -- */
-        .course-content ul.ctopics li.section .content div.toggle:hover,body.jsenabled tr.cps td a:hover
+        .course-content ul.ctopics li.section .content div.toggle:hover
         {
             background-color: #<?php echo $tcsetting['togglebackgroundhovercolour']; ?>;
         }

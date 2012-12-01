@@ -180,7 +180,7 @@ body.jsenabled .toggledsection {
 }
 
 #toggle-all {
-  background: none repeat scroll 0 0 transparent;
+    background: none repeat scroll 0 0 transparent;
 }
 
 #toggle-all .content .sectionbody h4 a.on {
@@ -193,9 +193,9 @@ body.jsenabled .toggledsection {
 
 /* Settings */
 div.tcsettingscontainer {
-  width:100%;
-  float:left;
-  display: block;
+    width:100%;
+    float:left;
+    display: block;
 }
 
 /* Set settings */

@@ -336,24 +336,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $sectionmenu = array();
         $sectionmenu[0] = get_string('maincoursepage', 'format_topcoll');  // Section 0 is never jumped to and is therefore used to indicate the main page.  And temporary until MDL-34917 in core.
         $context = context_course::instance($course->id);
+        $modinfo = get_fast_modinfo($course);
         while ($section <= $course->numsections) {
-            if (!empty($sections[$section])) {
-                $thissection = $sections[$section];
-            } else {
-                // This will create a course section if it doesn't exist..
-                $thissection = get_course_section($section, $course->id);
-
-                // The returned section is only a bare database object rather than
-                // a section_info object - we will need at least the uservisible
-                // field in it.
-                $thissection->uservisible = true;
-                $thissection->availableinfo = null;
-                $thissection->showavailability = 0;
-            }
+            $thissection = $modinfo->get_section_info($section);
             $showsection = (has_capability('moodle/course:viewhiddensections', $context) or $thissection->visible or !$course->hiddensections);
-
             if (($showsection) && ($section != $displaysection)) {
-                $sectionmenu[$section] = get_section_name($course, $thissection);
+                $sectionmenu[$section] = get_section_name($course, $section);
             }
             $section++;
         }
@@ -430,7 +418,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if (!$thissection->visible) {
             $titleattr .= ' dimmed_text';
         }
-        $sectiontitle .= html_writer::tag('div', get_section_name($course, $sections[$displaysection]), array('class' => $titleattr));
+        $sectiontitle .= html_writer::tag('div', get_section_name($course, $thissection), array('class' => $titleattr));
         $sectiontitle .= html_writer::end_tag('div');
         echo $sectiontitle;
 
@@ -438,7 +426,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         echo $this->start_section_list();
 
         // The requested section page.
-        $thissection = $sections[$displaysection];
+        $thissection = $modinfo->get_section_info($displaysection);
         echo $this->section_header($thissection, $course, true, $displaysection);
         // Show completion help icon.
         $completioninfo = new completion_info($course);
@@ -482,7 +470,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $userisediting = $PAGE->user_is_editing();
 
         $modinfo = get_fast_modinfo($course);
-        $course = course_get_format($course)->get_course();
+        $courseformat = course_get_format($course);
+        $course = $courseformat->get_course();
 
         $context = context_course::instance($course->id);
         // Title with completion help icon.
@@ -561,20 +550,18 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 // Default in config.php (and reset in database) or database has been changed incorrectly.
                 $tcsetting['layoutcolumns'] = 4;
 
-                // Update DB.
-                global $DB;
-                $DB->update_record('format_topcoll_settings', $tcsetting);
+                // Update....
+                $courseformat->update_topcoll_columns_setting($tcsetting['layoutcolumns']);
             }
             $this->tccolumnwidth = 100 / $tcsetting['layoutcolumns'];
             $this->tccolumnwidth -= 1; // Allow for the padding in %.
             $this->tccolumnpadding = 2; // px
         } elseif ($tcsetting['layoutcolumns'] < 1) {
-            // Default in config.php (and reset in database) or database has been changed incorrectly.
+            // Distributed default in tcconfig.php (and reset in database) or database has been changed incorrectly.
             $tcsetting['layoutcolumns'] = 1;
 
-            // Update DB.
-            global $DB;
-            $DB->update_record('format_topcoll_settings', $tcsetting);
+            // Update....
+            $courseformat->update_topcoll_columns_setting($tcsetting['layoutcolumns']);
         }
         echo $this->end_section_list();
         echo $this->start_toggle_section_list();
@@ -607,19 +594,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if (($tcsetting['layoutstructure'] == 3) && ($userisediting == false)) {
                 $nextweekdate = $weekdate - ($weekofseconds);
             }
-            if (!empty($sections[$section])) {
-                $thissection = $sections[$section];
-            } else {
-                // This will create a course section if it doesn't exist..
-                $thissection = get_course_section($section, $course->id);
-
-                // The returned section is only a bare database object rather than
-                // a section_info object - we will need at least the uservisible
-                // field in it.
-                $thissection->uservisible = true;
-                $thissection->availableinfo = null;
-                $thissection->showavailability = 0;
-            }
+            $thissection = $modinfo->get_section_info($section);
 
             // Show the section if the user is permitted to access it, OR if it's not available
             // but showavailability is turned on
@@ -792,9 +767,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         global $tcscreenreader;
         $o = '';
         if ($tcscreenreader == false) { // No need to show if in screen reader mode.
-            $toggletext = get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
             // Toggle all.
-
             $o .= html_writer::start_tag('li', array('class' => 'tcsection main clearfix', 'id' => 'toggle-all'));
 
             if ($this->mymobiletheme == false) {

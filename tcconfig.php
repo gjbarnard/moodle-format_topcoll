@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Collapsed Topics Information
  *
@@ -28,7 +29,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 unset($TCCFG);
 global $TCCFG;
 $TCCFG = new stdClass();
@@ -68,6 +68,9 @@ $TCCFG->defaulttgbgcolour = 'e2e2f2';
 // Default toggle background hover colour in hexidecimal RGB without preceeding '#'.
 $TCCFG->defaulttgbghvrcolour = 'eeeeff';
 
-// Toggle persistence - 1 = on, 0 = off.  You may wish to disable for AJAX performance increase.
+// Toggle persistence - 1 = on, 0 = off.  You may wish to disable for an AJAX performance increase.
+// Note: If turning persistence off remove any rows containing 'topcoll_toggle_x' in the 'name' field
+//       of the 'user_preferences' table in the database.  Where the 'x' in 'topcoll_toggle_x' will be
+//       a course id.
 $TCCFG->togglepersistence = 1;
 ?>

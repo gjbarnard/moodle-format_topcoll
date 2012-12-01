@@ -91,10 +91,7 @@ if ($PAGE->user_is_editing()) {
     }
 
     echo $OUTPUT->header();
-    //echo $OUTPUT->box_start('generalbox');
-    //echo $OUTPUT->heading(get_string('ctreset', 'format_topcoll'));
     $mform->display();
-    //echo $OUTPUT->box_end();
     echo $OUTPUT->footer();
 } else {
     redirect($courseurl);
