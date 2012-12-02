@@ -86,8 +86,6 @@ if (!empty($displaysection)) {
     if (empty($tcsetting) == true) {
         //$tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
         $tcsetting = course_get_format($course)->get_format_options();
-        print('format.php ->');
-        print_r($tcsetting);
     }
     ?>
     <style type="text/css" media="screen">
