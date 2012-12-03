@@ -6,7 +6,7 @@ This version is the master development branch.
 
 Required version of Moodle
 --------------------------
-This version works with Moodle 2.4rc1+ version 2012113000.00 (Build: 20121130) and above until the next release.
+This version works with Moodle 2.4 version 2012120300.00 (Build: 20121203) and above until the next release.
 
 Documented on http://docs.moodle.org/24/en/Collapsed_Topics_course_format - Needs updating!
 
@@ -167,7 +167,6 @@ Known Issues
     why this is happening as the 'user_preference_allow_ajax_update' call in 'format.php' should establish that the user
     preference can be set.  Could be a page cache thing as the 'init' code is getting the course id unlike an issue I'm
     currently experiencing with the MyMobile theme - MDL-33115.  The work around is to refresh the page.
-5.  When moving sections around in editing mode the toggle name and section summary do not update until page refresh.
 
 Version Information
 -------------------
@@ -685,6 +684,11 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   7.  I am currently deliberating on the issues raised on CONTRIB-4018 (http://tracker.moodle.org/browse/CONTRIB-4018) which
       apply to this version too.  If you have any thoughts / solutions, please comment on the tracker, thank you.
 
+3rd December 2012 - Version 2.4.0.3 - Beta
+  1.  Fixed drag and drop section name issue.
+  2.  Implemented a few suggestions by Marina Glancy on MDL-35218.
+  3.  Updated required version to first stable release.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -739,6 +743,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 1st December 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 3rd December 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

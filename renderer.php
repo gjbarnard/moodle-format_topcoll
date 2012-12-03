@@ -200,8 +200,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         $sectionstyle = '';
         $rightcurrent = '';
-        global $tcsetting;
-        $toggletext = get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
 
         if ($section->section != 0) {
             // Only in the non-general sections.
@@ -254,14 +252,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
             $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
             $o .= $title;
-            switch ($tcsetting['layoutelement']) {
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                    $o .= ' - ' . $toggletext;
-                    break;
-            }
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
 

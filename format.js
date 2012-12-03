@@ -84,10 +84,11 @@ M.course.format.swap_sections = function(Y, node1, node2) {
  */
 M.course.format.process_sections = function(Y, sectionlist, response, sectionfrom, sectionto) {
     var CSS = {
-        SECTIONNAME : 'sectionname'
+        SECTIONNAME : 'cps_noname'
     };
 
     if (response.action == 'move') {
+        //console.debug(response);
         if (sectionfrom > sectionto) { // MDL-34798
             // Swap.
             var temp = sectionto;

@@ -53,27 +53,28 @@ class format_topcoll extends format_base {
     public function get_section_name($section) {
         $course = $this->get_course();
         $section = $this->get_section($section);
+        $o = '';
+        global $tcsetting;
         // We can't add a node without any text
         if ((string) $section->name !== '') {
-            return format_string($section->name, true, array('context' => context_course::instance($course->id)));
+            $o = format_string($section->name, true, array('context' => context_course::instance($course->id)));
         } else if ($section->section == 0) {
-            return get_string('section0name', 'format_topcoll');
+            $o = get_string('section0name', 'format_topcoll');
         } else {
-            global $tcsetting;
             if (empty($tcsetting) == true) {
                 //$tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
                 $tcsetting = $this->get_format_options();
                 //print_r($tcsetting);
             }
             if (($tcsetting['layoutstructure'] == 1) || ($tcsetting['layoutstructure'] == 4)) {
-                return get_string('sectionname', 'format_topcoll') . ' ' . $section->section;
+                $o = get_string('sectionname', 'format_topcoll') . ' ' . $section->section;
             } else {
                 $dateformat = ' ' . get_string('strftimedateshort');
                 if ($tcsetting['layoutstructure'] == 5) {
                     $day = $this->format_topcoll_get_section_day($section, $course);
 
                     $weekday = userdate($day, $dateformat);
-                    return $weekday;
+                    $o = $weekday;
                 } else {
                     $dates = $this->format_topcoll_get_section_dates($section, $course);
 
@@ -82,10 +83,22 @@ class format_topcoll extends format_base {
 
                     $weekday = userdate($dates->start, $dateformat);
                     $endweekday = userdate($dates->end, $dateformat);
-                    return $weekday . ' - ' . $endweekday;
+                    $o = $weekday . ' - ' . $endweekday;
                 }
             }
         }
+        
+        // Now done here so that the drag and drop titles will be the correct strings as swapped in format.js.
+        switch ($tcsetting['layoutelement']) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                $o .= ' - ' . get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
+                break;
+        }
+
+        return $o;
     }
 
     /**
@@ -363,7 +376,11 @@ class format_topcoll extends format_base {
         global $CFG;
         MoodleQuickForm::registerElementType('tccolourpopup', "$CFG->dirroot/course/format/topcoll/js/tc_colourpopup.php", 'MoodleQuickForm_tccolourpopup');
 
-        return parent::create_edit_form_elements($mform, $forsection);
+        $elements = parent::create_edit_form_elements($mform, $forsection);
+
+        //print_r($elements);
+
+        return $elements;
     }
 
     /**
@@ -541,7 +558,7 @@ class format_topcoll extends format_base {
             'togglebackgroundcolour' => $tgbgcolour,
             'togglebackgroundhovercolour' => $tgbghvrcolour);
 
-        $this->update_format_options($data);
+        $this->update_course_format_options($data);
 
         $this->courseid = $currentcourseid;
     }
@@ -554,8 +571,9 @@ class format_topcoll extends format_base {
         // Create data array.
         $data = array('layoutcolumns' => $layoutcolumns);
 
-        $this->update_format_options($data);
+        $this->update_course_format_options($data);
     }
+
 }
 
 /**
