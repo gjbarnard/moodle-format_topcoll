@@ -689,6 +689,13 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2.  Implemented a few suggestions by Marina Glancy on MDL-35218.
   3.  Updated required version to first stable release.
 
+4th December 2012 - Version 2.4.0.4 - Beta
+  1.  Adjusted logic of optional postfixed 'Toggle' word because of 'drag and drop section name' issue.
+  2.  Moved reset code to custom group box on course editing form thanks to Marina Glancy on MDL-35218.
+  3.  Added the course display option as a default in 'tcconfig.php' so that all new CT courses are set to this value.
+  4.  Reset now incorporates the course display option to put it back to the default.
+  5.  Removed old reset form, icon and CSS.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -743,6 +750,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 3rd December 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 4th December 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

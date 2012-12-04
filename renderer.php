@@ -196,7 +196,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
      */
     protected function section_header($section, $course, $onsectionpage, $sectionreturn = null) {
         $o = '';
-        global $PAGE;
+        global $PAGE, $tcsetting;
 
         $sectionstyle = '';
         $rightcurrent = '';
@@ -230,8 +230,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         $context = context_course::instance($course->id);
 
-        global $tcscreenreader;
-        if (($onsectionpage == false) && ($tcscreenreader == false) && ($section->section != 0)) {
+        if (($onsectionpage == false) && ($section->section != 0)) {
             $o .= html_writer::start_tag('div', array('class' => 'sectionhead toggle', 'id' => 'toggle-' . $section->section));
 
             $title = get_section_name($course, $section);
@@ -252,6 +251,18 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
             $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
             $o .= $title;
+            // Add in the word toggle when we are displaying them for one section per page layout, see 'get_section_name()' in 'lib.php' for more information.
+            if ($course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {  
+                    switch ($tcsetting['layoutelement']) {
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                            $o .= ' - ' . get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
+                            break;
+                    }
+            }
+
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
 
@@ -452,8 +463,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @param array $modnamesused (argument not used)
      */
     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
-        global $PAGE;
-        global $tcsetting;
+        global $PAGE, $tcsetting;
 
         $this->mymobiletheme = ($PAGE->theme->name == 'mymobile');  // Not brilliant, but will work!
 
@@ -710,43 +720,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
         } else {
             echo $this->end_section_list();
         }
-
-        // Collapsed Topics reset settings.
-        echo $this->settings($course);
-    }
-
-    // Collapsed Topics non-overridden additions.
-    /**
-     * Displays the reset settings icon for the course if required.
-     * @param stdClass $course The course entry from DB
-     * @return string HTML to output.
-     */
-    public function settings($course) {
-        global $PAGE;
-
-        $o = '';
-
-        $coursecontext = context_course::instance($course->id);
-        if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $coursecontext)) {
-            $o .= $this->start_section_list(); // For the bottom of the course.
-            $o .= html_writer::start_tag('li', array('class' => 'tcsection main clearfix'));
-
-            $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
-
-            $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
-
-            $o .= html_writer::start_tag('div', array('class' => 'content'));
-            $o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
-            $o .= html_writer::start_tag('div', array('class' => 'tcsettingscontainer'));
-            $o .= html_writer::tag('a', html_writer::tag('div', '', array('id' => 'tc-set-settings')), array('title' => get_string("formatsettings", "format_topcoll"), 'href' => 'format/topcoll/forms/settings.php?id=' . $course->id . '&sesskey=' . sesskey()));
-            $o .= html_writer::tag('div', get_string('formatsettingsinformation', 'format_topcoll'));
-            $o .= html_writer::end_tag('div');
-            $o .= html_writer::end_tag('div');
-            $o .= html_writer::end_tag('div');
-            $o .= html_writer::end_tag('li');
-            $o .= $this->end_section_list();
-        }
-        return $o;
     }
 
     /**

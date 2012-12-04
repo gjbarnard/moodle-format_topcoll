@@ -30,8 +30,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 unset($TCCFG);
-global $TCCFG;
+global $TCCFG, $CFG;
 $TCCFG = new stdClass();
+
+require_once($CFG->dirroot . '/lib/moodlelib.php'); // For the course display constants.
+
+// Course display default, can be either one of:
+// COURSE_DISPLAY_SINGLEPAGE or - All sections on one page.
+// COURSE_DISPLAY_MULTIPAGE     - One section per page.
+// as defined in moodlelib.php.
+$TCCFG->defaultcoursedisplay = COURSE_DISPLAY_SINGLEPAGE;
 
 // Layout configuration.
 // Here you can see what numbers in the array represent what layout for setting the default value below.

@@ -190,20 +190,3 @@ body.jsenabled .toggledsection {
 #toggle-all .content .sectionbody h4 a.off {
     background: transparent url([[pix:format_topcoll|arrow_up]]) no-repeat 0px 45%; 
 }
-
-/* Settings */
-div.tcsettingscontainer {
-    width:100%;
-    float:left;
-    display: block;
-}
-
-/* Set settings */
-#tc-set-settings {
-    background: transparent url([[pix:format_topcoll|tc_logo_spanner]]) no-repeat 0px 0px; 
-    width: 96px;
-    height: 75px;
-    float: right;
-    margin: 4px;
-    vertical-align: text-top;
-}

@@ -55,17 +55,17 @@ class format_topcoll extends format_base {
         $section = $this->get_section($section);
         $o = '';
         global $tcsetting;
-        // We can't add a node without any text
+        $coursecontext = context_course::instance($course->id);
+        if (empty($tcsetting) == true) {
+//$tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
+            $tcsetting = $this->get_format_options();
+        }
+// We can't add a node without any text
         if ((string) $section->name !== '') {
-            $o = format_string($section->name, true, array('context' => context_course::instance($course->id)));
+            $o = format_string($section->name, true, array('context' => $coursecontext));
         } else if ($section->section == 0) {
             $o = get_string('section0name', 'format_topcoll');
         } else {
-            if (empty($tcsetting) == true) {
-                //$tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
-                $tcsetting = $this->get_format_options();
-                //print_r($tcsetting);
-            }
             if (($tcsetting['layoutstructure'] == 1) || ($tcsetting['layoutstructure'] == 4)) {
                 $o = get_string('sectionname', 'format_topcoll') . ' ' . $section->section;
             } else {
@@ -78,7 +78,7 @@ class format_topcoll extends format_base {
                 } else {
                     $dates = $this->format_topcoll_get_section_dates($section, $course);
 
-                    // We subtract 24 hours for display purposes.
+// We subtract 24 hours for display purposes.
                     $dates->end = ($dates->end - 86400);
 
                     $weekday = userdate($dates->start, $dateformat);
@@ -87,15 +87,20 @@ class format_topcoll extends format_base {
                 }
             }
         }
-        
-        // Now done here so that the drag and drop titles will be the correct strings as swapped in format.js.
-        switch ($tcsetting['layoutelement']) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-                $o .= ' - ' . get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
-                break;
+
+// Now done here so that the drag and drop titles will be the correct strings as swapped in format.js.
+// But only if we are using toggles which will be if all sections are on one page or we are editing the main page
+// when in one section per page which is coded in 'renderer.php/print_multiple_section_page()' when it calls 'section_header()'
+// as that gets called from 'format.php' when there is no entry for '$displaysetting' - confused? I was, took ages to figure.
+        if ($course->coursedisplay == COURSE_DISPLAY_SINGLEPAGE) {
+            switch ($tcsetting['layoutelement']) {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    $o .= ' - ' . get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
+                    break;
+            }
         }
 
         return $o;
@@ -224,7 +229,7 @@ class format_topcoll extends format_base {
                     'type' => PARAM_INT,
                 ),
                 'coursedisplay' => array(
-                    'default' => $courseconfig->coursedisplay,
+                    'default' => $TCCFG->defaultcoursedisplay,
                     'type' => PARAM_INT,
                 ),
                 'layoutelement' => array(
@@ -378,7 +383,31 @@ class format_topcoll extends format_base {
 
         $elements = parent::create_edit_form_elements($mform, $forsection);
 
-        //print_r($elements);
+        if ($forsection == false) {
+            global $CFG, $USER;
+
+            $elements[] = $mform->addElement('header', 'ctreset', get_string('ctreset', 'format_topcoll'));
+            $mform->addHelpButton('ctreset', 'ctreset', 'format_topcoll', '', true);
+            $elements[] = $mform->addElement('checkbox', 'resetlayout', get_string('resetlayout', 'format_topcoll'), false);
+            $mform->setAdvanced('resetlayout');
+            $mform->addHelpButton('resetlayout', 'resetlayout', 'format_topcoll', '', true);
+
+            $elements[] = $mform->addElement('checkbox', 'resetcolour', get_string('resetcolour', 'format_topcoll'), false);
+            $mform->addHelpButton('resetcolour', 'resetcolour', 'format_topcoll', '', true);
+            $mform->setAdvanced('resetcolour');
+
+            if (is_siteadmin($USER)) {
+                $elements[] = $mform->addElement('checkbox', 'resetalllayout', get_string('resetalllayout', 'format_topcoll'), false);
+                $mform->addHelpButton('resetalllayout', 'resetalllayout', 'format_topcoll', '', true);
+                $mform->setAdvanced('resetalllayout');
+
+                $elements[] = $mform->addElement('checkbox', 'resetallcolour', get_string('resetallcolour', 'format_topcoll'), false);
+                $mform->addHelpButton('resetallcolour', 'resetallcolour', 'format_topcoll', '', true);
+                $mform->setAdvanced('resetallcolour');
+            }
+        }
+
+//print_r($elements);
 
         return $elements;
     }
@@ -397,6 +426,33 @@ class format_topcoll extends format_base {
      * @return bool whether there were any changes to the options values
      */
     public function update_course_format_options($data, $oldcourse = null) {
+
+//print_object($data);
+// Notes: Using 'unset' to really ensure that the reset form elements never get into the database.
+//        This has to be done here so that the reset occurs after we have done updates such that the
+//        reset itself is not seen as an update.
+        $resetlayout = false;
+        $resetcolour = false;
+        $resetalllayout = false;
+        $resetallcolour = false;
+        if (isset($data->resetlayout) == true) {
+            $resetlayout = true;
+            unset($data->resetlayout);
+        }
+        if (isset($data->resetcolour) == true) {
+            $resetcolour = true;
+            unset($data->resetcolour);
+        }
+        if (isset($data->resetalllayout) == true) {
+            $resetalllayout = true;
+            unset($data->resetalllayout);
+        }
+        if (isset($data->resetallcolour) == true) {
+            $resetallcolour = true;
+            unset($data->resetalllayout);
+        }
+//print_object($data);
+
         if ($oldcourse !== null) {
             $data = (array) $data;
             $oldcourse = (array) $oldcourse;
@@ -406,20 +462,45 @@ class format_topcoll extends format_base {
                     if (array_key_exists($key, $oldcourse)) {
                         $data[$key] = $oldcourse[$key];
                     } else if ($key === 'numsections') {
-                        // If previous format does not have the field 'numsections'
-                        // and $data['numsections'] is not set,
-                        // we fill it with the maximum section number from the DB
+// If previous format does not have the field 'numsections'
+// and $data['numsections'] is not set,
+// we fill it with the maximum section number from the DB
                         $maxsection = $DB->get_field_sql('SELECT max(section) from {course_sections}
                             WHERE course = ?', array($this->courseid));
                         if ($maxsection) {
-                            // If there are no sections, or just default 0-section, 'numsections' will be set to default
+// If there are no sections, or just default 0-section, 'numsections' will be set to default
                             $data['numsections'] = $maxsection;
                         }
                     }
                 }
             }
         }
-        return $this->update_format_options($data);
+        $changes = $this->update_format_options($data);
+
+// Now we can do the reset.
+        if (($resetlayout == true) && ($resetcolour == true)) {
+            $this->reset_topcoll_setting($this->courseid, true, true);
+            $changes = true;
+        } else if ($resetlayout == true) {
+            $this->reset_topcoll_setting($this->courseid, true, false);
+            $changes = true;
+        } else if ($resetcolour == true) {
+            $this->reset_topcoll_setting($this->courseid, false, true);
+            $changes = true;
+        }
+
+        if (($resetalllayout == true) && ($resetallcolour == true)) {
+            $this->reset_topcoll_setting(0, true, true);
+            $changes = true;
+        } else if ($resetalllayout == true) {
+            $this->reset_topcoll_setting(0, true, false);
+            $changes = true;
+        } else if ($resetallcolour == true) {
+            $this->reset_topcoll_setting(0, false, true);
+            $changes = true;
+        }
+
+        return $changes;
     }
 
     /**
@@ -462,8 +543,8 @@ class format_topcoll extends format_base {
      */
     private function format_topcoll_get_section_dates($section, $course) {
         $oneweekseconds = 604800;
-        // Hack alert. We add 2 hours to avoid possible DST problems. (e.g. we go into daylight
-        // savings and the date changes.
+// Hack alert. We add 2 hours to avoid possible DST problems. (e.g. we go into daylight
+// savings and the date changes.
         $startdate = $course->startdate + 7200;
 
         $dates = new stdClass();
@@ -482,8 +563,8 @@ class format_topcoll extends format_base {
      */
     private function format_topcoll_get_section_day($section, $course) {
         $onedayseconds = 86400;
-        // Hack alert. We add 2 hours to avoid possible DST problems. (e.g. we go into daylight
-        // savings and the date changes.
+// Hack alert. We add 2 hours to avoid possible DST problems. (e.g. we go into daylight
+// savings and the date changes.
         $startdate = $course->startdate + 7200;
 
         $day = $startdate + ($onedayseconds * ($section->section - 1));
@@ -504,9 +585,9 @@ class format_topcoll extends format_base {
 
         $currentcourseid = 0;
         if ($courseid == 0) {
-            $records = $DB->get_records('course_format_options', array('format' => $this->format)); //, '', 'courseid,name,id,value');
+            $records = $DB->get_records('course_format_options', array('format' => $this->format), '', 'id,courseid');
         } else {
-            $records = $DB->get_records('course_format_options', array('courseid' => $courseid, 'format' => $this->format)); //, '', 'courseid,name,id,value');            
+            $records = $DB->get_records('course_format_options', array('courseid' => $courseid, 'format' => $this->format), '', 'id,courseid');
         }
 
         foreach ($records as $record) {
@@ -514,6 +595,7 @@ class format_topcoll extends format_base {
                 $currentcourseid = $record->courseid; // Only do once per course.
                 if ($layout) {
                     $layoutdata = array(
+                        'coursedisplay' => $TCCFG->defaultcoursedisplay,
                         'layoutelement' => $TCCFG->defaultlayoutelement,
                         'layoutstructure' => $TCCFG->defaultlayoutstructure,
                         'layoutcolumns' => $TCCFG->defaultlayoutcolumns);
@@ -537,7 +619,9 @@ class format_topcoll extends format_base {
     }
 
     /**
-     * Restores the course settings when restoring a Moodle 2.3 or below (bar 1.9) course and sets the settings when upgrading.
+     * Restores the course settings when restoring a Moodle 2.3 or below (bar 1.9) course and sets the settings when upgrading
+     * from a prevous version.  Hence no need for 'coursedisplay' as that is a core rather than CT specific setting and not
+     * in the old 'format_topcoll_settings' table.
      * @param int $courseid If not 0, then a specific course to reset.
      * @param int $layoutelement The layout element to use, see tcconfig.php.
      * @param int $layoutstructure The layout structure to use, see tcconfig.php.
@@ -549,7 +633,7 @@ class format_topcoll extends format_base {
     public function restore_topcoll_setting($courseid, $layoutelement, $layoutstructure, $layoutcolumns, $tgfgcolour, $tgbgcolour, $tgbghvrcolour) {
         $currentcourseid = $this->courseid;  // Save for later - stack data model.        
         $this->courseid = $courseid;
-        // Create data array.
+// Create data array.
         $data = array(
             'layoutelement' => $layoutelement,
             'layoutstructure' => $layoutstructure,
@@ -568,7 +652,7 @@ class format_topcoll extends format_base {
      * @param int $layoutcolumns The layout columns to use, see tcconfig.php.
      */
     public function update_topcoll_columns_setting($layoutcolumns) {
-        // Create data array.
+// Create data array.
         $data = array('layoutcolumns' => $layoutcolumns);
 
         $this->update_course_format_options($data);
