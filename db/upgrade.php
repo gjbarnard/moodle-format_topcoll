@@ -142,7 +142,14 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
             //print_object($records);
             foreach ($records as $record) {
                 $courseformat = course_get_format($record->courseid);  // In '/course/format/lib.php'.
-                $courseformat->restore_topcoll_setting($record->courseid, $record->layoutelement, $record->layoutstructure, $record->layoutcolumns, $record->tgfgcolour, $record->tgbgcolour, $record->tgbghvrcolour); // In '/course/format/topcoll/lib.php'.
+                // Only update if the current format is 'topcoll' as we must have an instance of 'format_topcoll' (in 'lib.php')
+                // returned by the above.  Thanks to Marina Glancy for this :).
+                // If there are entries that existed for courses that were originally topcoll, then they will be lost.  However
+                // the code copes with this through the employment of defaults and I dont think the underlying code desires entries
+                // in the course_format_settings table for courses of a format that belong to another format.
+                if ($courseformat->get_format() == 'topcoll') {
+                    $courseformat->restore_topcoll_setting($record->courseid, $record->layoutelement, $record->layoutstructure, $record->layoutcolumns, $record->tgfgcolour, $record->tgbgcolour, $record->tgbghvrcolour); // In '/course/format/topcoll/lib.php'.
+                }
             }
             // Farewell old settings table.
             $dbman->drop_table($table);
