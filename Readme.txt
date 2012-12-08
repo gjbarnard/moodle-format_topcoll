@@ -62,7 +62,8 @@ Upgrade Instructions
 3. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
 4. In '/course/format/' move old 'topcoll' directory to a backup folder outside of Moodle.
 5. Follow installation instructions above.
-6. Put Moodle out of Maintenance Mode.
+6. Perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
+7. Put Moodle out of Maintenance Mode.
 
 Upgrading from Moodle 1.9, 2.0 or 2.1
 -------------------------------------
@@ -695,6 +696,11 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   3.  Added the course display option as a default in 'tcconfig.php' so that all new CT courses are set to this value.
   4.  Reset now incorporates the course display option to put it back to the default.
   5.  Removed old reset form, icon and CSS.
+
+8th December 2012 - Version 2.4.0.5 - Beta
+  1.  Changes for CONTRIB-4018 so that the toggles are not click-able until after the page has loaded, thus
+      preventing JavaScript errors during page load.
+  2.  If upgrading, please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
 
 Thanks
 ------

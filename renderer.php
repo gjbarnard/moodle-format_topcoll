@@ -249,7 +249,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if ((string) $section->name == '') { // Name is empty.
                 $toggleclass .= ' cps_noname';
             }
-            $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
+            //$o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
+            $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#'));
             $o .= $title;
             // Add in the word toggle when we are displaying them for one section per page layout, see 'get_section_name()' in 'lib.php' for more information.
             if ($course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {  
@@ -741,8 +742,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $o .= html_writer::start_tag('div', array('class' => 'content'));
             $o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
             $o .= html_writer::start_tag('h4', null);
-            $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'onclick' => 'all_opened(); return false;'));
-            $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'onclick' => 'all_closed(); return false;'));
+            //$o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'onclick' => 'all_opened(); return false;'));
+            //$o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'onclick' => 'all_closed(); return false;'));
+            $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'id' => 'toggles-all-opened'));
+            $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'id' => 'toggles-all-closed'));
             $o .= html_writer::tag('span', get_string('topcollall', 'format_topcoll'), null);
             $o .= html_writer::end_tag('h4');
             $o .= html_writer::end_tag('div');
