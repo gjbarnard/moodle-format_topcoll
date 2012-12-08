@@ -92,7 +92,7 @@ class format_topcoll extends format_base {
 // But only if we are using toggles which will be if all sections are on one page or we are editing the main page
 // when in one section per page which is coded in 'renderer.php/print_multiple_section_page()' when it calls 'section_header()'
 // as that gets called from 'format.php' when there is no entry for '$displaysetting' - confused? I was, took ages to figure.
-        if ($course->coursedisplay == COURSE_DISPLAY_SINGLEPAGE) {
+        if (($course->coursedisplay == COURSE_DISPLAY_SINGLEPAGE) && ($section->section != 0)) {
             switch ($tcsetting['layoutelement']) {
                 case 1:
                 case 2:
