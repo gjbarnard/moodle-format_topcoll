@@ -701,6 +701,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1.  Changes for CONTRIB-4018 so that the toggles are not click-able until after the page has loaded, thus
       preventing JavaScript errors during page load.
   2.  If upgrading, please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
+  3.  Ensure the toggle word is not appended to section zero.
 
 Thanks
 ------
