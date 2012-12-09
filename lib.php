@@ -573,7 +573,7 @@ class format_topcoll extends format_base {
     }
 
     /**
-     * Resets the format setting to the default for all courses that use Collapsed Topics.
+     * Resets the format setting to the default.
      * CONTRIB-3652
      * @param int $courseid If not 0, then a specific course to reset.
      * @param int $layout If true, reset the layout to the default in tcconfig.php.
