@@ -91,7 +91,7 @@ if (!empty($displaysection)) {
         /* -- Toggle -- */
         .course-content ul.ctopics li.section .content .toggle {
             background-color: #<?php echo $tcsetting->tgbgcolour; ?>;
-            color: #<?php echo $tcsetting->tgfgcolour; ?>; /* 'Topic x' text colour */
+            color: #<?php echo $tcsetting->tgfgcolour; ?>; /* Toggle text colour */
         }
 
         /* -- Toggle text -- */
