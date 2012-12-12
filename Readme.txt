@@ -703,6 +703,9 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2.  If upgrading, please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
   3.  Ensure the toggle word is not appended to section zero.
 
+12th December 2012 - Version 2.4.0.6 - Beta
+  1.  Fix for CONTRIB-4065.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -757,6 +760,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 4th December 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 12th December 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
