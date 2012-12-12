@@ -31,11 +31,6 @@
  */
 require_once($CFG->dirroot . '/course/format/lib.php');
 require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
-require_once($CFG->dirroot . '/backup/util/interfaces/checksumable.class.php');
-require_once($CFG->dirroot . '/backup/util/interfaces/loggable.class.php');
-require_once($CFG->dirroot . '/backup/backup.class.php');
-require_once($CFG->dirroot . '/backup/controller/restore_controller.class.php');
-require_once($CFG->dirroot . '/backup/util/checks/restore_check.class.php');
 
 function xmldb_format_topcoll_upgrade($oldversion = 0) {
 
@@ -140,15 +135,12 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         $table = new xmldb_table('format_topcoll_settings');
         // Rename the table...
         if ($dbman->table_exists($table)) {
-            //$courseformat = new format_topcoll('topcoll', 0);  // Instance to help us - '/course/format/topcoll/lib.php'.
             // Extract data out of table and put in course settings table for 2.4.
             $records = $DB->get_records('format_topcoll_settings');
             //print_object($records);
             foreach ($records as $record) {
-                try {
-                    // Check that the course still exists - CONTRIB-4065...
-                    restore_check::check_courseid($record->courseid);
-
+                // Check that the course still exists - CONTRIB-4065...
+                if ($DB->record_exists('course', array('id' => $record->courseid))) {
                     $courseformat = course_get_format($record->courseid);  // In '/course/format/lib.php'.
                     // Only update if the current format is 'topcoll' as we must have an instance of 'format_topcoll' (in 'lib.php')
                     // returned by the above.  Thanks to Marina Glancy for this :).
@@ -158,8 +150,6 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
                     if ($courseformat->get_format() == 'topcoll') {
                         $courseformat->restore_topcoll_setting($record->courseid, $record->layoutelement, $record->layoutstructure, $record->layoutcolumns, $record->tgfgcolour, $record->tgbgcolour, $record->tgbghvrcolour); // In '/course/format/topcoll/lib.php'.
                     }
-                } catch (restore_controller_exception $e) {
-                    // Nothing to do, skip this record...
                 }
             }
             // Farewell old settings table.
