@@ -31,6 +31,9 @@
  */
 require_once($CFG->dirroot . '/course/format/lib.php');
 require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
+require_once($CFG->dirroot . '/backup/util/interfaces/checksumable.class.php');
+require_once($CFG->dirroot . '/backup/util/interfaces/loggable.class.php');
+require_once($CFG->dirroot . '/backup/backup.class.php');
 require_once($CFG->dirroot . '/backup/controller/restore_controller.class.php');
 require_once($CFG->dirroot . '/backup/util/checks/restore_check.class.php');
 
@@ -144,11 +147,6 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
             foreach ($records as $record) {
                 try {
                     // Check that the course still exists - CONTRIB-4065...
-                    // 1. In old version:
-                    // 1.1 Course created / changed to Collapsed Topics.
-                    // 1.2 Course changed to another format leaving an entry in the 'format_topcoll_settings' table which was not deleted as this cannot be detected.
-                    // 1.3 Course deleted and hence entry removing code withing Collapsed Topics not executed.
-                    // 2. Upgrade to new version and process an entry in 'format_topcoll_settings' for a course that no longer exists and fail.
                     restore_check::check_courseid($record->courseid);
 
                     $courseformat = course_get_format($record->courseid);  // In '/course/format/lib.php'.
