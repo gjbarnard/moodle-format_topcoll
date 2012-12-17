@@ -83,29 +83,26 @@ if (!empty($displaysection)) {
         $course->numsections,
         $TCCFG->togglepersistence));
 
-    global $tcsetting;
-    if (empty($tcsetting) == true) {
-        //$tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
-        $tcsetting = course_get_format($course)->get_format_options();
-    }
+    $tcsettings = $courseformat->get_settings();
+
     ?>
     <style type="text/css" media="screen">
         /* <![CDATA[ */
 
         /* -- Toggle -- */
         .course-content ul.ctopics li.section .content .toggle {
-            background-color: #<?php echo $tcsetting['togglebackgroundcolour']; ?>;
+            background-color: #<?php echo $tcsettings['togglebackgroundcolour']; ?>;
         }
 
         /* -- Toggle text -- */
         .course-content ul.ctopics li.section .content .toggle a {
-            color: #<?php echo $tcsetting['toggleforegroundcolour']; ?>;
+            color: #<?php echo $tcsettings['toggleforegroundcolour']; ?>;
         }
 
         /* -- What happens when a toggle is hovered over -- */
         .course-content ul.ctopics li.section .content div.toggle:hover
         {
-            background-color: #<?php echo $tcsetting['togglebackgroundhovercolour']; ?>;
+            background-color: #<?php echo $tcsettings['togglebackgroundhovercolour']; ?>;
         }
 
         /* Dynamically changing widths with language */

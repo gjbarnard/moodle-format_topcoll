@@ -35,6 +35,19 @@ require_once($CFG->dirroot . '/course/format/lib.php'); // For format_base.
 
 class format_topcoll extends format_base {
 
+    private $settings;
+
+    /**
+     * Returns the format's settings and gets them if they do not exist.
+     * @return type The settings as an array.
+     */
+    public function get_settings() {
+        if (empty($this->settings) == true) {
+            $this->settings = $this->get_format_options();
+        }
+        return $this->settings;
+    }
+
     /**
      * Indicates this format uses sections.
      *
@@ -54,23 +67,20 @@ class format_topcoll extends format_base {
         $course = $this->get_course();
         $section = $this->get_section($section);
         $o = '';
-        global $tcsetting;
+        $tcsettings = $this->get_settings();
         $coursecontext = context_course::instance($course->id);
-        if (empty($tcsetting) == true) {
-//$tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
-            $tcsetting = $this->get_format_options();
-        }
-// We can't add a node without any text
+
+        // We can't add a node without any text
         if ((string) $section->name !== '') {
             $o = format_string($section->name, true, array('context' => $coursecontext));
         } else if ($section->section == 0) {
             $o = get_string('section0name', 'format_topcoll');
         } else {
-            if (($tcsetting['layoutstructure'] == 1) || ($tcsetting['layoutstructure'] == 4)) {
+            if (($tcsettings['layoutstructure'] == 1) || ($tcsettings['layoutstructure'] == 4)) {
                 $o = get_string('sectionname', 'format_topcoll') . ' ' . $section->section;
             } else {
                 $dateformat = ' ' . get_string('strftimedateshort');
-                if ($tcsetting['layoutstructure'] == 5) {
+                if ($tcsettings['layoutstructure'] == 5) {
                     $day = $this->format_topcoll_get_section_day($section, $course);
 
                     $weekday = userdate($day, $dateformat);
@@ -93,7 +103,7 @@ class format_topcoll extends format_base {
 // when in one section per page which is coded in 'renderer.php/print_multiple_section_page()' when it calls 'section_header()'
 // as that gets called from 'format.php' when there is no entry for '$displaysetting' - confused? I was, took ages to figure.
         if (($course->coursedisplay == COURSE_DISPLAY_SINGLEPAGE) && ($section->section != 0)) {
-            switch ($tcsetting['layoutelement']) {
+            switch ($tcsettings['layoutelement']) {
                 case 1:
                 case 2:
                 case 3:
@@ -510,8 +520,8 @@ class format_topcoll extends format_base {
      * @return bool true if the section is current
      */
     public function is_section_current($section) {
-        global $tcsetting;
-        if (($tcsetting['layoutstructure'] == 2) || ($tcsetting['layoutstructure'] == 3)) {
+        $tcsettings = $this->get_settings();
+        if (($tcsettings['layoutstructure'] == 2) || ($tcsettings['layoutstructure'] == 3)) {
             if ($section->section < 1) {
                 return false;
             }
@@ -520,7 +530,7 @@ class format_topcoll extends format_base {
             $dates = $this->format_topcoll_get_section_dates($section, $this->get_course());
 
             return (($timenow >= $dates->start) && ($timenow < $dates->end));
-        } else if ($tcsetting['layoutstructure'] == 5) {
+        } else if ($tcsettings['layoutstructure'] == 5) {
             if ($section->section < 1) {
                 return false;
             }

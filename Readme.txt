@@ -655,12 +655,12 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
       would not work for all themes.
   2.  Tweaked CSS for 'Anomaly', 'Afterburner', 'MyMobile' and 'Rocket' themes.
 
-2nd August 2012+ - Version 2.4.0.1
+2nd August 2012+ - Version 2.4.0.1 - Do not install on production sites.
   1.  Development for Moodle 2.4.
   2.  Major changes for course formats refactoring - MDL-35218 - mainly to do with moving the settings into the course
       settings.
 
-1st December 2012 - Version 2.4.0.2 - BETA
+1st December 2012 - Version 2.4.0.2 - Beta - Do not install on production sites.
   1.  Beta version for Moodle 2.4 with one new known issue 'When moving sections around in editing mode the toggle name
       and section summary do not update until page refresh.'
   2.  Do not install on a production site.
@@ -685,26 +685,31 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   7.  I am currently deliberating on the issues raised on CONTRIB-4018 (http://tracker.moodle.org/browse/CONTRIB-4018) which
       apply to this version too.  If you have any thoughts / solutions, please comment on the tracker, thank you.
 
-3rd December 2012 - Version 2.4.0.3 - Beta
+3rd December 2012 - Version 2.4.0.3 - Beta - Do not install on production sites.
   1.  Fixed drag and drop section name issue.
   2.  Implemented a few suggestions by Marina Glancy on MDL-35218.
   3.  Updated required version to first stable release.
 
-4th December 2012 - Version 2.4.0.4 - Beta
+4th December 2012 - Version 2.4.0.4 - Beta - Do not install on production sites.
   1.  Adjusted logic of optional postfixed 'Toggle' word because of 'drag and drop section name' issue.
   2.  Moved reset code to custom group box on course editing form thanks to Marina Glancy on MDL-35218.
   3.  Added the course display option as a default in 'tcconfig.php' so that all new CT courses are set to this value.
   4.  Reset now incorporates the course display option to put it back to the default.
   5.  Removed old reset form, icon and CSS.
 
-8th December 2012 - Version 2.4.0.5 - Beta
+8th December 2012 - Version 2.4.0.5 - Beta - Do not install on production sites.
   1.  Changes for CONTRIB-4018 so that the toggles are not click-able until after the page has loaded, thus
       preventing JavaScript errors during page load.
   2.  If upgrading, please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
   3.  Ensure the toggle word is not appended to section zero.
 
-12th December 2012 - Version 2.4.0.6 - Beta
+12th December 2012 - Version 2.4.0.6 - Beta - Do not install on production sites.
   1.  Fix for CONTRIB-4065.
+
+17th December 2012 - Version 2.4.1 - Stable
+  1.  Tested completely fix for CONTRIB-4065.
+  2.  Re-factored to remove global '$tcsettings' and place in 'lib.php' so code is more OO.
+  3.  Code now considered stable.
 
 Thanks
 ------
@@ -759,7 +764,9 @@ JavaScript: The Definitive Guide - David Flanagan - O'Reilly - ISBN: 978-0-596-1
 Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
+2. Toggle saving only when the user closes the window / moves to another course.
+3. This file in WikiMedia format so that it has an automatic contents menu on GitHub.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 12th December 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th December 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
