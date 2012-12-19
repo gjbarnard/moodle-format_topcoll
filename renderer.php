@@ -335,7 +335,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
      *
      * @return string HTML to output.
      */
-    protected function section_nav_selection($course, $sections, $displaysection) {
+    protected function section_nav_selection($course, $displaysection) {
         $o = '';
         $section = 1;
         $sectionmenu = array();
@@ -450,7 +450,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $sectionbottomnav .= html_writer::start_tag('div', array('class' => 'section-navigation mdl-bottom'));
         $sectionbottomnav .= html_writer::tag('span', $sectionnavlinks['previous'], array('class' => 'mdl-left'));
         $sectionbottomnav .= html_writer::tag('span', $sectionnavlinks['next'], array('class' => 'mdl-right'));
-        $sectionbottomnav .= html_writer::tag('div', $this->section_nav_selection($course, $sections, $displaysection), array('class' => 'mdl-align'));
+        $sectionbottomnav .= html_writer::tag('div', $this->section_nav_selection($course, $displaysection), array('class' => 'mdl-align'));
         $sectionbottomnav .= html_writer::end_tag('div');
         echo $sectionbottomnav;
 

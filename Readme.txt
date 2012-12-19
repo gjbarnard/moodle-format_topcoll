@@ -711,6 +711,9 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2.  Re-factored to remove global '$tcsettings' and place in 'lib.php' so code is more OO.
   3.  Code now considered stable.
 
+19th December 2012 - Version 2.4.1.1
+  1.  Minor refactor to remove redundant parameter on 'section_nav_selection()' in 'renderer.php'.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -767,6 +770,6 @@ Desired Enhancements
 2. Toggle saving only when the user closes the window / moves to another course.
 3. This file in WikiMedia format so that it has an automatic contents menu on GitHub.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th December 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 19th December 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
