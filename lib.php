@@ -72,29 +72,18 @@ class format_topcoll extends format_base {
 
         // We can't add a node without any text
         if ((string) $section->name !== '') {
-            $o = format_string($section->name, true, array('context' => $coursecontext));
+            if (($tcsettings['layoutstructure'] == 2) || ($tcsettings['layoutstructure'] == 3) || ($tcsettings['layoutstructure'] == 5)) {
+                $o .= $this->get_section_dates($section, $course, $tcsettings);
+                $o .= ' <br />';
+            }
+            $o .= format_string($section->name, true, array('context' => $coursecontext));
         } else if ($section->section == 0) {
             $o = get_string('section0name', 'format_topcoll');
         } else {
             if (($tcsettings['layoutstructure'] == 1) || ($tcsettings['layoutstructure'] == 4)) {
                 $o = get_string('sectionname', 'format_topcoll') . ' ' . $section->section;
             } else {
-                $dateformat = ' ' . get_string('strftimedateshort');
-                if ($tcsettings['layoutstructure'] == 5) {
-                    $day = $this->format_topcoll_get_section_day($section, $course);
-
-                    $weekday = userdate($day, $dateformat);
-                    $o = $weekday;
-                } else {
-                    $dates = $this->format_topcoll_get_section_dates($section, $course);
-
-// We subtract 24 hours for display purposes.
-                    $dates->end = ($dates->end - 86400);
-
-                    $weekday = userdate($dates->start, $dateformat);
-                    $endweekday = userdate($dates->end, $dateformat);
-                    $o = $weekday . ' - ' . $endweekday;
-                }
+                $o = $this->get_section_dates($section, $course, $tcsettings);
             }
         }
 
@@ -113,6 +102,27 @@ class format_topcoll extends format_base {
             }
         }
 
+        return $o;
+    }
+
+    private function get_section_dates($section, $course, $tcsettings) {
+        $dateformat = ' ' . get_string('strftimedateshort');
+        $o = '';
+        if ($tcsettings['layoutstructure'] == 5) {
+            $day = $this->format_topcoll_get_section_day($section, $course);
+
+            $weekday = userdate($day, $dateformat);
+            $o = $weekday;
+        } else {
+            $dates = $this->format_topcoll_get_section_dates($section, $course);
+
+            // We subtract 24 hours for display purposes.
+            $dates->end = ($dates->end - 86400);
+
+            $weekday = userdate($dates->start, $dateformat);
+            $endweekday = userdate($dates->end, $dateformat);
+            $o = $weekday . ' - ' . $endweekday;
+        }
         return $o;
     }
 

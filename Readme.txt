@@ -714,6 +714,12 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 19th December 2012 - Version 2.4.1.1
   1.  Minor refactor to remove redundant parameter on 'section_nav_selection()' in 'renderer.php'.
 
+31st December 2012 - Version 2.4.1.2
+  1.  Fixed missing date text in week / day based structures that were in 2.2 versions and below.  Thanks
+      to Michael Turico for informing me of this.
+  2.  Moved edit section icon to the right of the toggle as it was not click-able on the toggle itself.
+  3.  Changed format.js to have better results when moving sections - I hope.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -770,6 +776,6 @@ Desired Enhancements
 2. Toggle saving only when the user closes the window / moves to another course.
 3. This file in WikiMedia format so that it has an automatic contents menu on GitHub.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 19th December 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 31st December 2012.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

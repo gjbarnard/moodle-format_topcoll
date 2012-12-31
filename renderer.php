@@ -202,6 +202,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         $sectionstyle = '';
         $rightcurrent = '';
+        $context = context_course::instance($course->id);
 
         if ($section->section != 0) {
             // Only in the non-general sections.
@@ -225,12 +226,19 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
 
         if ($this->mymobiletheme == false) {
-            $rightcontent = $this->section_right_content($section, $course, $onsectionpage);
+            $rightcontent = '';
+            if (($section->section != 0) && $PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
+                $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
+
+                $rightcontent .= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
+                                    'class' => 'iconsmall edit tceditsection', 'alt' => get_string('edit'))), array('title' => get_string('editsummary'),'class' => 'tceditsection'));
+                $rightcontent .= '<br />';
+            }
+            $rightcontent .= $this->section_right_content($section, $course, $onsectionpage);
             $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
         }
         $o .= html_writer::start_tag('div', array('class' => 'content'));
 
-        $context = context_course::instance($course->id);
 
         if (($onsectionpage == false) && ($section->section != 0)) {
             $o .= html_writer::start_tag('div', array('class' => 'sectionhead toggle', 'id' => 'toggle-' . $section->section));
@@ -248,9 +256,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 //$sectionstyle = 'display: none;'; // Will be done by CSS when 'body .jsenabled' not present.
                 $sectionstyle = '';
             }
-            if ((string) $section->name == '') { // Name is empty.
-                $toggleclass .= ' cps_noname';
-            }
+            $toggleclass .= ' the_toggle';
             //$o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
             $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#'));
             $o .= $title;
@@ -267,12 +273,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 }
             }
 
-            if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
-                $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
-
-                $o.= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
-                                    'class' => 'iconsmall edit', 'alt' => get_string('edit'))), array('title' => get_string('editsummary')));
-            }
             $o .= html_writer::end_tag('a');
             $o .= html_writer::end_tag('div');
             $o .= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection', 'id' => 'toggledsection-' . $section->section, 'style' => $sectionstyle));
@@ -374,7 +374,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         $modinfo = get_fast_modinfo($course);
         $this->courseformat = course_get_format($course); // Needed for collapsed topics settings retrieval.
-
         // Can we view the section in question?
         if (!($sectioninfo = $modinfo->get_section_info($displaysection))) {
             // This section doesn't exist

@@ -133,10 +133,9 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
     // From Moodle 2.3 bit....
     if ($result && $oldversion < 2012120100) { // Note to self, Moodle 2.3 version cannot now be greater than this.
         $table = new xmldb_table('format_topcoll_settings');
-        // Rename the table...
-        if ($dbman->table_exists($table)) {
+        if ($dbman->table_exists($table) == true) {
             // Extract data out of table and put in course settings table for 2.4.
-            $records = $DB->get_records('format_topcoll_settings');
+            $records = $DB->get_records($table->getName());
             //print_object($records);
             foreach ($records as $record) {
                 // Check that the course still exists - CONTRIB-4065...
