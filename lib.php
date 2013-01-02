@@ -72,10 +72,6 @@ class format_topcoll extends format_base {
 
         // We can't add a node without any text
         if ((string) $section->name !== '') {
-            if (($tcsettings['layoutstructure'] == 2) || ($tcsettings['layoutstructure'] == 3) || ($tcsettings['layoutstructure'] == 5)) {
-                $o .= $this->get_section_dates($section, $course, $tcsettings);
-                $o .= ' <br />';
-            }
             $o .= format_string($section->name, true, array('context' => $coursecontext));
         } else if ($section->section == 0) {
             $o = get_string('section0name', 'format_topcoll');
@@ -105,7 +101,7 @@ class format_topcoll extends format_base {
         return $o;
     }
 
-    private function get_section_dates($section, $course, $tcsettings) {
+    public function get_section_dates($section, $course, $tcsettings) {
         $dateformat = ' ' . get_string('strftimedateshort');
         $o = '';
         if ($tcsettings['layoutstructure'] == 5) {

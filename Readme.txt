@@ -720,6 +720,15 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2.  Moved edit section icon to the right of the toggle as it was not click-able on the toggle itself.
   3.  Changed format.js to have better results when moving sections - I hope.
 
+2nd January 2013 - Version 2.4.1.3
+  1.  Fixed unexpected issue with changes made to 'get_section_name()' in lib.php in version 2.4.1.2 caused
+      course backup to fail.  This was due to the inclusion of a 'br' tag to make the section name and date
+      look effective.  I have refactored to apply the 'br' tag formatting in renderer.php instead.  The
+      down side of this being the navigation window does not contain the date when a section name is set.
+      Apart from doing a lot of string splitting in renderer.php to insert the 'br' tag in the right place,
+      there is no other way of solving this - and I consider for efficiency and clutter that the date should
+      be omitted in this circumstance.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -776,6 +785,6 @@ Desired Enhancements
 2. Toggle saving only when the user closes the window / moves to another course.
 3. This file in WikiMedia format so that it has an automatic contents menu on GitHub.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 31st December 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 2nd January 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

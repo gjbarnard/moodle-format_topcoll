@@ -231,7 +231,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
 
                 $rightcontent .= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
-                                    'class' => 'iconsmall edit tceditsection', 'alt' => get_string('edit'))), array('title' => get_string('editsummary'),'class' => 'tceditsection'));
+                                    'class' => 'iconsmall edit tceditsection', 'alt' => get_string('edit'))), array('title' => get_string('editsummary'), 'class' => 'tceditsection'));
                 $rightcontent .= '<br />';
             }
             $rightcontent .= $this->section_right_content($section, $course, $onsectionpage);
@@ -259,10 +259,17 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $toggleclass .= ' the_toggle';
             //$o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
             $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#'));
+
+            $tcsettings = $this->courseformat->get_settings();
+            if ((string) $section->name !== '') {
+                if (($tcsettings['layoutstructure'] == 2) || ($tcsettings['layoutstructure'] == 3) || ($tcsettings['layoutstructure'] == 5)) {
+                    $o .= $this->courseformat->get_section_dates($section, $course, $tcsettings);
+                    $o .= ' <br />';
+                }
+            }
             $o .= $title;
             // Add in the word toggle when we are displaying them for one section per page layout, see 'get_section_name()' in 'lib.php' for more information.
             if ($course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
-                $tcsettings = $this->courseformat->get_settings();
                 switch ($tcsettings['layoutelement']) {
                     case 1:
                     case 2:
