@@ -511,184 +511,187 @@ class format_topcoll_renderer extends format_section_renderer_base {
             echo $this->section_footer();
         }
 
-        if ($PAGE->user_is_editing() || $course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
-            // Collapsed Topics all toggles.
-            echo $this->toggle_all();
-        }
-
-        $currentsectionfirst = false;
-        if ($tcsettings['layoutstructure'] == 4) {
-            $currentsectionfirst = true;
-        }
-
-        if (($tcsettings['layoutstructure'] != 3) || ($userisediting)) {
-            $section = 1;
-        } else {
-            $timenow = time();
-            $weekofseconds = 604800;
-            $course->enddate = $course->startdate + ($weekofseconds * $course->numsections);
-            $section = $course->numsections;
-            $weekdate = $course->enddate;      // this should be 0:00 Monday of that week
-            $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems
-        }
-
-        $numsections = $course->numsections; // Because we want to manipulate this for column breakpoints.
-        if (($tcsettings['layoutstructure'] == 3) && ($userisediting == false)) {
-            $loopsection = 1;
-            $numsections = 0;
-            while ($loopsection <= $course->numsections) {
-                $nextweekdate = $weekdate - ($weekofseconds);
-                if ((($thissection->uservisible ||
-                        ($thissection->visible && !$thissection->available && $thissection->showavailability))
-                        && ($nextweekdate <= $timenow)) == true) {
-                    $numsections++; // Section not shown so do not count in columns calculation.
-                }
-                $weekdate = $nextweekdate;
-                $section--;
-                $loopsection++;
+        if ($course->numsections > 0) {
+            if ($PAGE->user_is_editing() || $course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
+                // Collapsed Topics all toggles.
+                echo $this->toggle_all();
             }
-            // Reset
-            $section = $course->numsections;
-            $weekdate = $course->enddate;      // this should be 0:00 Monday of that week
-            $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems
-        }
 
-        $columnbreakpoint = 0;
-        if ($numsections < $tcsettings['layoutcolumns']) {
-            $tcsettings['layoutcolumns'] = $numsections;  // Help to ensure a reasonable display.
-        }
-        if (($tcsettings['layoutcolumns'] > 1) && ($this->mymobiletheme == false)) {
-            if ($tcsettings['layoutcolumns'] > 4) {
-                // Default in config.php (and reset in database) or database has been changed incorrectly.
-                $tcsettings['layoutcolumns'] = 4;
+            $currentsectionfirst = false;
+            if ($tcsettings['layoutstructure'] == 4) {
+                $currentsectionfirst = true;
+            }
+
+            if (($tcsettings['layoutstructure'] != 3) || ($userisediting)) {
+                $section = 1;
+            } else {
+                $timenow = time();
+                $weekofseconds = 604800;
+                $course->enddate = $course->startdate + ($weekofseconds * $course->numsections);
+                $section = $course->numsections;
+                $weekdate = $course->enddate;      // this should be 0:00 Monday of that week
+                $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems
+            }
+
+            $numsections = $course->numsections; // Because we want to manipulate this for column breakpoints.
+            if (($tcsettings['layoutstructure'] == 3) && ($userisediting == false)) {
+                $loopsection = 1;
+                $numsections = 0;
+                while ($loopsection <= $course->numsections) {
+                    $nextweekdate = $weekdate - ($weekofseconds);
+                    if ((($thissection->uservisible ||
+                            ($thissection->visible && !$thissection->available && $thissection->showavailability))
+                            && ($nextweekdate <= $timenow)) == true) {
+                        $numsections++; // Section not shown so do not count in columns calculation.
+                    }
+                    $weekdate = $nextweekdate;
+                    $section--;
+                    $loopsection++;
+                }
+                // Reset
+                $section = $course->numsections;
+                $weekdate = $course->enddate;      // this should be 0:00 Monday of that week
+                $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems
+            }
+
+            $columnbreakpoint = 0;
+            if ($numsections < $tcsettings['layoutcolumns']) {
+                $tcsettings['layoutcolumns'] = $numsections;  // Help to ensure a reasonable display.
+            }
+            if (($tcsettings['layoutcolumns'] > 1) && ($this->mymobiletheme == false)) {
+                if ($tcsettings['layoutcolumns'] > 4) {
+                    // Default in config.php (and reset in database) or database has been changed incorrectly.
+                    $tcsettings['layoutcolumns'] = 4;
+
+                    // Update....
+                    $this->courseformat->update_topcoll_columns_setting($tcsettings['layoutcolumns']);
+                }
+                $this->tccolumnwidth = 100 / $tcsettings['layoutcolumns'];
+                $this->tccolumnwidth -= 1; // Allow for the padding in %.
+                $this->tccolumnpadding = 2; // px
+            } elseif ($tcsettings['layoutcolumns'] < 1) {
+                // Distributed default in tcconfig.php (and reset in database) or database has been changed incorrectly.
+                $tcsettings['layoutcolumns'] = 1;
 
                 // Update....
-                $courseformat->update_topcoll_columns_setting($tcsettings['layoutcolumns']);
+                $this->courseformat->update_topcoll_columns_setting($tcsettings['layoutcolumns']);
             }
-            $this->tccolumnwidth = 100 / $tcsettings['layoutcolumns'];
-            $this->tccolumnwidth -= 1; // Allow for the padding in %.
-            $this->tccolumnpadding = 2; // px
-        } elseif ($tcsettings['layoutcolumns'] < 1) {
-            // Distributed default in tcconfig.php (and reset in database) or database has been changed incorrectly.
-            $tcsettings['layoutcolumns'] = 1;
 
-            // Update....
-            $courseformat->update_topcoll_columns_setting($tcsettings['layoutcolumns']);
-        }
-        echo $this->end_section_list();
-        echo $this->start_toggle_section_list();
+            echo $this->end_section_list();
+            echo $this->start_toggle_section_list();
 
-        $loopsection = 1;
-        $canbreak = false; // Once the first section is shown we can decide if we break on another column.
-        $columncount = 1;
-        $shownsectioncount = 0;
+            $loopsection = 1;
+            $canbreak = false; // Once the first section is shown we can decide if we break on another column.
+            $columncount = 1;
+            $shownsectioncount = 0;
 
-        $toggleState = get_user_preferences('topcoll_toggle_' . $course->id);
-        if ($toggleState != null) {
-            $ts1 = base_convert(substr($toggleState, 0, 6), 36, 2);
-            $ts2 = base_convert(substr($toggleState, 6, 12), 36, 2);
-            $thesparezeros = "00000000000000000000000000";
-            if (strlen($ts1) < 26) {
-                // Need to PAD.
-                $ts1 = substr($thesparezeros, 0, (26 - strlen($ts1))) . $ts1;
-            }
-            if (strlen($ts2) < 27) {
-                // Need to PAD.
-                $ts2 = substr($thesparezeros, 0, (27 - strlen($ts2))) . $ts2;
-            }
-            $tb = $ts1 . $ts2;
-        } else {
-            $tb = '10000000000000000000000000000000000000000000000000000';
-        }
-        //print("TS:".$toggleState." TB:".$tb);
-
-        while ($loopsection <= $course->numsections) {
-            if (($tcsettings['layoutstructure'] == 3) && ($userisediting == false)) {
-                $nextweekdate = $weekdate - ($weekofseconds);
-            }
-            $thissection = $modinfo->get_section_info($section);
-
-            // Show the section if the user is permitted to access it, OR if it's not available
-            // but showavailability is turned on
-            if (($tcsettings['layoutstructure'] != 3) || ($userisediting)) {
-                $showsection = $thissection->uservisible ||
-                        ($thissection->visible && !$thissection->available && $thissection->showavailability);
-            } else {
-                $showsection = ($thissection->uservisible ||
-                        ($thissection->visible && !$thissection->available && $thissection->showavailability))
-                        && ($nextweekdate <= $timenow);
-            }
-            if (($currentsectionfirst == true) && ($showsection == true)) {
-                $showsection = ($course->marker == $section);  // Show  the section if we were meant to and it is the current section.
-            } else if (($tcsettings['layoutstructure'] == 4) && ($course->marker == $section)) {
-                $showsection = false; // Do not reshow current section.
-            }
-            if (!$showsection) {
-                // Hidden section message is overridden by 'unavailable' control
-                // (showavailability option).
-                if ($tcsettings['layoutstructure'] != 4) {
-                    if (($tcsettings['layoutstructure'] != 3) || ($userisediting)) {
-                        if (!$course->hiddensections && $thissection->available) {
-                            echo $this->section_hidden($section);
-                        }
-                    }
+            $toggleState = get_user_preferences('topcoll_toggle_' . $course->id);
+            if ($toggleState != null) {
+                $ts1 = base_convert(substr($toggleState, 0, 6), 36, 2);
+                $ts2 = base_convert(substr($toggleState, 6, 12), 36, 2);
+                $thesparezeros = "00000000000000000000000000";
+                if (strlen($ts1) < 26) {
+                    // Need to PAD.
+                    $ts1 = substr($thesparezeros, 0, (26 - strlen($ts1))) . $ts1;
                 }
-            } else {
-                $shownsectioncount++;
-                if (!$PAGE->user_is_editing() && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
-                    // Display section summary only.
-                    echo $this->section_summary($thissection, $course, null);
-                } else {
-                    $thissection->toggle = substr($tb, $section, 1);
-                    echo $this->section_header($thissection, $course, false, 0);
-                    if ($thissection->uservisible) {
-                        print_section($course, $thissection, null, null, true, "100%", false, 0);
-                        if ($PAGE->user_is_editing()) {
-                            print_section_add_menus($course, $section, null, false, false, 0);
-                        }
-                    }
-                    echo html_writer::end_tag('div');
-                    echo $this->section_footer();
+                if (strlen($ts2) < 27) {
+                    // Need to PAD.
+                    $ts2 = substr($thesparezeros, 0, (27 - strlen($ts2))) . $ts2;
                 }
-            }
-
-            if ($currentsectionfirst == false) {
-                unset($sections[$section]); // Only need to do this on the iteration when $currentsectionfirst is not true as this iteration will always happen.  Otherwise you get duplicate entries in course_sections in the DB.
-            }
-            if (($tcsettings['layoutstructure'] != 3) || ($userisediting)) {
-                $section++;
+                $tb = $ts1 . $ts2;
             } else {
-                $section--;
+                $tb = '10000000000000000000000000000000000000000000000000000';
+            }
+            //print("TS:".$toggleState." TB:".$tb);
+
+            while ($loopsection <= $course->numsections) {
                 if (($tcsettings['layoutstructure'] == 3) && ($userisediting == false)) {
-                    $weekdate = $nextweekdate;
+                    $nextweekdate = $weekdate - ($weekofseconds);
                 }
-            }
+                $thissection = $modinfo->get_section_info($section);
 
-            if (($canbreak == false) && ($currentsectionfirst == false) && ($showsection == true)) {
-                $canbreak = true;
-                $columnbreakpoint = ($shownsectioncount + ($numsections / $tcsettings['layoutcolumns'])) - 1;
-                if ($tcsettings['layoutstructure'] == 4) {
-                    $columnbreakpoint -= 1;
+                // Show the section if the user is permitted to access it, OR if it's not available
+                // but showavailability is turned on
+                if (($tcsettings['layoutstructure'] != 3) || ($userisediting)) {
+                    $showsection = $thissection->uservisible ||
+                            ($thissection->visible && !$thissection->available && $thissection->showavailability);
+                } else {
+                    $showsection = ($thissection->uservisible ||
+                            ($thissection->visible && !$thissection->available && $thissection->showavailability))
+                            && ($nextweekdate <= $timenow);
                 }
-            }
+                if (($currentsectionfirst == true) && ($showsection == true)) {
+                    $showsection = ($course->marker == $section);  // Show  the section if we were meant to and it is the current section.
+                } else if (($tcsettings['layoutstructure'] == 4) && ($course->marker == $section)) {
+                    $showsection = false; // Do not reshow current section.
+                }
+                if (!$showsection) {
+                    // Hidden section message is overridden by 'unavailable' control
+                    // (showavailability option).
+                    if ($tcsettings['layoutstructure'] != 4) {
+                        if (($tcsettings['layoutstructure'] != 3) || ($userisediting)) {
+                            if (!$course->hiddensections && $thissection->available) {
+                                echo $this->section_hidden($section);
+                            }
+                        }
+                    }
+                } else {
+                    $shownsectioncount++;
+                    if (!$PAGE->user_is_editing() && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
+                        // Display section summary only.
+                        echo $this->section_summary($thissection, $course, null);
+                    } else {
+                        $thissection->toggle = substr($tb, $section, 1);
+                        echo $this->section_header($thissection, $course, false, 0);
+                        if ($thissection->uservisible) {
+                            print_section($course, $thissection, null, null, true, "100%", false, 0);
+                            if ($PAGE->user_is_editing()) {
+                                print_section_add_menus($course, $section, null, false, false, 0);
+                            }
+                        }
+                        echo html_writer::end_tag('div');
+                        echo $this->section_footer();
+                    }
+                }
 
-            if (($currentsectionfirst == false) && ($canbreak == true) && ($shownsectioncount >= $columnbreakpoint) && ($columncount < $tcsettings['layoutcolumns'])) {
-                echo $this->end_section_list();
-                echo $this->start_toggle_section_list();
-                $columncount++;
-                // Next breakpoint is...
-                $columnbreakpoint += $numsections / $tcsettings['layoutcolumns'];
-            }
-            $loopsection++;
-            if (($currentsectionfirst == true) && ($loopsection > $course->numsections)) {
-                // Now show the rest.
-                $currentsectionfirst = false;
-                $loopsection = 1;
-                $section = 1;
-            }
-            if ($section > $course->numsections) {
-                // activities inside this section are 'orphaned', this section will be printed as 'stealth' below.
-                continue;
+                if ($currentsectionfirst == false) {
+                    unset($sections[$section]); // Only need to do this on the iteration when $currentsectionfirst is not true as this iteration will always happen.  Otherwise you get duplicate entries in course_sections in the DB.
+                }
+                if (($tcsettings['layoutstructure'] != 3) || ($userisediting)) {
+                    $section++;
+                } else {
+                    $section--;
+                    if (($tcsettings['layoutstructure'] == 3) && ($userisediting == false)) {
+                        $weekdate = $nextweekdate;
+                    }
+                }
+
+                if (($canbreak == false) && ($currentsectionfirst == false) && ($showsection == true)) {
+                    $canbreak = true;
+                    $columnbreakpoint = ($shownsectioncount + ($numsections / $tcsettings['layoutcolumns'])) - 1;
+                    if ($tcsettings['layoutstructure'] == 4) {
+                        $columnbreakpoint -= 1;
+                    }
+                }
+
+                if (($currentsectionfirst == false) && ($canbreak == true) && ($shownsectioncount >= $columnbreakpoint) && ($columncount < $tcsettings['layoutcolumns'])) {
+                    echo $this->end_section_list();
+                    echo $this->start_toggle_section_list();
+                    $columncount++;
+                    // Next breakpoint is...
+                    $columnbreakpoint += $numsections / $tcsettings['layoutcolumns'];
+                }
+                $loopsection++;
+                if (($currentsectionfirst == true) && ($loopsection > $course->numsections)) {
+                    // Now show the rest.
+                    $currentsectionfirst = false;
+                    $loopsection = 1;
+                    $section = 1;
+                }
+                if ($section > $course->numsections) {
+                    // activities inside this section are 'orphaned', this section will be printed as 'stealth' below.
+                    continue;
+                }
             }
         }
 
