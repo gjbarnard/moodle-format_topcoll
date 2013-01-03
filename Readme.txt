@@ -729,7 +729,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
       there is no other way of solving this - and I consider for efficiency and clutter that the date should
       be omitted in this circumstance.
 
-3rd January 2012 - Version 2.4.1.4
+3rd January 2013 - Version 2.4.1.4
   1.  Fixed unexpected issue when the number of sections is '0'.  Thanks to 'Aylwin Cal' for reporting this.
 
 Thanks
