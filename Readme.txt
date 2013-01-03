@@ -788,6 +788,6 @@ Desired Enhancements
 2. Toggle saving only when the user closes the window / moves to another course.
 3. This file in WikiMedia format so that it has an automatic contents menu on GitHub.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 2nd January 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 3rd January 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
