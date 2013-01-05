@@ -172,16 +172,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if ((($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) && has_capability('moodle/course:setcurrentsection', $coursecontext)) {
             if ($course->marker == $section->section) {  // Show the "light globe" on/off.
                 $url->param('marker', 0);
-                $controls[] = html_writer::link($url,
-                                    html_writer::empty_tag('img', array('src' => $this->output->pix_url('i/marked'),
-                                        'class' => 'icon ', 'alt' => get_string('markedthissection','format_topcoll'))),
-                                    array('title' => get_string('markedthissection','format_topcoll'), 'class' => 'editing_highlight'));
+                $controls[] = html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('i/marked'),
+                                    'class' => 'icon ', 'alt' => get_string('markedthissection', 'format_topcoll'))), array('title' => get_string('markedthissection', 'format_topcoll'), 'class' => 'editing_highlight'));
             } else {
                 $url->param('marker', $section->section);
-                $controls[] = html_writer::link($url,
-                                html_writer::empty_tag('img', array('src' => $this->output->pix_url('i/marker'),
-                                    'class' => 'icon', 'alt' => get_string('markthissection','format_topcoll'))),
-                                array('title' => get_string('markthissection','format_topcoll'), 'class' => 'editing_highlight'));
+                $controls[] = html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('i/marker'),
+                                    'class' => 'icon', 'alt' => get_string('markthissection', 'format_topcoll'))), array('title' => get_string('markthissection', 'format_topcoll'), 'class' => 'editing_highlight'));
             }
         }
 
@@ -198,12 +194,17 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @param int $sectionreturn The section to return to after an action
      * @return string HTML to output.
      */
-    protected function section_header($section, $course, $onsectionpage, $sectionreturn=null) {
+    protected function section_header($section, $course, $onsectionpage, $sectionreturn = null) {
         $o = '';
-        global $PAGE;
+        global $PAGE, $tcsetting;
+
+        if (empty($tcsetting) == true) {
+            $tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
+        }
 
         $sectionstyle = '';
         $rightcurrent = '';
+        $context = context_course::instance($course->id);
         global $tcsetting;
         $toggletext = get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
 
@@ -228,11 +229,18 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
         }
 
-        $rightcontent = $this->section_right_content($section, $course, $onsectionpage);
-        $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'.$rightcurrent));
+        $rightcontent = '';
+        if (($section->section != 0) && $PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
+            $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
+
+            $rightcontent .= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
+                                'class' => 'iconsmall edit tceditsection', 'alt' => get_string('edit'))), array('title' => get_string('editsummary'), 'class' => 'tceditsection'));
+            $rightcontent .= '<br />';
+        }
+        $rightcontent .= $this->section_right_content($section, $course, $onsectionpage);
+        $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side' . $rightcurrent));
         $o .= html_writer::start_tag('div', array('class' => 'content'));
 
-        $context = context_course::instance($course->id);
 
         global $tcscreenreader;
         if (($onsectionpage == false) && ($tcscreenreader == false) && ($section->section != 0)) {
@@ -251,11 +259,16 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 //$sectionstyle = 'display: none;'; // Will be done by CSS when 'body .jsenabled' not present.
                 $sectionstyle = '';
             }
-            if ((string) $section->name == '') { // Name is empty.
-                $toggleclass .= ' cps_noname';
-            }
-            $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
+
+            $toggleclass .= ' the_toggle';
+            $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#'));
             $o .= $title;
+            if ((string) $section->name !== '') {
+                if (($section->section != 0) && (($tcsetting->layoutstructure == 2) || ($tcsetting->layoutstructure == 3) || ($tcsetting->layoutstructure == 5))) {
+                    $o .= ' <br />';
+                    $o .= tc_get_section_dates($section, $course, $tcsetting);  // In lib.php
+                }
+            }
             switch ($tcsetting->layoutelement) {
                 case 1:
                 case 2:
@@ -264,37 +277,28 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     $o .= ' - ' . $toggletext;
                     break;
             }
+            $o .= html_writer::end_tag('a');
+            $o .= html_writer::end_tag('div');
+            $o .= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection', 'id' => 'toggledsection-' . $section->section, 'style' => $sectionstyle));
+            if ($section->section != 0 && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
+                $o .= html_writer::link(course_get_url($course, $section->section), $title);
+            }
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
 
-                $o.= html_writer::link($url,
-                    html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
-                       'class' => 'iconsmall edit', 'alt' => get_string('edit'))),
-                    array('title' => get_string('editsummary')));
-            }
-            $o .= html_writer::end_tag('a');
-            $o .= html_writer::end_tag('div');
-            $o .= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection', 'id' => 'toggledsection-'.$section->section,'style' => $sectionstyle));
-            if ($section->section != 0 && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
-                $o .= html_writer::link(course_get_url($course, $section->section), $title);
+                $o.= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
+                                    'class' => 'iconsmall edit', 'alt' => get_string('edit'))), array('title' => get_string('editsummary')));
             }
 
             $o .= html_writer::start_tag('div', array('class' => 'summary'));
             $o .= $this->format_summary_text($section);
 
-            if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
-                $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
-                $o.= html_writer::link($url,
-                    html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
-                       'class' => 'iconsmall edit', 'alt' => get_string('edit'))),
-                    array('title' => get_string('editsummary')));
-            }
             $o .= html_writer::end_tag('div');
 
             $o .= $this->section_availability_message($section);
         } else {
             // When on a section page, we only display the general section title, if title is not the default one
-            $hasnamesecpg = ($section->section == 0 && (string)$section->name !== '');
+            $hasnamesecpg = ($section->section == 0 && (string) $section->name !== '');
 
             if ($hasnamesecpg) {
                 $o .= $this->output->heading($this->section_title($section, $course), 3, 'sectionname');
@@ -305,10 +309,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
-                $o.= html_writer::link($url,
-                    html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
-                       'class' => 'iconsmall edit', 'alt' => get_string('edit'))),
-                    array('title' => get_string('editsummary')));
+                $o.= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
+                                    'class' => 'iconsmall edit', 'alt' => get_string('edit'))), array('title' => get_string('editsummary')));
             }
             $o .= html_writer::end_tag('div');
 
@@ -342,7 +344,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o = '';
         $section = 1;
         $sectionmenu = array();
-        $sectionmenu[0] = get_string('maincoursepage','format_topcoll');  // Section 0 is never jumped to and is therefore used to indicate the main page.  And temporary until MDL-34917 in core.
+        $sectionmenu[0] = get_string('maincoursepage', 'format_topcoll');  // Section 0 is never jumped to and is therefore used to indicate the main page.  And temporary until MDL-34917 in core.
         $context = context_course::instance($course->id);
         while ($section <= $course->numsections) {
             if (!empty($sections[$section])) {
@@ -366,7 +368,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $section++;
         }
 
-        $select = new single_select(new moodle_url('/course/view.php', array('id'=>$course->id)), 'section', $sectionmenu);
+        $select = new single_select(new moodle_url('/course/view.php', array('id' => $course->id)), 'section', $sectionmenu);
         $select->class = 'jumpmenu';
         $select->formid = 'sectionmenu';
         $o .= $this->output->render($select);
@@ -516,33 +518,120 @@ class format_topcoll_renderer extends format_section_renderer_base {
             echo $this->section_footer();
         }
 
-        if ($PAGE->user_is_editing() || $course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
-            // Collapsed Topics all toggles.
-            echo $this->toggle_all();
-        }
+        if ($course->numsections > 0) {
+            if ($course->numsections > 1) {
+                if ($PAGE->user_is_editing() || $course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
+                    // Collapsed Topics all toggles.
+                    echo $this->toggle_all();
+                }
+            }
 
-        $currentsectionfirst = false;
-        if ($tcsetting->layoutstructure == 4) {
-            $currentsectionfirst = true;
-        }
+            $currentsectionfirst = false;
+            if ($tcsetting->layoutstructure == 4) {
+                $currentsectionfirst = true;
+            }
 
-        if (($tcsetting->layoutstructure != 3) || ($userisediting)) {
-            $section = 1;
-        } else {
-            $timenow = time();
-            $weekofseconds = 604800;
-            $course->enddate = $course->startdate + ($weekofseconds * $course->numsections);
-            $section = $course->numsections;
-            $weekdate = $course->enddate;      // this should be 0:00 Monday of that week
-            $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems
-        }
+            if (($tcsetting->layoutstructure != 3) || ($userisediting)) {
+                $section = 1;
+            } else {
+                $timenow = time();
+                $weekofseconds = 604800;
+                $course->enddate = $course->startdate + ($weekofseconds * $course->numsections);
+                $section = $course->numsections;
+                $weekdate = $course->enddate;      // this should be 0:00 Monday of that week
+                $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems
+            }
 
-        $numsections = $course->numsections; // Because we want to manipulate this for column breakpoints.
-        if (($tcsetting->layoutstructure == 3) && ($userisediting == false)) {
+            $numsections = $course->numsections; // Because we want to manipulate this for column breakpoints.
+            if (($tcsetting->layoutstructure == 3) && ($userisediting == false)) {
+                $loopsection = 1;
+                $numsections = 0;
+                while ($loopsection <= $course->numsections) {
+                    $nextweekdate = $weekdate - ($weekofseconds);
+                    if (!empty($sections[$section])) {
+                        $thissection = $sections[$section];
+                    } else {
+                        // This will create a course section if it doesn't exist..
+                        $thissection = get_course_section($section, $course->id);
+
+                        // The returned section is only a bare database object rather than
+                        // a section_info object - we will need at least the uservisible
+                        // field in it.
+                        $thissection->uservisible = true;
+                        $thissection->availableinfo = null;
+                        $thissection->showavailability = 0;
+                    }
+                    if ((($thissection->uservisible ||
+                            ($thissection->visible && !$thissection->available && $thissection->showavailability))
+                            && ($nextweekdate <= $timenow)) == true) {
+                        $numsections++; // Section not shown so do not count in columns calculation.
+                    }
+                    $weekdate = $nextweekdate;
+                    $section--;
+                    $loopsection++;
+                }
+                // Reset
+                $section = $course->numsections;
+                $weekdate = $course->enddate;      // this should be 0:00 Monday of that week
+                $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems
+            }
+
+            $columnbreakpoint = 0;
+            if ($numsections < $tcsetting->layoutcolumns) {
+                $tcsetting->layoutcolumns = $numsections;  // Help to ensure a reasonable display.
+            }
+            if (($tcsetting->layoutcolumns > 1) && ($this->mymobiletheme == false)) {
+                if ($tcsetting->layoutcolumns > 4) {
+                    // Default in tcconfig.php (and reset in database) or database has been changed incorrectly.
+                    $tcsetting->layoutcolumns = 4;
+
+                    // Update DB.
+                    global $DB;
+                    $DB->update_record('format_topcoll_settings', $tcsetting);
+                }
+                $this->tccolumnwidth = 100 / $tcsetting->layoutcolumns;
+                $this->tccolumnwidth -= 1; // Allow for the padding in %.
+                $this->tccolumnpadding = 2; // px
+                //$columnbreakpoint = $numsections / $tcsetting->layoutcolumns + 1;
+            } elseif ($tcsetting->layoutcolumns < 1) {
+                // Default in tcconfig.php (and reset in database) or database has been changed incorrectly.
+                $tcsetting->layoutcolumns = 1;
+
+                // Update DB.
+                global $DB;
+                $DB->update_record('format_topcoll_settings', $tcsetting);
+            }
+            echo $this->end_section_list();
+            echo $this->start_toggle_section_list();
+
             $loopsection = 1;
-            $numsections = 0;
+            $canbreak = false; // Once the first section is shown we can decide if we break on another column.
+            $columncount = 1;
+            $shownsectioncount = 0;
+
+            $toggleState = get_user_preferences('topcoll_toggle_' . $course->id);
+            if ($toggleState != null) {
+                $ts1 = base_convert(substr($toggleState, 0, 6), 36, 2);
+                $ts2 = base_convert(substr($toggleState, 6, 12), 36, 2);
+                $thesparezeros = "00000000000000000000000000";
+                if (strlen($ts1) < 26) {
+                    // Need to PAD.
+                    $ts1 = substr($thesparezeros, 0, (26 - strlen($ts1))) . $ts1;
+                }
+                if (strlen($ts2) < 27) {
+                    // Need to PAD.
+                    $ts2 = substr($thesparezeros, 0, (27 - strlen($ts2))) . $ts2;
+                }
+                $tb = $ts1 . $ts2;
+            } else {
+                $tb = '10000000000000000000000000000000000000000000000000000';
+            }
+            //print("TS:".$toggleState." TB:".$tb);
+
             while ($loopsection <= $course->numsections) {
-                $nextweekdate = $weekdate - ($weekofseconds);
+                if (($tcsetting->layoutstructure == 3) && ($userisediting == false)) {
+                    $nextweekdate = $weekdate - ($weekofseconds);
+                }
                 if (!empty($sections[$section])) {
                     $thissection = $sections[$section];
                 } else {
@@ -556,168 +645,85 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     $thissection->availableinfo = null;
                     $thissection->showavailability = 0;
                 }
-                if ((($thissection->uservisible ||
-                        ($thissection->visible && !$thissection->available && $thissection->showavailability))
-                        && ($nextweekdate <= $timenow)) == true) {
-                    $numsections++; // Section not shown so do not count in columns calculation.
-                }
-                $weekdate = $nextweekdate;
-                $section--;
-                $loopsection++;
-            }
-            // Reset
-            $section = $course->numsections;
-            $weekdate = $course->enddate;      // this should be 0:00 Monday of that week
-            $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems
-        }
-
-        $columnbreakpoint = 0;
-        if ($numsections < $tcsetting->layoutcolumns) {
-            $tcsetting->layoutcolumns = $numsections;  // Help to ensure a reasonable display.
-        }
-        if (($tcsetting->layoutcolumns > 1) && ($this->mymobiletheme == false)) {
-            if ($tcsetting->layoutcolumns > 4) {
-                // Default in config.php (and reset in database) or database has been changed incorrectly.
-                $tcsetting->layoutcolumns = 4;
-
-                // Update DB.
-                global $DB;
-                $DB->update_record('format_topcoll_settings', $tcsetting);
-            }
-            $this->tccolumnwidth = 100 / $tcsetting->layoutcolumns;
-            $this->tccolumnwidth -= 1; // Allow for the padding in %.
-            $this->tccolumnpadding = 2; // px
-            //$columnbreakpoint = $numsections / $tcsetting->layoutcolumns + 1;
-        } elseif ($tcsetting->layoutcolumns < 1) {
-            // Default in config.php (and reset in database) or database has been changed incorrectly.
-            $tcsetting->layoutcolumns = 1;
-
-            // Update DB.
-            global $DB;
-            $DB->update_record('format_topcoll_settings', $tcsetting);
-        }
-        echo $this->end_section_list();
-        echo $this->start_toggle_section_list();
-
-        $loopsection = 1;
-        $canbreak = false; // Once the first section is shown we can decide if we break on another column.
-        $columncount = 1;
-        $shownsectioncount = 0;
-        
-        $toggleState = get_user_preferences('topcoll_toggle_' . $course->id);
-        if ($toggleState != null) {
-            $ts1 = base_convert(substr($toggleState,0,6),36,2);
-            $ts2 = base_convert(substr($toggleState,6,12),36,2);
-            $thesparezeros = "00000000000000000000000000";
-            if (strlen($ts1) < 26) {
-                // Need to PAD.
-                $ts1 = substr($thesparezeros,0,(26 - strlen($ts1))).$ts1;
-            }
-            if (strlen($ts2) < 27) {
-                // Need to PAD.
-                $ts2 = substr($thesparezeros,0,(27 - strlen($ts2))).$ts2;
-            }
-            $tb = $ts1.$ts2;
-        } else {
-            $tb = '10000000000000000000000000000000000000000000000000000';
-        }
-        //print("TS:".$toggleState." TB:".$tb);
-        
-        while ($loopsection <= $course->numsections) {
-            if (($tcsetting->layoutstructure == 3) && ($userisediting == false)) {
-                $nextweekdate = $weekdate - ($weekofseconds);
-            }
-            if (!empty($sections[$section])) {
-                $thissection = $sections[$section];
-            } else {
-                // This will create a course section if it doesn't exist..
-                $thissection = get_course_section($section, $course->id);
-
-                // The returned section is only a bare database object rather than
-                // a section_info object - we will need at least the uservisible
-                // field in it.
-                $thissection->uservisible = true;
-                $thissection->availableinfo = null;
-                $thissection->showavailability = 0;
-            }
-            // Show the section if the user is permitted to access it, OR if it's not available
-            // but showavailability is turned on
-            if (($tcsetting->layoutstructure != 3) || ($userisediting)) {
-                $showsection = $thissection->uservisible ||
-                        ($thissection->visible && !$thissection->available && $thissection->showavailability);
-            } else {
-                $showsection = ($thissection->uservisible ||
-                        ($thissection->visible && !$thissection->available && $thissection->showavailability))
-                        && ($nextweekdate <= $timenow);
-            }
-            if (($currentsectionfirst == true) && ($showsection == true)) {
-                $showsection = ($course->marker == $section);  // Show  the section if we were meant to and it is the current section.
-            } else if (($tcsetting->layoutstructure == 4) && ($course->marker == $section)) {
-                $showsection = false; // Do not reshow current section.
-            }
-            if (!$showsection) {
-                // Hidden section message is overridden by 'unavailable' control
-                // (showavailability option).
-                if ($tcsetting->layoutstructure != 4) {
-                    if (($tcsetting->layoutstructure != 3) || ($userisediting)) {
-                        if (!$course->hiddensections && $thissection->available) {
-                            echo $this->section_hidden($section);
-                        }
-                    }
-                }
-            } else {
-                $shownsectioncount++;
-                if (!$PAGE->user_is_editing() && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
-                    // Display section summary only.
-                    echo $this->section_summary($thissection, $course, $mods);
+                // Show the section if the user is permitted to access it, OR if it's not available
+                // but showavailability is turned on
+                if (($tcsetting->layoutstructure != 3) || ($userisediting)) {
+                    $showsection = $thissection->uservisible ||
+                            ($thissection->visible && !$thissection->available && $thissection->showavailability);
                 } else {
-                    $thissection->toggle = substr($tb,$section,1);
-                    echo $this->section_header($thissection, $course, false, 0);
-                    if ($thissection->uservisible) {
-                        print_section($course, $thissection, $mods, $modnamesused, true, "100%", false, 0);
-
-                        if ($PAGE->user_is_editing()) {
-                            print_section_add_menus($course, $section, $modnames, false, false, 0);
+                    $showsection = ($thissection->uservisible ||
+                            ($thissection->visible && !$thissection->available && $thissection->showavailability))
+                            && ($nextweekdate <= $timenow);
+                }
+                if (($currentsectionfirst == true) && ($showsection == true)) {
+                    $showsection = ($course->marker == $section);  // Show  the section if we were meant to and it is the current section.
+                } else if (($tcsetting->layoutstructure == 4) && ($course->marker == $section)) {
+                    $showsection = false; // Do not reshow current section.
+                }
+                if (!$showsection) {
+                    // Hidden section message is overridden by 'unavailable' control
+                    // (showavailability option).
+                    if ($tcsetting->layoutstructure != 4) {
+                        if (($tcsetting->layoutstructure != 3) || ($userisediting)) {
+                            if (!$course->hiddensections && $thissection->available) {
+                                echo $this->section_hidden($section);
+                            }
                         }
                     }
-                    echo html_writer::end_tag('div');
-                    echo $this->section_footer();
-                }
-            }
+                } else {
+                    $shownsectioncount++;
+                    if (!$PAGE->user_is_editing() && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
+                        // Display section summary only.
+                        echo $this->section_summary($thissection, $course, $mods);
+                    } else {
+                        $thissection->toggle = substr($tb, $section, 1);
+                        echo $this->section_header($thissection, $course, false, 0);
+                        if ($thissection->uservisible) {
+                            print_section($course, $thissection, $mods, $modnamesused, true, "100%", false, 0);
 
-            if ($currentsectionfirst == false) {
-                unset($sections[$section]); // Only need to do this on the iteration when $currentsectionfirst is not true as this iteration will always happen.  Otherwise you get duplicate entries in course_sections in the DB.
-            }
-            if (($tcsetting->layoutstructure != 3) || ($userisediting)) {
-                $section++;
-            } else {
-                $section--;
-                if (($tcsetting->layoutstructure == 3) && ($userisediting == false)) {
-                    $weekdate = $nextweekdate;
+                            if ($PAGE->user_is_editing()) {
+                                print_section_add_menus($course, $section, $modnames, false, false, 0);
+                            }
+                        }
+                        echo html_writer::end_tag('div');
+                        echo $this->section_footer();
+                    }
                 }
-            }
 
-            if (($canbreak == false) && ($currentsectionfirst == false) && ($showsection == true)) {
-                $canbreak = true;
-                $columnbreakpoint = ($shownsectioncount + ($numsections / $tcsetting->layoutcolumns)) - 1;
-                if ($tcsetting->layoutstructure == 4) {
-                    $columnbreakpoint -= 1;
+                if ($currentsectionfirst == false) {
+                    unset($sections[$section]); // Only need to do this on the iteration when $currentsectionfirst is not true as this iteration will always happen.  Otherwise you get duplicate entries in course_sections in the DB.
                 }
-            }
+                if (($tcsetting->layoutstructure != 3) || ($userisediting)) {
+                    $section++;
+                } else {
+                    $section--;
+                    if (($tcsetting->layoutstructure == 3) && ($userisediting == false)) {
+                        $weekdate = $nextweekdate;
+                    }
+                }
 
-            if (($currentsectionfirst == false) && ($canbreak == true) && ($shownsectioncount >= $columnbreakpoint) && ($columncount < $tcsetting->layoutcolumns)) {
-                echo $this->end_section_list();
-                echo $this->start_toggle_section_list();
-                $columncount++;
-                // Next breakpoint is...
-                $columnbreakpoint += $numsections / $tcsetting->layoutcolumns;
-            }
-            $loopsection++;
-            if (($currentsectionfirst == true) && ($loopsection > $course->numsections)) {
-                // Now show the rest.
-                $currentsectionfirst = false;
-                $loopsection = 1;
-                $section = 1;
+                if (($canbreak == false) && ($currentsectionfirst == false) && ($showsection == true)) {
+                    $canbreak = true;
+                    $columnbreakpoint = ($shownsectioncount + ($numsections / $tcsetting->layoutcolumns)) - 1;
+                    if ($tcsetting->layoutstructure == 4) {
+                        $columnbreakpoint -= 1;
+                    }
+                }
+
+                if (($currentsectionfirst == false) && ($canbreak == true) && ($shownsectioncount >= $columnbreakpoint) && ($columncount < $tcsetting->layoutcolumns)) {
+                    echo $this->end_section_list();
+                    echo $this->start_toggle_section_list();
+                    $columncount++;
+                    // Next breakpoint is...
+                    $columnbreakpoint += $numsections / $tcsetting->layoutcolumns;
+                }
+                $loopsection++;
+                if (($currentsectionfirst == true) && ($loopsection > $course->numsections)) {
+                    // Now show the rest.
+                    $currentsectionfirst = false;
+                    $loopsection = 1;
+                    $section = 1;
+                }
             }
         }
 
@@ -818,7 +824,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
             $o .= html_writer::start_tag('div', array('class' => 'tcsettingscontainer'));
             $o .= html_writer::tag('a', html_writer::tag('div', '', array('id' => 'tc-set-settings')), array('title' => get_string("settings"), 'href' => 'format/topcoll/forms/settings.php?id=' . $course->id . '&sesskey=' . sesskey()));
-            $o .= html_writer::tag('div',get_string('formatsettingsinformation','format_topcoll'));
+            $o .= html_writer::tag('div', get_string('formatsettingsinformation', 'format_topcoll'));
             $o .= html_writer::end_tag('div');
             $o .= html_writer::end_tag('div');
             $o .= html_writer::end_tag('div');
@@ -848,8 +854,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $o .= html_writer::start_tag('div', array('class' => 'content'));
             $o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
             $o .= html_writer::start_tag('h4', null);
-            $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'onclick' => 'all_opened(); return false;'));
-            $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'onclick' => 'all_closed(); return false;'));
+            $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'id' => 'toggles-all-opened'));
+            $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'id' => 'toggles-all-closed'));
             $o .= html_writer::tag('span', get_string('topcollall', 'format_topcoll'), null);
             $o .= html_writer::end_tag('h4');
             $o .= html_writer::end_tag('div');

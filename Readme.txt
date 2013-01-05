@@ -34,16 +34,16 @@ Installation
  4. Copy 'topcoll' to '/course/format/' if you have not already done so.
  5. If using a Unix based system, chmod 755 on config.php - I have not tested this but have been told that it
     needs to be done.
- 6. In 'config.php' change the values of '$TCCFG->defaultlayoutelement', '$TCCFG->defaultlayoutstructure' and
+ 6. In 'tcconfig.php' change the values of '$TCCFG->defaultlayoutelement', '$TCCFG->defaultlayoutstructure' and
     '$TCCFG->defaultlayoutcolumns' for setting the default layout, structure and columns respectively for
     new / updating courses as desired by following the instructions contained within.
  7. In 'config.php' change the values of '$TCCFG->defaulttgfgcolour', '$TCCFG->defaulttgbgcolour' and
     '$TCCFG->defaulttgbghvrcolour' for setting the default toggle colours.
  8. Login as an administrator and follow standard the 'plugin' update notification.  If needed, go to
     'Site administration' -> 'Notifications' if this does not happen.
- 9.  If desired, edit the colours of the 'styles.css' - which contains instructions on how to have per theme colours.
-10.  To change the arrow graphic you need to replace 'arrow_up.png' and 'arrow_down.png' in the 'pix' folder.  Or override the
-     css by using the selectors for the various images, override the 'background' attribute:
+ 9. If desired, edit the colours of the 'styles.css' - which contains instructions on how to have per theme colours.
+10. To change the arrow graphic you need to replace 'arrow_up.png' and 'arrow_down.png' in the 'pix' folder.  Or override the
+    css by using the selectors for the various images, override the 'background' attribute:
 
      body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_open - For the 'up' arrow in the toggle - original is 24px.
      body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_closed - For the 'down' arrow in the toggle - original is 24px.
@@ -66,7 +66,8 @@ Upgrade Instructions
 5. If you have previously installed a development, beta or release candidate of version 2.3.7 you need to
    perform step 4 in 'Uninstallation' below.
 6. Follow installation instructions above.
-7. Put Moodle out of Maintenance Mode.
+7. Perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
+8. Put Moodle out of Maintenance Mode.
 
 Upgrading from Moodle 1.9, 2.0 or 2.1
 -------------------------------------
@@ -149,8 +150,8 @@ Course Backup and Restore Instructions
 --------------------------------------
 1. Backup as you would any other course.  The layout configuration will be stored with the course settings.
 2. Restore as you would any other course.  If you are offered the option of 'Overwrite Course Configuration'
-   you must say 'Yes' to have thelayout configuration restored otherwise the restored course will retain the
-   layout it previously had or the default in the 'config.php' file as mentioned in the 'Installation'
+   you must say 'Yes' to have the layout configuration restored otherwise the restored course will retain the
+   layout it previously had or the default in the 'tcconfig.php' file as mentioned in the 'Installation'
    instructions above depending on the situation.
 3. Note: I believe that if you restore a Collapsed Topic's course on an installation that does not have the
          format then it will work and become the default course format.  However the layout data will not be
@@ -441,7 +442,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 
 26th April 2012 - Version 2.3.5 - CONTRIB-3529 - As suggested by Leonie Vos (http://moodle.org/user/profile.php?id=1435066).
    1. Added the ability to set the colour attributes of the toggle.
-   2. Added the ability to reset the layout and colour attributes back to the defaults as defined in the 'config.php' file.
+   2. Added the ability to reset the layout and colour attributes back to the defaults as defined in the 'tcconfig.php' file.
    3. Thank you to 'Nadav Kavalerchik' for pointing out on MDL-23320 how this can be done by modifying the colour picker code implemented by 'Iain Checkland' in his Quick Structure block 'https://github.com/drcheckers/moodle-block_quickstructure/tree/master/blocks/quickstructure', and to 'Matthew Cannings' on MDL-23320 for the colour validation rule.
    4. Moved JavaScript code into its own folder 'js' for neatness.
    5. Renamed 'format_topcoll_layout' table to 'format_topcoll_settings' so that it is a better representation of what it stores.  Restores from previous versions should work.  Raised MDL-32650 as cannot rename the comment for the renamed table in upgrading installations.
@@ -452,7 +453,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   10. Discovered a minor issue with hovering over the light bulb when in a week based structure and using AJAX that it describes 'topics' and not 'weeks', raised a point on MDL-31052 for this.  Not sure how to fix yet as it is in the initialisation code of 'section_classes.js' and overloading does not seem to work.
 
 1st May 2012 - Version 2.3.6 - CONTRIB-3624
-  1. Implemented code to facilitate the ability to confirm with the user that it is ok to place the cookie 'mdl_cf_topcoll' on their computer.  This fucntionality can be switched on / off through the changing of '$TCCFG->defaultcookieconsent' in the format's 'config.php'.  This functionality exists because I believe that the cookie is a 'Category 3' cookie in line with the forthcoming UK EU Cookie Law - please see 'UK / EU Cookie Law' at the top of this file.
+  1. Implemented code to facilitate the ability to confirm with the user that it is ok to place the cookie 'mdl_cf_topcoll' on their computer.  This functionality can be switched on / off through the changing of '$TCCFG->defaultcookieconsent' in the format's 'config.php'.  This functionality exists because I believe that the cookie is a 'Category 3' cookie in line with the forthcoming UK EU Cookie Law - please see 'UK / EU Cookie Law' at the top of this file.
   2. Fixed - Changing the language on the 'Settings' form produces an invalid Moodle URL.
   3. Fixed - Toggles are open and sections displayed when JavaScript is turned off in the user's browser.
   4. A few fixes to changes made in version 2.2.5 where I had renamed table 'format_topcoll_layout' to 'format_topcoll_settings' in the code.
@@ -601,6 +602,19 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
       therefore any CT specific 'right' implementation would not work for all themes.
   2.  Tweaked CSS for 'Anomaly', 'Afterburner', 'MyMobile' and 'Rocket' themes.
 
+
+5th January 2013 - Version 2.3.9.4
+  1.  Fixed missing date text in week / day based structures that were in 2.2 versions and below.  Thanks
+      to Michael Turico for informing me of this.
+  2.  Moved edit section icon to the right of the toggle in line with 2.4 version.
+  3.  Changed format.js to have better results when moving sections - I hope.
+  4.  Fixed unexpected issue when the number of sections is '0'.  Thanks to 'Aylwin Cal' for reporting this.
+  5.  Decided that when a section had a name that the date should be after and not before.  Thereby being more aesthetically pleasing.
+  6.  Changes for CONTRIB-4018 so that the toggles are not click-able until after the page has loaded, thus
+      preventing JavaScript errors during page load.
+  7.  Added ability to turn on / off toggle persistence in the tcconfig.php file.
+  8.  If upgrading, please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -652,6 +666,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 9th November 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 5th January 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

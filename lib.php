@@ -72,38 +72,46 @@ function callback_topcoll_definition() {
  * @return string The section name.
  */
 function callback_topcoll_get_section_name($course, $section) {
-
+    global $tcsetting;
+    if (empty($tcsetting) == true) {
+        $tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
+    }
+    $o = '';
     // We can't add a node without any text
     if ((string) $section->name !== '') {
-        return format_string($section->name, true, array('context' => context_course::instance($course->id)));
+        $o .= format_string($section->name, true, array('context' => context_course::instance($course->id)));
     } else if ($section->section == 0) {
-        return get_string('section0name', 'format_topcoll');
+        $o .= get_string('section0name', 'format_topcoll');
     } else {
         global $tcsetting;
         if (empty($tcsetting) == true) {
             $tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
         }
         if (($tcsetting->layoutstructure == 1) || ($tcsetting->layoutstructure == 4)) {
-            return get_string('sectionname', 'format_topcoll') . ' ' . $section->section;
+            $o .= get_string('sectionname', 'format_topcoll') . ' ' . $section->section;
         } else {
-            $dateformat = ' ' . get_string('strftimedateshort');
-            if ($tcsetting->layoutstructure == 5) {
-                $day = format_topcoll_get_section_day($section, $course);
-
-                $weekday = userdate($day, $dateformat);
-                return $weekday;
-            } else {
-                $dates = format_topcoll_get_section_dates($section, $course);
-
-                // We subtract 24 hours for display purposes.
-                $dates->end = ($dates->end - 86400);
-
-                $weekday = userdate($dates->start, $dateformat);
-                $endweekday = userdate($dates->end, $dateformat);
-                return $weekday . ' - ' . $endweekday;
-            }
+            $o .= tc_get_section_dates($section, $course, $tcsetting);
         }
     }
+    return $o;
+}
+
+function tc_get_section_dates($section, $course, $tcsetting) {
+    $dateformat = ' ' . get_string('strftimedateshort');
+    $o = '';
+    if ($tcsetting->layoutstructure == 5) {
+        $day = format_topcoll_get_section_day($section, $course);
+        $weekday = userdate($day, $dateformat);
+        $o = $weekday;
+    } else {
+        $dates = format_topcoll_get_section_dates($section, $course);
+        // We subtract 24 hours for display purposes.
+        $dates->end = ($dates->end - 86400);
+        $weekday = userdate($dates->start, $dateformat);
+        $endweekday = userdate($dates->end, $dateformat);
+        $o = $weekday . ' - ' . $endweekday;
+    }
+    return $o;
 }
 
 /**

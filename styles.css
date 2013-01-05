@@ -100,6 +100,10 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_c
     line-height: 1.3;
 }
 
+.course-content ul.ctopics li.section .right .tceditsection {
+    float: left;
+}
+
 .jumpmenu {
     text-align:center;
 }
@@ -121,8 +125,8 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_c
     text-align: left;
 }
 
-/* -- For when no name is entered */       
-.course-content ul.ctopics li.section .content .toggle a.cps_noname {
+/* -- Toggle text */       
+.course-content ul.ctopics li.section .content .toggle a {
     text-align: center;
 }  
 

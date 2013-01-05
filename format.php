@@ -78,7 +78,8 @@ if (!empty($displaysection)) {
     $PAGE->requires->js_init_call('M.format_topcoll.init', array($CFG->wwwroot,
         $course->id,
         get_user_preferences('topcoll_toggle_' . $course->id),
-        $course->numsections));
+        $course->numsections,
+        $TCCFG->togglepersistence));
 
     global $tcsetting;
     if (empty($tcsetting) == true) {

@@ -84,7 +84,7 @@ M.course.format.swap_sections = function(Y, node1, node2) {
  */
 M.course.format.process_sections = function(Y, sectionlist, response, sectionfrom, sectionto) {
     var CSS = {
-        SECTIONNAME : 'sectionname'
+        SECTIONNAME : 'the_toggle'
     };
     
     if (response.action == 'move') {

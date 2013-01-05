@@ -36,6 +36,7 @@ var courseid;
 var thewwwroot;  // For the toggle graphic.
 var numToggles = 0;
 var currentSection;
+var togglePersistence = 1; // Toggle persistence - 1 = on, 0 = off.
 //var ie = false;
 var mymobiletheme = false;
 var ourYUI;
@@ -52,14 +53,16 @@ M.format_topcoll = M.format_topcoll || {};
  * @param {Integer} thecourseid the id of the current course to allow for settings for each course.
  * @param {String} thetogglestate the current state of the toggles.
  * @param {Integer} noOfToggles The number of toggles.
+ * @param {Integer} theTogglePersistence Persistence on (1) or off (0).
  */
-M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate, noOfToggles) {
+M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate, noOfToggles, theTogglePersistence) {
     // Init.
     ourYUI = Y;
     thewwwroot = wwwroot;
     courseid = thecourseid;
     toggleState = thetogglestate;
     numToggles = noOfToggles;
+    togglePersistence = theTogglePersistence;
 
     if (toggleState != null)
     {
@@ -74,7 +77,49 @@ M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate, noOfTo
     if (document.getElementById("mymobile")) {
         mymobiletheme = true;
     }
+    
+    // Info on http://yuilibrary.com/yui/docs/event/
+    // Event handlers for the toggles.
+    for (var theToggle = 1; theToggle <= numToggles; theToggle++)
+    {
+        //var toggler = document.getElementById("toggle-" + theToggle).firstChild;
+        var toggler = document.getElementById("toggle-" + theToggle); // Need the DOM element not the YUI one for manipulation purposes.
+        //var toggler = Y.one("#toggle-" + theToggle);
+        if (toggler != null)
+        {
+            var instance = new CollapsedTopicsToggler(toggler,theToggle);
+            //console.info('ToggleEV num:'+theToggle);
+            Y.one("#toggle-" + theToggle).on('click', instance.handleClick, instance);
+        }
+    }
+    
+    // Event handlers for all opened / closed.
+    Y.one("#toggles-all-opened").on('click',function(e){
+        e.preventDefault();
+        all_opened();
+    });
+    Y.one("#toggles-all-closed").on('click',function(e){
+        e.preventDefault();
+        all_closed();
+    });    
 }
+
+// Info on http://pivotallabs.com/users/pjaros/blog/articles/1368-javascript-constructors-prototypes-and-the-new-keyword
+var CollapsedTopicsToggler = function CollapsedTopicsToggler(toggler,toggleNum)
+{
+    this.toggler = toggler;
+    this.toggleNum = toggleNum;
+};
+
+// Info on http://yuilibrary.com/yui/docs/event/
+CollapsedTopicsToggler.prototype = {
+    handleClick: function (e) {
+        e.preventDefault();
+        //console.info('handleClick toggler:'+this.toggler);
+        //console.info('handleClick num:'+this.toggleNum);
+        toggle_topic(this.toggler,this.toggleNum);
+    }
+};
 
 // Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the most significant bit and represents the non-toggling topic 0.
 // Args - toggleNum is an integer and toggleVal is a string which will either be "1" or "0"
@@ -147,13 +192,13 @@ function toggleexacttopic(target,image,toggleNum,reloading,savetoggles)  // Togg
 // Args - toggler the tag that initiated the call, toggleNum the number of the toggle for which toggler is a part of - see format.php.
 function toggle_topic(toggler,toggleNum)
 {
-    if(document.getElementById)
-    {
-        imageSwitch = toggler;
-        targetElement = toggler.parentNode.nextSibling; // Called from <a> in a <div> so find the next <div>.
+    //console.info('Toggle num:'+toggleNum);
+    //imageSwitch = toggler;
+    imageSwitch = toggler.firstChild; // The image is on the <a> so now that 'toggler' is the <div> container, we need to get it.
+    //targetElement = toggler.parentNode.nextSibling; // Called from <a> in a <div> so find the next <div>.
+    targetElement = toggler.nextSibling; // Event hander on the <div> containing the <a> so find the next <div>.
 
-        toggleexacttopic(targetElement,imageSwitch,toggleNum,false,true);
-    }
+    toggleexacttopic(targetElement,imageSwitch,toggleNum,false,true);
 }
 
 // Current maximum number of topics is 52, but as the converstion utilises integers which are 32 bit signed, this must be broken into two string segments for the
@@ -213,7 +258,10 @@ function to36baseString(two)
 // Args - value is the base 36 state of the toggles.
 function savetogglestate(value)
 {
-    M.util.set_user_preference('topcoll_toggle_'+courseid , value);
+    if (togglePersistence == 1) // Toggle persistence - 1 = on, 0 = off.
+    {
+        M.util.set_user_preference('topcoll_toggle_'+courseid , value);
+    }
 }
 
 // Save the toggles - called from togglebinary and allToggle.
