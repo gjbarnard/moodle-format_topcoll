@@ -732,6 +732,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 3rd January 2013 - Version 2.4.1.4
   1.  Fixed unexpected issue when the number of sections is '0'.  Thanks to 'Aylwin Cal' for reporting this.
 
+5th January 2013 - Version 2.4.1.5
+  1.  In applying versions 2.4.1.2 and 2.4.1.4 to the Moodle 2.3 version I considered that when a section had
+      a name that the date should be after and not before.  Thereby being more aesthetically pleasing.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.

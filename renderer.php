@@ -260,14 +260,14 @@ class format_topcoll_renderer extends format_section_renderer_base {
             //$o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
             $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#'));
 
+            $o .= $title;
             $tcsettings = $this->courseformat->get_settings();
             if ((string) $section->name !== '') {
                 if (($tcsettings['layoutstructure'] == 2) || ($tcsettings['layoutstructure'] == 3) || ($tcsettings['layoutstructure'] == 5)) {
-                    $o .= $this->courseformat->get_section_dates($section, $course, $tcsettings);
                     $o .= ' <br />';
+                    $o .= $this->courseformat->get_section_dates($section, $course, $tcsettings);
                 }
             }
-            $o .= $title;
             // Add in the word toggle when we are displaying them for one section per page layout, see 'get_section_name()' in 'lib.php' for more information.
             if ($course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                 switch ($tcsettings['layoutelement']) {
@@ -512,11 +512,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
 
         if ($course->numsections > 0) {
-            if ($PAGE->user_is_editing() || $course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
-                // Collapsed Topics all toggles.
-                echo $this->toggle_all();
+            if ($course->numsections > 1) {
+                if ($PAGE->user_is_editing() || $course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
+                    // Collapsed Topics all toggles.
+                    echo $this->toggle_all();
+                }
             }
-
             $currentsectionfirst = false;
             if ($tcsettings['layoutstructure'] == 4) {
                 $currentsectionfirst = true;
