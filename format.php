@@ -61,11 +61,6 @@ if (($marker >= 0) && has_capability('moodle/course:setcurrentsection', $context
     course_set_marker($course->id, $marker);
 }
 
-$tcscreenreader = false;
-if ($USER->screenreader == 1) {
-    $tcscreenreader = true; // CONTRIB-3225 - If screenreader default back to a non-toggle based topics type format.
-}
-
 $renderer = $PAGE->get_renderer('format_topcoll');
 
 if (!empty($displaysection)) {

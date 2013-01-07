@@ -615,6 +615,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   7.  Added ability to turn on / off toggle persistence in the tcconfig.php file.
   8.  If upgrading, please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
 
+7th January 2013 - Version 2.3.9.5
+  1.  Fixed layout issue in renderer.php when user screen reader setting is enabled.  Thanks to Garry Edmonds for
+      reporting this.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -666,6 +670,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 5th January 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 7th January 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

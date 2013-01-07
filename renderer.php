@@ -196,7 +196,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
      */
     protected function section_header($section, $course, $onsectionpage, $sectionreturn = null) {
         $o = '';
-        global $PAGE, $tcsetting;
+        global $PAGE, $USER, $tcsetting;
 
         if (empty($tcsetting) == true) {
             $tcsetting = get_topcoll_setting($course->id); // CONTRIB-3378
@@ -241,9 +241,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side' . $rightcurrent));
         $o .= html_writer::start_tag('div', array('class' => 'content'));
 
-
-        global $tcscreenreader;
-        if (($onsectionpage == false) && ($tcscreenreader == false) && ($section->section != 0)) {
+        if (($onsectionpage == false) && ($USER->screenreader != 1) && ($section->section != 0)) {
             $o .= html_writer::start_tag('div', array('class' => 'sectionhead toggle', 'id' => 'toggle-' . $section->section));
 
             $title = get_section_name($course, $section);
@@ -325,8 +323,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @return string HTML to output.
      */
     protected function section_footer() {
-        $o = html_writer::end_tag('div');
-        $o .= html_writer::end_tag('li');
+        $o = html_writer::end_tag('li');
 
         return $o;
     }
@@ -483,7 +480,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @param array $modnamesused used for print_section()
      */
     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
-        global $PAGE;
+        global $PAGE, $USER;
         global $tcsetting;
 
         $this->mymobiletheme = ($PAGE->theme->name == 'mymobile');  // Not brilliant, but will work!
@@ -602,6 +599,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $DB->update_record('format_topcoll_settings', $tcsetting);
             }
             echo $this->end_section_list();
+
+            if ($USER->screenreader == 1) {
+                // Screen readers have a single column regardless.
+                $this->tccolumnwidth = 100;
+                $tcsetting->layoutcolumns = 1;
+            }
+
             echo $this->start_toggle_section_list();
 
             $loopsection = 1;
@@ -686,6 +690,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
                             }
                         }
                         echo html_writer::end_tag('div');
+                        if ($USER->screenreader != 1) {
+                            echo html_writer::end_tag('div');
+                        }
                         echo $this->section_footer();
                     }
                 }
@@ -838,9 +845,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @return string HTML to output.
      */
     public function toggle_all() {
-        global $tcscreenreader;
+        global $USER;
         $o = '';
-        if ($tcscreenreader == false) { // No need to show if in screen reader mode.
+        if ($USER->screenreader != 1) { // No need to show if in screen reader mode.
             $toggletext = get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
             // Toggle all.
 
