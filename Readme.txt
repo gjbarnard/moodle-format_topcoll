@@ -619,6 +619,11 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1.  Fixed layout issue in renderer.php when user screen reader setting is enabled.  Thanks to Garry Edmonds for
       reporting this.
 
+9th January 2013 - Version 2.3.9.6
+  1.  Fixed slight logic issue in renderer.php to have section names always show regardless of section number in both
+      many sections per page and one section per page modes when using a screen reader.  Thanks to Michele Turre for
+      reporting this.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -670,6 +675,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 7th January 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 9th January 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

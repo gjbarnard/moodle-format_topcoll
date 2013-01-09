@@ -295,8 +295,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             $o .= $this->section_availability_message($section);
         } else {
-            // When on a section page, we only display the general section title, if title is not the default one
-            $hasnamesecpg = ($section->section == 0 && (string) $section->name !== '');
+            // When on a section page, we only display the general section title, if title is not the default one or the user is using a screen reader.
+            $hasnamesecpg = (($section->section == 0 && (string) $section->name !== '') || ($USER->screenreader == 1));
 
             if ($hasnamesecpg) {
                 $o .= $this->output->heading($this->section_title($section, $course), 3, 'sectionname');
