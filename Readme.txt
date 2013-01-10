@@ -15,7 +15,7 @@ New features for this Moodle 2.4 version
  1. Settings moved to the 'Edit course settings' form.  However, the reset functionality cannot be implemented
     in this way yet (request for additional core functionality on MDL-35218), so the old 'settings' form has been
     transformed into a 'reset' form now found at the bottom of the course when editing.
- 2. Ability to turn off persistence by changing the default '$TCCFG->togglepersistence' in 'tcconfig.php'.
+ 2. Ability to turn off persistence by changing the default 'togglepersistence' in 'tcconfig.php'.
 
 Installation
 ------------
@@ -27,18 +27,16 @@ Installation
  5. Put Moodle in 'Maintenance Mode' (docs.moodle.org/en/admin/setting/maintenancemode) so that there are no 
     users using it bar you as the administrator - if you have not already done so.
  6. Copy 'topcoll' to '/course/format/' if you have not already done so.
- 7. If using a Unix based system, chmod 755 on config.php and tcconfig.php - I have not tested this but have been told that it
-    needs to be done.
- 8. In 'tcconfig.php' change the values of '$TCCFG->defaultlayoutelement', '$TCCFG->defaultlayoutstructure' and
-    '$TCCFG->defaultlayoutcolumns' for setting the default layout, structure and columns respectively for
+ 7. In 'tcconfig.php' change the values of 'defaultlayoutelement', 'defaultlayoutstructure' and
+    'defaultlayoutcolumns' for setting the default layout, structure and columns respectively for
     new / updating courses as desired by following the instructions contained within.
- 9. In 'tcconfig.php' change the values of '$TCCFG->defaulttgfgcolour', '$TCCFG->defaulttgbgcolour' and
-    '$TCCFG->defaulttgbghvrcolour' for setting the default toggle colours.
-10. In 'tcconfig.php' turn off toggle persistence if desired by changing '$TCCFG->togglepersistence' as indicated in the file.
-11. Login as an administrator and follow standard the 'plugin' update notification.  If needed, go to
+ 8. In 'tcconfig.php' change the values of 'defaulttgfgcolour', 'defaulttgbgcolour' and
+    'defaulttgbghvrcolour' for setting the default toggle colours.
+ 9. In 'tcconfig.php' turn off toggle persistence if desired by changing 'togglepersistence' as indicated in the file.
+10. Login as an administrator and follow standard the 'plugin' update notification.  If needed, go to
     'Site administration' -> 'Notifications' if this does not happen.
-12.  If desired, edit the colours of the 'styles.css' - which contains instructions on how to have per theme colours.
-13.  To change the arrow graphic you need to replace 'arrow_up.png' and 'arrow_down.png' in the 'pix' folder.  Or override the
+11.  If desired, edit the colours of the 'styles.css' - which contains instructions on how to have per theme colours.
+12.  To change the arrow graphic you need to replace 'arrow_up.png' and 'arrow_down.png' in the 'pix' folder.  Or override the
      css by using the selectors for the various images, override the 'background' attribute:
 
      body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_open
@@ -52,7 +50,7 @@ Installation
      #tc-set-settings - For the 'reset' form image.
 
      If in doubt, please consult 'styles.css' in the format.
-14.  Put Moodle out of Maintenance Mode.
+13.  Put Moodle out of Maintenance Mode.
 
 Upgrade Instructions
 --------------------
@@ -736,6 +734,12 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1.  In applying versions 2.4.1.2 and 2.4.1.4 to the Moodle 2.3 version I considered that when a section had
       a name that the date should be after and not before.  Thereby being more aesthetically pleasing.
 
+10th January 2013 - Version 2.4.1.6 - Improvements inspired by CONTRIB-4098 - Thanks to Michele Turre and Rick Jerz.
+  1.  Changed the direction of the up arrow in line with the navigation block.
+  2.  Refactored the global constant structure in tcconfig.php to be a class with constants, thus removing the 'globalness'.
+  3.  Added ability to determine the alignment of the toggle text, left, centre or right.
+  4.  If upgrading, please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -792,6 +796,6 @@ Desired Enhancements
 2. Toggle saving only when the user closes the window / moves to another course.
 3. This file in WikiMedia format so that it has an automatic contents menu on GitHub.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 3rd January 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 10th January 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

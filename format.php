@@ -81,10 +81,9 @@ if (!empty($displaysection)) {
         $course->id,
         get_user_preferences('topcoll_toggle_' . $course->id),
         $course->numsections,
-        $TCCFG->togglepersistence));
+        CollapsedTopicsDefaults::togglepersistence));
 
     $tcsettings = $courseformat->get_settings();
-
     ?>
     <style type="text/css" media="screen">
         /* <![CDATA[ */
@@ -97,6 +96,19 @@ if (!empty($displaysection)) {
         /* -- Toggle text -- */
         .course-content ul.ctopics li.section .content .toggle a {
             color: #<?php echo $tcsettings['toggleforegroundcolour']; ?>;
+            text-align: <?php
+    switch ($tcsettings['togglealignment']) {
+        case 1:
+            echo 'left';
+            break;
+        case 3:
+            echo 'right';
+            break;
+        default:
+            echo 'center';
+    }
+    ?>;
+        }
         }
 
         /* -- What happens when a toggle is hovered over -- */
@@ -115,11 +127,11 @@ if (!empty($displaysection)) {
         }
 
         .course-content ul.ctopics li.section.main .side, .course-content ul.ctopics li.tcsection .side {
-    <?php
-    if (!$PAGE->user_is_editing()) {
-        echo 'width: ' . get_string('topcollsidewidth', 'format_topcoll');
-    }
-    ?>;
+            <?php
+            if (!$PAGE->user_is_editing()) {
+                echo 'width: ' . get_string('topcollsidewidth', 'format_topcoll');
+            }
+            ?>;
         }
 
         /* ]]> */

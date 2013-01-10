@@ -743,30 +743,29 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @return string HTML to output.
      */
     public function toggle_all() {
-        global $tcscreenreader;
         $o = '';
-        if ($tcscreenreader == false) { // No need to show if in screen reader mode.
-            // Toggle all.
-            $o .= html_writer::start_tag('li', array('class' => 'tcsection main clearfix', 'id' => 'toggle-all'));
 
-            if ($this->mymobiletheme == false) {
-                $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
-            }
-            $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
+        // Toggle all.
+        $o .= html_writer::start_tag('li', array('class' => 'tcsection main clearfix', 'id' => 'toggle-all'));
 
-            $o .= html_writer::start_tag('div', array('class' => 'content'));
-            $o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
-            $o .= html_writer::start_tag('h4', null);
-            //$o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'onclick' => 'all_opened(); return false;'));
-            //$o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'onclick' => 'all_closed(); return false;'));
-            $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'id' => 'toggles-all-opened'));
-            $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'id' => 'toggles-all-closed'));
-            $o .= html_writer::tag('span', get_string('topcollall', 'format_topcoll'), null);
-            $o .= html_writer::end_tag('h4');
-            $o .= html_writer::end_tag('div');
-            $o .= html_writer::end_tag('div');
-            $o .= html_writer::end_tag('li');
+        if ($this->mymobiletheme == false) {
+            $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
         }
+        $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
+
+        $o .= html_writer::start_tag('div', array('class' => 'content'));
+        $o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
+        $o .= html_writer::start_tag('h4', null);
+        //$o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'onclick' => 'all_opened(); return false;'));
+        //$o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'onclick' => 'all_closed(); return false;'));
+        $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'id' => 'toggles-all-opened'));
+        $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'id' => 'toggles-all-closed'));
+        $o .= html_writer::tag('span', get_string('topcollall', 'format_topcoll'), null);
+        $o .= html_writer::end_tag('h4');
+        $o .= html_writer::end_tag('div');
+        $o .= html_writer::end_tag('div');
+        $o .= html_writer::end_tag('li');
+
         return $o;
     }
 

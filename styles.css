@@ -46,24 +46,23 @@
     padding: 0px 0px 5px 0px;
 }
 
-
 /* -- Set the clickable element of the Toggle -- */
 .course-content ul.ctopics li.section .content .toggle a {
     display: block;
     width: auto;
-    padding: 7px 0 7px 35px; /* The 35px allows the arrow to be on the left and the text next to it. */
+    padding: 7px 7px 7px 35px; /* The 35px allows the arrow to be on the left and the text next to it. */
 }
 
 .course-content ul.ctopics li.section .content .toggle a.toggle_closed {
-    background: transparent url([[pix:format_topcoll|arrow_up]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+    background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_open {
-    background: transparent url([[pix:format_topcoll|arrow_up]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+    background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_closed {
-    background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
+    background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
 }
 
 #mymobile .course-content ul.ctopics li.tcsection .content, #mymobile .course-content ul.ctopics li.section.main .content{
@@ -130,11 +129,6 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_c
     text-align: left;
 }
 
-/* -- Toggle text -- */       
-.course-content ul.ctopics li.section .content .toggle a {
-    text-align: center;
-}  
-
 /* -- For centring the 'Topic / Week / Day x' text -- */       
 .course-content ul.ctopics li.section .right span.cps_centre {
     text-align: center;
@@ -192,5 +186,5 @@ body.jsenabled .toggledsection {
 }
 
 #toggle-all .content .sectionbody h4 a.off {
-    background: transparent url([[pix:format_topcoll|arrow_up]]) no-repeat 0px 45%; 
+    background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 0px 45%; 
 }

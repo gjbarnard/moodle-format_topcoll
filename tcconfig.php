@@ -29,17 +29,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-unset($TCCFG);
-global $TCCFG, $CFG;
-$TCCFG = new stdClass();
 
-require_once($CFG->dirroot . '/lib/moodlelib.php'); // For the course display constants.
-
+// Need PHP 5.3+ for this syntax.
+class CollapsedTopicsDefaults {
 // Course display default, can be either one of:
 // COURSE_DISPLAY_SINGLEPAGE or - All sections on one page.
 // COURSE_DISPLAY_MULTIPAGE     - One section per page.
 // as defined in moodlelib.php.
-$TCCFG->defaultcoursedisplay = COURSE_DISPLAY_SINGLEPAGE;
+
+    const defaultcoursedisplay = COURSE_DISPLAY_SINGLEPAGE;
 
 // Layout configuration.
 // Here you can see what numbers in the array represent what layout for setting the default value below.
@@ -51,7 +49,7 @@ $TCCFG->defaultcoursedisplay = COURSE_DISPLAY_SINGLEPAGE;
 // 6 => No 'Toggle' word and no 'Topic x' / 'Week x' / 'Day x'.
 // 7 => No 'Toggle' word, no 'Topic x' / 'Week x' / 'Day x' and no section number.
 // Default layout to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
-$TCCFG->defaultlayoutelement = 1;
+    const defaultlayoutelement = 1;
 
 // Structure configuration.
 // Here so you can see what numbers in the array represent what structure for setting the default value below.
@@ -61,24 +59,30 @@ $TCCFG->defaultlayoutelement = 1;
 // 4 => Current Topic First
 // 5 => Day
 // Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
-$TCCFG->defaultlayoutstructure = 1;
+    const defaultlayoutstructure = 1;
 
 // Default number of columns between 1 and 4.
-$TCCFG->defaultlayoutcolumns = 1;
+    const defaultlayoutcolumns = 1;
 
 // Toggle colours per course - CONTRIB-3529.
 // Default toggle foreground colour in hexidecimal RGB without preceeding '#'.
-$TCCFG->defaulttgfgcolour = '000000';
+    const defaulttgfgcolour = '000000';
 
 // Default toggle background colour in hexidecimal RGB without preceeding '#'.
-$TCCFG->defaulttgbgcolour = 'e2e2f2';
+    const defaulttgbgcolour = 'e2e2f2';
 
 // Default toggle background hover colour in hexidecimal RGB without preceeding '#'.
-$TCCFG->defaulttgbghvrcolour = 'eeeeff';
+    const defaulttgbghvrcolour = 'eeeeff';
 
 // Toggle persistence - 1 = on, 0 = off.  You may wish to disable for an AJAX performance increase.
 // Note: If turning persistence off remove any rows containing 'topcoll_toggle_x' in the 'name' field
 //       of the 'user_preferences' table in the database.  Where the 'x' in 'topcoll_toggle_x' will be
 //       a course id.
-$TCCFG->togglepersistence = 1;
+    const togglepersistence = 1;
+
+    // Toggle text alignment.
+    // 1 = left, 2 = center and 3 = right - done this way to avoid typos.
+    const defaulttogglealignment = 2;
+}
+
 ?>

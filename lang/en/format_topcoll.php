@@ -129,4 +129,16 @@ $string['setlayoutcolumns_help'] = 'How many columns to use.';
 $string['numbersections'] = 'Number of sections';
 $string['ctreset'] = 'Collapsed Topics reset options';
 $string['ctreset_help'] = 'Reset to Collapsed Topics defaults that are in the tcconfig.php file.';
+
+// Toggle alignment - CONTRIB-4098
+$string['settogglealignment'] = 'Set the toggle text alignment';
+$string['settogglealignment_help'] = 'Sets the alignment of the text in the toggle.';
+$string['left'] = 'Left';
+$string['center'] = 'Centre';
+$string['right'] = 'Right';
+$string['resettogglealignment'] = 'Reset toggle alignment';
+$string['resetalltogglealignment'] = 'Reset toggle alignments for all Collapsed Topics courses';
+$string['resettogglealignment_help'] = 'Resets the toggle alignment to the default values in "/course/format/topcoll/tcconfig.php" so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resetalltogglealignment_help'] = 'Resets the toggle alignment to the default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
+
 ?>
