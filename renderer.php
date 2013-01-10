@@ -209,8 +209,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if (!$section->visible) {
                 $sectionstyle = ' hidden';
             } else if (course_get_format($course)->is_section_current($section)) {
-                //global $thecurrentsection;
-                //$thecurrentsection = $section->section;
                 $section->toggle = '1'; // Open current section regardless of toggle state.
                 $sectionstyle = ' current';
                 $rightcurrent = ' left';

@@ -738,7 +738,9 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1.  Changed the direction of the up arrow in line with the navigation block.
   2.  Refactored the global constant structure in tcconfig.php to be a class with constants, thus removing the 'globalness'.
   3.  Added ability to determine the alignment of the toggle text, left, centre or right.
-  4.  If upgrading, please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
+  4.  Fixed version year which was still stuck at 2012 - please ensure you use this version when upgrading rather than
+      a previous 2013 release.
+  5.  If upgrading, please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
 
 Thanks
 ------
