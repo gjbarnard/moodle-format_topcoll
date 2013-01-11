@@ -2,6 +2,8 @@ Introduction
 ------------
 Topic based course format with an individual 'toggle' for each topic except 0.
 
+If you find an issue with the format, please see the 'Reporting Issues' section below.
+
 This version is the Moodle 2.4 branch.
 
 Required version of Moodle
@@ -166,6 +168,28 @@ Known Issues
     why this is happening as the 'user_preference_allow_ajax_update' call in 'format.php' should establish that the user
     preference can be set.  Could be a page cache thing as the 'init' code is getting the course id unlike an issue I'm
     currently experiencing with the MyMobile theme - MDL-33115.  The work around is to refresh the page.
+
+Reporting Issues
+----------------
+Before reporting an issue, please ensure that you are running the latest version for your release of Moodle.  The primary
+release area is located on https://moodle.org/plugins/view.php?plugin=format_topcoll.  It is also essential that you are
+operating the required version of Moodle as stated at the top - this is because the format relies on core functionality that
+is out of its control.
+
+All Collapsed Topics does is integrate with the course page and control it's layout, therefore what may appear to be an issue
+with the format is in fact to do with a theme or core component.  Please be confident that it is an issue with Collapsed Topics
+but if in doubt, ask.
+
+I operate a policy that I will fix all genuine issues for free.  Improvements are at my discretion.  I am happy to make bespoke
+customisations / improvements for a negotiated fee. 
+
+When reporting an issue you can post in the course format's forum on Moodle.org (currently 'moodle.org/mod/forum/view.php?id=47'), 
+on Moodle tracker 'tracker.moodle.org' ensuring that you chose the 'Non-core contributed modules' and 'Course Format: Topcoll'
+for the component or contact me direct (details at the bottom).
+
+It is essential that you provide as much information as possible, the critical information being the contents of the format's 
+version.php file.  Other version information such as specific Moodle version, theme name and version also helps.  A screen shot
+can be really useful in visualising the issue along with any files you consider to be relevant.
 
 Version Information
 -------------------
@@ -742,6 +766,11 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
       a previous 2013 release.
   5.  If upgrading, please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
 
+11th January 2013 - Version 2.4.1.7 - Further improvements inspired by CONTRIB-4098.
+  1.  Changed 'Latest Week' to 'Current Week' to be less confusing.
+  2.  Added 'Reporting Issues' to this file.
+  3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -798,6 +827,6 @@ Desired Enhancements
 2. Toggle saving only when the user closes the window / moves to another course.
 3. This file in WikiMedia format so that it has an automatic contents menu on GitHub.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 10th January 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 11th January 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
