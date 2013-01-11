@@ -56,6 +56,7 @@ $string['page-course-view-topcoll-x'] = 'Any course page in collapsed topics for
 
 // Layout enhancement - Moodle Tracker CONTRIB-3378
 $string['formatsettings'] = 'Ye format settings'; // CONTRIB-3529
+$string['formatsettingsinformation'] = 'Ye edit Collapsed Topics settings';
 $string['setlayout'] = 'Set thee layout';
 $string['setlayout_default'] = 'Default';
 $string['setlayout_no_toggle_section_x'] = 'No toggle section x';
@@ -69,7 +70,7 @@ $string['setlayoutstructure'] = 'Set thee structure';
 $string['setlayoutstructuretopic']='Treasure Chest';
 $string['setlayoutstructureweek']='Sailing Week';
 $string['setlayoutstructureday'] = 'Sailing Day';
-$string['setlayoutstructurelatweekfirst']='Latest Sailing Week First';
+$string['setlayoutstructurelatweekfirst']='Current Sailing Week First';
 $string['setlayoutstructurecurrenttopicfirst']='Current Treasure Chest First';
 $string['resetlayout'] = 'Reset thee layout'; //CONTRIB-3529
 $string['resetalllayout'] = 'Reset thee layouts for all thy Collapsed Topics courses';
@@ -97,13 +98,13 @@ $string['maincoursepage'] = 'Ye main course page';
 $string['setlayoutelements_help']='How much information about thee toggles / sections you wish to be displayed.';
 $string['setlayoutstructure_help']="Avast ye landlubbers, this be thee layout structure of thee course.  Ye choose between:
 
-'Topics' - where each section is presented as thy topic in section number order.
+'Treasure Chest' - where each section is presented as thy treasure chest in section number order.
 
-'Weeks' - where each section is presented as thy week in ascending week order.
+'Sailing Week' - where each section is presented as thy sailing week in ascending week order.
 
-'Latest Week First' - which is the same as weeks but thee current week is shown at thee top and preceding weeks in decending order are displayed below except in editing mode where thee structure is thy same as 'Weeks'.
+'Current Sailing Week First' - which is the same as weeks but thee current week is shown at thee top and preceding weeks in decending order are displayed below except in editing mode where thee structure is thy same as 'Weeks'.
 
-'Current Topic First' - which is thee same as 'Topics' except that thee current topic is shown at thee top if it has been set.
+'Current Treasure Chest First' - which is thee same as 'Treasure Chest' except that thee current treasure chest is shown at thee top if it has been set.
 
 'Day' - where each section is presented as a day in thy ascending day order from thee start date of thee course.";
 $string['setlayout_help'] = 'Contains thee settings to do with thee layout of the format within thy course.';

@@ -55,15 +55,15 @@
 }
 
 .course-content ul.ctopics li.section .content .toggle a.toggle_closed {
-    background: transparent url([[pix:format_topcoll|arrow_up]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+    background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_open {
-    background: transparent url([[pix:format_topcoll|arrow_up]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+    background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_closed {
-    background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
+    background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
 }
 
 #mymobile .course-content ul.ctopics li.tcsection .content, #mymobile .course-content ul.ctopics li.section.main .content{
@@ -165,44 +165,46 @@ body.jsenabled .toggledsection {
 }
 
 /* Toggle all */
-#toggle-all .content .sectionbody h4 {
-    display: block;
+#toggle-all-and-settings .content .sectionbody h4 {
+    display: inline;
     padding: 6px;
     margin-bottom: 0em;
 }
 
-#toggle-all .content .sectionbody h4 a {
+#toggle-all-and-settings .content .sectionbody h4 a {
     padding: 7px 7px 7px 30px; /* The 30px allows the arrow to be on the left and the text next to it. */
     text-align: left;
     width: 35px;
     text-decoration: none;
 }
 
-#toggle-all {
-  background: none repeat scroll 0 0 transparent;
+#toggle-all-and-settings {
+    background: none repeat scroll 0 0 transparent;
 }
 
-#toggle-all .content .sectionbody h4 a.on {
+body.ie7 #toggle-all-and-settings {
+    display: inline-block; /* Not perfect but works. */
+}
+
+#toggle-all-and-settings .content .sectionbody h4 a.on {
     background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 0px 45%; 
 }
 
-#toggle-all .content .sectionbody h4 a.off {
-    background: transparent url([[pix:format_topcoll|arrow_up]]) no-repeat 0px 45%; 
+#toggle-all-and-settings .content .sectionbody h4 a.off {
+    background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 0px 45%; 
 }
 
-/* Settings */
-div.tcsettingscontainer {
-  width:100%;
-  float:left;
-  display: block;
+body.ie7 #toggle-all-and-settings .content .sectionbody h4 a.on {
+    background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 0px 5px;     
 }
 
+body.ie7 #toggle-all-and-settings .content .sectionbody h4 a.off {
+    background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 0px 5px; 
+}
 /* Set settings */
 #tc-set-settings {
-    background: transparent url([[pix:format_topcoll|tc_logo_spanner]]) no-repeat 0px 0px; 
-    width: 96px;
-    height: 75px;
-    float: right;
-    margin: 4px;
-    vertical-align: text-top;
+    text-align: right;
+    display: inline;
+    float: right;  
+    vertical-align: top;
 }

@@ -60,6 +60,7 @@ $string['showfromothers'] = 'Show section';
 
 // Layout enhancement - Moodle Tracker CONTRIB-3378
 $string['formatsettings'] = 'Format settings'; // CONTRIB-3529
+$string['formatsettingsinformation'] = 'Edit Collapsed Topics settings';
 $string['setlayout'] = 'Set layout';
 $string['setlayout_default'] = 'Default';
 $string['setlayout_no_toggle_section_x'] = 'No toggle section x';
@@ -72,7 +73,7 @@ $string['setlayoutelements'] = 'Set elements';
 $string['setlayoutstructure'] = 'Set structure';
 $string['setlayoutstructuretopic'] = 'Topic';
 $string['setlayoutstructureweek'] = 'Week';
-$string['setlayoutstructurelatweekfirst'] = 'Latest Week First';
+$string['setlayoutstructurelatweekfirst'] = 'Current Week First';
 $string['setlayoutstructurecurrenttopicfirst'] = 'Current Topic First';
 $string['setlayoutstructureday'] = 'Day';
 $string['resetlayout'] = 'Reset layout'; //CONTRIB-3529
@@ -105,7 +106,7 @@ $string['setlayoutstructure_help'] = "The layout structure of the course.  You c
 
 'Weeks' - where each section is presented as a week in ascending week order from the start date of the course.
 
-'Latest Week First' - which is the same as weeks but the current week is shown at the top and preceding weeks in decending order are displayed below except in editing mode where the structure is the same as 'Weeks'.
+'Current Week First' - which is the same as weeks but the current week is shown at the top and preceding weeks in decending order are displayed below except in editing mode where the structure is the same as 'Weeks'.
 
 'Current Topic First' - which is the same as 'Topics' except that the current topic is shown at the top if it has been set.
 

@@ -500,9 +500,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $this->tccolumnwidth = 100; // Reset to default.
         echo $this->start_section_list();
 
-        // Collapsed Topics settings.
-        echo $this->settings($course);
-
         // General section if non-empty.
         $thissection = $sections[0];
         unset($sections[0]);
@@ -515,14 +512,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
             echo $this->section_footer();
         }
 
-        if ($course->numsections > 0) {
-            if ($course->numsections > 1) {
-                if ($PAGE->user_is_editing() || $course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
-                    // Collapsed Topics all toggles.
-                    echo $this->toggle_all();
-                }
-            }
+        // Collapsed Topics all toggles and settings.
+        echo $this->toggle_all_and_settings($course, $userisediting, $context);
 
+        if ($course->numsections > 0) {
             $currentsectionfirst = false;
             if ($tcsetting->layoutstructure == 4) {
                 $currentsectionfirst = true;
@@ -810,65 +803,44 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
     // Collapsed Topics non-overridden additions.
     /**
-     * Displays the settings icon for the course if required.
+     * Displays the toggle all and settings fuctionality.
      * @param stdClass $course The course entry from DB
+     * @param boolean $userisediting States if the user is editing.
+     * @param stdClass $context The course context
      * @return string HTML to output.
      */
-    public function settings($course) {
-        global $PAGE;
-
+    private function toggle_all_and_settings($course, $userisediting, $context) {
+        global $USER, $OUTPUT;
         $o = '';
+        $o .= html_writer::start_tag('li', array('class' => 'tcsection main clearfix', 'id' => 'toggle-all-and-settings'));
 
-        $coursecontext = context_course::instance($course->id);
-        if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $coursecontext)) {
-            $o .= html_writer::start_tag('li', array('class' => 'tcsection main clearfix'));
-
-            $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
-
-            $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
-
-            $o .= html_writer::start_tag('div', array('class' => 'content'));
-            $o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
-            $o .= html_writer::start_tag('div', array('class' => 'tcsettingscontainer'));
-            $o .= html_writer::tag('a', html_writer::tag('div', '', array('id' => 'tc-set-settings')), array('title' => get_string("settings"), 'href' => 'format/topcoll/forms/settings.php?id=' . $course->id . '&sesskey=' . sesskey()));
-            $o .= html_writer::tag('div', get_string('formatsettingsinformation', 'format_topcoll'));
-            $o .= html_writer::end_tag('div');
-            $o .= html_writer::end_tag('div');
-            $o .= html_writer::end_tag('div');
-            $o .= html_writer::end_tag('li');
+        if ($this->mymobiletheme == false) {
+            $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
         }
-        return $o;
-    }
+        $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
 
-    /**
-     * Displays the toggle all fuctionality.
-     * @return string HTML to output.
-     */
-    public function toggle_all() {
-        global $USER;
-        $o = '';
+        $o .= html_writer::start_tag('div', array('class' => 'content'));
+        $o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
         if ($USER->screenreader != 1) { // No need to show if in screen reader mode.
-            $toggletext = get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
-            // Toggle all.
-
-            $o .= html_writer::start_tag('li', array('class' => 'tcsection main clearfix', 'id' => 'toggle-all'));
-
-            if ($this->mymobiletheme == false) {
-                $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
+            if (($course->numsections > 1) && (($course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) || ($userisediting && has_capability('moodle/course:update', $context)))) {
+                // Toggle all.
+                $o .= html_writer::start_tag('h4', null);
+                $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'id' => 'toggles-all-opened'));
+                $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'id' => 'toggles-all-closed'));
+                $o .= html_writer::tag('span', get_string('topcollall', 'format_topcoll'), null);
+                $o .= html_writer::end_tag('h4');
             }
-            $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
-
-            $o .= html_writer::start_tag('div', array('class' => 'content'));
-            $o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
-            $o .= html_writer::start_tag('h4', null);
-            $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'id' => 'toggles-all-opened'));
-            $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'id' => 'toggles-all-closed'));
-            $o .= html_writer::tag('span', get_string('topcollall', 'format_topcoll'), null);
-            $o .= html_writer::end_tag('h4');
-            $o .= html_writer::end_tag('div');
-            $o .= html_writer::end_tag('div');
-            $o .= html_writer::end_tag('li');
         }
+
+        if ($userisediting && has_capability('moodle/course:update', $context)) {
+            $o .= html_writer::start_tag('p', array('id' => 'tc-set-settings'));
+            $o .= html_writer::tag('a', get_string('formatsettingsinformation', 'format_topcoll') . ' ' . html_writer::tag('img', null, array('src' => $OUTPUT->pix_url('a/setting'), 'class' => 'icon', 'alt' => get_string('formatsettings', 'format_topcoll'))), array('title' => get_string("settings"), 'href' => 'format/topcoll/forms/settings.php?id=' . $course->id . '&sesskey=' . sesskey()));
+            $o .= html_writer::end_tag('p');
+        }
+
+        $o .= html_writer::end_tag('div');
+        $o .= html_writer::end_tag('div');
+        $o .= html_writer::end_tag('li');
         return $o;
     }
 
