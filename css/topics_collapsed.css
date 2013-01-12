@@ -69,7 +69,10 @@ tr.cps td a {
   width: auto;
 }
 
-body.jsenabled tr.cps td a {
+body.jsenabled tr.cps td a.toggle_open {
+  background: transparent url(../images/arrow_up.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
+}
+body.jsenabled tr.cps td a.toggle_closed {
   background: transparent url(../images/arrow_down.png) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
 }
 

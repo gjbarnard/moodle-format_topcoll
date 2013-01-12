@@ -29,7 +29,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-$plugin->version = 2012053103;
+$plugin->version = 2012053104;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->requires = 2011120504.07; // 2.2.4+ (Build: 20120809)
 $plugin->component = 'format_topcoll';
