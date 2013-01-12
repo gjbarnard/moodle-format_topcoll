@@ -249,7 +249,7 @@ if (($setting->layoutstructure == 1) || ($setting->layoutstructure == 4)) {
 }
 
 $toggletext = "";
-if ($screenreader == false) { // No need to show if in screen reader mode.
+if (($screenreader == false) && ($course->numsections > 1)) { // No need to show if in screen reader mode or only one or less sections.
     $toggletext = get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
     if (empty($displaysection)) { // or showing only one section.
         // Toggle all.
