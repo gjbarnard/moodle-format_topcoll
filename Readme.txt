@@ -180,6 +180,9 @@ All Collapsed Topics does is integrate with the course page and control it's lay
 with the format is in fact to do with a theme or core component.  Please be confident that it is an issue with Collapsed Topics
 but if in doubt, ask.
 
+I operate a policy that I will fix all genuine issues for free.  Improvements are at my discretion.  I am happy to make bespoke
+customisations / improvements for a negotiated fee. 
+
 When reporting an issue you can post in the course format's forum on Moodle.org (currently 'moodle.org/mod/forum/view.php?id=47'), 
 on Moodle tracker 'tracker.moodle.org' ensuring that you chose the 'Non-core contributed modules' and 'Course Format: Topcoll'
 for the component or contact me direct (details at the bottom).
