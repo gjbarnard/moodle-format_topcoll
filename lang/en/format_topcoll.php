@@ -95,6 +95,9 @@ $string['one'] = 'One';
 $string['two'] = 'Two';
 $string['three'] = 'Three';
 $string['four'] = 'Four';
+$string['setlayoutcolumnorientation'] = 'Set column orientation';
+$string['columnvertical'] = 'Vertical';
+$string['columnhorizontal'] = 'Horizontal';
 
 // Temporary until MDL-34917 in core.
 $string['maincoursepage'] = 'Main course page';
@@ -124,6 +127,10 @@ $string['resetcolour_help'] = 'Resets the colours to the default values in "/cou
 $string['resetallcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 // Columns enhancement
 $string['setlayoutcolumns_help'] = 'How many columns to use.';
+$string['setlayoutcolumnorientation_help'] =
+'Vertical - Sections go top to bottom.
+
+Horizontal - Sections go left to right.';
 
 // Moodle 2.4 Course format refactoring - MDL-35218
 $string['numbersections'] = 'Number of sections';

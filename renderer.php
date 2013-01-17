@@ -40,6 +40,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
     private $tccolumnpadding = 0; /* Defailt padding in pixels of the column(s). */
     private $mymobiletheme = false; /* As not using the MyMobile theme we can react to the number of columns setting. */
     private $courseformat; // Our course format object as defined in lib.php;
+    private $tcsettings; // Settings for the format.
 
     /**
      * Generate the starting container html for a list of sections
@@ -55,7 +56,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @return string HTML to output.
      */
     protected function start_toggle_section_list() {
-        return html_writer::start_tag('ul', array('class' => 'ctopics topics', 'style' => 'width:' . $this->tccolumnwidth . '%; float:left; padding:' . $this->tccolumnpadding . 'px;'));
+        $attributes = array('class' => 'ctopics topics');
+        if ($this->tcsettings['layoutcolumnorientation'] == 1) {
+            $attributes['style'] = 'width:' . $this->tccolumnwidth . '%; float:left; padding:' . $this->tccolumnpadding . 'px;';  // Vertical columns.
+        } else {
+            $attributes['style'] = 'width:100%; float:left; padding:' . $this->tccolumnpadding . 'px;';  // Horizontal columns.
+        }
+        return html_writer::start_tag('ul', $attributes);
     }
 
     /**
@@ -91,16 +98,18 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if (!empty($controls)) {
                 $o .= implode('<br />', $controls);
             } else {
-                $tcsettings = $this->courseformat->get_settings();
-                switch ($tcsettings['layoutelement']) {
+                if (empty($this->tcsettings)) {
+                    $this->tcsettings = $this->courseformat->get_settings();
+                }
+                switch ($this->tcsettings['layoutelement']) {
                     case 1:
                     case 3:
                     case 5:
                         // Get the specific words from the language files.
                         $topictext = null;
-                        if (($tcsettings['layoutstructure'] == 1) || ($tcsettings['layoutstructure'] == 4)) {
+                        if (($this->tcsettings['layoutstructure'] == 1) || ($this->tcsettings['layoutstructure'] == 4)) {
                             $topictext = get_string('setlayoutstructuretopic', 'format_topcoll');
-                        } else if (($tcsettings['layoutstructure'] == 2) || ($tcsettings['layoutstructure'] == 3)) {
+                        } else if (($this->tcsettings['layoutstructure'] == 2) || ($this->tcsettings['layoutstructure'] == 3)) {
                             $topictext = get_string('setlayoutstructureweek', 'format_topcoll');
                         } else {
                             $topictext = get_string('setlayoutstructureday', 'format_topcoll');
@@ -132,8 +141,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if (course_get_format($course)->is_section_current($section)) {
                 $o .= get_accesshide(get_string('currentsection', 'format_' . $course->format));
             }
-            $tcsettings = $this->courseformat->get_settings();
-            switch ($tcsettings['layoutelement']) {
+            if (empty($this->tcsettings)) {
+                $this->tcsettings = $this->courseformat->get_settings();
+            }
+            switch ($this->tcsettings['layoutelement']) {
                 case 1:
                 case 2:
                 case 5:
@@ -169,9 +180,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
         $url->param('sesskey', sesskey());
 
-        $tcsettings = $this->courseformat->get_settings();
+        if (empty($this->tcsettings)) {
+            $this->tcsettings = $this->courseformat->get_settings();
+        }
         $controls = array();
-        if ((($tcsettings['layoutstructure'] == 1) || ($tcsettings['layoutstructure'] == 4)) && has_capability('moodle/course:setcurrentsection', $coursecontext)) {
+        if ((($this->tcsettings['layoutstructure'] == 1) || ($this->tcsettings['layoutstructure'] == 4)) && has_capability('moodle/course:setcurrentsection', $coursecontext)) {
             if ($course->marker == $section->section) {  // Show the "light globe" on/off.
                 $url->param('marker', 0);
                 $controls[] = html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('i/marked'),
@@ -215,8 +228,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
         }
 
-        $o .= html_writer::start_tag('li', array('id' => 'section-' . $section->section,
-                    'class' => 'section main clearfix' . $sectionstyle));
+        $liattributes = array('id' => 'section-' . $section->section,
+                    'class' => 'section main clearfix' . $sectionstyle);
+        if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
+            $liattributes['style'] = 'width:' . $this->tccolumnwidth . '%;';
+        }
+        $o .= html_writer::start_tag('li', $liattributes);
 
         if ($this->mymobiletheme == false) {
             $leftcontent = $this->section_left_content($section, $course, $onsectionpage);
@@ -258,26 +275,29 @@ class format_topcoll_renderer extends format_section_renderer_base {
             //$o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
             $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#'));
 
-            $o .= $title;
-            $tcsettings = $this->courseformat->get_settings();
+            if (empty($this->tcsettings)) {
+                $this->tcsettings = $this->courseformat->get_settings();
+            }
+
+            $otitle = $title;
             if ((string) $section->name !== '') {
-                if (($tcsettings['layoutstructure'] == 2) || ($tcsettings['layoutstructure'] == 3) || ($tcsettings['layoutstructure'] == 5)) {
-                    $o .= ' <br />';
-                    $o .= $this->courseformat->get_section_dates($section, $course, $tcsettings);
+                if (($this->tcsettings['layoutstructure'] == 2) || ($this->tcsettings['layoutstructure'] == 3) || ($this->tcsettings['layoutstructure'] == 5)) {
+                    $otitle .= ' <br />';
+                    $otitle .= $this->courseformat->get_section_dates($section, $course, $this->tcsettings);
                 }
             }
             // Add in the word toggle when we are displaying them for one section per page layout, see 'get_section_name()' in 'lib.php' for more information.
             if ($course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
-                switch ($tcsettings['layoutelement']) {
+                switch ($this->tcsettings['layoutelement']) {
                     case 1:
                     case 2:
                     case 3:
                     case 4:
-                        $o .= ' - ' . get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
+                        $otitle .= ' - ' . get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
                         break;
                 }
             }
-
+            $o .= $this->output->heading($otitle, 3, 'sectionname');
             $o .= html_writer::end_tag('a');
             $o .= html_writer::end_tag('div');
             $o .= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection', 'id' => 'toggledsection-' . $section->section, 'style' => $sectionstyle));
@@ -285,14 +305,15 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $o .= html_writer::link(course_get_url($course, $section->section), $title);
             }
 
-            $o .= html_writer::start_tag('div', array('class' => 'summary'));
-            $o .= $this->format_summary_text($section);
-
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
                 $o.= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
                                     'class' => 'iconsmall edit', 'alt' => get_string('edit'))), array('title' => get_string('editsummary')));
             }
+
+            $o .= html_writer::start_tag('div', array('class' => 'summary'));
+            $o .= $this->format_summary_text($section);
+
             $o .= html_writer::end_tag('div');
 
             $o .= $this->section_availability_message($section);
@@ -481,7 +502,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $modinfo = get_fast_modinfo($course);
         $this->courseformat = course_get_format($course);
         $course = $this->courseformat->get_course();
-        $tcsettings = $this->courseformat->get_settings();
+        if (empty($this->tcsettings)) {
+            $this->tcsettings = $this->courseformat->get_settings();
+        }
 
         $context = context_course::instance($course->id);
         // Title with completion help icon.
@@ -517,11 +540,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 }
             }
             $currentsectionfirst = false;
-            if ($tcsettings['layoutstructure'] == 4) {
+            if ($this->tcsettings['layoutstructure'] == 4) {
                 $currentsectionfirst = true;
             }
 
-            if (($tcsettings['layoutstructure'] != 3) || ($userisediting)) {
+            if (($this->tcsettings['layoutstructure'] != 3) || ($userisediting)) {
                 $section = 1;
             } else {
                 $timenow = time();
@@ -533,7 +556,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
 
             $numsections = $course->numsections; // Because we want to manipulate this for column breakpoints.
-            if (($tcsettings['layoutstructure'] == 3) && ($userisediting == false)) {
+            if (($this->tcsettings['layoutstructure'] == 3) && ($userisediting == false)) {
                 $loopsection = 1;
                 $numsections = 0;
                 while ($loopsection <= $course->numsections) {
@@ -553,27 +576,26 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems
             }
 
-            $columnbreakpoint = 0;
-            if ($numsections < $tcsettings['layoutcolumns']) {
-                $tcsettings['layoutcolumns'] = $numsections;  // Help to ensure a reasonable display.
+            if ($numsections < $this->tcsettings['layoutcolumns']) {
+                $this->tcsettings['layoutcolumns'] = $numsections;  // Help to ensure a reasonable display.
             }
-            if (($tcsettings['layoutcolumns'] > 1) && ($this->mymobiletheme == false)) {
-                if ($tcsettings['layoutcolumns'] > 4) {
+            if (($this->tcsettings['layoutcolumns'] > 1) && ($this->mymobiletheme == false)) {
+                if ($this->tcsettings['layoutcolumns'] > 4) {
                     // Default in config.php (and reset in database) or database has been changed incorrectly.
-                    $tcsettings['layoutcolumns'] = 4;
+                    $this->tcsettings['layoutcolumns'] = 4;
 
                     // Update....
-                    $this->courseformat->update_topcoll_columns_setting($tcsettings['layoutcolumns']);
+                    $this->courseformat->update_topcoll_columns_setting($this->tcsettings['layoutcolumns']);
                 }
-                $this->tccolumnwidth = 100 / $tcsettings['layoutcolumns'];
+                $this->tccolumnwidth = 100 / $this->tcsettings['layoutcolumns'];
                 $this->tccolumnwidth -= 1; // Allow for the padding in %.
                 $this->tccolumnpadding = 2; // px
-            } elseif ($tcsettings['layoutcolumns'] < 1) {
+            } elseif ($this->tcsettings['layoutcolumns'] < 1) {
                 // Distributed default in tcconfig.php (and reset in database) or database has been changed incorrectly.
-                $tcsettings['layoutcolumns'] = 1;
+                $this->tcsettings['layoutcolumns'] = 1;
 
                 // Update....
-                $this->courseformat->update_topcoll_columns_setting($tcsettings['layoutcolumns']);
+                $this->courseformat->update_topcoll_columns_setting($this->tcsettings['layoutcolumns']);
             }
 
             echo $this->end_section_list();
@@ -582,6 +604,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $loopsection = 1;
             $canbreak = false; // Once the first section is shown we can decide if we break on another column.
             $columncount = 1;
+            $columnbreakpoint = 0;
             $shownsectioncount = 0;
 
             $toggleState = get_user_preferences('topcoll_toggle_' . $course->id);
@@ -604,14 +627,14 @@ class format_topcoll_renderer extends format_section_renderer_base {
             //print("TS:".$toggleState." TB:".$tb);
 
             while ($loopsection <= $course->numsections) {
-                if (($tcsettings['layoutstructure'] == 3) && ($userisediting == false)) {
+                if (($this->tcsettings['layoutstructure'] == 3) && ($userisediting == false)) {
                     $nextweekdate = $weekdate - ($weekofseconds);
                 }
                 $thissection = $modinfo->get_section_info($section);
 
                 // Show the section if the user is permitted to access it, OR if it's not available
                 // but showavailability is turned on
-                if (($tcsettings['layoutstructure'] != 3) || ($userisediting)) {
+                if (($this->tcsettings['layoutstructure'] != 3) || ($userisediting)) {
                     $showsection = $thissection->uservisible ||
                             ($thissection->visible && !$thissection->available && $thissection->showavailability);
                 } else {
@@ -621,14 +644,14 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 }
                 if (($currentsectionfirst == true) && ($showsection == true)) {
                     $showsection = ($course->marker == $section);  // Show  the section if we were meant to and it is the current section.
-                } else if (($tcsettings['layoutstructure'] == 4) && ($course->marker == $section)) {
+                } else if (($this->tcsettings['layoutstructure'] == 4) && ($course->marker == $section)) {
                     $showsection = false; // Do not reshow current section.
                 }
                 if (!$showsection) {
                     // Hidden section message is overridden by 'unavailable' control
                     // (showavailability option).
-                    if ($tcsettings['layoutstructure'] != 4) {
-                        if (($tcsettings['layoutstructure'] != 3) || ($userisediting)) {
+                    if ($this->tcsettings['layoutstructure'] != 4) {
+                        if (($this->tcsettings['layoutstructure'] != 3) || ($userisediting)) {
                             if (!$course->hiddensections && $thissection->available) {
                                 echo $this->section_hidden($section);
                             }
@@ -656,30 +679,33 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 if ($currentsectionfirst == false) {
                     unset($sections[$section]); // Only need to do this on the iteration when $currentsectionfirst is not true as this iteration will always happen.  Otherwise you get duplicate entries in course_sections in the DB.
                 }
-                if (($tcsettings['layoutstructure'] != 3) || ($userisediting)) {
+                if (($this->tcsettings['layoutstructure'] != 3) || ($userisediting)) {
                     $section++;
                 } else {
                     $section--;
-                    if (($tcsettings['layoutstructure'] == 3) && ($userisediting == false)) {
+                    if (($this->tcsettings['layoutstructure'] == 3) && ($userisediting == false)) {
                         $weekdate = $nextweekdate;
                     }
                 }
 
-                if (($canbreak == false) && ($currentsectionfirst == false) && ($showsection == true)) {
-                    $canbreak = true;
-                    $columnbreakpoint = ($shownsectioncount + ($numsections / $tcsettings['layoutcolumns'])) - 1;
-                    if ($tcsettings['layoutstructure'] == 4) {
-                        $columnbreakpoint -= 1;
+                if ($this->tcsettings['layoutcolumnorientation'] == 1) {  // Only break columns in horizontal mode.
+                    if (($canbreak == false) && ($currentsectionfirst == false) && ($showsection == true)) {
+                        $canbreak = true;
+                        $columnbreakpoint = ($shownsectioncount + ($numsections / $this->tcsettings['layoutcolumns'])) - 1;
+                        if ($this->tcsettings['layoutstructure'] == 4) {
+                            $columnbreakpoint -= 1;
+                        }
+                }
+
+                    if (($currentsectionfirst == false) && ($canbreak == true) && ($shownsectioncount >= $columnbreakpoint) && ($columncount < $this->tcsettings['layoutcolumns'])) {
+                        echo $this->end_section_list();
+                        echo $this->start_toggle_section_list();
+                        $columncount++;
+                        // Next breakpoint is...
+                        $columnbreakpoint += $numsections / $this->tcsettings['layoutcolumns'];
                     }
                 }
 
-                if (($currentsectionfirst == false) && ($canbreak == true) && ($shownsectioncount >= $columnbreakpoint) && ($columncount < $tcsettings['layoutcolumns'])) {
-                    echo $this->end_section_list();
-                    echo $this->start_toggle_section_list();
-                    $columncount++;
-                    // Next breakpoint is...
-                    $columnbreakpoint += $numsections / $tcsettings['layoutcolumns'];
-                }
                 $loopsection++;
                 if (($currentsectionfirst == true) && ($loopsection > $course->numsections)) {
                     // Now show the rest.
@@ -754,8 +780,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::start_tag('div', array('class' => 'content'));
         $o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
         $o .= html_writer::start_tag('h4', null);
-        //$o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'onclick' => 'all_opened(); return false;'));
-        //$o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'onclick' => 'all_closed(); return false;'));
         $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'id' => 'toggles-all-opened'));
         $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'id' => 'toggles-all-closed'));
         $o .= html_writer::tag('span', get_string('topcollall', 'format_topcoll'), null);

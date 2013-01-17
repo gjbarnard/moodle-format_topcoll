@@ -768,6 +768,14 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2.  Added 'Reporting Issues' to this file.
   3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
+17th January 2013 - Version 2.4.2
+  1.  Added ability to control the orientation of columns when more than one is used.  You can now chooose between
+      having the sections number down the page (vertical) or left to right (horizontal).  Default is horizontal.  This
+      is from a suggestion on CONTRIB-4098 by Michele Turre.
+  2.  Fixed section number not updating in the left part of a section when using AJAX drag and drop moving.
+  3.  Implemented and adjusted CSS for CONTRIB-4106 to have consistent section name styles.
+  3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -824,6 +832,6 @@ Desired Enhancements
 2. Toggle saving only when the user closes the window / moves to another course.
 3. This file in WikiMedia format so that it has an automatic contents menu on GitHub.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 11th January 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th January 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

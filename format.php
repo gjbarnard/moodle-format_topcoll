@@ -65,8 +65,6 @@ if (($marker >= 0) && has_capability('moodle/course:setcurrentsection', $context
 $courseformat = course_get_format($course);
 $course = $courseformat->get_course();
 course_create_sections_if_missing($course, range(0, $course->numsections));
-//print('format.php ->');
-//print_object(course_get_format($course)->get_format_options());
 
 $renderer = $PAGE->get_renderer('format_topcoll');
 
@@ -109,7 +107,6 @@ if (!empty($displaysection)) {
     }
     ?>;
         }
-        }
 
         /* -- What happens when a toggle is hovered over -- */
         .course-content ul.ctopics li.section .content div.toggle:hover
@@ -117,23 +114,33 @@ if (!empty($displaysection)) {
             background-color: #<?php echo $tcsettings['togglebackgroundhovercolour']; ?>;
         }
 
-        /* Dynamically changing widths with language */
-        .course-content ul.ctopics li.section.main .content, .course-content ul.ctopics li.tcsection .content {
-            <?php
-            if ((!$PAGE->user_is_editing()) && ($PAGE->theme->name != 'mymobile')) {
-                echo 'margin: 0 ' . get_string('topcollsidewidth', 'format_topcoll');
-            }
-            ?>;
+        <?php
+        // Dynamically changing widths with language
+        if ((!$PAGE->user_is_editing()) && ($PAGE->theme->name != 'mymobile')) {
+            echo '.course-content ul.ctopics li.section.main .content, .course-content ul.ctopics li.tcsection .content {';
+            echo 'margin: 0 ' . get_string('topcollsidewidth', 'format_topcoll');
+            echo '}';
         }
 
-        .course-content ul.ctopics li.section.main .side, .course-content ul.ctopics li.tcsection .side {
-            <?php
-            if (!$PAGE->user_is_editing()) {
-                echo 'width: ' . get_string('topcollsidewidth', 'format_topcoll');
-            }
-            ?>;
+        // Make room for editing icons
+        if (!$PAGE->user_is_editing()) {
+            echo '.course-content ul.ctopics li.section.main .side, .course-content ul.ctopics li.tcsection .side {';
+            echo 'width: ' . get_string('topcollsidewidth', 'format_topcoll');
+            echo '}';
         }
 
+        // Establish horizontal unordered list for horizontal columns
+        if ($tcsettings['layoutcolumnorientation'] == 2) {
+            echo '.course-content ul.ctopics li.section {';
+            echo 'display: inline-block;';
+            echo 'vertical-align:top;';
+            echo '}';
+            echo 'body.ie7 .course-content ul.ctopics li.section {';
+            echo 'zoom: 1;';
+            echo '*display: inline;';
+            echo '}';
+        }
+        ?>;
         /* ]]> */
     </style>
     <?php

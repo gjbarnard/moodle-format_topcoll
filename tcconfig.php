@@ -64,6 +64,9 @@ class CollapsedTopicsDefaults {
 // Default number of columns between 1 and 4.
     const defaultlayoutcolumns = 1;
 
+// Default column orientation - 1 = vertical and 2 = horizontal.
+    const defaultlayoutcolumnorientation = 2;
+
 // Toggle colours per course - CONTRIB-3529.
 // Default toggle foreground colour in hexidecimal RGB without preceeding '#'.
     const defaulttgfgcolour = '000000';

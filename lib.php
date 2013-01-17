@@ -259,6 +259,10 @@ class format_topcoll extends format_base {
                     'default' => CollapsedTopicsDefaults::defaultlayoutcolumns,
                     'type' => PARAM_INT,
                 ),
+                'layoutcolumnorientation' => array(
+                    'default' => CollapsedTopicsDefaults::defaultlayoutcolumnorientation,
+                    'type' => PARAM_INT,
+                ),
                 'togglealignment' => array(
                     'default' => CollapsedTopicsDefaults::defaulttogglealignment,
                     'type' => PARAM_INT,
@@ -351,6 +355,16 @@ class format_topcoll extends format_base {
                             2 => get_string('two', 'format_topcoll'), // Two   
                             3 => get_string('three', 'format_topcoll'), // Three
                             4 => get_string('four', 'format_topcoll')) // Four
+                    )
+                ),
+                'layoutcolumnorientation' => array(
+                    'label' => new lang_string('setlayoutcolumnorientation', 'format_topcoll'),
+                    'help' => 'setlayoutcolumnorientation',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => array(
+                        array(1 => get_string('columnvertical', 'format_topcoll'), 
+                              2 => get_string('columnhorizontal', 'format_topcoll')) // Default 
                     )
                 ),
                 'togglealignment' => array(
@@ -498,7 +512,6 @@ class format_topcoll extends format_base {
             $resetalltogglealignment = true;
             unset($data->resetalltogglealignment);
         }
-//print_object($data);
 
         if ($oldcourse !== null) {
             $data = (array) $data;
@@ -675,7 +688,8 @@ class format_topcoll extends format_base {
                         'coursedisplay' => CollapsedTopicsDefaults::defaultcoursedisplay,
                         'layoutelement' => CollapsedTopicsDefaults::defaultlayoutelement,
                         'layoutstructure' => CollapsedTopicsDefaults::defaultlayoutstructure,
-                        'layoutcolumns' => CollapsedTopicsDefaults::defaultlayoutcolumns);
+                        'layoutcolumns' => CollapsedTopicsDefaults::defaultlayoutcolumns,
+                        'layoutcolumnorientation' => CollapsedTopicsDefaults::defaultlayoutcolumnorientation);
                     $ourcourseid = $this->courseid;
                     $this->courseid = $currentcourseid;
                     $this->update_format_options($layoutdata);
