@@ -62,10 +62,12 @@ body.ie7 .course-content ul.ctopics li.section .content .toggle a {
     margin: 0em;
 }
 
-.course-content ul.ctopics li.section .content .toggle a.toggle_closed {
-    background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+/* JavaScript disabled */
+.course-content ul.ctopics li.section .content .toggle a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open {
+    background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
 }
 
+/* JavaScript enabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_open {
     background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
 }
@@ -184,6 +186,15 @@ body.ie7 .course-content ul.ctopics li.section .right .spacer {
 }
 
 /* Toggle all */
+#toggle-all {
+    display: none; /* Hide when JavaScript not enabled. */
+}
+
+body.jsenabled #toggle-all {
+    background: none repeat scroll 0 0 transparent;
+    display: block;
+}
+
 #toggle-all .content .sectionbody h4 {
     display: block;
     padding: 6px;
@@ -195,10 +206,6 @@ body.ie7 .course-content ul.ctopics li.section .right .spacer {
     text-align: left;
     width: 35px;
     text-decoration: none;
-}
-
-#toggle-all {
-    background: none repeat scroll 0 0 transparent;
 }
 
 #toggle-all .content .sectionbody h4 a.on {

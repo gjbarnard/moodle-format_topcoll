@@ -772,12 +772,13 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
 17th January 2013 - Version 2.4.2
-  1.  Added ability to control the orientation of columns when more than one is used.  You can now chooose between
+  1.  Added ability to control the orientation of columns when more than one is used.  You can now choose between
       having the sections number down the page (vertical) or left to right (horizontal).  Default is horizontal.  This
       is from a suggestion on CONTRIB-4098 by Michele Turre.
   2.  Fixed section number not updating in the left part of a section when using AJAX drag and drop moving.
   3.  Implemented and adjusted CSS for CONTRIB-4106 to have consistent section name styles.
-  3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+  4.  Tweaked no JavaScript operation such that the 'Toggle all' functionality is hidden.
+  5.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
 Thanks
 ------
