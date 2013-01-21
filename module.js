@@ -94,14 +94,20 @@ M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate, noOfTo
     }
     
     // Event handlers for all opened / closed.
-    Y.one("#toggles-all-opened").on('click',function(e){
-        e.preventDefault();
-        all_opened();
-    });
-    Y.one("#toggles-all-closed").on('click',function(e){
-        e.preventDefault();
-        all_closed();
-    });    
+    var allopen = Y.one("#toggles-all-opened");
+    if (allopen) {
+        allopen.on('click',function(e){
+            e.preventDefault();
+            all_opened();
+        });
+    }
+    var allclosed = Y.one("#toggles-all-closed");
+    if (allclosed) {
+        allclosed.on('click',function(e){
+            e.preventDefault();
+            all_closed();
+        });
+    }
 }
 
 // Info on http://pivotallabs.com/users/pjaros/blog/articles/1368-javascript-constructors-prototypes-and-the-new-keyword
