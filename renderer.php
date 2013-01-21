@@ -235,7 +235,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
 
         $liattributes = array('id' => 'section-' . $section->section,
-                    'class' => 'section main clearfix' . $sectionstyle);
+            'class' => 'section main clearfix' . $sectionstyle);
         if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
             $liattributes['style'] = 'width:' . $this->tccolumnwidth . '%;';
         }
@@ -322,7 +322,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             $o .= html_writer::end_tag('div');
 
-            $o .= $this->section_availability_message($section,has_capability('moodle/course:viewhiddensections', $context));
+            $o .= $this->section_availability_message($section, has_capability('moodle/course:viewhiddensections', $context));
         } else {
             // When on a section page, we only display the general section title, if title is not the default one
             $hasnamesecpg = ($section->section == 0 && (string) $section->name !== '');
@@ -341,7 +341,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
             $o .= html_writer::end_tag('div');
 
-            $o .= $this->section_availability_message($section,has_capability('moodle/course:viewhiddensections', $context));
+            $o .= $this->section_availability_message($section, has_capability('moodle/course:viewhiddensections', $context));
         }
         return $o;
     }
@@ -430,10 +430,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if ($thissection->summary or !empty($modinfo->sections[0]) or $PAGE->user_is_editing()) {
             echo $this->start_section_list();
             echo $this->section_header($thissection, $course, true, $displaysection);
-            print_section($course, $thissection, null, null, true, "100%", false, $displaysection);
-            if ($PAGE->user_is_editing()) {
-                print_section_add_menus($course, 0, null, false, false, $displaysection);
-            }
+            echo $this->courserenderer->course_section_cm_list($course, $thissection, $displaysection);
+            echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, $displaysection);
             echo $this->section_footer();
             echo $this->end_section_list();
         }
@@ -469,10 +467,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $completioninfo = new completion_info($course);
         echo $completioninfo->display_help_icon();
 
-        print_section($course, $thissection, null, null, true, '100%', false, $displaysection);
-        if ($PAGE->user_is_editing()) {
-            print_section_add_menus($course, $displaysection, null, false, false, $displaysection);
-        }
+        echo $this->courserenderer->course_section_cm_list($course, $thissection, $displaysection);
+        echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, $displaysection);
         echo $this->section_footer();
         echo $this->end_section_list();
 
@@ -531,10 +527,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
         unset($sections[0]);
         if ($thissection->summary or !empty($modinfo->sections[0]) or $PAGE->user_is_editing()) {
             echo $this->section_header($thissection, $course, false, 0);
-            print_section($course, $thissection, null, null, true, "100%", false, 0);
-            if ($PAGE->user_is_editing()) {
-                print_section_add_menus($course, 0, null, false, false, 0);
-            }
+            echo $this->courserenderer->course_section_cm_list($course, $thissection);
+            echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section);
             echo $this->section_footer();
         }
 
@@ -672,10 +666,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
                         $thissection->toggle = substr($tb, $section, 1);
                         echo $this->section_header($thissection, $course, false, 0);
                         if ($thissection->uservisible) {
-                            print_section($course, $thissection, null, null, true, "100%", false, 0);
-                            if ($PAGE->user_is_editing()) {
-                                print_section_add_menus($course, $section, null, false, false, 0);
-                            }
+                            echo $this->courserenderer->course_section_cm_list($course, $thissection);
+                            echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section);
                         }
                         echo html_writer::end_tag('div');
                         echo $this->section_footer();
@@ -701,7 +693,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                         if ($this->tcsettings['layoutstructure'] == 4) {
                             $columnbreakpoint -= 1;
                         }
-                }
+                    }
 
                     if (($currentsectionfirst == false) && ($canbreak == true) && ($shownsectioncount >= $columnbreakpoint) && ($columncount < $this->tcsettings['layoutcolumns'])) {
                         echo $this->end_section_list();
@@ -734,7 +726,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     continue;
                 }
                 echo $this->stealth_section_header($section);
-                print_section($course, $thissection, null, null, true, "100%", false, 0);
+                echo $this->courserenderer->course_section_cm_list($course, $thissection->section);
                 echo $this->stealth_section_footer();
             }
 
