@@ -293,7 +293,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             $o .= html_writer::end_tag('div');
 
-            $o .= $this->section_availability_message($section);
+            $o .= $this->section_availability_message($section,has_capability('moodle/course:viewhiddensections', $context));
         } else {
             // When on a section page, we only display the general section title, if title is not the default one or the user is using a screen reader.
             $hasnamesecpg = (($section->section == 0 && (string) $section->name !== '') || ($USER->screenreader == 1));
@@ -312,7 +312,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
             $o .= html_writer::end_tag('div');
 
-            $o .= $this->section_availability_message($section);
+            $o .= $this->section_availability_message($section,has_capability('moodle/course:viewhiddensections', $context));
         }
         return $o;
     }

@@ -6,9 +6,17 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 --------------------------
-This version works with Moodle 2.3.2+, version 2012062502.05 (Build: 20121005) and above until the next release.
-
+This version works with Moodle version 2012062504.01 release 2.3.4+ (Build: 20130118) and above until the next release.
 Documented on http://docs.moodle.org/23/en/Collapsed_Topics_course_format
+
+Supporting Collapsed Topics development
+---------------------------------------
+If you find Collapsed Topics useful and beneficial, please consider donating to its development through the following
+PayPal link:
+
+https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6KEALTXATCXVE
+
+I develop and maintain for free and any donations to assist me in this endeavour are appreciated.
 
 New features for this Moodle 2.3.1 version
 ------------------------------------------
@@ -191,6 +199,9 @@ is out of its control.
 All Collapsed Topics does is integrate with the course page and control it's layout, therefore what may appear to be an issue
 with the format is in fact to do with a theme or core component.  Please be confident that it is an issue with Collapsed Topics
 but if in doubt, ask.
+
+I operate a policy that I will fix all genuine issues for free.  Improvements are at my discretion.  I am happy to make bespoke
+customisations / improvements for a negotiated fee. 
 
 When reporting an issue you can post in the course format's forum on Moodle.org (currently 'moodle.org/mod/forum/view.php?id=47'), 
 on Moodle tracker 'tracker.moodle.org' ensuring that you chose the 'Non-core contributed modules' and 'Course Format: Topcoll'
@@ -652,6 +663,11 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   4.  Added 'Reporting Issues' to this file.
   5.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
+21st January 2013 - Version 2.3.9.8
+  1.  Fixed issue with JavaScript in 'module.js' breaking with 0 or 1 sections causing the 'Add an activity or resource' to fail.
+  2.  Changes to 'renderer.php' because of MDL-36095 hence requiring Moodle version 2012062504.01 release 2.3.4+ (Build: 20130118) and above.
+  3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -703,6 +719,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 11th January 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 21st January 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
