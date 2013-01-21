@@ -8,9 +8,18 @@ This version is the Moodle 2.4 branch.
 
 Required version of Moodle
 --------------------------
-This version works with Moodle 2.4 version 2012120300.00 (Build: 20121203) and above until the next release.
+This version works with Moodle version 2012120301.02 release 2.4.1+ (Build: 20130118) and above until the next release.
 
 Documented on http://docs.moodle.org/24/en/Collapsed_Topics_course_format
+
+Supporting Collapsed Topics development
+---------------------------------------
+If you find Collapsed Topics useful and beneficial, please consider donating to its development through the following
+PayPal link:
+
+https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6KEALTXATCXVE
+
+I develop and maintain for free and any donations to assist me in this endeavour are appreciated.
 
 New features for this Moodle 2.4 version
 ----------------------------------------
@@ -771,14 +780,17 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2.  Added 'Reporting Issues' to this file.
   3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
-17th January 2013 - Version 2.4.2
+21st January 2013 - Version 2.4.2
   1.  Added ability to control the orientation of columns when more than one is used.  You can now choose between
       having the sections number down the page (vertical) or left to right (horizontal).  Default is horizontal.  This
       is from a suggestion on CONTRIB-4098 by Michele Turre.
   2.  Fixed section number not updating in the left part of a section when using AJAX drag and drop moving.
   3.  Implemented and adjusted CSS for CONTRIB-4106 to have consistent section name styles.
   4.  Tweaked no JavaScript operation such that the 'Toggle all' functionality is hidden.
-  5.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+  5.  Implemented removal of css float for MyMobile theme for CONTRIB-4108.
+  6.  Fixed issue with JavaScript in 'module.js' breaking with 0 or 1 sections causing the 'Add an activity or resource' to fail.
+  7. Changes to 'renderer.php' because of MDL-36095 hence requiring Moodle version 2012120301.02 release 2.4.1+ (Build: 20130118) and above.
+  8.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
 Thanks
 ------
@@ -836,6 +848,6 @@ Desired Enhancements
 2. Toggle saving only when the user closes the window / moves to another course.
 3. This file in WikiMedia format so that it has an automatic contents menu on GitHub.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th January 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 21st January 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

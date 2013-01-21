@@ -57,11 +57,17 @@ class format_topcoll_renderer extends format_section_renderer_base {
      */
     protected function start_toggle_section_list() {
         $attributes = array('class' => 'ctopics topics');
+        $style = '';
         if ($this->tcsettings['layoutcolumnorientation'] == 1) {
-            $attributes['style'] = 'width:' . $this->tccolumnwidth . '%; float:left; padding:' . $this->tccolumnpadding . 'px;';  // Vertical columns.
+            $style .= 'width:' . $this->tccolumnwidth . '%;';  // Vertical columns.
         } else {
-            $attributes['style'] = 'width:100%; float:left; padding:' . $this->tccolumnpadding . 'px;';  // Horizontal columns.
+            $style .= 'width:100%;';  // Horizontal columns.
         }
+        if ($this->mymobiletheme == false) {
+            $style .= ' float:left;';
+        }
+        $style .= ' padding:' . $this->tccolumnpadding . 'px;';
+        $attributes['style'] = $style;
         return html_writer::start_tag('ul', $attributes);
     }
 
@@ -316,7 +322,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             $o .= html_writer::end_tag('div');
 
-            $o .= $this->section_availability_message($section);
+            $o .= $this->section_availability_message($section,has_capability('moodle/course:viewhiddensections', $context));
         } else {
             // When on a section page, we only display the general section title, if title is not the default one
             $hasnamesecpg = ($section->section == 0 && (string) $section->name !== '');
@@ -335,7 +341,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
             $o .= html_writer::end_tag('div');
 
-            $o .= $this->section_availability_message($section);
+            $o .= $this->section_availability_message($section,has_capability('moodle/course:viewhiddensections', $context));
         }
         return $o;
     }
