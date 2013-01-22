@@ -164,11 +164,11 @@ Known Issues
 ------------
 1.  If you get toggle text issues in languages other than English please ensure you have the latest version of Moodle installed.
     More information on http://moodle.org/mod/forum/discuss.php?d=184150.
-2.  The MyMobile theme is not quite as implemented as the previous versions but does work, please see
-    http://tracker.moodle.org/browse/MDL-33115.  It has a tendency not to reload the toggle state or set the arrow icon on first
-    load.  A page refresh fixes it - something to do with the inclusion of a '#' in the url.  The bottom left and right
-    navigation links in 'One section per page' mode do not appear to work.  I have contacted 'John Stabinger' on 'MDL-33115' and
-    he will be looking into it.
+2.  The MyMobile theme is not quite as implemented as the previous versions but does work.  It has a tendency not set allow the
+    toggles to work.  A page refresh fixes it and then appears to be ok on a revisit - I thought it was something to do with
+    the inclusion of a '#' in the url but could be a YUI / jQuery event conflict - any help on this appreciated.  The bottom
+    left and right navigation links in 'One section per page' mode do not appear to work.  I initially raised 'MDL-33115' but
+    things have stalled, need time to work on this.
 3.  Importing a Moodle 1.9 course does not currently work, please see CONTRIB-3552 which depends on MDL-32205 - as
     a workaround, please select the 'Topics' format first in 1.9, backup and restore then select the Collapsed Topics
     course format in the course settings.  You will have to reset your decisions on structure etc.
@@ -176,7 +176,9 @@ Known Issues
     preference 'topcoll_toggle_x'' (where 'x' is the course id as shown in the URL 'id=x') can occur.  I'm not completely sure
     why this is happening as the 'user_preference_allow_ajax_update' call in 'format.php' should establish that the user
     preference can be set.  Could be a page cache thing as the 'init' code is getting the course id unlike an issue I'm
-    currently experiencing with the MyMobile theme - MDL-33115.  The work around is to refresh the page.
+    currently experiencing with the MyMobile theme - MDL-33115.  The work around is to refresh the page.  Having altered some
+    of the event handing code to operate after page load, I'm hoping that this has now been resolved, please let me know
+    if you encounter it.
 
 Reporting Issues
 ----------------
@@ -780,17 +782,19 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2.  Added 'Reporting Issues' to this file.
   3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
-21st January 2013 - Version 2.4.2
+22nd January 2013 - Version 2.4.2
   1.  Added ability to control the orientation of columns when more than one is used.  You can now choose between
       having the sections number down the page (vertical) or left to right (horizontal).  Default is horizontal.  This
-      is from a suggestion on CONTRIB-4098 by Michele Turre.
+      is from a suggestion on CONTRIB-4098 by Michele Turre.  The MyMobile theme only uses one column regardless of the number
+      of columns setting.
   2.  Fixed section number not updating in the left part of a section when using AJAX drag and drop moving.
   3.  Implemented and adjusted CSS for CONTRIB-4106 to have consistent section name styles.
   4.  Tweaked no JavaScript operation such that the 'Toggle all' functionality is hidden.
   5.  Implemented removal of css float for MyMobile theme for CONTRIB-4108.
   6.  Fixed issue with JavaScript in 'module.js' breaking with 0 or 1 sections causing the 'Add an activity or resource' to fail.
-  7. Changes to 'renderer.php' because of MDL-36095 hence requiring Moodle version 2012120301.02 release 2.4.1+ (Build: 20130118) and above.
-  8.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+  7.  Changes to 'renderer.php' because of MDL-36095 hence requiring Moodle version 2012120301.02 release 2.4.1+ (Build: 20130118) and above.
+  8.  Tweaked for the MyMobile theme but point '2' on 'Known issues' still occurring - any help appreciated. 
+  9.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
 Thanks
 ------
@@ -848,6 +852,6 @@ Desired Enhancements
 2. Toggle saving only when the user closes the window / moves to another course.
 3. This file in WikiMedia format so that it has an automatic contents menu on GitHub.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 21st January 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 22nd January 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
