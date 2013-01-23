@@ -68,7 +68,7 @@ body.ie7 .course-content ul.ctopics li.section .content .toggle a {
 
 /* CONTRIB-4106 */
 .course-content ul.ctopics li.section .content .toggle a  h3.sectionname {
-    margin: 0em;
+    margin: 4px;
 }
 
 /* JavaScript disabled */
@@ -97,10 +97,6 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_c
     width: 40px; /* Default used in editing mode. */
     text-align: center;
     padding: 0px;
-}
-
-body.ie7 .course-content ul.ctopics li.section.main .side, body.ie7 .course-content ul.ctopics li.tcsection .side {
-    padding: 6px 0;
 }
 
 .course-content ul.ctopics li.section .left, .course-content ul.ctopics li.tcsection .left {
@@ -142,11 +138,6 @@ body.ie7 .course-content ul.ctopics li.section.main .side, body.ie7 .course-cont
     text-align: left;
     padding: 0 0;
     width: auto;
-    line-height: 1.8em;
-}
-
-body.ie7 .course-content ul.ctopics li.section .content .toggle {
-    line-height: 2em;
 }
 
 /* -- The topic summary text -- */    

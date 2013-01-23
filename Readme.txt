@@ -796,6 +796,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   8.  Tweaked for the MyMobile theme but point '2' on 'Known issues' still occurring - any help appreciated. 
   9.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
+23rd January 2013 - Version 2.4.2.1
+  1.  Further tweaks for toggle line height and to make work in IE9 with and without IE7 mode.
+  2.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -852,6 +856,6 @@ Desired Enhancements
 2. Toggle saving only when the user closes the window / moves to another course.
 3. This file in WikiMedia format so that it has an automatic contents menu on GitHub.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 22nd January 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 23rd January 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
