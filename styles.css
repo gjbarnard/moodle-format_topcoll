@@ -73,16 +73,16 @@ body.ie7 .course-content ul.ctopics li.section .content .toggle a {
 
 /* JavaScript disabled */
 .course-content ul.ctopics li.section .content .toggle a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open {
-    background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+    background: transparent url([[pix:format_topcoll|toggle_minus]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
 }
 
 /* JavaScript enabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_open {
-    background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+    background: transparent url([[pix:format_topcoll|toggle_minus]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_closed {
-    background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
+    background: transparent url([[pix:format_topcoll|toggle_plus]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
 }
 
 #mymobile .course-content ul.ctopics li.tcsection .content, #mymobile .course-content ul.ctopics li.section.main .content{
@@ -209,9 +209,9 @@ body.jsenabled #toggle-all {
 }
 
 #toggle-all .content .sectionbody h4 a.on {
-    background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 0px 45%; 
+    background: transparent url([[pix:format_topcoll|toggle_plus]]) no-repeat 0px 45%; 
 }
 
 #toggle-all .content .sectionbody h4 a.off {
-    background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 0px 45%; 
+    background: transparent url([[pix:format_topcoll|toggle_minus]]) no-repeat 0px 45%; 
 }
