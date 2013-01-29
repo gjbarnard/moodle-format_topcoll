@@ -111,9 +111,9 @@ function toggleexacttopic(target,image,toggleNum,reloading,savetoggles)  // Togg
 {
     if(document.getElementById)
     {
-        if (ie == true)
+        if (ie7OrLess == true)
         {
-            var displaySetting = "block"; // IE is always different from the rest!
+            var displaySetting = "block"; // IE7- is always different from the rest!
         }
         else
         {
@@ -240,9 +240,9 @@ function allToggle(state)
     if (state == false)
     {
         // All on to set off!
-        if (ie == true)
+        if (ie7OrLess == true)
         {
-            displaySetting = "block"; // IE is always different from the rest!
+            displaySetting = "block"; // IE7- is always different from the rest!
         }
         else
         {

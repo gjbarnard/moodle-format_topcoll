@@ -73,8 +73,13 @@ if ($toggleState != null) {
 $useragent = $_SERVER['HTTP_USER_AGENT']; 
 if (preg_match('/MSIE/', $useragent)) {
     $isIE = true;
-    if (preg_match('/(?i)MSIE [1-7]/', $useragent)) {
-        $isIE7OrLess = true;
+    // From http://www.useragentstring.com/pages/Internet%20Explorer/ and check_browser_version() in MoodleLib.php.
+    if (preg_match('/MSIE ([0-9\.]+)/', $useragent, $match)) {
+        if ($match[1] <= 7) {
+            $isIE7OrLess = true;
+        } else {
+            $isIE7OrLess = false;
+        }
     } else {
         $isIE7OrLess = false;
     }
@@ -380,7 +385,7 @@ while ($loopsection <= $course->numsections) {
         if (($screenreader == false) && ($displaysection == 0)) {
             if ((!($thissection->toggle === NULL)) && ($thissection->toggle == '1')) {
                 $toggleclass = 'toggle_open';
-                if ($isIE == true) {
+                if ($isIE7OrLess == true) {
                     $togglesectionstyle = 'display: block;';
                 } else {
                     $togglesectionstyle = 'display: table-row;';

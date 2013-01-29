@@ -3,11 +3,22 @@ Introduction
 Topic based course format with an individual 'toggle' for each topic except 0.  This format differs from the
 Accordion format in that two or more topics can be visible at the same time.
 
+If you find an issue with the format, please see the 'Reporting Issues' section below.
+
 Required version of Moodle
 --------------------------
 This version works with Moodle 2.2.4+ (Build: 20120816), version 2011120504.07 and above until the next release.
 
 Documented on http://docs.moodle.org/22/en/Collapsed_Topics_course_format
+
+Supporting Collapsed Topics development
+---------------------------------------
+If you find Collapsed Topics useful and beneficial, please consider donating to its development through the following
+PayPal link:
+
+https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6KEALTXATCXVE
+
+I develop and maintain for free and any donations to assist me in this endeavour are appreciated.
 
 Installation
 ------------
@@ -74,6 +85,28 @@ Known Issues
     as the 'user_preference_allow_ajax_update' call in 'format.php' should establish that the user preference can be set.  Could be a page cache
     thing as the 'init' code is getting the course id unlike an issue I'm currently experiencing with the MyMobile theme - MDL-33115.  The
     work around is to refresh the page.
+
+Reporting Issues
+----------------
+Before reporting an issue, please ensure that you are running the latest version for your release of Moodle.  The primary
+release area is located on https://moodle.org/plugins/view.php?plugin=format_topcoll.  It is also essential that you are
+operating the required version of Moodle as stated at the top - this is because the format relies on core functionality that
+is out of its control.
+
+All Collapsed Topics does is integrate with the course page and control it's layout, therefore what may appear to be an issue
+with the format is in fact to do with a theme or core component.  Please be confident that it is an issue with Collapsed Topics
+but if in doubt, ask.
+
+I operate a policy that I will fix all genuine issues for free.  Improvements are at my discretion.  I am happy to make bespoke
+customisations / improvements for a negotiated fee. 
+
+When reporting an issue you can post in the course format's forum on Moodle.org (currently 'moodle.org/mod/forum/view.php?id=47'), 
+on Moodle tracker 'tracker.moodle.org' ensuring that you chose the 'Non-core contributed modules' and 'Course Format: Topcoll'
+for the component or contact me direct (details at the bottom).
+
+It is essential that you provide as much information as possible, the critical information being the contents of the format's 
+version.php file.  Other version information such as specific Moodle version, theme name and version also helps.  A screen shot
+can be really useful in visualising the issue along with any files you consider to be relevant.
 
 Version Information
 -------------------
@@ -392,6 +425,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
      thing as the 'init' code is getting the course id unlike an issue I'm currently experiencing with the MyMobile theme - MDL-33115.  The
      work around is to refresh the page.
   3. Changed 'show topic x' mode to not display the toggle to save opening it and causing possible toggle state retention issues.
+
+29th January 2013 - Version 2.2.7.1
+  1. Added Internet Explorer 10 support.  Thanks to Ann Morgan for reporting this.
+  2. Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
  
 Thanks
 ------
@@ -448,6 +485,6 @@ Desired Enhancements
    'certain' browsers causing issues in making this happen.
 2. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 18th October 2012.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 29th January 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
