@@ -303,9 +303,8 @@ class format_topcoll extends format_base {
                     'help_component' => 'moodle',
                     'element_type' => 'select',
                     'element_attributes' => array(
-                        array(
-                            0 => new lang_string('hiddensectionscollapsed'),
-                            1 => new lang_string('hiddensectionsinvisible')
+                        array(0 => new lang_string('hiddensectionscollapsed'),
+                              1 => new lang_string('hiddensectionsinvisible')
                         )
                     ),
                 ),
@@ -327,13 +326,13 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => array(
-                        array(1 => new lang_string('setlayout_default', 'format_topcoll'), // Default.
-                            2 => new lang_string('setlayout_no_toggle_section_x', 'format_topcoll'), // No 'Topic x' / 'Week x'.
-                            3 => new lang_string('setlayout_no_section_no', 'format_topcoll'), // No section number.
-                            4 => new lang_string('setlayout_no_toggle_section_x_section_no', 'format_topcoll'), // No 'Topic x' / 'Week x' and no section number.
-                            5 => new lang_string('setlayout_no_toggle_word', 'format_topcoll'), // No 'Toggle' word.
-                            6 => new lang_string('setlayout_no_toggle_word_toggle_section_x', 'format_topcoll'), // No 'Toggle' word and no 'Topic x' / 'Week x'.
-                            7 => new lang_string('setlayout_no_toggle_word_toggle_section_x_section_no', 'format_topcoll')) // No 'Toggle' word, no 'Topic x' / 'Week x'  and no section number.
+                        array(1 => new lang_string('setlayout_default', 'format_topcoll'),                                    // Default.
+                              2 => new lang_string('setlayout_no_toggle_section_x', 'format_topcoll'),                        // No 'Topic x' / 'Week x'.
+                              3 => new lang_string('setlayout_no_section_no', 'format_topcoll'),                              // No section number.
+                              4 => new lang_string('setlayout_no_toggle_section_x_section_no', 'format_topcoll'),             // No 'Topic x' / 'Week x' and no section number.
+                              5 => new lang_string('setlayout_no_toggle_word', 'format_topcoll'),                             // No 'Toggle' word.
+                              6 => new lang_string('setlayout_no_toggle_word_toggle_section_x', 'format_topcoll'),            // No 'Toggle' word and no 'Topic x' / 'Week x'.
+                              7 => new lang_string('setlayout_no_toggle_word_toggle_section_x_section_no', 'format_topcoll')) // No 'Toggle' word, no 'Topic x' / 'Week x'  and no section number.
                     )
                 ),
                 'layoutstructure' => array(
@@ -342,11 +341,11 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => array(
-                        array(1 => get_string('setlayoutstructuretopic', 'format_topcoll'), // Topic
-                            2 => get_string('setlayoutstructureweek', 'format_topcoll'), // Week
-                            3 => get_string('setlayoutstructurelatweekfirst', 'format_topcoll'), // Latest Week First
-                            4 => get_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'), // Current Topic First
-                            5 => get_string('setlayoutstructureday', 'format_topcoll'))                // Day                                            ),
+                        array(1 => get_string('setlayoutstructuretopic', 'format_topcoll'),             // Topic
+                              2 => get_string('setlayoutstructureweek', 'format_topcoll'),              // Week
+                              3 => get_string('setlayoutstructurelatweekfirst', 'format_topcoll'),      // Latest Week First
+                              4 => get_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'), // Current Topic First
+                              5 => get_string('setlayoutstructureday', 'format_topcoll'))               // Day
                     )
                 ),
                 'layoutcolumns' => array(
@@ -355,10 +354,10 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => array(
-                        array(1 => get_string('one', 'format_topcoll'), // Default
-                            2 => get_string('two', 'format_topcoll'), // Two
-                            3 => get_string('three', 'format_topcoll'), // Three
-                            4 => get_string('four', 'format_topcoll')) // Four
+                        array(1 => get_string('one', 'format_topcoll'),   // Default
+                              2 => get_string('two', 'format_topcoll'),   // Two
+                              3 => get_string('three', 'format_topcoll'), // Three
+                              4 => get_string('four', 'format_topcoll'))  // Four
                     )
                 ),
                 'layoutcolumnorientation' => array(
@@ -368,7 +367,7 @@ class format_topcoll extends format_base {
                     'element_type' => 'select',
                     'element_attributes' => array(
                         array(1 => get_string('columnvertical', 'format_topcoll'),
-                            2 => get_string('columnhorizontal', 'format_topcoll')) // Default
+                              2 => get_string('columnhorizontal', 'format_topcoll')) // Default
                     )
                 ),
                 'togglealignment' => array(
@@ -377,9 +376,9 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => array(
-                        array(1 => get_string('left', 'format_topcoll'), // Left.
-                            2 => get_string('center', 'format_topcoll'), // Centre.
-                            3 => get_string('right', 'format_topcoll')) // Right.
+                        array(1 => get_string('left', 'format_topcoll'),   // Left.
+                              2 => get_string('center', 'format_topcoll'), // Centre.
+                              3 => get_string('right', 'format_topcoll'))  // Right.
                     )
                 ),
                 'toggleiconset' => array(
@@ -389,7 +388,8 @@ class format_topcoll extends format_base {
                     'element_type' => 'select',
                     'element_attributes' => array(
                         array('arrow' => get_string('arrow', 'format_topcoll'), // Arrow icon set.
-                            'power' => get_string('power', 'format_topcoll')) // Power icon set.
+                              'point' => get_string('point', 'format_topcoll'), // Point icon set.
+                              'power' => get_string('power', 'format_topcoll')) // Power icon set.
                     )
                 ),
                 'toggleforegroundcolour' => array(

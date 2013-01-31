@@ -137,6 +137,7 @@ $string['resetalltogglealignment_help'] = 'Resets thee toggle alignment to thy d
 $string['settoggleiconset'] = 'Set thee icon set';
 $string['settoggleiconset_help'] = 'Sets thee icon set of thy toggle.';
 $string['arrow'] = 'Straight as an arrow';
+$string['point'] = 'Point thee bow towards thy treasure';
 $string['power'] = 'Power me hearties';
 $string['resettoggleiconset'] = 'Reset thee toggle icon set';
 $string['resetalltoggleiconset'] = 'Reset thee toggle icon set for all thy Collapsed Topics courses';
