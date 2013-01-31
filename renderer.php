@@ -121,7 +121,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                             $topictext = get_string('setlayoutstructureday', 'format_topcoll');
                         }
 
-                        $o .= html_writer::tag('span', $topictext . '<br />' . $section->section, array('class' => 'cps_centre'));
+                        $o .= html_writer::tag('span', $topictext . html_writer::empty_tag('br') . $section->section, array('class' => 'cps_centre'));
                         break;
                 }
             }
@@ -253,7 +253,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
                 $rightcontent .= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
                                     'class' => 'iconsmall edit tceditsection', 'alt' => get_string('edit'))), array('title' => get_string('editsummary'), 'class' => 'tceditsection'));
-                $rightcontent .= '<br />';
+                $rightcontent .= html_writer::empty_tag('br');
             }
             $rightcontent .= $this->section_right_content($section, $course, $onsectionpage);
             $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
@@ -262,7 +262,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
 
         if (($onsectionpage == false) && ($section->section != 0)) {
-            $o .= html_writer::start_tag('div', array('class' => 'sectionhead toggle', 'id' => 'toggle-' . $section->section));
+            $o .= html_writer::start_tag('div', array('class' => 'sectionhead toggle toggle-'.$this->tcsettings['toggleiconset'], 'id' => 'toggle-' . $section->section));
 
             $title = get_section_name($course, $section);
             if ((!($section->toggle === NULL)) && ($section->toggle == '1')) {
@@ -289,7 +289,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $otitle = $title;
             if ((string) $section->name !== '') {
                 if (($this->tcsettings['layoutstructure'] == 2) || ($this->tcsettings['layoutstructure'] == 3) || ($this->tcsettings['layoutstructure'] == 5)) {
-                    $otitle .= ' <br />';
+                    $otitle .= ' '.html_writer::empty_tag('br');
                     $otitle .= $this->courseformat->get_section_dates($section, $course, $this->tcsettings);
                 }
             }
@@ -790,7 +790,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
 
         $o .= html_writer::start_tag('div', array('class' => 'content'));
-        $o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
+        $o .= html_writer::start_tag('div', array('class' => 'sectionbody toggle-'.$this->tcsettings['toggleiconset']));
         $o .= html_writer::start_tag('h4', null);
         $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'id' => 'toggles-all-opened'));
         $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'id' => 'toggles-all-closed'));

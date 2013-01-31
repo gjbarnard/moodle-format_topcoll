@@ -27,6 +27,10 @@ New features for this Moodle 2.4 version
     in this way yet (request for additional core functionality on MDL-35218), so the old 'settings' form has been
     transformed into a 'reset' form now found at the bottom of the course when editing.
  2. Ability to turn off persistence by changing the default 'togglepersistence' in 'tcconfig.php'.
+ 3. Horizontal and vertical column layouts.
+ 4. Left, centre and right toggle text alignment.
+ 5. Icon sets where you can choose what set of control icons are appropriate on a per course basis.  See 'Icon Sets'
+    below.
 
 Installation
 ------------
@@ -44,23 +48,10 @@ Installation
  8. In 'tcconfig.php' change the values of 'defaulttgfgcolour', 'defaulttgbgcolour' and
     'defaulttgbghvrcolour' for setting the default toggle colours.
  9. In 'tcconfig.php' turn off toggle persistence if desired by changing 'togglepersistence' as indicated in the file.
-10. Login as an administrator and follow standard the 'plugin' update notification.  If needed, go to
+10. In 'tcconfig.php' set the default toggle alignment by changing 'defaulttogglealignment' as indicated in the file.
+11. Login as an administrator and follow standard the 'plugin' update notification.  If needed, go to
     'Site administration' -> 'Notifications' if this does not happen.
-11.  If desired, edit the colours of the 'styles.css' - which contains instructions on how to have per theme colours.
-12.  To change the arrow graphic you need to replace 'arrow_up.png' and 'arrow_down.png' in the 'pix' folder.  Or override the
-     css by using the selectors for the various images, override the 'background' attribute:
-
-     body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_open
-         - For the 'up' arrow in the toggle - original is 24px.
-     body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_closed
-         - For the 'down' arrow in the toggle - original is 24px.
-     .course-content ul.ctopics li.section .content .toggle a.toggle_closed
-         - For the 'up' arrow in the toggle when JavaScript is disabled and the toggles default to open.
-     #toggle-all .content .sectionbody h4 a.on - For the 'open all sections' image - original is 24px.
-     #toggle-all .content .sectionbody h4 a.off - For the 'closed all sections' image - original is 24px.
-     #tc-set-settings - For the 'reset' form image.
-
-     If in doubt, please consult 'styles.css' in the format.
+12.  To change the arrow graphic please see 'Icon Sets' below.
 13.  Put Moodle out of Maintenance Mode.
 
 Upgrade Instructions
@@ -154,11 +145,33 @@ Course Backup and Restore Instructions
          format then it will work and become the default course format.  However the layout data will not be
          stored if you install Collapsed Topic's at a later date.
 
-
 Remembered Toggle State Information
 -----------------------------------
 The state of the toggles are remembered beyond the session on a per user per course basis though the employment
 of a user preference.  This functionality is now built in from previous versions.  You do not need to do anything.
+
+Icon Sets
+---------
+Icon sets allow you to choose what is the most appropriate set of icons to use for a given courses demographic.  They
+are set on a per course basis but with all the functionality of the other settings in respect to a default and resetting
+the current or all courses.
+
+If you want to change what icon represents which state / action, then edit 'styles.css' and change the selectors with
+the 'background' attribute with a 'toggle-...' type class within them.  There are selectors for both the 'toggles' and
+the 'toggle all' functionality.  For example:
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow a.toggle_closed {
+    background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+}
+
+#toggle-all .content .toggle-arrow h4 a.off {
+    background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 0px 45%; 
+}
+
+If you would like your own icon set, either replace the icons in the 'pix' folder, deduce how the code works or better
+still create new icons yourself and ask me to add them to the release.  If you do the latter then the icons must be your
+own for which you grant the same GPL licence as Moodle (http://www.gnu.org/copyleft/gpl.html) or provide direct evidence
+of the originator under the same licence.  The icons must be 24x24 pixels with a transparent background.
 
 Known Issues
 ------------
@@ -805,7 +818,9 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
       suggestion with the + / - symbols by Ben Kelada on CONTRIB-4098.  I have used the 'standby' concept as Moodle is on
       and waiting for input.
   2.  I created the icons in Paint.Net and are released under the same GPL licence as the rest of Collapsed Topics and indeed Moodle.
-  3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.  No need to upgrade
+  3.  Implemented 'Icon sets' such that the user can choose what set of icons they wish to use without complex code changes.  I am
+      hoping that this will spark more 'sets' to incorporated in the main release from users.
+  4.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.  No need to upgrade
       as I have left the version number the same so that you can switch back to the release branch without a database edit issue.
 
 Thanks

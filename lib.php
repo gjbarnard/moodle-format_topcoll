@@ -267,6 +267,10 @@ class format_topcoll extends format_base {
                     'default' => CollapsedTopicsDefaults::defaulttogglealignment,
                     'type' => PARAM_INT,
                 ),
+                'toggleiconset' => array(
+                    'default' => CollapsedTopicsDefaults::defaulttoggleiconset,
+                    'type' => PARAM_ALPHA,
+                ),
                 'toggleforegroundcolour' => array(
                     'default' => CollapsedTopicsDefaults::defaulttgfgcolour,
                     'type' => PARAM_ALPHANUM,
@@ -339,8 +343,8 @@ class format_topcoll extends format_base {
                     'element_type' => 'select',
                     'element_attributes' => array(
                         array(1 => get_string('setlayoutstructuretopic', 'format_topcoll'), // Topic
-                            2 => get_string('setlayoutstructureweek', 'format_topcoll'), // Week   
-                            3 => get_string('setlayoutstructurelatweekfirst', 'format_topcoll'), // Latest Week First 
+                            2 => get_string('setlayoutstructureweek', 'format_topcoll'), // Week
+                            3 => get_string('setlayoutstructurelatweekfirst', 'format_topcoll'), // Latest Week First
                             4 => get_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'), // Current Topic First
                             5 => get_string('setlayoutstructureday', 'format_topcoll'))                // Day                                            ),
                     )
@@ -352,7 +356,7 @@ class format_topcoll extends format_base {
                     'element_type' => 'select',
                     'element_attributes' => array(
                         array(1 => get_string('one', 'format_topcoll'), // Default
-                            2 => get_string('two', 'format_topcoll'), // Two   
+                            2 => get_string('two', 'format_topcoll'), // Two
                             3 => get_string('three', 'format_topcoll'), // Three
                             4 => get_string('four', 'format_topcoll')) // Four
                     )
@@ -363,8 +367,8 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => array(
-                        array(1 => get_string('columnvertical', 'format_topcoll'), 
-                              2 => get_string('columnhorizontal', 'format_topcoll')) // Default 
+                        array(1 => get_string('columnvertical', 'format_topcoll'),
+                            2 => get_string('columnhorizontal', 'format_topcoll')) // Default
                     )
                 ),
                 'togglealignment' => array(
@@ -373,9 +377,19 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => array(
-                        array(1 => get_string('left', 'format_topcoll'), // Left
-                            2 => get_string('center', 'format_topcoll'), // Centre
-                            3 => get_string('right', 'format_topcoll')) // Right
+                        array(1 => get_string('left', 'format_topcoll'), // Left.
+                            2 => get_string('center', 'format_topcoll'), // Centre.
+                            3 => get_string('right', 'format_topcoll')) // Right.
+                    )
+                ),
+                'toggleiconset' => array(
+                    'label' => new lang_string('settoggleiconset', 'format_topcoll'),
+                    'help' => 'settoggleiconset',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => array(
+                        array('arrow' => get_string('arrow', 'format_topcoll'), // Arrow icon set.
+                            'power' => get_string('power', 'format_topcoll')) // Power icon set.
                     )
                 ),
                 'toggleforegroundcolour' => array(
@@ -443,6 +457,10 @@ class format_topcoll extends format_base {
             $mform->addHelpButton('resettogglealignment', 'resettogglealignment', 'format_topcoll', '', true);
             $mform->setAdvanced('resettogglealignment');
 
+            $elements[] = $mform->addElement('checkbox', 'resettoggleiconset', get_string('resettoggleiconset', 'format_topcoll'), false);
+            $mform->addHelpButton('resettoggleiconset', 'resettoggleiconset', 'format_topcoll', '', true);
+            $mform->setAdvanced('resettoggleiconset');
+
             if (is_siteadmin($USER)) {
                 $elements[] = $mform->addElement('checkbox', 'resetalllayout', get_string('resetalllayout', 'format_topcoll'), false);
                 $mform->addHelpButton('resetalllayout', 'resetalllayout', 'format_topcoll', '', true);
@@ -455,10 +473,12 @@ class format_topcoll extends format_base {
                 $elements[] = $mform->addElement('checkbox', 'resetalltogglealignment', get_string('resetalltogglealignment', 'format_topcoll'), false);
                 $mform->addHelpButton('resetalltogglealignment', 'resetalltogglealignment', 'format_topcoll', '', true);
                 $mform->setAdvanced('resetalltogglealignment');
+
+                $elements[] = $mform->addElement('checkbox', 'resetalltoggleiconset', get_string('resetalltoggleiconset', 'format_topcoll'), false);
+                $mform->addHelpButton('resetalltoggleiconset', 'resetalltoggleiconset', 'format_topcoll', '', true);
+                $mform->setAdvanced('resetalltoggleiconset');
             }
         }
-
-//print_r($elements);
 
         return $elements;
     }
@@ -478,16 +498,17 @@ class format_topcoll extends format_base {
      */
     public function update_course_format_options($data, $oldcourse = null) {
 
-//print_object($data);
-// Notes: Using 'unset' to really ensure that the reset form elements never get into the database.
-//        This has to be done here so that the reset occurs after we have done updates such that the
-//        reset itself is not seen as an update.
+        // Notes: Using 'unset' to really ensure that the reset form elements never get into the database.
+        //        This has to be done here so that the reset occurs after we have done updates such that the
+        //        reset itself is not seen as an update.
         $resetlayout = false;
         $resetcolour = false;
         $resettogglealignment = false;
+        $resettoggleiconset = false;
         $resetalllayout = false;
         $resetallcolour = false;
         $resetalltogglealignment = false;
+        $resetalltoggleiconset = false;
         if (isset($data->resetlayout) == true) {
             $resetlayout = true;
             unset($data->resetlayout);
@@ -504,6 +525,10 @@ class format_topcoll extends format_base {
             $resettogglealignment = true;
             unset($data->resettogglealignment);
         }
+        if (isset($data->resettoggleiconset) == true) {
+            $resettoggleiconset = true;
+            unset($data->resettoggleiconset);
+        }
         if (isset($data->resetallcolour) == true) {
             $resetallcolour = true;
             unset($data->resetalllayout);
@@ -511,6 +536,10 @@ class format_topcoll extends format_base {
         if (isset($data->resetalltogglealignment) == true) {
             $resetalltogglealignment = true;
             unset($data->resetalltogglealignment);
+        }
+        if (isset($data->resetalltoggleiconset) == true) {
+            $resetalltoggleiconset = true;
+            unset($data->resetalltoggleiconset);
         }
 
         if ($oldcourse !== null) {
@@ -522,13 +551,13 @@ class format_topcoll extends format_base {
                     if (array_key_exists($key, $oldcourse)) {
                         $data[$key] = $oldcourse[$key];
                     } else if ($key === 'numsections') {
-// If previous format does not have the field 'numsections'
-// and $data['numsections'] is not set,
-// we fill it with the maximum section number from the DB
+                        // If previous format does not have the field 'numsections'
+                        // and $data['numsections'] is not set,
+                        // we fill it with the maximum section number from the DB
                         $maxsection = $DB->get_field_sql('SELECT max(section) from {course_sections}
                             WHERE course = ?', array($this->courseid));
                         if ($maxsection) {
-// If there are no sections, or just default 0-section, 'numsections' will be set to default
+                            // If there are no sections, or just default 0-section, 'numsections' will be set to default
                             $data['numsections'] = $maxsection;
                         }
                     }
@@ -537,59 +566,13 @@ class format_topcoll extends format_base {
         }
         $changes = $this->update_format_options($data);
 
-// Now we can do the reset.
-        if ($resettogglealignment == true) {
-            if (($resetlayout == true) && ($resetcolour == true)) {
-                $this->reset_topcoll_setting($this->courseid, true, true, true);
-                $changes = true;
-            } else if ($resetlayout == true) {
-                $this->reset_topcoll_setting($this->courseid, true, false, true);
-                $changes = true;
-            } else if ($resetcolour == true) {
-                $this->reset_topcoll_setting($this->courseid, false, true, true);
-                $changes = true;
-            } else {
-                $this->reset_topcoll_setting($this->courseid, false, false, true);
-                $changes = true;                
-            }
-        } else {
-            if (($resetlayout == true) && ($resetcolour == true)) {
-                $this->reset_topcoll_setting($this->courseid, true, true, false);
-                $changes = true;
-            } else if ($resetlayout == true) {
-                $this->reset_topcoll_setting($this->courseid, true, false, false);
-                $changes = true;
-            } else if ($resetcolour == true) {
-                $this->reset_topcoll_setting($this->courseid, false, true, false);
-                $changes = true;
-            }
-        }
-
-        if ($resetalltogglealignment == true) {
-            if (($resetalllayout == true) && ($resetallcolour == true)) {
-                $this->reset_topcoll_setting(0, true, true, true);
-                $changes = true;
-            } else if ($resetalllayout == true) {
-                $this->reset_topcoll_setting(0, true, false, true);
-                $changes = true;
-            } else if ($resetallcolour == true) {
-                $this->reset_topcoll_setting(0, false, true, true);
-                $changes = true;
-            } else {
-                $this->reset_topcoll_setting(0, false, false, true);
-                $changes = true;                
-            }
-        } else {
-            if (($resetalllayout == true) && ($resetallcolour == true)) {
-                $this->reset_topcoll_setting(0, true, true, false);
-                $changes = true;
-            } else if ($resetalllayout == true) {
-                $this->reset_topcoll_setting(0, true, false, false);
-                $changes = true;
-            } else if ($resetallcolour == true) {
-                $this->reset_topcoll_setting(0, false, true, false);
-                $changes = true;
-            }
+        // Now we can do the reset.
+        if (($resetalllayout) || ($resetallcolour) || ($resetalltogglealignment) || ($resetalltoggleiconset)) {
+            $this->reset_topcoll_setting(0, $resetalllayout, $resetallcolour, $resetalltogglealignment, $resetalltoggleiconset);
+            $changes = true;
+        } else if (($resetlayout) || ($resetcolour) || ($resettogglealignment) || ($resettoggleiconset)) {
+            $this->reset_topcoll_setting($this->courseid, $resetlayout, $resetcolour, $resettogglealignment, $resettoggleiconset);
+            $changes = true;
         }
 
         return $changes;
@@ -635,8 +618,8 @@ class format_topcoll extends format_base {
      */
     private function format_topcoll_get_section_dates($section, $course) {
         $oneweekseconds = 604800;
-// Hack alert. We add 2 hours to avoid possible DST problems. (e.g. we go into daylight
-// savings and the date changes.
+        // Hack alert. We add 2 hours to avoid possible DST problems. (e.g. we go into daylight
+        // savings and the date changes.
         $startdate = $course->startdate + 7200;
 
         $dates = new stdClass();
@@ -670,8 +653,9 @@ class format_topcoll extends format_base {
      * @param int $layout If true, reset the layout to the default in tcconfig.php.
      * @param int $colour If true, reset the colour to the default in tcconfig.php.
      * @param int $togglealignment If true, reset the toggle alignment to the default in tcconfig.php.
+     * @param int $toggleiconset If true, reset the toggle icon set to the default in tcconfig.php.
      */
-    public function reset_topcoll_setting($courseid, $layout, $colour, $togglealignment) {
+    public function reset_topcoll_setting($courseid, $layout, $colour, $togglealignment, $toggleiconset) {
         global $DB;
 
         $currentcourseid = 0;
@@ -680,37 +664,34 @@ class format_topcoll extends format_base {
         } else {
             $records = $DB->get_records('course_format_options', array('courseid' => $courseid, 'format' => $this->format), '', 'id,courseid');
         }
+
+        $updatedata = array();
+        if ($layout) {
+            $updatedata['coursedisplay'] = CollapsedTopicsDefaults::defaultcoursedisplay;
+            $updatedata['layoutelement'] = CollapsedTopicsDefaults::defaultlayoutelement;
+            $updatedata['layoutstructure'] = CollapsedTopicsDefaults::defaultlayoutstructure;
+            $updatedata['layoutcolumns'] = CollapsedTopicsDefaults::defaultlayoutcolumns;
+            $updatedata['layoutcolumnorientation'] = CollapsedTopicsDefaults::defaultlayoutcolumnorientation;
+        }
+        if ($togglealignment) {
+            $updatedata['togglealignment'] = CollapsedTopicsDefaults::defaulttogglealignment;
+        }
+        if ($colour) {
+            $updatedata['toggleforegroundcolour'] = CollapsedTopicsDefaults::defaulttgfgcolour;
+            $updatedata['togglebackgroundcolour'] = CollapsedTopicsDefaults::defaulttgbgcolour;
+            $updatedata['togglebackgroundhovercolour'] = CollapsedTopicsDefaults::defaulttgbghvrcolour;
+        }
+        if ($toggleiconset) {
+            $updatedata['toggleiconset'] = CollapsedTopicsDefaults::defaulttoggleiconset;
+        }
+
         foreach ($records as $record) {
             if ($currentcourseid != $record->courseid) {
                 $currentcourseid = $record->courseid; // Only do once per course.
-                if ($layout) {
-                    $layoutdata = array(
-                        'coursedisplay' => CollapsedTopicsDefaults::defaultcoursedisplay,
-                        'layoutelement' => CollapsedTopicsDefaults::defaultlayoutelement,
-                        'layoutstructure' => CollapsedTopicsDefaults::defaultlayoutstructure,
-                        'layoutcolumns' => CollapsedTopicsDefaults::defaultlayoutcolumns,
-                        'layoutcolumnorientation' => CollapsedTopicsDefaults::defaultlayoutcolumnorientation);
+                if (($layout) || ($togglealignment) || ($colour) || ($toggleiconset)) {
                     $ourcourseid = $this->courseid;
                     $this->courseid = $currentcourseid;
-                    $this->update_format_options($layoutdata);
-                    $this->courseid = $ourcourseid;
-                }
-                if ($togglealignment) {
-                    $alignmentdata = array(
-                        'togglealignment' => CollapsedTopicsDefaults::defaulttogglealignment);
-                    $ourcourseid = $this->courseid;
-                    $this->courseid = $currentcourseid;
-                    $this->update_format_options($alignmentdata);
-                    $this->courseid = $ourcourseid;
-                }
-                if ($colour) {
-                    $colourdata = array(
-                        'toggleforegroundcolour' => CollapsedTopicsDefaults::defaulttgfgcolour,
-                        'togglebackgroundcolour' => CollapsedTopicsDefaults::defaulttgbgcolour,
-                        'togglebackgroundhovercolour' => CollapsedTopicsDefaults::defaulttgbghvrcolour);
-                    $ourcourseid = $this->courseid;
-                    $this->courseid = $currentcourseid;
-                    $this->update_format_options($colourdata);
+                    $this->update_format_options($updatedata);
                     $this->courseid = $ourcourseid;
                 }
             }
@@ -730,9 +711,9 @@ class format_topcoll extends format_base {
      * @param int $tgbghvrcolour The background hover colour to use, see tcconfig.php.
      */
     public function restore_topcoll_setting($courseid, $layoutelement, $layoutstructure, $layoutcolumns, $tgfgcolour, $tgbgcolour, $tgbghvrcolour) {
-        $currentcourseid = $this->courseid;  // Save for later - stack data model.        
+        $currentcourseid = $this->courseid;  // Save for later - stack data model.
         $this->courseid = $courseid;
-// Create data array.
+        // Create data array.
         $data = array(
             'layoutelement' => $layoutelement,
             'layoutstructure' => $layoutstructure,
@@ -751,7 +732,7 @@ class format_topcoll extends format_base {
      * @param int $layoutcolumns The layout columns to use, see tcconfig.php.
      */
     public function update_topcoll_columns_setting($layoutcolumns) {
-// Create data array.
+        // Create data array.
         $data = array('layoutcolumns' => $layoutcolumns);
 
         $this->update_course_format_options($data);

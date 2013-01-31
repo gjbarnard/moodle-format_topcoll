@@ -89,6 +89,9 @@ $string['one'] = 'One';
 $string['two'] = 'Two';
 $string['three'] = 'Three';
 $string['four'] = 'Four';
+$string['setlayoutcolumnorientation'] = 'Set the column orientation';
+$string['columnvertical'] = 'Vertical as a mast';
+$string['columnhorizontal'] = 'Horizontal as a cannon';
 
 // Temporary until MDL-34917 in core.
 $string['maincoursepage'] = 'Ye main course page';
@@ -122,11 +125,22 @@ $string['setlayoutcolumns_help'] = 'How many columns to use.';
 // Toggle alignment - CONTRIB-4098
 $string['settogglealignment'] = 'Set thee toggle text alignment';
 $string['settogglealignment_help'] = 'Sets thee alignment of thee text in thy toggle.';
-$string['left'] = 'Left';
-$string['center'] = 'Centre';
-$string['right'] = 'Right';
+$string['left'] = 'Port';
+$string['center'] = 'Midships';
+$string['right'] = 'Starboard';
 $string['resettogglealignment'] = 'Reset thee toggle alignment';
-$string['resetalltogglealignment'] = 'Reset toggle alignments for all Collapsed Topics courses';
-$string['resettogglealignment_help'] = 'Resets the toggle alignment to thee default values in "/course/format/topcoll/tcconfig.php" so it will be thy same as a course thee first time it is in thee Collapsed Topics format.';
-$string['resetalltogglealignment_help'] = 'Resets the toggle alignment to thee default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be thy same as a course thee first time it is in thee Collapsed Topics format.';
+$string['resetalltogglealignment'] = 'Reset thee toggle alignments for all thy Collapsed Topics courses';
+$string['resettogglealignment_help'] = 'Resets thee toggle alignment to thy default values in "/course/format/topcoll/tcconfig.php" so thy will be thy same as a course thee first time it is in thee Collapsed Topics format.';
+$string['resetalltogglealignment_help'] = 'Resets thee toggle alignment to thy default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be thy same as a course thee first time it is in thee Collapsed Topics format.';
+
+// Icon set enhancement.
+$string['settoggleiconset'] = 'Set thee icon set';
+$string['settoggleiconset_help'] = 'Sets thee icon set of thy toggle.';
+$string['arrow'] = 'Straight as an arrow';
+$string['power'] = 'Power me hearties';
+$string['resettoggleiconset'] = 'Reset thee toggle icon set';
+$string['resetalltoggleiconset'] = 'Reset thee toggle icon set for all thy Collapsed Topics courses';
+$string['resettoggleiconset_help'] = 'Resets thee toggle icon set to thy default values in "/course/format/topcoll/tcconfig.php" so thy will be thee same as a course thee first time it is in thy Collapsed Topics format.';
+$string['resetalltoggleiconset_help'] = 'Resets thee toggle icon set to thy default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be thy same as a course thee first time it is in thy Collapsed Topics format.';
+
 ?>
