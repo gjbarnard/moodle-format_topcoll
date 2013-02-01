@@ -100,6 +100,35 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow a.to
     background: transparent url([[pix:format_topcoll|arrow_down_glow]]) no-repeat 0px 45%; 
 }
 
+/* Point icon set. */
+.course-content ul.ctopics li.section .content .toggle-point a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open { /* JavaScript disabled */
+    background: transparent url([[pix:format_topcoll|point_right]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-point a.toggle_closed { /* JavaScript enabled */
+    background: transparent url([[pix:format_topcoll|point_right]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-point a.toggle_open { /* JavaScript enabled */
+    background: transparent url([[pix:format_topcoll|point_down]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
+}
+
+#toggle-all .content .toggle-point h4 a.off {
+    background: transparent url([[pix:format_topcoll|point_down]]) no-repeat 0px 45%; 
+}
+
+#toggle-all .content .toggle-point h4 a.off:hover {
+    background: transparent url([[pix:format_topcoll|point_right_glow]]) no-repeat 0px 45%; 
+}
+
+#toggle-all .content .toggle-point h4 a.on {
+    background: transparent url([[pix:format_topcoll|point_right]]) no-repeat 0px 45%; 
+}
+
+#toggle-all .content .toggle-point h4 a.on:hover {
+    background: transparent url([[pix:format_topcoll|point_down_glow]]) no-repeat 0px 45%; 
+}
+
 /* Power icon set. */
 .course-content ul.ctopics li.section .content .toggle-power a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open { /* JavaScript disabled */
     background: transparent url([[pix:format_topcoll|toggle_minus]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
@@ -127,27 +156,6 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-power a.to
 
 #toggle-all .content .toggle-power h4 a.on:hover {
     background: transparent url([[pix:format_topcoll|toggle_plus_glow]]) no-repeat 0px 45%; 
-}
-
-/* Point icon set. */
-.course-content ul.ctopics li.section .content .toggle-point a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open { /* JavaScript disabled */
-    background: transparent url([[pix:format_topcoll|point_right]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
-}
-
-body.jsenabled .course-content ul.ctopics li.section .content .toggle-point a.toggle_closed { /* JavaScript enabled */
-    background: transparent url([[pix:format_topcoll|point_right]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
-}
-
-body.jsenabled .course-content ul.ctopics li.section .content .toggle-point a.toggle_open { /* JavaScript enabled */
-    background: transparent url([[pix:format_topcoll|point_down]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
-}
-
-#toggle-all .content .toggle-point h4 a.off {
-    background: transparent url([[pix:format_topcoll|point_down]]) no-repeat 0px 45%; 
-}
-
-#toggle-all .content .toggle-point h4 a.on {
-    background: transparent url([[pix:format_topcoll|point_right]]) no-repeat 0px 45%; 
 }
 
 #mymobile .course-content ul.ctopics li.tcsection .content, #mymobile .course-content ul.ctopics li.section.main .content{
