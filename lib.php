@@ -271,6 +271,10 @@ class format_topcoll extends format_base {
                     'default' => CollapsedTopicsDefaults::defaulttoggleiconset,
                     'type' => PARAM_ALPHA,
                 ),
+                'toggleallhover' => array(
+                    'default' => CollapsedTopicsDefaults::defaulttoggleallhover,
+                    'type' => PARAM_INT,
+                ),
                 'toggleforegroundcolour' => array(
                     'default' => CollapsedTopicsDefaults::defaulttgfgcolour,
                     'type' => PARAM_ALPHANUM,
@@ -341,11 +345,11 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => array(
-                        array(1 => get_string('setlayoutstructuretopic', 'format_topcoll'),             // Topic
-                              2 => get_string('setlayoutstructureweek', 'format_topcoll'),              // Week
-                              3 => get_string('setlayoutstructurelatweekfirst', 'format_topcoll'),      // Latest Week First
-                              4 => get_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'), // Current Topic First
-                              5 => get_string('setlayoutstructureday', 'format_topcoll'))               // Day
+                        array(1 => new lang_string('setlayoutstructuretopic', 'format_topcoll'),             // Topic
+                              2 => new lang_string('setlayoutstructureweek', 'format_topcoll'),              // Week
+                              3 => new lang_string('setlayoutstructurelatweekfirst', 'format_topcoll'),      // Latest Week First
+                              4 => new lang_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'), // Current Topic First
+                              5 => new lang_string('setlayoutstructureday', 'format_topcoll'))               // Day
                     )
                 ),
                 'layoutcolumns' => array(
@@ -354,10 +358,10 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => array(
-                        array(1 => get_string('one', 'format_topcoll'),   // Default
-                              2 => get_string('two', 'format_topcoll'),   // Two
-                              3 => get_string('three', 'format_topcoll'), // Three
-                              4 => get_string('four', 'format_topcoll'))  // Four
+                        array(1 => new lang_string('one', 'format_topcoll'),   // Default
+                              2 => new lang_string('two', 'format_topcoll'),   // Two
+                              3 => new lang_string('three', 'format_topcoll'), // Three
+                              4 => new lang_string('four', 'format_topcoll'))  // Four
                     )
                 ),
                 'layoutcolumnorientation' => array(
@@ -366,8 +370,8 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => array(
-                        array(1 => get_string('columnvertical', 'format_topcoll'),
-                              2 => get_string('columnhorizontal', 'format_topcoll')) // Default
+                        array(1 => new lang_string('columnvertical', 'format_topcoll'),
+                              2 => new lang_string('columnhorizontal', 'format_topcoll')) // Default
                     )
                 ),
                 'togglealignment' => array(
@@ -376,9 +380,9 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => array(
-                        array(1 => get_string('left', 'format_topcoll'),   // Left.
-                              2 => get_string('center', 'format_topcoll'), // Centre.
-                              3 => get_string('right', 'format_topcoll'))  // Right.
+                        array(1 => new lang_string('left', 'format_topcoll'),   // Left.
+                              2 => new lang_string('center', 'format_topcoll'), // Centre.
+                              3 => new lang_string('right', 'format_topcoll'))  // Right.
                     )
                 ),
                 'toggleiconset' => array(
@@ -387,9 +391,19 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => array(
-                        array('arrow' => get_string('arrow', 'format_topcoll'), // Arrow icon set.
-                              'point' => get_string('point', 'format_topcoll'), // Point icon set.
-                              'power' => get_string('power', 'format_topcoll')) // Power icon set.
+                        array('arrow' => new lang_string('arrow', 'format_topcoll'), // Arrow icon set.
+                              'point' => new lang_string('point', 'format_topcoll'), // Point icon set.
+                              'power' => new lang_string('power', 'format_topcoll')) // Power icon set.
+                    )
+                ),
+                'toggleallhover' => array(
+                    'label' => new lang_string('settoggleallhover', 'format_topcoll'),
+                    'help' => 'settoggleallhover',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => array(
+                        array(1 => new lang_string('no'),
+                              2 => new lang_string('yes'))
                     )
                 ),
                 'toggleforegroundcolour' => array(
@@ -683,6 +697,7 @@ class format_topcoll extends format_base {
         }
         if ($toggleiconset) {
             $updatedata['toggleiconset'] = CollapsedTopicsDefaults::defaulttoggleiconset;
+            $updatedata['toggleallhover'] = CollapsedTopicsDefaults::defaulttoggleallhover;
         }
 
         foreach ($records as $record) {

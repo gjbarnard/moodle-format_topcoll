@@ -92,4 +92,9 @@ class CollapsedTopicsDefaults {
     // point => Point icon set.
     // power => Power icon set.
     const defaulttoggleiconset = 'arrow';
+
+    // Toggle all icon hover.
+    // 1 => No.
+    // 2 => Yes.
+    const defaulttoggleallhover = 2;
 }

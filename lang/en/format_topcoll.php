@@ -151,12 +151,15 @@ $string['resetalltogglealignment_help'] = 'Resets the toggle alignment to the de
 // Icon set enhancement.
 $string['settoggleiconset'] = 'Set icon set';
 $string['settoggleiconset_help'] = 'Sets the icon set of the toggle.';
+$string['settoggleallhover'] = 'Set toggle all icon hover';
+$string['settoggleallhover_help'] = 'Sets if the toggle all icons will change when the mouse moves over them.';
 $string['arrow'] = 'Arrow';
 $string['point'] = 'Point';
 $string['power'] = 'Power';
 $string['resettoggleiconset'] = 'Reset the toggle icon set';
 $string['resetalltoggleiconset'] = 'Reset the toggle icon set for all Collapsed Topics courses';
-$string['resettoggleiconset_help'] = 'Resets the toggle icon set to the default values in "/course/format/topcoll/tcconfig.php" so it will be the same as a course the first time it is in the Collapsed Topics format.';
-$string['resetalltoggleiconset_help'] = 'Resets the toggle icon set to the default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resettoggleiconset_help'] = 'Resets the toggle icon set and toggle all hover to the default values in "/course/format/topcoll/tcconfig.php" so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resetalltoggleiconset_help'] = 'Resets the toggle icon set and toggle all hover to the default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
+
 
 ?>

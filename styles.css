@@ -88,7 +88,7 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow a.to
     background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 0px 45%; 
 }
 
-#toggle-all .content .toggle-arrow h4 a.off:hover {
+#toggle-all .content .toggle-arrow-hover h4 a.off:hover {
     background: transparent url([[pix:format_topcoll|arrow_right_glow]]) no-repeat 0px 45%; 
 }
 
@@ -96,7 +96,7 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow a.to
     background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 0px 45%; 
 }
 
-#toggle-all .content .toggle-arrow h4 a.on:hover {
+#toggle-all .content .toggle-arrow-hover h4 a.on:hover {
     background: transparent url([[pix:format_topcoll|arrow_down_glow]]) no-repeat 0px 45%; 
 }
 
@@ -117,7 +117,7 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-point a.to
     background: transparent url([[pix:format_topcoll|point_down]]) no-repeat 0px 45%; 
 }
 
-#toggle-all .content .toggle-point h4 a.off:hover {
+#toggle-all .content .toggle-point-hover h4 a.off:hover {
     background: transparent url([[pix:format_topcoll|point_right_glow]]) no-repeat 0px 45%; 
 }
 
@@ -125,7 +125,7 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-point a.to
     background: transparent url([[pix:format_topcoll|point_right]]) no-repeat 0px 45%; 
 }
 
-#toggle-all .content .toggle-point h4 a.on:hover {
+#toggle-all .content .toggle-point-hover h4 a.on:hover {
     background: transparent url([[pix:format_topcoll|point_down_glow]]) no-repeat 0px 45%; 
 }
 
@@ -146,7 +146,7 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-power a.to
     background: transparent url([[pix:format_topcoll|toggle_plus]]) no-repeat 0px 45%; 
 }
 
-#toggle-all .content .toggle-power h4 a.off:hover {
+#toggle-all .content .toggle-power-hover h4 a.off:hover {
     background: transparent url([[pix:format_topcoll|toggle_minus_glow]]) no-repeat 0px 45%; 
 }
 
@@ -154,7 +154,7 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-power a.to
     background: transparent url([[pix:format_topcoll|toggle_minus]]) no-repeat 0px 45%; 
 }
 
-#toggle-all .content .toggle-power h4 a.on:hover {
+#toggle-all .content .toggle-power-hover h4 a.on:hover {
     background: transparent url([[pix:format_topcoll|toggle_plus_glow]]) no-repeat 0px 45%; 
 }
 

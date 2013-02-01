@@ -813,14 +813,15 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1.  Further tweaks for toggle line height and to make work in IE9 with and without IE7 mode.
   2.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
   
-31st January 2013 - Version 2.4.2.1 - Power Toggle evaluation branch - MOODLE_24_POWER_TOGGLE
+1st February 2013 - Version 2.4.2.1 - Power Toggle evaluation branch - MOODLE_24_POWER_TOGGLE
   1.  Taking inspiration from the IEC 5009 standard standby symbol as described on http://en.wikipedia.org/wiki/Power_symbol and a
       suggestion with the + / - symbols by Ben Kelada on CONTRIB-4098.  I have used the 'standby' concept as Moodle is on
       and waiting for input.
   2.  I created the icons in Paint.Net and are released under the same GPL licence as the rest of Collapsed Topics and indeed Moodle.
   3.  Implemented 'Icon sets' such that the user can choose what set of icons they wish to use without complex code changes.  I am
       hoping that this will spark more 'sets' to incorporated in the main release from users.
-  4.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.  No need to upgrade
+  4.  Added the ability to control if the toggle all icons will change when hovered over, for Rick Jerz.
+  5.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.  No need to upgrade
       as I have left the version number the same so that you can switch back to the release branch without a database edit issue.
 
 Thanks
@@ -879,6 +880,6 @@ Desired Enhancements
 2. Toggle saving only when the user closes the window / moves to another course.
 3. This file in WikiMedia format so that it has an automatic contents menu on GitHub.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 31st January 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 1st February 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

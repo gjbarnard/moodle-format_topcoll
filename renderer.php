@@ -790,7 +790,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
 
         $o .= html_writer::start_tag('div', array('class' => 'content'));
-        $o .= html_writer::start_tag('div', array('class' => 'sectionbody toggle-'.$this->tcsettings['toggleiconset']));
+        $iconsetclass = ' toggle-'.$this->tcsettings['toggleiconset'];
+        if ($this->tcsettings['toggleallhover'] == 2) {
+            $iconsetclass .= '-hover'.$iconsetclass;
+        }
+        $o .= html_writer::start_tag('div', array('class' => 'sectionbody'.$iconsetclass));
         $o .= html_writer::start_tag('h4', null);
         $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'id' => 'toggles-all-opened'));
         $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'id' => 'toggles-all-closed'));
