@@ -34,6 +34,9 @@ New features for this Moodle 2.4 version
     below.
  6. Moved all 'tcconfig.php' default functionalty to 'Site Administration -> Plugins -> Course formats -> Collapsed Topics'
     so that defaults can be changed by the administrator from within Moodle without resorting to code changes.
+ 7. Added capabilities 'format/topcoll:changelayout', 'format/topcoll:changecolour', 'format/topcoll:changetogglealignment'
+    and 'format/topcoll:changetoggleiconset' to editing teachers and managers such that site administrators can choose to
+    disable functionality through roles if they wish.
 
 Installation
 ------------
@@ -818,7 +821,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1.  Further tweaks for toggle line height and to make work in IE9 with and without IE7 mode.
   2.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
   
-3rd February 2013 - Version 2.4.2.1 - Power Toggle evaluation branch - MOODLE_24_POWER_TOGGLE
+3rd February 2013 - Version 2.4.3 - Power Toggle evaluation branch - MOODLE_24_POWER_TOGGLE
   1.  Taking inspiration from the IEC 5009 standard standby symbol as described on http://en.wikipedia.org/wiki/Power_symbol and a
       suggestion with the + / - symbols by Ben Kelada on CONTRIB-4098.  I have used the 'standby' concept as Moodle is on
       and waiting for input.
@@ -828,7 +831,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   4.  Added the ability to control if the toggle all icons will change when hovered over, for Rick Jerz.
   5.  Moved all 'tcconfig.php' default functionalty to 'Site Administration -> Plugins -> Course formats -> Collapsed Topics' so that
       defaults can be changed by the administrator from within Moodle without resorting to code changes.
-  6.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.  No need to upgrade
+  6.  Added capabilities 'format/topcoll:changelayout', 'format/topcoll:changecolour', 'format/topcoll:changetogglealignment'
+      and 'format/topcoll:changetoggleiconset' to editing teachers and managers such that site administrators can choose to
+      disable functionality through roles if they wish.  In order for this to work the version number must be updated.
+  7.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.  No need to upgrade
       as I have left the version number the same so that you can switch back to the release branch without a database edit issue.
 
 Thanks

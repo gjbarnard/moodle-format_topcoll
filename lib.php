@@ -289,6 +289,9 @@ class format_topcoll extends format_base {
             );
         }
         if ($foreditform && !isset($courseformatoptions['coursedisplay']['label'])) {
+            global $COURSE;
+            $coursecontext = context_course::instance($COURSE->id);
+
             $courseconfig = get_config('moodlecourse');
             $sectionmenu = array();
             for ($i = 0; $i <= $courseconfig->maxsections; $i++) {
@@ -322,8 +325,10 @@ class format_topcoll extends format_base {
                     ),
                     'help' => 'coursedisplay',
                     'help_component' => 'moodle',
-                ),
-                'layoutelement' => array(
+                )
+            );
+            if (has_capability('format/topcoll:changelayout', $coursecontext)) {
+                $courseformatoptionsedit['layoutelement'] = array(
                     'label' => new lang_string('setlayoutelements', 'format_topcoll'),
                     'help' => 'setlayoutelements',
                     'help_component' => 'format_topcoll',
@@ -337,8 +342,8 @@ class format_topcoll extends format_base {
                               6 => new lang_string('setlayout_no_toggle_word_toggle_section_x', 'format_topcoll'),            // No 'Toggle' word and no 'Topic x' / 'Week x'.
                               7 => new lang_string('setlayout_no_toggle_word_toggle_section_x_section_no', 'format_topcoll')) // No 'Toggle' word, no 'Topic x' / 'Week x'  and no section number.
                     )
-                ),
-                'layoutstructure' => array(
+                );
+                $courseformatoptionsedit['layoutstructure'] = array(
                     'label' => new lang_string('setlayoutstructure', 'format_topcoll'),
                     'help' => 'setlayoutstructure',
                     'help_component' => 'format_topcoll',
@@ -350,8 +355,8 @@ class format_topcoll extends format_base {
                               4 => new lang_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'), // Current Topic First
                               5 => new lang_string('setlayoutstructureday', 'format_topcoll'))               // Day
                     )
-                ),
-                'layoutcolumns' => array(
+                );
+                $courseformatoptionsedit['layoutcolumns'] = array(
                     'label' => new lang_string('setlayoutcolumns', 'format_topcoll'),
                     'help' => 'setlayoutcolumns',
                     'help_component' => 'format_topcoll',
@@ -362,8 +367,8 @@ class format_topcoll extends format_base {
                               3 => new lang_string('three', 'format_topcoll'), // Three
                               4 => new lang_string('four', 'format_topcoll'))  // Four
                     )
-                ),
-                'layoutcolumnorientation' => array(
+                );
+                $courseformatoptionsedit['layoutcolumnorientation'] = array(
                     'label' => new lang_string('setlayoutcolumnorientation', 'format_topcoll'),
                     'help' => 'setlayoutcolumnorientation',
                     'help_component' => 'format_topcoll',
@@ -372,8 +377,11 @@ class format_topcoll extends format_base {
                         array(1 => new lang_string('columnvertical', 'format_topcoll'),
                               2 => new lang_string('columnhorizontal', 'format_topcoll')) // Default
                     )
-                ),
-                'togglealignment' => array(
+                );
+            }
+
+            if (has_capability('format/topcoll:changetogglealignment', $coursecontext)) {
+               $courseformatoptionsedit['togglealignment'] = array(
                     'label' => new lang_string('settogglealignment', 'format_topcoll'),
                     'help' => 'settogglealignment',
                     'help_component' => 'format_topcoll',
@@ -383,8 +391,11 @@ class format_topcoll extends format_base {
                               2 => new lang_string('center', 'format_topcoll'), // Centre.
                               3 => new lang_string('right', 'format_topcoll'))  // Right.
                     )
-                ),
-                'toggleiconset' => array(
+                );
+            }
+
+            if (has_capability('format/topcoll:changetoggleiconset', $coursecontext)) {
+                $courseformatoptionsedit['toggleiconset'] = array(
                     'label' => new lang_string('settoggleiconset', 'format_topcoll'),
                     'help' => 'settoggleiconset',
                     'help_component' => 'format_topcoll',
@@ -394,8 +405,8 @@ class format_topcoll extends format_base {
                               'point' => new lang_string('point', 'format_topcoll'), // Point icon set.
                               'power' => new lang_string('power', 'format_topcoll')) // Power icon set.
                     )
-                ),
-                'toggleallhover' => array(
+                );
+                $courseformatoptionsedit['toggleallhover'] = array(
                     'label' => new lang_string('settoggleallhover', 'format_topcoll'),
                     'help' => 'settoggleallhover',
                     'help_component' => 'format_topcoll',
@@ -404,8 +415,11 @@ class format_topcoll extends format_base {
                         array(1 => new lang_string('no'),
                               2 => new lang_string('yes'))
                     )
-                ),
-                'toggleforegroundcolour' => array(
+                );
+            }
+
+            if (has_capability('format/topcoll:changecolour', $coursecontext)) {
+                $courseformatoptionsedit['toggleforegroundcolour'] = array(
                     'label' => new lang_string('settoggleforegroundcolour', 'format_topcoll'),
                     'help' => 'settoggleforegroundcolour',
                     'help_component' => 'format_topcoll',
@@ -413,8 +427,8 @@ class format_topcoll extends format_base {
                     'element_attributes' => array(
                         array('tabindex' => -1, 'value' => get_config('format_topcoll','defaulttgfgcolour'))
                     )
-                ),
-                'togglebackgroundcolour' => array(
+                );
+                $courseformatoptionsedit['togglebackgroundcolour'] = array(
                     'label' => new lang_string('settogglebackgroundcolour', 'format_topcoll'),
                     'help' => 'settogglebackgroundcolour',
                     'help_component' => 'format_topcoll',
@@ -422,8 +436,8 @@ class format_topcoll extends format_base {
                     'element_attributes' => array(
                         array('tabindex' => -1, 'value' => get_config('format_topcoll','defaulttgbgcolour'))
                     )
-                ),
-                'togglebackgroundhovercolour' => array(
+                );
+                $courseformatoptionsedit['togglebackgroundhovercolour'] = array(
                     'label' => new lang_string('settogglebackgroundhovercolour', 'format_topcoll'),
                     'help' => 'settogglebackgroundhovercolour',
                     'help_component' => 'format_topcoll',
@@ -431,8 +445,8 @@ class format_topcoll extends format_base {
                     'element_attributes' => array(
                         array('tabindex' => -1, 'value' => get_config('format_topcoll','defaulttgbghvrcolour'))
                     )
-                )
-            );
+                );
+            }
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
         return $courseformatoptions;
@@ -452,29 +466,46 @@ class format_topcoll extends format_base {
         MoodleQuickForm::registerElementType('tccolourpopup', "$CFG->dirroot/course/format/topcoll/js/tc_colourpopup.php", 'MoodleQuickForm_tccolourpopup');
 
         $elements = parent::create_edit_form_elements($mform, $forsection);
-
         if ($forsection == false) {
-            global $CFG, $USER;
+            global $COURSE;
+            $coursecontext = context_course::instance($COURSE->id);
 
-            $elements[] = $mform->addElement('header', 'ctreset', get_string('ctreset', 'format_topcoll'));
-            $mform->addHelpButton('ctreset', 'ctreset', 'format_topcoll', '', true);
-            $elements[] = $mform->addElement('checkbox', 'resetlayout', get_string('resetlayout', 'format_topcoll'), false);
-            $mform->setAdvanced('resetlayout');
-            $mform->addHelpButton('resetlayout', 'resetlayout', 'format_topcoll', '', true);
+            $changelayout = has_capability('format/topcoll:changelayout', $coursecontext);
+            $changecolour = has_capability('format/topcoll:changecolour', $coursecontext);
+            $changetogglealignment = has_capability('format/topcoll:changetogglealignment', $coursecontext);
+            $changetoggleiconset = has_capability('format/topcoll:changetoggleiconset', $coursecontext);
+            $resetall = has_capability('moodle/site:doanything', $coursecontext); // Site admins only.
 
-            $elements[] = $mform->addElement('checkbox', 'resetcolour', get_string('resetcolour', 'format_topcoll'), false);
-            $mform->addHelpButton('resetcolour', 'resetcolour', 'format_topcoll', '', true);
-            $mform->setAdvanced('resetcolour');
+            if ($changelayout || $changecolour || $changetogglealignment || $changetoggleiconset || $resetall) {
+                $elements[] = $mform->addElement('header', 'ctreset', get_string('ctreset', 'format_topcoll'));
+            }
 
-            $elements[] = $mform->addElement('checkbox', 'resettogglealignment', get_string('resettogglealignment', 'format_topcoll'), false);
-            $mform->addHelpButton('resettogglealignment', 'resettogglealignment', 'format_topcoll', '', true);
-            $mform->setAdvanced('resettogglealignment');
+            if ($changelayout) {
+                $mform->addHelpButton('ctreset', 'ctreset', 'format_topcoll', '', true);
+                $elements[] = $mform->addElement('checkbox', 'resetlayout', get_string('resetlayout', 'format_topcoll'), false);
+                $mform->setAdvanced('resetlayout');
+                $mform->addHelpButton('resetlayout', 'resetlayout', 'format_topcoll', '', true);
+            }
 
-            $elements[] = $mform->addElement('checkbox', 'resettoggleiconset', get_string('resettoggleiconset', 'format_topcoll'), false);
-            $mform->addHelpButton('resettoggleiconset', 'resettoggleiconset', 'format_topcoll', '', true);
-            $mform->setAdvanced('resettoggleiconset');
+            if ($changecolour) {
+                $elements[] = $mform->addElement('checkbox', 'resetcolour', get_string('resetcolour', 'format_topcoll'), false);
+                $mform->addHelpButton('resetcolour', 'resetcolour', 'format_topcoll', '', true);
+                $mform->setAdvanced('resetcolour');
+            }
 
-            if (is_siteadmin($USER)) {
+            if ($changetogglealignment) {
+                $elements[] = $mform->addElement('checkbox', 'resettogglealignment', get_string('resettogglealignment', 'format_topcoll'), false);
+                $mform->addHelpButton('resettogglealignment', 'resettogglealignment', 'format_topcoll', '', true);
+                $mform->setAdvanced('resettogglealignment');
+            }
+
+            if ($changetoggleiconset) {
+                $elements[] = $mform->addElement('checkbox', 'resettoggleiconset', get_string('resettoggleiconset', 'format_topcoll'), false);
+                $mform->addHelpButton('resettoggleiconset', 'resettoggleiconset', 'format_topcoll', '', true);
+                $mform->setAdvanced('resettoggleiconset');
+            }
+
+            if ($resetall) {
                 $elements[] = $mform->addElement('checkbox', 'resetalllayout', get_string('resetalllayout', 'format_topcoll'), false);
                 $mform->addHelpButton('resetalllayout', 'resetalllayout', 'format_topcoll', '', true);
                 $mform->setAdvanced('resetalllayout');
@@ -671,6 +702,8 @@ class format_topcoll extends format_base {
     public function reset_topcoll_setting($courseid, $layout, $colour, $togglealignment, $toggleiconset) {
         global $DB;
 
+        $coursecontext = context_course::instance($courseid);
+
         $currentcourseid = 0;
         if ($courseid == 0) {
             $records = $DB->get_records('course_format_options', array('format' => $this->format), '', 'id,courseid');
@@ -678,23 +711,25 @@ class format_topcoll extends format_base {
             $records = $DB->get_records('course_format_options', array('courseid' => $courseid, 'format' => $this->format), '', 'id,courseid');
         }
 
+        $resetallifall = ((has_capability('moodle/site:doanything', $coursecontext)) || ($courseid != 0)); // Will be true if reset all capability or a single course.
+
         $updatedata = array();
-        if ($layout) {
+        if ($layout && has_capability('format/topcoll:changelayout', $coursecontext) && $resetallifall) {
             $updatedata['coursedisplay'] = get_config('format_topcoll','defaultcoursedisplay');
             $updatedata['layoutelement'] = get_config('format_topcoll','defaultlayoutelement');
             $updatedata['layoutstructure'] = get_config('format_topcoll','defaultlayoutstructure');
             $updatedata['layoutcolumns'] = get_config('format_topcoll','defaultlayoutcolumns');
             $updatedata['layoutcolumnorientation'] = get_config('format_topcoll','defaultlayoutcolumnorientation');
         }
-        if ($togglealignment) {
+        if ($togglealignment && has_capability('format/topcoll:changetogglealignment', $coursecontext) && $resetallifall) {
             $updatedata['togglealignment'] = get_config('format_topcoll','defaulttogglealignment');
         }
-        if ($colour) {
+        if ($colour && has_capability('format/topcoll:changecolour', $coursecontext) && $resetallifall) {
             $updatedata['toggleforegroundcolour'] = get_config('format_topcoll','defaulttgfgcolour');
             $updatedata['togglebackgroundcolour'] = get_config('format_topcoll','defaulttgbgcolour');
             $updatedata['togglebackgroundhovercolour'] = get_config('format_topcoll','defaulttgbghvrcolour');
         }
-        if ($toggleiconset) {
+        if ($toggleiconset && has_capability('format/topcoll:changetoggleiconset', $coursecontext) && $resetallifall) {
             $updatedata['toggleiconset'] = get_config('format_topcoll','defaulttoggleiconset');
             $updatedata['toggleallhover'] = get_config('format_topcoll','defaulttoggleallhover');
         }
