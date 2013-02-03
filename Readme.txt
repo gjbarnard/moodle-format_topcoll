@@ -26,11 +26,14 @@ New features for this Moodle 2.4 version
  1. Settings moved to the 'Edit course settings' form.  However, the reset functionality cannot be implemented
     in this way yet (request for additional core functionality on MDL-35218), so the old 'settings' form has been
     transformed into a 'reset' form now found at the bottom of the course when editing.
- 2. Ability to turn off persistence by changing the default 'togglepersistence' in 'tcconfig.php'.
+ 2. Ability to turn off persistence by changing the default 'defaulttogglepersistence' in
+    'Site Administration -> Plugins -> Course formats -> Collapsed Topics'.
  3. Horizontal and vertical column layouts.
  4. Left, centre and right toggle text alignment.
  5. Icon sets where you can choose what set of control icons are appropriate on a per course basis.  See 'Icon Sets'
     below.
+ 6. Moved all 'tcconfig.php' default functionalty to 'Site Administration -> Plugins -> Course formats -> Collapsed Topics'
+    so that defaults can be changed by the administrator from within Moodle without resorting to code changes.
 
 Installation
 ------------
@@ -42,13 +45,15 @@ Installation
  5. Put Moodle in 'Maintenance Mode' (docs.moodle.org/en/admin/setting/maintenancemode) so that there are no 
     users using it bar you as the administrator - if you have not already done so.
  6. Copy 'topcoll' to '/course/format/' if you have not already done so.
- 7. In 'tcconfig.php' change the values of 'defaultlayoutelement', 'defaultlayoutstructure' and
-    'defaultlayoutcolumns' for setting the default layout, structure and columns respectively for
-    new / updating courses as desired by following the instructions contained within.
- 8. In 'tcconfig.php' change the values of 'defaulttgfgcolour', 'defaulttgbgcolour' and
-    'defaulttgbghvrcolour' for setting the default toggle colours.
- 9. In 'tcconfig.php' turn off toggle persistence if desired by changing 'togglepersistence' as indicated in the file.
-10. In 'tcconfig.php' set the default toggle alignment by changing 'defaulttogglealignment' as indicated in the file.
+ 7. In 'Site Administration -> Plugins -> Course formats -> Collapsed Topics' change the values of 'defaultlayoutelement',
+    'defaultlayoutstructure' and 'defaultlayoutcolumns' for setting the default layout, structure and columns respectively
+    for new / updating courses as desired by following the instructions contained within.
+ 8. In 'Site Administration -> Plugins -> Course formats -> Collapsed Topics' change the values of 'defaulttgfgcolour',
+    'defaulttgbgcolour' and 'defaulttgbghvrcolour' for setting the default toggle colours.
+ 9. In 'Site Administration -> Plugins -> Course formats -> Collapsed Topics' turn off toggle persistence if desired by
+    changing 'defaulttogglepersistence' as indicated.
+10. In 'Site Administration -> Plugins -> Course formats -> Collapsed Topics' set the default toggle alignment by changing
+    'defaulttogglealignment' as indicated.
 11. Login as an administrator and follow standard the 'plugin' update notification.  If needed, go to
     'Site administration' -> 'Notifications' if this does not happen.
 12.  To change the arrow graphic please see 'Icon Sets' below.
@@ -813,7 +818,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1.  Further tweaks for toggle line height and to make work in IE9 with and without IE7 mode.
   2.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
   
-1st February 2013 - Version 2.4.2.1 - Power Toggle evaluation branch - MOODLE_24_POWER_TOGGLE
+3rd February 2013 - Version 2.4.2.1 - Power Toggle evaluation branch - MOODLE_24_POWER_TOGGLE
   1.  Taking inspiration from the IEC 5009 standard standby symbol as described on http://en.wikipedia.org/wiki/Power_symbol and a
       suggestion with the + / - symbols by Ben Kelada on CONTRIB-4098.  I have used the 'standby' concept as Moodle is on
       and waiting for input.
@@ -821,7 +826,9 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   3.  Implemented 'Icon sets' such that the user can choose what set of icons they wish to use without complex code changes.  I am
       hoping that this will spark more 'sets' to incorporated in the main release from users.
   4.  Added the ability to control if the toggle all icons will change when hovered over, for Rick Jerz.
-  5.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.  No need to upgrade
+  5.  Moved all 'tcconfig.php' default functionalty to 'Site Administration -> Plugins -> Course formats -> Collapsed Topics' so that
+      defaults can be changed by the administrator from within Moodle without resorting to code changes.
+  6.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.  No need to upgrade
       as I have left the version number the same so that you can switch back to the release branch without a database edit issue.
 
 Thanks
@@ -880,6 +887,6 @@ Desired Enhancements
 2. Toggle saving only when the user closes the window / moves to another course.
 3. This file in WikiMedia format so that it has an automatic contents menu on GitHub.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 1st February 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 3rd February 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

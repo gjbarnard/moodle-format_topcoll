@@ -161,5 +161,84 @@ $string['resetalltoggleiconset'] = 'Reset the toggle icon set for all Collapsed 
 $string['resettoggleiconset_help'] = 'Resets the toggle icon set and toggle all hover to the default values in "/course/format/topcoll/tcconfig.php" so it will be the same as a course the first time it is in the Collapsed Topics format.';
 $string['resetalltoggleiconset_help'] = 'Resets the toggle icon set and toggle all hover to the default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 
+// Site Administration -> Plugins -> Course formats -> Collapsed Topics or Manage course formats - Settings
+$string['defaultcoursedisplay'] = 'Course display default';
+$string['defaultcoursedisplay_desc'] = 'Either one of:
+
+'.COURSE_DISPLAY_SINGLEPAGE.' => All sections on one page.
+
+'.COURSE_DISPLAY_MULTIPAGE.'  => One section per page.
+
+as defined by COURSE_DISPLAY_SINGLEPAGE and COURSE_DISPLAY_MULTIPAGE in moodlelib.php.';
+$string['defaultlayoutelement'] = 'Default layout configuration';
+$string['defaultlayoutelement_desc'] = "The numbers that represent the layout setting are:
+
+1 => Default.
+
+2 => No 'Topic x' / 'Week x' / 'Day x'.
+
+3 => No section number.
+
+4 => No 'Topic x' / 'Week x' / 'Day x' and no section number.
+
+5 => No 'Toggle' word.
+
+6 => No 'Toggle' word and no 'Topic x' / 'Week x' / 'Day x'.
+
+7 => No 'Toggle' word, no 'Topic x' / 'Week x' / 'Day x' and no section number.
+
+Default layout to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality.";
+
+$string['defaultlayoutstructure'] = 'Default structure configuration';
+$string['defaultlayoutstructure_desc'] = "The numbers that represent the structure setting are:
+
+1 => Topic
+
+2 => Week   
+
+3 => Latest Week First 
+
+4 => Current Topic First
+
+5 => Day
+
+Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality.";
+
+$string['defaultlayoutcolumns'] = 'Default number of columns';
+$string['defaultlayoutcolumns_desc'] = "Number of columns between 1 and 4.";
+
+$string['defaultlayoutcolumnorientation'] = 'Default column orientation';
+$string['defaultlayoutcolumnorientation_desc'] = "Default column orientation - 1 = vertical and 2 = horizontal.";
+
+$string['defaulttgfgcolour'] = 'Default toggle foreground colour';
+$string['defaulttgfgcolour_desc'] = "Toggle foreground colour in hexidecimal RGB without preceeding '#'.";
+
+$string['defaulttgbgcolour'] = 'Default toggle background colour';
+$string['defaulttgbgcolour_desc'] = "Toggle background colour in hexidecimal RGB without preceeding '#'.";
+
+$string['defaulttgbghvrcolour'] = 'Default toggle background hover colour';
+$string['defaulttgbghvrcolour_desc'] = "Toggle background hover colour in hexidecimal RGB without preceeding '#'.";
+
+$string['defaulttogglepersistence'] = 'Toggle persistence';
+$string['defaulttogglepersistence_desc'] = "1 = on, 0 = off.  You may wish to disable for an AJAX performance increase.
+
+Note: If turning persistence off remove any rows containing 'topcoll_toggle_x' in the 'name' field
+      of the 'user_preferences' table in the database.  Where the 'x' in 'topcoll_toggle_x' will be
+      a course id.";
+
+$string['defaulttogglealignment'] = 'Default toggle text alignment';
+$string['defaulttogglealignment_desc'] = "1 = left, 2 = centre and 3 = right.";
+
+$string['defaulttoggleiconset'] = 'Default toggle icon set';
+$string['defaulttoggleiconset_desc'] = "arrow => Arrow icon set.
+
+point => Point icon set.
+
+power => Power icon set.";
+
+$string['defaulttoggleallhover'] = 'Default toggle all icon hovers';
+$string['defaulttoggleallhover_desc'] = "1 => No.
+
+2 => Yes.";
 
 ?>

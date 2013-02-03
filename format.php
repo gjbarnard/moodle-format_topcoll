@@ -71,15 +71,13 @@ $renderer = $PAGE->get_renderer('format_topcoll');
 if (!empty($displaysection)) {
     $renderer->print_single_section_page($course, null, null, null, null, $displaysection);
 } else {
-    require_once($CFG->dirroot . '/course/format/topcoll/tcconfig.php');
-
     user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_ALPHANUM);
 
     $PAGE->requires->js_init_call('M.format_topcoll.init', array($CFG->wwwroot,
         $course->id,
         get_user_preferences('topcoll_toggle_' . $course->id),
         $course->numsections,
-        CollapsedTopicsDefaults::togglepersistence));
+        get_config('format_topcoll','defaulttogglepersistence')));
 
     $tcsettings = $courseformat->get_settings();
     ?>

@@ -30,7 +30,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-require_once($CFG->dirroot . '/course/format/topcoll/tcconfig.php'); // For Collaped Topics defaults.
 require_once($CFG->dirroot . '/course/format/lib.php'); // For format_base.
 
 class format_topcoll extends format_base {
@@ -244,47 +243,47 @@ class format_topcoll extends format_base {
                     'type' => PARAM_INT,
                 ),
                 'coursedisplay' => array(
-                    'default' => CollapsedTopicsDefaults::defaultcoursedisplay,
+                    'default' => get_config('format_topcoll','defaultcoursedisplay'),
                     'type' => PARAM_INT,
                 ),
                 'layoutelement' => array(
-                    'default' => CollapsedTopicsDefaults::defaultlayoutelement,
+                    'default' => get_config('format_topcoll','defaultlayoutelement'),
                     'type' => PARAM_INT,
                 ),
                 'layoutstructure' => array(
-                    'default' => CollapsedTopicsDefaults::defaultlayoutstructure,
+                    'default' => get_config('format_topcoll','defaultlayoutstructure'),
                     'type' => PARAM_INT,
                 ),
                 'layoutcolumns' => array(
-                    'default' => CollapsedTopicsDefaults::defaultlayoutcolumns,
+                    'default' => get_config('format_topcoll','defaultlayoutcolumns'),
                     'type' => PARAM_INT,
                 ),
                 'layoutcolumnorientation' => array(
-                    'default' => CollapsedTopicsDefaults::defaultlayoutcolumnorientation,
+                    'default' => get_config('format_topcoll','defaultlayoutcolumnorientation'),
                     'type' => PARAM_INT,
                 ),
                 'togglealignment' => array(
-                    'default' => CollapsedTopicsDefaults::defaulttogglealignment,
+                    'default' => get_config('format_topcoll','defaulttogglealignment'),
                     'type' => PARAM_INT,
                 ),
                 'toggleiconset' => array(
-                    'default' => CollapsedTopicsDefaults::defaulttoggleiconset,
+                    'default' => get_config('format_topcoll','defaulttoggleiconset'),
                     'type' => PARAM_ALPHA,
                 ),
                 'toggleallhover' => array(
-                    'default' => CollapsedTopicsDefaults::defaulttoggleallhover,
+                    'default' => get_config('format_topcoll','defaulttoggleallhover'),
                     'type' => PARAM_INT,
                 ),
                 'toggleforegroundcolour' => array(
-                    'default' => CollapsedTopicsDefaults::defaulttgfgcolour,
+                    'default' => get_config('format_topcoll','defaulttgfgcolour'),
                     'type' => PARAM_ALPHANUM,
                 ),
                 'togglebackgroundcolour' => array(
-                    'default' => CollapsedTopicsDefaults::defaulttgbgcolour,
+                    'default' => get_config('format_topcoll','defaulttgbgcolour'),
                     'type' => PARAM_ALPHANUM,
                 ),
                 'togglebackgroundhovercolour' => array(
-                    'default' => CollapsedTopicsDefaults::defaulttgbghvrcolour,
+                    'default' => get_config('format_topcoll','defaulttgbghvrcolour'),
                     'type' => PARAM_ALPHANUM,
                 ),
             );
@@ -412,7 +411,7 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => array(
-                        array('tabindex' => -1, 'value' => CollapsedTopicsDefaults::defaulttgfgcolour)
+                        array('tabindex' => -1, 'value' => get_config('format_topcoll','defaulttgfgcolour'))
                     )
                 ),
                 'togglebackgroundcolour' => array(
@@ -421,7 +420,7 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => array(
-                        array('tabindex' => -1, 'value' => CollapsedTopicsDefaults::defaulttgbgcolour)
+                        array('tabindex' => -1, 'value' => get_config('format_topcoll','defaulttgbgcolour'))
                     )
                 ),
                 'togglebackgroundhovercolour' => array(
@@ -430,7 +429,7 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => array(
-                        array('tabindex' => -1, 'value' => CollapsedTopicsDefaults::defaulttgbghvrcolour)
+                        array('tabindex' => -1, 'value' => get_config('format_topcoll','defaulttgbghvrcolour'))
                     )
                 )
             );
@@ -681,23 +680,23 @@ class format_topcoll extends format_base {
 
         $updatedata = array();
         if ($layout) {
-            $updatedata['coursedisplay'] = CollapsedTopicsDefaults::defaultcoursedisplay;
-            $updatedata['layoutelement'] = CollapsedTopicsDefaults::defaultlayoutelement;
-            $updatedata['layoutstructure'] = CollapsedTopicsDefaults::defaultlayoutstructure;
-            $updatedata['layoutcolumns'] = CollapsedTopicsDefaults::defaultlayoutcolumns;
-            $updatedata['layoutcolumnorientation'] = CollapsedTopicsDefaults::defaultlayoutcolumnorientation;
+            $updatedata['coursedisplay'] = get_config('format_topcoll','defaultcoursedisplay');
+            $updatedata['layoutelement'] = get_config('format_topcoll','defaultlayoutelement');
+            $updatedata['layoutstructure'] = get_config('format_topcoll','defaultlayoutstructure');
+            $updatedata['layoutcolumns'] = get_config('format_topcoll','defaultlayoutcolumns');
+            $updatedata['layoutcolumnorientation'] = get_config('format_topcoll','defaultlayoutcolumnorientation');
         }
         if ($togglealignment) {
-            $updatedata['togglealignment'] = CollapsedTopicsDefaults::defaulttogglealignment;
+            $updatedata['togglealignment'] = get_config('format_topcoll','defaulttogglealignment');
         }
         if ($colour) {
-            $updatedata['toggleforegroundcolour'] = CollapsedTopicsDefaults::defaulttgfgcolour;
-            $updatedata['togglebackgroundcolour'] = CollapsedTopicsDefaults::defaulttgbgcolour;
-            $updatedata['togglebackgroundhovercolour'] = CollapsedTopicsDefaults::defaulttgbghvrcolour;
+            $updatedata['toggleforegroundcolour'] = get_config('format_topcoll','defaulttgfgcolour');
+            $updatedata['togglebackgroundcolour'] = get_config('format_topcoll','defaulttgbgcolour');
+            $updatedata['togglebackgroundhovercolour'] = get_config('format_topcoll','defaulttgbghvrcolour');
         }
         if ($toggleiconset) {
-            $updatedata['toggleiconset'] = CollapsedTopicsDefaults::defaulttoggleiconset;
-            $updatedata['toggleallhover'] = CollapsedTopicsDefaults::defaulttoggleallhover;
+            $updatedata['toggleiconset'] = get_config('format_topcoll','defaulttoggleiconset');
+            $updatedata['toggleallhover'] = get_config('format_topcoll','defaulttoggleallhover');
         }
 
         foreach ($records as $record) {
