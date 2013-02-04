@@ -12,8 +12,11 @@ if ($ADMIN->fulltree) {
     $title = get_string('defaultcoursedisplay','format_topcoll');
     $description = get_string('defaultcoursedisplay_desc', 'format_topcoll');
     $default = COURSE_DISPLAY_SINGLEPAGE;
-    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_INT);
-    $settings->add($setting);
+    $choices = array(
+        COURSE_DISPLAY_SINGLEPAGE => new lang_string('coursedisplay_single'),
+        COURSE_DISPLAY_MULTIPAGE => new lang_string('coursedisplay_multi')
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     // Layout configuration.
     // Here you can see what numbers in the array represent what layout for setting the default value below.
@@ -29,8 +32,16 @@ if ($ADMIN->fulltree) {
     $title = get_string('defaultlayoutelement','format_topcoll');
     $description = get_string('defaultlayoutelement_desc', 'format_topcoll');
     $default = 1;
-    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_INT);
-    $settings->add($setting);
+    $choices = array(
+        1 => new lang_string('setlayout_default', 'format_topcoll'),                                    // Default.
+        2 => new lang_string('setlayout_no_toggle_section_x', 'format_topcoll'),                        // No 'Topic x' / 'Week x'.
+        3 => new lang_string('setlayout_no_section_no', 'format_topcoll'),                              // No section number.
+        4 => new lang_string('setlayout_no_toggle_section_x_section_no', 'format_topcoll'),             // No 'Topic x' / 'Week x' and no section number.
+        5 => new lang_string('setlayout_no_toggle_word', 'format_topcoll'),                             // No 'Toggle' word.
+        6 => new lang_string('setlayout_no_toggle_word_toggle_section_x', 'format_topcoll'),            // No 'Toggle' word and no 'Topic x' / 'Week x'.
+        7 => new lang_string('setlayout_no_toggle_word_toggle_section_x_section_no', 'format_topcoll')  // No 'Toggle' word, no 'Topic x' / 'Week x'  and no section number.
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     // Structure configuration.
     // Here so you can see what numbers in the array represent what structure for setting the default value below.
@@ -44,24 +55,38 @@ if ($ADMIN->fulltree) {
     $title = get_string('defaultlayoutstructure','format_topcoll');
     $description = get_string('defaultlayoutstructure_desc', 'format_topcoll');
     $default = 1;
-    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_INT);
-    $settings->add($setting);
+    $choices = array(
+        1 => new lang_string('setlayoutstructuretopic', 'format_topcoll'),             // Topic
+        2 => new lang_string('setlayoutstructureweek', 'format_topcoll'),              // Week
+        3 => new lang_string('setlayoutstructurelatweekfirst', 'format_topcoll'),      // Latest Week First
+        4 => new lang_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'), // Current Topic First
+        5 => new lang_string('setlayoutstructureday', 'format_topcoll')                // Day
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     // Default number of columns between 1 and 4.
     $name = 'format_topcoll/defaultlayoutcolumns';
     $title = get_string('defaultlayoutcolumns','format_topcoll');
     $description = get_string('defaultlayoutcolumns_desc', 'format_topcoll');
     $default = 1;
-    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_INT);
-    $settings->add($setting);
+    $choices = array(
+        1 => new lang_string('one', 'format_topcoll'),   // Default
+        2 => new lang_string('two', 'format_topcoll'),   // Two
+        3 => new lang_string('three', 'format_topcoll'), // Three
+        4 => new lang_string('four', 'format_topcoll')   // Four
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     // Default column orientation - 1 = vertical and 2 = horizontal.
     $name = 'format_topcoll/defaultlayoutcolumnorientation';
     $title = get_string('defaultlayoutcolumnorientation','format_topcoll');
     $description = get_string('defaultlayoutcolumnorientation_desc', 'format_topcoll');
     $default = 2;
-    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_INT);
-    $settings->add($setting);
+    $choices = array(
+        1 => new lang_string('columnvertical', 'format_topcoll'),
+        2 => new lang_string('columnhorizontal', 'format_topcoll') // Default
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     // Default toggle foreground colour in hexidecimal RGB without preceeding '#'.
     $name = 'format_topcoll/defaulttgfgcolour';
@@ -95,8 +120,11 @@ if ($ADMIN->fulltree) {
     $title = get_string('defaulttogglepersistence','format_topcoll');
     $description = get_string('defaulttogglepersistence_desc', 'format_topcoll');
     $default = 1;
-    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_INT);
-    $settings->add($setting);
+    $choices = array(
+        0 => new lang_string('off', 'format_topcoll'), // Off.
+        1 => new lang_string('on', 'format_topcoll')   // On.
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     // Toggle text alignment.
     // 1 = left, 2 = center and 3 = right - done this way to avoid typos.
@@ -104,8 +132,12 @@ if ($ADMIN->fulltree) {
     $title = get_string('defaulttogglealignment','format_topcoll');
     $description = get_string('defaulttogglealignment_desc', 'format_topcoll');
     $default = 2;
-    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_INT);
-    $settings->add($setting);
+    $choices = array(
+        1 => new lang_string('left', 'format_topcoll'),   // Left.
+        2 => new lang_string('center', 'format_topcoll'), // Centre.
+        3 => new lang_string('right', 'format_topcoll')   // Right.
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     // Toggle icon set.
     // arrow => Arrow icon set.
@@ -115,8 +147,12 @@ if ($ADMIN->fulltree) {
     $title = get_string('defaulttoggleiconset','format_topcoll');
     $description = get_string('defaulttoggleiconset_desc', 'format_topcoll');
     $default = 'arrow';
-    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_ALPHA);
-    $settings->add($setting);
+    $choices = array(
+        'arrow' => new lang_string('arrow', 'format_topcoll'), // Arrow icon set.
+        'point' => new lang_string('point', 'format_topcoll'), // Point icon set.
+        'power' => new lang_string('power', 'format_topcoll')  // Power icon set.
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     // Toggle all icon hovers.
     // 1 => No.
@@ -125,7 +161,10 @@ if ($ADMIN->fulltree) {
     $title = get_string('defaulttoggleallhover','format_topcoll');
     $description = get_string('defaulttoggleallhover_desc', 'format_topcoll');
     $default = 2;
-    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_INT);
-    $settings->add($setting);
+    $choices = array(
+        1 => new lang_string('no'),
+        2 => new lang_string('yes')
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
 }
