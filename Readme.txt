@@ -169,7 +169,8 @@ the 'background' attribute with a 'toggle-...' type class within them.  There ar
 the 'toggle all' functionality.  For example:
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow a.toggle_closed {
-    background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+    /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+    background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 5px 45%;
 }
 
 #toggle-all .content .toggle-arrow h4 a.off {
@@ -625,8 +626,8 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2. Fixed an issue with section zero summary not showing - thanks Chris Adams on http://moodle.org/mod/forum/discuss.php?d=206423
   3. Attempted automated upgrade in 'upgrade.php' to cope with issues users are experiencing.  Altered upgrade from
      Moodle 1.9, 2.0, 2.1 and 2.2 instructions to reflect this.  Version control for older versions less than Moodle 2.3
-     needs to follow a 'branching date' strategy for this to work properly (http://moodle.org/mod/forum/discuss.php?d=206647#p901061).
-     This was sparked by CONTRIB-3765.
+     needs to follow a 'branching date' strategy for this to work properly
+    (http://moodle.org/mod/forum/discuss.php?d=206647#p901061).  This was sparked by CONTRIB-3765.
   4. Tidied up and clarified the instructions for upgrading.
 
 1st August 2012 - Version 2.3.7.2
@@ -652,7 +653,8 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   7. Implemented MDL-34858 which I reported as a section zero default name issue.
   8. Implemented MDL-34917 which I reported as an improvement.  Code is slightly different, feedback appreciated.
   9. Make toggle titles bold and change 'all toggles' to 'all sections', from comments made on MDL-35048.
- 10. Cherry picked Luiggi's change https://github.com/luiggisanso/moodle-format_topcoll/commit/9bd818f5a4efb347aef4f5154ea2930526552bfc
+ 10. Cherry picked Luiggi's change
+     https://github.com/luiggisanso/moodle-format_topcoll/commit/9bd818f5a4efb347aef4f5154ea2930526552bfc
  11. Figured out how to use 'pix:' for URL's in css for the format, so have changed so that the images are now controlled by css
      classes.  This means that it is now possible to override them in your theme in css.  The following is the selectors for the
      various images, override the 'background' attribute:
@@ -813,7 +815,8 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   4.  Tweaked no JavaScript operation such that the 'Toggle all' functionality is hidden.
   5.  Implemented removal of css float for MyMobile theme for CONTRIB-4108.
   6.  Fixed issue with JavaScript in 'module.js' breaking with 0 or 1 sections causing the 'Add an activity or resource' to fail.
-  7.  Changes to 'renderer.php' because of MDL-36095 hence requiring Moodle version 2012120301.02 release 2.4.1+ (Build: 20130118) and above.
+  7.  Changes to 'renderer.php' because of MDL-36095 hence requiring Moodle version 2012120301.02 release 2.4.1+ (Build: 20130118)
+      and above.
   8.  Tweaked for the MyMobile theme but point '2' on 'Known issues' still occurring - any help appreciated. 
   9.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
@@ -825,17 +828,19 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1.  Taking inspiration from the IEC 5009 standard standby symbol as described on http://en.wikipedia.org/wiki/Power_symbol and a
       suggestion with the + / - symbols by Ben Kelada on CONTRIB-4098.  I have used the 'standby' concept as Moodle is on
       and waiting for input.
-  2.  I created the icons in Paint.Net and are released under the same GPL licence as the rest of Collapsed Topics and indeed Moodle.
+  2.  I created the icons in Paint.Net and are released under the same GPL licence as the rest of Collapsed Topics and indeed
+      Moodle.
   3.  Implemented 'Icon sets' such that the user can choose what set of icons they wish to use without complex code changes.  I am
       hoping that this will spark more 'sets' to incorporated in the main release from users.
   4.  Added the ability to control if the toggle all icons will change when hovered over, for Rick Jerz.
-  5.  Moved all 'tcconfig.php' default functionalty to 'Site Administration -> Plugins -> Course formats -> Collapsed Topics' so that
-      defaults can be changed by the administrator from within Moodle without resorting to code changes.
+  5.  Moved all 'tcconfig.php' default functionalty to 'Site Administration -> Plugins -> Course formats -> Collapsed Topics'
+      so that defaults can be changed by the administrator from within Moodle without resorting to code changes.
   6.  Added capabilities 'format/topcoll:changelayout', 'format/topcoll:changecolour', 'format/topcoll:changetogglealignment'
       and 'format/topcoll:changetoggleiconset' to editing teachers and managers such that site administrators can choose to
       disable functionality through roles if they wish.  In order for this to work the version number must be updated.
-  7.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.  No need to upgrade
-      as I have left the version number the same so that you can switch back to the release branch without a database edit issue.
+  7.  Code cleaned with 'code-checker' - https://moodle.org/plugins/view.php?plugin=local_codechecker - not finished yet
+      - no functional changes.
+  8.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
 
 Thanks
 ------

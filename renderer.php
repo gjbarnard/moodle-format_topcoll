@@ -265,20 +265,20 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $o .= html_writer::start_tag('div', array('class' => 'sectionhead toggle toggle-'.$this->tcsettings['toggleiconset'], 'id' => 'toggle-' . $section->section));
 
             $title = get_section_name($course, $section);
-            if ((!($section->toggle === NULL)) && ($section->toggle == '1')) {
+            if ((!($section->toggle === null)) && ($section->toggle == '1')) {
                 $toggleclass = 'toggle_open';
                 $sectionstyle = 'display: block;';
                 if ($this->mymobiletheme == true) {
                     $toggleclass .= ' opencps';
                 }
-                //print("Toggle ".$section->section." open");
+                // print("Toggle ".$section->section." open");
             } else {
                 $toggleclass = 'toggle_closed';
-                //$sectionstyle = 'display: none;'; // Will be done by CSS when 'body .jsenabled' not present.
+                // $sectionstyle = 'display: none;'; // Will be done by CSS when 'body .jsenabled' not present.
                 $sectionstyle = '';
             }
             $toggleclass .= ' the_toggle';
-            //$o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
+            // $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
             $toggleurl = new moodle_url('/course/view.php', array('id' => $course->id));
             $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => $toggleurl));
 
@@ -602,8 +602,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $this->tccolumnwidth = 100 / $this->tcsettings['layoutcolumns'];
                 $this->tccolumnwidth -= 1; // Allow for the padding in %.
                 $this->tccolumnpadding = 2; // px
-            } elseif ($this->tcsettings['layoutcolumns'] < 1) {
-                // Distributed default in tcconfig.php (and reset in database) or database has been changed incorrectly.
+            } else if ($this->tcsettings['layoutcolumns'] < 1) {
+                // Distributed default in plugin settings (and reset in database) or database has been changed incorrectly.
                 $this->tcsettings['layoutcolumns'] = 1;
 
                 // Update....
@@ -619,10 +619,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $columnbreakpoint = 0;
             $shownsectioncount = 0;
 
-            $toggleState = get_user_preferences('topcoll_toggle_' . $course->id);
-            if ($toggleState != null) {
-                $ts1 = base_convert(substr($toggleState, 0, 6), 36, 2);
-                $ts2 = base_convert(substr($toggleState, 6, 12), 36, 2);
+            $togglestate = get_user_preferences('topcoll_toggle_' . $course->id);
+            if ($togglestate != null) {
+                $ts1 = base_convert(substr($togglestate, 0, 6), 36, 2);
+                $ts2 = base_convert(substr($togglestate, 6, 12), 36, 2);
                 $thesparezeros = "00000000000000000000000000";
                 if (strlen($ts1) < 26) {
                     // Need to PAD.
@@ -636,7 +636,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
             } else {
                 $tb = '10000000000000000000000000000000000000000000000000000';
             }
-            //print("TS:".$toggleState." TB:".$tb);
 
             while ($loopsection <= $course->numsections) {
                 if (($this->tcsettings['layoutstructure'] == 3) && ($userisediting == false)) {

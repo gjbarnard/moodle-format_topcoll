@@ -75,7 +75,7 @@ $string['setlayoutstructureweek'] = 'Week';
 $string['setlayoutstructurelatweekfirst'] = 'Current Week First';
 $string['setlayoutstructurecurrenttopicfirst'] = 'Current Topic First';
 $string['setlayoutstructureday'] = 'Day';
-$string['resetlayout'] = 'Reset layout'; //CONTRIB-3529
+$string['resetlayout'] = 'Reset layout'; // CONTRIB-3529
 $string['resetalllayout'] = 'Reset layouts for all Collapsed Topics courses';
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529
@@ -133,5 +133,3 @@ $string['resettogglealignment'] = 'Reset toggle alignment';
 $string['resetalltogglealignment'] = 'Reset toggle alignments for all Collapsed Topics courses';
 $string['resettogglealignment_help'] = 'Resets the toggle alignment to the default values in "/course/format/topcoll/tcconfig.php" so it will be the same as a course the first time it is in the Collapsed Topics format.';
 $string['resetalltogglealignment_help'] = 'Resets the toggle alignment to the default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
-
-?>

@@ -139,7 +139,7 @@ function togglebinary(toggleNum, toggleVal, savetoggles)
         var start = toggleBinaryGlobal.substring(0,toggleNum);
         var end = toggleBinaryGlobal.substring(toggleNum+1);
         toggleBinaryGlobal = start + toggleVal + end;
-        
+
         if (savetoggles == true) 
         {
             save_toggles();

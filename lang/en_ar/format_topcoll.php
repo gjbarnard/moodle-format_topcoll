@@ -71,7 +71,7 @@ $string['setlayoutstructureweek']='Sailing Week';
 $string['setlayoutstructureday'] = 'Sailing Day';
 $string['setlayoutstructurelatweekfirst']='Current Sailing Week First';
 $string['setlayoutstructurecurrenttopicfirst']='Current Treasure Chest First';
-$string['resetlayout'] = 'Reset thee layout'; //CONTRIB-3529
+$string['resetlayout'] = 'Reset thee layout'; // CONTRIB-3529
 $string['resetalllayout'] = 'Reset thee layouts for all thy Collapsed Topics courses';
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529
@@ -146,4 +146,3 @@ $string['resetalltoggleiconset'] = 'Reset thee toggle icon set for all thy Colla
 $string['resettoggleiconset_help'] = 'Resets thee toggle icon set and thy toggle all hover to thy default values in "/course/format/topcoll/tcconfig.php" so thy will be thee same as a course thee first time it is in thy Collapsed Topics format.';
 $string['resetalltoggleiconset_help'] = 'Resets thee toggle icon set and thy toggle all hover to thy default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be thy same as a course thee first time it is in thy Collapsed Topics format.';
 
-?>

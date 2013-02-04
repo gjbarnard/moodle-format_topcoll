@@ -20,12 +20,12 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -77,7 +77,7 @@ $string['setlayoutstructureweek'] = 'Week';
 $string['setlayoutstructurelatweekfirst'] = 'Current Week First';
 $string['setlayoutstructurecurrenttopicfirst'] = 'Current Topic First';
 $string['setlayoutstructureday'] = 'Day';
-$string['resetlayout'] = 'Reset layout'; //CONTRIB-3529.
+$string['resetlayout'] = 'Reset layout'; // CONTRIB-3529.
 $string['resetalllayout'] = 'Reset layouts for all Collapsed Topics courses';
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529.
@@ -236,5 +236,3 @@ $string['topcoll:changelayout'] = 'Change or reset the layout';
 $string['topcoll:changecolour'] = 'Change or reset the colour';
 $string['topcoll:changetogglealignment'] = 'Change or reset the toggle alignment';
 $string['topcoll:changetoggleiconset'] = 'Change or reset the toggle icon set';
-
-?>

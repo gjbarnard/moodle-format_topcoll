@@ -220,11 +220,11 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-power a.to
     text-align: left;
 }
 
-/* -- For centring the 'Topic / Week / Day x' text -- */       
+/* -- For centring the 'Topic / Week / Day x' text -- */
 .course-content ul.ctopics li.section .right span.cps_centre {
     text-align: center;
     font-size: 0.7em;
-}  
+}
 
 .course-content ul.ctopics li.section .content .toggle {
     width: 100%;
