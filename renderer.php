@@ -279,7 +279,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
             $toggleclass .= ' the_toggle';
             //$o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
-            $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#'));
+            $toggleurl = new moodle_url('/course/view.php', array('id' => $course->id));
+            $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => $toggleurl));
 
             if (empty($this->tcsettings)) {
                 $this->tcsettings = $this->courseformat->get_settings();
@@ -303,7 +304,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
                         break;
                 }
             }
-            $o .= $this->output->heading($otitle, 3, 'sectionname');
+            if ($this->mymobiletheme == false) {
+                $o .= $this->output->heading($otitle, 3, 'sectionname');
+            } else {
+                $o .= $otitle; // H3's look bad on MyMobile with CT.
+            }
+
             $o .= html_writer::end_tag('a');
             $o .= html_writer::end_tag('div');
             $o .= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection', 'id' => 'toggledsection-' . $section->section, 'style' => $sectionstyle));
