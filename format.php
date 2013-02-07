@@ -86,12 +86,22 @@ if (!empty($displaysection)) {
 
     /* -- Toggle -- */
     .course-content ul.ctopics li.section .content .toggle {
-        background-color: #<?php echo $tcsettings['togglebackgroundcolour']; ?>;
+        background-color: <?php
+                            if ($tcsettings['togglebackgroundcolour'][0] != '#') {
+                                echo '#';
+                            }
+                            echo $tcsettings['togglebackgroundcolour'];
+                          ?>;
     }
 
     /* -- Toggle text -- */
     .course-content ul.ctopics li.section .content .toggle a {
-        color: #<?php echo $tcsettings['toggleforegroundcolour']; ?>;
+        color: <?php
+                if ($tcsettings['toggleforegroundcolour'][0] != '#') {
+                    echo '#';
+                }
+                echo $tcsettings['toggleforegroundcolour'];
+               ?>;
         text-align: <?php
     switch ($tcsettings['togglealignment']) {
         case 1:
@@ -109,7 +119,12 @@ if (!empty($displaysection)) {
     /* -- What happens when a toggle is hovered over -- */
     .course-content ul.ctopics li.section .content div.toggle:hover
     {
-        background-color: #<?php echo $tcsettings['togglebackgroundhovercolour']; ?>;
+        background-color: <?php
+                            if ($tcsettings['togglebackgroundhovercolour'][0] != '#') {
+                                echo '#';
+                            }
+                            echo $tcsettings['togglebackgroundhovercolour'];
+                          ?>;
     }
 
     <?php

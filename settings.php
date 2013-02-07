@@ -92,24 +92,24 @@ if ($ADMIN->fulltree) {
     $name = 'format_topcoll/defaulttgfgcolour';
     $title = get_string('defaulttgfgcolour', 'format_topcoll');
     $description = get_string('defaulttgfgcolour_desc', 'format_topcoll');
-    $default = '000000';
-    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_ALPHANUM);
+    $default = '#000000';
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
 
     // Default toggle background colour in hexidecimal RGB without preceeding '#'.
     $name = 'format_topcoll/defaulttgbgcolour';
     $title = get_string('defaulttgbgcolour', 'format_topcoll');
     $description = get_string('defaulttgbgcolour_desc', 'format_topcoll');
-    $default = 'e2e2f2';
-    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_ALPHANUM);
+    $default = '#e2e2f2';
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
 
     // Default toggle background hover colour in hexidecimal RGB without preceeding '#'.
     $name = 'format_topcoll/defaulttgbghvrcolour';
     $title = get_string('defaulttgbghvrcolour', 'format_topcoll');
     $description = get_string('defaulttgbghvrcolour_desc', 'format_topcoll');
-    $default = 'eeeeff';
-    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_ALPHANUM);
+    $default = '#eeeeff';
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
 
     // Toggle persistence - 1 = on, 0 = off.  You may wish to disable for an AJAX performance increase.

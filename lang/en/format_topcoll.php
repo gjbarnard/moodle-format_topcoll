@@ -203,13 +203,13 @@ $string['defaultlayoutcolumnorientation'] = 'Default column orientation';
 $string['defaultlayoutcolumnorientation_desc'] = "The default column orientation: Vertical or Horizontal.";
 
 $string['defaulttgfgcolour'] = 'Default toggle foreground colour';
-$string['defaulttgfgcolour_desc'] = "Toggle foreground colour in hexidecimal RGB without the preceeding '#'.";
+$string['defaulttgfgcolour_desc'] = "Toggle foreground colour in hexidecimal RGB.";
 
 $string['defaulttgbgcolour'] = 'Default toggle background colour';
-$string['defaulttgbgcolour_desc'] = "Toggle background colour in hexidecimal RGB without the preceeding '#'.";
+$string['defaulttgbgcolour_desc'] = "Toggle background colour in hexidecimal RGB.";
 
 $string['defaulttgbghvrcolour'] = 'Default toggle background hover colour';
-$string['defaulttgbghvrcolour_desc'] = "Toggle background hover colour in hexidecimal RGB without the preceeding '#'.";
+$string['defaulttgbghvrcolour_desc'] = "Toggle background hover colour in hexidecimal RGB.";
 
 $string['defaulttogglepersistence'] = 'Toggle persistence';
 $string['defaulttogglepersistence_desc'] = "'On' or 'Off'.  You may wish to turn off for an AJAX performance increase but user toggle selections will not be recalled on page refresh or revisit.

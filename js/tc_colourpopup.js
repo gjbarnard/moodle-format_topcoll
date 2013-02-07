@@ -86,7 +86,7 @@ M.util.init_tccolour_popup = function(Y, id, previewconf) {
              */
             pickColour : function(e) {
                 var colour = this.determineColour(e);
-                this.input.set('value', colour);
+                this.input.set('value', '#'+colour);
                 this.input.focus();
                 this.swatch.setStyle('backgroundColor', '#'+colour);
                 this.current.setStyle('backgroundColor', '#'+colour);

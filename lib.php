@@ -378,6 +378,15 @@ class format_topcoll extends format_base {
                               2 => new lang_string('columnhorizontal', 'format_topcoll')) // Default
                     )
                 );
+            } else {
+                $courseformatoptionsedit['layoutelement'] =
+                    array('label' => new lang_string('setlayoutelements', 'format_topcoll'), 'element_type' => 'hidden');
+                $courseformatoptionsedit['layoutstructure'] =
+                    array('label' => new lang_string('setlayoutstructure', 'format_topcoll'), 'element_type' => 'hidden');
+                $courseformatoptionsedit['layoutcolumns'] =
+                    array('label' => new lang_string('setlayoutcolumns', 'format_topcoll'), 'element_type' => 'hidden');
+                $courseformatoptionsedit['layoutcolumnorientation'] =
+                    array('label' => new lang_string('setlayoutcolumnorientation', 'format_topcoll'), 'element_type' => 'hidden');
             }
 
             if (has_capability('format/topcoll:changetogglealignment', $coursecontext)) {
@@ -392,6 +401,9 @@ class format_topcoll extends format_base {
                               3 => new lang_string('right', 'format_topcoll'))  // Right.
                     )
                 );
+            } else {
+                $courseformatoptionsedit['togglealignment'] =
+                    array('label' => new lang_string('settogglealignment', 'format_topcoll'), 'element_type' => 'hidden');
             }
 
             if (has_capability('format/topcoll:changetoggleiconset', $coursecontext)) {
@@ -416,6 +428,11 @@ class format_topcoll extends format_base {
                               2 => new lang_string('yes'))
                     )
                 );
+            } else {
+                $courseformatoptionsedit['toggleiconset'] =
+                    array('label' => new lang_string('settoggleiconset', 'format_topcoll'), 'element_type' => 'hidden');
+                $courseformatoptionsedit['toggleallhover'] =
+                    array('label' => new lang_string('settoggleallhover', 'format_topcoll'), 'element_type' => 'hidden');
             }
 
             if (has_capability('format/topcoll:changecolour', $coursecontext)) {
@@ -446,6 +463,13 @@ class format_topcoll extends format_base {
                         array('tabindex' => -1, 'value' => get_config('format_topcoll', 'defaulttgbghvrcolour'))
                     )
                 );
+            } else {
+                $courseformatoptionsedit['toggleforegroundcolour'] =
+                    array('label' => new lang_string('settoggleforegroundcolour', 'format_topcoll'), 'element_type' => 'hidden');
+                $courseformatoptionsedit['togglebackgroundcolour'] =
+                    array('label' => new lang_string('settogglebackgroundcolour', 'format_topcoll'), 'element_type' => 'hidden');
+                $courseformatoptionsedit['togglebackgroundhovercolour'] =
+                    array('label' => new lang_string('settogglebackgroundhovercolour', 'format_topcoll'), 'element_type' => 'hidden');
             }
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
@@ -699,7 +723,7 @@ class format_topcoll extends format_base {
      * @param int $toggleiconset If true, reset the toggle icon set to the default in tcconfig.php.
      */
     public function reset_topcoll_setting($courseid, $layout, $colour, $togglealignment, $toggleiconset) {
-        global $DB;
+        global $DB, $USER;
 
         $coursecontext = context_course::instance($courseid);
 
@@ -710,7 +734,7 @@ class format_topcoll extends format_base {
             $records = $DB->get_records('course_format_options', array('courseid' => $courseid, 'format' => $this->format), '', 'id,courseid');
         }
 
-        $resetallifall = ((has_capability('moodle/site:doanything', $coursecontext)) || ($courseid != 0)); // Will be true if reset all capability or a single course.
+        $resetallifall = ((is_siteadmin($USER)) || ($courseid != 0)); // Will be true if reset all capability or a single course.
 
         $updatedata = array();
         if ($layout && has_capability('format/topcoll:changelayout', $coursecontext) && $resetallifall) {
@@ -786,20 +810,6 @@ class format_topcoll extends format_base {
         $this->update_course_format_options($data);
     }
 
-}
-
-/**
- * Used to display the course structure for a course where format=Collapsed Topics
- *
- * This is called automatically by {@link load_course()} if the current course
- * format = Collapsed Topics.
- *
- * @param navigation_node $navigation The course node.
- * @param array $path An array of keys to the course node.
- * @param stdClass $course The course we are loading the section for.
- */
-function callback_topcoll_load_content(&$navigation, $course, $coursenode) {
-    return $navigation->load_generic_course_sections($course, $coursenode, 'topcoll');
 }
 
 /**

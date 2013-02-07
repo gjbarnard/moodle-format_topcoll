@@ -102,15 +102,15 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow a.to
 
 /* Point icon set. */
 .course-content ul.ctopics li.section .content .toggle-point a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open { /* JavaScript disabled */
-    background: transparent url([[pix:format_topcoll|point_right]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+    background: transparent url([[pix:format_topcoll|point_right]]) no-repeat 5px 45%; /* Position the point roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-point a.toggle_closed { /* JavaScript enabled */
-    background: transparent url([[pix:format_topcoll|point_right]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+    background: transparent url([[pix:format_topcoll|point_right]]) no-repeat 5px 45%; /* Position the point roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-point a.toggle_open { /* JavaScript enabled */
-    background: transparent url([[pix:format_topcoll|point_down]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
+    background: transparent url([[pix:format_topcoll|point_down]]) no-repeat 5px 45%; /* Position the point roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
 }
 
 #toggle-all .content .toggle-point h4 a.off {
@@ -131,15 +131,15 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-point a.to
 
 /* Power icon set. */
 .course-content ul.ctopics li.section .content .toggle-power a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open { /* JavaScript disabled */
-    background: transparent url([[pix:format_topcoll|toggle_minus]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+    background: transparent url([[pix:format_topcoll|toggle_minus]]) no-repeat 5px 45%; /* Position the power roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-power a.toggle_closed { /* JavaScript enabled */
-    background: transparent url([[pix:format_topcoll|toggle_minus]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+    background: transparent url([[pix:format_topcoll|toggle_minus]]) no-repeat 5px 45%; /* Position the power roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-power a.toggle_open { /* JavaScript enabled */
-    background: transparent url([[pix:format_topcoll|toggle_plus]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
+    background: transparent url([[pix:format_topcoll|toggle_plus]]) no-repeat 5px 45%; /* Position the power roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
 }
 
 #toggle-all .content .toggle-power h4 a.off {
@@ -158,10 +158,29 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-power a.to
     background: transparent url([[pix:format_topcoll|toggle_plus_glow]]) no-repeat 0px 45%; 
 }
 
+/* Background images for the settings - does not work in Chrome or Safari - known issue */
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="arrow"], body.format-topcoll select#id_toggleiconset option[value="arrow"] {
+    background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 45px 45%; /* Position the arrow roughly to the right of the selection text. */
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="point"], body.format-topcoll select#id_toggleiconset option[value="point"] {
+    background: transparent url([[pix:format_topcoll|point_right]]) no-repeat 45px 45%; /* Position the point roughly to the right of the selection text. */
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="power"], body.format-topcoll select#id_toggleiconset option[value="power"] {
+    background: transparent url([[pix:format_topcoll|toggle_minus]]) no-repeat 45px 45%; /* Position the power roughly to the right of the selection text. */
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option, body.format-topcoll select#id_toggleiconset option {
+    padding: 3px 20px 3px 3px; /* The 30px allows the image to be on the right and the text next to it. */
+}
+
+/* MyMobile */
 #mymobile .course-content ul.ctopics li.tcsection .content, #mymobile .course-content ul.ctopics li.section.main .content{
     margin: 0;
 }
 
+/* Layout */
 .course-content ul.ctopics #section-0 .content{
     padding: 10px;
 }
