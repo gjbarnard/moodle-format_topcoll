@@ -10,7 +10,7 @@ Required version of Moodle
 ==========================
 This version works with Moodle version 2012120301.02 release 2.4.1+ (Build: 20130118) and above until the next release.
 
-[Documented on](http://docs.moodle.org/24/en/Collapsed_Topics_course_format)
+Documented on http://docs.moodle.org/24/en/Collapsed_Topics_course_format
 
 Supporting Collapsed Topics development
 =======================================
@@ -78,9 +78,9 @@ So:
 1. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
 2. In '/course/format/' move old 'topcoll' directory to a backup folder outside of Moodle.
 3. Do not copy in the new version of 'topcoll' yet!  As this will cause the upgrade to fail.
-4. Upgrade to Moodle 2.2 first (http://docs.moodle.org/22/en/Upgrading_to_Moodle_2.2).
-5. After you have installed Moodle 2.2, now upgrade to Moodle 2.4 with this new topcoll
-   (http://docs.moodle.org/24/en/Upgrading_to_Moodle_2.4) - but before initiating the upgrade you can copy the
+4. Upgrade to Moodle 2.2 first - http://docs.moodle.org/22/en/Upgrading_to_Moodle_2.2.
+5. After you have installed Moodle 2.2, now upgrade to Moodle 2.4 with this new topcoll -
+   http://docs.moodle.org/24/en/Upgrading_to_Moodle_2.4 - but before initiating the upgrade you can copy the
    new (i.e. this) 'topcoll' folder to '/course/format'.
 6. Now follow 'Upgrading from Moodle 2.2' below please.
 INFO: Having no 'topcoll' folder in '/course/format' is fine as the courses that use it are not accessed and
@@ -165,15 +165,15 @@ the current or all courses.
 If you want to change what icon represents which state / action, then edit 'styles.css' and change the selectors with
 the 'background' attribute with a 'toggle-...' type class within them.  There are selectors for both the 'toggles' and
 the 'toggle all' functionality.  For example:
-`
-body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow a.toggle_closed {
-    background-image: url([[pix:format_topcoll|arrow_right]]);
-}
 
-#toggle-all .content .toggle-arrow h4 a.off {
-    background-image: url([[pix:format_topcoll|arrow_down]]); 
-}
-`
+    body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow a.toggle_closed {
+        background-image: url([[pix:format_topcoll|arrow_right]]);
+    }
+
+    #toggle-all .content .toggle-arrow h4 a.off {
+        background-image: url([[pix:format_topcoll|arrow_down]]); 
+    }
+
 If you would like your own icon set, either replace the icons in the 'pix' folder, deduce how the code works or better
 still create new icons yourself and ask me to add them to the release.  If you do the latter then the icons must be your
 own for which you grant the same GPL licence as [Moodle](http://www.gnu.org/copyleft/gpl.html) or provide direct evidence
@@ -309,9 +309,9 @@ Development Notes:
 6th November 2010 - CONTRIB-1471 - Changes as follows:
   1. ajax.php changed to add more browser support as a result of MDL-22528.
   2. format.php changed in light of MDL-24680, MDL-24895, MDL-24927.
-  3. Fixed edit icon showing even when not in edit mode.  A big thank you to Peeush Bajpai - 
-     http://moodle.org/user/profile.php?id=1127356 - for spotting this and suggesting the fix.
-  4. Added Dutch language.  Thanks to Pieter Wolters - http://moodle.org/user/profile.php?id=537037 - for this.
+  3. Fixed edit icon showing even when not in edit mode.  A big thank you to [Peeush Bajpai]
+     (http://moodle.org/user/profile.php?id=1127356) - for spotting this and suggesting the fix.
+  4. Added Dutch language.  Thanks to [Pieter Wolters](http://moodle.org/user/profile.php?id=537037) for this.
   
 12th November 2010 - CONTRIB-1471 & CONTRIB-2497 - Changes as a result of MDL-25072:
   1. Movement of ajax capable stating 'code' from ajax.php to lib.php.
@@ -359,20 +359,20 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
 
 6th October 2011 - Version 1.3 - Moodle Tracker CONTRIB-2975, CONTRIB-3189 and CONTRIB-3190.
   1. CONTRIB-2975 - AJAX support reinstated after working out a way of swapping the content as well as the toggle.  Solution
-                    sparked off by Amanda Doughty (http://tracker.moodle.org/secure/ViewProfile.jspa?name=amanda.doughty).
+                    sparked off by [Amanda Doughty](http://tracker.moodle.org/secure/ViewProfile.jspa?name=amanda.doughty).
   2. CONTRIB-3189 - Reported by Benn Cass that text in IE8- does not hide when the toggle is closed, solution suggested
-                    by Mark Ward (http://moodle.org/user/profile.php?id=489101) - please see
+                    by [Mark Ward](http://moodle.org/user/profile.php?id=489101) - please see
                     http://moodle.org/mod/forum/discuss.php?d=183875.
   3. CONTRIB-3190 - In realising that to make CONTRIB-2975 easier to use I suggested 'Toggle all' functionality and the
                     community said it was a good idea with no negative comments, please see
-                    (http://moodle.org/mod/forum/discuss.php?d=176806).
+                    http://moodle.org/mod/forum/discuss.php?d=176806.
 
 11th October 2011 - Version 1.3.1 - Branched from Moodle 2.0.x version.
   1. Updated version.php to be fully populated.
   2. MDL-29188 - Formatting of section name.  Causing Moodle 2.1.x branch of Collapsed Topics.
 
 8th December 2011 - Version 2.2.1 - Moodle Tracker CONTRIB-2497
-  1. Updated Brazilian translation thanks to Tarcísio Nunes (http://moodle.org/user/profile.php?id=1149633).
+  1. Updated Brazilian translation thanks to [Tarcísio Nunes](http://moodle.org/user/profile.php?id=1149633).
   2. Changed version to relate to Moodle version, so this is for Moodle 2.2.
 
 9th December 2011 - Version 2.3.1.1 - Moodle Tracker CONTRIB-3295
@@ -383,7 +383,7 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
   1. Use consistent edit section icon.
 
 9th January 2012 - Version 2.3.1.1.2
-  1. Corrected licence to be correct one used by Moodle Plugins - thanks to Tim Hunt (http://moodle.org/user/profile.php?id=93821).
+  1. Corrected licence to be correct one used by Moodle Plugins - thanks to {Tim Hunt](http://moodle.org/user/profile.php?id=93821).
 
 23rd January 2012 - Version 2.3.2
   1. Sorted out UTF-8 BOM issue, see MDL-31343.
@@ -407,9 +407,9 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
 
 8th February 2012 - Version 2.3.3 - BETA 4
   1. A big thank you to [Andrew Nicols](http://moodle.org/user/view.php?id=268794) for his contribution on the developer forum
-     (http://moodle.org/mod/forum/discuss.php?d=195293).
+     http://moodle.org/mod/forum/discuss.php?d=195293.
   2. Implemented the fixes and suggestions to tidy up the code as specified by Andrew above.
-  3. Implemented Spanish translations thanks to Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362).
+  3. Implemented Spanish translations thanks to [Carlos Sánchez Martín](http://moodle.org/user/profile.php?id=743362).
 
 11th February 2012 - Version 2.3.3 - BETA 5
   1. Implemented the capability to have different 'structures' thereby encapsulating the 'Collapsed Weeks' and 'Latest First'
@@ -445,13 +445,14 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
      message me using the details in my Moodle profile 'http://moodle.org/user/profile.php?id=442195'.
 
 28th February 2012 - Version 2.3.3 - Release Candidate 2
-  1. Added 'Current Topic First' as a new structure as suggested by 'Hartmut Scherer'
+  1. Added 'Current Topic First' as a new structure as suggested by ['Hartmut Scherer']
      (http://moodle.org/user/view.php?id=441502) on discussion 'Collapsed Topics with Custom Layouts'
      (http://moodle.org/mod/forum/discuss.php?d=195292).
-  2. Fixed an issue in moving to js_init_call() in RC 1 and then followed the 'JavaScript guidelines'
-     (http://docs.moodle.org/dev/JavaScript_guidelines) and 'How to include javascript file in a new course format?'
-     (http://moodle.org/mod/forum/discuss.php?d=169124) to understand how to transition to using 'module.js' correctly.  Still
-     going to include 'tc_section_classes_min.js' using the old way until I can figure out how to do this the new way.
+  2. Fixed an issue in moving to js_init_call() in RC 1 and then followed the
+     ['JavaScript guidelines'](http://docs.moodle.org/dev/JavaScript_guidelines) and
+     ['How to include javascript file in a new course format?'](http://moodle.org/mod/forum/discuss.php?d=169124)
+     to understand how to transition to using 'module.js' correctly.  Still going to include 'tc_section_classes_min.js'
+     using the old way until I can figure out how to do this the new way.
   3. 'lib.js' and 'lib_min.js' will remain for reference until I backport the code to the Moodle 1.9 version which does not
      follow the changes in '2' and work out how to merge in Git and not have those files removed in that branch.
   4. In 'Show only section x' mode the 'Open / Close all toggles' option is not shown as not really appropriate.
@@ -520,7 +521,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 21st March 2012 - Version 2.3.4.2
   1. Received an updated version of 'format_topcoll.php' from Luiggi Sansonetti for the French translation - Merci :).
 
-26th April 2012 - Version 2.3.5 - CONTRIB-3529 - As suggested by Leonie Vos (http://moodle.org/user/profile.php?id=1435066).
+26th April 2012 - Version 2.3.5 - CONTRIB-3529 - As suggested by [Leonie Vos](http://moodle.org/user/profile.php?id=1435066).
    1. Added the ability to set the colour attributes of the toggle.
    2. Added the ability to reset the layout and colour attributes back to the defaults as defined in the 'config.php' file.
    3. Thank you to 'Nadav Kavalerchik' for pointing out on MDL-23320 how this can be done by modifying the colour picker code
@@ -620,11 +621,11 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 
 11th July 2012 - Version 2.3.7.1
   1. Updated french lanugage file thanks to Luiggi Sansonetti.
-  2. Fixed an issue with section zero summary not showing - thanks Chris Adams on http://moodle.org/mod/forum/discuss.php?d=206423
+  2. Fixed an issue with section zero summary not showing - thanks [Chris Adams](http://moodle.org/mod/forum/discuss.php?d=206423)
   3. Attempted automated upgrade in 'upgrade.php' to cope with issues users are experiencing.  Altered upgrade from
      Moodle 1.9, 2.0, 2.1 and 2.2 instructions to reflect this.  Version control for older versions less than Moodle 2.3
-     needs to follow a 'branching date' strategy for this to work properly
-    (http://moodle.org/mod/forum/discuss.php?d=206647#p901061).  This was sparked by CONTRIB-3765.
+     needs to follow a 'branching date' strategy for this to work properly -
+     http://moodle.org/mod/forum/discuss.php?d=206647#p901061.  This was sparked by CONTRIB-3765.
   4. Tidied up and clarified the instructions for upgrading.
 
 1st August 2012 - Version 2.3.7.2
@@ -634,8 +635,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   4. Made inclusion of 'config.php' in 'lib.php' more precise.
   5. Removed 'callback_topcoll_get_section_url' in 'lib.php' because it is no longer required by
      'load_generic_course_sections' in '/lib/navigationlib.php'.
-  6. Added 'currentsection' string to '/lang/en/format_topcoll.php' - thanks to Carlos Kiyan Tsunami on
-     http://moodle.org/mod/forum/discuss.php?d=208066.
+  6. Added 'currentsection' string to '/lang/en/format_topcoll.php' - thanks to [Carlos Kiyan Tsunami](http://moodle.org/mod/forum/discuss.php?d=208066).
   7. Shrunk the settings icon to 75% of the original size so that it is not so 'in your face' and added
      instructions on the left.  The instructions are in the 'en' langauge file as the 'formatsettingsinformation'
      string for translation.
@@ -676,7 +676,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
      operating with developer level debugging messages under PHP 5.4.3.  This was due to 'config.php's inclusion in 'lib.php'
      with a 'require_once' function call.  Somehow Moodle core must include this file in another way.  Therefore collapsed
      topics specific settings have been placed in a new file 'tcconfig.php' and all files changed to reflect this.
-     Thanks to Paul Nijbakker (http://moodle.org/user/profile.php?id=10036) for spotting this issue.
+     Thanks to [Paul Nijbakker](http://moodle.org/user/profile.php?id=10036) for spotting this issue.
 
 7th  October 2012 - Version 2.3.8.2  1. Changes to 'renderer.php' because of MDL-31976 and MDL-35276 - thus requiring
      Moodle 2.3.2+, version 2012062502.05 (Build: 20121005).
@@ -699,7 +699,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 
 23rd October 2012 - Version 2.3.9.2
   1.  Fixed issue with wrong colour being used for current section background.
-      Thanks to Rick Jerz (https://moodle.org/user/profile.php?id=520965) for reporting this.
+      Thanks to [Rick Jerz](https://moodle.org/user/profile.php?id=520965) for reporting this.
 
 9th November 2012 - Version 2.3.9.3
   1.  Fixed issue with wrong text colour being used for the current right section text.  Had to use 'left' side selector
@@ -735,7 +735,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
       - Invalid number of columns in the database, both low and high.
       However, this is not exhaustive, therefore if you are able to test on different environments and upgrades
       from older versions of Moodle, then that would be helpful.
-  7.  I am currently deliberating on the issues raised on CONTRIB-4018 (http://tracker.moodle.org/browse/CONTRIB-4018) which
+  7.  I am currently deliberating on the issues raised on [CONTRIB-4018](http://tracker.moodle.org/browse/CONTRIB-4018) which
       apply to this version too.  If you have any thoughts / solutions, please comment on the tracker, thank you.
 
 3rd December 2012 - Version 2.4.0.3 - Beta - Do not install on production sites.
@@ -835,7 +835,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   6.  Added capabilities 'format/topcoll:changelayout', 'format/topcoll:changecolour', 'format/topcoll:changetogglealignment'
       and 'format/topcoll:changetoggleiconset' to editing teachers and managers such that site administrators can choose to
       disable functionality through roles if they wish.  In order for this to work the version number must be updated.
-  7.  Code cleaned with 'code-checker' - https://moodle.org/plugins/view.php?plugin=local_codechecker - not finished yet
+  7.  Code cleaned with ['code-checker'](https://moodle.org/plugins/view.php?plugin=local_codechecker) - not finished yet
       - no functional changes.
   8.  Added toggle icons to the selection boxes of the edit settings and plugin settings.  Does not work with Chrome - known
       browser issue.
