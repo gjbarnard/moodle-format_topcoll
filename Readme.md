@@ -271,10 +271,10 @@ Development Notes:
 
 16th February 2010 - Moodle Tracker CONTRIB-1825
   1. Removed the capability to 'Show topic x' unless editing as confusing to users.
-  2. Removed redundant 'aToggle' as existing $course->numsections already contained the correct figure
+  2. Removed redundant 'aToggle' as existing `$course->numsections` already contained the correct figure
      and counting toggles that are displayed causes an issue when in 'Show topic x' mode as the toggle
      number does not match the display number for the specific element.
-  3. Removed redundant calls to 'get_context_instance(CONTEXT_COURSE, $course->id)' as result already
+  3. Removed redundant calls to `get_context_instance(CONTEXT_COURSE, $course->id)` as result already
      stored in $context variable towards the top - so use in more places.
      
 5th April 2010 - Moodle Tracker CONTRIB-1952 & CONTRIB-1954
@@ -430,7 +430,7 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
   1. Added strings for MDL-26105 in format_topcoll.php.
   2. Used non-depreciated 'create_table' method in 'upgrade.php'.
   3. Finally worked out how to ensure that the 'Settings Block' displays the course and not front page administration by using
-     'require_login($course)'.
+     `require_login($course)`.
 
 18th February 2012 - Version 2.3.3 - BETA 8
   1. CONTRIB-3225 - Added screen reader capability using 'h3' tags, the same as the standard Topics format.
@@ -438,7 +438,7 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
 25th February 2012 - Version 2.3.3 - Release Candidate 1
   1. Added help information to the drop down options on the set layout form.
   2. Tidied up to be consistent and use less words where required.
-  3. In format.php changed from depreciated js_function_call() to js_init_call().
+  3. In format.php changed from depreciated `js_function_call()` to `js_init_call()`.
   4. If you have previously installed a beta version you will need to drop the table 'format_topcoll_layout' in the database.
   5. If you are a native speaker of a language other than English, I would be grateful of a translation of the new language
      strings in 'lang/en/format_topcoll.php' under the comment 'Layout enhancement - Moodle Tracker CONTRIB-3378'.  Please
@@ -545,14 +545,14 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 
 1st May 2012 - Version 2.3.6 - CONTRIB-3624
   1. Implemented code to facilitate the ability to confirm with the user that it is ok to place the cookie 'mdl_cf_topcoll' on
-     their computer.  This fucntionality can be switched on / off through the changing of '$TCCFG->defaultcookieconsent' in the
+     their computer.  This fucntionality can be switched on / off through the changing of `$TCCFG->defaultcookieconsent` in the
      format's 'config.php'.  This functionality exists because I believe that the cookie is a 'Category 3' cookie in line with
      the forthcoming UK EU Cookie Law - please see 'UK / EU Cookie Law' at the top of this file.
   2. Fixed - Changing the language on the 'Settings' form produces an invalid Moodle URL.
   3. Fixed - Toggles are open and sections displayed when JavaScript is turned off in the user's browser.
   4. A few fixes to changes made in version 2.2.5 where I had renamed table 'format_topcoll_layout' to 'format_topcoll_settings'
      in the code.
-  5. Created a '$TCCFG' object in the 'config.php' file to solve the 'globals' issue in 'lib.php'.
+  5. Created a `$TCCFG` object in the 'config.php' file to solve the 'globals' issue in 'lib.php'.
 
 3rd May 2012 - Version 2.3.6.1
   1. Reverted back to unsigned data types in database due to error with MSSQL database code probably in core, but not essential
@@ -900,5 +900,5 @@ Desired Enhancements
 Me
 ==
 G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 8th February 2013.
-Moodle profile: moodle.org/user/profile.php?id=442195.
-Web profile   : about.me/gjbarnard
+Moodle profile: http://moodle.org/user/profile.php?id=442195.
+Web profile   : http://about.me/gjbarnard
