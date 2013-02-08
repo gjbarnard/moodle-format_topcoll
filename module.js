@@ -28,7 +28,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Global variables 
+// Global variables.
 var toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000"; // 53 possible toggles - current settings in Moodle for number of topics - 52 + 1 for topic 0.  Need 1 as Most Significant bit to allow toggle 1+ to be off.
 var thesparezeros = "00000000000000000000000000"; // A constant of 26 0's to be used to pad the storage state of the toggles when converting between base 2 and 36, this is to be compact.
 var toggleState;
@@ -63,7 +63,7 @@ M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate, noOfTo
     toggleState = thetogglestate;
     numToggles = noOfToggles;
     togglePersistence = theTogglePersistence;
-    
+
     if (toggleState != null)
     {
         toggleBinaryGlobal = to2baseString(toggleState);
@@ -91,7 +91,7 @@ M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate, noOfTo
             Y.one("#toggle-" + theToggle).on('click', instance.handleClick, instance);
         }
     }
-    
+
     // Event handlers for all opened / closed.
     var allopen = Y.one("#toggles-all-opened");
     if (allopen) {
@@ -140,7 +140,7 @@ function togglebinary(toggleNum, toggleVal, savetoggles)
         var end = toggleBinaryGlobal.substring(toggleNum+1);
         toggleBinaryGlobal = start + toggleVal + end;
 
-        if (savetoggles == true) 
+        if (savetoggles == true)
         {
             save_toggles();
         }
@@ -222,7 +222,7 @@ function to2baseString(thirtysix)
     var secondpart = parseInt(thirtysix.substring(6,12),36);
     var fps = firstpart.toString(2);
     var sps = secondpart.toString(2);
-    
+
     // Add in preceding 0's if base 2 sub strings are not long enough
     if (fps.length < 26)
     {
@@ -234,7 +234,7 @@ function to2baseString(thirtysix)
         // Need to PAD.
         sps = thesparezeros.substring(0,(27 - sps.length)) + sps;
     }
-    
+
     return fps + sps;
 }
 

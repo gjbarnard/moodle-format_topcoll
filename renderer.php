@@ -21,15 +21,16 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/course/format/renderer.php');
 require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
@@ -260,7 +261,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
         $o .= html_writer::start_tag('div', array('class' => 'content'));
 
-
         if (($onsectionpage == false) && ($section->section != 0)) {
             $o .= html_writer::start_tag('div', array('class' => 'sectionhead toggle toggle-'.$this->tcsettings['toggleiconset'], 'id' => 'toggle-' . $section->section));
 
@@ -330,7 +330,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             $o .= $this->section_availability_message($section, has_capability('moodle/course:viewhiddensections', $context));
         } else {
-            // When on a section page, we only display the general section title, if title is not the default one
+            // When on a section page, we only display the general section title, if title is not the default one.
             $hasnamesecpg = ($section->section == 0 && (string) $section->name !== '');
 
             if ($hasnamesecpg) {
@@ -414,7 +414,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $this->courseformat = course_get_format($course); // Needed for collapsed topics settings retrieval.
         // Can we view the section in question?
         if (!($sectioninfo = $modinfo->get_section_info($displaysection))) {
-            // This section doesn't exist
+            // This section doesn't exist.
             print_error('unknowncoursesection', 'error', null, $course->fullname);
             return;
         }
@@ -444,7 +444,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             echo $this->end_section_list();
         }
 
-        // Start single-section div
+        // Start single-section div.
         echo html_writer::start_tag('div', array('class' => 'single-section'));
 
         // The requested section page.
@@ -584,8 +584,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 }
                 // Reset
                 $section = $course->numsections;
-                $weekdate = $course->enddate;      // this should be 0:00 Monday of that week
-                $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems
+                $weekdate = $course->enddate;      // this should be 0:00 Monday of that week.
+                $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems.
             }
 
             if ($numsections < $this->tcsettings['layoutcolumns']) {
@@ -643,8 +643,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 }
                 $thissection = $modinfo->get_section_info($section);
 
-                // Show the section if the user is permitted to access it, OR if it's not available
-                // but showavailability is turned on
+                /* Show the section if the user is permitted to access it, OR if it's not available
+                   but showavailability is turned on. */
                 if (($this->tcsettings['layoutstructure'] != 3) || ($userisediting)) {
                     $showsection = $thissection->uservisible ||
                             ($thissection->visible && !$thissection->available && $thissection->showavailability);
@@ -659,8 +659,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     $showsection = false; // Do not reshow current section.
                 }
                 if (!$showsection) {
-                    // Hidden section message is overridden by 'unavailable' control
-                    // (showavailability option).
+                    // Hidden section message is overridden by 'unavailable' control (showavailability option).
                     if ($this->tcsettings['layoutstructure'] != 4) {
                         if (($this->tcsettings['layoutstructure'] != 3) || ($userisediting)) {
                             if (!$course->hiddensections && $thissection->available) {

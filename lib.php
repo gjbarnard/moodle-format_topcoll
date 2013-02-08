@@ -69,7 +69,7 @@ class format_topcoll extends format_base {
         $tcsettings = $this->get_settings();
         $coursecontext = context_course::instance($course->id);
 
-        // We can't add a node without any text
+        // We can't add a node without any text.
         if ((string) $section->name !== '') {
             $o .= format_string($section->name, true, array('context' => $coursecontext));
         } else if ($section->section == 0) {
@@ -82,10 +82,12 @@ class format_topcoll extends format_base {
             }
         }
 
-// Now done here so that the drag and drop titles will be the correct strings as swapped in format.js.
-// But only if we are using toggles which will be if all sections are on one page or we are editing the main page
-// when in one section per page which is coded in 'renderer.php/print_multiple_section_page()' when it calls 'section_header()'
-// as that gets called from 'format.php' when there is no entry for '$displaysetting' - confused? I was, took ages to figure.
+        /* 
+         * Now done here so that the drag and drop titles will be the correct strings as swapped in format.js.
+         * But only if we are using toggles which will be if all sections are on one page or we are editing the main page
+         * when in one section per page which is coded in 'renderer.php/print_multiple_section_page()' when it calls 'section_header()'
+         * as that gets called from 'format.php' when there is no entry for '$displaysetting' - confused? I was, took ages to figure.
+         */
         if (($course->coursedisplay == COURSE_DISPLAY_SINGLEPAGE) && ($section->section != 0)) {
             switch ($tcsettings['layoutelement']) {
                 case 1:
@@ -349,11 +351,11 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => array(
-                        array(1 => new lang_string('setlayoutstructuretopic', 'format_topcoll'),             // Topic
-                              2 => new lang_string('setlayoutstructureweek', 'format_topcoll'),              // Week
-                              3 => new lang_string('setlayoutstructurelatweekfirst', 'format_topcoll'),      // Latest Week First
-                              4 => new lang_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'), // Current Topic First
-                              5 => new lang_string('setlayoutstructureday', 'format_topcoll'))               // Day
+                        array(1 => new lang_string('setlayoutstructuretopic', 'format_topcoll'),             // Topic.
+                              2 => new lang_string('setlayoutstructureweek', 'format_topcoll'),              // Week.
+                              3 => new lang_string('setlayoutstructurelatweekfirst', 'format_topcoll'),      // Latest Week First.
+                              4 => new lang_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'), // Current Topic First.
+                              5 => new lang_string('setlayoutstructureday', 'format_topcoll'))               // Day.
                     )
                 );
                 $courseformatoptionsedit['layoutcolumns'] = array(
@@ -362,10 +364,10 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => array(
-                        array(1 => new lang_string('one', 'format_topcoll'),   // Default
-                              2 => new lang_string('two', 'format_topcoll'),   // Two
-                              3 => new lang_string('three', 'format_topcoll'), // Three
-                              4 => new lang_string('four', 'format_topcoll'))  // Four
+                        array(1 => new lang_string('one', 'format_topcoll'),   // Default.
+                              2 => new lang_string('two', 'format_topcoll'),   // Two.
+                              3 => new lang_string('three', 'format_topcoll'), // Three.
+                              4 => new lang_string('four', 'format_topcoll'))  // Four.
                     )
                 );
                 $courseformatoptionsedit['layoutcolumnorientation'] = array(
@@ -375,7 +377,7 @@ class format_topcoll extends format_base {
                     'element_type' => 'select',
                     'element_attributes' => array(
                         array(1 => new lang_string('columnvertical', 'format_topcoll'),
-                              2 => new lang_string('columnhorizontal', 'format_topcoll')) // Default
+                              2 => new lang_string('columnhorizontal', 'format_topcoll')) // Default.
                     )
                 );
             } else {
@@ -566,9 +568,11 @@ class format_topcoll extends format_base {
      */
     public function update_course_format_options($data, $oldcourse = null) {
 
-        // Notes: Using 'unset' to really ensure that the reset form elements never get into the database.
-        //        This has to be done here so that the reset occurs after we have done updates such that the
-        //        reset itself is not seen as an update.
+        /*
+         * Notes: Using 'unset' to really ensure that the reset form elements never get into the database.
+         *        This has to be done here so that the reset occurs after we have done updates such that the
+         *        reset itself is not seen as an update.
+         */
         $resetlayout = false;
         $resetcolour = false;
         $resettogglealignment = false;
@@ -619,9 +623,9 @@ class format_topcoll extends format_base {
                     if (array_key_exists($key, $oldcourse)) {
                         $data[$key] = $oldcourse[$key];
                     } else if ($key === 'numsections') {
-                        // If previous format does not have the field 'numsections'
-                        // and $data['numsections'] is not set,
-                        // we fill it with the maximum section number from the DB
+                        /* If previous format does not have the field 'numsections'
+                         * and $data['numsections'] is not set,
+                         * we fill it with the maximum section number from the DB */
                         $maxsection = $DB->get_field_sql('SELECT max(section) from {course_sections} WHERE course = ?', array($this->courseid));
                         if ($maxsection) {
                             // If there are no sections, or just default 0-section, 'numsections' will be set to default
@@ -705,8 +709,8 @@ class format_topcoll extends format_base {
      */
     private function format_topcoll_get_section_day($section, $course) {
         $onedayseconds = 86400;
-        // Hack alert. We add 2 hours to avoid possible DST problems. (e.g. we go into daylight
-        // savings and the date changes.
+        /* Hack alert. We add 2 hours to avoid possible DST problems. (e.g. we go into daylight
+           savings and the date changes. */
         $startdate = $course->startdate + 7200;
 
         $day = $startdate + ($onedayseconds * ($section->section - 1));

@@ -56,8 +56,8 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
     }
 
     /**
-     * Process the 'plugin_format_topcoll_course' element within the 'course' element in the 'course.xml' file in the '/course' folder
-     * of the zipped backup 'mbz' file.
+     * Process the 'plugin_format_topcoll_course' element within the 'course' element in the 'course.xml' file in the
+     * '/course' folder of the zipped backup 'mbz' file.
      */
     public function process_topcoll($data) {
         global $DB;
@@ -75,7 +75,7 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
 
         if (!($course = $DB->get_record('course', array('id' => $data->courseid)))) {
             print_error('invalidcourseid', 'error');
-        } // From /course/view.php
+        } // From /course/view.php.
         $courseformat = course_get_format($course);
 
         if (isset($data->layoutcolumns)) {

@@ -43,7 +43,7 @@ $string['topcollall'] = 'sections.';  // Leave as AMOS maintains only the latest
 $string['topcollopened'] = 'Open all';
 $string['topcollclosed'] = 'Close all';
 
-// Moodle 2.0 Enhancement - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages
+// Moodle 2.0 Enhancement - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages.
 $string['sectionname'] = 'Section';
 $string['pluginname'] = 'Collapsed Topics';
 $string['section0name'] = 'General';
@@ -116,28 +116,28 @@ $string['setlayoutstructure_help'] = "The layout structure of the course.  You c
 
 'Day' - where each section is presented as a day in ascending day order from the start date of the course.";
 $string['setlayout_help'] = 'Contains the settings to do with the layout of the format within the course.';
-$string['resetlayout_help'] = 'Resets the layout to the default values in "/course/format/topcoll/tcconfig.php" so it will be the same as a course the first time it is in the Collapsed Topics format.';
-$string['resetalllayout_help'] = 'Resets the layout to the default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
-// Moodle Tracker CONTRIB-3529
+$string['resetlayout_help'] = 'Resets the layout to the default values so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resetalllayout_help'] = 'Resets the layout to the default values for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
+// Moodle Tracker CONTRIB-3529.
 $string['setcolour_help'] = 'Contains the settings to do with the colour of the format within the course.';
 $string['settoggleforegroundcolour_help'] = 'Sets the colour of the text on the toggle.';
-$string['settogglebackgroundcolour_help'] = 'Sets the background of the toggle.';
-$string['settogglebackgroundhovercolour_help'] = 'Sets the background of the toggle when the mouse moves over it.';
-$string['resetcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/tcconfig.php" so it will be the same as a course the first time it is in the Collapsed Topics format.';
-$string['resetallcolour_help'] = 'Resets the colours to the default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
-// Columns enhancement
+$string['settogglebackgroundcolour_help'] = 'Sets the background colour of the toggle.';
+$string['settogglebackgroundhovercolour_help'] = 'Sets the background colour of the toggle when the mouse moves over it.';
+$string['resetcolour_help'] = 'Resets the colours to the default values so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resetallcolour_help'] = 'Resets the colours to the default values for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
+// Columns enhancement.
 $string['setlayoutcolumns_help'] = 'How many columns to use.';
 $string['setlayoutcolumnorientation_help'] =
 'Vertical - Sections go top to bottom.
 
 Horizontal - Sections go left to right.';
 
-// Moodle 2.4 Course format refactoring - MDL-35218
+// Moodle 2.4 Course format refactoring - MDL-35218.
 $string['numbersections'] = 'Number of sections';
 $string['ctreset'] = 'Collapsed Topics reset options';
-$string['ctreset_help'] = 'Reset to Collapsed Topics defaults that are in the tcconfig.php file.';
+$string['ctreset_help'] = 'Reset to Collapsed Topics defaults.';
 
-// Toggle alignment - CONTRIB-4098
+// Toggle alignment - CONTRIB-4098.
 $string['settogglealignment'] = 'Set the toggle text alignment';
 $string['settogglealignment_help'] = 'Sets the alignment of the text in the toggle.';
 $string['left'] = 'Left';
@@ -145,8 +145,8 @@ $string['center'] = 'Centre';
 $string['right'] = 'Right';
 $string['resettogglealignment'] = 'Reset toggle alignment';
 $string['resetalltogglealignment'] = 'Reset toggle alignments for all Collapsed Topics courses';
-$string['resettogglealignment_help'] = 'Resets the toggle alignment to the default values in "/course/format/topcoll/tcconfig.php" so it will be the same as a course the first time it is in the Collapsed Topics format.';
-$string['resetalltogglealignment_help'] = 'Resets the toggle alignment to the default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resettogglealignment_help'] = 'Resets the toggle alignment to the default values so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resetalltogglealignment_help'] = 'Resets the toggle alignment to the default values for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 
 // Icon set enhancement.
 $string['settoggleiconset'] = 'Set icon set';
@@ -158,10 +158,10 @@ $string['point'] = 'Point';
 $string['power'] = 'Power';
 $string['resettoggleiconset'] = 'Reset the toggle icon set';
 $string['resetalltoggleiconset'] = 'Reset the toggle icon set for all Collapsed Topics courses';
-$string['resettoggleiconset_help'] = 'Resets the toggle icon set and toggle all hover to the default values in "/course/format/topcoll/tcconfig.php" so it will be the same as a course the first time it is in the Collapsed Topics format.';
-$string['resetalltoggleiconset_help'] = 'Resets the toggle icon set and toggle all hover to the default values in "/course/format/topcoll/tcconfig.php" for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resettoggleiconset_help'] = 'Resets the toggle icon set and toggle all hover to the default values so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resetalltoggleiconset_help'] = 'Resets the toggle icon set and toggle all hover to the default values for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 
-// Site Administration -> Plugins -> Course formats -> Collapsed Topics or Manage course formats - Settings
+// Site Administration -> Plugins -> Course formats -> Collapsed Topics or Manage course formats - Settings.
 $string['off'] = 'Off';
 $string['on'] = 'On';
 $string['defaultcoursedisplay'] = 'Course display default';
@@ -188,9 +188,9 @@ $string['defaultlayoutstructure_desc'] = "The structure setting can be one of:
 
 Topic
 
-Week   
+Week
 
-Latest Week First 
+Latest Week First
 
 Current Topic First
 
@@ -231,7 +231,7 @@ $string['defaulttoggleiconset_desc'] = "'Arrow' => Arrow icon set.
 $string['defaulttoggleallhover'] = 'Default toggle all icon hovers';
 $string['defaulttoggleallhover_desc'] = "'No' or 'Yes'.";
 
-// Capabilities
+// Capabilities.
 $string['topcoll:changelayout'] = 'Change or reset the layout';
 $string['topcoll:changecolour'] = 'Change or reset the colour';
 $string['topcoll:changetogglealignment'] = 'Change or reset the toggle alignment';

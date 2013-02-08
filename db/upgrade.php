@@ -38,8 +38,8 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
     $dbman = $DB->get_manager();
     $result = true;
 
-    // From Moodle 2.2 bit, this places the right defaults in the 'format_topcoll_settings' table so they can be read by the 2.3
-    // update code even though the table is then dropped....
+    /* From Moodle 2.2 bit, this places the right defaults in the 'format_topcoll_settings' table so they can be read by the 2.3
+       update code even though the table is then dropped.... */
     if ($result && $oldversion < 2012070300) {
         // Rename table format_topcoll_layout if it exists.
         $table = new xmldb_table('format_topcoll_layout');
@@ -60,7 +60,6 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
             $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
 
             // Create table.
-            // $result = $result && $dbman->create_table($table);
             $dbman->create_table($table);
         }
         // Moodle 2.3 uses signed integers.
@@ -118,7 +117,7 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         // New field layoutcolumns on table format_topcoll_settings.  This is not the same place as install.xml
         // because of altering previous field issue but will work.
         $field = new xmldb_field('layoutcolumns', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '1', 'tgbghvrcolour');
-        // Conditionally launch add field layoutcolumns
+        // Conditionally launch add field layoutcolumns.
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
@@ -156,7 +155,7 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
             }
             // Farewell old settings table.
             $dbman->drop_table($table);
-        } // else Nothing to do as settings put in DB on first use.
+        } // ...else Nothing to do as settings put in DB on first use.
     }
     return $result;
 }

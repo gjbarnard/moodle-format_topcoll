@@ -1,5 +1,5 @@
 Introduction
-------------
+============
 Topic based course format with an individual 'toggle' for each topic except 0.
 
 If you find an issue with the format, please see the 'Reporting Issues' section below.
@@ -7,25 +7,23 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 This version is the Moodle 2.4 branch.
 
 Required version of Moodle
---------------------------
+==========================
 This version works with Moodle version 2012120301.02 release 2.4.1+ (Build: 20130118) and above until the next release.
 
-Documented on http://docs.moodle.org/24/en/Collapsed_Topics_course_format
+[Documented on](http://docs.moodle.org/24/en/Collapsed_Topics_course_format)
 
 Supporting Collapsed Topics development
----------------------------------------
+=======================================
 If you find Collapsed Topics useful and beneficial, please consider donating to its development through the following
 PayPal link:
 
-https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6KEALTXATCXVE
+[PayPal donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6KEALTXATCXVE)
 
 I develop and maintain for free and any donations to assist me in this endeavour are appreciated.
 
-New features for this Moodle 2.4 version
-----------------------------------------
- 1. Settings moved to the 'Edit course settings' form.  However, the reset functionality cannot be implemented
-    in this way yet (request for additional core functionality on MDL-35218), so the old 'settings' form has been
-    transformed into a 'reset' form now found at the bottom of the course when editing.
+New features for this Moodle 2.4.1 version
+==========================================
+ 1. Settings moved to the 'Edit course settings' form.
  2. Ability to turn off persistence by changing the default 'defaulttogglepersistence' in
     'Site Administration -> Plugins -> Course formats -> Collapsed Topics'.
  3. Horizontal and vertical column layouts.
@@ -39,7 +37,7 @@ New features for this Moodle 2.4 version
     disable functionality through roles if they wish.
 
 Installation
-------------
+============
  1. Ensure you have the version of Moodle as stated above in 'Required version of Moodle'.  This is essential as the
     format relies on underlying core code that is out of my control.
  2. If upgrading from Moodle 1.9, 2.0 or 2.1, please see 'Upgrading from Moodle 1.9, 2.0 or 2.1' below.
@@ -63,7 +61,7 @@ Installation
 13.  Put Moodle out of Maintenance Mode.
 
 Upgrade Instructions
---------------------
+====================
 1. Ensure you have the version of Moodle as stated above in 'Required version of Moodle'.  This is essential as the
    format relies on underlying core code that is out of my control.
 2. If upgrading from Moodle 1.9, 2.0, 2.1 or 2.2 please read the appropriate sections below.
@@ -80,9 +78,9 @@ So:
 1. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
 2. In '/course/format/' move old 'topcoll' directory to a backup folder outside of Moodle.
 3. Do not copy in the new version of 'topcoll' yet!  As this will cause the upgrade to fail.
-4. Upgrade to Moodle 2.2 first - http://docs.moodle.org/22/en/Upgrading_to_Moodle_2.2.
-5. After you have installed Moodle 2.2, now upgrade to Moodle 2.4 with this new topcoll - 
-   http://docs.moodle.org/24/en/Upgrading_to_Moodle_2.4 - but before initiating the upgrade you can copy the
+4. Upgrade to Moodle 2.2 first (http://docs.moodle.org/22/en/Upgrading_to_Moodle_2.2).
+5. After you have installed Moodle 2.2, now upgrade to Moodle 2.4 with this new topcoll
+   (http://docs.moodle.org/24/en/Upgrading_to_Moodle_2.4) - but before initiating the upgrade you can copy the
    new (i.e. this) 'topcoll' folder to '/course/format'.
 6. Now follow 'Upgrading from Moodle 2.2' below please.
 INFO: Having no 'topcoll' folder in '/course/format' is fine as the courses that use it are not accessed and
@@ -131,7 +129,7 @@ NOTE: If the automated upgrade fails for which can be seen by getting errors whe
 2.6   Drop the table 'format_topcoll_cookie_cnsnt'.
 
 Uninstallation
---------------
+==============
 1. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
 2. It is recommended but not essential to change all of the courses that use the format to another.  If this is
    not done Moodle will pick the last format in your list of formats to use but display in 'Edit settings' of the
@@ -143,7 +141,7 @@ Uninstallation
 5. Put Moodle out of Maintenance Mode.
 
 Course Backup and Restore Instructions
---------------------------------------
+======================================
 1. Backup as you would any other course.  The layout configuration will be stored with the course settings.
 2. Restore as you would any other course.  If you are offered the option of 'Overwrite Course Configuration'
    you must say 'Yes' to have thelayout configuration restored otherwise the restored course will retain the
@@ -154,12 +152,12 @@ Course Backup and Restore Instructions
          stored if you install Collapsed Topic's at a later date.
 
 Remembered Toggle State Information
------------------------------------
+===================================
 The state of the toggles are remembered beyond the session on a per user per course basis though the employment
 of a user preference.  This functionality is now built in from previous versions.  You do not need to do anything.
 
 Icon Sets
----------
+=========
 Icon sets allow you to choose what is the most appropriate set of icons to use for a given courses demographic.  They
 are set on a per course basis but with all the functionality of the other settings in respect to a default and resetting
 the current or all courses.
@@ -167,23 +165,22 @@ the current or all courses.
 If you want to change what icon represents which state / action, then edit 'styles.css' and change the selectors with
 the 'background' attribute with a 'toggle-...' type class within them.  There are selectors for both the 'toggles' and
 the 'toggle all' functionality.  For example:
-
+`
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow a.toggle_closed {
-    /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
-    background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 5px 45%;
+    background-image: url([[pix:format_topcoll|arrow_right]]);
 }
 
 #toggle-all .content .toggle-arrow h4 a.off {
-    background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 0px 45%; 
+    background-image: url([[pix:format_topcoll|arrow_down]]); 
 }
-
+`
 If you would like your own icon set, either replace the icons in the 'pix' folder, deduce how the code works or better
 still create new icons yourself and ask me to add them to the release.  If you do the latter then the icons must be your
-own for which you grant the same GPL licence as Moodle (http://www.gnu.org/copyleft/gpl.html) or provide direct evidence
+own for which you grant the same GPL licence as [Moodle](http://www.gnu.org/copyleft/gpl.html) or provide direct evidence
 of the originator under the same licence.  The icons must be 24x24 pixels with a transparent background.
 
 Known Issues
-------------
+============
 1.  If you get toggle text issues in languages other than English please ensure you have the latest version of Moodle installed.
     More information on http://moodle.org/mod/forum/discuss.php?d=184150.
 2.  The MyMobile theme is not quite as implemented as the previous versions but does work.  It has a tendency not set allow the
@@ -203,7 +200,7 @@ Known Issues
     if you encounter it.
 
 Reporting Issues
-----------------
+================
 Before reporting an issue, please ensure that you are running the latest version for your release of Moodle.  The primary
 release area is located on https://moodle.org/plugins/view.php?plugin=format_topcoll.  It is also essential that you are
 operating the required version of Moodle as stated at the top - this is because the format relies on core functionality that
@@ -225,7 +222,7 @@ version.php file.  Other version information such as specific Moodle version, th
 can be really useful in visualising the issue along with any files you consider to be relevant.
 
 Version Information
--------------------
+===================
 21st February 2009 - Version 0.1
 
 1st March 2009 - Version 0.2
@@ -390,18 +387,18 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
 
 23rd January 2012 - Version 2.3.2
   1. Sorted out UTF-8 BOM issue, see MDL-31343.
-  2. Added Russian translation, thanks to Pavel Evgenjevich Timoshenko (http://moodle.org/user/profile.php?id=1322784).
+  2. Added Russian translation, thanks to [Pavel Evgenjevich Timoshenko](http://moodle.org/user/profile.php?id=1322784).
 
 2nd February 2012 - Version 2.3.3 - BETA
   1. Added capability for layouts with persistence in the database.
 
 4th February 2012 - Version 2.3.3 - BETA 2
-  1. A big thank you to Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362) for his help in discovering the
+  1. A big thank you to [Carlos Sánchez Martín](http://moodle.org/user/profile.php?id=743362) for his help in discovering the
      install.xml bug.
   2. Fixed issue with install.xml file, gained knowledge on uninstallation for the note below:
 
 5th February 2012 - Version 2.3.3 - BETA 3
-  1. A big thank you to Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362) spotting issues in set_layout.php.
+  1. A big thank you to [Carlos Sánchez Martín](http://moodle.org/user/profile.php?id=743362) spotting issues in set_layout.php.
   2. Fixed issues in set_layout.php.
   3. Tidied up code to remove debug statements and development code.
   4. Created icon for setting the layout instead of words.
@@ -409,7 +406,7 @@ Released Moodle 2.0 version.  Treat as completed and out of development.
   6. Raised CONTRIB-3378 to document the development.
 
 8th February 2012 - Version 2.3.3 - BETA 4
-  1. A big thank you to Andrew Nicols (http://moodle.org/user/view.php?id=268794) for his contribution on the developer forum
+  1. A big thank you to [Andrew Nicols](http://moodle.org/user/view.php?id=268794) for his contribution on the developer forum
      (http://moodle.org/mod/forum/discuss.php?d=195293).
   2. Implemented the fixes and suggestions to tidy up the code as specified by Andrew above.
   3. Implemented Spanish translations thanks to Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362).
@@ -824,7 +821,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1.  Further tweaks for toggle line height and to make work in IE9 with and without IE7 mode.
   2.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
   
-4th February 2013 - Version 2.4.3 - Power Toggle evaluation branch - MOODLE_24_POWER_TOGGLE
+8th February 2013 - Version 2.4.3 - Power Toggle evaluation branch - MOODLE_24_POWER_TOGGLE
   1.  Taking inspiration from the IEC 5009 standard standby symbol as described on http://en.wikipedia.org/wiki/Power_symbol and a
       suggestion with the + / - symbols by Ben Kelada on CONTRIB-4098.  I have used the 'standby' concept as Moodle is on
       and waiting for input.
@@ -840,46 +837,49 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
       disable functionality through roles if they wish.  In order for this to work the version number must be updated.
   7.  Code cleaned with 'code-checker' - https://moodle.org/plugins/view.php?plugin=local_codechecker - not finished yet
       - no functional changes.
-  8.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
+  8.  Added toggle icons to the selection boxes of the edit settings and plugin settings.  Does not work with Chrome - known
+      browser issue.
+  9.  Changed this readme to ['Markdown' format](http://en.wikipedia.org/wiki/Markdown).
+ 10.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
 
 Thanks
-------
+======
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
 
 Craig Grannell of Snub Communications who wrote the article on Collapsed Tables in .Net Magazine Issue 186 from whom
 the original code is based and concept used with his permission.
 
-For the persistence upgrade I would like to thank all those who contributed to the developer forum -
-http://moodle.org/mod/forum/discuss.php?d=124264 - Frank Ralf, Matt Gibson, Howard Miller and Tim Hunt.  And
+For the persistence upgrade I would like to thank all those who contributed to the
+[developer forum](http://moodle.org/mod/forum/discuss.php?d=124264) - Frank Ralf, Matt Gibson, Howard Miller and Tim Hunt.  And
 indeed all those who have worked on the developer documentation - http://docs.moodle.org/en/Javascript_FAQ.
 
 Michael de Raadt for CONTRIB-1945 & 1946 which sparked fixes in CONTRIB-1952 & CONTRIB-1954.
 
-Amanda Doughty (http://moodle.org/user/profile.php?id=1062329) for her contribution in solving the AJAX move problem.
+[Amanda Doughty](http://moodle.org/user/profile.php?id=1062329) for her contribution in solving the AJAX move problem.
 
-Mark Ward (http://moodle.org/user/profile.php?id=489101) for his contribution solving the IE8- display problem.
+[Mark Ward](http://moodle.org/user/profile.php?id=489101) for his contribution solving the IE8- display problem.
 
-Pieter Wolters (http://moodle.org/user/profile.php?id=537037) - for the Dutch translation.
+[Pieter Wolters](http://moodle.org/user/profile.php?id=537037) - for the Dutch translation.
 
-Tarcísio Nunes (http://moodle.org/user/profile.php?id=1149633) - for the Brazilian translation.
+[Tarcísio Nunes](http://moodle.org/user/profile.php?id=1149633) - for the Brazilian translation.
 
-Pavel Evgenjevich Timoshenko (http://moodle.org/user/profile.php?id=1322784) - for the Russian translation.
+[Pavel Evgenjevich Timoshenko](http://moodle.org/user/profile.php?id=1322784) - for the Russian translation.
 
-All of the developers of the Grid Course format (https://github.com/PukunuiAustralia/moodle-courseformat_grid) for showing how
+All of the developers of the [Grid Course format](https://github.com/PukunuiAustralia/moodle-courseformat_grid) for showing how
 the database can be used with a course format.
 
-Carlos Sánchez Martín (http://moodle.org/user/profile.php?id=743362) for his assistance on CONTRIB-3378 and the
+[Carlos Sánchez Martín](http://moodle.org/user/profile.php?id=743362) for his assistance on CONTRIB-3378 and the
 Spanish translation.
 
-Andrew Nicols (http://moodle.org/user/view.php?id=268794) for his assistance on CONTRIB-3378.
+[Andrew Nicols](http://moodle.org/user/view.php?id=268794) for his assistance on CONTRIB-3378.
 
-Hartmut Scherer (http://moodle.org/user/view.php?id=441502) for suggesting the 'Current Topic First' structure and testing the
-Moodle 2.2 code on discussion 'Collapsed Topics with Custom Layouts' (http://moodle.org/mod/forum/discuss.php?d=195292).
+[Hartmut Scherer](http://moodle.org/user/view.php?id=441502) for suggesting the 'Current Topic First' structure and testing the
+Moodle 2.2 code on discussion [Collapsed Topics with Custom Layouts](http://moodle.org/mod/forum/discuss.php?d=195292).
 
-Luiggi Sansonetti (http://moodle.org/user/profile.php?id=1297063) for the French translation.
+[Luiggi Sansonetti](http://moodle.org/user/profile.php?id=1297063) for the French translation.
 
 References
-----------
+==========
 .Net Magazine Issue 186 - Article on Collapsed Tables by Craig Grannell -
  http://www.netmag.co.uk/zine/latest-issue/issue-186
 
@@ -893,11 +893,12 @@ Paint.Net - http://www.getpaint.net/
 JavaScript: The Definitive Guide - David Flanagan - O'Reilly - ISBN: 978-0-596-10199-2
 
 Desired Enhancements
---------------------
+====================
 1. Smoother animated toggle action.
 2. Toggle saving only when the user closes the window / moves to another course.
-3. This file in WikiMedia format so that it has an automatic contents menu on GitHub.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 4th February 2013.
+Me
+==
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 8th February 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
