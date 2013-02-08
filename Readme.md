@@ -821,7 +821,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1.  Further tweaks for toggle line height and to make work in IE9 with and without IE7 mode.
   2.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
   
-8th February 2013 - Version 2.4.3 - Power Toggle evaluation branch - MOODLE_24_POWER_TOGGLE
+8th February 2013 - Version 2.4.3
   1.  Taking inspiration from the IEC 5009 standard standby symbol as described on http://en.wikipedia.org/wiki/Power_symbol and a
       suggestion with the + / - symbols by Ben Kelada on CONTRIB-4098.  I have used the 'standby' concept as Moodle is on
       and waiting for input.
