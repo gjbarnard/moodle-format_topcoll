@@ -38,7 +38,7 @@ var numToggles = 0;
 var currentSection;
 var togglePersistence = 1; // Toggle persistence - 1 = on, 0 = off.
 //var ie = false;
-var mymobiletheme = false;
+var mobiletheme = false;
 var ourYUI;
 
 /**
@@ -54,8 +54,9 @@ M.format_topcoll = M.format_topcoll || {};
  * @param {String} thetogglestate the current state of the toggles.
  * @param {Integer} noOfToggles The number of toggles.
  * @param {Integer} theTogglePersistence Persistence on (1) or off (0).
+ * @param {Integer} mobile States if the device is a mobile or tablet yes (1) or no (0).
  */
-M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate, noOfToggles, theTogglePersistence) {
+M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate, noOfToggles, theTogglePersistence, mobile) {
     // Init.
     ourYUI = Y;
     thewwwroot = wwwroot;
@@ -74,8 +75,8 @@ M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate, noOfTo
         toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
     }
 
-    if (document.getElementById("mymobile")) {
-        mymobiletheme = true;
+    if (mobile == 1) {
+        mobiletheme = true;
     }
     
     // Info on http://yuilibrary.com/yui/docs/event/
@@ -163,7 +164,7 @@ function toggleexacttopic(target,image,toggleNum,reloading,savetoggles)  // Togg
         {
             target.style.display = "none";
 
-            if (mymobiletheme == true) {
+            if (mobiletheme == true) {
                 image.className = image.className.replace(/\b opencps\b/,''); //remove the class name
                 image.className = image.className.replace('toggle_open','toggle_closed');  // Temporary until MyMobile is fixed - MDL-33115.
             } else {
@@ -179,7 +180,7 @@ function toggleexacttopic(target,image,toggleNum,reloading,savetoggles)  // Togg
         {
             target.style.display = displaySetting;
 
-            if (mymobiletheme == true) {
+            if (mobiletheme == true) {
                 image.className += " opencps";  //add the class name
                 image.className = image.className.replace('toggle_closed','toggle_open');  // Temporary until MyMobile is fixed - MDL-33115.
             } else {

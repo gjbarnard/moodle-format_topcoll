@@ -38,7 +38,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
     private $tccolumnwidth = 100; /* Default width in percent of the column(s). */
     private $tccolumnpadding = 0; /* Defailt padding in pixels of the column(s). */
-    private $mymobiletheme = false; /* As not using the MyMobile theme we can react to the number of columns setting. */
+    private $mobiletheme = false; /* As not using a mobile theme we can react to the number of columns setting. */
 
     /**
      * Generate the starting container html for a list of sections
@@ -224,7 +224,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::start_tag('li', array('id' => 'section-' . $section->section,
                     'class' => 'section main clearfix' . $sectionstyle));
 
-        if ($this->mymobiletheme == false) {
+        if ($this->mobiletheme == false) {
             $leftcontent = $this->section_left_content($section, $course, $onsectionpage);
             $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
         }
@@ -248,7 +248,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if ((!($section->toggle === NULL)) && ($section->toggle == '1')) {
                 $toggleclass = 'toggle_open';
                 $sectionstyle = 'display: block;';
-                if ($this->mymobiletheme == true) {
+                if ($this->mobiletheme == true) {
                     $toggleclass .= ' opencps';
                 }
                 //print("Toggle ".$section->section." open");
@@ -483,8 +483,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
         global $PAGE, $USER;
         global $tcsetting;
 
-        $this->mymobiletheme = ($PAGE->theme->name == 'mymobile');  // Not brilliant, but will work!
-
         $userisediting = $PAGE->user_is_editing();
 
         $context = context_course::instance($course->id);
@@ -570,7 +568,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if ($numsections < $tcsetting->layoutcolumns) {
                 $tcsetting->layoutcolumns = $numsections;  // Help to ensure a reasonable display.
             }
-            if (($tcsetting->layoutcolumns > 1) && ($this->mymobiletheme == false)) {
+            if (($tcsetting->layoutcolumns > 1) && ($this->mobiletheme == false)) {
                 if ($tcsetting->layoutcolumns > 4) {
                     // Default in tcconfig.php (and reset in database) or database has been changed incorrectly.
                     $tcsetting->layoutcolumns = 4;
@@ -814,7 +812,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o = '';
         $o .= html_writer::start_tag('li', array('class' => 'tcsection main clearfix', 'id' => 'toggle-all-and-settings'));
 
-        if ($this->mymobiletheme == false) {
+        if ($this->mobiletheme == false) {
             $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
         }
         $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
@@ -844,4 +842,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
         return $o;
     }
 
+    public function set_mobile($mobile) {
+        if ($mobile == 1) {
+            $this->mobiletheme = true;
+        }
+    }
 }

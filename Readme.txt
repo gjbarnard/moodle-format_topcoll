@@ -178,8 +178,27 @@ Known Issues
     information on http://moodle.org/mod/forum/discuss.php?d=184150.
 2.  The MyMobile theme is not quite as implemented as the previous versions but does work, please see http://tracker.moodle.org/browse/MDL-33115.
     It has a tendency not to reload the toggle state or set the arrow icon on first load.  A page refresh fixes it - something to do with the
-    inclusion of a '#' in the url.  The bottom left and right navigation links in 'One section per page' mode do not appear to work.  I have
-    contacted 'John Stabinger' on 'MDL-33115' and he will be looking into it.
+    inclusion of a '#' in the url.  A workaround that I am in the process of testing is to add:
+
+    $('#page-site-indexPAGE a').attr("data-ajax", "false");
+
+    within:
+
+    //function below does generic stuff before creating all pages...
+    $('div').live('pagebeforecreate', function(event, ui) {
+        //turn off ajax on all forms for now as of beta1
+        $('form').attr("data-ajax", "false");
+
+        $('#page-site-indexPAGE a').attr("data-ajax", "false"); // For Collapsed Topics # in url issue.
+
+        //lesson
+    ....
+
+    Of the theme's 'custom.js' file, then do a 'Purge all caches'.
+
+    The bottom left and right navigation links in 'One section per page' mode do not appear to work.  I have contacted 'John Stabinger' on
+    'MDL-33115' and he will be looking into it.
+
 3.  Importing a Moodle 1.9 course does not currently work, please see CONTRIB-3552 which depends on MDL-32205 - as
     a workaround, please select the 'Topics' format first in 1.9, backup and restore then select the Collapsed Topics
     course format in the course settings.  You will have to reset your decisions on structure etc.
@@ -668,6 +687,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2.  Changes to 'renderer.php' because of MDL-36095 hence requiring Moodle version 2012062504.01 release 2.3.4+ (Build: 20130118) and above.
   3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
+9th February 2013 - Version 2.3.9.9
+  1.  Improved mobile and tablet theme detection.
+  2.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+
 Thanks
 ------
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -719,6 +742,6 @@ Desired Enhancements
 --------------------
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 21st January 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 9th February 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
