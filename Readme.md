@@ -183,11 +183,29 @@ Known Issues
 ============
 1.  If you get toggle text issues in languages other than English please ensure you have the latest version of Moodle installed.
     More information on http://moodle.org/mod/forum/discuss.php?d=184150.
-2.  The MyMobile theme is not quite as implemented as the previous versions but does work.  It has a tendency not set allow the
-    toggles to work.  A page refresh fixes it and then appears to be ok on a revisit - I thought it was something to do with
-    the inclusion of a '#' in the url but could be a YUI / jQuery event conflict - any help on this appreciated.  The bottom
-    left and right navigation links in 'One section per page' mode do not appear to work.  I initially raised 'MDL-33115' but
-    things have stalled, need time to work on this.
+2.  The MyMobile theme is not quite as implemented as the previous versions but does work, please see http://tracker.moodle.org/browse/MDL-33115.
+    It has a tendency not to reload the toggle state or set the arrow icon on first load.  A page refresh fixes it - something to do with the
+    inclusion of a '#' in the url.  A workaround that I am in the process of testing is to add:
+
+    $('#page-site-indexPAGE a').attr("data-ajax", "false");
+
+    within:
+
+    //function below does generic stuff before creating all pages...
+    $('div').live('pagebeforecreate', function(event, ui) {
+        //turn off ajax on all forms for now as of beta1
+        $('form').attr("data-ajax", "false");
+
+        $('#page-site-indexPAGE a').attr("data-ajax", "false"); // For Collapsed Topics # in url issue.
+
+        //lesson
+    ....
+
+    Of the theme's 'custom.js' file, then do a 'Purge all caches'.
+
+    The bottom left and right navigation links in 'One section per page' mode do not appear to work.  I have contacted 'John Stabinger' on
+    'MDL-33115' and he will be looking into it.
+
 3.  Importing a Moodle 1.9 course does not currently work, please see CONTRIB-3552 which depends on MDL-32205 - as
     a workaround, please select the 'Topics' format first in 1.9, backup and restore then select the Collapsed Topics
     course format in the course settings.  You will have to reset your decisions on structure etc.
@@ -842,6 +860,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   9.  Changed this readme to ['Markdown' format](http://en.wikipedia.org/wiki/Markdown).
  10.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
 
+9th February 2013 - Version 2.4.3.1
+  1.  Improved mobile and tablet theme detection.
+  2.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+
 Thanks
 ======
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -899,6 +921,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 8th February 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 9th February 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

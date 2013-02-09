@@ -71,13 +71,22 @@ $renderer = $PAGE->get_renderer('format_topcoll');
 if (!empty($displaysection)) {
     $renderer->print_single_section_page($course, null, null, null, null, $displaysection);
 } else {
+    $devicetype = get_device_type(); // In moodlelib.php.
+    if ($devicetype == "mobile" || $devicetype == "tablet") {
+        $mobile = 1;
+    } else {
+        $mobile = 0;
+    }
+    $renderer->set_mobile($mobile);
+
     user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_ALPHANUM);
 
     $PAGE->requires->js_init_call('M.format_topcoll.init', array($CFG->wwwroot,
         $course->id,
         get_user_preferences('topcoll_toggle_' . $course->id),
         $course->numsections,
-        get_config('format_topcoll', 'defaulttogglepersistence')));
+        get_config('format_topcoll', 'defaulttogglepersistence'),
+        $mobile));
 
     $tcsettings = $courseformat->get_settings();
     ?>
