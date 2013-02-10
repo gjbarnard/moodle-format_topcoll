@@ -53,7 +53,14 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @return string HTML to output.
      */
     protected function start_toggle_section_list() {
-        return html_writer::start_tag('ul', array('class' => 'ctopics topics', 'style' => 'width:' . $this->tccolumnwidth . '%; float:left; padding:' . $this->tccolumnpadding . 'px;'));
+        $attributes = array('class' => 'ctopics topics');
+        $style = 'width:' . $this->tccolumnwidth . '%;';
+        if ($this->mobiletheme == false) {
+            $style .= ' float:left;';
+        }
+        $style .= ' padding:' . $this->tccolumnpadding . 'px;';
+        $attributes['style'] = $style;
+        return html_writer::start_tag('ul', $attributes);
     }
 
     /**
@@ -700,21 +707,24 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     }
                 }
 
-                if (($canbreak == false) && ($currentsectionfirst == false) && ($showsection == true)) {
-                    $canbreak = true;
-                    $columnbreakpoint = ($shownsectioncount + ($numsections / $tcsetting->layoutcolumns)) - 1;
-                    if ($tcsetting->layoutstructure == 4) {
-                        $columnbreakpoint -= 1;
+                if ($this->mobiletheme == false) { // Only break in non-mobile themes.
+                    if (($canbreak == false) && ($currentsectionfirst == false) && ($showsection == true)) {
+                        $canbreak = true;
+                        $columnbreakpoint = ($shownsectioncount + ($numsections / $tcsetting->layoutcolumns)) - 1;
+                        if ($tcsetting->layoutstructure == 4) {
+                            $columnbreakpoint -= 1;
+                        }
+                    }
+
+                    if (($currentsectionfirst == false) && ($canbreak == true) && ($shownsectioncount >= $columnbreakpoint) && ($columncount < $tcsetting->layoutcolumns)) {
+                        echo $this->end_section_list();
+                        echo $this->start_toggle_section_list();
+                        $columncount++;
+                        // Next breakpoint is...
+                        $columnbreakpoint += $numsections / $tcsetting->layoutcolumns;
                     }
                 }
 
-                if (($currentsectionfirst == false) && ($canbreak == true) && ($shownsectioncount >= $columnbreakpoint) && ($columncount < $tcsetting->layoutcolumns)) {
-                    echo $this->end_section_list();
-                    echo $this->start_toggle_section_list();
-                    $columncount++;
-                    // Next breakpoint is...
-                    $columnbreakpoint += $numsections / $tcsetting->layoutcolumns;
-                }
                 $loopsection++;
                 if (($currentsectionfirst == true) && ($loopsection > $course->numsections)) {
                     // Now show the rest.
