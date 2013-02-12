@@ -66,7 +66,8 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_c
     background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
 }
 
-#mymobile .course-content ul.ctopics li.tcsection .content, #mymobile .course-content ul.ctopics li.section.main .content{
+body.mobiletheme .course-content ul.ctopics li.tcsection .content, body.mobiletheme  .course-content ul.ctopics li.section.main .content,
+body.tablettheme .course-content ul.ctopics li.tcsection .content, body.tablettheme  .course-content ul.ctopics li.section.main .content {
     margin: 0;
 }
 
@@ -116,6 +117,9 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_c
     padding: 0 0;
     width: auto;
     line-height: 2em;
+    -moz-border-radius: 0.7em;
+    -webkit-border-radius: 0.7em;
+    border-radius: 0.7em;
 }
 
 /* -- The topic summary text -- */    
@@ -146,7 +150,7 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_c
     font-weight: bold;
 }
 
-#mymobile .course-content ul.ctopics li.section .content .toggle a {
+body.mobiletheme .course-content ul.ctopics li.section .content .toggle a, body.tablettheme .course-content ul.ctopics li.section .content .toggle a {
     font-weight: normal; /* So not blurred on mobile devices. */
 }
 
