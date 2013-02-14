@@ -4,11 +4,20 @@ Topic based course format with an individual 'toggle' for each topic except 0.
 
 If you find an issue with the format, please see the 'Reporting Issues' section below.
 
-This version is the Moodle 2.4 branch.
-
 Required version of Moodle
 ==========================
 This version works with Moodle version 2012120301.02 release 2.4.1+ (Build: 20130118) and above until the next release.
+
+Download and documentation
+==========================
+The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
+with 'Select Moodle version:' set at 'Moodle 2.4'.
+
+The secondary source is a tagged version with the v2.4 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
+
+If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/tree/MOODLE_24 - consider that
+the code is unstable and not for use in production environments.  This is because I develop the next version in stages
+and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
 Documented on http://docs.moodle.org/24/en/Collapsed_Topics_course_format
 
@@ -657,7 +666,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   7. Shrunk the settings icon to 75% of the original size so that it is not so 'in your face' and added
      instructions on the left.  The instructions are in the 'en' langauge file as the 'formatsettingsinformation'
      string for translation.
- 
+
 3rd September 2012 - Version 2.3.8
   1. Changes to 'renderer.php' because of MDL-28207 - thus requiring Moodle 2.3.1 2012062501.09 (Build: 20120809).
   2. Implemented MDL-34798 which I reported for AJAX section moving.
@@ -860,9 +869,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   9.  Changed this readme to ['Markdown' format](http://en.wikipedia.org/wiki/Markdown).
  10.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
 
-9th February 2013 - Version 2.4.3.1
+14th February 2013 - Version 2.4.3.1
   1.  Improved mobile and tablet theme detection.
-  2.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+  2.  Added 'Download and documentation' to this readme to clarify download locations.
+  3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
 Thanks
 ======
@@ -921,6 +931,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 9th February 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 14th February 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard
