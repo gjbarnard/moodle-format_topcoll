@@ -30,6 +30,16 @@ PayPal link:
 
 I develop and maintain for free and any donations to assist me in this endeavour are appreciated.
 
+Previous versions and required version of Moodle
+================================================
+If this version does not work with your version of Moodle because it requires a newer version of Moodle, then
+please download an older version from https://moodle.org/plugins/pluginversions.php?plugin=format_topcoll using
+this table as a guide:
+
+CT version - Moodle version
+V2.4.2       2.4.1+, version 2012120301.02 (Build: 20130118).
+V2.4.1.7     2.4+    version 2012120300.00 (Build: 20121203).
+
 New features for this Moodle 2.4.1 version
 ==========================================
  1. Settings moved to the 'Edit course settings' form.
@@ -869,10 +879,12 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   9.  Changed this readme to ['Markdown' format](http://en.wikipedia.org/wiki/Markdown).
  10.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
 
-14th February 2013 - Version 2.4.3.1
+15th February 2013 - Version 2.4.3.1
   1.  Improved mobile and tablet theme detection.
   2.  Added 'Download and documentation' to this readme to clarify download locations.
-  3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+  3.  Cleaned JavaScript through use of http://jshint.com/.
+  4.  Added 'Previous versions and required version of Moodle' to this guide.
+  5.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
 Thanks
 ======
@@ -931,6 +943,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 14th February 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 15th February 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

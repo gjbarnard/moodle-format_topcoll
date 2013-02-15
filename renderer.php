@@ -696,21 +696,23 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     }
                 }
 
-                if ($this->tcsettings['layoutcolumnorientation'] == 1) {  // Only break columns in horizontal mode.
-                    if (($canbreak == false) && ($currentsectionfirst == false) && ($showsection == true)) {
-                        $canbreak = true;
-                        $columnbreakpoint = ($shownsectioncount + ($numsections / $this->tcsettings['layoutcolumns'])) - 1;
-                        if ($this->tcsettings['layoutstructure'] == 4) {
-                            $columnbreakpoint -= 1;
+                if ($this->mobiletheme == false) { // Only break in non-mobile themes.
+                    if ($this->tcsettings['layoutcolumnorientation'] == 1) {  // Only break columns in horizontal mode.
+                        if (($canbreak == false) && ($currentsectionfirst == false) && ($showsection == true)) {
+                            $canbreak = true;
+                            $columnbreakpoint = ($shownsectioncount + ($numsections / $this->tcsettings['layoutcolumns'])) - 1;
+                            if ($this->tcsettings['layoutstructure'] == 4) {
+                                $columnbreakpoint -= 1;
+                            }
                         }
-                    }
 
-                    if (($currentsectionfirst == false) && ($canbreak == true) && ($shownsectioncount >= $columnbreakpoint) && ($columncount < $this->tcsettings['layoutcolumns'])) {
+                        if (($currentsectionfirst == false) && ($canbreak == true) && ($shownsectioncount >= $columnbreakpoint) && ($columncount < $this->tcsettings['layoutcolumns'])) {
                         echo $this->end_section_list();
-                        echo $this->start_toggle_section_list();
-                        $columncount++;
-                        // Next breakpoint is...
-                        $columnbreakpoint += $numsections / $this->tcsettings['layoutcolumns'];
+                            echo $this->start_toggle_section_list();
+                            $columncount++;
+                            // Next breakpoint is...
+                            $columnbreakpoint += $numsections / $this->tcsettings['layoutcolumns'];
+                        }
                     }
                 }
 
