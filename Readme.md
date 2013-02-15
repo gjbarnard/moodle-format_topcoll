@@ -30,6 +30,18 @@ PayPal link:
 
 I develop and maintain for free and any donations to assist me in this endeavour are appreciated.
 
+Previous versions and required version of Moodle
+================================================
+If this version does not work with your version of Moodle because it requires a newer version of Moodle, then
+please download an older version from https://moodle.org/plugins/pluginversions.php?plugin=format_topcoll using
+this table as a guide:
+
+CT version - Moodle version
+V2.3.9.8     2.3.4+, version 2012062504.01 (Build: 20130118).
+V2.3.9.7     2.3.2+, version 2012062502.05 (Build: 20121005).
+V2.3.8.1     2.3.1+, version 2012062501.09 (Build: 20120809).
+V2.3.7       2.3+,   version 2012062500.01 (Build: 20120701).
+
 New features for this Moodle 2.3.1 version
 ==========================================
 1. One to four columns which can be set on the Collapsed Topics settings form (one column for MyMobile users 
@@ -718,13 +730,15 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2.  Changes to 'renderer.php' because of MDL-36095 hence requiring Moodle version 2012062504.01 release 2.3.4+ (Build: 20130118) and above.
   3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
-11th February 2013 - Version 2.3.9.9
+15th February 2013 - Version 2.3.9.9
   1.  Improved mobile and tablet theme detection.
   2.  Fixed 'float' issue for jQueryMobile themes as reported in CONTRIB-4108.
   3.  Implemented round toggle borders to reduce the harshness and integrate with jQueryMobile themes.
   4.  Changed this readme to ['Markdown' format](http://en.wikipedia.org/wiki/Markdown).
   5.  Added 'Download and documentation' to this readme to clarify download locations.
-  6.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+  6.  Cleaned JavaScript through use of http://jshint.com/.
+  7.  Added 'Previous versions and required version of Moodle' to this guide.
+  8.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
 Thanks
 ======
@@ -780,6 +794,6 @@ Desired Enhancements
 ====================
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 11th February 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 15th February 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
