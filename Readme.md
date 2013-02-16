@@ -730,7 +730,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2.  Changes to 'renderer.php' because of MDL-36095 hence requiring Moodle version 2012062504.01 release 2.3.4+ (Build: 20130118) and above.
   3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
-15th February 2013 - Version 2.3.9.9
+16th February 2013 - Version 2.3.9.9
   1.  Improved mobile and tablet theme detection.
   2.  Fixed 'float' issue for jQueryMobile themes as reported in CONTRIB-4108.
   3.  Implemented round toggle borders to reduce the harshness and integrate with jQueryMobile themes.
@@ -738,7 +738,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   5.  Added 'Download and documentation' to this readme to clarify download locations.
   6.  Cleaned JavaScript through use of http://jshint.com/.
   7.  Added 'Previous versions and required version of Moodle' to this guide.
-  8.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+  8.  Changed 'Open / Close all sections' to 'Open all / Close all' as per 2.4 version.
+  9.  Tidied up lang files as Moodle.org now does automatic translation.
+ 10.  Added mobile toggle data hidden div tag for future use.
+ 11.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
 Thanks
 ======
@@ -794,6 +797,6 @@ Desired Enhancements
 ====================
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 15th February 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 16th February 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard

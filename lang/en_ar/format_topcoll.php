@@ -41,9 +41,8 @@ $string['topcolltoggle']='Toggle';
 $string['topcollsidewidth']='40px';
 
 // Toggle all - Moodle Tracker CONTRIB-3190
-$string['topcollall']='all sections.';
-$string['topcollopened']='Untie';
-$string['topcollclosed']='Tie';
+$string['topcollopened']='Untie all';
+$string['topcollclosed']='Tie all';
 
 // Moodle 2.0 Enhancement - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages
 $string['sectionname'] = 'Section';

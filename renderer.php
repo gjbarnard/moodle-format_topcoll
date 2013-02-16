@@ -835,7 +835,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $o .= html_writer::start_tag('h4', null);
                 $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'id' => 'toggles-all-opened'));
                 $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'id' => 'toggles-all-closed'));
-                $o .= html_writer::tag('span', get_string('topcollall', 'format_topcoll'), null);
                 $o .= html_writer::end_tag('h4');
             }
         }
