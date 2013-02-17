@@ -42,6 +42,10 @@
     padding: 0px;
 }
 
+.course-content ul.ctopics li .content .sectionhead h3 {
+    margin-bottom: 0em;
+}
+
 .course-content ul.ctopics li.current .content .toggledsection {
     padding: 0px 0px 5px 0px;
 }
@@ -190,19 +194,27 @@ body.ie7 #toggle-all-and-settings {
     display: inline-block; /* Not perfect but works. */
 }
 
-#toggle-all-and-settings .content .sectionbody h4 a.on {
+#toggle-all-and-settings .content .sectionbody {
+    padding: 0px 0px 0px 5px;
+}
+
+#toggle-all-and-settings .content .sectionbody a {
+    padding: 7px 0px 7px 24px;
+}
+
+#toggle-all-and-settings .content .sectionbody a.on {
     background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 0px 45%; 
 }
 
-#toggle-all-and-settings .content .sectionbody h4 a.off {
+#toggle-all-and-settings .content .sectionbody a.off {
     background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 0px 45%; 
 }
 
-body.ie7 #toggle-all-and-settings .content .sectionbody h4 a.on {
+body.ie7 #toggle-all-and-settings .content .sectionbody a.on {
     background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 0px 5px;     
 }
 
-body.ie7 #toggle-all-and-settings .content .sectionbody h4 a.off {
+body.ie7 #toggle-all-and-settings .content .sectionbody a.off {
     background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 0px 5px; 
 }
 /* Set settings */

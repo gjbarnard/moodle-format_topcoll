@@ -267,11 +267,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             $toggleclass .= ' the_toggle';
             $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#'));
-            $o .= $title;
+            $otitle = $title;
             if ((string) $section->name !== '') {
                 if (($section->section != 0) && (($tcsetting->layoutstructure == 2) || ($tcsetting->layoutstructure == 3) || ($tcsetting->layoutstructure == 5))) {
-                    $o .= ' <br />';
-                    $o .= tc_get_section_dates($section, $course, $tcsetting);  // In lib.php
+                    $otitle .= ' <br />';
+                    $otitle .= tc_get_section_dates($section, $course, $tcsetting);  // In lib.php
                 }
             }
             switch ($tcsetting->layoutelement) {
@@ -279,9 +279,16 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 case 2:
                 case 3:
                 case 4:
-                    $o .= ' - ' . $toggletext;
+                    $otitle .= ' - ' . $toggletext;
                     break;
             }
+
+            if ($this->mobiletheme == false) {
+                $o .= $this->output->heading($otitle, 3, 'sectionname');
+            } else {
+                $o .= html_writer::tag('h3', $otitle); // Moodle H3's look bad on mobile with CT so use plain.
+            }
+
             $o .= html_writer::end_tag('a');
             $o .= html_writer::end_tag('div');
             $o .= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection', 'id' => 'toggledsection-' . $section->section, 'style' => $sectionstyle));
@@ -832,10 +839,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if ($USER->screenreader != 1) { // No need to show if in screen reader mode.
             if (($course->numsections > 1) && (($course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) || ($userisediting && has_capability('moodle/course:update', $context)))) {
                 // Toggle all.
-                $o .= html_writer::start_tag('h4', null);
-                $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'id' => 'toggles-all-opened'));
-                $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'id' => 'toggles-all-closed'));
-                $o .= html_writer::end_tag('h4');
+                $o .= html_writer::tag('a', html_writer::tag('h4',get_string('topcollopened', 'format_topcoll')), array('class' => 'on', 'href' => '#', 'id' => 'toggles-all-opened'));
+                $o .= html_writer::tag('a', html_writer::tag('h4',get_string('topcollclosed', 'format_topcoll')), array('class' => 'off', 'href' => '#', 'id' => 'toggles-all-closed'));
             }
         }
 
