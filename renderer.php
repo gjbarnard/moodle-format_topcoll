@@ -307,7 +307,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if ($this->mobiletheme == false) {
                 $o .= $this->output->heading($otitle, 3, 'sectionname');
             } else {
-                $o .= $otitle; // H3's look bad on mobile with CT.
+                $o .= html_writer::tag('h3', $otitle); // Moodle H3's look bad on mobile with CT so use plain.
             }
 
             $o .= html_writer::end_tag('a');
