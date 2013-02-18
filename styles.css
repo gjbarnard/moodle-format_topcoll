@@ -43,19 +43,27 @@
 }
 
 .course-content ul.ctopics li .content .sectionhead h3 {
-    margin-bottom: 0em;
+    margin: 0em;
 }
 
 .course-content ul.ctopics li.current .content .toggledsection {
     padding: 0px 0px 5px 0px;
 }
 
-
 /* -- Set the clickable element of the Toggle -- */
 .course-content ul.ctopics li.section .content .toggle a {
     display: block;
     width: auto;
-    padding: 7px 0 7px 35px; /* The 35px allows the arrow to be on the left and the text next to it. */
+    padding: 6px 2px 6px 26px; /* The 26px allows the arrow to be on the left and the text next to it. */
+}
+
+body.ie7 .course-content ul.ctopics li.section .content .toggle a {
+    padding: 7px 2px 7px 26px; /* The 26px allows the arrow to be on the left and the text next to it. */
+}
+
+body.mobiletheme .course-content ul.ctopics li.section .content .toggle a,
+body.tablettheme .course-content ul.ctopics li.section .content .toggle a {
+    padding: 7px 7px 7px 35px; /* The 35px allows the arrow to be on the left and the text next to it. */
 }
 
 .course-content ul.ctopics li.section .content .toggle a.toggle_closed {
