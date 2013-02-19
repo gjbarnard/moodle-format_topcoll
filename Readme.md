@@ -202,23 +202,87 @@ Known Issues
     information on http://moodle.org/mod/forum/discuss.php?d=184150.
 2.  The MyMobile theme is not quite as implemented as the previous versions but does work, please see http://tracker.moodle.org/browse/MDL-33115.
     It has a tendency not to reload the toggle state or set the arrow icon on first load.  A page refresh fixes it - something to do with the
-    inclusion of a '#' in the url.  A workaround that I am in the process of testing is to add:
+    inclusion of a '#' in the url.  A workaround that I am in the process of testing is to change the files
+	'layout/general.php' and 'layout/embedded.php' in the theme as follows:
 
-    $('#page-site-indexPAGE a').attr("data-ajax", "false");
+At the bottom of 'general.php':
 
-    within:
+        </div>
+    </div><!-- ends page -->
 
-    //function below does generic stuff before creating all pages...
-    $('div').live('pagebeforecreate', function(event, ui) {
-        //turn off ajax on all forms for now as of beta1
-        $('form').attr("data-ajax", "false");
+    <!-- empty divs with info for the JS to use -->
+    <div id="<?php echo sesskey(); ?>" class="mobilesession"></div>
+    <div id="<?php p($CFG->wwwroot); ?>" class="mobilesiteurl"></div>
+    <div id="<?php echo $dtheme;?>" class="datatheme"></div>
+    <div id="<?php echo $dthemeb;?>" class="datathemeb"></div>
+    <div id="page-footer"><!-- empty page footer needed by moodle yui for embeds --></div>
+    <!-- end js divs -->
 
-        $('#page-site-indexPAGE a').attr("data-ajax", "false"); // For Collapsed Topics # in url issue.
+    <?php echo $OUTPUT->standard_end_of_body_html() ?>
+</body>
 
-        //lesson
-    ....
+to:
 
-    Of the theme's 'custom.js' file, then do a 'Purge all caches'.
+        </div>
+
+        <!-- empty divs with info for the JS to use -->
+        <div id="<?php echo sesskey(); ?>" class="mobilesession"></div>
+        <div id="<?php p($CFG->wwwroot); ?>" class="mobilesiteurl"></div>
+        <div id="<?php echo $dtheme;?>" class="datatheme"></div>
+        <div id="<?php echo $dthemeb;?>" class="datathemeb"></div>
+        <div id="page-footer"><!-- empty page footer needed by moodle yui for embeds --></div>
+        <!-- end js divs -->
+
+    <?php echo $OUTPUT->standard_end_of_body_html() ?>
+    </div><!-- ends page -->
+</body>
+
+In 'embedded.php':
+
+    <?php if ($mypagetype == 'mod-chat-gui_ajax-index') { ?>
+    <div data-role="page" id="chatpage" data-fullscreen="true" data-title="<?php p($SITE->shortname) ?>">
+        <?php echo $OUTPUT->main_content(); ?>
+        <input type="button" value="back" data-role="none" id="chatback" onClick="history.back()">
+    </div>
+    <?php } else { ?>
+    <div id="content2" data-role="page" data-title="<?php p($SITE->shortname) ?>" data-theme="<?php echo $datatheme;?>">
+        <div data-role="header" data-theme="<?php echo $datatheme;?>">
+            <h1><?php echo $PAGE->heading ?>&nbsp;</h1>
+            <?php if ($mypagetype != "help") { ?>
+                <a class="ui-btn-right" data-ajax="false" data-icon="home" href="<?php p($CFG->wwwroot) ?>" data-iconpos="notext"><?php p(get_string('home')); ?></a>
+            <?php } ?>
+        </div>
+        <div data-role="content" class="mymobilecontent" data-theme="<?php echo $databodytheme;?>">
+            <?php echo $OUTPUT->main_content(); ?>
+        </div>
+    </div>
+    <?php } ?>
+    <!-- START OF FOOTER -->
+    <?php echo $OUTPUT->standard_end_of_body_html() ?>
+</body>
+
+to:
+
+    <?php if ($mypagetype == 'mod-chat-gui_ajax-index') { ?>
+    <div data-role="page" id="chatpage" data-fullscreen="true" data-title="<?php p($SITE->shortname) ?>">
+        <?php echo $OUTPUT->main_content(); ?>
+        <input type="button" value="back" data-role="none" id="chatback" onClick="history.back()">
+    <?php } else { ?>
+    <div id="content2" data-role="page" data-title="<?php p($SITE->shortname) ?>" data-theme="<?php echo $datatheme;?>">
+        <div data-role="header" data-theme="<?php echo $datatheme;?>">
+            <h1><?php echo $PAGE->heading ?>&nbsp;</h1>
+            <?php if ($mypagetype != "help") { ?>
+                <a class="ui-btn-right" data-ajax="false" data-icon="home" href="<?php p($CFG->wwwroot) ?>" data-iconpos="notext"><?php p(get_string('home')); ?></a>
+            <?php } ?>
+        </div>
+        <div data-role="content" class="mymobilecontent" data-theme="<?php echo $databodytheme;?>">
+            <?php echo $OUTPUT->main_content(); ?>
+        </div>
+        <?php } ?>
+        <!-- START OF FOOTER -->
+        <?php echo $OUTPUT->standard_end_of_body_html() ?>
+    </div>
+</body>
 
     The bottom left and right navigation links in 'One section per page' mode do not appear to work.  I have contacted 'John Stabinger' on
     'MDL-33115' and he will be looking into it.
@@ -730,7 +794,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2.  Changes to 'renderer.php' because of MDL-36095 hence requiring Moodle version 2012062504.01 release 2.3.4+ (Build: 20130118) and above.
   3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
-17th February 2013 - Version 2.3.9.9
+19th February 2013 - Version 2.3.9.9
   1.  Improved mobile and tablet theme detection and support.
   2.  Fixed 'float' issue for jQueryMobile themes as reported in CONTRIB-4108.
   3.  Implemented round toggle borders to reduce the harshness and integrate with jQueryMobile themes.
@@ -797,6 +861,6 @@ Desired Enhancements
 ====================
 1. Smoother animated toggle action.
 
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th February 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 19th February 2013.
 Moodle profile: moodle.org/user/profile.php?id=442195.
 Web profile   : about.me/gjbarnard
