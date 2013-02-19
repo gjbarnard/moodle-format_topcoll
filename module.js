@@ -35,7 +35,6 @@ var toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000"
 var thesparezeros = "00000000000000000000000000"; // A constant of 26 0's to be used to pad the storage state of the toggles when converting between base 2 and 36, this is to be compact.
 var toggleState;
 var courseid;
-var thewwwroot;  // For the toggle graphic.
 var numToggles = 0;
 var togglePersistence = 1; // Toggle persistence - 1 = on, 0 = off.
 //var ie = false;
@@ -50,18 +49,16 @@ M.format_topcoll = M.format_topcoll || {};
 /**
  * Initialise with the information supplied from the course format 'format.php' so we can operate.
  * @param {Object} Y YUI instance
- * @param {String} wwwroot the URL of the Moodle site
  * @param {Integer} thecourseid the id of the current course to allow for settings for each course.
  * @param {String} thetogglestate the current state of the toggles.
  * @param {Integer} noOfToggles The number of toggles.
  * @param {Integer} theTogglePersistence Persistence on (1) or off (0).
  * @param {Integer} mobile States if the device is a mobile or tablet yes (1) or no (0).
  */
-M.format_topcoll.init = function(Y, wwwroot, thecourseid, thetogglestate, noOfToggles, theTogglePersistence, mobile) {
+M.format_topcoll.init = function(Y, thecourseid, thetogglestate, noOfToggles, theTogglePersistence, mobile) {
     "use strict";
     // Init.
     ourYUI = Y;
-    thewwwroot = wwwroot;
     courseid = thecourseid;
     toggleState = thetogglestate;
     numToggles = noOfToggles;
