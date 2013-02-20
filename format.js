@@ -64,12 +64,15 @@ M.course.format.get_config = function() {
 M.course.format.swap_sections = function(Y, node1, node2) {
     var CSS = {
         COURSECONTENT : '.course-content',
-        SECTIONADDMENUS : '.section_add_menus'
+        SECTIONADDMENUS : '.section_add_menus',
+        SECTIONLEFTSIDE : '.left .icon' // MDL-37901
     };
 
     var sectionlist = Y.Node.all(CSS.COURSECONTENT+' '+M.course.format.get_section_selector(Y));
     // Swap menus
     sectionlist.item(node1).one(CSS.SECTIONADDMENUS).swap(sectionlist.item(node2).one(CSS.SECTIONADDMENUS));
+    // Swap move icons.
+    sectionlist.item(node1).one(CSS.SECTIONLEFTSIDE).swap(sectionlist.item(node2).one(CSS.SECTIONLEFTSIDE));
 }
 
 
@@ -85,7 +88,7 @@ M.course.format.swap_sections = function(Y, node1, node2) {
 M.course.format.process_sections = function(Y, sectionlist, response, sectionfrom, sectionto) {
     var CSS = {
         SECTIONNAME : '.the_toggle',
-        LEFTCONTENT : '.left span.cps_centre'
+        LEFTCONTENT : '.left .cps_centre'
     };
 
     if (response.action == 'move') {
@@ -99,10 +102,10 @@ M.course.format.process_sections = function(Y, sectionlist, response, sectionfro
         var leftcontent;
         // update titles in all affected sections
         for (var i = sectionfrom; i <= sectionto; i++) {
-            sectionlist.item(i).one(CSS.SECTIONNAME).setContent(response.sectiontitles[i]);
+            sectionlist.item(i).one(CSS.SECTIONNAME).setHTML(response.sectiontitles[i]);
             leftcontent = sectionlist.item(i).one(CSS.LEFTCONTENT);
             if (leftcontent) { // Only set if the section number is shown otherwise JS crashes and stops working.
-                leftcontent.setContent(i);
+                leftcontent.setHTML(i);
             }
         }
     }
