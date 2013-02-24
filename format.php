@@ -81,7 +81,7 @@ if (!empty($displaysection)) {
 
     user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_ALPHANUM);
 
-    $PAGE->requires->js_init_call('M.format_topcoll.init', array($CFG->wwwroot,
+    $PAGE->requires->js_init_call('M.format_topcoll.init', array(
         $course->id,
         get_user_preferences('topcoll_toggle_' . $course->id),
         $course->numsections,
