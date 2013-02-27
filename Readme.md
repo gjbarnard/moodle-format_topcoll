@@ -714,12 +714,12 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
      means that it is now possible to override them in your theme in css.  The following is the selectors for the various images, override
      the 'background' attribute:
 
-     body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_open - For the 'up' arrow in the toggle - original is 24px.
-     body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_closed - For the 'down' arrow in the toggle - original is 24px.
-     .course-content ul.ctopics li.section .content .toggle a.toggle_closed - For the 'up' arrow in the toggle when JavaScript is disabled and the toggles default to open.
-     #toggle-all .content .sectionbody h4 a.on - For the 'open all sections' image - original is 24px.
-     #toggle-all .content .sectionbody h4 a.off - For the 'closed all sections' image - original is 24px.
-     #tc-set-settings - For the 'settings' image.
+     `body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_open` - For the 'up' arrow in the toggle - original is 24px.
+     `body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_closed` - For the 'down' arrow in the toggle - original is 24px.
+     `.course-content ul.ctopics li.section .content .toggle a.toggle_closed` - For the 'up' arrow in the toggle when JavaScript is disabled and the toggles default to open.
+     `#toggle-all .content .sectionbody h4 a.on` - For the 'open all sections' image - original is 24px.
+     `#toggle-all .content .sectionbody h4 a.off` - For the 'closed all sections' image - original is 24px.
+     `#tc-set-settings` - For the 'settings' image.
 
      If in doubt, please consult 'styles.css' in the format.
  12. Checked operation in 'MyMobile' theme, all seems good except bottom left and right navigation links in 'One section per page' mode.  HTML is
