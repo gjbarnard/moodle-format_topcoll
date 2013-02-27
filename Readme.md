@@ -203,27 +203,12 @@ Known Issues
 2.  The MyMobile theme is not quite as implemented as the previous versions but does work, please see http://tracker.moodle.org/browse/MDL-33115.
     It has a tendency not to reload the toggle state or set the arrow icon on first load.  A page refresh fixes it - something to do with the
     inclusion of a '#' in the url.  A workaround that I am in the process of testing is to change the files
-	'layout/general.php' and 'layout/embedded.php' in the theme as follows:
+    'layout/general.php' and 'layout/embedded.php' in the theme as follows:
 
 At the bottom of 'general.php':
 
-        </div>
-    </div><!-- ends page -->
-
-    <!-- empty divs with info for the JS to use -->
-    <div id="<?php echo sesskey(); ?>" class="mobilesession"></div>
-    <div id="<?php p($CFG->wwwroot); ?>" class="mobilesiteurl"></div>
-    <div id="<?php echo $dtheme;?>" class="datatheme"></div>
-    <div id="<?php echo $dthemeb;?>" class="datathemeb"></div>
-    <div id="page-footer"><!-- empty page footer needed by moodle yui for embeds --></div>
-    <!-- end js divs -->
-
-    <?php echo $OUTPUT->standard_end_of_body_html() ?>
-</body>
-
-to:
-
-        </div>
+            </div>
+        </div><!-- ends page -->
 
         <!-- empty divs with info for the JS to use -->
         <div id="<?php echo sesskey(); ?>" class="mobilesession"></div>
@@ -233,56 +218,71 @@ to:
         <div id="page-footer"><!-- empty page footer needed by moodle yui for embeds --></div>
         <!-- end js divs -->
 
-    <?php echo $OUTPUT->standard_end_of_body_html() ?>
-    </div><!-- ends page -->
-</body>
-
-In 'embedded.php':
-
-    <?php if ($mypagetype == 'mod-chat-gui_ajax-index') { ?>
-    <div data-role="page" id="chatpage" data-fullscreen="true" data-title="<?php p($SITE->shortname) ?>">
-        <?php echo $OUTPUT->main_content(); ?>
-        <input type="button" value="back" data-role="none" id="chatback" onClick="history.back()">
-    </div>
-    <?php } else { ?>
-    <div id="content2" data-role="page" data-title="<?php p($SITE->shortname) ?>" data-theme="<?php echo $datatheme;?>">
-        <div data-role="header" data-theme="<?php echo $datatheme;?>">
-            <h1><?php echo $PAGE->heading ?>&nbsp;</h1>
-            <?php if ($mypagetype != "help") { ?>
-                <a class="ui-btn-right" data-ajax="false" data-icon="home" href="<?php p($CFG->wwwroot) ?>" data-iconpos="notext"><?php p(get_string('home')); ?></a>
-            <?php } ?>
-        </div>
-        <div data-role="content" class="mymobilecontent" data-theme="<?php echo $databodytheme;?>">
-            <?php echo $OUTPUT->main_content(); ?>
-        </div>
-    </div>
-    <?php } ?>
-    <!-- START OF FOOTER -->
-    <?php echo $OUTPUT->standard_end_of_body_html() ?>
-</body>
+        <?php echo $OUTPUT->standard_end_of_body_html() ?>
+    </body>
 
 to:
 
-    <?php if ($mypagetype == 'mod-chat-gui_ajax-index') { ?>
-    <div data-role="page" id="chatpage" data-fullscreen="true" data-title="<?php p($SITE->shortname) ?>">
-        <?php echo $OUTPUT->main_content(); ?>
-        <input type="button" value="back" data-role="none" id="chatback" onClick="history.back()">
-    <?php } else { ?>
-    <div id="content2" data-role="page" data-title="<?php p($SITE->shortname) ?>" data-theme="<?php echo $datatheme;?>">
-        <div data-role="header" data-theme="<?php echo $datatheme;?>">
-            <h1><?php echo $PAGE->heading ?>&nbsp;</h1>
-            <?php if ($mypagetype != "help") { ?>
-                <a class="ui-btn-right" data-ajax="false" data-icon="home" href="<?php p($CFG->wwwroot) ?>" data-iconpos="notext"><?php p(get_string('home')); ?></a>
-            <?php } ?>
-        </div>
-        <div data-role="content" class="mymobilecontent" data-theme="<?php echo $databodytheme;?>">
+            </div>
+
+            <!-- empty divs with info for the JS to use -->
+            <div id="<?php echo sesskey(); ?>" class="mobilesession"></div>
+            <div id="<?php p($CFG->wwwroot); ?>" class="mobilesiteurl"></div>
+            <div id="<?php echo $dtheme;?>" class="datatheme"></div>
+            <div id="<?php echo $dthemeb;?>" class="datathemeb"></div>
+            <div id="page-footer"><!-- empty page footer needed by moodle yui for embeds --></div>
+            <!-- end js divs -->
+
+        <?php echo $OUTPUT->standard_end_of_body_html() ?>
+        </div><!-- ends page -->
+    </body>
+
+In 'embedded.php':
+
+        <?php if ($mypagetype == 'mod-chat-gui_ajax-index') { ?>
+        <div data-role="page" id="chatpage" data-fullscreen="true" data-title="<?php p($SITE->shortname) ?>">
             <?php echo $OUTPUT->main_content(); ?>
+            <input type="button" value="back" data-role="none" id="chatback" onClick="history.back()">
+        </div>
+        <?php } else { ?>
+        <div id="content2" data-role="page" data-title="<?php p($SITE->shortname) ?>" data-theme="<?php echo $datatheme;?>">
+            <div data-role="header" data-theme="<?php echo $datatheme;?>">
+                <h1><?php echo $PAGE->heading ?>&nbsp;</h1>
+                <?php if ($mypagetype != "help") { ?>
+                    <a class="ui-btn-right" data-ajax="false" data-icon="home" href="<?php p($CFG->wwwroot) ?>" data-iconpos="notext"><?php p(get_string('home')); ?></a>
+                <?php } ?>
+            </div>
+            <div data-role="content" class="mymobilecontent" data-theme="<?php echo $databodytheme;?>">
+                <?php echo $OUTPUT->main_content(); ?>
+            </div>
         </div>
         <?php } ?>
         <!-- START OF FOOTER -->
         <?php echo $OUTPUT->standard_end_of_body_html() ?>
-    </div>
-</body>
+    </body>
+
+to:
+
+        <?php if ($mypagetype == 'mod-chat-gui_ajax-index') { ?>
+        <div data-role="page" id="chatpage" data-fullscreen="true" data-title="<?php p($SITE->shortname) ?>">
+            <?php echo $OUTPUT->main_content(); ?>
+            <input type="button" value="back" data-role="none" id="chatback" onClick="history.back()">
+        <?php } else { ?>
+        <div id="content2" data-role="page" data-title="<?php p($SITE->shortname) ?>" data-theme="<?php echo $datatheme;?>">
+            <div data-role="header" data-theme="<?php echo $datatheme;?>">
+                <h1><?php echo $PAGE->heading ?>&nbsp;</h1>
+                <?php if ($mypagetype != "help") { ?>
+                    <a class="ui-btn-right" data-ajax="false" data-icon="home" href="<?php p($CFG->wwwroot) ?>" data-iconpos="notext"><?php p(get_string('home')); ?></a>
+                <?php } ?>
+            </div>
+            <div data-role="content" class="mymobilecontent" data-theme="<?php echo $databodytheme;?>">
+                <?php echo $OUTPUT->main_content(); ?>
+            </div>
+            <?php } ?>
+            <!-- START OF FOOTER -->
+            <?php echo $OUTPUT->standard_end_of_body_html() ?>
+        </div>
+    </body>
 
     The bottom left and right navigation links in 'One section per page' mode do not appear to work.  I have contacted 'John Stabinger' on
     'MDL-33115' and he will be looking into it.
