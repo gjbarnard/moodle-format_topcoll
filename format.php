@@ -90,8 +90,7 @@ if (!empty($displaysection)) {
         $course->id,
         $thetogglestate,
         $course->numsections,
-        $TCCFG->togglepersistence,
-        $mobile));
+        $TCCFG->togglepersistence));
 
     global $tcsetting;
     if (empty($tcsetting) == true) {

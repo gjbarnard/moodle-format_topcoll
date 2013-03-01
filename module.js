@@ -37,8 +37,6 @@ var toggleState;
 var courseid;
 var numToggles = 0;
 var togglePersistence = 1; // Toggle persistence - 1 = on, 0 = off.
-//var ie = false;
-var mobiletheme = false;
 var ourYUI;
 
 /**
@@ -53,9 +51,8 @@ M.format_topcoll = M.format_topcoll || {};
  * @param {String} thetogglestate the current state of the toggles.
  * @param {Integer} noOfToggles The number of toggles.
  * @param {Integer} theTogglePersistence Persistence on (1) or off (0).
- * @param {Integer} mobile States if the device is a mobile or tablet yes (1) or no (0).
  */
-M.format_topcoll.init = function(Y, thecourseid, thetogglestate, noOfToggles, theTogglePersistence, mobile) {
+M.format_topcoll.init = function(Y, thecourseid, thetogglestate, noOfToggles, theTogglePersistence) {
     "use strict";
     // Init.
     ourYUI = Y;
@@ -74,21 +71,14 @@ M.format_topcoll.init = function(Y, thecourseid, thetogglestate, noOfToggles, th
         toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
     }
 
-    if (mobile === 1) {
-        mobiletheme = true;
-    }
-    
     // Info on http://yuilibrary.com/yui/docs/event/
     // Event handlers for the toggles.
     for (var theToggle = 1; theToggle <= numToggles; theToggle++)
     {
-        //var toggler = document.getElementById("toggle-" + theToggle).firstChild;
         var toggler = document.getElementById("toggle-" + theToggle); // Need the DOM element not the YUI one for manipulation purposes.
-        //var toggler = Y.one("#toggle-" + theToggle);
         if (toggler !== null)
         {
             var instance = new CollapsedTopicsToggler(toggler,theToggle);
-            //console.info('ToggleEV num:'+theToggle);
             Y.one("#toggle-" + theToggle).on('click', instance.handleClick, instance);
         }
     }
@@ -123,8 +113,6 @@ CollapsedTopicsToggler.prototype = {
     handleClick: function (e) {
         "use strict";
         e.preventDefault();
-        //console.info('handleClick toggler:'+this.toggler);
-        //console.info('handleClick num:'+this.toggleNum);
         toggle_topic(this.toggler,this.toggleNum);
     }
 };
@@ -167,12 +155,7 @@ function toggleexacttopic(target,image,toggleNum,reloading,savetoggles)  // Togg
         {
             target.style.display = "none";
 
-            if (mobiletheme === true) {
-                image.className = image.className.replace(/\b opencps\b/,''); //remove the class name
-                image.className = image.className.replace('toggle_open','toggle_closed');  // Temporary until MyMobile is fixed - MDL-33115.
-            } else {
-                image.className = image.className.replace('toggle_open','toggle_closed'); //change the class name
-            }
+            image.className = image.className.replace('toggle_open','toggle_closed');
 
             // Save the toggle!
             if (reloading === false) {
@@ -183,12 +166,7 @@ function toggleexacttopic(target,image,toggleNum,reloading,savetoggles)  // Togg
         {
             target.style.display = displaySetting;
 
-            if (mobiletheme === true) {
-                image.className += " opencps";  //add the class name
-                image.className = image.className.replace('toggle_closed','toggle_open');  // Temporary until MyMobile is fixed - MDL-33115.
-            } else {
-                image.className = image.className.replace('toggle_closed','toggle_open'); //change the class name
-            }
+            image.className = image.className.replace('toggle_closed','toggle_open');
 
             // Save the toggle!
             if (reloading === false) {
@@ -203,10 +181,7 @@ function toggleexacttopic(target,image,toggleNum,reloading,savetoggles)  // Togg
 function toggle_topic(toggler,toggleNum)
 {
     "use strict";
-    //console.info('Toggle num:'+toggleNum);
-    //imageSwitch = toggler;
     var imageSwitch = toggler.firstChild; // The image is on the <a> so now that 'toggler' is the <div> container, we need to get it.
-    //targetElement = toggler.parentNode.nextSibling; // Called from <a> in a <div> so find the next <div>.
     var targetElement = toggler.nextSibling; // Event hander on the <div> containing the <a> so find the next <div>.
 
     toggleexacttopic(targetElement,imageSwitch,toggleNum,false,true);
