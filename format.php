@@ -85,8 +85,7 @@ if (!empty($displaysection)) {
         $course->id,
         get_user_preferences('topcoll_toggle_' . $course->id),
         $course->numsections,
-        get_config('format_topcoll', 'defaulttogglepersistence'),
-        $mobile));
+        get_config('format_topcoll', 'defaulttogglepersistence')));
 
     $tcsettings = $courseformat->get_settings();
     ?>

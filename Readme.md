@@ -204,23 +204,87 @@ Known Issues
     More information on http://moodle.org/mod/forum/discuss.php?d=184150.
 2.  The MyMobile theme is not quite as implemented as the previous versions but does work, please see http://tracker.moodle.org/browse/MDL-33115.
     It has a tendency not to reload the toggle state or set the arrow icon on first load.  A page refresh fixes it - something to do with the
-    inclusion of a '#' in the url.  A workaround that I am in the process of testing is to add:
+    inclusion of a '#' in the url.  A workaround that I am in the process of testing is to change the files
+    'layout/general.php' and 'layout/embedded.php' in the theme as follows:
 
-    $('#page-site-indexPAGE a').attr("data-ajax", "false");
+At the bottom of 'general.php':
 
-    within:
+            </div>
+        </div><!-- ends page -->
 
-    //function below does generic stuff before creating all pages...
-    $('div').live('pagebeforecreate', function(event, ui) {
-        //turn off ajax on all forms for now as of beta1
-        $('form').attr("data-ajax", "false");
+        <!-- empty divs with info for the JS to use -->
+        <div id="<?php echo sesskey(); ?>" class="mobilesession"></div>
+        <div id="<?php p($CFG->wwwroot); ?>" class="mobilesiteurl"></div>
+        <div id="<?php echo $dtheme;?>" class="datatheme"></div>
+        <div id="<?php echo $dthemeb;?>" class="datathemeb"></div>
+        <div id="page-footer"><!-- empty page footer needed by moodle yui for embeds --></div>
+        <!-- end js divs -->
 
-        $('#page-site-indexPAGE a').attr("data-ajax", "false"); // For Collapsed Topics # in url issue.
+        <?php echo $OUTPUT->standard_end_of_body_html() ?>
+    </body>
 
-        //lesson
-    ....
+to:
 
-    Of the theme's 'custom.js' file, then do a 'Purge all caches'.
+            </div>
+
+            <!-- empty divs with info for the JS to use -->
+            <div id="<?php echo sesskey(); ?>" class="mobilesession"></div>
+            <div id="<?php p($CFG->wwwroot); ?>" class="mobilesiteurl"></div>
+            <div id="<?php echo $dtheme;?>" class="datatheme"></div>
+            <div id="<?php echo $dthemeb;?>" class="datathemeb"></div>
+            <div id="page-footer"><!-- empty page footer needed by moodle yui for embeds --></div>
+            <!-- end js divs -->
+
+        <?php echo $OUTPUT->standard_end_of_body_html() ?>
+        </div><!-- ends page -->
+    </body>
+
+In 'embedded.php':
+
+        <?php if ($mypagetype == 'mod-chat-gui_ajax-index') { ?>
+        <div data-role="page" id="chatpage" data-fullscreen="true" data-title="<?php p($SITE->shortname) ?>">
+            <?php echo $OUTPUT->main_content(); ?>
+            <input type="button" value="back" data-role="none" id="chatback" onClick="history.back()">
+        </div>
+        <?php } else { ?>
+        <div id="content2" data-role="page" data-title="<?php p($SITE->shortname) ?>" data-theme="<?php echo $datatheme;?>">
+            <div data-role="header" data-theme="<?php echo $datatheme;?>">
+                <h1><?php echo $PAGE->heading ?>&nbsp;</h1>
+                <?php if ($mypagetype != "help") { ?>
+                    <a class="ui-btn-right" data-ajax="false" data-icon="home" href="<?php p($CFG->wwwroot) ?>" data-iconpos="notext"><?php p(get_string('home')); ?></a>
+                <?php } ?>
+            </div>
+            <div data-role="content" class="mymobilecontent" data-theme="<?php echo $databodytheme;?>">
+                <?php echo $OUTPUT->main_content(); ?>
+            </div>
+        </div>
+        <?php } ?>
+        <!-- START OF FOOTER -->
+        <?php echo $OUTPUT->standard_end_of_body_html() ?>
+    </body>
+
+to:
+
+        <?php if ($mypagetype == 'mod-chat-gui_ajax-index') { ?>
+        <div data-role="page" id="chatpage" data-fullscreen="true" data-title="<?php p($SITE->shortname) ?>">
+            <?php echo $OUTPUT->main_content(); ?>
+            <input type="button" value="back" data-role="none" id="chatback" onClick="history.back()">
+        <?php } else { ?>
+        <div id="content2" data-role="page" data-title="<?php p($SITE->shortname) ?>" data-theme="<?php echo $datatheme;?>">
+            <div data-role="header" data-theme="<?php echo $datatheme;?>">
+                <h1><?php echo $PAGE->heading ?>&nbsp;</h1>
+                <?php if ($mypagetype != "help") { ?>
+                    <a class="ui-btn-right" data-ajax="false" data-icon="home" href="<?php p($CFG->wwwroot) ?>" data-iconpos="notext"><?php p(get_string('home')); ?></a>
+                <?php } ?>
+            </div>
+            <div data-role="content" class="mymobilecontent" data-theme="<?php echo $databodytheme;?>">
+                <?php echo $OUTPUT->main_content(); ?>
+            </div>
+            <?php } ?>
+            <!-- START OF FOOTER -->
+            <?php echo $OUTPUT->standard_end_of_body_html() ?>
+        </div>
+    </body>
 
     The bottom left and right navigation links in 'One section per page' mode do not appear to work.  I have contacted 'John Stabinger' on
     'MDL-33115' and he will be looking into it.
@@ -689,19 +753,16 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   9. Make toggle titles bold and change 'all toggles' to 'all sections', from comments made on MDL-35048.
  10. Cherry picked Luiggi's change
      https://github.com/luiggisanso/moodle-format_topcoll/commit/9bd818f5a4efb347aef4f5154ea2930526552bfc
- 11. Figured out how to use 'pix:' for URL's in css for the format, so have changed so that the images are now controlled by css
-     classes.  This means that it is now possible to override them in your theme in css.  The following is the selectors for the
-     various images, override the 'background' attribute:
+ 11. Figured out how to use 'pix:' for URL's in css for the format, so have changed so that the images are now controlled by css classes.  This
+     means that it is now possible to override them in your theme in css.  The following is the selectors for the various images, override
+     the 'background' attribute:
 
-     body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_open
-         - For the 'up' arrow in the toggle - original is 24px.
-     body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_closed
-         - For the 'down' arrow in the toggle - original is 24px.
-     .course-content ul.ctopics li.section .content .toggle a.toggle_closed
-         - For the 'up' arrow in the toggle when JavaScript is disabled and the toggles default to open.
-     #toggle-all .content .sectionbody h4 a.on - For the 'open all sections' image - original is 24px.
-     #toggle-all .content .sectionbody h4 a.off - For the 'closed all sections' image - original is 24px.
-     #tc-set-settings - For the 'settings' image.
+     `body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_open` - For the 'up' arrow in the toggle - original is 24px.
+     `body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_closed` - For the 'down' arrow in the toggle - original is 24px.
+     `.course-content ul.ctopics li.section .content .toggle a.toggle_closed` - For the 'up' arrow in the toggle when JavaScript is disabled and the toggles default to open.
+     `#toggle-all .content .sectionbody h4 a.on` - For the 'open all sections' image - original is 24px.
+     `#toggle-all .content .sectionbody h4 a.off` - For the 'closed all sections' image - original is 24px.
+     `#tc-set-settings` - For the 'settings' image.
 
      If in doubt, please consult 'styles.css' in the format.
  12. Checked operation in 'MyMobile' theme, all seems good except bottom left and right navigation links in 'One section per
@@ -879,7 +940,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   9.  Changed this readme to ['Markdown' format](http://en.wikipedia.org/wiki/Markdown).
  10.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
 
-20th February 2013 - Version 2.4.3.1
+1st March 2013 - Version 2.4.3.1
   1.  Improved mobile and tablet theme detection and support.
   2.  Added 'Download and documentation' to this readme to clarify download locations.
   3.  Cleaned JavaScript through use of http://jshint.com/.
@@ -944,6 +1005,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 20th February 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 1st March 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard
