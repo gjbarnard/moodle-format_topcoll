@@ -946,7 +946,8 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   3.  Cleaned JavaScript through use of http://jshint.com/.
   4.  Added 'Previous versions and required version of Moodle' to this guide.
   5.  Implemented MDL-37901.
-  6.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+  6.  Implemented MDL-37976.
+  7.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
 Thanks
 ======
