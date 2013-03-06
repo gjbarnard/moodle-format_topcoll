@@ -57,17 +57,18 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @return string HTML to output.
      */
     protected function start_toggle_section_list() {
-        $attributes = array('class' => 'ctopics topics');
+        $classes = 'ctopics topics';
         $style = '';
         if ($this->tcsettings['layoutcolumnorientation'] == 1) {
             $style .= 'width:' . $this->tccolumnwidth . '%;';  // Vertical columns.
         } else {
             $style .= 'width:100%;';  // Horizontal columns.
         }
-        if ($this->mobiletheme == false) {
-            $style .= ' float:left;';
+        if ($this->mobiletheme === false) {
+            $classes .= ' ctlayout';
         }
         $style .= ' padding:' . $this->tccolumnpadding . 'px;';
+        $attributes = array('class' => $classes);
         $attributes['style'] = $style;
         return html_writer::start_tag('ul', $attributes);
     }
@@ -242,12 +243,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
         $o .= html_writer::start_tag('li', $liattributes);
 
-        if ($this->mobiletheme == false) {
+        if ($this->mobiletheme === false) {
             $leftcontent = $this->section_left_content($section, $course, $onsectionpage);
             $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
         }
 
-        if ($this->mobiletheme == false) {
+        if ($this->mobiletheme === false) {
             $rightcontent = '';
             if (($section->section != 0) && $PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
@@ -268,17 +269,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if ((!($section->toggle === null)) && ($section->toggle == '1')) {
                 $toggleclass = 'toggle_open';
                 $sectionstyle = 'display: block;';
-                if ($this->mobiletheme == true) {
-                    $toggleclass .= ' opencps';
-                }
-                // print("Toggle ".$section->section." open");
             } else {
                 $toggleclass = 'toggle_closed';
-                // $sectionstyle = 'display: none;'; // Will be done by CSS when 'body .jsenabled' not present.
                 $sectionstyle = '';
             }
             $toggleclass .= ' the_toggle';
-            // $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => '#', 'onclick' => 'toggle_topic(this,' . $section->section . '); return false;'));
             $toggleurl = new moodle_url('/course/view.php', array('id' => $course->id));
             $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => $toggleurl));
 
@@ -589,7 +584,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if ($numsections < $this->tcsettings['layoutcolumns']) {
                 $this->tcsettings['layoutcolumns'] = $numsections;  // Help to ensure a reasonable display.
             }
-            if (($this->tcsettings['layoutcolumns'] > 1) && ($this->mobiletheme == false)) {
+            if (($this->tcsettings['layoutcolumns'] > 1) && ($this->mobiletheme === false)) {
                 if ($this->tcsettings['layoutcolumns'] > 4) {
                     // Default in config.php (and reset in database) or database has been changed incorrectly.
                     $this->tcsettings['layoutcolumns'] = 4;
@@ -696,7 +691,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     }
                 }
 
-                if ($this->mobiletheme == false) { // Only break in non-mobile themes.
+                if ($this->mobiletheme === false) { // Only break in non-mobile themes.
                     if ($this->tcsettings['layoutcolumnorientation'] == 1) {  // Only break columns in horizontal mode.
                         if (($canbreak == false) && ($currentsectionfirst == false) && ($showsection == true)) {
                             $canbreak = true;
@@ -782,7 +777,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         // Toggle all.
         $o .= html_writer::start_tag('li', array('class' => 'tcsection main clearfix', 'id' => 'toggle-all'));
 
-        if ($this->mobiletheme == false) {
+        if ($this->mobiletheme === false) {
             $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
         }
         $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));

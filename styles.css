@@ -28,7 +28,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 .course-content ul.ctopics {
-    margin:0;
+    margin: 0px;
+}
+.course-content ul.ctlayout {
+    float: left;
 }
 
 .course-content ul.ctopics li.section.main, .course-content ul.ctopics li.tcsection {
