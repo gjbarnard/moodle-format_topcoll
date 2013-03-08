@@ -53,12 +53,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @return string HTML to output.
      */
     protected function start_toggle_section_list() {
-        $attributes = array('class' => 'ctopics topics');
-        $style = 'width:' . $this->tccolumnwidth . '%;';
-        if ($this->mobiletheme == false) {
-            $style .= ' float:left;';
+        $classes = 'ctopics topics';
+        $style = 'width:' . $this->tccolumnwidth . '%; padding:' . $this->tccolumnpadding . 'px;';
+        if ($this->mobiletheme === false) {
+            $classes .= ' ctlayout';  // CONTRIB-4198.
         }
-        $style .= ' padding:' . $this->tccolumnpadding . 'px;';
+        $attributes = array('class' => $classes);
         $attributes['style'] = $style;
         return html_writer::start_tag('ul', $attributes);
     }
@@ -352,34 +352,28 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @return string HTML to output.
      */
     protected function section_nav_selection($course, $sections, $displaysection) {
+        global $CFG;
         $o = '';
-        $section = 1;
         $sectionmenu = array();
-        $sectionmenu[0] = get_string('maincoursepage', 'format_topcoll');  // Section 0 is never jumped to and is therefore used to indicate the main page.  And temporary until MDL-34917 in core.
-        $context = context_course::instance($course->id);
+        $url = course_get_url($course);
+        $url = str_replace($CFG->wwwroot, '', $url);
+        $url = str_replace('&amp;', '&', $url);
+        $sectionmenu[$url] = get_string('maincoursepage', 'format_topcoll');
+        $modinfo = get_fast_modinfo($course);
+        $section = 1;
         while ($section <= $course->numsections) {
-            if (!empty($sections[$section])) {
-                $thissection = $sections[$section];
-            } else {
-                // This will create a course section if it doesn't exist..
-                $thissection = get_course_section($section, $course->id);
-
-                // The returned section is only a bare database object rather than
-                // a section_info object - we will need at least the uservisible
-                // field in it.
-                $thissection->uservisible = true;
-                $thissection->availableinfo = null;
-                $thissection->showavailability = 0;
-            }
-            $showsection = (has_capability('moodle/course:viewhiddensections', $context) or $thissection->visible or !$course->hiddensections);
-
+            $thissection = $modinfo->get_section_info($section);
+            $showsection = $thissection->uservisible or !$course->hiddensections;
             if (($showsection) && ($section != $displaysection)) {
-                $sectionmenu[$section] = get_section_name($course, $thissection);
+                $url = course_get_url($course, $section);
+                $url = str_replace($CFG->wwwroot, '', $url);
+                $url = str_replace('&amp;', '&', $url);
+                $sectionmenu[$url] = get_section_name($course, $thissection);
             }
             $section++;
         }
 
-        $select = new single_select(new moodle_url('/course/view.php', array('id' => $course->id)), 'section', $sectionmenu);
+        $select = new url_select($sectionmenu);
         $select->class = 'jumpmenu';
         $select->formid = 'sectionmenu';
         $o .= $this->output->render($select);

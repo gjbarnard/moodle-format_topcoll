@@ -31,6 +31,10 @@
     margin:0;
 }
 
+.course-content ul.ctlayout {
+    float: left;
+}
+
 .course-content ul.ctopics li.section.main, .course-content ul.ctopics li.tcsection {
     list-style: none;
     margin: 5px 0 0 0;
