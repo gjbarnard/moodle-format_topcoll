@@ -84,7 +84,9 @@ M.course.format.swap_sections = function(Y, node1, node2) {
  */
 M.course.format.process_sections = function(Y, sectionlist, response, sectionfrom, sectionto) {
     var CSS = {
-        SECTIONNAME     : '.the_toggle',
+        SECTIONNAME     : '.the_toggle'
+    },
+    SELECTORS = {
         LEFTCONTENT     : '.left .cps_centre',
         SECTIONLEFTSIDE : '.left .section-handle img'
     };
@@ -99,22 +101,18 @@ M.course.format.process_sections = function(Y, sectionlist, response, sectionfro
         }
 
         // Update titles and move icons in all affected sections.
-        var leftcontent;
-        var ele;
-        var str;
-        var stridx;
-        var newstr;
+        var leftcontent, ele, str, stridx, newstr;
 
         for (var i = sectionfrom; i <= sectionto; i++) {
             // Update section title.
             sectionlist.item(i).one(CSS.SECTIONNAME).setContent(response.sectiontitles[i]);
             // If the left content section number exists, then set it.
-            leftcontent = sectionlist.item(i).one(CSS.LEFTCONTENT);
+            leftcontent = sectionlist.item(i).one(SELECTORS.LEFTCONTENT);
             if (leftcontent) { // Only set if the section number is shown otherwise JS crashes and stops working.
                 leftcontent.setContent(i);
             }
             // Update move icon.  MDL-37901.
-            ele = sectionlist.item(i).one(CSS.SECTIONLEFTSIDE);
+            ele = sectionlist.item(i).one(SELECTORS.SECTIONLEFTSIDE);
             str = ele.getAttribute('alt');
             stridx = str.lastIndexOf(' ');
             newstr = str.substr(0, stridx +1) + i;

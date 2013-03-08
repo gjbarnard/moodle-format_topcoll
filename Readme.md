@@ -940,7 +940,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   9.  Changed this readme to ['Markdown' format](http://en.wikipedia.org/wiki/Markdown).
  10.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
 
-6th March 2013 - Version 2.4.3.1
+8th March 2013 - Version 2.4.3.1
   1.  Improved mobile and tablet theme detection and support.
   2.  Added 'Download and documentation' to this readme to clarify download locations.
   3.  Cleaned JavaScript through use of http://jshint.com/.
@@ -948,7 +948,8 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   5.  Implemented MDL-37901.
   6.  Implemented MDL-37976.
   7.  Moved 'float: left' to styles.css for Henrik Thorn - CONTRIB-4198.
-  8.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+  8.  Improvements for MDL-34917.
+  9.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
 Thanks
 ======
@@ -1007,6 +1008,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 6th March 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 8th March 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

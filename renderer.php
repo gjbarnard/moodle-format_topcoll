@@ -363,28 +363,33 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * Generate the html for the 'Jump to' menu on a single section page.
      * Temporary until MDL-34917 in core.
      * @param stdClass $course The course entry from DB
-     * @param array $sections The course_sections entries from the DB
      * @param $displaysection the current displayed section number.
      *
      * @return string HTML to output.
      */
     protected function section_nav_selection($course, $displaysection) {
+        global $CFG;
         $o = '';
-        $section = 1;
         $sectionmenu = array();
-        $sectionmenu[0] = get_string('maincoursepage', 'format_topcoll');  // Section 0 is never jumped to and is therefore used to indicate the main page.  And temporary until MDL-34917 in core.
-        $context = context_course::instance($course->id);
+        $url = course_get_url($course);
+        $url = str_replace($CFG->wwwroot, '', $url);
+        $url = str_replace('&amp;', '&', $url);
+        $sectionmenu[$url] = get_string('maincoursepage', 'format_topcoll');
         $modinfo = get_fast_modinfo($course);
+        $section = 1;
         while ($section <= $course->numsections) {
             $thissection = $modinfo->get_section_info($section);
-            $showsection = (has_capability('moodle/course:viewhiddensections', $context) or $thissection->visible or !$course->hiddensections);
+            $showsection = $thissection->uservisible or !$course->hiddensections;
             if (($showsection) && ($section != $displaysection)) {
-                $sectionmenu[$section] = get_section_name($course, $section);
+                $url = course_get_url($course, $section);
+                $url = str_replace($CFG->wwwroot, '', $url);
+                $url = str_replace('&amp;', '&', $url);
+                $sectionmenu[$url] = get_section_name($course, $section);
             }
             $section++;
         }
 
-        $select = new single_select(new moodle_url('/course/view.php', array('id' => $course->id)), 'section', $sectionmenu);
+        $select = new url_select($sectionmenu);
         $select->class = 'jumpmenu';
         $select->formid = 'sectionmenu';
         $o .= $this->output->render($select);
