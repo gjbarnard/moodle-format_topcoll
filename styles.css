@@ -1,0 +1,330 @@
+/**
+ * Collapsed Topics Information
+ *
+ * A topic based format that solves the issue of the 'Scroll of Death' when a course has many topics. All topics
+ * except zero have a toggle that displays that topic. One or more topics can be displayed at any given time.
+ * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
+ * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
+ *
+ * @package    course/format
+ * @subpackage topcoll
+ * @version    See the value of '$plugin->version' in version.php.
+ * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
+ * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
+ * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+.course-content ul.ctopics {
+    margin: 0px;
+}
+
+.course-content ul.ctlayout {
+    float: left;
+}
+
+.course-content ul.ctopics li.section.main, .course-content ul.ctopics li.tcsection {
+    list-style: none;
+    margin: 4px 1px 1px 1px;
+    padding: 0px;
+}
+
+.course-content ul.ctopics li.section.main .content, .course-content ul.ctopics li.tcsection .content {
+    margin: 0 40px; /* Default used in editing mode. */
+    padding: 0px;
+}
+
+.course-content ul.ctopics li .content .sectionhead h3 {
+    margin: 0em;
+}
+
+.course-content ul.ctopics li.current .content .toggledsection {
+    padding: 0px 0px 5px 0px;
+}
+
+/* -- Set the clickable element of the Toggle -- */
+.course-content ul.ctopics li.section .content .toggle a {
+    display: block;
+    width: auto;
+    padding: 6px 2px 6px 26px; /* The 26px allows the arrow to be on the left and the text next to it. */
+}
+
+body.ie7 .course-content ul.ctopics li.section .content .toggle a {
+    padding: 7px 2px 7px 26px; /* The 26px allows the arrow to be on the left and the text next to it. */
+}
+
+body.mobiletheme .course-content ul.ctopics li.section .content .toggle a,
+body.tablettheme .course-content ul.ctopics li.section .content .toggle a {
+    padding: 7px 7px 7px 35px; /* The 35px allows the arrow to be on the left and the text next to it. */
+}
+
+body.mobiletheme .course-content ul.ctopics li.tcsection .content, body.mobiletheme  .course-content ul.ctopics li.section.main .content,
+body.tablettheme .course-content ul.ctopics li.tcsection .content, body.tablettheme  .course-content ul.ctopics li.section.main .content {
+    margin: 0;
+}
+
+/* CONTRIB-4106 */
+.course-content ul.ctopics li.section .content .toggle a  h3.sectionname {
+    margin: 4px;
+}
+
+/* Icon set common. */
+#toggle-all .content h4 a {
+    background-position: 0px 45%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+.course-content ul.ctopics li.section .content .toggle a {
+    background-position: 5px 45%; /* Position the icon roughly in the centre of the Toggle.*/
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+/* Arrow icon set. */
+.course-content ul.ctopics li.section .content .toggle-arrow a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|arrow_right]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow a.toggle_closed { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|arrow_right]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow a.toggle_open { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|arrow_down]]);
+}
+
+#toggle-all .content .toggle-arrow h4 a.off {
+    background-image: url([[pix:format_topcoll|arrow_down]]);
+}
+
+#toggle-all .content .toggle-arrow-hover h4 a.off:hover {
+    background-image: url([[pix:format_topcoll|arrow_right_glow]]);
+}
+
+#toggle-all .content .toggle-arrow h4 a.on {
+    background-image: url([[pix:format_topcoll|arrow_right]]);
+}
+
+#toggle-all .content .toggle-arrow-hover h4 a.on:hover {
+    background-image: url([[pix:format_topcoll|arrow_down_glow]]);
+}
+
+/* Point icon set. */
+.course-content ul.ctopics li.section .content .toggle-point a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|point_right]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-point a.toggle_closed { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|point_right]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-point a.toggle_open { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|point_down]]);
+}
+
+#toggle-all .content .toggle-point h4 a.off {
+    background-image: url([[pix:format_topcoll|point_down]]);
+}
+
+#toggle-all .content .toggle-point-hover h4 a.off:hover {
+    background-image: url([[pix:format_topcoll|point_right_glow]]);
+}
+
+#toggle-all .content .toggle-point h4 a.on {
+    background-image: url([[pix:format_topcoll|point_right]]);
+}
+
+#toggle-all .content .toggle-point-hover h4 a.on:hover {
+    background-image: url([[pix:format_topcoll|point_down_glow]]);
+}
+
+/* Power icon set. */
+.course-content ul.ctopics li.section .content .toggle-power a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|toggle_minus]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-power a.toggle_closed { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|toggle_minus]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-power a.toggle_open { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|toggle_plus]]);
+}
+
+#toggle-all .content .toggle-power h4 a.off {
+    background-image: url([[pix:format_topcoll|toggle_plus]]);
+}
+
+#toggle-all .content .toggle-power-hover h4 a.off:hover {
+    background-image: url([[pix:format_topcoll|toggle_minus_glow]]);
+}
+
+#toggle-all .content .toggle-power h4 a.on {
+    background-image: url([[pix:format_topcoll|toggle_minus]]);
+}
+
+#toggle-all .content .toggle-power-hover h4 a.on:hover {
+    background-image: url([[pix:format_topcoll|toggle_plus_glow]]);
+}
+
+/* Background images for the settings - does not work in Chrome or Safari - known issue */
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="arrow"], body.format-topcoll select#id_toggleiconset option[value="arrow"] {
+    background-image: url([[pix:format_topcoll|arrow_right]]);
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="point"], body.format-topcoll select#id_toggleiconset option[value="point"] {
+    background-image: url([[pix:format_topcoll|point_right]]);
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="power"], body.format-topcoll select#id_toggleiconset option[value="power"] {
+    background-image: url([[pix:format_topcoll|toggle_minus]]);
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option, body.format-topcoll select#id_toggleiconset option {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 45px 45%; /* Position the icon roughly to the right of the selection text. */
+    padding: 3px 20px 3px 3px; /* The 20px allows the image to be on the right and the text next to it. */
+}
+
+body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topcoll_defaulttoggleiconset option, body.format-topcoll.lang-en_ar select#id_toggleiconset option {
+    background-position: 220px 45%; /* Pirate strings are longer. */
+}
+
+/* MyMobile */
+#mymobile .course-content ul.ctopics li.tcsection .content, #mymobile .course-content ul.ctopics li.section.main .content{
+    margin: 0;
+}
+
+/* Layout */
+.course-content ul.ctopics #section-0 .content{
+    padding: 10px;
+}
+
+.course-content ul.ctopics li.section.main .side, .course-content ul.ctopics li.tcsection .side {
+    width: 40px; /* Default used in editing mode. */
+    text-align: center;
+    padding: 0px;
+}
+
+.course-content ul.ctopics li.section .left, .course-content ul.ctopics li.tcsection .left {
+    float:left;
+}
+
+.course-content ul.ctopics li.section.main .left {
+    padding: 10px 0px 0px 0px;
+}
+
+.course-content ul.ctopics li.current.main .right {
+    padding: 0px 0px 0px 0px; /* Cancel out effect of above when having to use 'left' side selector for getting the correct text colour on the right for the current section.  This is because the selector '.course-content .current .left' defines the colour in the theme and therefore any CT specific 'right' implementation would not work for all themes. */
+}
+
+.course-content ul.ctopics li.section .right, .course-content ul.ctopics li.tcsection .right {
+    float:right;
+}
+
+.course-content ul.ctopics li.section .right {
+    line-height: 1.3;
+}
+
+.course-content ul.ctopics li.section .right .tceditsection {
+    float: left;
+}
+
+.course-content ul.ctopics li.section .left .section-handle img.icon {
+    padding:0;
+    vertical-align: baseline;
+}
+
+.jumpmenu {
+    text-align:center;
+}
+
+/* -- The section name and summary of a Toggle -- */
+.course-content ul.ctopics li.section .content .toggle  {
+    display: block;
+    text-align: left;
+    padding: 0 0;
+    width: auto;
+}
+
+/* -- The topic summary text -- */
+.course-content ul.ctopics li.section .content .toggle a p {
+    font-size: 1.2em;
+    font-style: italic;
+    text-align: left;
+}
+
+/* -- For centring the 'Topic / Week / Day x' text -- */
+.course-content ul.ctopics li.section .right span.cps_centre {
+    text-align: center;
+    font-size: 0.7em;
+}
+
+.course-content ul.ctopics li.section .content .toggle {
+    width: 100%;
+}
+
+/* -- Toggle text -- */
+.course-content ul.ctopics li.section .content .toggle a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#mymobile .course-content ul.ctopics li.section .content .toggle a {
+    font-weight: normal; /* So not blurred on mobile devices. */
+}
+
+.course-content ul.ctopics li.section .content .toggledsection {
+    min-height: 30px;
+}
+
+/* -- Hiding the sections -- */
+body.jsenabled .toggledsection {
+    display:none; /* If JavaScript is enabled then this css will apply and the section will be hidden. */
+}
+
+/* -- Size of the spacer row -- */
+.section .spacer {
+    height:0.5em;
+}
+
+body.ie7 .course-content ul.ctopics li.section .right .spacer {
+    height:0.0em;
+}
+
+/* Toggle all */
+#toggle-all {
+    display: none; /* Hide when JavaScript not enabled. */
+}
+
+body.jsenabled #toggle-all {
+    background: none repeat scroll 0 0 transparent;
+    display: block;
+}
+
+#toggle-all .content .sectionbody h4 {
+    display: block;
+    padding: 6px;
+    margin-bottom: 0em;
+}
+
+#toggle-all .content .sectionbody h4 a {
+    padding: 7px 7px 7px 30px; /* The 30px allows the arrow to be on the left and the text next to it. */
+    text-align: left;
+    width: 35px;
+    text-decoration: none;
+}

@@ -11,7 +11,7 @@
  * @package    course/format
  * @subpackage topcoll
  * @version    See the value of '$plugin->version' in below.
- * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
+ * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
@@ -29,15 +29,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 defined('MOODLE_INTERNAL') || die();
-require_once($CFG->dirroot.'/course/format/topcoll/lib.php');
+require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
 
 /**
- * restore plugin class that provides the necessary information
- * needed to restore one topcoll course format
+ * Restore plugin class that provides the necessary information
+ * needed to restore one topcoll course format.
  */
 class restore_format_topcoll_plugin extends restore_format_plugin {
+
     /**
      * Returns the paths to be handled by the plugin at course level
      */
@@ -45,25 +45,27 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
 
         $paths = array();
 
-        // Add own format stuff
+        // Add own format stuff.
         $elename = 'topcoll'; // This defines the postfix of 'process_*' below.
-        $elepath = $this->get_pathfor('/'); // This is defines the nested tag within 'plugin_format_topcoll_course' to allow '/course/plugin_format_topcoll_course' in the path therefore as a path structure representing the levels in course.xml in the backup file.
+        $elepath = $this->get_pathfor('/'); // This is defines the nested tag within 'plugin_format_topcoll_course' to allow
+                                            // '/course/plugin_format_topcoll_course' in the path therefore as a path structure
+                                            // representing the levels in course.xml in the backup file.
         $paths[] = new restore_path_element($elename, $elepath);
 
-        return $paths; // And we return the interesting paths
+        return $paths; // And we return the interesting paths.
     }
 
     /**
-     * Process the 'plugin_format_topcoll_course' element within the 'course' element in the 'course.xml' file in the '/course' folder
-     * of the zipped backup 'mbz' file.
+     * Process the 'plugin_format_topcoll_course' element within the 'course' element in the 'course.xml' file in the
+     * '/course' folder of the zipped backup 'mbz' file.
      */
     public function process_topcoll($data) {
         global $DB;
 
-        $data = (object)$data;
+        $data = (object) $data;
 
         // We only process this information if the course we are restoring to
-        // has 'topcoll' format (target format can change depending of restore options)
+        // has 'topcoll' format (target format can change depending of restore options).
         $format = $DB->get_field('course', 'format', array('id' => $this->task->get_courseid()));
         if ($format != 'topcoll') {
             return;
@@ -71,11 +73,38 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
 
         $data->courseid = $this->task->get_courseid();
 
-        // In $CFG->dirroot.'/course/format/topcoll/lib.php'...
-        put_topcoll_setting($data->courseid, $data->layoutelement, $data->layoutstructure, $data->tgfgcolour, $data->tgbgcolour, $data->tgbghvrcolour);
+        if (!($course = $DB->get_record('course', array('id' => $data->courseid)))) {
+            print_error('invalidcourseid', 'error');
+        } // From /course/view.php.
+        $courseformat = course_get_format($course);
 
-        // No need to annotate anything here
+        if (isset($data->layoutcolumns)) {
+            // In $CFG->dirroot.'/course/format/topcoll/lib.php'...
+            $courseformat->restore_topcoll_setting(
+                $data->courseid, 
+                $data->layoutelement,
+                $data->layoutstructure,
+                $data->layoutcolumns,
+                $data->tgfgcolour,
+                $data->tgbgcolour,
+                $data->tgbghvrcolour);
+        } else {
+            // Cope with backups from Moodle 2.0, 2.1 and 2.2 versions.
+            $courseformat->restore_topcoll_setting(
+                $data->courseid,
+                $data->layoutelement,
+                $data->layoutstructure,
+                get_config('format_topcoll', 'defaultlayoutcolumns'),
+                $data->tgfgcolour,
+                $data->tgbgcolour,
+                $data->tgbghvrcolour);
+        }
+
+        // No need to annotate anything here.
     }
-    
-    protected function after_execute_structure() { }
+
+    protected function after_execute_structure() {
+        
+    }
+
 }

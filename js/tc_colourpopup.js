@@ -35,7 +35,7 @@ M.util.init_tccolour_popup = function(Y, id, previewconf) {
                 this.current.setStyle('width', this.height/2).setStyle('height', this.height/2 -1).setStyle('backgroundColor', this.input.get('value'));
                 this.box.setContent('').append(this.image).append(this.preview).append(this.current);
                 //this.box.setContent('');
-                
+
                 if (typeof(previewconf) === 'object' && previewconf !== null) {
                     Y.one('#'+id+'_preview').on('click', function(e){
                         if (Y.Lang.isString(previewconf.selector)) {
@@ -58,18 +58,18 @@ M.util.init_tccolour_popup = function(Y, id, previewconf) {
             showColours : function(e){
                 this.eventFocus.detach();
                 this.box.setContent('').append(this.image).append(this.preview).append(this.current);
-            },            
+            },
             setColour : function(e){
                 var colour = this.input.get('value');
-                this.swatch.setStyle('backgroundColor', colour);
-            },             
+                this.swatch.setStyle('backgroundColor', '#'+colour);
+            },
             startFollow : function(e) {
                 this.eventMouseEnter.detach();
                 this.eventMouseLeave = Y.on('mouseleave', this.endFollow, this.image, this);
                 this.eventMouseMove = this.image.on('mousemove', function(e){
                     var colour = this.determineColour(e);
                     //this.swatch.setStyle('backgroundColor', colour);
-                    this.preview.setStyle('backgroundColor', colour);
+                    this.preview.setStyle('backgroundColor', '#'+colour);
                 }, this);
             },
             /**
@@ -78,7 +78,7 @@ M.util.init_tccolour_popup = function(Y, id, previewconf) {
             endFollow : function(e) {
                 this.eventMouseMove.detach();
                 this.eventMouseLeave.detach();
-                this.box.ancestor().setStyle('display','none'); 
+                this.box.ancestor().setStyle('display','none');
                 this.eventMouseEnter = Y.on('mouseenter', this.startFollow, this.image, this);
             },
             /**
@@ -86,10 +86,10 @@ M.util.init_tccolour_popup = function(Y, id, previewconf) {
              */
             pickColour : function(e) {
                 var colour = this.determineColour(e);
-                this.input.set('value', colour);
+                this.input.set('value', '#'+colour);
                 this.input.focus();
-                this.swatch.setStyle('backgroundColor', colour);
-                this.current.setStyle('backgroundColor', colour);
+                this.swatch.setStyle('backgroundColor', '#'+colour);
+                this.current.setStyle('backgroundColor', '#'+colour);
                 this.box.ancestor().setStyle('display','none');
             },
             /**
@@ -105,12 +105,12 @@ M.util.init_tccolour_popup = function(Y, id, previewconf) {
                 var colour = [255,0,0];
 
                 var matrices = [
-                    [  0,  1,  0],
-                    [ -1,  0,  0],
-                    [  0,  0,  1],
-                    [  0, -1,  0],
-                    [  1,  0,  0],
-                    [  0,  0, -1]
+                [  0,  1,  0],
+                [ -1,  0,  0],
+                [  0,  0,  1],
+                [  0, -1,  0],
+                [  1,  0,  0],
+                [  0,  0, -1]
                 ];
 
                 var matrixcount = matrices.length;
@@ -147,7 +147,7 @@ M.util.init_tccolour_popup = function(Y, id, previewconf) {
              * Converts an RGB value to Hex
              */
             convert_rgb_to_hex : function(rgb) {
-                var hex = '#';
+                var hex = '';
                 var hexchars = "0123456789ABCDEF";
                 for (var i=0; i<3; i++) {
                     var number = Math.abs(rgb[i]);
