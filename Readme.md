@@ -203,9 +203,7 @@ Known Issues
 1.  If you get toggle text issues in languages other than English please ensure you have the latest version of Moodle installed.
     More information on http://moodle.org/mod/forum/discuss.php?d=184150.
 2.  The MyMobile theme is not quite as implemented as the previous versions but does work, please see http://tracker.moodle.org/browse/MDL-33115.
-    It has a tendency not to reload the toggle state or set the arrow icon on first load.  A page refresh fixes it - something to do with the
-    inclusion of a '#' in the url.  A workaround that I am in the process of testing is to change the files
-    'layout/general.php' and 'layout/embedded.php' in the theme as follows:
+    If your version does not have MDL-38422 implemented, then please follow these instructions:
 
 At the bottom of 'general.php':
 
@@ -285,9 +283,6 @@ to:
             <?php echo $OUTPUT->standard_end_of_body_html() ?>
         </div>
     </body>
-
-    The bottom left and right navigation links in 'One section per page' mode do not appear to work.  I have contacted 'John Stabinger' on
-    'MDL-33115' and he will be looking into it.
 
 3.  Importing a Moodle 1.9 course does not currently work, please see CONTRIB-3552 which depends on MDL-32205 - as
     a workaround, please select the 'Topics' format first in 1.9, backup and restore then select the Collapsed Topics
