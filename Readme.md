@@ -808,8 +808,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 16th March 2013 - Version 2.3.9.9.1
   1.  Fixed toggle peristence issue caused by code checking the code and not realising the implications of '==='.
       Thanks to Marc Hermon for reporting this.
-  2.  Implemented round toggle borders to reduce the harshness and integrate with jQueryMobile themes in line with Moodle 2.3 version.
-  3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+  2.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
 Thanks
 ======
