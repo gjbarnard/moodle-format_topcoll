@@ -259,6 +259,9 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
     text-align: left;
     padding: 0 0;
     width: auto;
+    -moz-border-radius: 0.7em;
+    -webkit-border-radius: 0.7em;
+    border-radius: 0.7em;
 }
 
 /* -- The topic summary text -- */
