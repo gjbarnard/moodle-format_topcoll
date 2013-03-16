@@ -201,9 +201,7 @@ Known Issues
 1.  If you get toggle text issues in languages other than English please ensure you have the latest version of Moodle installed.  More
     information on http://moodle.org/mod/forum/discuss.php?d=184150.
 2.  The MyMobile theme is not quite as implemented as the previous versions but does work, please see http://tracker.moodle.org/browse/MDL-33115.
-    It has a tendency not to reload the toggle state or set the arrow icon on first load.  A page refresh fixes it - something to do with the
-    inclusion of a '#' in the url.  A workaround that I am in the process of testing is to change the files
-    'layout/general.php' and 'layout/embedded.php' in the theme as follows:
+    If your version does not have MDL-38422 implemented, then please follow these instructions:
 
 At the bottom of 'general.php':
 
@@ -283,9 +281,6 @@ to:
             <?php echo $OUTPUT->standard_end_of_body_html() ?>
         </div>
     </body>
-
-    The bottom left and right navigation links in 'One section per page' mode do not appear to work.  I have contacted 'John Stabinger' on
-    'MDL-33115' and he will be looking into it.
 
 3.  Importing a Moodle 1.9 course does not currently work, please see CONTRIB-3552 which depends on MDL-32205 - as
     a workaround, please select the 'Topics' format first in 1.9, backup and restore then select the Collapsed Topics
@@ -794,7 +789,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2.  Changes to 'renderer.php' because of MDL-36095 hence requiring Moodle version 2012062504.01 release 2.3.4+ (Build: 20130118) and above.
   3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
-8th March 2013 - Version 2.3.9.9
+14th March 2013 - Version 2.3.9.9
   1.  Improved mobile and tablet theme detection and support.
   2.  Fixed 'float' issue for jQueryMobile themes as reported in CONTRIB-4108.
   3.  Implemented round toggle borders to reduce the harshness and integrate with jQueryMobile themes.
