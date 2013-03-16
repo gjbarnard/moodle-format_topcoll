@@ -946,6 +946,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   8.  Improvements for MDL-34917.
   9.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
+16th March 2013 - Version 2.4.3.1.1
+  1.  Fixed toggle peristence issue caused by code checking the code and not realising the implications of '==='.
+      Thanks to Marc Hermon for reporting this.
+
 Thanks
 ======
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -1003,6 +1007,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 14th March 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 16th March 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

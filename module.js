@@ -130,7 +130,7 @@ function togglebinary(toggleNum, toggleVal, savetoggles)
         var start = toggleBinaryGlobal.substring(0,toggleNum);
         var end = toggleBinaryGlobal.substring(toggleNum+1);
         toggleBinaryGlobal = start + toggleVal + end;
-        
+
         if (savetoggles === true) 
         {
             save_toggles();
@@ -247,7 +247,7 @@ function to36baseString(two)
 function savetogglestate(value)
 {
     "use strict";
-    if (togglePersistence === 1) // Toggle persistence - 1 = on, 0 = off.
+    if (togglePersistence == 1) // Toggle persistence - 1 = on, 0 = off.
     {
         M.util.set_user_preference('topcoll_toggle_'+courseid , value);
     }

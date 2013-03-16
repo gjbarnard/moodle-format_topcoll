@@ -59,26 +59,35 @@ class format_topcoll extends format_base {
     /**
      * Gets the name for the provided section.
      *
-     * @param stdClass $section The section.
+     * @param int|stdClass $section Section object from database or just field section.section
      * @return string The section name.
      */
     public function get_section_name($section) {
         $course = $this->get_course();
-        $section = $this->get_section($section);
+        $thesection = $this->get_section($section);
+        if (is_null($thesection)) {
+            $thesection = new stdClass;
+            $thesection->name = '';
+            if (is_object($section)) {
+                $thesection->section = $section->section;
+            } else {
+                $thesection->section = $section;
+            }
+        }
         $o = '';
         $tcsettings = $this->get_settings();
         $coursecontext = context_course::instance($course->id);
 
         // We can't add a node without any text.
-        if ((string) $section->name !== '') {
-            $o .= format_string($section->name, true, array('context' => $coursecontext));
-        } else if ($section->section == 0) {
+        if ((string) $thesection->name !== '') {
+            $o .= format_string($thesection->name, true, array('context' => $coursecontext));
+        } else if ($thesection->section == 0) {
             $o = get_string('section0name', 'format_topcoll');
         } else {
             if (($tcsettings['layoutstructure'] == 1) || ($tcsettings['layoutstructure'] == 4)) {
-                $o = get_string('sectionname', 'format_topcoll') . ' ' . $section->section;
+                $o = get_string('sectionname', 'format_topcoll') . ' ' . $thesection->section;
             } else {
-                $o = $this->get_section_dates($section, $course, $tcsettings);
+                $o = $this->get_section_dates($thesection, $course, $tcsettings);
             }
         }
 
@@ -88,7 +97,7 @@ class format_topcoll extends format_base {
          * when in one section per page which is coded in 'renderer.php/print_multiple_section_page()' when it calls 'section_header()'
          * as that gets called from 'format.php' when there is no entry for '$displaysetting' - confused? I was, took ages to figure.
          */
-        if (($course->coursedisplay == COURSE_DISPLAY_SINGLEPAGE) && ($section->section != 0)) {
+        if (($course->coursedisplay == COURSE_DISPLAY_SINGLEPAGE) && ($thesection->section != 0)) {
             switch ($tcsettings['layoutelement']) {
                 case 1:
                 case 2:
