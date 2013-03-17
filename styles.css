@@ -28,7 +28,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 .course-content ul.ctopics {
-    margin:0;
+    margin: 0px;
+}
+
+.course-content ul.ctlayout {
+    float: left;
 }
 
 .course-content ul.ctopics li.section.main, .course-content ul.ctopics li.tcsection {
@@ -40,6 +44,10 @@
 .course-content ul.ctopics li.section.main .content, .course-content ul.ctopics li.tcsection .content {
     margin: 0 40px; /* Default used in editing mode. */
     padding: 0px;
+}
+
+.course-content ul.ctopics li .content .sectionhead h3 {
+    margin: 0em;
 }
 
 .course-content ul.ctopics li.current .content .toggledsection {
@@ -57,13 +65,14 @@ body.ie7 .course-content ul.ctopics li.section .content .toggle a {
     padding: 7px 2px 7px 26px; /* The 26px allows the arrow to be on the left and the text next to it. */
 }
 
-#mymobile .course-content ul.ctopics li.section .content .toggle a {
+body.mobiletheme .course-content ul.ctopics li.section .content .toggle a,
+body.tablettheme .course-content ul.ctopics li.section .content .toggle a {
     padding: 7px 7px 7px 35px; /* The 35px allows the arrow to be on the left and the text next to it. */
 }
 
-
-#mymobile .format-topcoll .sitetopic .section .activity img.activityicon, #mymobile .format-topcoll .course-content .section .activity img.activityicon {
-    margin-top: 0em; /* The -0.5em looks bad in CT. */
+body.mobiletheme .course-content ul.ctopics li.tcsection .content, body.mobiletheme  .course-content ul.ctopics li.section.main .content,
+body.tablettheme .course-content ul.ctopics li.tcsection .content, body.tablettheme  .course-content ul.ctopics li.section.main .content {
+    margin: 0;
 }
 
 /* CONTRIB-4106 */
@@ -71,24 +80,136 @@ body.ie7 .course-content ul.ctopics li.section .content .toggle a {
     margin: 4px;
 }
 
-/* JavaScript disabled */
-.course-content ul.ctopics li.section .content .toggle a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open {
-    background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+/* Icon set common. */
+#toggle-all .content h4 a {
+    background-position: 0px 45%;
+    background-repeat: no-repeat;
+    background-color: transparent;
 }
 
-/* JavaScript enabled */
-body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_open {
-    background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.  This is shown by default when JavaScript is disabled. */
+.course-content ul.ctopics li.section .content .toggle a {
+    background-position: 5px 45%; /* Position the icon roughly in the centre of the Toggle.*/
+    background-repeat: no-repeat;
+    background-color: transparent;
 }
 
-body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_closed {
-    background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 5px 45%; /* Position the arrow roughly in the centre of the Toggle.   This is shown by default when JavaScript is enabled. */
+/* Arrow icon set. */
+.course-content ul.ctopics li.section .content .toggle-arrow a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|arrow_right]]);
 }
 
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow a.toggle_closed { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|arrow_right]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow a.toggle_open { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|arrow_down]]);
+}
+
+#toggle-all .content .toggle-arrow h4 a.off {
+    background-image: url([[pix:format_topcoll|arrow_down]]);
+}
+
+#toggle-all .content .toggle-arrow-hover h4 a.off:hover {
+    background-image: url([[pix:format_topcoll|arrow_right_glow]]);
+}
+
+#toggle-all .content .toggle-arrow h4 a.on {
+    background-image: url([[pix:format_topcoll|arrow_right]]);
+}
+
+#toggle-all .content .toggle-arrow-hover h4 a.on:hover {
+    background-image: url([[pix:format_topcoll|arrow_down_glow]]);
+}
+
+/* Point icon set. */
+.course-content ul.ctopics li.section .content .toggle-point a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|point_right]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-point a.toggle_closed { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|point_right]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-point a.toggle_open { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|point_down]]);
+}
+
+#toggle-all .content .toggle-point h4 a.off {
+    background-image: url([[pix:format_topcoll|point_down]]);
+}
+
+#toggle-all .content .toggle-point-hover h4 a.off:hover {
+    background-image: url([[pix:format_topcoll|point_right_glow]]);
+}
+
+#toggle-all .content .toggle-point h4 a.on {
+    background-image: url([[pix:format_topcoll|point_right]]);
+}
+
+#toggle-all .content .toggle-point-hover h4 a.on:hover {
+    background-image: url([[pix:format_topcoll|point_down_glow]]);
+}
+
+/* Power icon set. */
+.course-content ul.ctopics li.section .content .toggle-power a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|toggle_minus]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-power a.toggle_closed { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|toggle_minus]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-power a.toggle_open { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|toggle_plus]]);
+}
+
+#toggle-all .content .toggle-power h4 a.off {
+    background-image: url([[pix:format_topcoll|toggle_plus]]);
+}
+
+#toggle-all .content .toggle-power-hover h4 a.off:hover {
+    background-image: url([[pix:format_topcoll|toggle_minus_glow]]);
+}
+
+#toggle-all .content .toggle-power h4 a.on {
+    background-image: url([[pix:format_topcoll|toggle_minus]]);
+}
+
+#toggle-all .content .toggle-power-hover h4 a.on:hover {
+    background-image: url([[pix:format_topcoll|toggle_plus_glow]]);
+}
+
+/* Background images for the settings - does not work in Chrome or Safari - known issue */
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="arrow"], body.format-topcoll select#id_toggleiconset option[value="arrow"] {
+    background-image: url([[pix:format_topcoll|arrow_right]]);
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="point"], body.format-topcoll select#id_toggleiconset option[value="point"] {
+    background-image: url([[pix:format_topcoll|point_right]]);
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="power"], body.format-topcoll select#id_toggleiconset option[value="power"] {
+    background-image: url([[pix:format_topcoll|toggle_minus]]);
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option, body.format-topcoll select#id_toggleiconset option {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 45px 45%; /* Position the icon roughly to the right of the selection text. */
+    padding: 3px 20px 3px 3px; /* The 20px allows the image to be on the right and the text next to it. */
+}
+
+body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topcoll_defaulttoggleiconset option, body.format-topcoll.lang-en_ar select#id_toggleiconset option {
+    background-position: 220px 45%; /* Pirate strings are longer. */
+}
+
+/* MyMobile */
 #mymobile .course-content ul.ctopics li.tcsection .content, #mymobile .course-content ul.ctopics li.section.main .content{
     margin: 0;
 }
 
+/* Layout */
 .course-content ul.ctopics #section-0 .content{
     padding: 10px;
 }
@@ -138,20 +259,23 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle a.toggle_c
     text-align: left;
     padding: 0 0;
     width: auto;
+    -moz-border-radius: 0.7em;
+    -webkit-border-radius: 0.7em;
+    border-radius: 0.7em;
 }
 
-/* -- The topic summary text -- */    
+/* -- The topic summary text -- */
 .course-content ul.ctopics li.section .content .toggle a p {
     font-size: 1.2em;
     font-style: italic;
     text-align: left;
 }
 
-/* -- For centring the 'Topic / Week / Day x' text -- */       
+/* -- For centring the 'Topic / Week / Day x' text -- */
 .course-content ul.ctopics li.section .right span.cps_centre {
     text-align: center;
     font-size: 0.7em;
-}  
+}
 
 .course-content ul.ctopics li.section .content .toggle {
     width: 100%;
@@ -206,12 +330,4 @@ body.jsenabled #toggle-all {
     text-align: left;
     width: 35px;
     text-decoration: none;
-}
-
-#toggle-all .content .sectionbody h4 a.on {
-    background: transparent url([[pix:format_topcoll|arrow_down]]) no-repeat 0px 45%; 
-}
-
-#toggle-all .content .sectionbody h4 a.off {
-    background: transparent url([[pix:format_topcoll|arrow_right]]) no-repeat 0px 45%; 
 }
