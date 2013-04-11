@@ -198,4 +198,16 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
+    // Default Toggle preference for the first time a user accesses a course.
+    // 0 => All closed.
+    // 1 => All open.
+    $name = 'format_topcoll/defaultuserpreference';
+    $title = get_string('defaultuserpreference', 'format_topcoll');
+    $description = get_string('defaultuserpreference_desc', 'format_topcoll');
+    $default = 0;
+    $choices = array(
+        0 => new lang_string('topcollclosed', 'format_topcoll'),
+        1 => new lang_string('topcollopened', 'format_topcoll')
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 }

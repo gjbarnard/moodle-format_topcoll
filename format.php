@@ -72,20 +72,28 @@ if (!empty($displaysection)) {
     $renderer->print_single_section_page($course, null, null, null, null, $displaysection);
 } else {
     $devicetype = get_device_type(); // In moodlelib.php.
-    if ($devicetype == "mobile" || $devicetype == "tablet") {
-        $mobile = 1;
+    if ($devicetype == "mobile") {
+        $portable = 1;
+    } else if ($devicetype == "tablet") {
+        $portable = 2;
     } else {
-        $mobile = 0;
+        $portable = 0;
     }
-    $renderer->set_mobile($mobile);
+    $renderer->set_portable($portable);
 
     user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_ALPHANUM);
+    $userpreference = get_user_preferences('topcoll_toggle_' . $course->id);
+    $renderer->set_user_preference($userpreference);
+
+    $defaultuserpreference = clean_param(get_config('format_topcoll', 'defaultuserpreference'), PARAM_INT);
+    $renderer->set_default_user_preference($defaultuserpreference);
 
     $PAGE->requires->js_init_call('M.format_topcoll.init', array(
         $course->id,
-        get_user_preferences('topcoll_toggle_' . $course->id),
+        $userpreference,
         $course->numsections,
-        clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT)));
+        clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT)),
+        $defaultuserpreference);
 
     $tcsettings = $courseformat->get_settings();
     ?>
@@ -137,7 +145,7 @@ if (!empty($displaysection)) {
 
     <?php
     // Dynamically changing widths with language.
-    if ((!$PAGE->user_is_editing()) && ($PAGE->theme->name != 'mymobile')) {
+    if ((!$PAGE->user_is_editing()) && ($portable == 0)) {
         echo '.course-content ul.ctopics li.section.main .content, .course-content ul.ctopics li.tcsection .content {';
         echo 'margin: 0 ' . get_string('topcollsidewidth', 'format_topcoll');
         echo '}';
