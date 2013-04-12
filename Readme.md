@@ -952,6 +952,12 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2.  Implemented round toggle borders to reduce the harshness and integrate with jQueryMobile themes in line with Moodle 2.3 version.
   3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
+11th April 2013 - Version 2.4.4
+  1.  Implemented the administrator setting for the format so that the default state of the toggles can be set to
+      'all closed' or 'all opened' for new users.  Thanks to Jamie Burgess (https://moodle.org/user/profile.php?id=1489185) for the idea.
+  2.  Realised that Tablets have more space, so allow two columns even when two or more are set.
+  3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+
 Thanks
 ======
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -1009,6 +1015,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 16th March 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 11th April 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

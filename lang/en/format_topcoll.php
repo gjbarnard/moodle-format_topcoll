@@ -99,7 +99,7 @@ $string['setlayoutcolumnorientation'] = 'Set column orientation';
 $string['columnvertical'] = 'Vertical';
 $string['columnhorizontal'] = 'Horizontal';
 
-// Temporary until MDL-34917 in core.
+// MDL-34917 - implemented in M2.5 but needs to be here to support M2.4- versions.
 $string['maincoursepage'] = 'Main course page';
 
 // Help.
@@ -230,6 +230,10 @@ $string['defaulttoggleiconset_desc'] = "'Arrow' => Arrow icon set.
 
 $string['defaulttoggleallhover'] = 'Default toggle all icon hovers';
 $string['defaulttoggleallhover_desc'] = "'No' or 'Yes'.";
+
+// Default user preference.
+$string['defaultuserpreference'] = 'What to do with the toggles when the user first accesses the course';
+$string['defaultuserpreference_desc'] = 'States what to do with the toggles when the user first accesses the course.';
 
 // Capabilities.
 $string['topcoll:changelayout'] = 'Change or reset the layout';

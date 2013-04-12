@@ -51,8 +51,9 @@ M.format_topcoll = M.format_topcoll || {};
  * @param {String} thetogglestate the current state of the toggles.
  * @param {Integer} noOfToggles The number of toggles.
  * @param {Integer} theTogglePersistence Persistence on (1) or off (0).
+ * @param {Integer} theDefaultTogglePersistence Persistence all open (1) or all closed (0) when thetogglestate is null.
  */
-M.format_topcoll.init = function(Y, thecourseid, thetogglestate, noOfToggles, theTogglePersistence) {
+M.format_topcoll.init = function(Y, thecourseid, thetogglestate, noOfToggles, theTogglePersistence, theDefaultTogglePersistence) {
     "use strict";
     // Init.
     ourYUI = Y;
@@ -68,7 +69,11 @@ M.format_topcoll.init = function(Y, thecourseid, thetogglestate, noOfToggles, th
     else
     {
         // Reset to default.
-        toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
+        if (theDefaultTogglePersistence == 0) {
+            toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
+        } else {
+            toggleBinaryGlobal = "11111111111111111111111111111111111111111111111111111";
+        }
     }
 
     // Info on http://yuilibrary.com/yui/docs/event/

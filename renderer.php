@@ -40,8 +40,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
     private $tccolumnwidth = 100; /* Default width in percent of the column(s). */
     private $tccolumnpadding = 0; /* Defailt padding in pixels of the column(s). */
     private $mobiletheme = false; /* As not using a mobile theme we can react to the number of columns setting. */
+    private $tablettheme = false; /* As not using a tablet theme we can react to the number of columns setting. */
     private $courseformat; // Our course format object as defined in lib.php;
-    private $tcsettings; // Settings for the format.
+    private $tcsettings; // Settings for the format - array.
+    private $userpreference; // User toggle state preference - string.
+    private $defaultuserpreference; // Default user preference when none set - bool - true all open, false all closed.
 
     /**
      * Generate the starting container html for a list of sections
@@ -243,12 +246,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
         $o .= html_writer::start_tag('li', $liattributes);
 
-        if ($this->mobiletheme === false) {
+        if (($this->mobiletheme === false) && ($this->tablettheme === false)) {
             $leftcontent = $this->section_left_content($section, $course, $onsectionpage);
             $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
         }
 
-        if ($this->mobiletheme === false) {
+        if (($this->mobiletheme === false) && ($this->tablettheme === false)) {
             $rightcontent = '';
             if (($section->section != 0) && $PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
@@ -299,10 +302,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
                         break;
                 }
             }
-            if ($this->mobiletheme == false) {
+            if (($this->mobiletheme === false) && ($this->tablettheme === false)) {
                 $o .= $this->output->heading($otitle, 3, 'sectionname');
             } else {
-                $o .= html_writer::tag('h3', $otitle); // Moodle H3's look bad on mobile with CT so use plain.
+                $o .= html_writer::tag('h3', $otitle); // Moodle H3's look bad on mobile / tablet with CT so use plain.
             }
 
             $o .= html_writer::end_tag('a');
@@ -591,6 +594,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     // Update....
                     $this->courseformat->update_topcoll_columns_setting($this->tcsettings['layoutcolumns']);
                 }
+
+                if (($this->tablettheme === true) && ($this->tcsettings['layoutcolumns'] > 2)) {
+                    // Use a maximum of 2 for tablets.
+                    $this->tcsettings['layoutcolumns'] = 2;
+                }
+
                 $this->tccolumnwidth = 100 / $this->tcsettings['layoutcolumns'];
                 $this->tccolumnwidth -= 1; // Allow for the padding in %.
                 $this->tccolumnpadding = 2; // px
@@ -611,10 +620,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $columnbreakpoint = 0;
             $shownsectioncount = 0;
 
-            $togglestate = get_user_preferences('topcoll_toggle_' . $course->id);
-            if ($togglestate != null) {
-                $ts1 = base_convert(substr($togglestate, 0, 6), 36, 2);
-                $ts2 = base_convert(substr($togglestate, 6, 12), 36, 2);
+            if ($this->userpreference != null) {
+                $ts1 = base_convert(substr($this->userpreference, 0, 6), 36, 2);
+                $ts2 = base_convert(substr($this->userpreference, 6, 12), 36, 2);
                 $thesparezeros = "00000000000000000000000000";
                 if (strlen($ts1) < 26) {
                     // Need to PAD.
@@ -626,7 +634,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 }
                 $tb = $ts1 . $ts2;
             } else {
-                $tb = '10000000000000000000000000000000000000000000000000000';
+                if ($this->defaultuserpreference == 0) {
+                    $tb = '10000000000000000000000000000000000000000000000000000';
+                } else {
+                    $tb = '11111111111111111111111111111111111111111111111111111';
+                }
             }
 
             while ($loopsection <= $course->numsections) {
@@ -774,7 +786,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         // Toggle all.
         $o .= html_writer::start_tag('li', array('class' => 'tcsection main clearfix', 'id' => 'toggle-all'));
 
-        if ($this->mobiletheme === false) {
+        if (($this->mobiletheme === false) || ($this->tablettheme === false)) {
             $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
         }
         $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
@@ -796,9 +808,26 @@ class format_topcoll_renderer extends format_section_renderer_base {
         return $o;
     }
 
-    public function set_mobile($mobile) {
-        if ($mobile == 1) {
-            $this->mobiletheme = true;
+    public function set_portable($portable) {
+        switch ($portable) {
+            case 1:
+                $this->mobiletheme = true;
+            break;
+            case 2:
+                $this->tablettheme = true;
+            break;
+            default:
+                $this->mobiletheme = false;
+                $this->tablettheme = false;
+            break;
         }
+    }
+
+    public function set_user_preference($preference) {
+        $this->userpreference = $preference;
+    }
+
+    public function set_default_user_preference($defaultpreference) {
+        $this->defaultuserpreference = $defaultpreference;
     }
 }
