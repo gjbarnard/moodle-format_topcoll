@@ -6,20 +6,23 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 ==========================
-This version works with Moodle version 2012120301.02 release 2.4.1+ (Build: 20130118) and above until the next release.
+This version works with Moodle version 2013041100.00 release 2.5beta+ (Build: 20130411) and above until the next release.
+
+NOTE: This is a pre-release Moodle 2.5 Beta version that must NOT be used on production servers.  It is subject to change
+at any time without notice.
 
 Download and documentation
 ==========================
 The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
-with 'Select Moodle version:' set at 'Moodle 2.4'.
+with 'Select Moodle version:' set at 'Moodle 2.5'.
 
-The secondary source is a tagged version with the v2.4 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
+The secondary source is a tagged version with the v2.5 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
 
-If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/tree/MOODLE_24 - consider that
+If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/tree/MOODLE_25 - consider that
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
-Documented on http://docs.moodle.org/24/en/Collapsed_Topics_course_format
+Documented on http://docs.moodle.org/25/en/Collapsed_Topics_course_format
 
 Supporting Collapsed Topics development
 =======================================
@@ -37,23 +40,11 @@ please download an older version from https://moodle.org/plugins/pluginversions.
 this table as a guide:
 
 CT version - Moodle version
-V2.4.2       2.4.1+, version 2012120301.02 (Build: 20130118).
-V2.4.1.7     2.4+    version 2012120300.00 (Build: 20121203).
+V2.5.0.1     2.5beta+ version 2013041100.00 (Build: 20130411).
 
-New features for this Moodle 2.4.1 version
-==========================================
- 1. Settings moved to the 'Edit course settings' form.
- 2. Ability to turn off persistence by changing the default 'defaulttogglepersistence' in
-    'Site Administration -> Plugins -> Course formats -> Collapsed Topics'.
- 3. Horizontal and vertical column layouts.
- 4. Left, centre and right toggle text alignment.
- 5. Icon sets where you can choose what set of control icons are appropriate on a per course basis.  See 'Icon Sets'
-    below.
- 6. Moved all 'tcconfig.php' default functionalty to 'Site Administration -> Plugins -> Course formats -> Collapsed Topics'
-    so that defaults can be changed by the administrator from within Moodle without resorting to code changes.
- 7. Added capabilities 'format/topcoll:changelayout', 'format/topcoll:changecolour', 'format/topcoll:changetogglealignment'
-    and 'format/topcoll:changetoggleiconset' to editing teachers and managers such that site administrators can choose to
-    disable functionality through roles if they wish.
+New features for this Moodle 2.5 version
+========================================
+ 1. Same features as version 2.4.4 in Moodle 2.4.
 
 Installation
 ============
@@ -202,98 +193,20 @@ Known Issues
 ============
 1.  If you get toggle text issues in languages other than English please ensure you have the latest version of Moodle installed.
     More information on http://moodle.org/mod/forum/discuss.php?d=184150.
-2.  The MyMobile theme is not quite as implemented as the previous versions but does work, please see http://tracker.moodle.org/browse/MDL-33115.
-    If your version does not have MDL-38422 implemented, then please follow these instructions:
-
-At the bottom of 'general.php':
-
-            </div>
-        </div><!-- ends page -->
-
-        <!-- empty divs with info for the JS to use -->
-        <div id="<?php echo sesskey(); ?>" class="mobilesession"></div>
-        <div id="<?php p($CFG->wwwroot); ?>" class="mobilesiteurl"></div>
-        <div id="<?php echo $dtheme;?>" class="datatheme"></div>
-        <div id="<?php echo $dthemeb;?>" class="datathemeb"></div>
-        <div id="page-footer"><!-- empty page footer needed by moodle yui for embeds --></div>
-        <!-- end js divs -->
-
-        <?php echo $OUTPUT->standard_end_of_body_html() ?>
-    </body>
-
-to:
-
-            </div>
-
-            <!-- empty divs with info for the JS to use -->
-            <div id="<?php echo sesskey(); ?>" class="mobilesession"></div>
-            <div id="<?php p($CFG->wwwroot); ?>" class="mobilesiteurl"></div>
-            <div id="<?php echo $dtheme;?>" class="datatheme"></div>
-            <div id="<?php echo $dthemeb;?>" class="datathemeb"></div>
-            <div id="page-footer"><!-- empty page footer needed by moodle yui for embeds --></div>
-            <!-- end js divs -->
-
-        <?php echo $OUTPUT->standard_end_of_body_html() ?>
-        </div><!-- ends page -->
-    </body>
-
-In 'embedded.php':
-
-        <?php if ($mypagetype == 'mod-chat-gui_ajax-index') { ?>
-        <div data-role="page" id="chatpage" data-fullscreen="true" data-title="<?php p($SITE->shortname) ?>">
-            <?php echo $OUTPUT->main_content(); ?>
-            <input type="button" value="back" data-role="none" id="chatback" onClick="history.back()">
-        </div>
-        <?php } else { ?>
-        <div id="content2" data-role="page" data-title="<?php p($SITE->shortname) ?>" data-theme="<?php echo $datatheme;?>">
-            <div data-role="header" data-theme="<?php echo $datatheme;?>">
-                <h1><?php echo $PAGE->heading ?>&nbsp;</h1>
-                <?php if ($mypagetype != "help") { ?>
-                    <a class="ui-btn-right" data-ajax="false" data-icon="home" href="<?php p($CFG->wwwroot) ?>" data-iconpos="notext"><?php p(get_string('home')); ?></a>
-                <?php } ?>
-            </div>
-            <div data-role="content" class="mymobilecontent" data-theme="<?php echo $databodytheme;?>">
-                <?php echo $OUTPUT->main_content(); ?>
-            </div>
-        </div>
-        <?php } ?>
-        <!-- START OF FOOTER -->
-        <?php echo $OUTPUT->standard_end_of_body_html() ?>
-    </body>
-
-to:
-
-        <?php if ($mypagetype == 'mod-chat-gui_ajax-index') { ?>
-        <div data-role="page" id="chatpage" data-fullscreen="true" data-title="<?php p($SITE->shortname) ?>">
-            <?php echo $OUTPUT->main_content(); ?>
-            <input type="button" value="back" data-role="none" id="chatback" onClick="history.back()">
-        <?php } else { ?>
-        <div id="content2" data-role="page" data-title="<?php p($SITE->shortname) ?>" data-theme="<?php echo $datatheme;?>">
-            <div data-role="header" data-theme="<?php echo $datatheme;?>">
-                <h1><?php echo $PAGE->heading ?>&nbsp;</h1>
-                <?php if ($mypagetype != "help") { ?>
-                    <a class="ui-btn-right" data-ajax="false" data-icon="home" href="<?php p($CFG->wwwroot) ?>" data-iconpos="notext"><?php p(get_string('home')); ?></a>
-                <?php } ?>
-            </div>
-            <div data-role="content" class="mymobilecontent" data-theme="<?php echo $databodytheme;?>">
-                <?php echo $OUTPUT->main_content(); ?>
-            </div>
-            <?php } ?>
-            <!-- START OF FOOTER -->
-            <?php echo $OUTPUT->standard_end_of_body_html() ?>
-        </div>
-    </body>
-
-3.  Importing a Moodle 1.9 course does not currently work, please see CONTRIB-3552 which depends on MDL-32205 - as
+2.  Importing a Moodle 1.9 course does not currently work, please see CONTRIB-3552 which depends on MDL-32205 - as
     a workaround, please select the 'Topics' format first in 1.9, backup and restore then select the Collapsed Topics
     course format in the course settings.  You will have to reset your decisions on structure etc.
-4.  Sometimes when restoring a course, it is accessed for the first time and a toggle is clicked a 'Error updating user
+3.  Sometimes when restoring a course, it is accessed for the first time and a toggle is clicked a 'Error updating user
     preference 'topcoll_toggle_x'' (where 'x' is the course id as shown in the URL 'id=x') can occur.  I'm not completely sure
     why this is happening as the 'user_preference_allow_ajax_update' call in 'format.php' should establish that the user
     preference can be set.  Could be a page cache thing as the 'init' code is getting the course id unlike an issue I'm
     currently experiencing with the MyMobile theme - MDL-33115.  The work around is to refresh the page.  Having altered some
     of the event handing code to operate after page load, I'm hoping that this has now been resolved, please let me know
     if you encounter it.
+4.  When in 'Show one section per page' mode and the column orientation is set to 'Horizontal' the sections on the main
+    page do not fill their correct width.  This is due to the use of the 'section_summary()' method which needs to be changed
+    within the format to set the calculated width on the 'li' tag.  This cannot be done until MDL-39099 is integrated.  This
+    affects the Moodle 2.4 and 2.3 versions of Collapsed Topics and the Columns format too.
 
 Reporting Issues
 ================
@@ -958,6 +871,11 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2.  Realised that Tablets have more space, so allow two columns even when two or more are set.
   3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
+12th April 2013 - Version 2.5.0.1
+  1.  First 'Beta' release for Moodle 2.5 Beta.
+  2.  Note: Date in version file (2013041500) is greater than actual date code released publically to facilitate updates to Moodle 2.4 version.
+  3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+
 Thanks
 ======
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -1015,6 +933,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 11th April 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 12th April 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

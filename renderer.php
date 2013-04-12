@@ -363,44 +363,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
     }
 
     /**
-     * Generate the html for the 'Jump to' menu on a single section page.
-     * Temporary until MDL-34917 in core.
-     * @param stdClass $course The course entry from DB
-     * @param $displaysection the current displayed section number.
-     *
-     * @return string HTML to output.
-     */
-    protected function section_nav_selection($course, $displaysection) {
-        global $CFG;
-        $o = '';
-        $sectionmenu = array();
-        $url = course_get_url($course);
-        $url = str_replace($CFG->wwwroot, '', $url);
-        $url = str_replace('&amp;', '&', $url);
-        $sectionmenu[$url] = get_string('maincoursepage', 'format_topcoll');
-        $modinfo = get_fast_modinfo($course);
-        $section = 1;
-        while ($section <= $course->numsections) {
-            $thissection = $modinfo->get_section_info($section);
-            $showsection = $thissection->uservisible or !$course->hiddensections;
-            if (($showsection) && ($section != $displaysection)) {
-                $url = course_get_url($course, $section);
-                $url = str_replace($CFG->wwwroot, '', $url);
-                $url = str_replace('&amp;', '&', $url);
-                $sectionmenu[$url] = get_section_name($course, $section);
-            }
-            $section++;
-        }
-
-        $select = new url_select($sectionmenu);
-        $select->class = 'jumpmenu';
-        $select->formid = 'sectionmenu';
-        $o .= $this->output->render($select);
-
-        return $o;
-    }
-
-    /**
      * Output the html for a single section page.
      *
      * @param stdClass $course The course entry from DB
@@ -486,7 +448,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $sectionbottomnav .= html_writer::start_tag('div', array('class' => 'section-navigation mdl-bottom'));
         $sectionbottomnav .= html_writer::tag('span', $sectionnavlinks['previous'], array('class' => 'mdl-left'));
         $sectionbottomnav .= html_writer::tag('span', $sectionnavlinks['next'], array('class' => 'mdl-right'));
-        $sectionbottomnav .= html_writer::tag('div', $this->section_nav_selection($course, $displaysection), array('class' => 'mdl-align'));
+        $sectionbottomnav .= html_writer::tag('div', $this->section_nav_selection($course, $sections, $displaysection),
+            array('class' => 'mdl-align'));
         $sectionbottomnav .= html_writer::end_tag('div');
         echo $sectionbottomnav;
 
