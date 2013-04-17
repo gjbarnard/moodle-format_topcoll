@@ -876,6 +876,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2.  Note: Date in version file (2013041500) is greater than actual date code released publically to facilitate updates to Moodle 2.4 version.
   3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
+17th April 2013 - Version 2.5.0.2
+  1.  Removed '.jumpmenu' from styles.css because of MDL-38907.
+  2.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+
 Thanks
 ======
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -933,6 +937,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 12th April 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th April 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

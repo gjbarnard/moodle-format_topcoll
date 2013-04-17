@@ -249,10 +249,6 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
     vertical-align: baseline;
 }
 
-.jumpmenu {
-    text-align:center;
-}
-
 /* -- The section name and summary of a Toggle -- */
 .course-content ul.ctopics li.section .content .toggle  {
     display: block;
