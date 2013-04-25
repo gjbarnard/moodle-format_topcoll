@@ -92,8 +92,8 @@ if (!empty($displaysection)) {
         $course->id,
         $userpreference,
         $course->numsections,
-        clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT)),
-        $defaultuserpreference);
+        clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT),
+        $defaultuserpreference));
 
     $tcsettings = $courseformat->get_settings();
     ?>

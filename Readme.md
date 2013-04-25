@@ -871,9 +871,14 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   2.  Realised that Tablets have more space, so allow two columns even when two or more are set.
   3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
-12th April 2013 - Version 2.5.0.1
+12th April 2013 - Version 2.5.0.1 - Beta
   1.  First 'Beta' release for Moodle 2.5 Beta.
   2.  Note: Date in version file (2013041500) is greater than actual date code released publically to facilitate updates to Moodle 2.4 version.
+  3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+
+25th April 2013 - Version 2.5.0.2 - Beta
+  1.  Thanks to ideas from Ben Kelada, I have made a start on making the event handing toggle functions more efficient.
+  2.  Fixed an obscure bug with '$defaultuserpreference' in 'format.php' not being parsed to 'M.format_topcoll.init' in 'module.js'.
   3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
 Thanks
@@ -933,6 +938,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 12th April 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 25th April 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

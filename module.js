@@ -76,52 +76,54 @@ M.format_topcoll.init = function(Y, thecourseid, thetogglestate, noOfToggles, th
         }
     }
 
-    // Info on http://yuilibrary.com/yui/docs/event/
-    // Event handlers for the toggles.
+    // Info on http://yuilibrary.com/yui/docs/event/delegation.html
+    // Delegated event handler for the toggles.
+    // Inspiration thanks to Ben Kelada.
+    //var toggleList = Y.one('ul.ctopics');
+    //if (toggleList != null) {
+        //toggleList.delegate('click', toggleClick, '.toggle');
+        //Y.delegate('click',toggleClick,'html body',".toggle");
+    //}
+
     for (var theToggle = 1; theToggle <= numToggles; theToggle++)
     {
-        var toggler = document.getElementById("toggle-" + theToggle); // Need the DOM element not the YUI one for manipulation purposes.
-        if (toggler !== null)
-        {
-            var instance = new CollapsedTopicsToggler(toggler,theToggle);
-            Y.one("#toggle-" + theToggle).on('click', instance.handleClick, instance);
-        }
+        Y.one("#toggle-" + theToggle).on('click', toggleClick);
     }
     
     // Event handlers for all opened / closed.
     var allopen = Y.one("#toggles-all-opened");
     if (allopen) {
-        allopen.on('click',function(e){
-            e.preventDefault();
-            all_opened();
-        });
+        allopen.on('click', allOpenClick);
     }
     var allclosed = Y.one("#toggles-all-closed");
     if (allclosed) {
-        allclosed.on('click',function(e){
-            e.preventDefault();
-            all_closed();
-        });
+        allclosed.on('click', allCloseClick);
     }
 };
 
-// Info on http://pivotallabs.com/users/pjaros/blog/articles/1368-javascript-constructors-prototypes-and-the-new-keyword
-var CollapsedTopicsToggler = function CollapsedTopicsToggler(toggler,toggleNum)
-{
-    "use strict";
-    this.toggler = toggler;
-    this.toggleNum = toggleNum;
-};
+function toggleClick(e) {
+    var toggleIndex = parseInt(e.currentTarget.get('id').replace("toggle-", ""));
+    e.preventDefault();
+    toggle_topic(e.currentTarget, toggleIndex);
+}
 
-// Info on http://yuilibrary.com/yui/docs/event/
-CollapsedTopicsToggler.prototype = {
-    handleClick: function (e) {
-        "use strict";
-        e.preventDefault();
-        toggle_topic(this.toggler,this.toggleNum);
-    }
-};
+function allOpenClick(e){
+    e.preventDefault();
+    ourYUI.all(".toggledsection").show().setStyle('display', 'block');
+    ourYUI.all(".toggle a").addClass('toggle_open').removeClass('toggle_closed');
+    toggleBinaryGlobal = "11111111111111111111111111111111111111111111111111111";
+    save_toggles();
+}
 
+function allCloseClick(e){
+    e.preventDefault();
+    ourYUI.all(".toggledsection").hide();
+    ourYUI.all(".toggle a").addClass('toggle_closed').removeClass('toggle_open');
+    toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
+    save_toggles();
+ }
+
+// Toggle functions
 // Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the most significant bit and represents the non-toggling topic 0.
 // Args - toggleNum is an integer and toggleVal is a string which will either be "1" or "0"
 //        savetoggles save the toggle state - used so that all_toggles does not make multiple requests but instead one.
@@ -129,7 +131,7 @@ function togglebinary(toggleNum, toggleVal, savetoggles)
 {
     "use strict";
     // Toggle num should be between 1 and 52 - see definition of toggleBinaryGlobal above.
-    if ((toggleNum >=1) && (toggleNum <= 52))
+    if ((toggleNum >= 1) && (toggleNum <= 52))
     {
         // Safe to use.
         var start = toggleBinaryGlobal.substring(0,toggleNum);
@@ -143,53 +145,23 @@ function togglebinary(toggleNum, toggleVal, savetoggles)
     }
 }
 
-// Toggle functions
-// Args - target is the list item element in the DOM to be toggled.
-//        image is the img tag element in the DOM to be changed.
-//        toggleNum is the toggle number to change.
-//        reloading is a boolean that states if the function is called from reload_toggles() so that we do not have to resave what we already know - ohh for default argument values.
-//        savetoggles save the toggle state - used so that all_toggles does not make multiple requests but instead one.
-function toggleexacttopic(target,image,toggleNum,reloading,savetoggles)  // Toggle the target and change the image.
+// Args - targetNode that initiated the call, toggleNum the number of the toggle.
+function toggle_topic(targetNode, toggleNum)
 {
     "use strict";
-    if(document.getElementById)
+    var targetLink = targetNode.one('a');
+    if (!targetLink.hasClass('toggle_open'))
     {
-        var displaySetting = "block";
-
-        if (target.style.display === displaySetting)
-        {
-            target.style.display = "none";
-
-            image.className = image.className.replace('toggle_open','toggle_closed'); //change the class name
-
-            // Save the toggle!
-            if (reloading === false) {
-                togglebinary(toggleNum,"0",savetoggles);
-            }
-        }
-        else
-        {
-            target.style.display = displaySetting;
-
-            image.className = image.className.replace('toggle_closed','toggle_open'); //change the class name
-
-            // Save the toggle!
-            if (reloading === false) {
-                togglebinary(toggleNum,"1",savetoggles);
-            }
-        }
+        targetLink.addClass('toggle_open').removeClass('toggle_closed');
+        targetNode.next('.toggledsection').show().setStyle('display', 'block');
+        togglebinary(toggleNum, "1", true);
     }
-}
-
-// Called by the html code created by format.php on the actual course page.
-// Args - toggler the tag that initiated the call, toggleNum the number of the toggle for which toggler is a part of - see format.php.
-function toggle_topic(toggler,toggleNum)
-{
-    "use strict";
-    var imageSwitch = toggler.firstChild; // The image is on the <a> so now that 'toggler' is the <div> container, we need to get it.
-    var targetElement = toggler.nextSibling; // Event hander on the <div> containing the <a> so find the next <div>.
-
-    toggleexacttopic(targetElement,imageSwitch,toggleNum,false,true);
+    else
+    {
+        targetLink.addClass('toggle_closed').removeClass('toggle_open');
+        targetNode.next('.toggledsection').hide();
+        togglebinary(toggleNum, "0", true);
+    }
 }
 
 // Current maximum number of topics is 52, but as the converstion utilises integers which are 32 bit signed, this must be broken into two string segments for the
@@ -247,65 +219,13 @@ function to36baseString(two)
     return fps + sps;
 }
 
-// AJAX call to server to save the state of the toggles for this course for the current user.
-// Args - value is the base 36 state of the toggles.
-function savetogglestate(value)
+// Save the toggles - called from togglebinary and allToggle.
+// AJAX call to server to save the state of the toggles for this course for the current user if on.
+function save_toggles()
 {
     "use strict";
     if (togglePersistence == 1) // Toggle persistence - 1 = on, 0 = off.
     {
-        M.util.set_user_preference('topcoll_toggle_'+courseid , value);
+        M.util.set_user_preference('topcoll_toggle_'+courseid , to36baseString(toggleBinaryGlobal));
     }
-}
-
-// Save the toggles - called from togglebinary and allToggle.
-function save_toggles()
-{
-    "use strict";
-    savetogglestate(to36baseString(toggleBinaryGlobal));
-}
-
-// Functions that turn on or off all toggles.
-// Alter the state of the toggles.  Where 'state' needs to be true for open and false for close.
-function allToggle(state)
-{
-    "use strict";
-    var displaySetting;
-
-    if (state === false)
-    {
-        displaySetting = "block";
-    }
-    else
-    {
-        // Set all off to set on.
-        displaySetting = "none";
-    }
-
-    for (var theToggle = 1; theToggle <= numToggles; theToggle++)
-    {
-        var target = document.getElementById("toggledsection-"+theToggle);
-        var image = document.getElementById("toggle-" + theToggle);
-        if ((target !== null) && (image !== null))
-        {
-            target.style.display = displaySetting;
-            toggleexacttopic(target,image.firstChild,theToggle,false,false);
-        }
-    }
-    // Now save the state of the toggles for efficiency...
-    save_toggles();
-}
-
-// Open all toggles.
-function all_opened()
-{
-    "use strict";
-    allToggle(true);
-}
-
-// Close all toggles.
-function all_closed()
-{
-    "use strict";
-    allToggle(false);
 }
