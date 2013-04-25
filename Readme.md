@@ -879,7 +879,8 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 25th April 2013 - Version 2.5.0.2 - Beta
   1.  Thanks to ideas from Ben Kelada, I have made a start on making the event handing toggle functions more efficient.
   2.  Fixed an obscure bug with '$defaultuserpreference' in 'format.php' not being parsed to 'M.format_topcoll.init' in 'module.js'.
-  3.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+  3.  Removed '.jumpmenu' from styles.css because of MDL-38907.
+  4.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
 Thanks
 ======
