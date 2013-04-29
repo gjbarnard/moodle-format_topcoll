@@ -882,6 +882,10 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   3.  Removed '.jumpmenu' from styles.css because of MDL-38907.
   4.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
+29th April 2013 - Version 2.5.0.3 - Beta
+  1.  Fixed non-referenced member variable bug which showed up as 'undefined' but should have been a reference error in testing.
+  2.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
+
 Thanks
 ======
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -939,6 +943,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 27th April 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 29th April 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

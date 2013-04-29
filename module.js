@@ -44,7 +44,7 @@ M.format_topcoll.ourYUI;
 /**
  * Initialise with the information supplied from the course format 'format.php' so we can operate.
  * @param {Object} Y YUI instance
- * @param {Integer} thecourseid the id of the current course to allow for settings for each course.
+ * @param {String} theCourseId the id of the current course to allow for settings for each course.
  * @param {String} theToggleState the current state of the toggles.
  * @param {Integer} theTogglePersistence Persistence on (1) or off (0).
  * @param {Integer} theDefaultTogglePersistence Persistence all open (1) or all closed (0) when thetogglestate is null.
@@ -56,7 +56,7 @@ M.format_topcoll.init = function(Y, theCourseId, theToggleState, theTogglePersis
     this.courseid = theCourseId;
     this.togglePersistence = theTogglePersistence;
 
-    if (this.toggleState !== null) {
+    if (theToggleState !== null) {
         this.toggleBinaryGlobal = this.to2baseString(theToggleState);
     } else {
         // Reset to default.
