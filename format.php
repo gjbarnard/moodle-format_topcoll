@@ -525,6 +525,9 @@ if ($TCCFG->defaultcookieconsent  == true) {
                             }
                             echo ' <a title="' . $streditsummary . '" href="editsection.php?id=' . $thissection->id . '">' .
                             '<img src="' . $CFG->pixpath . '/t/edit.gif" class="iconsmall edit" alt="' . $streditsummary . '" /></a><br /><br />';
+                        } else if (!empty($thissection->summary)) {
+                            $summaryformatoptions->noclean = true;
+                            echo format_text($thissection->summary, FORMAT_HTML, $summaryformatoptions);
                         }
                         echo '</div>';
 
