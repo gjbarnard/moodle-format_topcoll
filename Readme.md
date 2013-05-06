@@ -6,7 +6,7 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 ==========================
-This version works with Moodle version 2013041100.00 release 2.5beta+ (Build: 20130411) and above until the next release.
+This version works with Moodle version 2013050200.00 release 2.5beta+ (Build: 20130502) and above until the next release.
 
 NOTE: This is a pre-release Moodle 2.5 Beta version that must NOT be used on production servers.  It is subject to change
 at any time without notice.
@@ -203,10 +203,6 @@ Known Issues
     currently experiencing with the MyMobile theme - MDL-33115.  The work around is to refresh the page.  Having altered some
     of the event handing code to operate after page load, I'm hoping that this has now been resolved, please let me know
     if you encounter it.
-4.  When in 'Show one section per page' mode and the column orientation is set to 'Horizontal' the sections on the main
-    page do not fill their correct width.  This is due to the use of the 'section_summary()' method which needs to be changed
-    within the format to set the calculated width on the 'li' tag.  This cannot be done until MDL-39099 is integrated.  This
-    affects the Moodle 2.4 and 2.3 versions of Collapsed Topics and the Columns format too.
 
 Reporting Issues
 ================
@@ -886,6 +882,12 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1.  Fixed non-referenced member variable bug which showed up as 'undefined' but should have been a reference error in testing.
   2.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
+6th May 2013 - Version 2.5.0.4 - Beta
+  1.  Fixed "When in 'Show one section per page' mode and the column orientation is set to 'Horizontal' the sections on the main
+      page do not fill their correct width.  This is due to the use of the 'section_summary()' method which needs to be changed
+      within the format to set the calculated width on the 'li' tag." because the core fix I submitted on MDL-39099 has now
+      been integrated.  Thus requiring version 2013050200.00 2.5beta+ (Build: 20130502).
+
 Thanks
 ======
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -943,6 +945,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 29th April 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 6th May 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

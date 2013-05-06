@@ -211,6 +211,59 @@ class format_topcoll_renderer extends format_section_renderer_base {
     }
 
     /**
+     * Generate a summary of a section for display on the 'course index page'
+     *
+     * @param stdClass $section The course_section entry from DB
+     * @param stdClass $course The course entry from DB
+     * @param array    $mods (argument not used)
+     * @return string HTML to output.
+     */
+    protected function section_summary($section, $course, $mods) {
+        $classattr = 'section main section-summary clearfix';
+        $linkclasses = '';
+
+        // If section is hidden then display grey section link
+        if (!$section->visible) {
+            $classattr .= ' hidden';
+            $linkclasses .= ' dimmed_text';
+        } else if (course_get_format($course)->is_section_current($section)) {
+            $classattr .= ' current';
+        }
+
+        $o = '';
+        $liattributes = array('id' => 'section-'.$section->section, 'class' => $classattr);
+        if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
+            $liattributes['style'] = 'width:' . $this->tccolumnwidth . '%;';
+        }
+        $o .= html_writer::start_tag('li', $liattributes);
+
+        $o .= html_writer::tag('div', '', array('class' => 'left side'));
+        $o .= html_writer::tag('div', '', array('class' => 'right side'));
+        $o .= html_writer::start_tag('div', array('class' => 'content'));
+
+        $title = get_section_name($course, $section);
+        if ($section->uservisible) {
+            $title = html_writer::tag('a', $title,
+                    array('href' => course_get_url($course, $section->section), 'class' => $linkclasses));
+        }
+        $o .= $this->output->heading($title, 3, 'section-title');
+
+        $o.= html_writer::start_tag('div', array('class' => 'summarytext'));
+        $o.= $this->format_summary_text($section);
+        $o.= html_writer::end_tag('div');
+        $o.= $this->section_activity_summary($section, $course, null);
+
+        $context = context_course::instance($course->id);
+        $o .= $this->section_availability_message($section,
+                has_capability('moodle/course:viewhiddensections', $context));
+
+        $o .= html_writer::end_tag('div');
+        $o .= html_writer::end_tag('li');
+
+        return $o;
+    }
+
+    /**
      * Generate the display of the header part of a section before
      * course modules are included
      *
