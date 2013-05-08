@@ -6,7 +6,7 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 ==========================
-This version works with Moodle version 2012120301.02 release 2.4.1+ (Build: 20130118) and above until the next release.
+This version works with Moodle version 2012120303.11 2.4.3+ (Build: 20130502) and above until the next release.
 
 Download and documentation
 ==========================
@@ -37,7 +37,7 @@ please download an older version from https://moodle.org/plugins/pluginversions.
 this table as a guide:
 
 CT version - Moodle version
-V2.4.2       2.4.1+, version 2012120301.02 (Build: 20130118).
+V2.4.4.2     2.4.1+, version 2012120301.02 (Build: 20130118).
 V2.4.1.7     2.4+    version 2012120300.00 (Build: 20121203).
 
 New features for this Moodle 2.4.1 version
@@ -967,6 +967,13 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1.  Fixed non-referenced member variable bug which showed up as 'undefined' but should have been a reference error in testing.
   2.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
+8th May 2013 - Version 2.4.4.3
+  1.  Fixed coding fault with resetting introduced in capabilities change.
+  2.  Fixed "When in 'Show one section per page' mode and the column orientation is set to 'Horizontal' the sections on the main
+      page do not fill their correct width.  This is due to the use of the 'section_summary()' method which needs to be changed
+      within the format to set the calculated width on the 'li' tag." because the core fix I submitted on MDL-39099 has now
+      been integrated.  Thus requiring version 2012120303.11 2.4.3+ (Build: 20130502).
+
 Thanks
 ======
 I would like to thank Anthony Borrow - arborrow@jesuits.net & anthony@moodle.org - for his invaluable input.
@@ -1024,6 +1031,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 29th April 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 8th May 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

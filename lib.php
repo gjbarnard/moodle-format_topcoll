@@ -736,9 +736,9 @@ class format_topcoll extends format_base {
      * @param int $toggleiconset If true, reset the toggle icon set to the default in tcconfig.php.
      */
     public function reset_topcoll_setting($courseid, $layout, $colour, $togglealignment, $toggleiconset) {
-        global $DB, $USER;
+        global $DB, $USER, $COURSE;
 
-        $coursecontext = context_course::instance($courseid);
+        $coursecontext = context_course::instance($COURSE->id);
 
         $currentcourseid = 0;
         if ($courseid == 0) {
