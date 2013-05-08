@@ -519,44 +519,36 @@ class format_topcoll extends format_base {
             if ($changelayout) {
                 $mform->addHelpButton('ctreset', 'ctreset', 'format_topcoll', '', true);
                 $elements[] = $mform->addElement('checkbox', 'resetlayout', get_string('resetlayout', 'format_topcoll'), false);
-                $mform->setAdvanced('resetlayout');
                 $mform->addHelpButton('resetlayout', 'resetlayout', 'format_topcoll', '', true);
             }
 
             if ($changecolour) {
                 $elements[] = $mform->addElement('checkbox', 'resetcolour', get_string('resetcolour', 'format_topcoll'), false);
                 $mform->addHelpButton('resetcolour', 'resetcolour', 'format_topcoll', '', true);
-                $mform->setAdvanced('resetcolour');
             }
 
             if ($changetogglealignment) {
                 $elements[] = $mform->addElement('checkbox', 'resettogglealignment', get_string('resettogglealignment', 'format_topcoll'), false);
                 $mform->addHelpButton('resettogglealignment', 'resettogglealignment', 'format_topcoll', '', true);
-                $mform->setAdvanced('resettogglealignment');
             }
 
             if ($changetoggleiconset) {
                 $elements[] = $mform->addElement('checkbox', 'resettoggleiconset', get_string('resettoggleiconset', 'format_topcoll'), false);
                 $mform->addHelpButton('resettoggleiconset', 'resettoggleiconset', 'format_topcoll', '', true);
-                $mform->setAdvanced('resettoggleiconset');
             }
 
             if ($resetall) {
                 $elements[] = $mform->addElement('checkbox', 'resetalllayout', get_string('resetalllayout', 'format_topcoll'), false);
                 $mform->addHelpButton('resetalllayout', 'resetalllayout', 'format_topcoll', '', true);
-                $mform->setAdvanced('resetalllayout');
 
                 $elements[] = $mform->addElement('checkbox', 'resetallcolour', get_string('resetallcolour', 'format_topcoll'), false);
                 $mform->addHelpButton('resetallcolour', 'resetallcolour', 'format_topcoll', '', true);
-                $mform->setAdvanced('resetallcolour');
 
                 $elements[] = $mform->addElement('checkbox', 'resetalltogglealignment', get_string('resetalltogglealignment', 'format_topcoll'), false);
                 $mform->addHelpButton('resetalltogglealignment', 'resetalltogglealignment', 'format_topcoll', '', true);
-                $mform->setAdvanced('resetalltogglealignment');
 
                 $elements[] = $mform->addElement('checkbox', 'resetalltoggleiconset', get_string('resetalltoggleiconset', 'format_topcoll'), false);
                 $mform->addHelpButton('resetalltoggleiconset', 'resetalltoggleiconset', 'format_topcoll', '', true);
-                $mform->setAdvanced('resetalltoggleiconset');
             }
         }
 
@@ -737,9 +729,9 @@ class format_topcoll extends format_base {
      * @param int $toggleiconset If true, reset the toggle icon set to the default in tcconfig.php.
      */
     public function reset_topcoll_setting($courseid, $layout, $colour, $togglealignment, $toggleiconset) {
-        global $DB, $USER;
+        global $DB, $USER, $COURSE;
 
-        $coursecontext = context_course::instance($courseid);
+        $coursecontext = context_course::instance($COURSE->id);
 
         $currentcourseid = 0;
         if ($courseid == 0) {
