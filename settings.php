@@ -51,26 +51,28 @@ if ($ADMIN->fulltree) {
 
     // Layout configuration.
     // Here you can see what numbers in the array represent what layout for setting the default value below.
-    // 1 => Default.
-    // 2 => No 'Topic x' / 'Week x' / 'Day x'.
-    // 3 => No section number.
-    // 4 => No 'Topic x' / 'Week x' / 'Day x' and no section number.
-    // 5 => No 'Toggle' word.
-    // 6 => No 'Toggle' word and no 'Topic x' / 'Week x' / 'Day x'.
-    // 7 => No 'Toggle' word, no 'Topic x' / 'Week x' / 'Day x' and no section number.
+    // 1 => Toggle word, toggle section x and section number - default.
+    // 2 => Toggle word and section number.
+    // 3 => Toggle word and toggle section x.
+    // 4 => Toggle word.
+    // 5 => Toggle section x and section number.
+    // 6 => Section number.
+    // 7 => No additions.
+    // 8 => Toggle section x.
     // Default layout to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
     $name = 'format_topcoll/defaultlayoutelement';
     $title = get_string('defaultlayoutelement', 'format_topcoll');
-    $description = get_string('defaultlayoutelement_desc', 'format_topcoll');
+    $description = get_string('defaultlayoutelement_descpositive', 'format_topcoll');
     $default = 1;
-    $choices = array(
-        1 => new lang_string('setlayout_default', 'format_topcoll'),                                    // Default.
-        2 => new lang_string('setlayout_no_toggle_section_x', 'format_topcoll'),                        // No 'Topic x' / 'Week x'.
-        3 => new lang_string('setlayout_no_section_no', 'format_topcoll'),                              // No section number.
-        4 => new lang_string('setlayout_no_toggle_section_x_section_no', 'format_topcoll'),             // No 'Topic x' / 'Week x' and no section number.
-        5 => new lang_string('setlayout_no_toggle_word', 'format_topcoll'),                             // No 'Toggle' word.
-        6 => new lang_string('setlayout_no_toggle_word_toggle_section_x', 'format_topcoll'),            // No 'Toggle' word and no 'Topic x' / 'Week x'.
-        7 => new lang_string('setlayout_no_toggle_word_toggle_section_x_section_no', 'format_topcoll')  // No 'Toggle' word, no 'Topic x' / 'Week x'  and no section number.
+    $choices = array( // In insertion order and not numeric for sorting purposes.
+        1 => new lang_string('setlayout_all', 'format_topcoll'),                        // Toggle word, toggle section x and section number - default.
+        3 => new lang_string('setlayout_toggle_word_section_x', 'format_topcoll'),      // Toggle word and toggle section x.
+        2 => new lang_string('setlayout_toggle_word_section_number', 'format_topcoll'), // Toggle word and section number.
+        5 => new lang_string('setlayout_toggle_section_x', 'format_topcoll'),           // Toggle section x and section number.
+        4 => new lang_string('setlayout_toggle_word', 'format_topcoll'),                // Toggle word.
+        8 => new lang_string('setlayout_toggle_section_x', 'format_topcoll'),           // Toggle section x.
+        6 => new lang_string('setlayout_section_number', 'format_topcoll'),             // Section number.
+        7 => new lang_string('setlayout_no_additions', 'format_topcoll')                // No additions.
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 

@@ -112,10 +112,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 if (empty($this->tcsettings)) {
                     $this->tcsettings = $this->courseformat->get_settings();
                 }
-                switch ($this->tcsettings['layoutelement']) {
+                switch ($this->tcsettings['layoutelement']) { // Toggle section x
                     case 1:
                     case 3:
                     case 5:
+                    case 8:
                         // Get the specific words from the language files.
                         $topictext = null;
                         if (($this->tcsettings['layoutstructure'] == 1) || ($this->tcsettings['layoutstructure'] == 4)) {

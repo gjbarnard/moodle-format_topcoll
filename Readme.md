@@ -41,6 +41,7 @@ this table as a guide:
 
 CT version - Moodle version
 V2.5.0.1     2.5beta+ version 2013041100.00 (Build: 20130411).
+V2.5.0.4     2.5beta+ version 2013050200.00 (Build: 20130502).
 
 New features for this Moodle 2.5 version
 ========================================
@@ -78,7 +79,8 @@ Upgrade Instructions
 3. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
 4. In '/course/format/' move old 'topcoll' directory to a backup folder outside of Moodle.
 5. Follow installation instructions above.
-6. Perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
+6. If automatic 'Purge all caches' appears not to work by lack of display etc. then perform a manual 'Purge all caches'
+   under 'Home -> Site administration -> Development -> Purge all caches'.
 7. Put Moodle out of Maintenance Mode.
 
 Upgrading from Moodle 1.9, 2.0 or 2.1
@@ -882,11 +884,15 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   1.  Fixed non-referenced member variable bug which showed up as 'undefined' but should have been a reference error in testing.
   2.  Please perform a 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches' when upgrading.
 
-6th May 2013 - Version 2.5.0.4 - Beta
+8th May 2013 - Version 2.5.0.4 - Beta
   1.  Fixed "When in 'Show one section per page' mode and the column orientation is set to 'Horizontal' the sections on the main
       page do not fill their correct width.  This is due to the use of the 'section_summary()' method which needs to be changed
       within the format to set the calculated width on the 'li' tag." because the core fix I submitted on MDL-39099 has now
       been integrated.  Thus requiring version 2013050200.00 2.5beta+ (Build: 20130502).
+  2.  Changed the layout descriptions to be more 'positive' in nature.  Should be backwards compatible in terms of languages. From
+      a suggestion by Guido Hornig.
+  3.  Added automatic 'Purge all caches' when upgrading.  If this appears not to work by lack of display etc. then perform a
+      manual 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
 
 Thanks
 ======
@@ -945,6 +951,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 6th May 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 8th May 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

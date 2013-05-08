@@ -157,5 +157,11 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
             $dbman->drop_table($table);
         } // ...else Nothing to do as settings put in DB on first use.
     }
+
+    // Automatic 'Purge all caches'....
+    if ($oldversion < 2013050800) {
+        purge_all_caches();
+    }
+
     return $result;
 }

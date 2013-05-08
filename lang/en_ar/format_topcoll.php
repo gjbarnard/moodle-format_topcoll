@@ -31,40 +31,29 @@
 
 // English Pirate Translation of Collapsed Topics Course Format
 
-// Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
-// Possibly legacy to be removed after Moodle 2.0 is stable.
-$string['nametopcoll']='Collapsed Topics';
-$string['formattopcoll']='Collapsed Topics';
-
 // Used in format.php.
-$string['topcolltoggle']='Toggle';
 $string['topcollsidewidth']='40px';
 
 // Toggle all - Moodle Tracker CONTRIB-3190.
-$string['topcollall']='all sections.';
 $string['topcollopened']='Untie';
 $string['topcollclosed']='Tie';
-
-// Moodle 2.0 Enhancement - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages.
-$string['sectionname'] = 'Section';
-$string['pluginname'] = 'Collapsed Topics';
-$string['section0name'] = 'General';
-
-// MDL-26105.
-$string['page-course-view-topcoll'] = 'Any course main page in collapsed topics format';
-$string['page-course-view-topcoll-x'] = 'Any course page in collapsed topics format';
 
 // Layout enhancement - Moodle Tracker CONTRIB-3378.
 $string['formatsettings'] = 'Ye format settings'; // CONTRIB-3529.
 $string['setlayout'] = 'Set thee layout';
 $string['setlayout_default'] = 'Default';
-$string['setlayout_no_toggle_section_x'] = 'No toggle section x';
-$string['setlayout_no_section_no'] = 'No section number';
-$string['setlayout_no_toggle_section_x_section_no'] = 'No toggle section x and section number';
-$string['setlayout_no_toggle_word'] = 'No toggle word';
-$string['setlayout_no_toggle_word_toggle_section_x'] = 'No toggle word and toggle section x';
-$string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'No toggle word, toggle section x and section number';
 $string['setlayoutelements'] = 'Set thee elements';
+// Negative view of layout, kept for previous versions until such time as they are updated.
+$string['setlayout_no_toggle_section_x'] = "No 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 2
+$string['setlayout_no_toggle_section_x_section_no'] = "No 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 4
+$string['setlayout_no_toggle_word_toggle_section_x'] = "No toggle word and 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 6
+$string['setlayout_no_toggle_word_toggle_section_x_section_no'] = "No toggle word, 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 7
+// Positive view of layout.
+$string['setlayout_all'] = "Toggle word, 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 1
+$string['setlayout_toggle_word_section_x'] = "Toggle word and 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 3
+$string['setlayout_toggle_section_x'] = "'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 5
+$string['setlayout_toggle_section_x'] = "'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 8
+
 $string['setlayoutstructure'] = 'Set thee structure';
 $string['setlayoutstructuretopic']='Treasure Chest';
 $string['setlayoutstructureweek']='Sailing Week';
@@ -152,6 +141,7 @@ $string['on'] = 'On';
 $string['defaultcoursedisplay'] = 'Course display default';
 $string['defaultcoursedisplay_desc'] = "Either show all thee sections on a single page or section zero and thee chosen section on page.";
 $string['defaultlayoutelement'] = 'Default layout configuration';
+// Negative view of layout, kept for previous versions until such time as they are updated.
 $string['defaultlayoutelement_desc'] = "Thee layout setting can be one of:
 
 'Default' with everything displayed.
@@ -167,6 +157,24 @@ No 'Toggle' word.
 No 'Toggle' word and no 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'.
 
 No 'Toggle' word, no 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and no section number.";
+// Positive view of layout.
+$string['defaultlayoutelement_descpositive'] = "The layout setting can be one of:
+
+Toggle word, 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number.
+
+Toggle word and 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'.
+
+Toggle word and section number.
+
+'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number.
+
+Toggle word.
+
+'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'.
+
+Section number.
+
+No additions.";
 
 $string['defaultlayoutstructure'] = 'Default structure configuration';
 $string['defaultlayoutstructure_desc'] = "Thee structure setting can be one of:

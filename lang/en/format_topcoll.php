@@ -63,13 +63,25 @@ $string['markthissection'] = 'Highlight this section as the current section';
 $string['formatsettings'] = 'Format reset settings'; // CONTRIB-3529.
 $string['formatsettingsinformation'] = '<br />To reset the settings of the course format to the defaults, click on the icon to the right.';
 $string['setlayout'] = 'Set layout';
-$string['setlayout_default'] = 'Default';
-$string['setlayout_no_toggle_section_x'] = 'No toggle section x';
-$string['setlayout_no_section_no'] = 'No section number';
-$string['setlayout_no_toggle_section_x_section_no'] = 'No toggle section x and section number';
-$string['setlayout_no_toggle_word'] = 'No toggle word';
-$string['setlayout_no_toggle_word_toggle_section_x'] = 'No toggle word and toggle section x';
-$string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'No toggle word, toggle section x and section number';
+
+// Negative view of layout, kept for previous versions until such time as they are updated.
+$string['setlayout_default'] = 'Default'; // 1
+$string['setlayout_no_toggle_section_x'] = 'No toggle section x'; // 2
+$string['setlayout_no_section_no'] = 'No section number'; // 3
+$string['setlayout_no_toggle_section_x_section_no'] = 'No toggle section x and section number'; // 4
+$string['setlayout_no_toggle_word'] = 'No toggle word'; // 5
+$string['setlayout_no_toggle_word_toggle_section_x'] = 'No toggle word and toggle section x'; // 6
+$string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'No toggle word, toggle section x and section number'; // 7
+// Positive view of layout.
+$string['setlayout_all'] = "Toggle word, 'Topic x' / 'Week x' / 'Day x' and section number"; // 1
+$string['setlayout_toggle_word_section_number'] = 'Toggle word and section number'; // 2
+$string['setlayout_toggle_word_section_x'] = "Toggle word and 'Topic x' / 'Week x' / 'Day x'"; // 3
+$string['setlayout_toggle_word'] = 'Toggle word'; // 4
+$string['setlayout_toggle_section_x'] = "'Topic x' / 'Week x' / 'Day x' and section number"; // 5
+$string['setlayout_section_number'] = 'Section number'; // 6
+$string['setlayout_no_additions'] = 'No additions'; // 7
+$string['setlayout_toggle_section_x'] = "'Topic x' / 'Week x' / 'Day x'"; // 8
+
 $string['setlayoutelements'] = 'Set elements';
 $string['setlayoutstructure'] = 'Set structure';
 $string['setlayoutstructuretopic'] = 'Topic';
@@ -167,6 +179,7 @@ $string['on'] = 'On';
 $string['defaultcoursedisplay'] = 'Course display default';
 $string['defaultcoursedisplay_desc'] = "Either show all the sections on a single page or section zero and the chosen section on page.";
 $string['defaultlayoutelement'] = 'Default layout configuration';
+// Negative view of layout, kept for previous versions until such time as they are updated.
 $string['defaultlayoutelement_desc'] = "The layout setting can be one of:
 
 'Default' with everything displayed.
@@ -182,6 +195,24 @@ No 'Toggle' word.
 No 'Toggle' word and no 'Topic x' / 'Week x' / 'Day x'.
 
 No 'Toggle' word, no 'Topic x' / 'Week x' / 'Day x' and no section number.";
+// Positive view of layout.
+$string['defaultlayoutelement_descpositive'] = "The layout setting can be one of:
+
+Toggle word, 'Topic x' / 'Week x' / 'Day x' and section number.
+
+Toggle word and 'Topic x' / 'Week x' / 'Day x'.
+
+Toggle word and section number.
+
+'Topic x' / 'Week x' / 'Day x' and section number.
+
+Toggle word.
+
+'Topic x' / 'Week x' / 'Day x'.
+
+Section number.
+
+No additions.";
 
 $string['defaultlayoutstructure'] = 'Default structure configuration';
 $string['defaultlayoutstructure_desc'] = "The structure setting can be one of:
