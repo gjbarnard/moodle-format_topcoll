@@ -167,21 +167,21 @@ $string['on'] = 'On';
 $string['defaultcoursedisplay'] = 'Course display default';
 $string['defaultcoursedisplay_desc'] = "Either show all the sections on a single page or section zero and the chosen section on page.";
 $string['defaultlayoutelement'] = 'Default layout configuration';
-$string['defaultlayoutelement_desc'] = "The layout setting can be one of:
+$string['defaultlayoutelement_desc'] = "The layout setting can be one of the following combination of additional information:
 
-'Default' with everything displayed.
+'Default' with extra display of  section number, 'Toggle' word, 'Topic/Week/Day x'
 
-No 'Topic x' / 'Week x' / 'Day x'.
+section number, 'Toggle' word
 
-No section number.
+'Toggle' word, 'Topic/Week/Day x'
 
-No 'Topic x' / 'Week x' / 'Day x' and no section number.
+'Toggle' word
 
-No 'Toggle' word.
+section number,'Topic/Week/Day x'
 
-No 'Toggle' word and no 'Topic x' / 'Week x' / 'Day x'.
+section number
 
-No 'Toggle' word, no 'Topic x' / 'Week x' / 'Day x' and no section number.";
+no extra ;
 
 $string['defaultlayoutstructure'] = 'Default structure configuration';
 $string['defaultlayoutstructure_desc'] = "The structure setting can be one of:
