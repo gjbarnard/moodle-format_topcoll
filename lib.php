@@ -345,14 +345,14 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => array( // In insertion order and not numeric for sorting purposes.
-                        array(1 => new lang_string('setlayout_all', 'format_topcoll'),                        // Toggle word, toggle section x and section number.
-                              3 => new lang_string('setlayout_toggle_word_section_x', 'format_topcoll'),      // Toggle word and toggle section x.
-                              2 => new lang_string('setlayout_toggle_word_section_number', 'format_topcoll'), // Toggle word and section number.
-                              5 => new lang_string('setlayout_toggle_section_x', 'format_topcoll'),           // Toggle section x and section number.
-                              4 => new lang_string('setlayout_toggle_word', 'format_topcoll'),                // Toggle word.
-                              8 => new lang_string('setlayout_toggle_section_x', 'format_topcoll'),           // Toggle section x.
-                              6 => new lang_string('setlayout_section_number', 'format_topcoll'),             // Section number.
-                              7 => new lang_string('setlayout_no_additions', 'format_topcoll'))               // No additions.
+                        array(1 => new lang_string('setlayout_all', 'format_topcoll'),                             // Toggle word, toggle section x and section number.
+                              3 => new lang_string('setlayout_toggle_word_section_x', 'format_topcoll'),           // Toggle word and toggle section x.
+                              2 => new lang_string('setlayout_toggle_word_section_number', 'format_topcoll'),      // Toggle word and section number.
+                              5 => new lang_string('setlayout_toggle_section_x_section_number', 'format_topcoll'), // Toggle section x and section number.
+                              4 => new lang_string('setlayout_toggle_word', 'format_topcoll'),                     // Toggle word.
+                              8 => new lang_string('setlayout_toggle_section_x', 'format_topcoll'),                // Toggle section x.
+                              6 => new lang_string('setlayout_section_number', 'format_topcoll'),                  // Section number.
+                              7 => new lang_string('setlayout_no_additions', 'format_topcoll'))                    // No additions.
                     )
                 );
                 $courseformatoptionsedit['layoutstructure'] = array(

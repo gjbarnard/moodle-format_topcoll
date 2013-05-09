@@ -896,6 +896,7 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 
 9th May 2013 - Version 2.5.0.5 - Beta
   1.  Fixed coding fault with resetting introduced in capabilities change.
+  2.  Fixed coding fault with language string in layout settings.
 
 Thanks
 ======
