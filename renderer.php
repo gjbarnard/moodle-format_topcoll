@@ -551,8 +551,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
         unset($sections[0]);
         if ($thissection->summary or !empty($modinfo->sections[0]) or $PAGE->user_is_editing()) {
             echo $this->section_header($thissection, $course, false, 0);
-            echo $this->courserenderer->course_section_cm_list($course, $thissection);
-            echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section);
+            echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
+            echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0);
             echo $this->section_footer();
         }
 
@@ -697,8 +697,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
                         $thissection->toggle = substr($tb, $section, 1);
                         echo $this->section_header($thissection, $course, false, 0);
                         if ($thissection->uservisible) {
-                            echo $this->courserenderer->course_section_cm_list($course, $thissection);
-                            echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section);
+                            echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
+                            echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0);
                         }
                         echo html_writer::end_tag('div');
                         echo $this->section_footer();
@@ -759,7 +759,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     continue;
                 }
                 echo $this->stealth_section_header($section);
-                echo $this->courserenderer->course_section_cm_list($course, $thissection->section);
+                echo $this->courserenderer->course_section_cm_list($course, $thissection->section, 0);
                 echo $this->stealth_section_footer();
             }
 
