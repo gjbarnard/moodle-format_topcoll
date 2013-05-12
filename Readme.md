@@ -894,9 +894,12 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
   3.  Added automatic 'Purge all caches' when upgrading.  If this appears not to work by lack of display etc. then perform a
       manual 'Purge all caches' under 'Home -> Site administration -> Development -> Purge all caches'.
 
-12th May 2013 - Version 2.5.0.5 - Beta
-  1.  Fixed coding fault with resetting introduced in capabilities change
-  2.  Changes for MDL-39542.
+9th May 2013 - Version 2.5.0.5 - Beta
+  1.  Fixed coding fault with resetting introduced in capabilities change.
+
+12th May 2013 - Version 2.5.0.6 - Beta
+  1.  Changes for MDL-39542.
+
 
 Thanks
 ======
