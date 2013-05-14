@@ -6,10 +6,10 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 ==========================
-This version works with Moodle version 2013050200.00 release 2.5beta+ (Build: 20130502) and above until the next release.
+This version works with Moodle version 2013051400.00 release 2.5 (Build: 20130514) and above until the next release.
 
-NOTE: This is a pre-release Moodle 2.5 Beta version that must NOT be used on production servers.  It is subject to change
-at any time without notice.
+Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
+'docs.moodle.org/25/en/Installing_Moodle'.
 
 Download and documentation
 ==========================
@@ -901,6 +901,8 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
 12th May 2013 - Version 2.5.0.6 - Beta
   1.  Changes for MDL-39542.
 
+14th May 2013 Version 2.5.1 - Stable
+  1.  First stable version for Moodle 2.5 stable.
 
 Thanks
 ======
@@ -959,6 +961,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 12th May 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 14th May 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard
