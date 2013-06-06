@@ -504,6 +504,23 @@ class format_topcoll extends format_base {
         $elements = parent::create_edit_form_elements($mform, $forsection);
         if ($forsection == false) {
             global $COURSE, $USER;
+            /*
+             * Increase the number of sections combo box values if the user has increased the number of sections
+             * using the icon on the course page beyond course 'maxsections' or course 'maxsections' has been
+             * reduced below the number of sections already set for the course on the site administration course
+             * defaults page.  This is so that the number of sections is not reduced leaving unintended orphaned
+             * activities / resources.
+             */
+            $maxsections = get_config('moodlecourse', 'maxsections');
+            $numsections = $mform->getElementValue('numsections');
+            $numsections = $numsections[0];
+            if ($numsections > $maxsections) {
+                $element = $mform->getElement('numsections');
+                for ($i = $maxsections+1; $i <= $numsections; $i++) {
+                    $element->addOption("$i", $i);
+                }
+            }
+
             $coursecontext = context_course::instance($COURSE->id);
 
             $changelayout = has_capability('format/topcoll:changelayout', $coursecontext);
@@ -815,7 +832,6 @@ class format_topcoll extends format_base {
 
         $this->update_course_format_options($data);
     }
-
 }
 
 /**
