@@ -47,10 +47,23 @@ class format_topcoll_renderer extends format_section_renderer_base {
     private $defaultuserpreference; // Default user preference when none set - bool - true all open, false all closed.
 
     /**
+     * Constructor method, calls the parent constructor - MDL-21097
+     *
+     * @param moodle_page $page
+     * @param string $target one of rendering target constants
+     */
+    public function __construct(moodle_page $page, $target) {
+        parent::__construct($page, $target);
+
+        // Since format_topcoll_renderer::section_edit_controls() only displays the 'Set current section' control when editing mode is on
+        // we need to be sure that the link 'Turn editing mode on' is available for a user who does not have any other managing capability.
+        $page->set_other_editing_capability('moodle/course:setcurrentsection');
+    }
+
+    /**
      * Generate the starting container html for a list of sections
      * @return string HTML to output.
      */
-
     protected function start_section_list() {
         return html_writer::start_tag('ul', array('class' => 'ctopics'));
     }

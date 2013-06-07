@@ -234,6 +234,7 @@ Version Information
   1.  Implemented MDL-39764 to fix maxsections < numsections issue.
   2.  Reversed the order of the history in this file for easy reading.
   3.  Cleaned up some of the CSS.
+  4.  Changes to 'renderer.php' because of MDL-21097.
 
 14th May 2013 Version 2.5.1 - Stable
   1.  First stable version for Moodle 2.5 stable.
