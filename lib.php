@@ -63,6 +63,16 @@ class format_topcoll extends format_base {
      * @return string The section name.
      */
     public function get_section_name($section) {
+    	return $this->get_proper_section_name($section);
+    	}
+    
+    /**
+     * Allows us to choose if we want the "- Toggle" suffix on the end 
+     * @param int|stdClass $section Section object from database or just field section.section
+     * @param bool $fornavigation True to suppress the suffix
+     * @return string
+   	*/
+    protected function get_proper_section_name($section, $fornavigation = false) {
         $course = $this->get_course();
         $thesection = $this->get_section($section);
         if (is_null($thesection)) {
@@ -344,15 +354,14 @@ class format_topcoll extends format_base {
                     'help' => 'setlayoutelements',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
-                    'element_attributes' => array( // In insertion order and not numeric for sorting purposes.
-                        array(1 => new lang_string('setlayout_all', 'format_topcoll'),                             // Toggle word, toggle section x and section number.
-                              3 => new lang_string('setlayout_toggle_word_section_x', 'format_topcoll'),           // Toggle word and toggle section x.
-                              2 => new lang_string('setlayout_toggle_word_section_number', 'format_topcoll'),      // Toggle word and section number.
-                              5 => new lang_string('setlayout_toggle_section_x_section_number', 'format_topcoll'), // Toggle section x and section number.
-                              4 => new lang_string('setlayout_toggle_word', 'format_topcoll'),                     // Toggle word.
-                              8 => new lang_string('setlayout_toggle_section_x', 'format_topcoll'),                // Toggle section x.
-                              6 => new lang_string('setlayout_section_number', 'format_topcoll'),                  // Section number.
-                              7 => new lang_string('setlayout_no_additions', 'format_topcoll'))                    // No additions.
+                    'element_attributes' => array(
+                        array(1 => new lang_string('setlayout_default', 'format_topcoll'),                                    // Default.
+                              2 => new lang_string('setlayout_no_toggle_section_x', 'format_topcoll'),                        // No 'Topic x' / 'Week x'.
+                              3 => new lang_string('setlayout_no_section_no', 'format_topcoll'),                              // No section number.
+                              4 => new lang_string('setlayout_no_toggle_section_x_section_no', 'format_topcoll'),             // No 'Topic x' / 'Week x' and no section number.
+                              5 => new lang_string('setlayout_no_toggle_word', 'format_topcoll'),                             // No 'Toggle' word.
+                              6 => new lang_string('setlayout_no_toggle_word_toggle_section_x', 'format_topcoll'),            // No 'Toggle' word and no 'Topic x' / 'Week x'.
+                              7 => new lang_string('setlayout_no_toggle_word_toggle_section_x_section_no', 'format_topcoll')) // No 'Toggle' word, no 'Topic x' / 'Week x'  and no section number.
                     )
                 );
                 $courseformatoptionsedit['layoutstructure'] = array(
@@ -504,23 +513,6 @@ class format_topcoll extends format_base {
         $elements = parent::create_edit_form_elements($mform, $forsection);
         if ($forsection == false) {
             global $COURSE, $USER;
-            /*
-             * Increase the number of sections combo box values if the user has increased the number of sections
-             * using the icon on the course page beyond course 'maxsections' or course 'maxsections' has been
-             * reduced below the number of sections already set for the course on the site administration course
-             * defaults page.  This is so that the number of sections is not reduced leaving unintended orphaned
-             * activities / resources.
-             */
-            $maxsections = get_config('moodlecourse', 'maxsections');
-            $numsections = $mform->getElementValue('numsections');
-            $numsections = $numsections[0];
-            if ($numsections > $maxsections) {
-                $element = $mform->getElement('numsections');
-                for ($i = $maxsections+1; $i <= $numsections; $i++) {
-                    $element->addOption("$i", $i);
-                }
-            }
-
             $coursecontext = context_course::instance($COURSE->id);
 
             $changelayout = has_capability('format/topcoll:changelayout', $coursecontext);
@@ -536,36 +528,44 @@ class format_topcoll extends format_base {
             if ($changelayout) {
                 $mform->addHelpButton('ctreset', 'ctreset', 'format_topcoll', '', true);
                 $elements[] = $mform->addElement('checkbox', 'resetlayout', get_string('resetlayout', 'format_topcoll'), false);
+                $mform->setAdvanced('resetlayout');
                 $mform->addHelpButton('resetlayout', 'resetlayout', 'format_topcoll', '', true);
             }
 
             if ($changecolour) {
                 $elements[] = $mform->addElement('checkbox', 'resetcolour', get_string('resetcolour', 'format_topcoll'), false);
                 $mform->addHelpButton('resetcolour', 'resetcolour', 'format_topcoll', '', true);
+                $mform->setAdvanced('resetcolour');
             }
 
             if ($changetogglealignment) {
                 $elements[] = $mform->addElement('checkbox', 'resettogglealignment', get_string('resettogglealignment', 'format_topcoll'), false);
                 $mform->addHelpButton('resettogglealignment', 'resettogglealignment', 'format_topcoll', '', true);
+                $mform->setAdvanced('resettogglealignment');
             }
 
             if ($changetoggleiconset) {
                 $elements[] = $mform->addElement('checkbox', 'resettoggleiconset', get_string('resettoggleiconset', 'format_topcoll'), false);
                 $mform->addHelpButton('resettoggleiconset', 'resettoggleiconset', 'format_topcoll', '', true);
+                $mform->setAdvanced('resettoggleiconset');
             }
 
             if ($resetall) {
                 $elements[] = $mform->addElement('checkbox', 'resetalllayout', get_string('resetalllayout', 'format_topcoll'), false);
                 $mform->addHelpButton('resetalllayout', 'resetalllayout', 'format_topcoll', '', true);
+                $mform->setAdvanced('resetalllayout');
 
                 $elements[] = $mform->addElement('checkbox', 'resetallcolour', get_string('resetallcolour', 'format_topcoll'), false);
                 $mform->addHelpButton('resetallcolour', 'resetallcolour', 'format_topcoll', '', true);
+                $mform->setAdvanced('resetallcolour');
 
                 $elements[] = $mform->addElement('checkbox', 'resetalltogglealignment', get_string('resetalltogglealignment', 'format_topcoll'), false);
                 $mform->addHelpButton('resetalltogglealignment', 'resetalltogglealignment', 'format_topcoll', '', true);
+                $mform->setAdvanced('resetalltogglealignment');
 
                 $elements[] = $mform->addElement('checkbox', 'resetalltoggleiconset', get_string('resetalltoggleiconset', 'format_topcoll'), false);
                 $mform->addHelpButton('resetalltoggleiconset', 'resetalltoggleiconset', 'format_topcoll', '', true);
+                $mform->setAdvanced('resetalltoggleiconset');
             }
         }
 
@@ -831,6 +831,125 @@ class format_topcoll extends format_base {
         $data = array('layoutcolumns' => $layoutcolumns);
 
         $this->update_course_format_options($data);
+    }
+    /**
+     * Generates a navigation structure for the course format 
+     * 
+     * Primarily this removes the "- Toggle" from the options that are displayed in the navigation.
+     * 
+     * @param unknown $navigation
+     * @param navigation_node $coursenode
+     * @return multitype:Ambigous <unknown, multitype:, multitype:multitype:stdClass  unknown >
+     */
+    public function extend_course_navigation($navigation, navigation_node $coursenode) {
+	    global $CFG, $DB, $USER, $SITE;
+	    $navigationsections = array();
+        
+	    if ($course = $this->get_course()) {
+	    	//lifted from $navigation->load_generic_course_sections($course, $node);
+
+	    	require_once($CFG->dirroot.'/course/lib.php');
+	    
+	    	list($sections, $activities) = $this->generate_sections_and_activities($navigation,$course);
+	    
+	    	foreach ($sections as $sectionid => $section) {
+		    	$section = clone($section);
+		    	if ($course->id == $SITE->id) {
+		    		$navigation->load_section_activities($coursenode, $section->section, $activities);
+		    	} else {
+			    	if (!$section->uservisible ) {/* || (!$navigation->showemptysections &&
+			    	!$section->hasactivites && $navigation->includesectionnum !== $section->section)) {
+                    */
+			    		continue;
+			    	}
+			    
+			    	$sectionname = $this->get_proper_section_name($section, true);
+			    	//get_section_name($course, $section);
+			    	$url = course_get_url($course, $section->section, array('navigation' => true));
+			    
+			    			$sectionnode = $coursenode->add($sectionname, $url, navigation_node::TYPE_SECTION, null, $section->id);
+			    			$sectionnode->nodetype = navigation_node::NODETYPE_BRANCH;
+			    			$sectionnode->hidden = (!$section->visible || !$section->available);
+			    					if ($navigation->includesectionnum !== false && $this->includesectionnum == $section->section) {
+			    					$navigation->load_section_activities($sectionnode, $section->section, $activities);
+			    	}
+			    	$section->sectionnode = $sectionnode;
+	    			$navigationsections[$sectionid] = $section;
+		    	}
+	    	}
+	    
+	    	}
+		return $navigationsections;
+    }
+    
+    /**
+     * Generates an array of sections and an array of activities for the given course.
+     *
+     * This is lifted from navigation api since we don't want to change the code but it won't 
+     * let us call it as it's protected there.
+     * This method uses the cache to improve performance and avoid the get_fast_modinfo call
+     *
+     * @param stdClass $course
+     * @return array Array($sections, $activities)
+     */
+    protected function generate_sections_and_activities($navigation, stdClass $course) {
+        global $CFG;
+        require_once($CFG->dirroot.'/course/lib.php');
+
+        $modinfo = get_fast_modinfo($course);
+        $sections = $modinfo->get_section_info_all();
+
+        // For course formats using 'numsections' trim the sections list
+        $courseformatoptions = course_get_format($course)->get_format_options();
+        if (isset($courseformatoptions['numsections'])) {
+            $sections = array_slice($sections, 0, $courseformatoptions['numsections']+1, true);
+        }
+
+        $activities = array();
+
+        foreach ($sections as $key => $section) {
+            // Clone and unset summary to prevent $SESSION bloat (MDL-31802).
+            $sections[$key] = clone($section);
+            unset($sections[$key]->summary);
+            $sections[$key]->hasactivites = false;
+            if (!array_key_exists($section->section, $modinfo->sections)) {
+                continue;
+            }
+            foreach ($modinfo->sections[$section->section] as $cmid) {
+                $cm = $modinfo->cms[$cmid];
+                if (!$cm->uservisible) {
+                    continue;
+                }
+                $activity = new stdClass;
+                $activity->id = $cm->id;
+                $activity->course = $course->id;
+                $activity->section = $section->section;
+                $activity->name = $cm->name;
+                $activity->icon = $cm->icon;
+                $activity->iconcomponent = $cm->iconcomponent;
+                $activity->hidden = (!$cm->visible);
+                $activity->modname = $cm->modname;
+                $activity->nodetype = navigation_node::NODETYPE_LEAF;
+                $activity->onclick = $cm->get_on_click();
+                $url = $cm->get_url();
+                if (!$url) {
+                    $activity->url = null;
+                    $activity->display = false;
+                } else {
+                    $activity->url = $cm->get_url()->out();
+                    $activity->display = true;
+                    if ($navigation->module_extends_navigation($cm->modname)) {
+                        $activity->nodetype = navigation_node::NODETYPE_BRANCH;
+                    }
+                }
+                $activities[$cmid] = $activity;
+                if ($activity->display) {
+                    $sections[$key]->hasactivites = true;
+                }
+            }
+        }
+
+        return array($sections, $activities);
     }
 }
 
