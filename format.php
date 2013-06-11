@@ -32,6 +32,9 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->libdir . '/filelib.php');
 require_once($CFG->libdir . '/completionlib.php');
+require_once($CFG->dirroot . '/course/format/topcoll/togglelib.php');
+$togglelib = new topcoll_togglelib;
+echo $togglelib->test();
 
 // Horrible backwards compatible parameter aliasing..
 if ($ctopic = optional_param('ctopics', 0, PARAM_INT)) { // Collapsed Topics old section parameter.
