@@ -673,6 +673,18 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     }
                     $tb = $ts1 . $ts2;
                 } else {
+                    // Check we have enough digits for the number of toggles in case this has increased.
+                    $numdigits = $this->togglelib->get_required_digits($course->numsections);
+                    if ($numdigits > strlen($this->userpreference)) {
+                        if ($this->defaultuserpreference == 0) {
+                            $dchar = $this->togglelib->get_min_digit();
+                        } else {
+                            $dchar = $this->togglelib->get_max_digit();
+                        }
+                        for ($i = strlen($this->userpreference); $i < $numdigits; $i++) {
+                            $this->userpreference .= $dchar;
+                        }
+                    }
                     $this->togglelib->set_toggles($this->userpreference);
                 }
             } else {

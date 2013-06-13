@@ -43,7 +43,6 @@ class topcoll_togglelib {
     const TOGGLE_2 = 16;
     const TOGGLE_1 = 32;
 
-    private $current_value;
     private $toggles;
 
     public function set_toggles($toggles) {
@@ -135,8 +134,8 @@ class topcoll_togglelib {
         return ord($char) - 58;
     }
 
-    private static function encode_value_to_character($var) {
-        return chr($var + 58);
+    private static function encode_value_to_character($val) {
+        return chr($val + 58);
     }
 
     /**
