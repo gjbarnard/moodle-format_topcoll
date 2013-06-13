@@ -34,6 +34,7 @@
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/course/format/renderer.php');
 require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
+require_once($CFG->dirroot . '/course/format/topcoll/togglelib.php');
 
 class format_topcoll_renderer extends format_section_renderer_base {
 
@@ -45,6 +46,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
     private $tcsettings; // Settings for the format - array.
     private $userpreference; // User toggle state preference - string.
     private $defaultuserpreference; // Default user preference when none set - bool - true all open, false all closed.
+    private $togglelib;
+    private $isoldtogglepreference = false;
 
     /**
      * Constructor method, calls the parent constructor - MDL-21097
@@ -54,6 +57,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
      */
     public function __construct(moodle_page $page, $target) {
         parent::__construct($page, $target);
+
+        $this->togglelib = new topcoll_togglelib;
 
         // Since format_topcoll_renderer::section_edit_controls() only displays the 'Set current section' control when editing mode is on
         // we need to be sure that the link 'Turn editing mode on' is available for a user who does not have any other managing capability.
@@ -300,7 +305,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if (!$section->visible) {
                 $sectionstyle = ' hidden';
             } else if (course_get_format($course)->is_section_current($section)) {
-                $section->toggle = '1'; // Open current section regardless of toggle state.
+                $section->toggle = true; // Open current section regardless of toggle state.
                 $sectionstyle = ' current';
                 $rightcurrent = ' left';
             }
@@ -336,7 +341,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $o .= html_writer::start_tag('div', array('class' => 'sectionhead toggle toggle-'.$this->tcsettings['toggleiconset'], 'id' => 'toggle-' . $section->section));
 
             $title = get_section_name($course, $section);
-            if ((!($section->toggle === null)) && ($section->toggle == '1')) {
+            if ((!($section->toggle === null)) && ($section->toggle == true)) {
                 $toggleclass = 'toggle_open';
                 $sectionstyle = 'display: block;';
             } else {
@@ -536,6 +541,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
         global $PAGE;
 
+        echo $this->togglelib->test();
+
         $userisediting = $PAGE->user_is_editing();
 
         $modinfo = get_fast_modinfo($course);
@@ -651,24 +658,37 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $shownsectioncount = 0;
 
             if ($this->userpreference != null) {
-                $ts1 = base_convert(substr($this->userpreference, 0, 6), 36, 2);
-                $ts2 = base_convert(substr($this->userpreference, 6, 12), 36, 2);
-                $thesparezeros = "00000000000000000000000000";
-                if (strlen($ts1) < 26) {
-                    // Need to PAD.
-                    $ts1 = substr($thesparezeros, 0, (26 - strlen($ts1))) . $ts1;
-                }
-                if (strlen($ts2) < 27) {
-                    // Need to PAD.
-                    $ts2 = substr($thesparezeros, 0, (27 - strlen($ts2))) . $ts2;
-                }
-                $tb = $ts1 . $ts2;
-            } else {
-                if ($this->defaultuserpreference == 0) {
-                    $tb = '10000000000000000000000000000000000000000000000000000';
+                $this->isoldtogglepreference = $this->togglelib->is_old_preference($this->userpreference);
+                if ($this->isoldtogglepreference == true) {
+                    $ts1 = base_convert(substr($this->userpreference, 0, 6), 36, 2);
+                    $ts2 = base_convert(substr($this->userpreference, 6, 12), 36, 2);
+                    $thesparezeros = "00000000000000000000000000";
+                    if (strlen($ts1) < 26) {
+                        // Need to PAD.
+                        $ts1 = substr($thesparezeros, 0, (26 - strlen($ts1))) . $ts1;
+                    }
+                    if (strlen($ts2) < 27) {
+                        // Need to PAD.
+                        $ts2 = substr($thesparezeros, 0, (27 - strlen($ts2))) . $ts2;
+                    }
+                    $tb = $ts1 . $ts2;
                 } else {
-                    $tb = '11111111111111111111111111111111111111111111111111111';
+                    $this->togglelib->set_toggles($this->userpreference);
                 }
+            } else {
+                $numdigits = $this->togglelib->get_required_digits($course->numsections);
+                if ($this->defaultuserpreference == 0) {
+                    //$tb = '10000000000000000000000000000000000000000000000000000';
+                    $dchar = $this->togglelib->get_min_digit();
+                } else {
+                    //$tb = '11111111111111111111111111111111111111111111111111111';
+                    $dchar = $this->togglelib->get_max_digit();
+                }
+                $this->userpreference = '';
+                for ($i = 0; $i < $numdigits; $i++) {
+                    $this->userpreference .= $dchar;
+                }
+                $this->togglelib->set_toggles($this->userpreference);
             }
 
             while ($loopsection <= $course->numsections) {
@@ -707,7 +727,16 @@ class format_topcoll_renderer extends format_section_renderer_base {
                         // Display section summary only.
                         echo $this->section_summary($thissection, $course, null);
                     } else {
-                        $thissection->toggle = substr($tb, $section, 1);
+                        if ($this->isoldtogglepreference == true) {
+                            $togglestate = substr($tb, $section, 1);
+                            if ($togglestate == '1') {
+                                $thissection->toggle = true;
+                            } else {
+                                $thissection->toggle = false;
+                            }
+                        } else {
+                            $thissection->toggle = $this->togglelib->get_toggle_state($togglenum);
+                        }
                         echo $this->section_header($thissection, $course, false, 0);
                         if ($thissection->uservisible) {
                             echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);

@@ -11,9 +11,8 @@
  * @package    course/format
  * @subpackage topcoll
  * @version    See the value of '$plugin->version' in version.php.
- * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
+ * @copyright  &copy; 2013-onwards G J Barnard.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
- * @author     Based on code originally written by Dan Poltawski.
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
@@ -33,8 +32,7 @@
 
 class topcoll_togglelib {
 
-    //private static $digits = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-    private static $digits = ":;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy";
+    //private static $digits = ":;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy";
     // Note: An ':' is 58 Ascii so to go between six digit base 2 and this then add / substract 58.
     //       This has been chosen to avoid digits which are in the old method.
 
@@ -79,6 +77,29 @@ class topcoll_togglelib {
             $value &= ~$toggleflag;
         }
         $this->toggles[$togglecharpos-1] = self::encode_value_to_character($value);
+    }
+
+    public function is_old_preference($pref) {
+        $retr = false;
+        $firstchar = $pref[0];
+
+        if (($firstchar == '0') || ($firstchar == '1')) {
+            $retr = true;
+        }
+
+        return $retr;
+    }
+
+    public function get_required_digits($numtoggles) {
+        return self::get_toggle_pos($numtoggles);
+    }
+
+    public function get_min_digit() {
+        return ':';
+    }
+
+    public function get_max_digit() {
+        return 'y';
     }
 
     private static function get_toggle_pos($togglenum) {
