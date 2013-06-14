@@ -95,7 +95,7 @@ body.tablettheme .course-content ul.ctopics li.tcsection .content, body.tabletth
 
 /* Arrow icon set. */
 .course-content ul.ctopics li.section .content .toggle-arrow a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open { /* JavaScript disabled */
-    background-image: url([[pix:format_topcoll|arrow_right]]);
+    background-image: url([[pix:format_topcoll|arrow_down]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow a.toggle_closed { /* JavaScript enabled */
@@ -124,7 +124,7 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow a.to
 
 /* Point icon set. */
 .course-content ul.ctopics li.section .content .toggle-point a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open { /* JavaScript disabled */
-    background-image: url([[pix:format_topcoll|point_right]]);
+    background-image: url([[pix:format_topcoll|point_down]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-point a.toggle_closed { /* JavaScript enabled */
@@ -153,7 +153,7 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-point a.to
 
 /* Power icon set. */
 .course-content ul.ctopics li.section .content .toggle-power a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open { /* JavaScript disabled */
-    background-image: url([[pix:format_topcoll|toggle_minus]]);
+    background-image: url([[pix:format_topcoll|toggle_plus]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-power a.toggle_closed { /* JavaScript enabled */
@@ -295,9 +295,13 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
     min-height: 30px;
 }
 
-/* -- Hiding the sections -- */
+/* -- Hiding / Showing the sections -- */
 body.jsenabled .toggledsection {
-    display:none; /* If JavaScript is enabled then this css will apply and the section will be hidden. */
+    display: none; /* If JavaScript is enabled then this css will apply and the section will be hidden. */
+}
+
+body.jsenabled .toggledsection.sectionopen {
+    display: block;
 }
 
 /* -- Size of the spacer row -- */
