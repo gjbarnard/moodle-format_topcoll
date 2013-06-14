@@ -85,7 +85,7 @@ M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections,
             } else {
                 dchar = this.get_max_digit();
             }
-            for (var i = this.userpreference.length; i < numdigits; i++) {
+            for (var i = this.togglestate.length; i < numdigits; i++) {
                 this.togglestate += dchar;
             }
         }
@@ -157,8 +157,7 @@ M.format_topcoll.resetState = function(dchar) {
 // Toggle functions
 // Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the most significant bit and represents the non-toggling topic 0.
 // Args - toggleNum is an integer and toggleVal is a string which will either be "1" or "0"
-//        savetoggles save the toggle state - used so that all_toggles does not make multiple requests but instead one.
-M.format_topcoll.togglebinary = function(toggleNum, toggleVal, savetoggles) {
+M.format_topcoll.togglebinary = function(toggleNum, toggleVal) {
     "use strict";
     // Toggle num should be between 1 and 52 - see definition of toggleBinaryGlobal above.
     if ((toggleNum >= 1) && (toggleNum <= 52)) {
@@ -166,10 +165,6 @@ M.format_topcoll.togglebinary = function(toggleNum, toggleVal, savetoggles) {
         var start = this.toggleBinaryGlobal.substring(0,toggleNum);
         var end = this.toggleBinaryGlobal.substring(toggleNum+1);
         this.toggleBinaryGlobal = start + toggleVal + end;
-
-        if (savetoggles === true) {
-            this.save_toggles();
-        }
     }
 };
 
@@ -181,16 +176,16 @@ M.format_topcoll.toggle_topic = function(targetNode, toggleNum) {
     if (!targetLink.hasClass('toggle_open')) {
         targetLink.addClass('toggle_open').removeClass('toggle_closed');
         targetNode.next('.toggledsection').show().setStyle('display', 'block');
-        this.togglebinary(toggleNum, "1", true);
+        this.togglebinary(toggleNum, "1");
         state = true;
     } else {
         targetLink.addClass('toggle_closed').removeClass('toggle_open');
         targetNode.next('.toggledsection').hide();
-        this.togglebinary(toggleNum, "0", true);
+        this.togglebinary(toggleNum, "0");
         state = false;
     }
     this.set_toggle_state(toggleNum, state);
-
+    this.save_toggles();
 };
 
 // Current maximum number of topics is 52, but as the converstion utilises integers which are 32 bit signed, this must be broken into two string segments for the
@@ -247,7 +242,8 @@ M.format_topcoll.to36baseString = function(two) {
 M.format_topcoll.save_toggles = function() {
     "use strict";
     if (this.togglePersistence == 1) { // Toggle persistence - 1 = on, 0 = off.
-        M.util.set_user_preference('topcoll_toggle_'+this.courseid , this.to36baseString(this.toggleBinaryGlobal));
+        M.util.set_user_preference('topcoll_toggle_'+this.courseid , this.togglestate);
+        M.util.set_user_preference('topcoll_toggleold_'+this.courseid , this.to36baseString(this.toggleBinaryGlobal));
     }
 };
 
