@@ -343,10 +343,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $title = get_section_name($course, $section);
             if ((!($section->toggle === null)) && ($section->toggle == true)) {
                 $toggleclass = 'toggle_open';
-                $sectionstyle = 'display: block;';
+                $sectionclass = ' sectionopen';
             } else {
                 $toggleclass = 'toggle_closed';
-                $sectionstyle = '';
+                $sectionclass = '';
             }
             $toggleclass .= ' the_toggle';
             $toggleurl = new moodle_url('/course/view.php', array('id' => $course->id));
@@ -382,7 +382,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             $o .= html_writer::end_tag('a');
             $o .= html_writer::end_tag('div');
-            $o .= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection', 'id' => 'toggledsection-' . $section->section, 'style' => $sectionstyle));
+            $o .= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection'.$sectionclass, 'id' => 'toggledsection-' . $section->section));
             if ($section->section != 0 && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                 $o .= html_writer::link(course_get_url($course, $section->section), $title);
             }

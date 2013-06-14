@@ -128,7 +128,7 @@ M.format_topcoll.toggleClick = function(e) {
 
 M.format_topcoll.allOpenClick = function(e) {
     e.preventDefault();
-    M.format_topcoll.ourYUI.all(".toggledsection").show().setStyle('display', 'block');
+    M.format_topcoll.ourYUI.all(".toggledsection").addClass('sectionopen');
     M.format_topcoll.ourYUI.all(".toggle a").addClass('toggle_open').removeClass('toggle_closed');
     M.format_topcoll.toggleBinaryGlobal = "11111111111111111111111111111111111111111111111111111";
     M.format_topcoll.resetState(M.format_topcoll.get_max_digit());
@@ -137,7 +137,7 @@ M.format_topcoll.allOpenClick = function(e) {
 
 M.format_topcoll.allCloseClick = function(e) {
     e.preventDefault();
-    M.format_topcoll.ourYUI.all(".toggledsection").hide();
+    M.format_topcoll.ourYUI.all(".toggledsection").removeClass('sectionopen');
     M.format_topcoll.ourYUI.all(".toggle a").addClass('toggle_closed').removeClass('toggle_open');
     M.format_topcoll.toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
     M.format_topcoll.resetState(M.format_topcoll.get_min_digit());
@@ -175,12 +175,12 @@ M.format_topcoll.toggle_topic = function(targetNode, toggleNum) {
     var state;
     if (!targetLink.hasClass('toggle_open')) {
         targetLink.addClass('toggle_open').removeClass('toggle_closed');
-        targetNode.next('.toggledsection').show().setStyle('display', 'block');
+        targetNode.next('.toggledsection').addClass('sectionopen');
         this.togglebinary(toggleNum, "1");
         state = true;
     } else {
         targetLink.addClass('toggle_closed').removeClass('toggle_open');
-        targetNode.next('.toggledsection').hide();
+        targetNode.next('.toggledsection').removeClass('sectionopen');
         this.togglebinary(toggleNum, "0");
         state = false;
     }
