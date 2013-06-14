@@ -35,4 +35,4 @@ $plugin->version = 2013060600;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->requires = 2013051400.00; // 2.5 (Build: 20130514).
 $plugin->component = 'format_topcoll';
-$plugin->release = '2.5.1.1';
+$plugin->release = '2.5.2';

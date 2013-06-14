@@ -230,6 +230,12 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+14th June 2013 - Version 2.5.2
+  1.  Fixed issue with sections not showing their contents in editing mode when open all has been used, then they are individually
+      closed and reopened.  Thanks to Marc Hermon for reporting this.
+  2.  Added small icon which shows up when updating.
+  3.  Ensure the correct arrow is used when not using JavaScript.
+
 6th June 2013 Version 2.5.1.1
   1.  Implemented MDL-39764 to fix maxsections < numsections issue.
   2.  Reversed the order of the history in this file for easy reading.
