@@ -44,12 +44,12 @@ M.format_topcoll.ourYUI;
 M.format_topcoll.numSections;
 
 // Namespace constants:
-M.format_topcoll.TOGGLE_6 = 0x1;
-M.format_topcoll.TOGGLE_5 = 0x2;
-M.format_topcoll.TOGGLE_4 = 0x4;
-M.format_topcoll.TOGGLE_3 = 0x8;
-M.format_topcoll.TOGGLE_2 = 0x16;
-M.format_topcoll.TOGGLE_1 = 0x32;
+M.format_topcoll.TOGGLE_6 = 1;
+M.format_topcoll.TOGGLE_5 = 2;
+M.format_topcoll.TOGGLE_4 = 4;
+M.format_topcoll.TOGGLE_3 = 8;
+M.format_topcoll.TOGGLE_2 = 16;
+M.format_topcoll.TOGGLE_1 = 32;
 
 /**
  * Initialise with the information supplied from the course format 'format.php' so we can operate.
@@ -76,8 +76,26 @@ M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections,
             // Old preference, so convert to new.
             this.convert_to_new_preference();
         }
+        // Check we have enough digits for the number of toggles in case this has increased.
+        var numdigits = this.get_required_digits(this.numSections);
+        if (numdigits > this.togglestate.length) {
+            var dchar;
+            if (theDefaultTogglePersistence == 0) {
+                dchar = this.get_min_digit();
+            } else {
+                dchar = this.get_max_digit();
+            }
+            for (var i = this.userpreference.length; i < numdigits; i++) {
+                this.togglestate += dchar;
+            }
+        }
     } else {
         // Reset to default.
+        if (theDefaultTogglePersistence == 0) {
+            this.resetState(this.get_min_digit());
+        } else {
+            this.resetState(this.get_max_digit());
+        }
         if (theDefaultTogglePersistence == 0) {
             this.toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
         } else {
@@ -113,6 +131,7 @@ M.format_topcoll.allOpenClick = function(e) {
     M.format_topcoll.ourYUI.all(".toggledsection").show().setStyle('display', 'block');
     M.format_topcoll.ourYUI.all(".toggle a").addClass('toggle_open').removeClass('toggle_closed');
     M.format_topcoll.toggleBinaryGlobal = "11111111111111111111111111111111111111111111111111111";
+    M.format_topcoll.resetState(M.format_topcoll.get_max_digit());
     M.format_topcoll.save_toggles();
 };
 
@@ -121,7 +140,18 @@ M.format_topcoll.allCloseClick = function(e) {
     M.format_topcoll.ourYUI.all(".toggledsection").hide();
     M.format_topcoll.ourYUI.all(".toggle a").addClass('toggle_closed').removeClass('toggle_open');
     M.format_topcoll.toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
+    M.format_topcoll.resetState(M.format_topcoll.get_min_digit());
     M.format_topcoll.save_toggles();
+};
+
+M.format_topcoll.resetState = function(dchar) {
+    M.format_topcoll.togglestate = "";
+    var numdigits = M.format_topcoll.get_required_digits(M.format_topcoll.numSections);
+    for (var i = 0; i < numdigits; i++) {
+        M.format_topcoll.togglestate += dchar;
+    }
+	console.log(M.format_topcoll.togglestate);
+	console.log(numdigits);
 };
 
 // Toggle functions
@@ -147,15 +177,20 @@ M.format_topcoll.togglebinary = function(toggleNum, toggleVal, savetoggles) {
 M.format_topcoll.toggle_topic = function(targetNode, toggleNum) {
     "use strict";
     var targetLink = targetNode.one('a');
+    var state;
     if (!targetLink.hasClass('toggle_open')) {
         targetLink.addClass('toggle_open').removeClass('toggle_closed');
         targetNode.next('.toggledsection').show().setStyle('display', 'block');
         this.togglebinary(toggleNum, "1", true);
+        state = true;
     } else {
         targetLink.addClass('toggle_closed').removeClass('toggle_open');
         targetNode.next('.toggledsection').hide();
         this.togglebinary(toggleNum, "0", true);
+        state = false;
     }
+    this.set_toggle_state(toggleNum, state);
+
 };
 
 // Current maximum number of topics is 52, but as the converstion utilises integers which are 32 bit signed, this must be broken into two string segments for the
@@ -231,14 +266,66 @@ M.format_topcoll.is_old_preference = function(pref) {
 
 M.format_topcoll.convert_to_new_preference = function() {
     var toggleBinary = this.to2baseString(this.togglestate);
+    var bin, value;
     this.togglestate = "";
+    var logbintext = "";
 
-    for (var i = 1; i < 52; i+6) {
-        var value = parseInt(toggleBinary.substring(i, i+7), 2);
-        this.togglestate.concat(this.encode_value_to_character(value));
+    for (var i = 1; i <= 43; i = i+6) {
+        bin = toggleBinary.substring(i, i+6);
+        value = parseInt(bin, 2);
+        this.togglestate += this.encode_value_to_character(value);
+        logbintext += bin + ' ';
+        console.log(bin);
+        console.log(value);
+        console.log(this.togglestate);
     }
-    console.log(toggleBinary);
+    bin = toggleBinary.substring(49, 53);
+    logbintext += bin + ' ';
+    value = parseInt(bin, 2);
+    value = value << 2;
+    this.togglestate += this.encode_value_to_character(value);
+    console.log(bin);
+    console.log(value);
     console.log(this.togglestate);
+    console.log(toggleBinary);
+    console.log(toggleBinary.length);
+    console.log(logbintext);
+    console.log(this.togglestate);
+};
+
+/**
+ * Sets the state of the requested Toggle number.
+ * int togglenum - The toggle number.
+ * boolean state - true or false.
+ */
+M.format_topcoll.set_toggle_state = function(togglenum, state) {
+	console.log('set_toggle_state start');
+    var togglecharpos = this.get_toggle_pos(togglenum);
+    var toggleflag = this.get_toggle_flag(togglenum, togglecharpos);
+    var value = this.decode_character_to_value(this.togglestate.charAt(togglecharpos-1));
+	console.log(togglecharpos);
+	console.log(this.togglestate.charAt(togglecharpos-1));
+	console.log(toggleflag.toString(2));
+	console.log('set_toggle_state vs');
+	console.log(value.toString(2));
+	console.log(value);
+    if (state == true) {
+        value |= toggleflag;
+    } else {
+        value &= ~toggleflag;
+    }
+	console.log(value.toString(2));
+	console.log(value);
+	console.log('set_toggle_state ve');
+	console.log(this.togglestate);
+	var newchar = this.encode_value_to_character(value);
+	console.log(newchar);
+    //this.togglestate[togglecharpos-1] = newchar;
+    var start = this.togglestate.substring(0,togglecharpos-1);
+    var end = this.togglestate.substring(togglecharpos);
+    this.togglestate = start + newchar + end;
+	console.log(this.togglestate);
+	console.log('set_toggle_state end');
 };
 
 M.format_topcoll.get_required_digits = function(numtoggles) {
@@ -265,7 +352,9 @@ M.format_topcoll.get_toggle_flag = function(togglenum, togglecharpos) {
     "use strict";
     var toggleflagpos = togglenum - ((togglecharpos-1)*6);
     var flag;
-    switch ($toggleflagpos) {
+	console.log('get_toggle_flag start');
+	console.log(toggleflagpos);
+    switch (toggleflagpos) {
         case 1:
             flag = this.TOGGLE_1;
             break;
@@ -285,6 +374,8 @@ M.format_topcoll.get_toggle_flag = function(togglenum, togglecharpos) {
             flag = this.TOGGLE_6;
             break;
     }
+	console.log(flag);
+	console.log('get_toggle_flag end');
     return flag;
 };
 
@@ -295,5 +386,5 @@ M.format_topcoll.decode_character_to_value = function(character) {
 
 M.format_topcoll.encode_value_to_character = function(val) {
     "use strict";
-    return String.fromCharCode(val) + 58;
+    return String.fromCharCode(val + 58);
 };

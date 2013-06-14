@@ -690,10 +690,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
             } else {
                 $numdigits = $this->togglelib->get_required_digits($course->numsections);
                 if ($this->defaultuserpreference == 0) {
-                    //$tb = '10000000000000000000000000000000000000000000000000000';
                     $dchar = $this->togglelib->get_min_digit();
                 } else {
-                    //$tb = '11111111111111111111111111111111111111111111111111111';
                     $dchar = $this->togglelib->get_max_digit();
                 }
                 $this->userpreference = '';
