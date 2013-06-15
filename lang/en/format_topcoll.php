@@ -263,8 +263,8 @@ $string['defaulttoggleallhover'] = 'Default toggle all icon hovers';
 $string['defaulttoggleallhover_desc'] = "'No' or 'Yes'.";
 
 // Default user preference.
-$string['defaultuserpreference'] = 'What to do with the toggles when the user first accesses the course';
-$string['defaultuserpreference_desc'] = 'States what to do with the toggles when the user first accesses the course.';
+$string['defaultuserpreference'] = 'What to do with the toggles when the user first accesses the course or adds more sections';
+$string['defaultuserpreference_desc'] = 'States what to do with the toggles when the user first accesses the course or the state of additional sections when they are added.';
 
 // Capabilities.
 $string['topcoll:changelayout'] = 'Change or reset the layout';

@@ -235,6 +235,14 @@ Version Information
       closed and reopened.  Thanks to Marc Hermon for reporting this.
   2.  Added small icon which shows up when updating.
   3.  Ensure the correct arrow is used when not using JavaScript.
+  4.  Radically changed the toggle persistence storage mechanism to be based on a base 64 system using the following subset of ASCII:
+      ":;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy".  This is more efficient than the actual Base64 system of:
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" because there is no complex conversion from the character to
+      to the value it represents.  I also decided not to include "01" as that makes detection of the old mechanism simple for upgrade
+      purposes.
+      This was done to support courses with sections greater than fifty two.  Currently there is no upper limit bar what your machine
+      is capable of serving.  The length of the toggle persistence data increases and decreases automatically in responce to the number
+      of sections.  There are six sections per digit.
 
 6th June 2013 Version 2.5.1.1
   1.  Implemented MDL-39764 to fix maxsections < numsections issue.

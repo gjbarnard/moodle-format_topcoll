@@ -88,6 +88,11 @@ M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections,
             for (var i = this.togglestate.length; i < numdigits; i++) {
                 this.togglestate += dchar;
             }
+        } else if (numdigits < this.togglestate.length) {
+            // Shorten to save space.
+			console.log('Shorten: ' + numdigits + ' to ' + this.togglestate);
+            this.togglestate = this.togglestate.substring(0, numdigits);
+			console.log('equals: ' + this.togglestate);
         }
     } else {
         // Reset to default.

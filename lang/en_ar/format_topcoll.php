@@ -129,7 +129,7 @@ $string['settoggleallhover'] = 'Set thee toggle all icon hover';
 $string['settoggleallhover_help'] = 'Sets if thee toggle all icons will change when thy mouse moves over them.';
 $string['arrow'] = 'Straight as an arrow';
 $string['point'] = 'Point thee bow towards thy treasure';
-$string['power'] = 'Power me hearties';
+$string['power'] = 'Power mee hearties';
 $string['resettoggleiconset'] = 'Reset thee toggle icon set';
 $string['resetalltoggleiconset'] = 'Reset thee toggle icon set for all thy Collapsed Topics courses';
 $string['resettoggleiconset_help'] = 'Resets thee toggle icon set and thy toggle all hover to thy default values so thy will be thee same as a course thee first time it is in thy Collapsed Topics format.';
@@ -205,7 +205,7 @@ $string['defaulttgbghvrcolour'] = 'Default toggle background hover colour';
 $string['defaulttgbghvrcolour_desc'] = "Toggle background hover colour in hexidecimal RGB.";
 
 $string['defaulttogglepersistence'] = 'Toggle persistence';
-$string['defaulttogglepersistence_desc'] = "'On' or 'Off'.  You may wish to turn off for an AJAX performance increase but user toggle selections will not be recalled on page refresh or revisit.
+$string['defaulttogglepersistence_desc'] = "'On' or 'Off'.  You may wish to turn off for an AJAX performance increase but sailor toggle selections will not be recalled on page refresh or revisit.
 
 Note: If turning persistence off remove any rows containing 'topcoll_toggle_x' in the 'name' field
       of the 'user_preferences' table in the database.  Where thee 'x' in 'topcoll_toggle_x' will be
@@ -223,6 +223,10 @@ $string['defaulttoggleiconset_desc'] = "'Arrow' => Arrow icon set.
 
 $string['defaulttoggleallhover'] = 'Default toggle all icon hovers';
 $string['defaulttoggleallhover_desc'] = "'No' or 'Yes'.";
+
+// Default sailor preference.
+$string['defaultuserpreference'] = 'What to do with thee toggles when thy sailor first accesses thee course or adds more sections';
+$string['defaultuserpreference_desc'] = 'States what to do with thee toggles when thy sailor first accesses thee course or thee state of additional sections when they are added mee hearties.';
 
 // Capabilities.
 $string['topcoll:changelayout'] = 'Change or reset thee layout';
