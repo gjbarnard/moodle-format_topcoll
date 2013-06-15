@@ -541,9 +541,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
         global $PAGE;
 
-        echo $this->togglelib->test();
-		echo '<code>UP-'.htmlspecialchars($this->userpreference).'</code>';
-
         $userisediting = $PAGE->user_is_editing();
 
         $modinfo = get_fast_modinfo($course);
@@ -702,8 +699,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $this->togglelib->set_toggles($this->userpreference);
             }
 
-			echo '<code>UP2-'.htmlspecialchars($this->userpreference).'</code>';
-
             while ($loopsection <= $course->numsections) {
                 if (($this->tcsettings['layoutstructure'] == 3) && ($userisediting == false)) {
                     $nextweekdate = $weekdate - ($weekofseconds);
@@ -749,7 +744,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
                             }
                         } else {
                             $thissection->toggle = $this->togglelib->get_toggle_state($thissection->section);
-							echo 'TN: '.$thissection->section.' TS: '.$thissection->toggle;
                         }
                         echo $this->section_header($thissection, $course, false, 0);
                         if ($thissection->uservisible) {

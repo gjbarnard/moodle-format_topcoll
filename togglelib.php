@@ -58,7 +58,6 @@ class topcoll_togglelib {
     public function get_toggle_state($togglenum) {
         $togglecharpos = self::get_toggle_pos($togglenum);
         $toggleflag = self::get_toggle_flag($togglenum, $togglecharpos);
-		echo 'TCP: '.$togglecharpos.' TF: '.$toggleflag.' ';
         return ((self::decode_character_to_value($this->toggles[$togglecharpos-1]) & $toggleflag) == $toggleflag);
     }
 

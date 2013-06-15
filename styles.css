@@ -316,7 +316,7 @@ body.jsenabled #toggle-all {
 
 #toggle-all .content .sectionbody h4 {
     display: block;
-    padding: 6px 2px;
+    padding: 6px 0px;
     margin-bottom: 0em;
 }
 
