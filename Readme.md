@@ -974,11 +974,12 @@ NOTE: If uninstallation fails, drop the table 'format_topcoll_layout' and the en
       within the format to set the calculated width on the 'li' tag." because the core fix I submitted on MDL-39099 has now
       been integrated.  Thus requiring version 2012120303.11 2.4.3+ (Build: 20130502).
 
-14th June 2013 - Version 2.4.4.4
+15th June 2013 - Version 2.4.4.4
   1.  Fixed issue with sections not showing their contents in editing mode when open all has been used, then they are individually
       closed and reopened.  Thanks to Marc Hermon for reporting this.
   2.  Added small icon which shows up when updating.
   3.  Ensure the correct arrow is used when not using JavaScript.
+  4.  Implemented MDL-39764 to fix maxsections < numsections issue.
 
 Thanks
 ======
@@ -1037,6 +1038,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 14th June 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 15th June 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard
