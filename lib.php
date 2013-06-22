@@ -64,6 +64,20 @@ class format_topcoll extends format_base {
      */
     public function get_section_name($section) {
         $course = $this->get_course();
+        // Don't add additional text as called in creating the navigation.
+        return $this->get_topcoll_section_name($course, $section, false);
+    }
+
+    /**
+     * Gets the name for the provided course, section and state if need to add addional text.
+     *
+     * @param stdClass $course The course entry from DB
+     * @param int|stdClass $section Section object from database or just field section.section
+     * @param boolean $additional State to add additiional text yes = true or no = false.
+     * @return string The section name.
+     */
+    public function get_topcoll_section_name($course, $section, $additional)
+    {
         $thesection = $this->get_section($section);
         if (is_null($thesection)) {
             $thesection = new stdClass;
@@ -81,6 +95,10 @@ class format_topcoll extends format_base {
         // We can't add a node without any text.
         if ((string) $thesection->name !== '') {
             $o .= format_string($thesection->name, true, array('context' => $coursecontext));
+            if (($tcsettings['layoutstructure'] == 2) || ($tcsettings['layoutstructure'] == 3) || ($tcsettings['layoutstructure'] == 5)) {
+                $o .= ' '.html_writer::empty_tag('br');
+                $o .= $this->get_section_dates($section, $course, $this->tcsettings);
+            }
         } else if ($thesection->section == 0) {
             $o = get_string('section0name', 'format_topcoll');
         } else {
@@ -97,7 +115,7 @@ class format_topcoll extends format_base {
          * when in one section per page which is coded in 'renderer.php/print_multiple_section_page()' when it calls 'section_header()'
          * as that gets called from 'format.php' when there is no entry for '$displaysetting' - confused? I was, took ages to figure.
          */
-        if (($course->coursedisplay == COURSE_DISPLAY_SINGLEPAGE) && ($thesection->section != 0)) {
+        if (($additional == true) && ($thesection->section != 0)) {
             switch ($tcsettings['layoutelement']) {
                 case 1:
                 case 2:
@@ -202,17 +220,19 @@ class format_topcoll extends format_base {
      * @return array This will be passed in ajax respose
      */
     public function ajax_section_move() {
-        global $PAGE;
         $titles = array();
+        $current = -1;  // MDL-33546.
         $course = $this->get_course();
         $modinfo = get_fast_modinfo($course);
-        $renderer = $this->get_renderer($PAGE);
-        if ($renderer && ($sections = $modinfo->get_section_info_all())) {
+        if ($sections = $modinfo->get_section_info_all()) {
             foreach ($sections as $number => $section) {
-                $titles[$number] = $renderer->section_title($section, $course);
+                $titles[$number] = $this->get_topcoll_section_name($course, $section, true);
+                if ($this->is_section_current($section)) {
+                    $current = $number;
+                }
             }
         }
-        return array('sectiontitles' => $titles, 'action' => 'move');
+        return array('sectiontitles' => $titles, 'current' => $current, 'action' => 'move');
     }
 
     /**

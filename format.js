@@ -84,7 +84,7 @@ M.course.format.swap_sections = function(Y, node1, node2) {
  */
 M.course.format.process_sections = function(Y, sectionlist, response, sectionfrom, sectionto) {
     var CSS = {
-        SECTIONNAME     : '.the_toggle'
+        SECTIONNAME     : '.the_toggle h3'
     },
     SELECTORS = {
         LEFTCONTENT     : '.left .cps_centre',
@@ -92,18 +92,20 @@ M.course.format.process_sections = function(Y, sectionlist, response, sectionfro
     };
 
     if (response.action == 'move') {
-        //console.debug(response);
+        var loopsectionfrom, loopsectionto;
         if (sectionfrom > sectionto) { // MDL-34798
             // Swap.
-            var temp = sectionto;
-            sectionto = sectionfrom;
-            sectionfrom = temp;
+            loopsectionfrom = sectionto;
+            loopsectionto = sectionfrom;
+        } else {
+            loopsectionfrom = sectionfrom;
+            loopsectionto = sectionto;
         }
 
         // Update titles and move icons in all affected sections.
         var leftcontent, ele, str, stridx, newstr;
 
-        for (var i = sectionfrom; i <= sectionto; i++) {
+        for (var i = loopsectionfrom; i <= loopsectionto; i++) {
             // Update section title.
             sectionlist.item(i).one(CSS.SECTIONNAME).setContent(response.sectiontitles[i]);
             // If the left content section number exists, then set it.
@@ -118,6 +120,28 @@ M.course.format.process_sections = function(Y, sectionlist, response, sectionfro
             newstr = str.substr(0, stridx +1) + i;
             ele.setAttribute('alt', newstr);
             ele.setAttribute('title', newstr); // For FireFox as 'alt' is not refreshed.
+
+            if (response.current !== -1) {
+                if (sectionlist.item(i).hasClass('current')) {
+				console.log("RCB:" + response.current);
+                    response.current = i;
+				console.log("RCA1:" + response.current);
+                    if (response.current == sectionfrom) {
+                        response.current = sectionto;
+                    } else {
+                        var movedirection = (sectionfrom > sectionto) ? 1 : -1;
+                        response.current = response.current + movedirection;
+                    }
+				console.log("RCA2:" + response.current);
+                    // Remove the current class as section has been moved.  MDL-33546.
+                    sectionlist.item(i).removeClass('current');
+                }
+            }
+        }
+        // If there is a current section, apply corresponding class in order to highlight it.  MDL-33546.
+        if (response.current !== -1) {
+            // Add current class to the required section.
+            sectionlist.item(response.current).addClass('current');
         }
     }
 }

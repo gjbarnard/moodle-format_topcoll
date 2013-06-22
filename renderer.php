@@ -335,7 +335,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if (($onsectionpage == false) && ($section->section != 0)) {
             $o .= html_writer::start_tag('div', array('class' => 'sectionhead toggle toggle-'.$this->tcsettings['toggleiconset'], 'id' => 'toggle-' . $section->section));
 
-            $title = get_section_name($course, $section);
+            $title = $this->courseformat->get_topcoll_section_name($course, $section, true);
             if ((!($section->toggle === null)) && ($section->toggle == '1')) {
                 $toggleclass = 'toggle_open';
                 $sectionstyle = 'display: block;';
@@ -358,17 +358,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     $otitle .= $this->courseformat->get_section_dates($section, $course, $this->tcsettings);
                 }
             }
-            // Add in the word toggle when we are displaying them for one section per page layout, see 'get_section_name()' in 'lib.php' for more information.
-            if ($course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
-                switch ($this->tcsettings['layoutelement']) {
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                        $otitle .= ' - ' . get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
-                        break;
-                }
-            }
+
             if (($this->mobiletheme === false) && ($this->tablettheme === false)) {
                 $o .= $this->output->heading($otitle, 3, 'sectionname');
             } else {

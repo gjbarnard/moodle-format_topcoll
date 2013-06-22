@@ -68,19 +68,19 @@ course_create_sections_if_missing($course, range(0, $course->numsections));
 
 $renderer = $PAGE->get_renderer('format_topcoll');
 
+$devicetype = get_device_type(); // In moodlelib.php.
+if ($devicetype == "mobile") {
+    $portable = 1;
+} else if ($devicetype == "tablet") {
+    $portable = 2;
+} else {
+    $portable = 0;
+}
+$renderer->set_portable($portable);
+
 if (!empty($displaysection)) {
     $renderer->print_single_section_page($course, null, null, null, null, $displaysection);
 } else {
-    $devicetype = get_device_type(); // In moodlelib.php.
-    if ($devicetype == "mobile") {
-        $portable = 1;
-    } else if ($devicetype == "tablet") {
-        $portable = 2;
-    } else {
-        $portable = 0;
-    }
-    $renderer->set_portable($portable);
-
     user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_ALPHANUM);
     $userpreference = get_user_preferences('topcoll_toggle_' . $course->id);
     $renderer->set_user_preference($userpreference);
