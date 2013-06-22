@@ -92,20 +92,16 @@ M.course.format.process_sections = function(Y, sectionlist, response, sectionfro
     };
 
     if (response.action == 'move') {
-        var loopsectionfrom, loopsectionto;
         if (sectionfrom > sectionto) { // MDL-34798
-            // Swap.
-            loopsectionfrom = sectionto;
-            loopsectionto = sectionfrom;
-        } else {
-            loopsectionfrom = sectionfrom;
-            loopsectionto = sectionto;
+            var temp = sectionto;
+            sectionto = sectionfrom;
+            sectionfrom = temp;
         }
 
         // Update titles and move icons in all affected sections.
         var leftcontent, ele, str, stridx, newstr;
 
-        for (var i = loopsectionfrom; i <= loopsectionto; i++) {
+        for (var i = sectionfrom; i <= sectionto; i++) {
             // Update section title.
             sectionlist.item(i).one(CSS.SECTIONNAME).setContent(response.sectiontitles[i]);
             // If the left content section number exists, then set it.
@@ -123,16 +119,6 @@ M.course.format.process_sections = function(Y, sectionlist, response, sectionfro
 
             if (response.current !== -1) {
                 if (sectionlist.item(i).hasClass('current')) {
-				console.log("RCB:" + response.current);
-                    response.current = i;
-				console.log("RCA1:" + response.current);
-                    if (response.current == sectionfrom) {
-                        response.current = sectionto;
-                    } else {
-                        var movedirection = (sectionfrom > sectionto) ? 1 : -1;
-                        response.current = response.current + movedirection;
-                    }
-				console.log("RCA2:" + response.current);
                     // Remove the current class as section has been moved.  MDL-33546.
                     sectionlist.item(i).removeClass('current');
                 }

@@ -222,13 +222,18 @@ class format_topcoll extends format_base {
     public function ajax_section_move() {
         $titles = array();
         $current = -1;  // MDL-33546.
+        $weekformat = false;
+        $tcsettings = $this->get_settings();
+        if (($tcsettings['layoutstructure'] == 2) || ($tcsettings['layoutstructure'] == 3) || ($tcsettings['layoutstructure'] == 5)) {
+            $weekformat = true;
+        }
         $course = $this->get_course();
         $modinfo = get_fast_modinfo($course);
         if ($sections = $modinfo->get_section_info_all()) {
             foreach ($sections as $number => $section) {
                 $titles[$number] = $this->get_topcoll_section_name($course, $section, true);
-                if ($this->is_section_current($section)) {
-                    $current = $number;
+                if (($weekformat == true) && ($this->is_section_current($section))) {
+                    $current = $number;  // Only set if a week based course to keep the current week in the same place.
                 }
             }
         }
