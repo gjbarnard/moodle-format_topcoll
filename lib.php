@@ -97,7 +97,7 @@ class format_topcoll extends format_base {
             $o .= format_string($thesection->name, true, array('context' => $coursecontext));
             if (($tcsettings['layoutstructure'] == 2) || ($tcsettings['layoutstructure'] == 3) || ($tcsettings['layoutstructure'] == 5)) {
                 $o .= ' '.html_writer::empty_tag('br');
-                $o .= $this->get_section_dates($section, $course, $this->tcsettings);
+                $o .= $this->get_section_dates($section, $course, $tcsettings);
             }
         } else if ($thesection->section == 0) {
             $o = get_string('section0name', 'format_topcoll');
@@ -130,7 +130,7 @@ class format_topcoll extends format_base {
     }
 
     public function get_section_dates($section, $course, $tcsettings) {
-        $dateformat = ' ' . get_string('strftimedateshort');
+        $dateformat = get_string('strftimedateshort');
         $o = '';
         if ($tcsettings['layoutstructure'] == 5) {
             $day = $this->format_topcoll_get_section_day($section, $course);
@@ -727,7 +727,7 @@ class format_topcoll extends format_base {
     /**
      * Return the start and end date of the passed section.
      *
-     * @param stdClass $section The course_section entry from the DB.
+     * @param int|stdClass $section The course_section entry from the DB.
      * @param stdClass $course The course entry from DB.
      * @return stdClass property start for startdate, property end for enddate.
      */
@@ -738,7 +738,11 @@ class format_topcoll extends format_base {
         $startdate = $course->startdate + 7200;
 
         $dates = new stdClass();
-        $dates->start = $startdate + ($oneweekseconds * ($section->section - 1));
+        if (is_object($section)) {
+            $section = $section->section;
+        }
+
+        $dates->start = $startdate + ($oneweekseconds * ($section - 1));
         $dates->end = $dates->start + $oneweekseconds;
 
         return $dates;
@@ -747,7 +751,7 @@ class format_topcoll extends format_base {
     /**
      * Return the date of the passed section.
      *
-     * @param stdClass $section The course_section entry from the DB.
+     * @param int|stdClass $section The course_section entry from the DB.
      * @param stdClass $course The course entry from DB.
      * @return stdClass property date.
      */
@@ -757,7 +761,11 @@ class format_topcoll extends format_base {
            savings and the date changes. */
         $startdate = $course->startdate + 7200;
 
-        $day = $startdate + ($onedayseconds * ($section->section - 1));
+        if (is_object($section)) {
+            $section = $section->section;
+        }
+
+        $day = $startdate + ($onedayseconds * ($section - 1));
 
         return $day;
     }
