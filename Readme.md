@@ -247,6 +247,8 @@ Version Information
   6.  Implemented MDL-33546.
   7.  Fixed size of toggles altering when using AJAX drag and drop.
   8.  Ran the code through the infamous 'Code Checker' version 2013060600, release 2.2.7 and cleared as much as possible.
+  9.  Note:  Once you upgrade to this version and beyond then going back will mean loss of the user preferences as you will need to
+             remove all 'topcoll_toggle_x' rows from the 'user_preferences' table first.
 
 6th June 2013 Version 2.5.1.1
   1.  Implemented MDL-39764 to fix maxsections < numsections issue.
