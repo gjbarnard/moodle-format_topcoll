@@ -84,7 +84,7 @@ M.course.format.swap_sections = function(Y, node1, node2) {
  */
 M.course.format.process_sections = function(Y, sectionlist, response, sectionfrom, sectionto) {
     var CSS = {
-        SECTIONNAME     : '.the_toggle'
+        SECTIONNAME     : '.the_toggle h3'
     },
     SELECTORS = {
         LEFTCONTENT     : '.left .cps_centre',
@@ -92,9 +92,7 @@ M.course.format.process_sections = function(Y, sectionlist, response, sectionfro
     };
 
     if (response.action == 'move') {
-        //console.debug(response);
         if (sectionfrom > sectionto) { // MDL-34798
-            // Swap.
             var temp = sectionto;
             sectionto = sectionfrom;
             sectionfrom = temp;
@@ -118,6 +116,18 @@ M.course.format.process_sections = function(Y, sectionlist, response, sectionfro
             newstr = str.substr(0, stridx +1) + i;
             ele.setAttribute('alt', newstr);
             ele.setAttribute('title', newstr); // For FireFox as 'alt' is not refreshed.
+
+            if (response.current !== -1) {
+                if (sectionlist.item(i).hasClass('current')) {
+                    // Remove the current class as section has been moved.  MDL-33546.
+                    sectionlist.item(i).removeClass('current');
+                }
+            }
+        }
+        // If there is a current section, apply corresponding class in order to highlight it.  MDL-33546.
+        if (response.current !== -1) {
+            // Add current class to the required section.
+            sectionlist.item(response.current).addClass('current');
         }
     }
 }

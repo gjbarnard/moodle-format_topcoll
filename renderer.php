@@ -340,7 +340,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if (($onsectionpage == false) && ($section->section != 0)) {
             $o .= html_writer::start_tag('div', array('class' => 'sectionhead toggle toggle-'.$this->tcsettings['toggleiconset'], 'id' => 'toggle-' . $section->section));
 
-            $title = get_section_name($course, $section);
             if ((!($section->toggle === null)) && ($section->toggle == true)) {
                 $toggleclass = 'toggle_open';
                 $sectionclass = ' sectionopen';
@@ -356,28 +355,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $this->tcsettings = $this->courseformat->get_settings();
             }
 
-            $otitle = $title;
-            if ((string) $section->name !== '') {
-                if (($this->tcsettings['layoutstructure'] == 2) || ($this->tcsettings['layoutstructure'] == 3) || ($this->tcsettings['layoutstructure'] == 5)) {
-                    $otitle .= ' '.html_writer::empty_tag('br');
-                    $otitle .= $this->courseformat->get_section_dates($section, $course, $this->tcsettings);
-                }
-            }
-            // Add in the word toggle when we are displaying them for one section per page layout, see 'get_section_name()' in 'lib.php' for more information.
-            if ($course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
-                switch ($this->tcsettings['layoutelement']) {
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                        $otitle .= ' - ' . get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
-                        break;
-                }
-            }
+            $title = $this->courseformat->get_topcoll_section_name($course, $section, true);
             if (($this->mobiletheme === false) && ($this->tablettheme === false)) {
-                $o .= $this->output->heading($otitle, 3, 'sectionname');
+                $o .= $this->output->heading($title, 3, 'sectionname');
             } else {
-                $o .= html_writer::tag('h3', $otitle); // Moodle H3's look bad on mobile / tablet with CT so use plain.
+                $o .= html_writer::tag('h3', $title); // Moodle H3's look bad on mobile / tablet with CT so use plain.
             }
 
             $o .= html_writer::end_tag('a');
