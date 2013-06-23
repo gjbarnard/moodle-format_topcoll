@@ -35,6 +35,7 @@
 M.format_topcoll = M.format_topcoll || {};
 
 // Namespace variables:
+M.format_topcoll.thesparezeros = "00000000000000000000000000"; // A constant of 26 0's to be used to pad the storage state of the toggles when converting between base 2 and 36, this is to be compact.
 M.format_topcoll.togglestate;
 M.format_topcoll.courseid;
 M.format_topcoll.togglePersistence = 1; // Toggle persistence - 1 = on, 0 = off.
@@ -212,6 +213,7 @@ M.format_topcoll.is_old_preference = function(pref) {
 };
 
 M.format_topcoll.convert_to_new_preference = function() {
+    "use strict";
     var toggleBinary = this.to2baseString(this.togglestate);
     var bin, value;
     this.togglestate = "";
@@ -237,6 +239,7 @@ M.format_topcoll.convert_to_new_preference = function() {
  * boolean state - true or false.
  */
 M.format_topcoll.set_toggle_state = function(togglenum, state) {
+    "use strict";
     var togglecharpos = this.get_toggle_pos(togglenum);
     var toggleflag = this.get_toggle_flag(togglenum, togglecharpos);
     var value = this.decode_character_to_value(this.togglestate.charAt(togglecharpos-1));
