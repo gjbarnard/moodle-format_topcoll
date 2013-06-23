@@ -1,4 +1,18 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Collapsed Topics Information
@@ -10,24 +24,12 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' in version.php.
+ * @version    See the value of '$plugin->version' in below.
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 // Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
 // Possibly legacy to be removed after Moodle 2.0 is stable.
@@ -65,22 +67,22 @@ $string['formatsettingsinformation'] = '<br />To reset the settings of the cours
 $string['setlayout'] = 'Set layout';
 
 // Negative view of layout, kept for previous versions until such time as they are updated.
-$string['setlayout_default'] = 'Default'; // 1
-$string['setlayout_no_toggle_section_x'] = 'No toggle section x'; // 2
-$string['setlayout_no_section_no'] = 'No section number'; // 3
-$string['setlayout_no_toggle_section_x_section_no'] = 'No toggle section x and section number'; // 4
-$string['setlayout_no_toggle_word'] = 'No toggle word'; // 5
-$string['setlayout_no_toggle_word_toggle_section_x'] = 'No toggle word and toggle section x'; // 6
-$string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'No toggle word, toggle section x and section number'; // 7
+$string['setlayout_default'] = 'Default'; // 1.
+$string['setlayout_no_toggle_section_x'] = 'No toggle section x'; // 2.
+$string['setlayout_no_section_no'] = 'No section number'; // 3.
+$string['setlayout_no_toggle_section_x_section_no'] = 'No toggle section x and section number'; // 4.
+$string['setlayout_no_toggle_word'] = 'No toggle word'; // 5.
+$string['setlayout_no_toggle_word_toggle_section_x'] = 'No toggle word and toggle section x'; // 6.
+$string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'No toggle word, toggle section x and section number'; // 7.
 // Positive view of layout.
-$string['setlayout_all'] = "Toggle word, 'Topic x' / 'Week x' / 'Day x' and section number"; // 1
-$string['setlayout_toggle_word_section_number'] = 'Toggle word and section number'; // 2
-$string['setlayout_toggle_word_section_x'] = "Toggle word and 'Topic x' / 'Week x' / 'Day x'"; // 3
-$string['setlayout_toggle_word'] = 'Toggle word'; // 4
-$string['setlayout_toggle_section_x_section_number'] = "'Topic x' / 'Week x' / 'Day x' and section number"; // 5
-$string['setlayout_section_number'] = 'Section number'; // 6
-$string['setlayout_no_additions'] = 'No additions'; // 7
-$string['setlayout_toggle_section_x'] = "'Topic x' / 'Week x' / 'Day x'"; // 8
+$string['setlayout_all'] = "Toggle word, 'Topic x' / 'Week x' / 'Day x' and section number"; // 1.
+$string['setlayout_toggle_word_section_number'] = 'Toggle word and section number'; // 2.
+$string['setlayout_toggle_word_section_x'] = "Toggle word and 'Topic x' / 'Week x' / 'Day x'"; // 3.
+$string['setlayout_toggle_word'] = 'Toggle word'; // 4.
+$string['setlayout_toggle_section_x_section_number'] = "'Topic x' / 'Week x' / 'Day x' and section number"; // 5.
+$string['setlayout_section_number'] = 'Section number'; // 6.
+$string['setlayout_no_additions'] = 'No additions'; // 7.
+$string['setlayout_toggle_section_x'] = "'Topic x' / 'Week x' / 'Day x'"; // 8.
 
 $string['setlayoutelements'] = 'Set elements';
 $string['setlayoutstructure'] = 'Set structure';

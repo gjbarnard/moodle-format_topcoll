@@ -176,7 +176,7 @@ M.format_topcoll.to2baseString = function(thirtysix) {
     var secondpart = parseInt(thirtysix.substring(6,12),36);
     var fps = firstpart.toString(2);
     var sps = secondpart.toString(2);
-    
+
     // Add in preceding 0's if base 2 sub strings are not long enough
     if (fps.length < 26) {
         // Need to PAD.
@@ -186,7 +186,7 @@ M.format_topcoll.to2baseString = function(thirtysix) {
         // Need to PAD.
         sps = this.thesparezeros.substring(0,(27 - sps.length)) + sps;
     }
-    
+
     return fps + sps;
 };
 

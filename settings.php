@@ -1,4 +1,18 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Collapsed Topics Information
@@ -10,24 +24,12 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' in version.php.
- * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
+ * @version    See the value of '$plugin->version' in below.
+ * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
-
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
-
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 defined('MOODLE_INTERNAL') || die;
@@ -49,17 +51,18 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
-    // Layout configuration.
-    // Here you can see what numbers in the array represent what layout for setting the default value below.
-    // 1 => Toggle word, toggle section x and section number - default.
-    // 2 => Toggle word and section number.
-    // 3 => Toggle word and toggle section x.
-    // 4 => Toggle word.
-    // 5 => Toggle section x and section number.
-    // 6 => Section number.
-    // 7 => No additions.
-    // 8 => Toggle section x.
-    // Default layout to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
+    /* Layout configuration.
+       Here you can see what numbers in the array represent what layout for setting the default value below.
+       1 => Toggle word, toggle section x and section number - default.
+       2 => Toggle word and section number.
+       3 => Toggle word and toggle section x.
+       4 => Toggle word.
+       5 => Toggle section x and section number.
+       6 => Section number.
+       7 => No additions.
+       8 => Toggle section x.
+       Default layout to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time
+       after installing this functionality introduced in CONTRIB-3378. */
     $name = 'format_topcoll/defaultlayoutelement';
     $title = get_string('defaultlayoutelement', 'format_topcoll');
     $description = get_string('defaultlayoutelement_descpositive', 'format_topcoll');
@@ -76,24 +79,25 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
-    // Structure configuration.
-    // Here so you can see what numbers in the array represent what structure for setting the default value below.
-    // 1 => Topic
-    // 2 => Week   
-    // 3 => Latest Week First 
-    // 4 => Current Topic First
-    // 5 => Day
-    // Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
+    /* Structure configuration.
+       Here so you can see what numbers in the array represent what structure for setting the default value below.
+       1 => Topic.
+       2 => Week.
+       3 => Latest Week First.
+       4 => Current Topic First.
+       5 => Day.
+       Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time
+       after installing this functionality introduced in CONTRIB-3378. */
     $name = 'format_topcoll/defaultlayoutstructure';
     $title = get_string('defaultlayoutstructure', 'format_topcoll');
     $description = get_string('defaultlayoutstructure_desc', 'format_topcoll');
     $default = 1;
     $choices = array(
-        1 => new lang_string('setlayoutstructuretopic', 'format_topcoll'),             // Topic
-        2 => new lang_string('setlayoutstructureweek', 'format_topcoll'),              // Week
-        3 => new lang_string('setlayoutstructurelatweekfirst', 'format_topcoll'),      // Latest Week First
-        4 => new lang_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'), // Current Topic First
-        5 => new lang_string('setlayoutstructureday', 'format_topcoll')                // Day
+        1 => new lang_string('setlayoutstructuretopic', 'format_topcoll'),             // Topic.
+        2 => new lang_string('setlayoutstructureweek', 'format_topcoll'),              // Week.
+        3 => new lang_string('setlayoutstructurelatweekfirst', 'format_topcoll'),      // Latest Week First.
+        4 => new lang_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'), // Current Topic First.
+        5 => new lang_string('setlayoutstructureday', 'format_topcoll')                // Day.
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
@@ -103,10 +107,10 @@ if ($ADMIN->fulltree) {
     $description = get_string('defaultlayoutcolumns_desc', 'format_topcoll');
     $default = 1;
     $choices = array(
-        1 => new lang_string('one', 'format_topcoll'),   // Default
-        2 => new lang_string('two', 'format_topcoll'),   // Two
-        3 => new lang_string('three', 'format_topcoll'), // Three
-        4 => new lang_string('four', 'format_topcoll')   // Four
+        1 => new lang_string('one', 'format_topcoll'),   // Default.
+        2 => new lang_string('two', 'format_topcoll'),   // Two.
+        3 => new lang_string('three', 'format_topcoll'), // Three.
+        4 => new lang_string('four', 'format_topcoll')   // Four.
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
@@ -117,7 +121,7 @@ if ($ADMIN->fulltree) {
     $default = 2;
     $choices = array(
         1 => new lang_string('columnvertical', 'format_topcoll'),
-        2 => new lang_string('columnhorizontal', 'format_topcoll') // Default
+        2 => new lang_string('columnhorizontal', 'format_topcoll') // Default.
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
@@ -145,10 +149,10 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
 
-    // Toggle persistence - 1 = on, 0 = off.  You may wish to disable for an AJAX performance increase.
-    // Note: If turning persistence off remove any rows containing 'topcoll_toggle_x' in the 'name' field
-    //       of the 'user_preferences' table in the database.  Where the 'x' in 'topcoll_toggle_x' will be
-    //       a course id.
+    /* Toggle persistence - 1 = on, 0 = off.  You may wish to disable for an AJAX performance increase.
+       Note: If turning persistence off remove any rows containing 'topcoll_toggle_x' in the 'name' field
+             of the 'user_preferences' table in the database.  Where the 'x' in 'topcoll_toggle_x' will be
+             a course id. */
     $name = 'format_topcoll/defaulttogglepersistence';
     $title = get_string('defaulttogglepersistence', 'format_topcoll');
     $description = get_string('defaulttogglepersistence_desc', 'format_topcoll');

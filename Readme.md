@@ -246,6 +246,7 @@ Version Information
   5.  Finally fixed having the 'toggle' word on toggles and not on the navigation menu with AJAX drag and drop working - CONTRIB-4403.
   6.  Implemented MDL-33546.
   7.  Fixed size of toggles altering when using AJAX drag and drop.
+  8.  Ran the code through the infamous 'Code Checker' version 2013060600, release 2.2.7 and cleared as much as possible.
 
 6th June 2013 Version 2.5.1.1
   1.  Implemented MDL-39764 to fix maxsections < numsections issue.

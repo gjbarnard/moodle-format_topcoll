@@ -1,4 +1,18 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Collapsed Topics Information
@@ -10,25 +24,12 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' in version.php.
+ * @version    See the value of '$plugin->version' in below.
  * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
- * @author     Based on code originally written by Dan Poltawski.
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
-
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
-
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 require_once($CFG->dirroot . '/course/format/lib.php'); // For format_base.
 
@@ -76,8 +77,7 @@ class format_topcoll extends format_base {
      * @param boolean $additional State to add additiional text yes = true or no = false.
      * @return string The section name.
      */
-    public function get_topcoll_section_name($course, $section, $additional)
-    {
+    public function get_topcoll_section_name($course, $section, $additional) {
         $thesection = $this->get_section($section);
         if (is_null($thesection)) {
             $thesection = new stdClass;
@@ -95,7 +95,8 @@ class format_topcoll extends format_base {
         // We can't add a node without any text.
         if ((string) $thesection->name !== '') {
             $o .= format_string($thesection->name, true, array('context' => $coursecontext));
-            if (($tcsettings['layoutstructure'] == 2) || ($tcsettings['layoutstructure'] == 3) || ($tcsettings['layoutstructure'] == 5)) {
+            if (($tcsettings['layoutstructure'] == 2) || ($tcsettings['layoutstructure'] == 3) ||
+                ($tcsettings['layoutstructure'] == 5)) {
                 $o .= ' '.html_writer::empty_tag('br');
                 $o .= $this->get_section_dates($section, $course, $tcsettings);
             }
@@ -109,11 +110,12 @@ class format_topcoll extends format_base {
             }
         }
 
-        /* 
+        /*
          * Now done here so that the drag and drop titles will be the correct strings as swapped in format.js.
          * But only if we are using toggles which will be if all sections are on one page or we are editing the main page
-         * when in one section per page which is coded in 'renderer.php/print_multiple_section_page()' when it calls 'section_header()'
-         * as that gets called from 'format.php' when there is no entry for '$displaysetting' - confused? I was, took ages to figure.
+         * when in one section per page which is coded in 'renderer.php/print_multiple_section_page()' when it calls
+         * 'section_header()' as that gets called from 'format.php' when there is no entry for '$displaysetting' - confused?
+         * I was, took ages to figure.
          */
         if (($additional == true) && ($thesection->section != 0)) {
             switch ($tcsettings['layoutelement']) {
@@ -224,7 +226,8 @@ class format_topcoll extends format_base {
         $current = -1;  // MDL-33546.
         $weekformat = false;
         $tcsettings = $this->get_settings();
-        if (($tcsettings['layoutstructure'] == 2) || ($tcsettings['layoutstructure'] == 3) || ($tcsettings['layoutstructure'] == 5)) {
+        if (($tcsettings['layoutstructure'] == 2) || ($tcsettings['layoutstructure'] == 3) ||
+            ($tcsettings['layoutstructure'] == 5)) {
             $weekformat = true;
         }
         $course = $this->get_course();
@@ -524,7 +527,8 @@ class format_topcoll extends format_base {
      */
     public function create_edit_form_elements(&$mform, $forsection = false) {
         global $CFG;
-        MoodleQuickForm::registerElementType('tccolourpopup', "$CFG->dirroot/course/format/topcoll/js/tc_colourpopup.php", 'MoodleQuickForm_tccolourpopup');
+        MoodleQuickForm::registerElementType('tccolourpopup', "$CFG->dirroot/course/format/topcoll/js/tc_colourpopup.php",
+                                             'MoodleQuickForm_tccolourpopup');
 
         $elements = parent::create_edit_form_elements($mform, $forsection);
         if ($forsection == false) {
@@ -672,7 +676,7 @@ class format_topcoll extends format_base {
                          * we fill it with the maximum section number from the DB */
                         $maxsection = $DB->get_field_sql('SELECT max(section) from {course_sections} WHERE course = ?', array($this->courseid));
                         if ($maxsection) {
-                            // If there are no sections, or just default 0-section, 'numsections' will be set to default
+                            // If there are no sections, or just default 0-section, 'numsections' will be set to default.
                             $data['numsections'] = $maxsection;
                         }
                     }
@@ -733,8 +737,8 @@ class format_topcoll extends format_base {
      */
     private function format_topcoll_get_section_dates($section, $course) {
         $oneweekseconds = 604800;
-        // Hack alert. We add 2 hours to avoid possible DST problems. (e.g. we go into daylight
-        // savings and the date changes.
+        /* Hack alert. We add 2 hours to avoid possible DST problems. (e.g. we go into daylight
+           savings and the date changes. */
         $startdate = $course->startdate + 7200;
 
         $dates = new stdClass();

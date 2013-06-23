@@ -1,4 +1,18 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Collapsed Topics Information
@@ -10,25 +24,12 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' in version.php.
+ * @version    See the value of '$plugin->version' in below.
  * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
- * @author     Based on code originally written by Dan Poltawski.
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -38,10 +39,10 @@ require_once($CFG->dirroot . '/course/format/topcoll/togglelib.php');
 
 class format_topcoll_renderer extends format_section_renderer_base {
 
-    private $tccolumnwidth = 100; /* Default width in percent of the column(s). */
-    private $tccolumnpadding = 0; /* Defailt padding in pixels of the column(s). */
-    private $mobiletheme = false; /* As not using a mobile theme we can react to the number of columns setting. */
-    private $tablettheme = false; /* As not using a tablet theme we can react to the number of columns setting. */
+    private $tccolumnwidth = 100; // Default width in percent of the column(s).
+    private $tccolumnpadding = 0; // Default padding in pixels of the column(s).
+    private $mobiletheme = false; // As not using a mobile theme we can react to the number of columns setting.
+    private $tablettheme = false; // As not using a tablet theme we can react to the number of columns setting.
     private $courseformat; // Our course format object as defined in lib.php;
     private $tcsettings; // Settings for the format - array.
     private $userpreference; // User toggle state preference - string.
@@ -60,8 +61,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         $this->togglelib = new topcoll_togglelib;
 
-        // Since format_topcoll_renderer::section_edit_controls() only displays the 'Set current section' control when editing mode is on
-        // we need to be sure that the link 'Turn editing mode on' is available for a user who does not have any other managing capability.
+        /* Since format_topcoll_renderer::section_edit_controls() only displays the 'Set current section' control when editing
+           mode is on we need to be sure that the link 'Turn editing mode on' is available for a user who does not have any
+           other managing capability. */
         $page->set_other_editing_capability('moodle/course:setcurrentsection');
     }
 
@@ -130,7 +132,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 if (empty($this->tcsettings)) {
                     $this->tcsettings = $this->courseformat->get_settings();
                 }
-                switch ($this->tcsettings['layoutelement']) { // Toggle section x
+                switch ($this->tcsettings['layoutelement']) { // Toggle section x.
                     case 1:
                     case 3:
                     case 5:
@@ -145,7 +147,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
                             $topictext = get_string('setlayoutstructureday', 'format_topcoll');
                         }
 
-                        $o .= html_writer::tag('span', $topictext . html_writer::empty_tag('br') . $section->section, array('class' => 'cps_centre'));
+                        $o .= html_writer::tag('span', $topictext.html_writer::empty_tag('br').
+                                               $section->section, array('class' => 'cps_centre'));
                         break;
                 }
             }
@@ -214,15 +217,22 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $this->tcsettings = $this->courseformat->get_settings();
         }
         $controls = array();
-        if ((($this->tcsettings['layoutstructure'] == 1) || ($this->tcsettings['layoutstructure'] == 4)) && has_capability('moodle/course:setcurrentsection', $coursecontext)) {
+        if ((($this->tcsettings['layoutstructure'] == 1) || ($this->tcsettings['layoutstructure'] == 4)) &&
+              has_capability('moodle/course:setcurrentsection', $coursecontext)) {
             if ($course->marker == $section->section) {  // Show the "light globe" on/off.
                 $url->param('marker', 0);
-                $controls[] = html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('i/marked'),
-                                    'class' => 'icon ', 'alt' => get_string('markedthissection', 'format_topcoll'))), array('title' => get_string('markedthissection', 'format_topcoll'), 'class' => 'editing_highlight'));
+                $controls[] = html_writer::link($url, html_writer::empty_tag('img',
+                                    array('src' => $this->output->pix_url('i/marked'),
+                                          'class' => 'icon ', 'alt' => get_string('markedthissection', 'format_topcoll'))),
+                                    array('title' => get_string('markedthissection', 'format_topcoll'),
+                                          'class' => 'editing_highlight'));
             } else {
                 $url->param('marker', $section->section);
-                $controls[] = html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('i/marker'),
-                                    'class' => 'icon', 'alt' => get_string('markthissection', 'format_topcoll'))), array('title' => get_string('markthissection', 'format_topcoll'), 'class' => 'editing_highlight'));
+                $controls[] = html_writer::link($url, html_writer::empty_tag('img',
+                                    array('src' => $this->output->pix_url('i/marker'),
+                                          'class' => 'icon', 'alt' => get_string('markthissection', 'format_topcoll'))),
+                                    array('title' => get_string('markthissection', 'format_topcoll'),
+                                          'class' => 'editing_highlight'));
             }
         }
 
@@ -241,7 +251,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $classattr = 'section main section-summary clearfix';
         $linkclasses = '';
 
-        // If section is hidden then display grey section link
+        // If section is hidden then display grey section link.
         if (!$section->visible) {
             $classattr .= ' hidden';
             $linkclasses .= ' dimmed_text';
@@ -328,8 +338,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if (($section->section != 0) && $PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
 
-                $rightcontent .= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
-                                    'class' => 'iconsmall edit tceditsection', 'alt' => get_string('edit'))), array('title' => get_string('editsummary'), 'class' => 'tceditsection'));
+                $rightcontent .= html_writer::link($url, html_writer::empty_tag('img',
+                                    array('src' => $this->output->pix_url('t/edit'),
+                                          'class' => 'iconsmall edit tceditsection', 'alt' => get_string('edit'))),
+                                    array('title' => get_string('editsummary'), 'class' => 'tceditsection'));
                 $rightcontent .= html_writer::empty_tag('br');
             }
             $rightcontent .= $this->section_right_content($section, $course, $onsectionpage);
@@ -338,7 +350,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::start_tag('div', array('class' => 'content'));
 
         if (($onsectionpage == false) && ($section->section != 0)) {
-            $o .= html_writer::start_tag('div', array('class' => 'sectionhead toggle toggle-'.$this->tcsettings['toggleiconset'], 'id' => 'toggle-' . $section->section));
+            $o .= html_writer::start_tag('div',
+                    array('class' => 'sectionhead toggle toggle-'.$this->tcsettings['toggleiconset'],
+                    'id' => 'toggle-' . $section->section));
 
             if ((!($section->toggle === null)) && ($section->toggle == true)) {
                 $toggleclass = 'toggle_open';
@@ -364,7 +378,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             $o .= html_writer::end_tag('a');
             $o .= html_writer::end_tag('div');
-            $o .= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection'.$sectionclass, 'id' => 'toggledsection-' . $section->section));
+            $o .= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection'.$sectionclass,
+                                                      'id' => 'toggledsection-' . $section->section));
             if ($section->section != 0 && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                 $o .= html_writer::link(course_get_url($course, $section->section), $title);
             }
@@ -372,7 +387,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
                 $o.= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
-                                    'class' => 'iconsmall edit', 'alt' => get_string('edit'))), array('title' => get_string('editsummary')));
+                                    'class' => 'iconsmall edit', 'alt' => get_string('edit'))),
+                                    array('title' => get_string('editsummary')));
             }
 
             $o .= html_writer::start_tag('div', array('class' => 'summary'));
@@ -388,14 +404,14 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if ($hasnamesecpg) {
                 $o .= $this->output->heading($this->section_title($section, $course), 3, 'sectionname');
             }
-            //$o .= parent::section_header($section, $course, $onsectionpage);
             $o .= html_writer::start_tag('div', array('class' => 'summary'));
             $o .= $this->format_summary_text($section);
 
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
                 $o.= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
-                                    'class' => 'iconsmall edit', 'alt' => get_string('edit'))), array('title' => get_string('editsummary')));
+                                    'class' => 'iconsmall edit', 'alt' => get_string('edit'))),
+                                    array('title' => get_string('editsummary')));
             }
             $o .= html_writer::end_tag('div');
 
@@ -473,7 +489,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $sectiontitle .= html_writer::start_tag('div', array('class' => 'section-navigation header headingblock'));
         $sectiontitle .= html_writer::tag('span', $sectionnavlinks['previous'], array('class' => 'mdl-left'));
         $sectiontitle .= html_writer::tag('span', $sectionnavlinks['next'], array('class' => 'mdl-right'));
-        // Title attributes
+        // Title attributes.
         $titleattr = 'mdl-align title';
         if (!$thissection->visible) {
             $titleattr .= ' dimmed_text';
@@ -507,7 +523,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $sectionbottomnav .= html_writer::end_tag('div');
         echo $sectionbottomnav;
 
-        // close single-section div.
+        // Close single-section div.
         echo html_writer::end_tag('div');
     }
 
@@ -575,8 +591,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $weekofseconds = 604800;
                 $course->enddate = $course->startdate + ($weekofseconds * $course->numsections);
                 $section = $course->numsections;
-                $weekdate = $course->enddate;      // this should be 0:00 Monday of that week
-                $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems
+                $weekdate = $course->enddate;      // This should be 0:00 Monday of that week.
+                $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems.
             }
 
             $numsections = $course->numsections; // Because we want to manipulate this for column breakpoints.
@@ -594,9 +610,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     $section--;
                     $loopsection++;
                 }
-                // Reset
+                // Reset.
                 $section = $course->numsections;
-                $weekdate = $course->enddate;      // this should be 0:00 Monday of that week.
+                $weekdate = $course->enddate;      // This should be 0:00 Monday of that week.
                 $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems.
             }
 
@@ -619,7 +635,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
                 $this->tccolumnwidth = 100 / $this->tcsettings['layoutcolumns'];
                 $this->tccolumnwidth -= 1; // Allow for the padding in %.
-                $this->tccolumnpadding = 2; // px
+                $this->tccolumnpadding = 2; // 'px'.
             } else if ($this->tcsettings['layoutcolumns'] < 1) {
                 // Distributed default in plugin settings (and reset in database) or database has been changed incorrectly.
                 $this->tcsettings['layoutcolumns'] = 1;
@@ -698,7 +714,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
                             && ($nextweekdate <= $timenow);
                 }
                 if (($currentsectionfirst == true) && ($showsection == true)) {
-                    $showsection = ($course->marker == $section);  // Show  the section if we were meant to and it is the current section.
+                    // Show  the section if we were meant to and it is the current section:....
+                    $showsection = ($course->marker == $section);
                 } else if (($this->tcsettings['layoutstructure'] == 4) && ($course->marker == $section)) {
                     $showsection = false; // Do not reshow current section.
                 }
@@ -738,7 +755,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 }
 
                 if ($currentsectionfirst == false) {
-                    unset($sections[$section]); // Only need to do this on the iteration when $currentsectionfirst is not true as this iteration will always happen.  Otherwise you get duplicate entries in course_sections in the DB.
+                    /* Only need to do this on the iteration when $currentsectionfirst is not true as this iteration will always
+                       happen.  Otherwise you get duplicate entries in course_sections in the DB. */
+                    unset($sections[$section]);
                 }
                 if (($this->tcsettings['layoutstructure'] != 3) || ($userisediting)) {
                     $section++;
@@ -759,8 +778,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
                             }
                         }
 
-                        if (($currentsectionfirst == false) && ($canbreak == true) && ($shownsectioncount >= $columnbreakpoint) && ($columncount < $this->tcsettings['layoutcolumns'])) {
-                        echo $this->end_section_list();
+                        if (($currentsectionfirst == false) && ($canbreak == true) && ($shownsectioncount >= $columnbreakpoint) &&
+                            ($columncount < $this->tcsettings['layoutcolumns'])) {
+                            echo $this->end_section_list();
                             echo $this->start_toggle_section_list();
                             $columncount++;
                             // Next breakpoint is...
@@ -777,7 +797,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     $section = 1;
                 }
                 if ($section > $course->numsections) {
-                    // activities inside this section are 'orphaned', this section will be printed as 'stealth' below.
+                    // Activities inside this section are 'orphaned', this section will be printed as 'stealth' below.
                     continue;
                 }
             }
@@ -787,7 +807,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             // Print stealth sections if present.
             foreach ($modinfo->get_section_info_all() as $section => $thissection) {
                 if ($section <= $course->numsections or empty($modinfo->sections[$section])) {
-                    // this is not stealth section or it is empty
+                    // This is not stealth section or it is empty.
                     continue;
                 }
                 echo $this->stealth_section_header($section);
@@ -847,8 +867,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
         $o .= html_writer::start_tag('div', array('class' => 'sectionbody'.$iconsetclass));
         $o .= html_writer::start_tag('h4', null);
-        $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'), array('class' => 'on', 'href' => '#', 'id' => 'toggles-all-opened'));
-        $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'), array('class' => 'off', 'href' => '#', 'id' => 'toggles-all-closed'));
+        $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'),
+                               array('class' => 'on', 'href' => '#', 'id' => 'toggles-all-opened'));
+        $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'),
+                               array('class' => 'off', 'href' => '#', 'id' => 'toggles-all-closed'));
         $o .= html_writer::end_tag('h4');
         $o .= html_writer::end_tag('div');
         $o .= html_writer::end_tag('div');

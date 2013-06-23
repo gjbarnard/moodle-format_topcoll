@@ -1,4 +1,19 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Collapsed Topics Information
  *
@@ -9,27 +24,15 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' in version.php.
+ * @version    See the value of '$plugin->version' in below.
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
-
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
-
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// English Pirate Translation of Collapsed Topics Course Format
+// English Pirate Translation of Collapsed Topics Course Format.
 
 // Used in format.php.
 $string['topcollsidewidth']='40px';
@@ -44,15 +47,15 @@ $string['setlayout'] = 'Set thee layout';
 $string['setlayout_default'] = 'Default';
 $string['setlayoutelements'] = 'Set thee elements';
 // Negative view of layout, kept for previous versions until such time as they are updated.
-$string['setlayout_no_toggle_section_x'] = "No 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 2
-$string['setlayout_no_toggle_section_x_section_no'] = "No 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 4
-$string['setlayout_no_toggle_word_toggle_section_x'] = "No toggle word and 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 6
-$string['setlayout_no_toggle_word_toggle_section_x_section_no'] = "No toggle word, 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 7
+$string['setlayout_no_toggle_section_x'] = "No 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 2.
+$string['setlayout_no_toggle_section_x_section_no'] = "No 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 4.
+$string['setlayout_no_toggle_word_toggle_section_x'] = "No toggle word and 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 6.
+$string['setlayout_no_toggle_word_toggle_section_x_section_no'] = "No toggle word, 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 7.
 // Positive view of layout.
-$string['setlayout_all'] = "Toggle word, 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 1
-$string['setlayout_toggle_word_section_x'] = "Toggle word and 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 3
-$string['setlayout_toggle_section_x'] = "'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 5
-$string['setlayout_toggle_section_x'] = "'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 8
+$string['setlayout_all'] = "Toggle word, 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 1.
+$string['setlayout_toggle_word_section_x'] = "Toggle word and 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 3.
+$string['setlayout_toggle_section_x'] = "'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 5.
+$string['setlayout_toggle_section_x'] = "'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 8.
 
 $string['setlayoutstructure'] = 'Set thee structure';
 $string['setlayoutstructuretopic']='Treasure Chest';

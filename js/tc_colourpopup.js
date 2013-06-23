@@ -1,5 +1,3 @@
-
-
 M.util.init_tccolour_popup = function(Y, id, previewconf) {
     Y.use('node', 'event-mouseenter', function(){
         /**
