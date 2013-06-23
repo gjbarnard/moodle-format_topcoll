@@ -230,7 +230,7 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
-14th June 2013 - Version 2.5.2
+23rd June 2013 - Version 2.5.2
   1.  Fixed issue with sections not showing their contents in editing mode when open all has been used, then they are individually
       closed and reopened.  Thanks to Marc Hermon for reporting this.
   2.  Added small icon which shows up when updating.
@@ -243,6 +243,9 @@ Version Information
       This was done to support courses with sections greater than fifty two.  Currently there is no upper limit bar what your machine
       is capable of serving.  The length of the toggle persistence data increases and decreases automatically in responce to the number
       of sections.  There are six sections per digit.
+  5.  Finally fixed having the 'toggle' word on toggles and not on the navigation menu with AJAX drag and drop working - CONTRIB-4403.
+  6.  Implemented MDL-33546.
+  7.  Fixed size of toggles altering when using AJAX drag and drop.
 
 6th June 2013 Version 2.5.1.1
   1.  Implemented MDL-39764 to fix maxsections < numsections issue.
@@ -981,6 +984,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 6th June 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 23rd June 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

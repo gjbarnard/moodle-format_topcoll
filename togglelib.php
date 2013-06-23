@@ -32,7 +32,7 @@
 
 class topcoll_togglelib {
 
-    //private static $digits = ":;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy";
+    // Digits used = ":;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy";
     // Note: An ':' is 58 Ascii so to go between six digit base 2 and this then add / substract 58.
     //       This has been chosen to avoid digits which are in the old method.
 
@@ -43,8 +43,13 @@ class topcoll_togglelib {
     const TOGGLE_2 = 16;
     const TOGGLE_1 = 32;
 
-    private $toggles;
+    private $toggles;  // Toggles state.
 
+    /**
+     * Tells us the toggle state from the DB.
+     * string $toggles - Toggles state.
+     * returns nothing.
+     */
     public function set_toggles($toggles) {
         $this->toggles = $toggles;
     }
@@ -78,6 +83,11 @@ class topcoll_togglelib {
         $this->toggles[$togglecharpos-1] = self::encode_value_to_character($value);
     }
 
+    /**
+     * Tells us if the toggle state from the DB is an old one.
+     * string $pref - Toggle state.
+     * returns boolean old preference = true and not old preference = false.
+     */
     public function is_old_preference($pref) {
         $retr = false;
         $firstchar = $pref[0];
@@ -89,22 +99,46 @@ class topcoll_togglelib {
         return $retr;
     }
 
+    /**
+     * Tells us the number of digts we need to store the state for the number of toggles we have.
+     * int $numtoggles - Number of toggles.
+     * returns int - Number of digits required.
+     */
     public function get_required_digits($numtoggles) {
         return self::get_toggle_pos($numtoggles);
     }
 
+    /**
+     * Tells us the minimum character used.
+     * returns char - Digit positionS.
+     */
     public function get_min_digit() {
         return ':';
     }
 
+    /**
+     * Tells us the maximum character used.
+     * returns char - Digit character.
+     */
     public function get_max_digit() {
         return 'y';
     }
 
+    /**
+     * Tells us digit postion for the toggle number.
+     * int $togglenum - Toggle number.
+     * returns int - Digit character.
+     */
     private static function get_toggle_pos($togglenum) {
         return ceil($togglenum / 6);
     }
 
+    /**
+     * Tells us the position of the bit within the digit for the given toggle number and digit postion in the toggles state.
+     * int $togglenum - Toggle number.
+     * int $togglecharpos - Digit character position.
+     * returns int - Digit flag.
+     */
     private static function get_toggle_flag($togglenum, $togglecharpos) {
         $toggleflagpos = $togglenum - (($togglecharpos-1)*6);
         switch ($toggleflagpos) {
@@ -130,10 +164,20 @@ class topcoll_togglelib {
         return $flag;
     }
 
+    /**
+     * Converts a character to a value so that its toggle state 'bit's can be read / set.
+     * char $char - Digit.
+     * returns int - Character value.
+     */
     private static function decode_character_to_value($char) {
         return ord($char) - 58;
     }
 
+    /**
+     * Converts a value to a digit so that can be stored in the DB.
+     * int $val - Value.
+     * returns char - Digit.
+     */
     private static function encode_value_to_character($val) {
         return chr($val + 58);
     }
