@@ -230,6 +230,11 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+24th June 2013 - Version 2.5.2.1
+  1.  Fixed CONTRIB-4436 with a 'blocker' bug on V2.5.2 below with backups failing (do not ever install this version unless you
+      want to test your disaster recovery procedures).  Thanks to Mike Turico for reporting it.  Note to self and all, using html
+      tags in the 'get_section_name()' method in 'lib.php' will break backups and trash your database.
+
 23rd June 2013 - Version 2.5.2
   1.  Fixed issue with sections not showing their contents in editing mode when open all has been used, then they are individually
       closed and reopened.  Thanks to Marc Hermon for reporting this.
@@ -987,6 +992,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 23rd June 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 24th June 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

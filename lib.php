@@ -97,7 +97,10 @@ class format_topcoll extends format_base {
             $o .= format_string($thesection->name, true, array('context' => $coursecontext));
             if (($tcsettings['layoutstructure'] == 2) || ($tcsettings['layoutstructure'] == 3) ||
                 ($tcsettings['layoutstructure'] == 5)) {
-                $o .= ' '.html_writer::empty_tag('br');
+                $o .= ' ';
+                if ($additional == true) { // br tags break backups!
+                    $o .= html_writer::empty_tag('br');
+                }
                 $o .= $this->get_section_dates($section, $course, $tcsettings);
             }
         } else if ($thesection->section == 0) {
