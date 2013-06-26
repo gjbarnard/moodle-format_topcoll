@@ -132,7 +132,7 @@ class topcoll_togglelib {
      * returns int - Digit character.
      */
     private static function get_toggle_pos($togglenum) {
-        return ceil($togglenum / 6);
+        return intval(ceil($togglenum / 6));
     }
 
     /**

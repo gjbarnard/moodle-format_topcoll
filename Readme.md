@@ -6,7 +6,8 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 ==========================
-This version works with Moodle version 2013051400.00 release 2.5 (Build: 20130514) and above until the next release.
+This version works with Moodle version 2013051400.00 release 2.5 (Build: 20130514) and above within the 2.5 branch until the
+next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
 'docs.moodle.org/25/en/Installing_Moodle'.
@@ -230,6 +231,10 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+26th June 2013 - Version 2.5.2.2
+  1.  Fixed issue with 'Notice: String offset cast occurred in togglelib.php on line 68' when running on PHP 5.4.  Thanks
+      to Halldór Kristjánsson (https://moodle.org/user/profile.php?id=1611408) for reporting this.
+
 24th June 2013 - Version 2.5.2.1
   1.  Fixed CONTRIB-4436 with a 'blocker' bug on V2.5.2 below with backups failing (do not ever install this version unless you
       want to test your disaster recovery procedures).  Thanks to Mike Turico for reporting it.  Note to self and all, using html
@@ -992,6 +997,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 24th June 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 26th June 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard
