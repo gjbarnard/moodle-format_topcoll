@@ -82,7 +82,6 @@ body.tablettheme .course-content ul.ctopics li.tcsection .content, body.tabletth
 
 /* Icon set common. */
 .course-content ul.ctopics li.section .content .toggle a, #toggle-all .content h4 a {
-    background-position: left center;
     background-repeat: no-repeat;
     background-color: transparent;
     margin: 0px 4px;

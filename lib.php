@@ -308,6 +308,10 @@ class format_topcoll extends format_base {
                     'default' => get_config('format_topcoll', 'defaulttogglealignment'),
                     'type' => PARAM_INT,
                 ),
+                'toggleiconposition' => array(
+                    'default' => get_config('format_topcoll', 'defaulttoggleiconposition'),
+                    'type' => PARAM_INT,
+                ),
                 'toggleiconset' => array(
                     'default' => get_config('format_topcoll', 'defaulttoggleiconset'),
                     'type' => PARAM_ALPHA,
@@ -421,6 +425,16 @@ class format_topcoll extends format_base {
                               2 => new lang_string('columnhorizontal', 'format_topcoll')) // Default.
                     )
                 );
+                $courseformatoptionsedit['toggleiconposition'] = array(
+                    'label' => new lang_string('settoggleiconposition', 'format_topcoll'),
+                    'help' => 'settoggleiconposition',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => array(
+                        array(1 => new lang_string('left', 'format_topcoll'),   // Left.
+                              2 => new lang_string('right', 'format_topcoll'))  // Right.
+                    )
+                );
             } else {
                 $courseformatoptionsedit['layoutelement'] =
                     array('label' => new lang_string('setlayoutelements', 'format_topcoll'), 'element_type' => 'hidden');
@@ -430,6 +444,8 @@ class format_topcoll extends format_base {
                     array('label' => new lang_string('setlayoutcolumns', 'format_topcoll'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['layoutcolumnorientation'] =
                     array('label' => new lang_string('setlayoutcolumnorientation', 'format_topcoll'), 'element_type' => 'hidden');
+                $courseformatoptionsedit['toggleiconposition'] =
+                    array('label' => new lang_string('settoggleiconposition', 'format_topcoll'), 'element_type' => 'hidden');
             }
 
             if (has_capability('format/topcoll:changetogglealignment', $coursecontext)) {
@@ -806,6 +822,7 @@ class format_topcoll extends format_base {
             $updatedata['layoutstructure'] = get_config('format_topcoll', 'defaultlayoutstructure');
             $updatedata['layoutcolumns'] = get_config('format_topcoll', 'defaultlayoutcolumns');
             $updatedata['layoutcolumnorientation'] = get_config('format_topcoll', 'defaultlayoutcolumnorientation');
+            $updatedata['toggleiconposition'] = get_config('format_topcoll', 'defaulttoggleiconposition');
         }
         if ($togglealignment && has_capability('format/topcoll:changetogglealignment', $coursecontext) && $resetallifall) {
             $updatedata['togglealignment'] = get_config('format_topcoll', 'defaulttogglealignment');

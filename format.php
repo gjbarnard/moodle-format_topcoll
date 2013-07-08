@@ -136,6 +136,19 @@ if (!empty($displaysection)) {
     ?>;
     }
 
+    /* Toggle icon position. */
+    .course-content ul.ctopics li.section .content .toggle a, #toggle-all .content h4 a {
+        background-position: <?php
+    switch ($tcsettings['toggleiconposition']) {
+        case 2:
+            echo 'right';
+            break;
+        default:
+            echo 'left';
+    }
+    ?> center;
+    }
+
     /* -- What happens when a toggle is hovered over -- */
     .course-content ul.ctopics li.section .content div.toggle:hover
     {

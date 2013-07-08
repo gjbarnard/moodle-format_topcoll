@@ -162,6 +162,12 @@ $string['resetalltogglealignment'] = 'Reset toggle alignments for all Collapsed 
 $string['resettogglealignment_help'] = 'Resets the toggle alignment to the default values so it will be the same as a course the first time it is in the Collapsed Topics format.';
 $string['resetalltogglealignment_help'] = 'Resets the toggle alignment to the default values for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 
+// Icon position.
+$string['settoggleiconposition'] = 'Set icon position';
+$string['settoggleiconposition_help'] = 'States that the icon should be on the left or the right of the toggle.';
+$string['defaulttoggleiconposition'] = 'Icon position';
+$string['defaulttoggleiconposition_desc'] = 'States if the icon should be on the left or the right of the toggle.';
+
 // Icon set enhancement.
 $string['settoggleiconset'] = 'Set icon set';
 $string['settoggleiconset_help'] = 'Sets the icon set of the toggle.';
