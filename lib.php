@@ -670,7 +670,7 @@ class format_topcoll extends format_base {
         }
         if (isset($data->resetallcolour) == true) {
             $resetallcolour = true;
-            unset($data->resetalllayout);
+            unset($data->resetallcolour);
         }
         if (isset($data->resetalltogglealignment) == true) {
             $resetalltogglealignment = true;

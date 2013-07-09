@@ -178,7 +178,7 @@ if ($ADMIN->fulltree) {
 
     // Toggle icon position.
     // 1 = left and 2 = right - done this way to avoid typos.
-    $name = 'format_topcoll/defaulticonposition';
+    $name = 'format_topcoll/defaulttoggleiconposition';
     $title = get_string('defaulttoggleiconposition', 'format_topcoll');
     $description = get_string('defaulttoggleiconposition_desc', 'format_topcoll');
     $default = 1;

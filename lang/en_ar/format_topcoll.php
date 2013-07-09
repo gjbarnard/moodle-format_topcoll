@@ -125,6 +125,12 @@ $string['resetalltogglealignment'] = 'Reset thee toggle alignments for all thy C
 $string['resettogglealignment_help'] = 'Resets thee toggle alignment to thy default values so thy will be thy same as a course thee first time it is in thee Collapsed Topics format.';
 $string['resetalltogglealignment_help'] = 'Resets thee toggle alignment to thy default values for all courses so it will be thy same as a course thee first time it is in thee Collapsed Topics format.';
 
+// Icon position - CONTRIB-4470.
+$string['settoggleiconposition'] = 'Set icon position';
+$string['settoggleiconposition_help'] = 'States that thee icon should be on thy left or thee right of thy toggle text.';
+$string['defaulttoggleiconposition'] = 'Icon position';
+$string['defaulttoggleiconposition_desc'] = 'States if thee icon should be on thy left or thee right of thy toggle text.';
+
 // Icon set enhancement.
 $string['settoggleiconset'] = 'Set thee icon set';
 $string['settoggleiconset_help'] = 'Sets thee icon set of thy toggle.';
