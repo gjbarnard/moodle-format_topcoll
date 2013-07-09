@@ -231,6 +231,11 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+9th July 2013 - Version 2.5.3
+  1.  Added the ability to set the position of the toggle as either left or right on a per course basis with
+      a default setting.  You need the 'changelayout' capability to be able to set this.
+  2.  Gratefully crowd funded on Moodle Garage -> http://www.moodlegarage.com/projects/collapsed-topics-left-to-right/.
+
 26th June 2013 - Version 2.5.2.2
   1.  Fixed issue with 'Notice: String offset cast occurred in togglelib.php on line 68' when running on PHP 5.4.  Thanks
       to Halldór Kristjánsson (https://moodle.org/user/profile.php?id=1611408) for reporting this.
@@ -997,6 +1002,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 26th June 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 9th July 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

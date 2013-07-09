@@ -176,6 +176,18 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
+    // Toggle icon position.
+    // 1 = left and 2 = right - done this way to avoid typos.
+    $name = 'format_topcoll/defaulttoggleiconposition';
+    $title = get_string('defaulttoggleiconposition', 'format_topcoll');
+    $description = get_string('defaulttoggleiconposition_desc', 'format_topcoll');
+    $default = 1;
+    $choices = array(
+        1 => new lang_string('left', 'format_topcoll'),   // Left.
+        2 => new lang_string('right', 'format_topcoll')   // Right.
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
     // Toggle icon set.
     // arrow => Arrow icon set.
     // point => Point icon set.
