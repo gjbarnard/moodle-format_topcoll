@@ -74,7 +74,7 @@ class format_topcoll extends format_base {
      *
      * @param stdClass $course The course entry from DB
      * @param int|stdClass $section Section object from database or just field section.section
-     * @param boolean $additional State to add additiional text yes = true or no = false.
+     * @param boolean $additional State to add additional text yes = true or no = false.
      * @return string The section name.
      */
     public function get_topcoll_section_name($course, $section, $additional) {
@@ -95,8 +95,8 @@ class format_topcoll extends format_base {
         // We can't add a node without any text.
         if ((string) $thesection->name !== '') {
             $o .= format_string($thesection->name, true, array('context' => $coursecontext));
-            if (($tcsettings['layoutstructure'] == 2) || ($tcsettings['layoutstructure'] == 3) ||
-                ($tcsettings['layoutstructure'] == 5)) {
+            if (($thesection->section != 0) && (($tcsettings['layoutstructure'] == 2) || 
+                ($tcsettings['layoutstructure'] == 3) || ($tcsettings['layoutstructure'] == 5))) {
                 $o .= ' ';
                 if ($additional == true) { // br tags break backups!
                     $o .= html_writer::empty_tag('br');

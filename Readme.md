@@ -231,6 +231,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+27th July 2013 - Version 2.5.3.1
+  1.  Fixed issue with dates being shown on section zero with temporal structures.  Thanks to Michael Turico for reporting this.
+
 9th July 2013 - Version 2.5.3
   1.  Added the ability to set the position of the toggle as either left or right on a per course basis with
       a default setting.  You need the 'changelayout' capability to be able to set this.
@@ -1002,6 +1005,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 9th July 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 27th July 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard
