@@ -231,6 +231,11 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+19th August 2013 Version 2.5.3.2
+  1.  Fixed issue with the 'float: left' CSS style when used to ensure that the columns were displayed correctly in the
+      'vertical' column orientation.  The fix is to use 'display: inline-block' instead but this does not work in IE7, so as
+      it does in IE8+ and other browsers I'm going to have to go with it.  Thanks to Ed Przyzycki for reporting this.
+
 27th July 2013 - Version 2.5.3.1
   1.  Fixed issue with dates being shown on section zero with temporal structures.  Thanks to Michael Turico for reporting this.
 

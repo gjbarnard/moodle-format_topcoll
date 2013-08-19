@@ -32,7 +32,7 @@
 }
 
 .course-content ul.ctlayout {
-    float: left;
+    display: inline-block;
 }
 
 .course-content ul.ctopics li.section.main, .course-content ul.ctopics li.tcsection {
