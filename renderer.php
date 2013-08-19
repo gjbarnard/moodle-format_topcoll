@@ -634,8 +634,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 }
 
                 $this->tccolumnwidth = 100 / $this->tcsettings['layoutcolumns'];
-                $this->tccolumnwidth -= 1; // Allow for the padding in %.
-                $this->tccolumnpadding = 2; // 'px'.
+                if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
+                    $this->tccolumnwidth -= 1;
+                } else {
+                    $this->tccolumnwidth -= 0.2;
+                }
+                $this->tccolumnpadding = 0; // 'px'.
             } else if ($this->tcsettings['layoutcolumns'] < 1) {
                 // Distributed default in plugin settings (and reset in database) or database has been changed incorrectly.
                 $this->tcsettings['layoutcolumns'] = 1;
