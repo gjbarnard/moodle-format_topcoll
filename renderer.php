@@ -255,7 +255,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if (!$section->visible) {
             $classattr .= ' hidden';
             $linkclasses .= ' dimmed_text';
-        } else if (course_get_format($course)->is_section_current($section)) {
+        } else if ($this->courseformat->is_section_current($section)) {
             $classattr .= ' current';
         }
 
@@ -314,7 +314,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             // Only in the non-general sections.
             if (!$section->visible) {
                 $sectionstyle = ' hidden';
-            } else if (course_get_format($course)->is_section_current($section)) {
+            } else if ($this->courseformat->is_section_current($section)) {
                 $section->toggle = true; // Open current section regardless of toggle state.
                 $sectionstyle = ' current';
                 $rightcurrent = ' left';
