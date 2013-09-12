@@ -164,7 +164,7 @@ M.format_topcoll.toggle_topic = function(targetNode, toggleNum) {
     this.save_toggles();
 };
 
-// Old maximum number of sections was 52, but as the converstion utilises integers which are 32 bit signed, this must be broken into two string segments for the
+// Old maximum number of sections was 52, but as the conversion utilises integers which are 32 bit signed, this must be broken into two string segments for the
 // process to work.  Therefore each 6 character base 36 string will represent 26 characters for part 1 and 27 for part 2 in base 2.
 // This is all required to save cookie space, so instead of using 53 bytes (characters) per course, only 12 are used.
 // Convert from a base 36 string to a base 2 string - effectively a private function.
