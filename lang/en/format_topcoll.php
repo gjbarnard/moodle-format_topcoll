@@ -61,6 +61,10 @@ $string['currentsection'] = 'This section';
 $string['markedthissection'] = 'This section is highlighted as the current section';
 $string['markthissection'] = 'Highlight this section as the current section';
 
+// Reset
+$string['resetgrp'] = 'Reset:';
+$string['resetallgrp'] = 'Reset all:';
+
 // Layout enhancement - Moodle Tracker CONTRIB-3378.
 $string['formatsettings'] = 'Format reset settings'; // CONTRIB-3529.
 $string['formatsettingsinformation'] = '<br />To reset the settings of the course format to the defaults, click on the icon to the right.';
@@ -91,8 +95,8 @@ $string['setlayoutstructureweek'] = 'Week';
 $string['setlayoutstructurelatweekfirst'] = 'Current Week First';
 $string['setlayoutstructurecurrenttopicfirst'] = 'Current Topic First';
 $string['setlayoutstructureday'] = 'Day';
-$string['resetlayout'] = 'Reset layout'; // CONTRIB-3529.
-$string['resetalllayout'] = 'Reset layouts for all Collapsed Topics courses';
+$string['resetlayout'] = 'Layout'; // CONTRIB-3529.
+$string['resetalllayout'] = 'Layouts';
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529.
 $string['setcolour'] = 'Set colour';
@@ -100,8 +104,8 @@ $string['colourrule'] = "Please enter a valid RGB colour, six hexadecimal digits
 $string['settoggleforegroundcolour'] = 'Toggle foreground';
 $string['settogglebackgroundcolour'] = 'Toggle background';
 $string['settogglebackgroundhovercolour'] = 'Toggle background hover';
-$string['resetcolour'] = 'Reset colour';
-$string['resetallcolour'] = 'Reset colours for all Collapsed Topics courses';
+$string['resetcolour'] = 'Colour';
+$string['resetallcolour'] = 'Colours';
 
 // Columns enhancement.
 $string['setlayoutcolumns'] = 'Set columns';
@@ -157,8 +161,8 @@ $string['settogglealignment_help'] = 'Sets the alignment of the text in the togg
 $string['left'] = 'Left';
 $string['center'] = 'Centre';
 $string['right'] = 'Right';
-$string['resettogglealignment'] = 'Reset toggle alignment';
-$string['resetalltogglealignment'] = 'Reset toggle alignments for all Collapsed Topics courses';
+$string['resettogglealignment'] = 'Toggle alignment';
+$string['resetalltogglealignment'] = 'Toggle alignments';
 $string['resettogglealignment_help'] = 'Resets the toggle alignment to the default values so it will be the same as a course the first time it is in the Collapsed Topics format.';
 $string['resetalltogglealignment_help'] = 'Resets the toggle alignment to the default values for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 
@@ -174,10 +178,19 @@ $string['settoggleiconset_help'] = 'Sets the icon set of the toggle.';
 $string['settoggleallhover'] = 'Set toggle all icon hover';
 $string['settoggleallhover_help'] = 'Sets if the toggle all icons will change when the mouse moves over them.';
 $string['arrow'] = 'Arrow';
+$string['bulb'] = 'Bulb';
+$string['cloud'] = 'Cloud';
+$string['eye'] = 'Eye';
+$string['led'] = 'Light Emitting Diode';
 $string['point'] = 'Point';
 $string['power'] = 'Power';
-$string['resettoggleiconset'] = 'Reset the toggle icon set';
-$string['resetalltoggleiconset'] = 'Reset the toggle icon set for all Collapsed Topics courses';
+$string['radio'] = 'Radio';
+$string['smiley'] = 'Smiley';
+$string['square'] = 'Square';
+$string['sunmoon'] = 'Sun / Moon';
+$string['switch'] = 'Switch';
+$string['resettoggleiconset'] = 'Toggle icon set';
+$string['resetalltoggleiconset'] = 'Toggle icon sets';
 $string['resettoggleiconset_help'] = 'Resets the toggle icon set and toggle all hover to the default values so it will be the same as a course the first time it is in the Collapsed Topics format.';
 $string['resetalltoggleiconset_help'] = 'Resets the toggle icon set and toggle all hover to the default values for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 
@@ -261,11 +274,29 @@ $string['defaulttogglealignment'] = 'Default toggle text alignment';
 $string['defaulttogglealignment_desc'] = "'Left', 'Centre' or 'Right'.";
 
 $string['defaulttoggleiconset'] = 'Default toggle icon set';
-$string['defaulttoggleiconset_desc'] = "'Arrow' => Arrow icon set.
+$string['defaulttoggleiconset_desc'] = "'Arrow'                => Arrow icon set.
 
-'Point' => Point icon set.
+'Bulb'                 => Bulb icon set.
 
-'Power' => Power icon set.";
+'Cloud'                => Cloud icon set.
+
+'Eye'                  => Eye icon set.
+
+'Light Emitting Diode' => LED icon set.
+
+'Point'                => Point icon set.
+
+'Power'                => Power icon set.
+
+'Radio'                => Radio icon set.
+
+'Smiley'               => Smiley icon set.
+
+'Square'               => Square icon set.
+
+'Sun / Moon'           => Sun / Moon icon set.
+
+'Switch'               => Switch icon set.";
 
 $string['defaulttoggleallhover'] = 'Default toggle all icon hovers';
 $string['defaulttoggleallhover_desc'] = "'No' or 'Yes'.";
@@ -279,3 +310,14 @@ $string['topcoll:changelayout'] = 'Change or reset the layout';
 $string['topcoll:changecolour'] = 'Change or reset the colour';
 $string['topcoll:changetogglealignment'] = 'Change or reset the toggle alignment';
 $string['topcoll:changetoggleiconset'] = 'Change or reset the toggle icon set';
+
+// Instructions
+$string['instructions'] = 'Instructions: Clicking on the section name will show / hide the section.';
+$string['displayinstructions'] = 'Display instructions';
+$string['displayinstructions_help'] = 'States that the instructions should be displayed to the user or not.';
+$string['defaultdisplayinstructions'] = 'Display instructions to users';
+$string['defaultdisplayinstructions_desc'] = "Display instructions to users informing them how to use the toggles.  Can be yes or no.";
+$string['resetdisplayinstructions'] = 'Display instructions';
+$string['resetalldisplayinstructions'] = 'Display instructions';
+$string['resetdisplayinstructions_help'] = 'Resets the display instructions to the default value so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resetalldisplayinstructions_help'] = 'Resets the display instructions to the default value for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';

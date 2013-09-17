@@ -577,6 +577,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 if ($PAGE->user_is_editing() || $course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
                     // Collapsed Topics all toggles.
                     echo $this->toggle_all();
+                    if ($this->tcsettings['displayinstructions'] == 2) {
+                        // Collapsed Topics instructions.
+                        echo $this->display_instructions();
+                    }
                 }
             }
             $currentsectionfirst = false;
@@ -850,14 +854,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
     }
 
     /**
-     * Displays the toggle all fuctionality.
+     * Displays the toggle all functionality.
      * @return string HTML to output.
      */
-    public function toggle_all() {
-        $o = '';
-
-        // Toggle all.
-        $o .= html_writer::start_tag('li', array('class' => 'tcsection main clearfix', 'id' => 'toggle-all'));
+    protected function toggle_all() {
+        $o = html_writer::start_tag('li', array('class' => 'tcsection main clearfix', 'id' => 'toggle-all'));
 
         if (($this->mobiletheme === false) || ($this->tablettheme === false)) {
             $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
@@ -876,6 +877,28 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'),
                                array('class' => 'off', 'href' => '#', 'id' => 'toggles-all-closed'));
         $o .= html_writer::end_tag('h4');
+        $o .= html_writer::end_tag('div');
+        $o .= html_writer::end_tag('div');
+        $o .= html_writer::end_tag('li');
+
+        return $o;
+    }
+
+    /**
+     * Displays the instructions functionality.
+     * @return string HTML to output.
+     */
+    protected function display_instructions() {
+        $o = html_writer::start_tag('li', array('class' => 'tcsection main clearfix', 'id' => 'topcoll-display-instructions'));
+
+        if (($this->mobiletheme === false) || ($this->tablettheme === false)) {
+            $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
+        }
+        $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
+
+        $o .= html_writer::start_tag('div', array('class' => 'content'));
+        $o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
+        $o .= html_writer::tag('p', get_string('instructions', 'format_topcoll'), array('class' => 'topcoll-display-instructions'));
         $o .= html_writer::end_tag('div');
         $o .= html_writer::end_tag('div');
         $o .= html_writer::end_tag('li');

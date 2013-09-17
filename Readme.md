@@ -25,6 +25,21 @@ and use GitHub as a means of backup.  Therefore the code is not finished, subjec
 
 Documented on http://docs.moodle.org/25/en/Collapsed_Topics_course_format
 
+Free Software
+=============
+The Collapsed Topics format is 'free' software under the terms of the GNU GPLv3 License, please see 'COPYING.txt'.
+
+It can be obtained for free from the links in 'Download and documentation' above.
+
+You have all the rights granted to you by the GPLv3 license.  If you are unsure about anything, then the
+FAQ - http://www.gnu.org/licenses/gpl-faq.html - is a good place to look.
+
+If you reuse any of the code then I kindly ask that you make reference to the format.
+
+If you make improvements or bug fixes then I would appreciate if you would send them back to me by forking from
+https://github.com/gjb2048/moodle-format_topcoll and doing a 'Pull Request' so that the rest of the
+Moodle community benefits.
+
 Supporting Collapsed Topics development
 =======================================
 If you find Collapsed Topics useful and beneficial, please consider donating to its development through the following
@@ -231,6 +246,14 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+17th September 2013 Version 2.5.3.3
+  1.  Added: Bulb, Cloud, Eye, LED, Radio, Smiley, Square, Sun / Moon and Switch icon sets as a result of remembering about:
+      https://moodle.org/mod/forum/discuss.php?d=220142.
+  2.  Added instructions on how to use the toggles from a suggestion by Guido Rößling on Learn Moodle.
+  3.  Added setting to turn on (default) / off the instructions at the course and site default level with 'Reset' and 'Reset all'
+      capability.
+  4.  Worked out how to get the reset options on the course settings page in-line in groups.
+
 19th August 2013 Version 2.5.3.2
   1.  Fixed issue with the 'float: left' CSS style when used to ensure that the columns were displayed correctly in the
       'vertical' column orientation.  The fix is to use 'display: inline-block' instead but this does not work in IE7, so as

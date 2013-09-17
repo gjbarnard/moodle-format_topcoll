@@ -288,6 +288,10 @@ class format_topcoll extends format_base {
                     'default' => get_config('format_topcoll', 'defaultcoursedisplay'),
                     'type' => PARAM_INT,
                 ),
+                'displayinstructions' => array(
+                    'default' => get_config('format_topcoll', 'defaultdisplayinstructions'),
+                    'type' => PARAM_INT,
+                ),
                 'layoutelement' => array(
                     'default' => get_config('format_topcoll', 'defaultlayoutelement'),
                     'type' => PARAM_INT,
@@ -331,7 +335,7 @@ class format_topcoll extends format_base {
                 'togglebackgroundhovercolour' => array(
                     'default' => get_config('format_topcoll', 'defaulttgbghvrcolour'),
                     'type' => PARAM_ALPHANUM,
-                ),
+                )
             );
         }
         if ($foreditform && !isset($courseformatoptions['coursedisplay']['label'])) {
@@ -371,6 +375,16 @@ class format_topcoll extends format_base {
                     ),
                     'help' => 'coursedisplay',
                     'help_component' => 'moodle',
+                ),
+                'displayinstructions' => array(
+                    'label' => new lang_string('displayinstructions', 'format_topcoll'),
+                    'help' => 'displayinstructions',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => array(
+                        array(1 => new lang_string('no'),
+                              2 => new lang_string('yes'))
+                    )
                 )
             );
             if (has_capability('format/topcoll:changelayout', $coursecontext)) {
@@ -472,9 +486,19 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => array(
-                        array('arrow' => new lang_string('arrow', 'format_topcoll'), // Arrow icon set.
-                              'point' => new lang_string('point', 'format_topcoll'), // Point icon set.
-                              'power' => new lang_string('power', 'format_topcoll')) // Power icon set.
+                        array(
+                            'arrow' => new lang_string('arrow', 'format_topcoll'),     // Arrow icon set.
+                            'bulb' => new lang_string('bulb', 'format_topcoll'),       // Bulb icon set.
+                            'cloud' => new lang_string('cloud', 'format_topcoll'),     // Cloud icon set.
+                            'eye' => new lang_string('eye', 'format_topcoll'),         // Eye icon set.
+                            'led' => new lang_string('led', 'format_topcoll'),         // LED icon set.
+                            'point' => new lang_string('point', 'format_topcoll'),     // Point icon set.
+                            'power' => new lang_string('power', 'format_topcoll'),     // Power icon set.
+                            'radio' => new lang_string('radio', 'format_topcoll'),     // Radio icon set.
+                            'smiley' => new lang_string('smiley', 'format_topcoll'),   // Smiley icon set.
+                            'square' => new lang_string('square', 'format_topcoll'),   // Square icon set.
+                            'sunmoon' => new lang_string('sunmoon', 'format_topcoll'), // Sun / Moon icon set.
+                            'switch' => new lang_string('switch', 'format_topcoll'))   // Switch icon set.
                     )
                 );
                 $courseformatoptionsedit['toggleallhover'] = array(
@@ -545,7 +569,7 @@ class format_topcoll extends format_base {
      * @return array array of references to the added form elements
      */
     public function create_edit_form_elements(&$mform, $forsection = false) {
-        global $CFG;
+        global $CFG, $OUTPUT;
         MoodleQuickForm::registerElementType('tccolourpopup', "$CFG->dirroot/course/format/topcoll/js/tc_colourpopup.php",
                                              'MoodleQuickForm_tccolourpopup');
 
@@ -577,43 +601,53 @@ class format_topcoll extends format_base {
             $changetoggleiconset = has_capability('format/topcoll:changetoggleiconset', $coursecontext);
             $resetall = is_siteadmin($USER); // Site admins only.
 
-            if ($changelayout || $changecolour || $changetogglealignment || $changetoggleiconset || $resetall) {
-                $elements[] = $mform->addElement('header', 'ctreset', get_string('ctreset', 'format_topcoll'));
-            }
+            $elements[] = $mform->addElement('header', 'ctreset', get_string('ctreset', 'format_topcoll'));
+            $mform->addHelpButton('ctreset', 'ctreset', 'format_topcoll', '', true);
+
+            $resetelements = array();
+            $checkboxname = get_string('resetdisplayinstructions', 'format_topcoll').$OUTPUT->help_icon('resetdisplayinstructions', 'format_topcoll');
+            $resetelements[] =& $mform->createElement('checkbox', 'resetdisplayinstructions', '', $checkboxname);
 
             if ($changelayout) {
-                $mform->addHelpButton('ctreset', 'ctreset', 'format_topcoll', '', true);
-                $elements[] = $mform->addElement('checkbox', 'resetlayout', get_string('resetlayout', 'format_topcoll'), false);
-                $mform->addHelpButton('resetlayout', 'resetlayout', 'format_topcoll', '', true);
+                $checkboxname = get_string('resetlayout', 'format_topcoll').$OUTPUT->help_icon('resetlayout', 'format_topcoll');
+                $resetelements[] =& $mform->createElement('checkbox', 'resetlayout', '', $checkboxname);
             }
 
             if ($changecolour) {
-                $elements[] = $mform->addElement('checkbox', 'resetcolour', get_string('resetcolour', 'format_topcoll'), false);
-                $mform->addHelpButton('resetcolour', 'resetcolour', 'format_topcoll', '', true);
+                $checkboxname = get_string('resetcolour', 'format_topcoll').$OUTPUT->help_icon('resetcolour', 'format_topcoll');
+                $resetelements[] =& $mform->createElement('checkbox', 'resetcolour', '', $checkboxname);
             }
 
             if ($changetogglealignment) {
-                $elements[] = $mform->addElement('checkbox', 'resettogglealignment', get_string('resettogglealignment', 'format_topcoll'), false);
-                $mform->addHelpButton('resettogglealignment', 'resettogglealignment', 'format_topcoll', '', true);
+                $checkboxname = get_string('resettogglealignment', 'format_topcoll').$OUTPUT->help_icon('resettogglealignment', 'format_topcoll');
+                $resetelements[] =& $mform->createElement('checkbox', 'resettogglealignment', '', $checkboxname);
             }
 
             if ($changetoggleiconset) {
-                $elements[] = $mform->addElement('checkbox', 'resettoggleiconset', get_string('resettoggleiconset', 'format_topcoll'), false);
-                $mform->addHelpButton('resettoggleiconset', 'resettoggleiconset', 'format_topcoll', '', true);
+                $checkboxname = get_string('resettoggleiconset', 'format_topcoll').$OUTPUT->help_icon('resettoggleiconset', 'format_topcoll');
+                $resetelements[] =& $mform->createElement('checkbox', 'resettoggleiconset', '', $checkboxname);
             }
+            $elements[] = $mform->addGroup($resetelements, 'resetgroup', get_string('resetgrp', 'format_topcoll'), null, false);
 
             if ($resetall) {
-                $elements[] = $mform->addElement('checkbox', 'resetalllayout', get_string('resetalllayout', 'format_topcoll'), false);
-                $mform->addHelpButton('resetalllayout', 'resetalllayout', 'format_topcoll', '', true);
+                $resetallelements = array();
 
-                $elements[] = $mform->addElement('checkbox', 'resetallcolour', get_string('resetallcolour', 'format_topcoll'), false);
-                $mform->addHelpButton('resetallcolour', 'resetallcolour', 'format_topcoll', '', true);
+                $checkboxname = get_string('resetalldisplayinstructions', 'format_topcoll').$OUTPUT->help_icon('resetalldisplayinstructions', 'format_topcoll');
+                $resetallelements[] =& $mform->createElement('checkbox', 'resetalldisplayinstructions', '', $checkboxname);
 
-                $elements[] = $mform->addElement('checkbox', 'resetalltogglealignment', get_string('resetalltogglealignment', 'format_topcoll'), false);
-                $mform->addHelpButton('resetalltogglealignment', 'resetalltogglealignment', 'format_topcoll', '', true);
+                $checkboxname = get_string('resetalllayout', 'format_topcoll').$OUTPUT->help_icon('resetalllayout', 'format_topcoll');
+                $resetallelements[] =& $mform->createElement('checkbox', 'resetalllayout', '', $checkboxname);
 
-                $elements[] = $mform->addElement('checkbox', 'resetalltoggleiconset', get_string('resetalltoggleiconset', 'format_topcoll'), false);
-                $mform->addHelpButton('resetalltoggleiconset', 'resetalltoggleiconset', 'format_topcoll', '', true);
+                $checkboxname = get_string('resetallcolour', 'format_topcoll').$OUTPUT->help_icon('resetallcolour', 'format_topcoll');
+                $resetallelements[] =& $mform->createElement('checkbox', 'resetallcolour', '', $checkboxname);
+
+                $checkboxname = get_string('resetalltogglealignment', 'format_topcoll').$OUTPUT->help_icon('resetalltogglealignment', 'format_topcoll');
+                $resetallelements[] =& $mform->createElement('checkbox', 'resetalltogglealignment', '', $checkboxname);
+
+                $checkboxname = get_string('resetalltoggleiconset', 'format_topcoll').$OUTPUT->help_icon('resetalltoggleiconset', 'format_topcoll');
+                $resetallelements[] =& $mform->createElement('checkbox', 'resetalltoggleiconset', '', $checkboxname);
+
+                $elements[] = $mform->addGroup($resetallelements, 'resetallgroup', get_string('resetallgrp', 'format_topcoll'), null, false);
             }
         }
 
@@ -640,14 +674,20 @@ class format_topcoll extends format_base {
          *        This has to be done here so that the reset occurs after we have done updates such that the
          *        reset itself is not seen as an update.
          */
+        $resetdisplayinstructions = false;
         $resetlayout = false;
         $resetcolour = false;
         $resettogglealignment = false;
         $resettoggleiconset = false;
+        $resetalldisplayinstructions = false;
         $resetalllayout = false;
         $resetallcolour = false;
         $resetalltogglealignment = false;
         $resetalltoggleiconset = false;
+        if (isset($data->resetdisplayinstructions) == true) {
+            $resetdisplayinstructions = true;
+            unset($data->resetdisplayinstructions);
+        }
         if (isset($data->resetlayout) == true) {
             $resetlayout = true;
             unset($data->resetlayout);
@@ -656,10 +696,6 @@ class format_topcoll extends format_base {
             $resetcolour = true;
             unset($data->resetcolour);
         }
-        if (isset($data->resetalllayout) == true) {
-            $resetalllayout = true;
-            unset($data->resetalllayout);
-        }
         if (isset($data->resettogglealignment) == true) {
             $resettogglealignment = true;
             unset($data->resettogglealignment);
@@ -667,6 +703,14 @@ class format_topcoll extends format_base {
         if (isset($data->resettoggleiconset) == true) {
             $resettoggleiconset = true;
             unset($data->resettoggleiconset);
+        }
+        if (isset($data->resetalldisplayinstructions) == true) {
+            $resetalldisplayinstructions = true;
+            unset($data->resetalldisplayinstructions);
+        }
+        if (isset($data->resetalllayout) == true) {
+            $resetalllayout = true;
+            unset($data->resetalllayout);
         }
         if (isset($data->resetallcolour) == true) {
             $resetallcolour = true;
@@ -705,11 +749,11 @@ class format_topcoll extends format_base {
         $changes = $this->update_format_options($data);
 
         // Now we can do the reset.
-        if (($resetalllayout) || ($resetallcolour) || ($resetalltogglealignment) || ($resetalltoggleiconset)) {
-            $this->reset_topcoll_setting(0, $resetalllayout, $resetallcolour, $resetalltogglealignment, $resetalltoggleiconset);
+        if (($resetalldisplayinstructions) || ($resetalllayout) || ($resetallcolour) || ($resetalltogglealignment) || ($resetalltoggleiconset)) {
+            $this->reset_topcoll_setting(0, $resetalldisplayinstructions, $resetalllayout, $resetallcolour, $resetalltogglealignment, $resetalltoggleiconset);
             $changes = true;
-        } else if (($resetlayout) || ($resetcolour) || ($resettogglealignment) || ($resettoggleiconset)) {
-            $this->reset_topcoll_setting($this->courseid, $resetlayout, $resetcolour, $resettogglealignment, $resettoggleiconset);
+        } else if (($resetdisplayinstructions) || ($resetlayout) || ($resetcolour) || ($resettogglealignment) || ($resettoggleiconset)) {
+            $this->reset_topcoll_setting($this->courseid, $resetdisplayinstructions, $resetlayout, $resetcolour, $resettogglealignment, $resettoggleiconset);
             $changes = true;
         }
 
@@ -796,12 +840,13 @@ class format_topcoll extends format_base {
     /**
      * Resets the format setting to the default.
      * @param int $courseid If not 0, then a specific course to reset.
-     * @param int $layout If true, reset the layout to the default in tcconfig.php.
-     * @param int $colour If true, reset the colour to the default in tcconfig.php.
-     * @param int $togglealignment If true, reset the toggle alignment to the default in tcconfig.php.
-     * @param int $toggleiconset If true, reset the toggle icon set to the default in tcconfig.php.
+     * @param int $displayinstructions If true, reset the display instructions to the default in the settings for the format.
+     * @param int $layout If true, reset the layout to the default in the settings for the format.
+     * @param int $colour If true, reset the colour to the default in the settings for the format.
+     * @param int $togglealignment If true, reset the toggle alignment to the default in the settings for the format.
+     * @param int $toggleiconset If true, reset the toggle icon set to the default in the settings for the format.
      */
-    public function reset_topcoll_setting($courseid, $layout, $colour, $togglealignment, $toggleiconset) {
+    public function reset_topcoll_setting($courseid, $displayinstructions, $layout, $colour, $togglealignment, $toggleiconset) {
         global $DB, $USER, $COURSE;
 
         $coursecontext = context_course::instance($COURSE->id);
@@ -816,6 +861,9 @@ class format_topcoll extends format_base {
         $resetallifall = ((is_siteadmin($USER)) || ($courseid != 0)); // Will be true if reset all capability or a single course.
 
         $updatedata = array();
+        if ($displayinstructions && $resetallifall) {
+            $updatedata['displayinstructions'] = get_config('format_topcoll', 'defaultdisplayinstructions');
+        }
         if ($layout && has_capability('format/topcoll:changelayout', $coursecontext) && $resetallifall) {
             $updatedata['coursedisplay'] = get_config('format_topcoll', 'defaultcoursedisplay');
             $updatedata['layoutelement'] = get_config('format_topcoll', 'defaultlayoutelement');
