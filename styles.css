@@ -627,3 +627,10 @@ body.jsenabled #toggle-all {
     width: 35px;
     text-decoration: none;
 }
+
+body.format-topcoll #fgroup_id_layoutgroup label.accesshide {
+    position: inherit;
+    left: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}

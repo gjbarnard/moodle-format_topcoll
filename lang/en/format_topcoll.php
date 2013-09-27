@@ -68,6 +68,7 @@ $string['resetallgrp'] = 'Reset all:';
 // Layout enhancement - Moodle Tracker CONTRIB-3378.
 $string['formatsettings'] = 'Format reset settings'; // CONTRIB-3529.
 $string['formatsettingsinformation'] = '<br />To reset the settings of the course format to the defaults, click on the icon to the right.';
+$string['layoutgroup'] = 'Layout options';
 $string['setlayout'] = 'Set layout';
 
 // Negative view of layout, kept for previous versions until such time as they are updated.
