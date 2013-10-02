@@ -249,7 +249,7 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
-26th September 2013 Version 2.5.3.3
+2nd October 2013 Version 2.5.3.3
   1.  Added: Bulb, Cloud, Eye, LED, Radio, Smiley, Square, Sun / Moon and Switch icon sets as a result of remembering about:
       https://moodle.org/mod/forum/discuss.php?d=220142.
   2.  Added instructions on how to use the toggles from a suggestion by Guido Rößling on Learn Moodle.
@@ -1036,6 +1036,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 26th September 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 2nd October 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard
