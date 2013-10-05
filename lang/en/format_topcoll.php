@@ -1,4 +1,18 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Collapsed Topics Information
@@ -10,24 +24,12 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' in version.php.
+ * @version    See the value of '$plugin->version' in below.
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 // Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
 // Possibly legacy to be removed after Moodle 2.0 is stable.
@@ -59,28 +61,32 @@ $string['currentsection'] = 'This section';
 $string['markedthissection'] = 'This section is highlighted as the current section';
 $string['markthissection'] = 'Highlight this section as the current section';
 
+// Reset
+$string['resetgrp'] = 'Reset:';
+$string['resetallgrp'] = 'Reset all:';
+
 // Layout enhancement - Moodle Tracker CONTRIB-3378.
 $string['formatsettings'] = 'Format reset settings'; // CONTRIB-3529.
 $string['formatsettingsinformation'] = '<br />To reset the settings of the course format to the defaults, click on the icon to the right.';
 $string['setlayout'] = 'Set layout';
 
 // Negative view of layout, kept for previous versions until such time as they are updated.
-$string['setlayout_default'] = 'Default'; // 1
-$string['setlayout_no_toggle_section_x'] = 'No toggle section x'; // 2
-$string['setlayout_no_section_no'] = 'No section number'; // 3
-$string['setlayout_no_toggle_section_x_section_no'] = 'No toggle section x and section number'; // 4
-$string['setlayout_no_toggle_word'] = 'No toggle word'; // 5
-$string['setlayout_no_toggle_word_toggle_section_x'] = 'No toggle word and toggle section x'; // 6
-$string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'No toggle word, toggle section x and section number'; // 7
+$string['setlayout_default'] = 'Default'; // 1.
+$string['setlayout_no_toggle_section_x'] = 'No toggle section x'; // 2.
+$string['setlayout_no_section_no'] = 'No section number'; // 3.
+$string['setlayout_no_toggle_section_x_section_no'] = 'No toggle section x and section number'; // 4.
+$string['setlayout_no_toggle_word'] = 'No toggle word'; // 5.
+$string['setlayout_no_toggle_word_toggle_section_x'] = 'No toggle word and toggle section x'; // 6.
+$string['setlayout_no_toggle_word_toggle_section_x_section_no'] = 'No toggle word, toggle section x and section number'; // 7.
 // Positive view of layout.
-$string['setlayout_all'] = "Toggle word, 'Topic x' / 'Week x' / 'Day x' and section number"; // 1
-$string['setlayout_toggle_word_section_number'] = 'Toggle word and section number'; // 2
-$string['setlayout_toggle_word_section_x'] = "Toggle word and 'Topic x' / 'Week x' / 'Day x'"; // 3
-$string['setlayout_toggle_word'] = 'Toggle word'; // 4
-$string['setlayout_toggle_section_x_section_number'] = "'Topic x' / 'Week x' / 'Day x' and section number"; // 5
-$string['setlayout_section_number'] = 'Section number'; // 6
-$string['setlayout_no_additions'] = 'No additions'; // 7
-$string['setlayout_toggle_section_x'] = "'Topic x' / 'Week x' / 'Day x'"; // 8
+$string['setlayout_all'] = "Toggle word, 'Topic x' / 'Week x' / 'Day x' and section number"; // 1.
+$string['setlayout_toggle_word_section_number'] = 'Toggle word and section number'; // 2.
+$string['setlayout_toggle_word_section_x'] = "Toggle word and 'Topic x' / 'Week x' / 'Day x'"; // 3.
+$string['setlayout_toggle_word'] = 'Toggle word'; // 4.
+$string['setlayout_toggle_section_x_section_number'] = "'Topic x' / 'Week x' / 'Day x' and section number"; // 5.
+$string['setlayout_section_number'] = 'Section number'; // 6.
+$string['setlayout_no_additions'] = 'No additions'; // 7.
+$string['setlayout_toggle_section_x'] = "'Topic x' / 'Week x' / 'Day x'"; // 8.
 
 $string['setlayoutelements'] = 'Set elements';
 $string['setlayoutstructure'] = 'Set structure';
@@ -89,8 +95,8 @@ $string['setlayoutstructureweek'] = 'Week';
 $string['setlayoutstructurelatweekfirst'] = 'Current Week First';
 $string['setlayoutstructurecurrenttopicfirst'] = 'Current Topic First';
 $string['setlayoutstructureday'] = 'Day';
-$string['resetlayout'] = 'Reset layout'; // CONTRIB-3529.
-$string['resetalllayout'] = 'Reset layouts for all Collapsed Topics courses';
+$string['resetlayout'] = 'Layout'; // CONTRIB-3529.
+$string['resetalllayout'] = 'Layouts';
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529.
 $string['setcolour'] = 'Set colour';
@@ -98,8 +104,8 @@ $string['colourrule'] = "Please enter a valid RGB colour, six hexadecimal digits
 $string['settoggleforegroundcolour'] = 'Toggle foreground';
 $string['settogglebackgroundcolour'] = 'Toggle background';
 $string['settogglebackgroundhovercolour'] = 'Toggle background hover';
-$string['resetcolour'] = 'Reset colour';
-$string['resetallcolour'] = 'Reset colours for all Collapsed Topics courses';
+$string['resetcolour'] = 'Colour';
+$string['resetallcolour'] = 'Colours';
 
 // Columns enhancement.
 $string['setlayoutcolumns'] = 'Set columns';
@@ -155,10 +161,16 @@ $string['settogglealignment_help'] = 'Sets the alignment of the text in the togg
 $string['left'] = 'Left';
 $string['center'] = 'Centre';
 $string['right'] = 'Right';
-$string['resettogglealignment'] = 'Reset toggle alignment';
-$string['resetalltogglealignment'] = 'Reset toggle alignments for all Collapsed Topics courses';
+$string['resettogglealignment'] = 'Toggle alignment';
+$string['resetalltogglealignment'] = 'Toggle alignments';
 $string['resettogglealignment_help'] = 'Resets the toggle alignment to the default values so it will be the same as a course the first time it is in the Collapsed Topics format.';
 $string['resetalltogglealignment_help'] = 'Resets the toggle alignment to the default values for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
+
+// Icon position - CONTRIB-4470.
+$string['settoggleiconposition'] = 'Set icon position';
+$string['settoggleiconposition_help'] = 'States that the icon should be on the left or the right of the toggle text.';
+$string['defaulttoggleiconposition'] = 'Icon position';
+$string['defaulttoggleiconposition_desc'] = 'States if the icon should be on the left or the right of the toggle text.';
 
 // Icon set enhancement.
 $string['settoggleiconset'] = 'Set icon set';
@@ -166,10 +178,19 @@ $string['settoggleiconset_help'] = 'Sets the icon set of the toggle.';
 $string['settoggleallhover'] = 'Set toggle all icon hover';
 $string['settoggleallhover_help'] = 'Sets if the toggle all icons will change when the mouse moves over them.';
 $string['arrow'] = 'Arrow';
+$string['bulb'] = 'Bulb';
+$string['cloud'] = 'Cloud';
+$string['eye'] = 'Eye';
+$string['led'] = 'Light Emitting Diode';
 $string['point'] = 'Point';
 $string['power'] = 'Power';
-$string['resettoggleiconset'] = 'Reset the toggle icon set';
-$string['resetalltoggleiconset'] = 'Reset the toggle icon set for all Collapsed Topics courses';
+$string['radio'] = 'Radio';
+$string['smiley'] = 'Smiley';
+$string['square'] = 'Square';
+$string['sunmoon'] = 'Sun / Moon';
+$string['switch'] = 'Switch';
+$string['resettoggleiconset'] = 'Toggle icon set';
+$string['resetalltoggleiconset'] = 'Toggle icon sets';
 $string['resettoggleiconset_help'] = 'Resets the toggle icon set and toggle all hover to the default values so it will be the same as a course the first time it is in the Collapsed Topics format.';
 $string['resetalltoggleiconset_help'] = 'Resets the toggle icon set and toggle all hover to the default values for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 
@@ -253,21 +274,50 @@ $string['defaulttogglealignment'] = 'Default toggle text alignment';
 $string['defaulttogglealignment_desc'] = "'Left', 'Centre' or 'Right'.";
 
 $string['defaulttoggleiconset'] = 'Default toggle icon set';
-$string['defaulttoggleiconset_desc'] = "'Arrow' => Arrow icon set.
+$string['defaulttoggleiconset_desc'] = "'Arrow'                => Arrow icon set.
 
-'Point' => Point icon set.
+'Bulb'                 => Bulb icon set.
 
-'Power' => Power icon set.";
+'Cloud'                => Cloud icon set.
+
+'Eye'                  => Eye icon set.
+
+'Light Emitting Diode' => LED icon set.
+
+'Point'                => Point icon set.
+
+'Power'                => Power icon set.
+
+'Radio'                => Radio icon set.
+
+'Smiley'               => Smiley icon set.
+
+'Square'               => Square icon set.
+
+'Sun / Moon'           => Sun / Moon icon set.
+
+'Switch'               => Switch icon set.";
 
 $string['defaulttoggleallhover'] = 'Default toggle all icon hovers';
 $string['defaulttoggleallhover_desc'] = "'No' or 'Yes'.";
 
 // Default user preference.
-$string['defaultuserpreference'] = 'What to do with the toggles when the user first accesses the course';
-$string['defaultuserpreference_desc'] = 'States what to do with the toggles when the user first accesses the course.';
+$string['defaultuserpreference'] = 'What to do with the toggles when the user first accesses the course or adds more sections';
+$string['defaultuserpreference_desc'] = 'States what to do with the toggles when the user first accesses the course or the state of additional sections when they are added.';
 
 // Capabilities.
 $string['topcoll:changelayout'] = 'Change or reset the layout';
 $string['topcoll:changecolour'] = 'Change or reset the colour';
 $string['topcoll:changetogglealignment'] = 'Change or reset the toggle alignment';
 $string['topcoll:changetoggleiconset'] = 'Change or reset the toggle icon set';
+
+// Instructions
+$string['instructions'] = 'Instructions: Clicking on the section name will show / hide the section.';
+$string['displayinstructions'] = 'Display instructions';
+$string['displayinstructions_help'] = 'States that the instructions should be displayed to the user or not.';
+$string['defaultdisplayinstructions'] = 'Display instructions to users';
+$string['defaultdisplayinstructions_desc'] = "Display instructions to users informing them how to use the toggles.  Can be yes or no.";
+$string['resetdisplayinstructions'] = 'Display instructions';
+$string['resetalldisplayinstructions'] = 'Display instructions';
+$string['resetdisplayinstructions_help'] = 'Resets the display instructions to the default value so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resetalldisplayinstructions_help'] = 'Resets the display instructions to the default value for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';

@@ -34,36 +34,67 @@
  */
 M.format_topcoll = M.format_topcoll || {};
 
-// Namespace variables 
-M.format_topcoll.toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000"; // 53 possible toggles - current settings in Moodle for number of topics - 52 + 1 for topic 0.  Need 1 as Most Significant bit to allow toggle 1+ to be off.
+// Namespace variables:
 M.format_topcoll.thesparezeros = "00000000000000000000000000"; // A constant of 26 0's to be used to pad the storage state of the toggles when converting between base 2 and 36, this is to be compact.
+M.format_topcoll.togglestate;
 M.format_topcoll.courseid;
 M.format_topcoll.togglePersistence = 1; // Toggle persistence - 1 = on, 0 = off.
 M.format_topcoll.ourYUI;
+M.format_topcoll.numSections;
+
+// Namespace constants:
+M.format_topcoll.TOGGLE_6 = 1;
+M.format_topcoll.TOGGLE_5 = 2;
+M.format_topcoll.TOGGLE_4 = 4;
+M.format_topcoll.TOGGLE_3 = 8;
+M.format_topcoll.TOGGLE_2 = 16;
+M.format_topcoll.TOGGLE_1 = 32;
 
 /**
  * Initialise with the information supplied from the course format 'format.php' so we can operate.
  * @param {Object} Y YUI instance
  * @param {String} theCourseId the id of the current course to allow for settings for each course.
  * @param {String} theToggleState the current state of the toggles.
+ * @param {Integer} theNumSections the number of sections in the course.
  * @param {Integer} theTogglePersistence Persistence on (1) or off (0).
  * @param {Integer} theDefaultTogglePersistence Persistence all open (1) or all closed (0) when thetogglestate is null.
  */
-M.format_topcoll.init = function(Y, theCourseId, theToggleState, theTogglePersistence, theDefaultTogglePersistence) {
+M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections, theTogglePersistence, theDefaultTogglePersistence) {
     "use strict";
     // Init.
     this.ourYUI = Y;
     this.courseid = theCourseId;
+    this.togglestate = theToggleState;
+    this.numSections = parseInt(theNumSections);
     this.togglePersistence = theTogglePersistence;
 
-    if (theToggleState !== null) {
-        this.toggleBinaryGlobal = this.to2baseString(theToggleState);
+    if (this.togglestate !== null) {
+        if (this.is_old_preference(this.togglestate) == true) {
+            // Old preference, so convert to new.
+            this.convert_to_new_preference();
+        }
+        // Check we have enough digits for the number of toggles in case this has increased.
+        var numdigits = this.get_required_digits(this.numSections);
+        if (numdigits > this.togglestate.length) {
+            var dchar;
+            if (theDefaultTogglePersistence == 0) {
+                dchar = this.get_min_digit();
+            } else {
+                dchar = this.get_max_digit();
+            }
+            for (var i = this.togglestate.length; i < numdigits; i++) {
+                this.togglestate += dchar;
+            }
+        } else if (numdigits < this.togglestate.length) {
+            // Shorten to save space.
+            this.togglestate = this.togglestate.substring(0, numdigits);
+        }
     } else {
         // Reset to default.
         if (theDefaultTogglePersistence == 0) {
-            this.toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
+            this.resetState(this.get_min_digit());
         } else {
-            this.toggleBinaryGlobal = "11111111111111111111111111111111111111111111111111111";
+            this.resetState(this.get_max_digit());
         }
     }
 
@@ -92,55 +123,48 @@ M.format_topcoll.toggleClick = function(e) {
 
 M.format_topcoll.allOpenClick = function(e) {
     e.preventDefault();
-    M.format_topcoll.ourYUI.all(".toggledsection").show().setStyle('display', 'block');
+    M.format_topcoll.ourYUI.all(".toggledsection").addClass('sectionopen');
     M.format_topcoll.ourYUI.all(".toggle a").addClass('toggle_open').removeClass('toggle_closed');
-    M.format_topcoll.toggleBinaryGlobal = "11111111111111111111111111111111111111111111111111111";
+    M.format_topcoll.resetState(M.format_topcoll.get_max_digit());
     M.format_topcoll.save_toggles();
 };
 
 M.format_topcoll.allCloseClick = function(e) {
     e.preventDefault();
-    M.format_topcoll.ourYUI.all(".toggledsection").hide();
+    M.format_topcoll.ourYUI.all(".toggledsection").removeClass('sectionopen');
     M.format_topcoll.ourYUI.all(".toggle a").addClass('toggle_closed').removeClass('toggle_open');
-    M.format_topcoll.toggleBinaryGlobal = "10000000000000000000000000000000000000000000000000000";
+    M.format_topcoll.resetState(M.format_topcoll.get_min_digit());
     M.format_topcoll.save_toggles();
 };
 
-// Toggle functions
-// Change the toggle binary global state as a toggle has been changed - toggle number 0 should never be switched as it is the most significant bit and represents the non-toggling topic 0.
-// Args - toggleNum is an integer and toggleVal is a string which will either be "1" or "0"
-//        savetoggles save the toggle state - used so that all_toggles does not make multiple requests but instead one.
-M.format_topcoll.togglebinary = function(toggleNum, toggleVal, savetoggles) {
-    "use strict";
-    // Toggle num should be between 1 and 52 - see definition of toggleBinaryGlobal above.
-    if ((toggleNum >= 1) && (toggleNum <= 52)) {
-        // Safe to use.
-        var start = this.toggleBinaryGlobal.substring(0,toggleNum);
-        var end = this.toggleBinaryGlobal.substring(toggleNum+1);
-        this.toggleBinaryGlobal = start + toggleVal + end;
-
-        if (savetoggles === true) {
-            this.save_toggles();
-        }
+M.format_topcoll.resetState = function(dchar) {
+    M.format_topcoll.togglestate = "";
+    var numdigits = M.format_topcoll.get_required_digits(M.format_topcoll.numSections);
+    for (var i = 0; i < numdigits; i++) {
+        M.format_topcoll.togglestate += dchar;
     }
 };
 
+// Toggle functions
 // Args - targetNode that initiated the call, toggleNum the number of the toggle.
 M.format_topcoll.toggle_topic = function(targetNode, toggleNum) {
     "use strict";
     var targetLink = targetNode.one('a');
+    var state;
     if (!targetLink.hasClass('toggle_open')) {
         targetLink.addClass('toggle_open').removeClass('toggle_closed');
-        targetNode.next('.toggledsection').show().setStyle('display', 'block');
-        this.togglebinary(toggleNum, "1", true);
+        targetNode.next('.toggledsection').addClass('sectionopen');
+        state = true;
     } else {
         targetLink.addClass('toggle_closed').removeClass('toggle_open');
-        targetNode.next('.toggledsection').hide();
-        this.togglebinary(toggleNum, "0", true);
+        targetNode.next('.toggledsection').removeClass('sectionopen');
+        state = false;
     }
+    this.set_toggle_state(toggleNum, state);
+    this.save_toggles();
 };
 
-// Current maximum number of topics is 52, but as the converstion utilises integers which are 32 bit signed, this must be broken into two string segments for the
+// Old maximum number of sections was 52, but as the conversion utilises integers which are 32 bit signed, this must be broken into two string segments for the
 // process to work.  Therefore each 6 character base 36 string will represent 26 characters for part 1 and 27 for part 2 in base 2.
 // This is all required to save cookie space, so instead of using 53 bytes (characters) per course, only 12 are used.
 // Convert from a base 36 string to a base 2 string - effectively a private function.
@@ -152,7 +176,7 @@ M.format_topcoll.to2baseString = function(thirtysix) {
     var secondpart = parseInt(thirtysix.substring(6,12),36);
     var fps = firstpart.toString(2);
     var sps = secondpart.toString(2);
-    
+
     // Add in preceding 0's if base 2 sub strings are not long enough
     if (fps.length < 26) {
         // Need to PAD.
@@ -161,29 +185,6 @@ M.format_topcoll.to2baseString = function(thirtysix) {
     if (sps.length < 27) {
         // Need to PAD.
         sps = this.thesparezeros.substring(0,(27 - sps.length)) + sps;
-    }
-    
-    return fps + sps;
-};
-
-// Convert from a base 2 string to a base 36 string - effectively a private function.
-// Args - two - a 52 character string representing a base 2 number.
-M.format_topcoll.to36baseString = function(two) {
-    "use strict";
-    // Break apart the string because integers are signed 32 bit and therefore can only store 31 bits, therefore a 52 bit number will cause overflow / carry with loss of resolution.
-    var firstpart = parseInt(two.substring(0,26),2);
-    var secondpart = parseInt(two.substring(26,53),2);
-    var fps = firstpart.toString(36);
-    var sps = secondpart.toString(36);
-
-    // Add in preceding 0's if base 36 sub strings are not long enough
-    if (fps.length < 6) {
-        // Need to PAD.
-        fps = this.thesparezeros.substring(0,(6 - fps.length)) + fps;
-    }
-    if (sps.length < 6) {
-        // Need to PAD.
-        sps = this.thesparezeros.substring(0,(6 - sps.length)) + sps;
     }
 
     return fps + sps;
@@ -194,6 +195,119 @@ M.format_topcoll.to36baseString = function(two) {
 M.format_topcoll.save_toggles = function() {
     "use strict";
     if (this.togglePersistence == 1) { // Toggle persistence - 1 = on, 0 = off.
-        M.util.set_user_preference('topcoll_toggle_'+this.courseid , this.to36baseString(this.toggleBinaryGlobal));
+        M.util.set_user_preference('topcoll_toggle_'+this.courseid , this.togglestate);
     }
+};
+
+// New base 64 code:
+M.format_topcoll.is_old_preference = function(pref) {
+    "use strict";
+    var retr = false;
+    var firstchar = pref[0];
+
+    if ((firstchar == '0') || (firstchar == '1')) {
+        retr = true;
+    }
+
+    return retr;
+};
+
+M.format_topcoll.convert_to_new_preference = function() {
+    "use strict";
+    var toggleBinary = this.to2baseString(this.togglestate);
+    var bin, value;
+    this.togglestate = "";
+    var logbintext = "";
+
+    for (var i = 1; i <= 43; i = i+6) {
+        bin = toggleBinary.substring(i, i+6);
+        value = parseInt(bin, 2);
+        this.togglestate += this.encode_value_to_character(value);
+        logbintext += bin + ' ';
+    }
+
+    bin = toggleBinary.substring(49, 53);
+    logbintext += bin + ' ';
+    value = parseInt(bin, 2);
+    value = value << 2;
+    this.togglestate += this.encode_value_to_character(value);
+};
+
+/**
+ * Sets the state of the requested Toggle number.
+ * int togglenum - The toggle number.
+ * boolean state - true or false.
+ */
+M.format_topcoll.set_toggle_state = function(togglenum, state) {
+    "use strict";
+    var togglecharpos = this.get_toggle_pos(togglenum);
+    var toggleflag = this.get_toggle_flag(togglenum, togglecharpos);
+    var value = this.decode_character_to_value(this.togglestate.charAt(togglecharpos-1));
+    if (state == true) {
+        value |= toggleflag;
+    } else {
+        value &= ~toggleflag;
+    }
+    var newchar = this.encode_value_to_character(value);
+    //this.togglestate[togglecharpos-1] = newchar;
+    var start = this.togglestate.substring(0,togglecharpos-1);
+    var end = this.togglestate.substring(togglecharpos);
+    this.togglestate = start + newchar + end;
+};
+
+M.format_topcoll.get_required_digits = function(numtoggles) {
+    "use strict";
+    return this.get_toggle_pos(numtoggles);
+};
+
+M.format_topcoll.get_toggle_pos = function(togglenum) {
+    "use strict";
+    return Math.ceil(togglenum / 6);
+};
+
+M.format_topcoll.get_min_digit = function() {
+    "use strict";
+    return ':';
+};
+
+M.format_topcoll.get_max_digit = function() {
+    "use strict";
+    return 'y';
+};
+
+M.format_topcoll.get_toggle_flag = function(togglenum, togglecharpos) {
+    "use strict";
+    var toggleflagpos = togglenum - ((togglecharpos-1)*6);
+    var flag;
+    switch (toggleflagpos) {
+        case 1:
+            flag = this.TOGGLE_1;
+            break;
+        case 2:
+            flag = this.TOGGLE_2;
+            break;
+        case 3:
+            flag = this.TOGGLE_3;
+            break;
+        case 4:
+            flag = this.TOGGLE_4;
+            break;
+        case 5:
+            flag = this.TOGGLE_5;
+            break;
+        case 6:
+            flag = this.TOGGLE_6;
+            break;
+    }
+    return flag;
+};
+
+M.format_topcoll.decode_character_to_value = function(character) {
+    "use strict";
+    return character.charCodeAt(0) - 58;
+}
+
+M.format_topcoll.encode_value_to_character = function(val) {
+    "use strict";
+    return String.fromCharCode(val + 58);
 };

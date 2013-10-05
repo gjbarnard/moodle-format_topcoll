@@ -1,4 +1,18 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Collapsed Topics Information
@@ -10,24 +24,12 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' in version.php.
- * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
+ * @version    See the value of '$plugin->version' in below.
+ * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
-
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
-
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 defined('MOODLE_INTERNAL') || die;
@@ -49,17 +51,29 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
-    // Layout configuration.
-    // Here you can see what numbers in the array represent what layout for setting the default value below.
-    // 1 => Toggle word, toggle section x and section number - default.
-    // 2 => Toggle word and section number.
-    // 3 => Toggle word and toggle section x.
-    // 4 => Toggle word.
-    // 5 => Toggle section x and section number.
-    // 6 => Section number.
-    // 7 => No additions.
-    // 8 => Toggle section x.
-    // Default layout to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
+    /* Toggle instructions - 1 = yes, 0 = no. */
+    $name = 'format_topcoll/defaultdisplayinstructions';
+    $title = get_string('defaultdisplayinstructions', 'format_topcoll');
+    $description = get_string('defaultdisplayinstructions_desc', 'format_topcoll');
+    $default = 2;
+    $choices = array(
+        1 => new lang_string('no'),   // No.
+        2 => new lang_string('yes')   // Yes.
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
+    /* Layout configuration.
+       Here you can see what numbers in the array represent what layout for setting the default value below.
+       1 => Toggle word, toggle section x and section number - default.
+       2 => Toggle word and section number.
+       3 => Toggle word and toggle section x.
+       4 => Toggle word.
+       5 => Toggle section x and section number.
+       6 => Section number.
+       7 => No additions.
+       8 => Toggle section x.
+       Default layout to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time
+       after installing this functionality introduced in CONTRIB-3378. */
     $name = 'format_topcoll/defaultlayoutelement';
     $title = get_string('defaultlayoutelement', 'format_topcoll');
     $description = get_string('defaultlayoutelement_descpositive', 'format_topcoll');
@@ -76,24 +90,25 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
-    // Structure configuration.
-    // Here so you can see what numbers in the array represent what structure for setting the default value below.
-    // 1 => Topic
-    // 2 => Week   
-    // 3 => Latest Week First 
-    // 4 => Current Topic First
-    // 5 => Day
-    // Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time after installing this functionality introduced in CONTRIB-3378.
+    /* Structure configuration.
+       Here so you can see what numbers in the array represent what structure for setting the default value below.
+       1 => Topic.
+       2 => Week.
+       3 => Latest Week First.
+       4 => Current Topic First.
+       5 => Day.
+       Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time
+       after installing this functionality introduced in CONTRIB-3378. */
     $name = 'format_topcoll/defaultlayoutstructure';
     $title = get_string('defaultlayoutstructure', 'format_topcoll');
     $description = get_string('defaultlayoutstructure_desc', 'format_topcoll');
     $default = 1;
     $choices = array(
-        1 => new lang_string('setlayoutstructuretopic', 'format_topcoll'),             // Topic
-        2 => new lang_string('setlayoutstructureweek', 'format_topcoll'),              // Week
-        3 => new lang_string('setlayoutstructurelatweekfirst', 'format_topcoll'),      // Latest Week First
-        4 => new lang_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'), // Current Topic First
-        5 => new lang_string('setlayoutstructureday', 'format_topcoll')                // Day
+        1 => new lang_string('setlayoutstructuretopic', 'format_topcoll'),             // Topic.
+        2 => new lang_string('setlayoutstructureweek', 'format_topcoll'),              // Week.
+        3 => new lang_string('setlayoutstructurelatweekfirst', 'format_topcoll'),      // Latest Week First.
+        4 => new lang_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'), // Current Topic First.
+        5 => new lang_string('setlayoutstructureday', 'format_topcoll')                // Day.
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
@@ -103,10 +118,10 @@ if ($ADMIN->fulltree) {
     $description = get_string('defaultlayoutcolumns_desc', 'format_topcoll');
     $default = 1;
     $choices = array(
-        1 => new lang_string('one', 'format_topcoll'),   // Default
-        2 => new lang_string('two', 'format_topcoll'),   // Two
-        3 => new lang_string('three', 'format_topcoll'), // Three
-        4 => new lang_string('four', 'format_topcoll')   // Four
+        1 => new lang_string('one', 'format_topcoll'),   // Default.
+        2 => new lang_string('two', 'format_topcoll'),   // Two.
+        3 => new lang_string('three', 'format_topcoll'), // Three.
+        4 => new lang_string('four', 'format_topcoll')   // Four.
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
@@ -117,7 +132,7 @@ if ($ADMIN->fulltree) {
     $default = 2;
     $choices = array(
         1 => new lang_string('columnvertical', 'format_topcoll'),
-        2 => new lang_string('columnhorizontal', 'format_topcoll') // Default
+        2 => new lang_string('columnhorizontal', 'format_topcoll') // Default.
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
@@ -145,10 +160,10 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
 
-    // Toggle persistence - 1 = on, 0 = off.  You may wish to disable for an AJAX performance increase.
-    // Note: If turning persistence off remove any rows containing 'topcoll_toggle_x' in the 'name' field
-    //       of the 'user_preferences' table in the database.  Where the 'x' in 'topcoll_toggle_x' will be
-    //       a course id.
+    /* Toggle persistence - 1 = on, 0 = off.  You may wish to disable for an AJAX performance increase.
+       Note: If turning persistence off remove any rows containing 'topcoll_toggle_x' in the 'name' field
+             of the 'user_preferences' table in the database.  Where the 'x' in 'topcoll_toggle_x' will be
+             a course id. */
     $name = 'format_topcoll/defaulttogglepersistence';
     $title = get_string('defaulttogglepersistence', 'format_topcoll');
     $description = get_string('defaulttogglepersistence_desc', 'format_topcoll');
@@ -172,18 +187,48 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
+    // Toggle icon position.
+    // 1 = left and 2 = right - done this way to avoid typos.
+    $name = 'format_topcoll/defaulttoggleiconposition';
+    $title = get_string('defaulttoggleiconposition', 'format_topcoll');
+    $description = get_string('defaulttoggleiconposition_desc', 'format_topcoll');
+    $default = 1;
+    $choices = array(
+        1 => new lang_string('left', 'format_topcoll'),   // Left.
+        2 => new lang_string('right', 'format_topcoll')   // Right.
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
     // Toggle icon set.
-    // arrow => Arrow icon set.
-    // point => Point icon set.
-    // power => Power icon set.
+    // arrow   => Arrow icon set.
+    // bulb    => Bulb icon set.
+    // cloud   => Cloud icon set.
+    // eye     => Eye icon set.
+    // led     => LED icon set.
+    // point   => Point icon set.
+    // power   => Power icon set.
+    // radio   => Radio icon set.
+    // smiley  => Smiley icon set.
+    // square  => Square icon set.
+    // sunmoon => Sun / Moon icon set.
+    // switch  => Switch icon set.
     $name = 'format_topcoll/defaulttoggleiconset';
     $title = get_string('defaulttoggleiconset', 'format_topcoll');
     $description = get_string('defaulttoggleiconset_desc', 'format_topcoll');
     $default = 'arrow';
     $choices = array(
-        'arrow' => new lang_string('arrow', 'format_topcoll'), // Arrow icon set.
-        'point' => new lang_string('point', 'format_topcoll'), // Point icon set.
-        'power' => new lang_string('power', 'format_topcoll')  // Power icon set.
+        'arrow' => new lang_string('arrow', 'format_topcoll'),     // Arrow icon set.
+        'bulb' => new lang_string('bulb', 'format_topcoll'),       // Bulb icon set.
+        'cloud' => new lang_string('cloud', 'format_topcoll'),     // Cloud icon set.
+        'eye' => new lang_string('eye', 'format_topcoll'),         // Eye icon set.
+        'led' => new lang_string('led', 'format_topcoll'),         // LED icon set.
+        'point' => new lang_string('point', 'format_topcoll'),     // Point icon set.
+        'power' => new lang_string('power', 'format_topcoll'),     // Power icon set.
+        'radio' => new lang_string('radio', 'format_topcoll'),     // Radio icon set.
+        'smiley' => new lang_string('smiley', 'format_topcoll'),   // Smiley icon set.
+        'square' => new lang_string('square', 'format_topcoll'),   // Square icon set.
+        'sunmoon' => new lang_string('sunmoon', 'format_topcoll'), // Sun / Moon icon set.
+        'switch' => new lang_string('switch', 'format_topcoll')    // Switch icon set.
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 

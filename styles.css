@@ -32,7 +32,7 @@
 }
 
 .course-content ul.ctlayout {
-    float: left;
+    display: inline-block;
 }
 
 .course-content ul.ctopics li.section.main, .course-content ul.ctopics li.tcsection {
@@ -82,15 +82,14 @@ body.tablettheme .course-content ul.ctopics li.tcsection .content, body.tabletth
 
 /* Icon set common. */
 .course-content ul.ctopics li.section .content .toggle a, #toggle-all .content h4 a {
-    background-position: left center;
     background-repeat: no-repeat;
     background-color: transparent;
     margin: 0px 4px;
 }
 
 /* Arrow icon set. */
-.course-content ul.ctopics li.section .content .toggle-arrow a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open { /* JavaScript disabled */
-    background-image: url([[pix:format_topcoll|arrow_right]]);
+.course-content ul.ctopics li.section .content .toggle-arrow a.toggle_closed, .course-content ul.ctopics li.section .content .toggle-arrow a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|arrow_down]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow a.toggle_closed { /* JavaScript enabled */
@@ -117,9 +116,125 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow a.to
     background-image: url([[pix:format_topcoll|arrow_down_glow]]);
 }
 
+/* Bulb icon set. */
+.course-content ul.ctopics li.section .content .toggle-bulb a.toggle_closed, .course-content ul.ctopics li.section .content .toggle-bulb a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|bulb_on]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-bulb a.toggle_closed { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|bulb_off]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-bulb a.toggle_open { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|bulb_on]]);
+}
+
+#toggle-all .content .toggle-bulb h4 a.off {
+    background-image: url([[pix:format_topcoll|bulb_on]]);
+}
+
+#toggle-all .content .toggle-bulb-hover h4 a.off:hover {
+    background-image: url([[pix:format_topcoll|bulb_off_glow]]);
+}
+
+#toggle-all .content .toggle-bulb h4 a.on {
+    background-image: url([[pix:format_topcoll|bulb_off]]);
+}
+
+#toggle-all .content .toggle-bulb-hover h4 a.on:hover {
+    background-image: url([[pix:format_topcoll|bulb_on_glow]]);
+}
+
+/* Cloud icon set. */
+.course-content ul.ctopics li.section .content .toggle-cloud a.toggle_closed, .course-content ul.ctopics li.section .content .toggle-cloud a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|cloud_on]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-cloud a.toggle_closed { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|cloud_off]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-cloud a.toggle_open { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|cloud_on]]);
+}
+
+#toggle-all .content .toggle-cloud h4 a.off {
+    background-image: url([[pix:format_topcoll|cloud_on]]);
+}
+
+#toggle-all .content .toggle-cloud-hover h4 a.off:hover {
+    background-image: url([[pix:format_topcoll|cloud_off_glow]]);
+}
+
+#toggle-all .content .toggle-cloud h4 a.on {
+    background-image: url([[pix:format_topcoll|cloud_off]]);
+}
+
+#toggle-all .content .toggle-cloud-hover h4 a.on:hover {
+    background-image: url([[pix:format_topcoll|cloud_on_glow]]);
+}
+
+/* Eye icon set. */
+.course-content ul.ctopics li.section .content .toggle-eye a.toggle_closed, .course-content ul.ctopics li.section .content .toggle-eye a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|eye_show]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-eye a.toggle_closed { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|eye_hide]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-eye a.toggle_open { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|eye_show]]);
+}
+
+#toggle-all .content .toggle-eye h4 a.off {
+    background-image: url([[pix:format_topcoll|eye_show]]);
+}
+
+#toggle-all .content .toggle-eye-hover h4 a.off:hover {
+    background-image: url([[pix:format_topcoll|eye_hide_glow]]);
+}
+
+#toggle-all .content .toggle-eye h4 a.on {
+    background-image: url([[pix:format_topcoll|eye_hide]]);
+}
+
+#toggle-all .content .toggle-eye-hover h4 a.on:hover {
+    background-image: url([[pix:format_topcoll|eye_show_glow]]);
+}
+
+/* LED icon set. */
+.course-content ul.ctopics li.section .content .toggle-led a.toggle_closed, .course-content ul.ctopics li.section .content .toggle-led a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|led_on]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-led a.toggle_closed { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|led_off]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-led a.toggle_open { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|led_on]]);
+}
+
+#toggle-all .content .toggle-led h4 a.off {
+    background-image: url([[pix:format_topcoll|led_on]]);
+}
+
+#toggle-all .content .toggle-led-hover h4 a.off:hover {
+    background-image: url([[pix:format_topcoll|led_off_glow]]);
+}
+
+#toggle-all .content .toggle-led h4 a.on {
+    background-image: url([[pix:format_topcoll|led_off]]);
+}
+
+#toggle-all .content .toggle-led-hover h4 a.on:hover {
+    background-image: url([[pix:format_topcoll|led_on_glow]]);
+}
+
 /* Point icon set. */
-.course-content ul.ctopics li.section .content .toggle-point a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open { /* JavaScript disabled */
-    background-image: url([[pix:format_topcoll|point_right]]);
+.course-content ul.ctopics li.section .content .toggle-point a.toggle_closed, .course-content ul.ctopics li.section .content .toggle-point a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|point_down]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-point a.toggle_closed { /* JavaScript enabled */
@@ -147,8 +262,8 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-point a.to
 }
 
 /* Power icon set. */
-.course-content ul.ctopics li.section .content .toggle-power a.toggle_closed, .course-content ul.ctopics li.section .content .toggle a.toggle_open { /* JavaScript disabled */
-    background-image: url([[pix:format_topcoll|toggle_minus]]);
+.course-content ul.ctopics li.section .content .toggle-power a.toggle_closed, .course-content ul.ctopics li.section .content .toggle-power a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|toggle_plus]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-power a.toggle_closed { /* JavaScript enabled */
@@ -175,9 +290,170 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-power a.to
     background-image: url([[pix:format_topcoll|toggle_plus_glow]]);
 }
 
+/* Radio icon set. */
+.course-content ul.ctopics li.section .content .toggle-radio a.toggle_closed, .course-content ul.ctopics li.section .content .toggle-radio a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|radio_on]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-radio a.toggle_closed { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|radio_off]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-radio a.toggle_open { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|radio_on]]);
+}
+
+#toggle-all .content .toggle-radio h4 a.off {
+    background-image: url([[pix:format_topcoll|radio_on]]);
+}
+
+#toggle-all .content .toggle-radio-hover h4 a.off:hover {
+    background-image: url([[pix:format_topcoll|radio_off_glow]]);
+}
+
+#toggle-all .content .toggle-radio h4 a.on {
+    background-image: url([[pix:format_topcoll|radio_off]]);
+}
+
+#toggle-all .content .toggle-radio-hover h4 a.on:hover {
+    background-image: url([[pix:format_topcoll|radio_on_glow]]);
+}
+
+/* Smiley icon set. */
+.course-content ul.ctopics li.section .content .toggle-smiley a.toggle_closed, .course-content ul.ctopics li.section .content .toggle-smiley a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|smiley_on]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-smiley a.toggle_closed { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|smiley_off]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-smiley a.toggle_open { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|smiley_on]]);
+}
+
+#toggle-all .content .toggle-smiley h4 a.off {
+    background-image: url([[pix:format_topcoll|smiley_on]]);
+}
+
+#toggle-all .content .toggle-smiley-hover h4 a.off:hover {
+    background-image: url([[pix:format_topcoll|smiley_off_glow]]);
+}
+
+#toggle-all .content .toggle-smiley h4 a.on {
+    background-image: url([[pix:format_topcoll|smiley_off]]);
+}
+
+#toggle-all .content .toggle-smiley-hover h4 a.on:hover {
+    background-image: url([[pix:format_topcoll|smiley_on_glow]]);
+}
+
+/* Square icon set. */
+.course-content ul.ctopics li.section .content .toggle-square a.toggle_closed, .course-content ul.ctopics li.section .content .toggle-square a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|square_on]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-square a.toggle_closed { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|square_off]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-square a.toggle_open { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|square_on]]);
+}
+
+#toggle-all .content .toggle-square h4 a.off {
+    background-image: url([[pix:format_topcoll|square_on]]);
+}
+
+#toggle-all .content .toggle-square-hover h4 a.off:hover {
+    background-image: url([[pix:format_topcoll|square_off_glow]]);
+}
+
+#toggle-all .content .toggle-square h4 a.on {
+    background-image: url([[pix:format_topcoll|square_off]]);
+}
+
+#toggle-all .content .toggle-square-hover h4 a.on:hover {
+    background-image: url([[pix:format_topcoll|square_on_glow]]);
+}
+
+/* Sun / Moon icon set. */
+.course-content ul.ctopics li.section .content .toggle-sunmoon a.toggle_closed, .course-content ul.ctopics li.section .content .toggle-sunmoon a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|sunmoon_on]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-sunmoon a.toggle_closed { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|sunmoon_off]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-sunmoon a.toggle_open { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|sunmoon_on]]);
+}
+
+#toggle-all .content .toggle-sunmoon h4 a.off {
+    background-image: url([[pix:format_topcoll|sunmoon_on]]);
+}
+
+#toggle-all .content .toggle-sunmoon-hover h4 a.off:hover {
+    background-image: url([[pix:format_topcoll|sunmoon_off_glow]]);
+}
+
+#toggle-all .content .toggle-sunmoon h4 a.on {
+    background-image: url([[pix:format_topcoll|sunmoon_off]]);
+}
+
+#toggle-all .content .toggle-sunmoon-hover h4 a.on:hover {
+    background-image: url([[pix:format_topcoll|sunmoon_on_glow]]);
+}
+
+/* Switch icon set. */
+.course-content ul.ctopics li.section .content .toggle-switch a.toggle_closed, .course-content ul.ctopics li.section .content .toggle-switch a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|switch_on]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-switch a.toggle_closed { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|switch_off]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-switch a.toggle_open { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|switch_on]]);
+}
+
+#toggle-all .content .toggle-switch h4 a.off {
+    background-image: url([[pix:format_topcoll|switch_on]]);
+}
+
+#toggle-all .content .toggle-switch-hover h4 a.off:hover {
+    background-image: url([[pix:format_topcoll|switch_off_glow]]);
+}
+
+#toggle-all .content .toggle-switch h4 a.on {
+    background-image: url([[pix:format_topcoll|switch_off]]);
+}
+
+#toggle-all .content .toggle-switch-hover h4 a.on:hover {
+    background-image: url([[pix:format_topcoll|switch_on_glow]]);
+}
+
 /* Background images for the settings - does not work in Chrome or Safari - known issue */
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="arrow"], body.format-topcoll select#id_toggleiconset option[value="arrow"] {
     background-image: url([[pix:format_topcoll|arrow_right]]);
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="bulb"], body.format-topcoll select#id_toggleiconset option[value="bulb"] {
+    background-image: url([[pix:format_topcoll|bulb_off]]);
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="cloud"], body.format-topcoll select#id_toggleiconset option[value="cloud"] {
+    background-image: url([[pix:format_topcoll|cloud_off]]);
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="eye"], body.format-topcoll select#id_toggleiconset option[value="eye"] {
+    background-image: url([[pix:format_topcoll|eye_hide]]);
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="led"], body.format-topcoll select#id_toggleiconset option[value="led"] {
+    background-image: url([[pix:format_topcoll|led_off]]);
 }
 
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="point"], body.format-topcoll select#id_toggleiconset option[value="point"] {
@@ -186,6 +462,26 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
 
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="power"], body.format-topcoll select#id_toggleiconset option[value="power"] {
     background-image: url([[pix:format_topcoll|toggle_minus]]);
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="radio"], body.format-topcoll select#id_toggleiconset option[value="radio"] {
+    background-image: url([[pix:format_topcoll|radio_off]]);
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="smiley"], body.format-topcoll select#id_toggleiconset option[value="smiley"] {
+    background-image: url([[pix:format_topcoll|smiley_off]]);
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="square"], body.format-topcoll select#id_toggleiconset option[value="square"] {
+    background-image: url([[pix:format_topcoll|square_off]]);
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="sunmoon"], body.format-topcoll select#id_toggleiconset option[value="sunmoon"] {
+    background-image: url([[pix:format_topcoll|sunmoon_off]]);
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="switch"], body.format-topcoll select#id_toggleiconset option[value="switch"] {
+    background-image: url([[pix:format_topcoll|switch_off]]);
 }
 
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option, body.format-topcoll select#id_toggleiconset option {
@@ -202,6 +498,11 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
 /* MyMobile */
 #mymobile .course-content ul.ctopics li.tcsection .content, #mymobile .course-content ul.ctopics li.section.main .content{
     margin: 0;
+}
+
+/* Display instructions */
+.topcoll-display-instructions {
+    margin: 0px;
 }
 
 /* Layout */
@@ -286,9 +587,13 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
     min-height: 30px;
 }
 
-/* -- Hiding the sections -- */
+/* -- Hiding / Showing the sections -- */
 body.jsenabled .toggledsection {
-    display:none; /* If JavaScript is enabled then this css will apply and the section will be hidden. */
+    display: none; /* If JavaScript is enabled then this css will apply and the section will be hidden. */
+}
+
+body.jsenabled .toggledsection.sectionopen {
+    display: block;
 }
 
 /* -- Size of the spacer row -- */
@@ -312,7 +617,7 @@ body.jsenabled #toggle-all {
 
 #toggle-all .content .sectionbody h4 {
     display: block;
-    padding: 6px 2px;
+    padding: 6px 0px;
     margin-bottom: 0em;
 }
 

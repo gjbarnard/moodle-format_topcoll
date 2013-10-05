@@ -6,13 +6,14 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 ==========================
-This version works with Moodle version 2013051400.00 release 2.5 (Build: 20130514) and above until the next release.
+This version works with Moodle version 2013051400.00 release 2.5 (Build: 20130514) and above within the 2.5 branch until the
+next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
 'docs.moodle.org/25/en/Installing_Moodle'.
 
-Download and documentation
-==========================
+Downloads and documentation
+===========================
 The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
 with 'Select Moodle version:' set at 'Moodle 2.5'.
 
@@ -23,6 +24,21 @@ the code is unstable and not for use in production environments.  This is becaus
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
 Documented on http://docs.moodle.org/25/en/Collapsed_Topics_course_format
+
+Free Software
+=============
+The Collapsed Topics format is 'free' software under the terms of the GNU GPLv3 License, please see 'COPYING.txt'.
+
+It can be obtained for free from the links in 'Downloads and documentation' above.
+
+You have all the rights granted to you by the GPLv3 license.  If you are unsure about anything, then the
+FAQ - http://www.gnu.org/licenses/gpl-faq.html - is a good place to look.
+
+If you reuse any of the code then I kindly ask that you make reference to the format.
+
+If you make improvements or bug fixes then I would appreciate if you would send them back to me by forking from
+https://github.com/gjb2048/moodle-format_topcoll and doing a 'Pull Request' so that the rest of the
+Moodle community benefits.
 
 Supporting Collapsed Topics development
 =======================================
@@ -217,8 +233,11 @@ All Collapsed Topics does is integrate with the course page and control it's lay
 with the format is in fact to do with a theme or core component.  Please be confident that it is an issue with Collapsed Topics
 but if in doubt, ask.
 
-I operate a policy that I will fix all genuine issues for free.  Improvements are at my discretion.  I am happy to make bespoke
-customisations / improvements for a negotiated fee. 
+I operate a policy that we will fix all genuine issues for free (this only applies to the code as supplied from the sources listed
+in 'Downloads and documentation' above.  Any changes / improvements you make are not covered and invalidate this policy for all of
+the code).  Improvements are at my discretion.  I am happy to make bespoke customisations / improvements for a negotiated fee.  I
+will endeavour to respond to all requests for support as quickly as possible, if you require a faster service then offering payment
+for the service will expedite the response.
 
 When reporting an issue you can post in the course format's forum on Moodle.org (currently 'moodle.org/mod/forum/view.php?id=47'), 
 on Moodle tracker 'tracker.moodle.org' ensuring that you chose the 'Non-core contributed modules' and 'Course Format: Topcoll'
@@ -230,10 +249,61 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+2nd October 2013 Version 2.5.3.3
+  1.  Added: Bulb, Cloud, Eye, LED, Radio, Smiley, Square, Sun / Moon and Switch icon sets as a result of remembering about:
+      https://moodle.org/mod/forum/discuss.php?d=220142.
+  2.  Added instructions on how to use the toggles from a suggestion by Guido Rößling on Learn Moodle.
+  3.  Added setting to turn on (default) / off the instructions at the course and site default level with 'Reset' and 'Reset all'
+      capability.
+  4.  Worked out how to get the reset options on the course settings page in-line in groups.
+
+19th August 2013 Version 2.5.3.2
+  1.  Fixed issue with the 'float: left' CSS style when used to ensure that the columns were displayed correctly in the
+      'vertical' column orientation.  The fix is to use 'display: inline-block' instead but this does not work in IE7, so as
+      it does in IE8+ and other browsers I'm going to have to go with it.  Thanks to Ed Przyzycki for reporting this.
+
+27th July 2013 - Version 2.5.3.1
+  1.  Fixed issue with dates being shown on section zero with temporal structures.  Thanks to Michael Turico for reporting this.
+
+9th July 2013 - Version 2.5.3
+  1.  Added the ability to set the position of the toggle as either left or right on a per course basis with
+      a default setting.  You need the 'changelayout' capability to be able to set this.
+  2.  Gratefully crowd funded on Moodle Garage -> http://www.moodlegarage.com/projects/collapsed-topics-left-to-right/.
+
+26th June 2013 - Version 2.5.2.2
+  1.  Fixed issue with 'Notice: String offset cast occurred in togglelib.php on line 68' when running on PHP 5.4.  Thanks
+      to Halldór Kristjánsson (https://moodle.org/user/profile.php?id=1611408) for reporting this.
+
+24th June 2013 - Version 2.5.2.1
+  1.  Fixed CONTRIB-4436 with a 'blocker' bug on V2.5.2 below with backups failing (do not ever install this version unless you
+      want to test your disaster recovery procedures).  Thanks to Mike Turico for reporting it.  Note to self and all, using html
+      tags in the 'get_section_name()' method in 'lib.php' will break backups and trash your database.
+
+23rd June 2013 - Version 2.5.2
+  1.  Fixed issue with sections not showing their contents in editing mode when open all has been used, then they are individually
+      closed and reopened.  Thanks to Marc Hermon for reporting this.
+  2.  Added small icon which shows up when updating.
+  3.  Ensure the correct arrow is used when not using JavaScript.
+  4.  Radically changed the toggle persistence storage mechanism to be based on a base 64 system using the following subset of ASCII:
+      ":;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy".  This is more efficient than the actual Base64 system of:
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" because there is no complex conversion from the character to
+      to the value it represents.  I also decided not to include "01" as that makes detection of the old mechanism simple for upgrade
+      purposes.
+      This was done to support courses with sections greater than fifty two.  Currently there is no upper limit bar what your machine
+      is capable of serving.  The length of the toggle persistence data increases and decreases automatically in responce to the number
+      of sections.  There are six sections per digit.
+  5.  Finally fixed having the 'toggle' word on toggles and not on the navigation menu with AJAX drag and drop working - CONTRIB-4403.
+  6.  Implemented MDL-33546.
+  7.  Fixed size of toggles altering when using AJAX drag and drop.
+  8.  Ran the code through the infamous 'Code Checker' version 2013060600, release 2.2.7 and cleared as much as possible.
+  9.  Note:  Once you upgrade to this version and beyond then going back will mean loss of the user preferences as you will need to
+             remove all 'topcoll_toggle_x' rows from the 'user_preferences' table first.
+
 6th June 2013 Version 2.5.1.1
   1.  Implemented MDL-39764 to fix maxsections < numsections issue.
   2.  Reversed the order of the history in this file for easy reading.
   3.  Cleaned up some of the CSS.
+  4.  Changes to 'renderer.php' because of MDL-21097.
 
 14th May 2013 Version 2.5.1 - Stable
   1.  First stable version for Moodle 2.5 stable.
@@ -284,7 +354,7 @@ Version Information
 
 14th March 2013 - Version 2.4.3.1
   1.  Improved mobile and tablet theme detection and support.
-  2.  Added 'Download and documentation' to this readme to clarify download locations.
+  2.  Added 'Downloads and documentation' to this readme to clarify the download locations.
   3.  Cleaned JavaScript through use of http://jshint.com/.
   4.  Added 'Previous versions and required version of Moodle' to this guide.
   5.  Implemented MDL-37901.
@@ -966,6 +1036,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 6th June 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 2nd October 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

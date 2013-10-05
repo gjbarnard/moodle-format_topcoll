@@ -1,4 +1,19 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Collapsed Topics Information
  *
@@ -9,29 +24,18 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' in version.php.
+ * @version    See the value of '$plugin->version' in below.
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->libdir . '/filelib.php');
 require_once($CFG->libdir . '/completionlib.php');
+require_once($CFG->dirroot . '/course/format/topcoll/togglelib.php');
 
 // Horrible backwards compatible parameter aliasing..
 if ($ctopic = optional_param('ctopics', 0, PARAM_INT)) { // Collapsed Topics old section parameter.
@@ -68,20 +72,20 @@ course_create_sections_if_missing($course, range(0, $course->numsections));
 
 $renderer = $PAGE->get_renderer('format_topcoll');
 
+$devicetype = get_device_type(); // In moodlelib.php.
+if ($devicetype == "mobile") {
+    $portable = 1;
+} else if ($devicetype == "tablet") {
+    $portable = 2;
+} else {
+    $portable = 0;
+}
+$renderer->set_portable($portable);
+
 if (!empty($displaysection)) {
     $renderer->print_single_section_page($course, null, null, null, null, $displaysection);
 } else {
-    $devicetype = get_device_type(); // In moodlelib.php.
-    if ($devicetype == "mobile") {
-        $portable = 1;
-    } else if ($devicetype == "tablet") {
-        $portable = 2;
-    } else {
-        $portable = 0;
-    }
-    $renderer->set_portable($portable);
-
-    user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_ALPHANUM);
+    user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_TEXT);
     $userpreference = get_user_preferences('topcoll_toggle_' . $course->id);
     $renderer->set_user_preference($userpreference);
 
@@ -91,6 +95,7 @@ if (!empty($displaysection)) {
     $PAGE->requires->js_init_call('M.format_topcoll.init', array(
         $course->id,
         $userpreference,
+        $course->numsections,
         clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT),
         $defaultuserpreference));
 
@@ -129,6 +134,19 @@ if (!empty($displaysection)) {
             echo 'center';
     }
     ?>;
+    }
+
+    /* Toggle icon position. */
+    .course-content ul.ctopics li.section .content .toggle a, #toggle-all .content h4 a {
+        background-position: <?php
+    switch ($tcsettings['toggleiconposition']) {
+        case 2:
+            echo 'right';
+            break;
+        default:
+            echo 'left';
+    }
+    ?> center;
     }
 
     /* -- What happens when a toggle is hovered over -- */

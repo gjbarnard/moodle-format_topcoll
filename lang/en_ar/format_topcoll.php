@@ -1,4 +1,19 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Collapsed Topics Information
  *
@@ -9,27 +24,15 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' in version.php.
+ * @version    See the value of '$plugin->version' in below.
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
-
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
-
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// English Pirate Translation of Collapsed Topics Course Format
+// English Pirate Translation of Collapsed Topics Course Format.
 
 // Used in format.php.
 $string['topcollsidewidth']='40px';
@@ -44,15 +47,15 @@ $string['setlayout'] = 'Set thee layout';
 $string['setlayout_default'] = 'Default';
 $string['setlayoutelements'] = 'Set thee elements';
 // Negative view of layout, kept for previous versions until such time as they are updated.
-$string['setlayout_no_toggle_section_x'] = "No 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 2
-$string['setlayout_no_toggle_section_x_section_no'] = "No 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 4
-$string['setlayout_no_toggle_word_toggle_section_x'] = "No toggle word and 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 6
-$string['setlayout_no_toggle_word_toggle_section_x_section_no'] = "No toggle word, 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 7
+$string['setlayout_no_toggle_section_x'] = "Nay 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 2.
+$string['setlayout_no_toggle_section_x_section_no'] = "Nay 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 4.
+$string['setlayout_no_toggle_word_toggle_section_x'] = "Nay toggle word and 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 6.
+$string['setlayout_no_toggle_word_toggle_section_x_section_no'] = "Nay toggle word, 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 7.
 // Positive view of layout.
-$string['setlayout_all'] = "Toggle word, 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 1
-$string['setlayout_toggle_word_section_x'] = "Toggle word and 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 3
-$string['setlayout_toggle_section_x'] = "'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 5
-$string['setlayout_toggle_section_x'] = "'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 8
+$string['setlayout_all'] = "Toggle word, 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 1.
+$string['setlayout_toggle_word_section_x'] = "Toggle word and 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 3.
+$string['setlayout_toggle_section_x'] = "'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 5.
+$string['setlayout_toggle_section_x'] = "'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 8.
 
 $string['setlayoutstructure'] = 'Set thee structure';
 $string['setlayoutstructuretopic']='Treasure Chest';
@@ -60,8 +63,8 @@ $string['setlayoutstructureweek']='Sailing Week';
 $string['setlayoutstructureday'] = 'Sailing Day';
 $string['setlayoutstructurelatweekfirst']='Current Sailing Week First';
 $string['setlayoutstructurecurrenttopicfirst']='Current Treasure Chest First';
-$string['resetlayout'] = 'Reset thee layout'; // CONTRIB-3529.
-$string['resetalllayout'] = 'Reset thee layouts for all thy Collapsed Topics courses';
+$string['resetlayout'] = 'Thee layout'; // CONTRIB-3529.
+$string['resetalllayout'] = 'Thee layouts';
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529.
 $string['setcolour'] = 'Set thee colour';
@@ -69,8 +72,8 @@ $string['colourrule'] = "Enter a valid RGB colour, a '#' and then six hexadecima
 $string['settoggleforegroundcolour'] = 'Thy toggle foreground';
 $string['settogglebackgroundcolour'] = 'Thy toggle background';
 $string['settogglebackgroundhovercolour'] = 'Thy toggle background hover';
-$string['resetcolour'] = 'Reset thee colour';
-$string['resetallcolour'] = 'Reset thee colours for all thy Collapsed Topics courses';
+$string['resetcolour'] = 'Thee colour';
+$string['resetallcolour'] = 'Thee colours';
 
 // Columns enhancement.
 $string['setlayoutcolumns'] = 'Set thee columns';
@@ -117,10 +120,16 @@ $string['settogglealignment_help'] = 'Sets thee alignment of thee text in thy to
 $string['left'] = 'Port';
 $string['center'] = 'Midships';
 $string['right'] = 'Starboard';
-$string['resettogglealignment'] = 'Reset thee toggle alignment';
-$string['resetalltogglealignment'] = 'Reset thee toggle alignments for all thy Collapsed Topics courses';
+$string['resettogglealignment'] = 'Thee toggle alignment';
+$string['resetalltogglealignment'] = 'Thee toggle alignments';
 $string['resettogglealignment_help'] = 'Resets thee toggle alignment to thy default values so thy will be thy same as a course thee first time it is in thee Collapsed Topics format.';
 $string['resetalltogglealignment_help'] = 'Resets thee toggle alignment to thy default values for all courses so it will be thy same as a course thee first time it is in thee Collapsed Topics format.';
+
+// Icon position - CONTRIB-4470.
+$string['settoggleiconposition'] = 'Set icon position';
+$string['settoggleiconposition_help'] = 'States that thee icon should be on thy left or thee right of thy toggle text.';
+$string['defaulttoggleiconposition'] = 'Icon position';
+$string['defaulttoggleiconposition_desc'] = 'States if thee icon should be on thy left or thee right of thy toggle text.';
 
 // Icon set enhancement.
 $string['settoggleiconset'] = 'Set thee icon set';
@@ -128,10 +137,19 @@ $string['settoggleiconset_help'] = 'Sets thee icon set of thy toggle.';
 $string['settoggleallhover'] = 'Set thee toggle all icon hover';
 $string['settoggleallhover_help'] = 'Sets if thee toggle all icons will change when thy mouse moves over them.';
 $string['arrow'] = 'Straight as an arrow';
+$string['bulb'] = 'Lantern';
+$string['cloud'] = 'Cloud';
+$string['eye'] = 'Eyeball';
+$string['led'] = 'LED from thee future';
 $string['point'] = 'Point thee bow towards thy treasure';
-$string['power'] = 'Power me hearties';
-$string['resettoggleiconset'] = 'Reset thee toggle icon set';
-$string['resetalltoggleiconset'] = 'Reset thee toggle icon set for all thy Collapsed Topics courses';
+$string['power'] = 'Power mee hearties';
+$string['radio'] = 'Wireless';
+$string['smiley'] = 'Smiley they bee not';
+$string['square'] = 'Square riggin';
+$string['sunmoon'] = 'Sun / Moon';
+$string['switch'] = 'Switch thy flag';
+$string['resettoggleiconset'] = 'Thee toggle icon set';
+$string['resetalltoggleiconset'] = 'Thee toggle icon sets';
 $string['resettoggleiconset_help'] = 'Resets thee toggle icon set and thy toggle all hover to thy default values so thy will be thee same as a course thee first time it is in thy Collapsed Topics format.';
 $string['resetalltoggleiconset_help'] = 'Resets thee toggle icon set and thy toggle all hover to thy default values for all courses so it will be thy same as a course thee first time it is in thy Collapsed Topics format.';
 
@@ -146,17 +164,17 @@ $string['defaultlayoutelement_desc'] = "Thee layout setting can be one of:
 
 'Default' with everything displayed.
 
-No 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'.
+Nay 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'.
 
-No section number.
+Nay section number.
 
-No 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and no section number.
+Nay 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and nay section number.
 
-No 'Toggle' word.
+Nay 'Toggle' word.
 
-No 'Toggle' word and no 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'.
+Nay 'Toggle' word and nay 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'.
 
-No 'Toggle' word, no 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and no section number.";
+Nay 'Toggle' word, nay 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and nay section number.";
 // Positive view of layout.
 $string['defaultlayoutelement_descpositive'] = "The layout setting can be one of:
 
@@ -174,7 +192,7 @@ Toggle word.
 
 Section number.
 
-No additions.";
+Nay additions.";
 
 $string['defaultlayoutstructure'] = 'Default structure configuration';
 $string['defaultlayoutstructure_desc'] = "Thee structure setting can be one of:
@@ -205,7 +223,7 @@ $string['defaulttgbghvrcolour'] = 'Default toggle background hover colour';
 $string['defaulttgbghvrcolour_desc'] = "Toggle background hover colour in hexidecimal RGB.";
 
 $string['defaulttogglepersistence'] = 'Toggle persistence';
-$string['defaulttogglepersistence_desc'] = "'On' or 'Off'.  You may wish to turn off for an AJAX performance increase but user toggle selections will not be recalled on page refresh or revisit.
+$string['defaulttogglepersistence_desc'] = "'On' or 'Off'.  You may wish to turn off for an AJAX performance increase but sailor toggle selections will not be recalled on page refresh or revisit.
 
 Note: If turning persistence off remove any rows containing 'topcoll_toggle_x' in the 'name' field
       of the 'user_preferences' table in the database.  Where thee 'x' in 'topcoll_toggle_x' will be
@@ -215,17 +233,50 @@ $string['defaulttogglealignment'] = 'Default toggle text alignment';
 $string['defaulttogglealignment_desc'] = "'Left', 'Centre' or 'Right'.";
 
 $string['defaulttoggleiconset'] = 'Default toggle icon set';
-$string['defaulttoggleiconset_desc'] = "'Arrow' => Arrow icon set.
+$string['defaulttoggleiconset_desc'] = "'Straight as an arrow'                => Arrow icon set.
 
-'Point' => Point icon set.
+'Lantern'                             => Bulb icon set.
 
-'Power' => Power icon set.";
+'Cloud'                               => Cloud icon set.
+
+'Eyeball'                             => Eye icon set.
+
+'LED from thee future'                => LED icon set.
+
+'Point thee bow towards thy treasure' => Point icon set.
+
+'Power mee hearties'                  => Power icon set.
+
+'Wireless'                            => Radio icon set.
+
+'Smiley they bee not'                 => Smiley icon set.
+
+'Square riggin'                       => Square icon set.
+
+'Sun / Moon'                          => Sun / Moon icon set.
+
+'Switch thy flag'                     => Switch icon set.";
 
 $string['defaulttoggleallhover'] = 'Default toggle all icon hovers';
-$string['defaulttoggleallhover_desc'] = "'No' or 'Yes'.";
+$string['defaulttoggleallhover_desc'] = "'Nay' or 'Aye'.";
+
+// Default sailor preference.
+$string['defaultuserpreference'] = 'What to do with thee toggles when thy sailor first accesses thee course or adds more sections';
+$string['defaultuserpreference_desc'] = 'States what to do with thee toggles when thy sailor first accesses thee course or thee state of additional sections when they are added mee hearties.';
 
 // Capabilities.
 $string['topcoll:changelayout'] = 'Change or reset thee layout';
 $string['topcoll:changecolour'] = 'Change or reset thee colour';
 $string['topcoll:changetogglealignment'] = 'Change or reset thee toggle alignment';
 $string['topcoll:changetoggleiconset'] = 'Change or reset thee toggle icon set';
+
+// Instructions
+$string['instructions'] = 'Orders: Avast! Clicking on thee section name will show / hide thy section.  And yee betin not forgetin dat!';
+$string['displayinstructions'] = 'Display orders';
+$string['displayinstructions_help'] = 'States that thee orders should be displayed to thy crew or not.';
+$string['defaultdisplayinstructions'] = 'Display orders to crew';
+$string['defaultdisplayinstructions_desc'] = "Display orders to crew informing them how to use thee toggles.  Can bee aye or nay.";
+$string['resetdisplayinstructions'] = 'Display orders';
+$string['resetalldisplayinstructions'] = 'Display orders';
+$string['resetdisplayinstructions_help'] = 'Resets thy display orders to thee default value so it will be thy same as a course thee first time it is in thy Collapsed Topics format.';
+$string['resetalldisplayinstructions_help'] = 'Resets thy display orders to thee default value for all courses so it will be thee same as a course thee first time it is in thy Collapsed Topics format.';

@@ -1,4 +1,18 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Collapsed Topics Information
@@ -16,18 +30,6 @@
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 require_once($CFG->dirroot . '/course/format/lib.php');
 require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
@@ -147,9 +149,11 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
                     // If there are entries that existed for courses that were originally topcoll, then they will be lost.  However
                     // the code copes with this through the employment of defaults and I dont think the underlying
                     // code desires entries in the course_format_settings table for courses of a format that belong
-                    //to another format.
+                    // to another format.
                     if ($courseformat->get_format() == 'topcoll') {
-                        $courseformat->restore_topcoll_setting($record->courseid, $record->layoutelement, $record->layoutstructure, $record->layoutcolumns, $record->tgfgcolour, $record->tgbgcolour, $record->tgbghvrcolour); // In '/course/format/topcoll/lib.php'.
+                        $courseformat->restore_topcoll_setting($record->courseid, $record->layoutelement, $record->layoutstructure,
+                                                               $record->layoutcolumns, $record->tgfgcolour, $record->tgbgcolour,
+                                                               $record->tgbghvrcolour); // In '/course/format/topcoll/lib.php'.
                     }
                 }
             }
@@ -159,7 +163,7 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
     }
 
     // Automatic 'Purge all caches'....
-    if ($oldversion < 2013050900) {
+    if ($oldversion < 2013100200) {
         purge_all_caches();
     }
 
