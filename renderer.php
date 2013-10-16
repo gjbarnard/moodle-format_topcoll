@@ -43,7 +43,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
     private $tccolumnpadding = 0; // Default padding in pixels of the column(s).
     private $mobiletheme = false; // As not using a mobile theme we can react to the number of columns setting.
     private $tablettheme = false; // As not using a tablet theme we can react to the number of columns setting.
-    private $courseformat; // Our course format object as defined in lib.php;
+    private $courseformat = null; // Our course format object as defined in lib.php;
     private $tcsettings; // Settings for the format - array.
     private $userpreference; // User toggle state preference - string.
     private $defaultuserpreference; // Default user preference when none set - bool - true all open, false all closed.
@@ -171,7 +171,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         if ($section->section != 0) {
             // Only in the non-general sections.
-            if (course_get_format($course)->is_section_current($section)) {
+            if ($this->courseformat->is_section_current($section)) {
                 $o .= get_accesshide(get_string('currentsection', 'format_' . $course->format));
             }
             if (empty($this->tcsettings)) {

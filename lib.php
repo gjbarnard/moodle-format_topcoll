@@ -861,8 +861,14 @@ class format_topcoll extends format_base {
         $resetallifall = ((is_siteadmin($USER)) || ($courseid != 0)); // Will be true if reset all capability or a single course.
 
         $updatedata = array();
+        $updatedisplayinstructions = false;
+        $updatelayout = false;
+        $updatetogglealignment = false;
+        $updatecolour = false;
+        $updatetoggleiconset = false;
         if ($displayinstructions && $resetallifall) {
             $updatedata['displayinstructions'] = get_config('format_topcoll', 'defaultdisplayinstructions');
+            $updatedisplayinstructions = true;
         }
         if ($layout && has_capability('format/topcoll:changelayout', $coursecontext) && $resetallifall) {
             $updatedata['coursedisplay'] = get_config('format_topcoll', 'defaultcoursedisplay');
@@ -871,24 +877,28 @@ class format_topcoll extends format_base {
             $updatedata['layoutcolumns'] = get_config('format_topcoll', 'defaultlayoutcolumns');
             $updatedata['layoutcolumnorientation'] = get_config('format_topcoll', 'defaultlayoutcolumnorientation');
             $updatedata['toggleiconposition'] = get_config('format_topcoll', 'defaulttoggleiconposition');
+            $updatelayout = true;
         }
         if ($togglealignment && has_capability('format/topcoll:changetogglealignment', $coursecontext) && $resetallifall) {
             $updatedata['togglealignment'] = get_config('format_topcoll', 'defaulttogglealignment');
+            $updatetogglealignment = true;
         }
         if ($colour && has_capability('format/topcoll:changecolour', $coursecontext) && $resetallifall) {
             $updatedata['toggleforegroundcolour'] = get_config('format_topcoll', 'defaulttgfgcolour');
             $updatedata['togglebackgroundcolour'] = get_config('format_topcoll', 'defaulttgbgcolour');
             $updatedata['togglebackgroundhovercolour'] = get_config('format_topcoll', 'defaulttgbghvrcolour');
+            $updatecolour = true;
         }
         if ($toggleiconset && has_capability('format/topcoll:changetoggleiconset', $coursecontext) && $resetallifall) {
             $updatedata['toggleiconset'] = get_config('format_topcoll', 'defaulttoggleiconset');
             $updatedata['toggleallhover'] = get_config('format_topcoll', 'defaulttoggleallhover');
+            $updatetoggleiconset = true;
         }
 
         foreach ($records as $record) {
             if ($currentcourseid != $record->courseid) {
                 $currentcourseid = $record->courseid; // Only do once per course.
-                if (($layout) || ($togglealignment) || ($colour) || ($toggleiconset)) {
+                if (($updatedisplayinstructions) || ($updatelayout) || ($updatetogglealignment) || ($updatecolour) || ($updatetoggleiconset)) {
                     $ourcourseid = $this->courseid;
                     $this->courseid = $currentcourseid;
                     $this->update_format_options($updatedata);
