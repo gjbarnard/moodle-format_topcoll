@@ -80,27 +80,25 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
         } // From /course/view.php.
         $courseformat = course_get_format($course);
 
-        if (isset($data->layoutcolumns)) {
-            // In $CFG->dirroot.'/course/format/topcoll/lib.php'...
-            $courseformat->restore_topcoll_setting(
-                $data->courseid,
-                $data->layoutelement,
-                $data->layoutstructure,
-                $data->layoutcolumns,
-                $data->tgfgcolour,
-                $data->tgbgcolour,
-                $data->tgbghvrcolour);
-        } else {
+        if (!isset($data->layoutcolumns)) {        
             // Cope with backups from Moodle 2.0, 2.1 and 2.2 versions.
-            $courseformat->restore_topcoll_setting(
-                $data->courseid,
-                $data->layoutelement,
-                $data->layoutstructure,
-                get_config('format_topcoll', 'defaultlayoutcolumns'),
-                $data->tgfgcolour,
-                $data->tgbgcolour,
-                $data->tgbghvrcolour);
+            $data->layoutcolumns = get_config('format_topcoll', 'defaultlayoutcolumns');
         }
+        
+        if (!isset($data->displayinstructions)) {        
+            // Cope with backups from previous versions without display instructions.
+            $data->displayinstructions = get_config('format_topcoll', 'defaultdisplayinstructions');
+        }        
+        
+        $courseformat->restore_topcoll_setting(
+            $data->courseid,
+            $data->displayinstructions,
+            $data->layoutelement,
+            $data->layoutstructure,
+            $data->layoutcolumns,
+            $data->tgfgcolour,
+            $data->tgbgcolour,
+            $data->tgbghvrcolour);
 
         // No need to annotate anything here.
     }

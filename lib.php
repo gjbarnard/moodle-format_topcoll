@@ -913,18 +913,20 @@ class format_topcoll extends format_base {
      * from a prevous version.  Hence no need for 'coursedisplay' as that is a core rather than CT specific setting and not
      * in the old 'format_topcoll_settings' table.
      * @param int $courseid If not 0, then a specific course to reset.
-     * @param int $layoutelement The layout element to use, see tcconfig.php.
-     * @param int $layoutstructure The layout structure to use, see tcconfig.php.
-     * @param int $layoutcolumns The layout columns to use, see tcconfig.php.
-     * @param int $tgfgcolour The foreground colour to use, see tcconfig.php.
-     * @param int $tgbgcolour The background colour to use, see tcconfig.php.
-     * @param int $tgbghvrcolour The background hover colour to use, see tcconfig.php.
+     * @param int $displayinstructions The display instructions.
+     * @param int $layoutelement The layout element.
+     * @param int $layoutstructure The layout structure.
+     * @param int $layoutcolumns The layout columns.
+     * @param int $tgfgcolour The foreground colour.
+     * @param int $tgbgcolour The background colour.
+     * @param int $tgbghvrcolour The background hover colour.
      */
-    public function restore_topcoll_setting($courseid, $layoutelement, $layoutstructure, $layoutcolumns, $tgfgcolour, $tgbgcolour, $tgbghvrcolour) {
+    public function restore_topcoll_setting($courseid, $displayinstructions, $layoutelement, $layoutstructure, $layoutcolumns, $tgfgcolour, $tgbgcolour, $tgbghvrcolour) {
         $currentcourseid = $this->courseid;  // Save for later - stack data model.
         $this->courseid = $courseid;
         // Create data array.
         $data = array(
+            'displayinstructions' => $displayinstructions,
             'layoutelement' => $layoutelement,
             'layoutstructure' => $layoutstructure,
             'layoutcolumns' => $layoutcolumns,

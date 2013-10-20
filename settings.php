@@ -51,7 +51,7 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
-    /* Toggle instructions - 1 = yes, 0 = no. */
+    /* Toggle instructions - 1 = no, 2 = yes. */
     $name = 'format_topcoll/defaultdisplayinstructions';
     $title = get_string('defaultdisplayinstructions', 'format_topcoll');
     $description = get_string('defaultdisplayinstructions_desc', 'format_topcoll');
