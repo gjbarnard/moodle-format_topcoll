@@ -58,8 +58,9 @@ $string['page-course-view-topcoll-x'] = 'Any course page in the collapsed topics
 $string['hidefromothers'] = 'Hide section';
 $string['showfromothers'] = 'Show section';
 $string['currentsection'] = 'This section';
-$string['markedthissection'] = 'This section is highlighted as the current section';
-$string['markthissection'] = 'Highlight this section as the current section';
+// These are 'topic' as they are only shown in 'topic' based structures.
+$string['markedthissection'] = 'This topic is highlighted as the current topic';
+$string['markthissection'] = 'Highlight this topic as the current topic';
 
 // Reset
 $string['resetgrp'] = 'Reset:';
