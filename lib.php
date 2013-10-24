@@ -913,7 +913,6 @@ class format_topcoll extends format_base {
      * from a prevous version.  Hence no need for 'coursedisplay' as that is a core rather than CT specific setting and not
      * in the old 'format_topcoll_settings' table.
      * @param int $courseid If not 0, then a specific course to reset.
-     * @param int $displayinstructions The display instructions.
      * @param int $layoutelement The layout element.
      * @param int $layoutstructure The layout structure.
      * @param int $layoutcolumns The layout columns.
@@ -921,12 +920,11 @@ class format_topcoll extends format_base {
      * @param int $tgbgcolour The background colour.
      * @param int $tgbghvrcolour The background hover colour.
      */
-    public function restore_topcoll_setting($courseid, $displayinstructions, $layoutelement, $layoutstructure, $layoutcolumns, $tgfgcolour, $tgbgcolour, $tgbghvrcolour) {
+    public function restore_topcoll_setting($courseid, $layoutelement, $layoutstructure, $layoutcolumns, $tgfgcolour, $tgbgcolour, $tgbghvrcolour) {
         $currentcourseid = $this->courseid;  // Save for later - stack data model.
         $this->courseid = $courseid;
         // Create data array.
         $data = array(
-            'displayinstructions' => $displayinstructions,
             'layoutelement' => $layoutelement,
             'layoutstructure' => $layoutstructure,
             'layoutcolumns' => $layoutcolumns,
