@@ -262,7 +262,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
 
         $o = '';
-        $liattributes = array('id' => 'section-'.$section->section, 'class' => $classattr);
+        $title = $this->courseformat->get_topcoll_section_name($course, $section, false);
+        $liattributes = array(
+            'id' => 'section-'.$section->section,
+            'class' => $classattr,
+            'role' => 'region',
+            'aria-label'=> $title
+        );
         if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
             $liattributes['style'] = 'width:' . $this->tccolumnwidth . '%;';
         }
@@ -272,7 +278,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::tag('div', '', array('class' => 'right side'));
         $o .= html_writer::start_tag('div', array('class' => 'content'));
 
-        $title = get_section_name($course, $section);
         if ($section->uservisible) {
             $title = html_writer::tag('a', $title,
                     array('href' => course_get_url($course, $section->section), 'class' => $linkclasses));
@@ -323,8 +328,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
         }
 
-        $liattributes = array('id' => 'section-' . $section->section,
-            'class' => 'section main clearfix' . $sectionstyle);
+        $liattributes = array(
+            'id' => 'section-' . $section->section,
+            'class' => 'section main clearfix' . $sectionstyle,
+            'role' => 'region',
+            'aria-label' => $this->courseformat->get_topcoll_section_name($course, $section, false)
+        );
         if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
             $liattributes['style'] = 'width:' . $this->tccolumnwidth . '%;';
         }
@@ -570,7 +579,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if ($thissection->summary or !empty($modinfo->sections[0]) or $PAGE->user_is_editing()) {
             echo $this->section_header($thissection, $course, false, 0);
             echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
-            echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0);
+            echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0, 0);
             echo $this->section_footer();
         }
 

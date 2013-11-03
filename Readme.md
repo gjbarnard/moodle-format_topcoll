@@ -249,6 +249,10 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+3rd November 2013 Version 2.5.3.5
+  1.  Changes for 'Accessibilty' based upon MDL-41252.
+  2.  Fully implemented MDL-39542.
+
 24th October 2013 Version 2.5.3.4
   1.  Fixed reset toggle instructions not working when only thing reset.
   2.  Fixed reset logic as was updating course format options when should not have done even though there would have been no effect.
@@ -1042,6 +1046,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 24th October 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 3rd November 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard
