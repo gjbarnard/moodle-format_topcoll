@@ -49,6 +49,7 @@ M.util.init_tccolour_popup = function(Y, id, previewconf) {
                 this.input.on('blur', this.setColour, this);
                 this.eventClick = this.image.on('click', this.pickColour, this);
                 this.eventMouseEnter = Y.on('mouseenter', this.startFollow, this.image, this);
+                this.setColour();
             },
             popup: function(e){
                 this.box.ancestor().setStyle('display','block');
@@ -59,6 +60,7 @@ M.util.init_tccolour_popup = function(Y, id, previewconf) {
             },
             setColour : function(e){
                 var colour = this.input.get('value');
+                colour = colour.replace('#', '');
                 this.swatch.setStyle('backgroundColor', '#'+colour);
             },
             startFollow : function(e) {
@@ -66,7 +68,7 @@ M.util.init_tccolour_popup = function(Y, id, previewconf) {
                 this.eventMouseLeave = Y.on('mouseleave', this.endFollow, this.image, this);
                 this.eventMouseMove = this.image.on('mousemove', function(e){
                     var colour = this.determineColour(e);
-                    //this.swatch.setStyle('backgroundColor', colour);
+                    colour = colour.replace('#', '');
                     this.preview.setStyle('backgroundColor', '#'+colour);
                 }, this);
             },
@@ -84,6 +86,7 @@ M.util.init_tccolour_popup = function(Y, id, previewconf) {
              */
             pickColour : function(e) {
                 var colour = this.determineColour(e);
+                colour = colour.replace('#', '');
                 this.input.set('value', '#'+colour);
                 this.input.focus();
                 this.swatch.setStyle('backgroundColor', '#'+colour);
