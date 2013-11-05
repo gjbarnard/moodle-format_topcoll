@@ -655,6 +655,59 @@ class format_topcoll extends format_base {
     }
 
     /**
+     * Override if you need to perform some extra validation of the format options
+     *
+     * @param array $data array of ("fieldname"=>value) of submitted data
+     * @param array $files array of uploaded files "element_name"=>tmp_file_path
+     * @param array $errors errors already discovered in edit form validation
+     * @return array of "element_name"=>"error_description" if there are errors,
+     *         or an empty array if everything is OK.
+     *         Do not repeat errors from $errors param here
+     */
+    public function edit_form_validation($data, $files, $errors) {
+        $retr = array();
+        
+        if ($this->validate_colour($data['toggleforegroundcolour']) === false) {
+            $retr['toggleforegroundcolour'] = get_string('colourrule', 'format_topcoll');
+        }
+        if ($this->validate_colour($data['togglebackgroundcolour']) === false) {
+            $retr['togglebackgroundcolour'] = get_string('colourrule', 'format_topcoll');
+        }
+        if ($this->validate_colour($data['togglebackgroundhovercolour']) === false) {
+            $retr['togglebackgroundhovercolour'] = get_string('colourrule', 'format_topcoll');
+        }
+        
+        return $retr;
+    }
+
+    /**
+     * Validates the colour that was entered by the user.
+     * Borrowed from 'admin_setting_configcolourpicker' in '/lib/adminlib.php'.
+     * 
+     * I'm not completely happy with this solution as would rather embed in the colour
+     * picker code in the form, however I find this area rather fraut and I hear that
+     * Dan Poltawski (via MDL-42270) will be re-writing the forms lib so hopefully more
+     * developer friendly.
+     * 
+     * Note: Colour names removed, but might consider putting them back in if asked, but
+     *       at the moment that would require quite a few changes and coping with existing
+     *       settings.  Either convert the names to hex or allow them as valid values and
+     *       fix the colour picker code and the CSS code in 'format.php' for the setting.
+     * 
+     * Colour name to hex on: http://www.w3schools.com/cssref/css_colornames.asp.
+     * 
+     * @param string $data the colour string to validate.
+     * @return true|false
+     */
+    private function validate_colour($data) {
+        if (preg_match('/^#?([[:xdigit:]]{3}){1,2}$/', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Updates format options for a course
      *
      * In case if course format was changed to 'Collapsed Topics', we try to copy options

@@ -163,7 +163,7 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
     }
 
     // Automatic 'Purge all caches'....
-    if ($oldversion < 2013110400) {
+    if ($oldversion < 2013110500) {
         purge_all_caches();
     }
 
