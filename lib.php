@@ -655,6 +655,59 @@ class format_topcoll extends format_base {
     }
 
     /**
+     * Override if you need to perform some extra validation of the format options
+     *
+     * @param array $data array of ("fieldname"=>value) of submitted data
+     * @param array $files array of uploaded files "element_name"=>tmp_file_path
+     * @param array $errors errors already discovered in edit form validation
+     * @return array of "element_name"=>"error_description" if there are errors,
+     *         or an empty array if everything is OK.
+     *         Do not repeat errors from $errors param here
+     */
+    public function edit_form_validation($data, $files, $errors) {
+        $retr = array();
+        
+        if ($this->validate_colour($data['toggleforegroundcolour']) === false) {
+            $retr['toggleforegroundcolour'] = get_string('colourrule', 'format_topcoll');
+        }
+        if ($this->validate_colour($data['togglebackgroundcolour']) === false) {
+            $retr['togglebackgroundcolour'] = get_string('colourrule', 'format_topcoll');
+        }
+        if ($this->validate_colour($data['togglebackgroundhovercolour']) === false) {
+            $retr['togglebackgroundhovercolour'] = get_string('colourrule', 'format_topcoll');
+        }
+        
+        return $retr;
+    }
+
+    /**
+     * Validates the colour that was entered by the user.
+     * Borrowed from 'admin_setting_configcolourpicker' in '/lib/adminlib.php'.
+     * 
+     * I'm not completely happy with this solution as would rather embed in the colour
+     * picker code in the form, however I find this area rather fraut and I hear that
+     * Dan Poltawski (via MDL-42270) will be re-writing the forms lib so hopefully more
+     * developer friendly.
+     * 
+     * Note: Colour names removed, but might consider putting them back in if asked, but
+     *       at the moment that would require quite a few changes and coping with existing
+     *       settings.  Either convert the names to hex or allow them as valid values and
+     *       fix the colour picker code and the CSS code in 'format.php' for the setting.
+     * 
+     * Colour name to hex on: http://www.w3schools.com/cssref/css_colornames.asp.
+     * 
+     * @param string $data the colour string to validate.
+     * @return true|false
+     */
+    private function validate_colour($data) {
+        if (preg_match('/^#?([[:xdigit:]]{3}){1,2}$/', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Updates format options for a course
      *
      * In case if course format was changed to 'Collapsed Topics', we try to copy options
@@ -861,8 +914,14 @@ class format_topcoll extends format_base {
         $resetallifall = ((is_siteadmin($USER)) || ($courseid != 0)); // Will be true if reset all capability or a single course.
 
         $updatedata = array();
+        $updatedisplayinstructions = false;
+        $updatelayout = false;
+        $updatetogglealignment = false;
+        $updatecolour = false;
+        $updatetoggleiconset = false;
         if ($displayinstructions && $resetallifall) {
             $updatedata['displayinstructions'] = get_config('format_topcoll', 'defaultdisplayinstructions');
+            $updatedisplayinstructions = true;
         }
         if ($layout && has_capability('format/topcoll:changelayout', $coursecontext) && $resetallifall) {
             $updatedata['coursedisplay'] = get_config('format_topcoll', 'defaultcoursedisplay');
@@ -871,24 +930,28 @@ class format_topcoll extends format_base {
             $updatedata['layoutcolumns'] = get_config('format_topcoll', 'defaultlayoutcolumns');
             $updatedata['layoutcolumnorientation'] = get_config('format_topcoll', 'defaultlayoutcolumnorientation');
             $updatedata['toggleiconposition'] = get_config('format_topcoll', 'defaulttoggleiconposition');
+            $updatelayout = true;
         }
         if ($togglealignment && has_capability('format/topcoll:changetogglealignment', $coursecontext) && $resetallifall) {
             $updatedata['togglealignment'] = get_config('format_topcoll', 'defaulttogglealignment');
+            $updatetogglealignment = true;
         }
         if ($colour && has_capability('format/topcoll:changecolour', $coursecontext) && $resetallifall) {
             $updatedata['toggleforegroundcolour'] = get_config('format_topcoll', 'defaulttgfgcolour');
             $updatedata['togglebackgroundcolour'] = get_config('format_topcoll', 'defaulttgbgcolour');
             $updatedata['togglebackgroundhovercolour'] = get_config('format_topcoll', 'defaulttgbghvrcolour');
+            $updatecolour = true;
         }
         if ($toggleiconset && has_capability('format/topcoll:changetoggleiconset', $coursecontext) && $resetallifall) {
             $updatedata['toggleiconset'] = get_config('format_topcoll', 'defaulttoggleiconset');
             $updatedata['toggleallhover'] = get_config('format_topcoll', 'defaulttoggleallhover');
+            $updatetoggleiconset = true;
         }
 
         foreach ($records as $record) {
             if ($currentcourseid != $record->courseid) {
                 $currentcourseid = $record->courseid; // Only do once per course.
-                if (($layout) || ($togglealignment) || ($colour) || ($toggleiconset)) {
+                if (($updatedisplayinstructions) || ($updatelayout) || ($updatetogglealignment) || ($updatecolour) || ($updatetoggleiconset)) {
                     $ourcourseid = $this->courseid;
                     $this->courseid = $currentcourseid;
                     $this->update_format_options($updatedata);
@@ -903,12 +966,12 @@ class format_topcoll extends format_base {
      * from a prevous version.  Hence no need for 'coursedisplay' as that is a core rather than CT specific setting and not
      * in the old 'format_topcoll_settings' table.
      * @param int $courseid If not 0, then a specific course to reset.
-     * @param int $layoutelement The layout element to use, see tcconfig.php.
-     * @param int $layoutstructure The layout structure to use, see tcconfig.php.
-     * @param int $layoutcolumns The layout columns to use, see tcconfig.php.
-     * @param int $tgfgcolour The foreground colour to use, see tcconfig.php.
-     * @param int $tgbgcolour The background colour to use, see tcconfig.php.
-     * @param int $tgbghvrcolour The background hover colour to use, see tcconfig.php.
+     * @param int $layoutelement The layout element.
+     * @param int $layoutstructure The layout structure.
+     * @param int $layoutcolumns The layout columns.
+     * @param int $tgfgcolour The foreground colour.
+     * @param int $tgbgcolour The background colour.
+     * @param int $tgbghvrcolour The background hover colour.
      */
     public function restore_topcoll_setting($courseid, $layoutelement, $layoutstructure, $layoutcolumns, $tgfgcolour, $tgbgcolour, $tgbghvrcolour) {
         $currentcourseid = $this->courseid;  // Save for later - stack data model.

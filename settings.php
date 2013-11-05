@@ -51,7 +51,7 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
-    /* Toggle instructions - 1 = yes, 0 = no. */
+    /* Toggle instructions - 1 = no, 2 = yes. */
     $name = 'format_topcoll/defaultdisplayinstructions';
     $title = get_string('defaultdisplayinstructions', 'format_topcoll');
     $description = get_string('defaultdisplayinstructions_desc', 'format_topcoll');
@@ -140,7 +140,7 @@ if ($ADMIN->fulltree) {
     $name = 'format_topcoll/defaulttgfgcolour';
     $title = get_string('defaulttgfgcolour', 'format_topcoll');
     $description = get_string('defaulttgfgcolour_desc', 'format_topcoll');
-    $default = '#000000';
+    $default = '000000';
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
 
@@ -148,7 +148,7 @@ if ($ADMIN->fulltree) {
     $name = 'format_topcoll/defaulttgbgcolour';
     $title = get_string('defaulttgbgcolour', 'format_topcoll');
     $description = get_string('defaulttgbgcolour_desc', 'format_topcoll');
-    $default = '#e2e2f2';
+    $default = 'e2e2f2';
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
 
@@ -156,7 +156,7 @@ if ($ADMIN->fulltree) {
     $name = 'format_topcoll/defaulttgbghvrcolour';
     $title = get_string('defaulttgbghvrcolour', 'format_topcoll');
     $description = get_string('defaulttgbghvrcolour_desc', 'format_topcoll');
-    $default = '#eeeeff';
+    $default = 'eeeeff';
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
 

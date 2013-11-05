@@ -249,6 +249,18 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+5th November 2013 Version 2.5.3.5
+  1.  Changes for 'Accessibilty' based upon MDL-41252.
+  2.  Fully implemented MDL-39542.
+  3.  Slight tweak to colour pop up code such that default settings courses don't have a prefixing '#'.
+  4.  Implemented validation on colours as an implied result of CONTRIB-4736.
+
+24th October 2013 Version 2.5.3.4
+  1.  Fixed reset toggle instructions not working when only thing reset.
+  2.  Fixed reset logic as was updating course format options when should not have done even though there would have been no effect.
+  3.  Slight optimisation to 'renderer.php' for getting 'format_topcoll' object when already have it.
+  4.  Slight optimisation to getting the strings for the current section 'light bulb'.
+
 2nd October 2013 Version 2.5.3.3
   1.  Added: Bulb, Cloud, Eye, LED, Radio, Smiley, Square, Sun / Moon and Switch icon sets as a result of remembering about:
       https://moodle.org/mod/forum/discuss.php?d=220142.
@@ -1036,6 +1048,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 2nd October 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 5th November 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

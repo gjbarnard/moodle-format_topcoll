@@ -43,7 +43,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
     private $tccolumnpadding = 0; // Default padding in pixels of the column(s).
     private $mobiletheme = false; // As not using a mobile theme we can react to the number of columns setting.
     private $tablettheme = false; // As not using a tablet theme we can react to the number of columns setting.
-    private $courseformat; // Our course format object as defined in lib.php;
+    private $courseformat = null; // Our course format object as defined in lib.php;
     private $tcsettings; // Settings for the format - array.
     private $userpreference; // User toggle state preference - string.
     private $defaultuserpreference; // Default user preference when none set - bool - true all open, false all closed.
@@ -171,7 +171,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         if ($section->section != 0) {
             // Only in the non-general sections.
-            if (course_get_format($course)->is_section_current($section)) {
+            if ($this->courseformat->is_section_current($section)) {
                 $o .= get_accesshide(get_string('currentsection', 'format_' . $course->format));
             }
             if (empty($this->tcsettings)) {
@@ -220,18 +220,20 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if ((($this->tcsettings['layoutstructure'] == 1) || ($this->tcsettings['layoutstructure'] == 4)) &&
               has_capability('moodle/course:setcurrentsection', $coursecontext)) {
             if ($course->marker == $section->section) {  // Show the "light globe" on/off.
+                $strmarkedthissection = get_string('markedthissection', 'format_topcoll');
                 $url->param('marker', 0);
                 $controls[] = html_writer::link($url, html_writer::empty_tag('img',
                                     array('src' => $this->output->pix_url('i/marked'),
-                                          'class' => 'icon ', 'alt' => get_string('markedthissection', 'format_topcoll'))),
-                                    array('title' => get_string('markedthissection', 'format_topcoll'),
+                                          'class' => 'icon ', 'alt' => $strmarkedthissection)),
+                                    array('title' => $strmarkedthissection,
                                           'class' => 'editing_highlight'));
             } else {
+                $strmarkthissection = get_string('markthissection', 'format_topcoll');
                 $url->param('marker', $section->section);
                 $controls[] = html_writer::link($url, html_writer::empty_tag('img',
                                     array('src' => $this->output->pix_url('i/marker'),
-                                          'class' => 'icon', 'alt' => get_string('markthissection', 'format_topcoll'))),
-                                    array('title' => get_string('markthissection', 'format_topcoll'),
+                                          'class' => 'icon', 'alt' => $strmarkthissection)),
+                                    array('title' => $strmarkthissection,
                                           'class' => 'editing_highlight'));
             }
         }
@@ -260,7 +262,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
 
         $o = '';
-        $liattributes = array('id' => 'section-'.$section->section, 'class' => $classattr);
+        $title = $this->courseformat->get_topcoll_section_name($course, $section, false);
+        $liattributes = array(
+            'id' => 'section-'.$section->section,
+            'class' => $classattr,
+            'role' => 'region',
+            'aria-label'=> $title
+        );
         if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
             $liattributes['style'] = 'width:' . $this->tccolumnwidth . '%;';
         }
@@ -270,7 +278,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::tag('div', '', array('class' => 'right side'));
         $o .= html_writer::start_tag('div', array('class' => 'content'));
 
-        $title = get_section_name($course, $section);
         if ($section->uservisible) {
             $title = html_writer::tag('a', $title,
                     array('href' => course_get_url($course, $section->section), 'class' => $linkclasses));
@@ -321,8 +328,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
         }
 
-        $liattributes = array('id' => 'section-' . $section->section,
-            'class' => 'section main clearfix' . $sectionstyle);
+        $liattributes = array(
+            'id' => 'section-' . $section->section,
+            'class' => 'section main clearfix' . $sectionstyle,
+            'role' => 'region',
+            'aria-label' => $this->courseformat->get_topcoll_section_name($course, $section, false)
+        );
         if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
             $liattributes['style'] = 'width:' . $this->tccolumnwidth . '%;';
         }
@@ -568,7 +579,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if ($thissection->summary or !empty($modinfo->sections[0]) or $PAGE->user_is_editing()) {
             echo $this->section_header($thissection, $course, false, 0);
             echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
-            echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0);
+            echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0, 0);
             echo $this->section_footer();
         }
 

@@ -46,12 +46,11 @@ class MoodleQuickForm_tccolourpopup extends HTML_QuickForm_text {
      *
      * @var string
      */
-    var $_helpbutton = '';
-    var $_hiddenLabel = false;
+    public $_helpbutton = '';
+    public $_hiddenLabel = false;
 
-    public function MoodleQuickForm_tccolourpopup($elementName = null, $elementLabel = null, $attributes = null, $options = null) {
-        global $CFG;
-        parent::HTML_QuickForm_text($elementName, $elementLabel, $attributes);
+    public function MoodleQuickForm_tccolourpopup($elementname = null, $elementlabel = null, $attributes = null, $options = null) {
+        parent::HTML_QuickForm_text($elementname, $elementlabel, $attributes);
     }
 
     public function setHiddenLabel($hiddenLabel) {
@@ -59,14 +58,18 @@ class MoodleQuickForm_tccolourpopup extends HTML_QuickForm_text {
     }
 
     public function toHtml() {
-        global $CFG, $COURSE, $USER, $PAGE, $OUTPUT;
+        global $PAGE;
         $id = $this->getAttribute('id');
         $PAGE->requires->js('/course/format/topcoll/js/tc_colourpopup.js');
         $PAGE->requires->js_init_call('M.util.init_tccolour_popup', array($id));
-        $content = "<input size='8' name='" . $this->getName() . "' value='" . $this->getValue() . "'id='{$id}' type='text' " .
+        $colour = $this->getValue();
+        if ($colour[0] == '#') {
+            $colour = substr($colour, 1);
+        }
+        $content = "<input size='8' name='" . $this->getName() . "' value='" . $colour . "'id='{$id}' type='text' " .
                     $this->_getAttrString($this->_attributes) . " >";
         $content .= html_writer::tag('span', '&nbsp;', array('id' => 'colpicked_' . $id, 'tabindex' => '-1',
-                                     'style' => 'background-color:#' . $this->getValue() .
+                                     'style' => 'background-color:#' . $colour .
                                      ';cursor:pointer;margin:0px;padding: 0 8px;border:1px solid black'));
         $content .= html_writer::start_tag('div', array('id' => 'colpick_' . $id,
                                            'style' => "display:none;position:absolute;z-index:500;",

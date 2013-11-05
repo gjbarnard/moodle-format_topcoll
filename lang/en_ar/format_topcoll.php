@@ -37,6 +37,10 @@
 // Used in format.php.
 $string['topcollsidewidth']='40px';
 
+// These are 'topic' as they are only shown in 'topic' based structures.
+$string['markedthissection'] = 'Thy topic is illuminated as thee current topic';
+$string['markthissection'] = 'Illuminate thy topic as thee current topic';
+
 // Toggle all - Moodle Tracker CONTRIB-3190.
 $string['topcollopened']='Untie';
 $string['topcollclosed']='Tie';
