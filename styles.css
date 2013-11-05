@@ -623,7 +623,14 @@ body.jsenabled #toggle-all {
 
 #toggle-all .content .sectionbody h4 a {
     padding: 7px 26px; /* The 26px allows the arrow to be with the text next to it. */
-    text-align: left;
     width: 35px;
     text-decoration: none;
+}
+
+#toggle-all .content .sectionbody h4, #toggle-all .content .sectionbody h4 a {
+    text-align: left;
+}
+
+.dir-rtl #toggle-all .content .sectionbody h4, .dir-rtl #toggle-all .content .sectionbody h4 a {
+    text-align: right;
 }
