@@ -6,11 +6,11 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 ==========================
-This version works with Moodle version 2013051400.00 release 2.5 (Build: 20130514) and above within the 2.5 branch until the
+This version works with Moodle 2013110600.00 release 2.6beta+ (Build: 20131106) and above within the 2.6 branch until the
 next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
-'docs.moodle.org/25/en/Installing_Moodle'.
+'docs.moodle.org/26/en/Installing_Moodle'.
 
 Downloads and documentation
 ===========================
@@ -256,7 +256,7 @@ Version Information
   1.  Changes for 'Accessibility' based upon MDL-41252.
   2.  Fully implemented MDL-39542.
   3.  Slight tweak to colour pop up code such that default settings courses don't have a prefixing '#'.
-  4.  Implemented validation on colours as an implied result of CONTRIB-4736.
+  4.  Implemented validation on colours as an implied result of CONTRIB-4736.  Thanks to Kirill Astashov for this.
   5.  Fixed sections not being aligned at the top when more than one column and with a vertical column orientation.
 
 24th October 2013 Version 2.5.3.4
