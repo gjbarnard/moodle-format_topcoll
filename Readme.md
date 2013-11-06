@@ -250,10 +250,11 @@ can be really useful in visualising the issue along with any files you consider 
 Version Information
 ===================
 5th November 2013 Version 2.5.3.5
-  1.  Changes for 'Accessibilty' based upon MDL-41252.
+  1.  Changes for 'Accessibility' based upon MDL-41252.
   2.  Fully implemented MDL-39542.
   3.  Slight tweak to colour pop up code such that default settings courses don't have a prefixing '#'.
-  4.  Implemented validation on colours as an implied result of CONTRIB-4736.
+  4.  Implemented validation on colours as an implied result of CONTRIB-4736.  Thanks to Kirill Astashov for this.
+  5.  Fixed sections not being aligned at the top when more than one column and with a vertical column orientation.
 
 24th October 2013 Version 2.5.3.4
   1.  Fixed reset toggle instructions not working when only thing reset.
