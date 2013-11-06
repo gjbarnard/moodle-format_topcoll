@@ -249,7 +249,7 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
-5th November 2013 Version 2.6.0.1
+6th November 2013 Version 2.6.0.1
   1.  Initial BETA code for Moodle 2.6.
 
 5th November 2013 Version 2.5.3.5
@@ -1051,6 +1051,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 5th November 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 6th November 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard
