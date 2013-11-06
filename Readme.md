@@ -257,6 +257,7 @@ Version Information
   2.  Fully implemented MDL-39542.
   3.  Slight tweak to colour pop up code such that default settings courses don't have a prefixing '#'.
   4.  Implemented validation on colours as an implied result of CONTRIB-4736.
+  5.  Fixed sections not being aligned at the top when more than one column and with a vertical column orientation.
 
 24th October 2013 Version 2.5.3.4
   1.  Fixed reset toggle instructions not working when only thing reset.

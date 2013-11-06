@@ -33,6 +33,7 @@
 
 .course-content ul.ctlayout {
     display: inline-block;
+    vertical-align: top;
 }
 
 .course-content ul.ctopics li.section.main, .course-content ul.ctopics li.tcsection {
