@@ -85,6 +85,9 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
             $data->layoutcolumns = get_config('format_topcoll', 'defaultlayoutcolumns');
         }
         
+		
+		error_log('process_topcoll($data): '.print_r($data, true));
+		
         $courseformat->restore_topcoll_setting(
             $data->courseid,
             $data->layoutelement,

@@ -556,6 +556,10 @@ class format_topcoll extends format_base {
             }
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
+		
+		error_log('course_format_options($foreditform = '.$foreditform.'): '.print_r($courseformatoptions, true));
+
+		
         return $courseformatoptions;
     }
 
@@ -988,6 +992,10 @@ class format_topcoll extends format_base {
         $this->update_course_format_options($data);
 
         $this->courseid = $currentcourseid;
+		
+		error_log('restore_topcoll_setting: '.print_r($data, true));
+
+		
     }
 
     /**
