@@ -272,7 +272,6 @@ class format_topcoll extends format_base {
      */
     public function course_format_options($foreditform = false) {
         static $courseformatoptions = false;
-
         if ($courseformatoptions === false) {
             $courseconfig = get_config('moodlecourse');
             $courseformatoptions = array(
@@ -532,6 +531,7 @@ class format_topcoll extends format_base {
             }
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
+		error_log('course_format_options: '.print_r($courseformatoptions, true));
         return $courseformatoptions;
     }
 
@@ -873,6 +873,7 @@ class format_topcoll extends format_base {
             'toggleforegroundcolour' => $tgfgcolour,
             'togglebackgroundcolour' => $tgbgcolour,
             'togglebackgroundhovercolour' => $tgbghvrcolour);
+		error_log('restore_topcoll_setting: '.print_r($data, true));
 
         $this->update_course_format_options($data);
 

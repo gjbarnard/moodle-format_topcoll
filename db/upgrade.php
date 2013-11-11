@@ -151,6 +151,7 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
                     // code desires entries in the course_format_settings table for courses of a format that belong
                     // to another format.
                     if ($courseformat->get_format() == 'topcoll') {
+						error_log('upgrade.php: '.print_r($record, true));
                         $courseformat->restore_topcoll_setting($record->courseid, $record->layoutelement, $record->layoutstructure,
                                                                $record->layoutcolumns, $record->tgfgcolour, $record->tgbgcolour,
                                                                $record->tgbghvrcolour); // In '/course/format/topcoll/lib.php'.
