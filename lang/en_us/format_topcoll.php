@@ -40,8 +40,8 @@ $string['topcollsidewidth']='28px';
 // Colour enhancement - Moodle Tracker CONTRIB-3529.
 $string['setcolour'] = 'Set color';
 $string['colourrule'] = "Please enter a valid RGB color, a '#' and then six hexadecimal digits.";
-$string['resetcolour'] = 'Reset color';
-$string['resetallcolour'] = 'Reset colors for all Collapsed Topics courses';
+$string['resetcolour'] = 'Color';
+$string['resetallcolour'] = 'Colors';
 
 // Moodle Tracker CONTRIB-3529.
 $string['setcolour_help'] = 'Contains the settings to do with the color of the format within the course.';

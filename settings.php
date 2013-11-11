@@ -51,6 +51,17 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
+    /* Toggle instructions - 1 = no, 2 = yes. */
+    $name = 'format_topcoll/defaultdisplayinstructions';
+    $title = get_string('defaultdisplayinstructions', 'format_topcoll');
+    $description = get_string('defaultdisplayinstructions_desc', 'format_topcoll');
+    $default = 2;
+    $choices = array(
+        1 => new lang_string('no'),   // No.
+        2 => new lang_string('yes')   // Yes.
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
     /* Layout configuration.
        Here you can see what numbers in the array represent what layout for setting the default value below.
        1 => Toggle word, toggle section x and section number - default.
@@ -129,7 +140,7 @@ if ($ADMIN->fulltree) {
     $name = 'format_topcoll/defaulttgfgcolour';
     $title = get_string('defaulttgfgcolour', 'format_topcoll');
     $description = get_string('defaulttgfgcolour_desc', 'format_topcoll');
-    $default = '#000000';
+    $default = '000000';
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
 
@@ -137,7 +148,7 @@ if ($ADMIN->fulltree) {
     $name = 'format_topcoll/defaulttgbgcolour';
     $title = get_string('defaulttgbgcolour', 'format_topcoll');
     $description = get_string('defaulttgbgcolour_desc', 'format_topcoll');
-    $default = '#e2e2f2';
+    $default = 'e2e2f2';
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
 
@@ -145,7 +156,7 @@ if ($ADMIN->fulltree) {
     $name = 'format_topcoll/defaulttgbghvrcolour';
     $title = get_string('defaulttgbghvrcolour', 'format_topcoll');
     $description = get_string('defaulttgbghvrcolour_desc', 'format_topcoll');
-    $default = '#eeeeff';
+    $default = 'eeeeff';
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
 
@@ -189,17 +200,35 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     // Toggle icon set.
-    // arrow => Arrow icon set.
-    // point => Point icon set.
-    // power => Power icon set.
+    // arrow   => Arrow icon set.
+    // bulb    => Bulb icon set.
+    // cloud   => Cloud icon set.
+    // eye     => Eye icon set.
+    // led     => LED icon set.
+    // point   => Point icon set.
+    // power   => Power icon set.
+    // radio   => Radio icon set.
+    // smiley  => Smiley icon set.
+    // square  => Square icon set.
+    // sunmoon => Sun / Moon icon set.
+    // switch  => Switch icon set.
     $name = 'format_topcoll/defaulttoggleiconset';
     $title = get_string('defaulttoggleiconset', 'format_topcoll');
     $description = get_string('defaulttoggleiconset_desc', 'format_topcoll');
     $default = 'arrow';
     $choices = array(
-        'arrow' => new lang_string('arrow', 'format_topcoll'), // Arrow icon set.
-        'point' => new lang_string('point', 'format_topcoll'), // Point icon set.
-        'power' => new lang_string('power', 'format_topcoll')  // Power icon set.
+        'arrow' => new lang_string('arrow', 'format_topcoll'),     // Arrow icon set.
+        'bulb' => new lang_string('bulb', 'format_topcoll'),       // Bulb icon set.
+        'cloud' => new lang_string('cloud', 'format_topcoll'),     // Cloud icon set.
+        'eye' => new lang_string('eye', 'format_topcoll'),         // Eye icon set.
+        'led' => new lang_string('led', 'format_topcoll'),         // LED icon set.
+        'point' => new lang_string('point', 'format_topcoll'),     // Point icon set.
+        'power' => new lang_string('power', 'format_topcoll'),     // Power icon set.
+        'radio' => new lang_string('radio', 'format_topcoll'),     // Radio icon set.
+        'smiley' => new lang_string('smiley', 'format_topcoll'),   // Smiley icon set.
+        'square' => new lang_string('square', 'format_topcoll'),   // Square icon set.
+        'sunmoon' => new lang_string('sunmoon', 'format_topcoll'), // Sun / Moon icon set.
+        'switch' => new lang_string('switch', 'format_topcoll')    // Switch icon set.
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 

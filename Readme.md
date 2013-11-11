@@ -12,8 +12,8 @@ next release.
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
 'docs.moodle.org/25/en/Installing_Moodle'.
 
-Download and documentation
-==========================
+Downloads and documentation
+===========================
 The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
 with 'Select Moodle version:' set at 'Moodle 2.5'.
 
@@ -24,6 +24,21 @@ the code is unstable and not for use in production environments.  This is becaus
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
 Documented on http://docs.moodle.org/25/en/Collapsed_Topics_course_format
+
+Free Software
+=============
+The Collapsed Topics format is 'free' software under the terms of the GNU GPLv3 License, please see 'COPYING.txt'.
+
+It can be obtained for free from the links in 'Downloads and documentation' above.
+
+You have all the rights granted to you by the GPLv3 license.  If you are unsure about anything, then the
+FAQ - http://www.gnu.org/licenses/gpl-faq.html - is a good place to look.
+
+If you reuse any of the code then I kindly ask that you make reference to the format.
+
+If you make improvements or bug fixes then I would appreciate if you would send them back to me by forking from
+https://github.com/gjb2048/moodle-format_topcoll and doing a 'Pull Request' so that the rest of the
+Moodle community benefits.
 
 Supporting Collapsed Topics development
 =======================================
@@ -218,8 +233,11 @@ All Collapsed Topics does is integrate with the course page and control it's lay
 with the format is in fact to do with a theme or core component.  Please be confident that it is an issue with Collapsed Topics
 but if in doubt, ask.
 
-I operate a policy that I will fix all genuine issues for free.  Improvements are at my discretion.  I am happy to make bespoke
-customisations / improvements for a negotiated fee. 
+I operate a policy that we will fix all genuine issues for free (this only applies to the code as supplied from the sources listed
+in 'Downloads and documentation' above.  Any changes / improvements you make are not covered and invalidate this policy for all of
+the code).  Improvements are at my discretion.  I am happy to make bespoke customisations / improvements for a negotiated fee.  I
+will endeavour to respond to all requests for support as quickly as possible, if you require a faster service then offering payment
+for the service will expedite the response.
 
 When reporting an issue you can post in the course format's forum on Moodle.org (currently 'moodle.org/mod/forum/view.php?id=47'), 
 on Moodle tracker 'tracker.moodle.org' ensuring that you chose the 'Non-core contributed modules' and 'Course Format: Topcoll'
@@ -231,6 +249,27 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+5th November 2013 Version 2.5.3.5
+  1.  Changes for 'Accessibility' based upon MDL-41252.
+  2.  Fully implemented MDL-39542.
+  3.  Slight tweak to colour pop up code such that default settings courses don't have a prefixing '#'.
+  4.  Implemented validation on colours as an implied result of CONTRIB-4736.  Thanks to Kirill Astashov for this.
+  5.  Fixed sections not being aligned at the top when more than one column and with a vertical column orientation.
+
+24th October 2013 Version 2.5.3.4
+  1.  Fixed reset toggle instructions not working when only thing reset.
+  2.  Fixed reset logic as was updating course format options when should not have done even though there would have been no effect.
+  3.  Slight optimisation to 'renderer.php' for getting 'format_topcoll' object when already have it.
+  4.  Slight optimisation to getting the strings for the current section 'light bulb'.
+
+2nd October 2013 Version 2.5.3.3
+  1.  Added: Bulb, Cloud, Eye, LED, Radio, Smiley, Square, Sun / Moon and Switch icon sets as a result of remembering about:
+      https://moodle.org/mod/forum/discuss.php?d=220142.
+  2.  Added instructions on how to use the toggles from a suggestion by Guido Rößling on Learn Moodle.
+  3.  Added setting to turn on (default) / off the instructions at the course and site default level with 'Reset' and 'Reset all'
+      capability.
+  4.  Worked out how to get the reset options on the course settings page in-line in groups.
+
 19th August 2013 Version 2.5.3.2
   1.  Fixed issue with the 'float: left' CSS style when used to ensure that the columns were displayed correctly in the
       'vertical' column orientation.  The fix is to use 'display: inline-block' instead but this does not work in IE7, so as
@@ -328,7 +367,7 @@ Version Information
 
 14th March 2013 - Version 2.4.3.1
   1.  Improved mobile and tablet theme detection and support.
-  2.  Added 'Download and documentation' to this readme to clarify download locations.
+  2.  Added 'Downloads and documentation' to this readme to clarify the download locations.
   3.  Cleaned JavaScript through use of http://jshint.com/.
   4.  Added 'Previous versions and required version of Moodle' to this guide.
   5.  Implemented MDL-37901.
@@ -1010,6 +1049,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 27th July 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 5th November 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard
