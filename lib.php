@@ -987,6 +987,21 @@ class format_topcoll extends format_base {
 
         $this->update_course_format_options($data);
 
+        if (empty($changes['layoutcolumnorientation']['default'])) {
+            // Upgrading from M2.3 and the defaults in 'settings.php' have not been processed at this time.
+            // Defaults taken from 'settings.php'.
+            $updatedata = array(
+                'displayinstructions' => 2,
+                'layoutcolumnorientation' => 2,
+                'togglealignment' => 2,
+                'toggleiconposition' => 1,
+                'toggleiconset' => 'arrow',
+                'toggleallhover' => 2
+            );
+
+            $this->update_course_format_options($updatedata);
+        }
+
         $this->courseid = $currentcourseid;
     }
 
