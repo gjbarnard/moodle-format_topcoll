@@ -985,7 +985,7 @@ class format_topcoll extends format_base {
             'togglebackgroundcolour' => $tgbgcolour,
             'togglebackgroundhovercolour' => $tgbghvrcolour);
 
-        if (is_null(get_config('format_topcoll', 'defaultlayoutcolumnorientation'))) {
+        if (empty(get_config('format_topcoll', 'defaultlayoutcolumnorientation'))) {
             // Upgrading from M2.3 and the defaults in 'settings.php' have not been processed at this time.
             // Defaults taken from 'settings.php'.
             $data['displayinstructions'] = 2;
