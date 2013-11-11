@@ -788,7 +788,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 }
 
                 if ($this->mobiletheme === false) { // Only break in non-mobile themes.
-                    if ($this->tcsettings['layoutcolumnorientation'] == 1) {  // Only break columns in horizontal mode.
+                    if ($this->tcsettings['layoutcolumnorientation'] == 1) {  // Only break columns in vertical mode.
                         if (($canbreak == false) && ($currentsectionfirst == false) && ($showsection == true)) {
                             $canbreak = true;
                             $columnbreakpoint = ($shownsectioncount + ($numsections / $this->tcsettings['layoutcolumns'])) - 1;
