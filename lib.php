@@ -985,6 +985,17 @@ class format_topcoll extends format_base {
             'togglebackgroundcolour' => $tgbgcolour,
             'togglebackgroundhovercolour' => $tgbghvrcolour);
 
+        $lco = get_config('format_topcoll', 'defaultlayoutcolumnorientation');
+        if (empty($lco)) {
+            // Upgrading from M2.3 and the defaults in 'settings.php' have not been processed at this time.
+            // Defaults taken from 'settings.php'.
+            $data['displayinstructions'] = 2;
+            $data['layoutcolumnorientation'] = 2;
+            $data['togglealignment'] = 2;
+            $data['toggleiconposition'] = 1;
+            $data['toggleiconset'] = 'arrow';
+            $data['toggleallhover'] = 2;
+        }
         $this->update_course_format_options($data);
 
         $this->courseid = $currentcourseid;

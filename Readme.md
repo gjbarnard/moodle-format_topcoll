@@ -249,15 +249,16 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
-6th November 2013 Version 2.6.0.1
+11th November 2013 Version 2.6.0.1
   1.  Initial BETA code for Moodle 2.6.
 
-5th November 2013 Version 2.5.3.5
+11th November 2013 Version 2.5.3.5
   1.  Changes for 'Accessibility' based upon MDL-41252.
   2.  Fully implemented MDL-39542.
   3.  Slight tweak to colour pop up code such that default settings courses don't have a prefixing '#'.
   4.  Implemented validation on colours as an implied result of CONTRIB-4736.  Thanks to Kirill Astashov for this.
   5.  Fixed sections not being aligned at the top when more than one column and with a vertical column orientation.
+  6.  Fixed updating from Moodle 2.3 for existing courses issue - CONTRIB-4743.  Thanks to Kirill Astashov for this.
 
 24th October 2013 Version 2.5.3.4
   1.  Fixed reset toggle instructions not working when only thing reset.
@@ -1052,6 +1053,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 6th November 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 11th November 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard
