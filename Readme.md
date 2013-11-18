@@ -6,7 +6,7 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 ==========================
-This version works with Moodle 2013110600.00 release 2.6beta+ (Build: 20131106) and above within the 2.6 branch until the
+This version works with Moodle version 2013111800.00 release 2.6 (Build: 20131118) and above within the 2.6 branch until the
 next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
@@ -15,15 +15,15 @@ Please ensure that your hardware and software complies with 'Requirements' in 'I
 Downloads and documentation
 ===========================
 The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
-with 'Select Moodle version:' set at 'Moodle 2.5'.
+with 'Select Moodle version:' set at 'Moodle 2.6'.
 
-The secondary source is a tagged version with the v2.5 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
+The secondary source is a tagged version with the v2.6 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
 
-If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/tree/MOODLE_25 - consider that
+If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/tree/MOODLE_26 - consider that
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
-Documented on http://docs.moodle.org/25/en/Collapsed_Topics_course_format
+Documented on http://docs.moodle.org/26/en/Collapsed_Topics_course_format
 
 Free Software
 =============
@@ -59,9 +59,9 @@ CT version - Moodle version
 V2.5.0.1     2.5beta+ version 2013041100.00 (Build: 20130411).
 V2.5.0.4     2.5beta+ version 2013050200.00 (Build: 20130502).
 
-New features for this Moodle 2.5 version
+New features for this Moodle 2.6 version
 ========================================
- 1. Same features as version 2.4.4 in Moodle 2.4.
+ 1. Same features as version 2.5.3.5 in Moodle 2.5.
 
 Installation
 ============
@@ -249,6 +249,10 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+18th November 2013 Version 2.6.1
+  1.  Stable release for Moodle 2.6.
+  2.  Fixed slight issue with lack of prefixing '#' for colour settings in default settings.
+
 14th November 2013 Version 2.6.0.1
   1.  Initial BETA code for Moodle 2.6.
 
@@ -1053,6 +1057,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 14th November 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 18th November 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard
