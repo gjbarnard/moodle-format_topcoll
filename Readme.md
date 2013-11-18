@@ -249,6 +249,10 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+18th November 2013 Version 2.5.3.6
+Change by G J Barnard
+  1.  Fixed slight issue with lack of prefixing '#' for colour settings in default settings.
+
 14th November 2013 Version 2.5.3.5
   1.  Changes for 'Accessibility' based upon MDL-41252.
   2.  Fully implemented MDL-39542.
@@ -1050,6 +1054,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 14th November 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 18th November 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

@@ -274,6 +274,20 @@ class format_topcoll extends format_base {
         static $courseformatoptions = false;
 
         if ($courseformatoptions === false) {
+            /* Note: Because 'admin_setting_configcolourpicker' in 'settings.php' needs to use a prefixing '#'
+                     this needs to be stripped off here if it's there for the format's specific colour picker. */
+            $defaulttgfgcolour = get_config('format_topcoll', 'defaulttgfgcolour');
+            if ($defaulttgfgcolour[0] == '#') {
+                $defaulttgfgcolour = substr($defaulttgfgcolour, 1);
+            }
+            $defaulttgbgcolour = get_config('format_topcoll', 'defaulttgbgcolour');
+            if ($defaulttgbgcolour[0] == '#') {
+                $defaulttgbgcolour = substr($defaulttgbgcolour, 1);
+            }
+            $defaulttgbghvrcolour = get_config('format_topcoll', 'defaulttgbghvrcolour');
+            if ($defaulttgbghvrcolour[0] == '#') {
+                $defaulttgbghvrcolour = substr($defaulttgbghvrcolour, 1);
+            }
             $courseconfig = get_config('moodlecourse');
             $courseformatoptions = array(
                 'numsections' => array(
@@ -325,15 +339,15 @@ class format_topcoll extends format_base {
                     'type' => PARAM_INT,
                 ),
                 'toggleforegroundcolour' => array(
-                    'default' => get_config('format_topcoll', 'defaulttgfgcolour'),
+                    'default' => $defaulttgfgcolour,
                     'type' => PARAM_ALPHANUM,
                 ),
                 'togglebackgroundcolour' => array(
-                    'default' => get_config('format_topcoll', 'defaulttgbgcolour'),
+                    'default' => $defaulttgbgcolour,
                     'type' => PARAM_ALPHANUM,
                 ),
                 'togglebackgroundhovercolour' => array(
-                    'default' => get_config('format_topcoll', 'defaulttgbghvrcolour'),
+                    'default' => $defaulttgbghvrcolour,
                     'type' => PARAM_ALPHANUM,
                 )
             );
