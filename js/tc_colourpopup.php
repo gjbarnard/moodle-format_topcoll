@@ -63,7 +63,7 @@ class MoodleQuickForm_tccolourpopup extends HTML_QuickForm_text {
         $PAGE->requires->js('/course/format/topcoll/js/tc_colourpopup.js');
         $PAGE->requires->js_init_call('M.util.init_tccolour_popup', array($id));
         $colour = $this->getValue();
-        if ($colour[0] == '#') {
+        if ((!empty($colour)) && ($colour[0] == '#')) {
             $colour = substr($colour, 1);
         }
         $content = "<input size='8' name='" . $this->getName() . "' value='" . $colour . "'id='{$id}' type='text' " .

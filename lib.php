@@ -353,6 +353,21 @@ class format_topcoll extends format_base {
             );
         }
         if ($foreditform && !isset($courseformatoptions['coursedisplay']['label'])) {
+            /* Note: Because 'admin_setting_configcolourpicker' in 'settings.php' needs to use a prefixing '#'
+                     this needs to be stripped off here if it's there for the format's specific colour picker. */
+            $defaulttgfgcolour = get_config('format_topcoll', 'defaulttgfgcolour');
+            if ($defaulttgfgcolour[0] == '#') {
+                $defaulttgfgcolour = substr($defaulttgfgcolour, 1);
+            }
+            $defaulttgbgcolour = get_config('format_topcoll', 'defaulttgbgcolour');
+            if ($defaulttgbgcolour[0] == '#') {
+                $defaulttgbgcolour = substr($defaulttgbgcolour, 1);
+            }
+            $defaulttgbghvrcolour = get_config('format_topcoll', 'defaulttgbghvrcolour');
+            if ($defaulttgbghvrcolour[0] == '#') {
+                $defaulttgbghvrcolour = substr($defaulttgbghvrcolour, 1);
+            }
+
             global $COURSE;
             $coursecontext = context_course::instance($COURSE->id);
 
@@ -465,15 +480,15 @@ class format_topcoll extends format_base {
                 );
             } else {
                 $courseformatoptionsedit['layoutelement'] =
-                    array('label' => new lang_string('setlayoutelements', 'format_topcoll'), 'element_type' => 'hidden');
+                    array('label' => get_config('format_topcoll', 'defaultlayoutelement'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['layoutstructure'] =
-                    array('label' => new lang_string('setlayoutstructure', 'format_topcoll'), 'element_type' => 'hidden');
+                    array('label' => get_config('format_topcoll', 'defaultlayoutstructure'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['layoutcolumns'] =
-                    array('label' => new lang_string('setlayoutcolumns', 'format_topcoll'), 'element_type' => 'hidden');
+                    array('label' => get_config('format_topcoll', 'defaultlayoutcolumns'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['layoutcolumnorientation'] =
-                    array('label' => new lang_string('setlayoutcolumnorientation', 'format_topcoll'), 'element_type' => 'hidden');
+                    array('label' => get_config('format_topcoll', 'defaultlayoutcolumnorientation'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['toggleiconposition'] =
-                    array('label' => new lang_string('settoggleiconposition', 'format_topcoll'), 'element_type' => 'hidden');
+                    array('label' => get_config('format_topcoll', 'defaulttoggleiconposition'), 'element_type' => 'hidden');
             }
 
             if (has_capability('format/topcoll:changetogglealignment', $coursecontext)) {
@@ -490,7 +505,7 @@ class format_topcoll extends format_base {
                 );
             } else {
                 $courseformatoptionsedit['togglealignment'] =
-                    array('label' => new lang_string('settogglealignment', 'format_topcoll'), 'element_type' => 'hidden');
+                    array('label' => get_config('format_topcoll', 'defaulttogglealignment'), 'element_type' => 'hidden');
             }
 
             if (has_capability('format/topcoll:changetoggleiconset', $coursecontext)) {
@@ -527,9 +542,9 @@ class format_topcoll extends format_base {
                 );
             } else {
                 $courseformatoptionsedit['toggleiconset'] =
-                    array('label' => new lang_string('settoggleiconset', 'format_topcoll'), 'element_type' => 'hidden');
+                    array('label' => get_config('format_topcoll', 'defaulttoggleiconset'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['toggleallhover'] =
-                    array('label' => new lang_string('settoggleallhover', 'format_topcoll'), 'element_type' => 'hidden');
+                    array('label' => get_config('format_topcoll', 'defaulttoggleallhover'), 'element_type' => 'hidden');
             }
 
             if (has_capability('format/topcoll:changecolour', $coursecontext)) {
@@ -539,7 +554,7 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => array(
-                        array('tabindex' => -1, 'value' => get_config('format_topcoll', 'defaulttgfgcolour'))
+                        array('tabindex' => -1, 'value' => $defaulttgfgcolour)
                     )
                 );
                 $courseformatoptionsedit['togglebackgroundcolour'] = array(
@@ -548,7 +563,7 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => array(
-                        array('tabindex' => -1, 'value' => get_config('format_topcoll', 'defaulttgbgcolour'))
+                        array('tabindex' => -1, 'value' => $defaulttgbgcolour)
                     )
                 );
                 $courseformatoptionsedit['togglebackgroundhovercolour'] = array(
@@ -557,16 +572,16 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => array(
-                        array('tabindex' => -1, 'value' => get_config('format_topcoll', 'defaulttgbghvrcolour'))
+                        array('tabindex' => -1, 'value' => $defaulttgbghvrcolour)
                     )
                 );
             } else {
                 $courseformatoptionsedit['toggleforegroundcolour'] =
-                    array('label' => new lang_string('settoggleforegroundcolour', 'format_topcoll'), 'element_type' => 'hidden');
+                    array('label' => $defaulttgfgcolour, 'element_type' => 'hidden');
                 $courseformatoptionsedit['togglebackgroundcolour'] =
-                    array('label' => new lang_string('settogglebackgroundcolour', 'format_topcoll'), 'element_type' => 'hidden');
+                    array('label' => $defaulttgbgcolour, 'element_type' => 'hidden');
                 $courseformatoptionsedit['togglebackgroundhovercolour'] =
-                    array('label' => new lang_string('settogglebackgroundhovercolour', 'format_topcoll'), 'element_type' => 'hidden');
+                    array('label' => $defaulttgbghvrcolour, 'element_type' => 'hidden');
             }
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
@@ -680,7 +695,7 @@ class format_topcoll extends format_base {
      */
     public function edit_form_validation($data, $files, $errors) {
         $retr = array();
-        
+
         if ($this->validate_colour($data['toggleforegroundcolour']) === false) {
             $retr['toggleforegroundcolour'] = get_string('colourrule', 'format_topcoll');
         }
@@ -690,7 +705,7 @@ class format_topcoll extends format_base {
         if ($this->validate_colour($data['togglebackgroundhovercolour']) === false) {
             $retr['togglebackgroundhovercolour'] = get_string('colourrule', 'format_topcoll');
         }
-        
+
         return $retr;
     }
 
