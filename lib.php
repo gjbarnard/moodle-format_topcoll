@@ -38,6 +38,23 @@ class format_topcoll extends format_base {
     private $settings;
 
     /**
+     * Creates a new instance of class
+     *
+     * Please use {@link course_get_format($courseorid)} to get an instance of the format class
+     *
+     * @param string $format
+     * @param int $courseid
+     * @return format_topcoll
+     */
+    protected function __construct($format, $courseid) {
+        if ($courseid === 0) {
+            global $COURSE;
+            $courseid = $COURSE->id;  // Save lots of global $COURSE as we will never be the site course.
+        }
+        parent::__construct($format, $courseid);
+    }
+
+    /**
      * Returns the format's settings and gets them if they do not exist.
      * @return type The settings as an array.
      */
@@ -368,9 +385,7 @@ class format_topcoll extends format_base {
                 $defaulttgbghvrcolour = substr($defaulttgbghvrcolour, 1);
             }
 
-            global $COURSE;
-            $coursecontext = context_course::instance($COURSE->id);
-
+            $coursecontext = context_course::instance($this->courseid);
             $courseconfig = get_config('moodlecourse');
             $sectionmenu = array();
             for ($i = 0; $i <= $courseconfig->maxsections; $i++) {

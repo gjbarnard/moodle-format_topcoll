@@ -249,12 +249,12 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
-17th December 2013 Version 2.5.3.7
+18th December 2013 Version 2.5.3.7
   1.  Fixed issue reported by Graham Woodsford whereby teachers could not create Collapsed Topics courses.  This is because the
       validation method 'edit_form_validation' in 'lib.php' was failing the values passed to it.  These happened to be the
       hidden label values from 'course_format_options' which were being used because the 'Course creator' role that teachers
       have before becoming an 'editingteacher' role as defined in 'db/access.php' does not allow the teacher to have the
-      the 'format/topcoll:changelayout', 'format/topcoll:changecolour', 'format/topcoll:changetogglealignment' and
+      'format/topcoll:changelayout', 'format/topcoll:changecolour', 'format/topcoll:changetogglealignment' and
       'format/topcoll:changetoggleiconset' capabilities.  This also implies that the values of the other settings are wrong,
       which in fact they are, causing courses to be created (after fixing the colour settings for 'edit_form_validation') with
       odd values and not the defaults resulting in no icon set etc.  And therefore needing to go back to edit the course settings.
