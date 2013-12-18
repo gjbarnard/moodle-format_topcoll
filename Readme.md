@@ -249,9 +249,30 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+18th December 2013 Version 2.6.1.1
+  1.  Fixed issue reported by Graham Woodsford whereby teachers could not create Collapsed Topics courses.  This is because the
+      validation method 'edit_form_validation' in 'lib.php' was failing the values passed to it.  These happened to be the
+      hidden label values from 'course_format_options' which were being used because the 'Course creator' role that teachers
+      have before becoming an 'editingteacher' role as defined in 'db/access.php' does not allow the teacher to have the
+      the 'format/topcoll:changelayout', 'format/topcoll:changecolour', 'format/topcoll:changetogglealignment' and
+      'format/topcoll:changetoggleiconset' capabilities.  This also implies that the values of the other settings are wrong,
+      which in fact they are, causing courses to be created (after fixing the colour settings for 'edit_form_validation') with
+      odd values and not the defaults resulting in no icon set etc.  And therefore needing to go back to edit the course settings.
+
+      Ok, this now leads on to a dilemma.  Currently the course creator role does not have the CT capabilities listed above.  If
+      they were added to 'access.php' then the role would have them (existing CT admins would have to add manually).  Then the
+      teacher would see all the options when first creating a course as they do whilst editing.  However, this means that if you
+      wish to restrict the teacher from changing things as is the purpose of the capabilities in the first place, then you have
+      to remove the capability in both the 'coursecreator' and 'editingteacher' roles.  This is because by default 'coursecreator'
+      is above 'editingteacher' and once enrolled on the course after having created it, the teacher has both.  This makes things
+      a bit complex and to be honest not that admin friendly.  Therefore to keep things simple in what is in reality an event
+      that is rare, I have decided not to add the capabilities to the 'coursecreator' role.  This is additionally based on the
+      presumed work-flow of a teacher where they create the course using the defaults, look at it and then decide what to change
+      in the settings.  The fix as it stands will facilitate this.
+
 18th November 2013 Version 2.6.1
-  1.  Stable release for Moodle 2.6.
-  2.  Fixed slight issue with lack of prefixing '#' for colour settings in default settings.
+Change by G J Barnard
+  1.  Fixed slight issue with lack of prefixing '#' for colour settings in default settings.
 
 14th November 2013 Version 2.6.0.1
   1.  Initial BETA code for Moodle 2.6.
@@ -1057,6 +1078,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 18th November 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th December 2013.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard
