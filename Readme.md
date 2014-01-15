@@ -249,6 +249,10 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+15th January 2014 Version 2.6.1.2
+  1.  Fixed Essential theme overriding toggle text colour - see: https://moodle.org/mod/forum/discuss.php?d=251951.
+  2.  Fixed bullet point styles - see: https://moodle.org/mod/forum/discuss.php?d=251944.
+
 18th December 2013 Version 2.6.1.1
   1.  Fixed issue reported by Graham Woodsford whereby teachers could not create Collapsed Topics courses.  This is because the
       validation method 'edit_form_validation' in 'lib.php' was failing the values passed to it.  These happened to be the

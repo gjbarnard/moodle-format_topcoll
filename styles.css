@@ -42,6 +42,16 @@
     padding: 0px;
 }
 
+/* Fix for ordered and unordered list in course topic summary & course weekly summary - from theme/base/style/core.css
+ * See: https://moodle.org/mod/forum/discuss.php?d=251944.
+ */
+.course-content ul.ctopics .content .summary ul {
+    list-style: disc outside none;
+}
+.course-content ul.ctopics .content .summary ol {
+    list-style: decimal outside none;
+}
+
 .course-content ul.ctopics li.section.main .content, .course-content ul.ctopics li.tcsection .content {
     margin: 0 40px; /* Default used in editing mode. */
     padding: 0px;
