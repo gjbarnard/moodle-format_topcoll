@@ -249,6 +249,13 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+16th January 2014 Version 2.5.3.8
+  1.  Fixed Essential theme overriding toggle text colour - see: https://moodle.org/mod/forum/discuss.php?d=251951.
+  2.  Fixed bullet point styles - see: https://moodle.org/mod/forum/discuss.php?d=251944.
+  3.  Refactored 'print_single_section_page()' in 'renderer.php' to call parent version of method and thus reduce
+      code duplication and maintenance.
+  4.  Removed duplicate section title when editing.
+
 18th December 2013 Version 2.5.3.7
   1.  Fixed issue reported by Graham Woodsford whereby teachers could not create Collapsed Topics courses.  This is because the
       validation method 'edit_form_validation' in 'lib.php' was failing the values passed to it.  These happened to be the
@@ -1075,6 +1082,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th December 2013.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 16th January 2014.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

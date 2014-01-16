@@ -115,7 +115,7 @@ if (!empty($displaysection)) {
     }
 
     /* -- Toggle text -- */
-    .course-content ul.ctopics li.section .content .toggle a {
+    .course-content ul.ctopics li.section .content .toggle a h3 {
         color: <?php
                 if ($tcsettings['toggleforegroundcolour'][0] != '#') {
                     echo '#';
