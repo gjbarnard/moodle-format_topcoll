@@ -391,9 +391,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $o .= html_writer::end_tag('div');
             $o .= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection'.$sectionclass,
                                                       'id' => 'toggledsection-' . $section->section));
-            if ($section->section != 0 && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
-                $o .= html_writer::link(course_get_url($course, $section->section), $title);
-            }
 
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
