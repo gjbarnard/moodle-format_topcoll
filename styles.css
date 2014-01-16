@@ -45,10 +45,10 @@
 /* Fix for ordered and unordered list in course topic summary & course weekly summary - from theme/base/style/core.css
  * See: https://moodle.org/mod/forum/discuss.php?d=251944.
  */
-.course-content ul.ctopics .content .summary ul {
+.course-content ul.ctopics .content .summary ul, .course-content ul.ctopics .content .summarytext ul {
     list-style: disc outside none;
 }
-.course-content ul.ctopics .content .summary ol {
+.course-content ul.ctopics .content .summary ol, .course-content ul.ctopics .content .summarytext ol {
     list-style: decimal outside none;
 }
 
