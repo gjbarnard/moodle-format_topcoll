@@ -58,8 +58,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
      */
     public function __construct(moodle_page $page, $target) {
         parent::__construct($page, $target);
-
         $this->togglelib = new topcoll_togglelib;
+        $this->courseformat = course_get_format($page->course); // Needed for collapsed topics settings retrieval.
 
         /* Since format_topcoll_renderer::section_edit_controls() only displays the 'Set current section' control when editing
            mode is on we need to be sure that the link 'Turn editing mode on' is available for a user who does not have any
@@ -451,7 +451,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @param int $displaysection The section number in the course which is being displayed
      */
     public function print_single_section_page($course, $sections, $mods, $modnames, $modnamesused, $displaysection) {
-        $this->courseformat = course_get_format($course); // Needed for collapsed topics settings retrieval.
         parent::print_single_section_page($course, $sections, $mods, $modnames, $modnamesused, $displaysection);
     }
 
@@ -470,7 +469,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $userisediting = $PAGE->user_is_editing();
 
         $modinfo = get_fast_modinfo($course);
-        $this->courseformat = course_get_format($course);
         $course = $this->courseformat->get_course();
         if (empty($this->tcsettings)) {
             $this->tcsettings = $this->courseformat->get_settings();
