@@ -249,6 +249,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+3rd March 2014 Version 2.6.1.4
+  1.  Fixed slight issue with mobile / tablet display issue of toggle all and instructions.
+
 20th February 2014 Version 2.6.1.3
   1.  Refactoring for the 'Elegance' theme: https://github.com/moodleman/moodle-theme_elegance.
 
@@ -1088,6 +1091,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 20th February 2014.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 3rd March 2014.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

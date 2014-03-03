@@ -786,10 +786,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
     protected function toggle_all() {
         $o = html_writer::start_tag('li', array('class' => 'tcsection main clearfix', 'id' => 'toggle-all'));
 
-        if (($this->mobiletheme === false) || ($this->tablettheme === false)) {
-            $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
+        if (($this->mobiletheme === false) && ($this->tablettheme === false)) {
+            $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
+            $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
         }
-        $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
 
         $o .= html_writer::start_tag('div', array('class' => 'content'));
         $iconsetclass = ' toggle-'.$this->tcsettings['toggleiconset'];
@@ -817,10 +817,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
     protected function display_instructions() {
         $o = html_writer::start_tag('li', array('class' => 'tcsection main clearfix', 'id' => 'topcoll-display-instructions'));
 
-        if (($this->mobiletheme === false) || ($this->tablettheme === false)) {
-            $o.= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
+        if (($this->mobiletheme === false) && ($this->tablettheme === false)) {
+            $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
+            $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
         }
-        $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
 
         $o .= html_writer::start_tag('div', array('class' => 'content'));
         $o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
