@@ -66,7 +66,7 @@
 }
 
 /* -- Set the clickable element of the Toggle -- */
-.course-content ul.ctopics li.section .content .toggle a {
+.course-content ul.ctopics li.section .content .toggle a , .course-content ul.ctopics li.section.hidden .content {
     display: block;
     width: auto;
     padding: 6px 24px 6px 24px; /* The 24px allows the arrow to be with the text next to it. */
@@ -87,7 +87,7 @@ body.tablettheme .course-content ul.ctopics li.tcsection .content, body.tabletth
 }
 
 /* CONTRIB-4106 */
-.course-content ul.ctopics li.section .content .toggle a  h3.sectionname {
+.course-content ul.ctopics li.section .content .toggle a  h3.sectionname, .course-content ul.ctopics li.section.hidden .content {
     margin: 4px;
 }
 
@@ -557,11 +557,11 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
 }
 
 /* -- The section name and summary of a Toggle -- */
-.course-content ul.ctopics li.section .content .toggle  {
+.course-content ul.ctopics li.section .content .toggle, .course-content ul.ctopics li.section.hidden .content  {
     display: block;
     text-align: left;
     padding: 0 0;
-    width: auto;
+    width: 100%;
     -moz-border-radius: 0.7em;
     -webkit-border-radius: 0.7em;
     border-radius: 0.7em;
@@ -580,12 +580,8 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
     font-size: 0.7em;
 }
 
-.course-content ul.ctopics li.section .content .toggle {
-    width: 100%;
-}
-
 /* -- Toggle text -- */
-.course-content ul.ctopics li.section .content .toggle a {
+.course-content ul.ctopics li.section .content .toggle a, .course-content ul.ctopics li.section.hidden .content {
     text-decoration: none;
     font-weight: bold;
 }

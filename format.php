@@ -105,7 +105,7 @@ if (!empty($displaysection)) {
     /* <![CDATA[ */
 
     /* -- Toggle -- */
-    .course-content ul.ctopics li.section .content .toggle {
+    .course-content ul.ctopics li.section .content .toggle, .course-content ul.ctopics li.section.hidden .content {
         background-color: <?php
                             if ($tcsettings['togglebackgroundcolour'][0] != '#') {
                                 echo '#';
@@ -115,7 +115,7 @@ if (!empty($displaysection)) {
     }
 
     /* -- Toggle text -- */
-    .course-content ul.ctopics li.section .content .toggle a h3 {
+    .course-content ul.ctopics li.section .content .toggle a h3, .course-content ul.ctopics li.section.hidden .content {
         color: <?php
                 if ($tcsettings['toggleforegroundcolour'][0] != '#') {
                     echo '#';
@@ -180,6 +180,9 @@ if (!empty($displaysection)) {
         echo '.course-content ul.ctopics li.section {';
         echo 'display: inline-block;';
         echo 'vertical-align:top;';
+        echo '}';
+        echo '.course-content ul.ctopics li.section.hidden {';
+        echo 'display: inline-block !important;'; // Only using '!important' because of Bootstrap 3.
         echo '}';
         echo 'body.ie7 .course-content ul.ctopics li.section {';
         echo 'zoom: 1;';
