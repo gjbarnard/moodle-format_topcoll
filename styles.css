@@ -66,7 +66,7 @@
 }
 
 /* -- Set the clickable element of the Toggle -- */
-.course-content ul.ctopics li.section .content .toggle a , .course-content ul.ctopics li.section.hidden .content {
+.course-content ul.ctopics li.section .content .toggle a  {
     display: block;
     width: auto;
     padding: 6px 24px 6px 24px; /* The 24px allows the arrow to be with the text next to it. */
@@ -87,7 +87,8 @@ body.tablettheme .course-content ul.ctopics li.tcsection .content, body.tabletth
 }
 
 /* CONTRIB-4106 */
-.course-content ul.ctopics li.section .content .toggle a  h3.sectionname, .course-content ul.ctopics li.section.hidden .content {
+.course-content ul.ctopics li.section .content .toggle a  h3.sectionname,
+.course-content ul.ctopics li.section .content.sectionhidden h3 {
     margin: 4px;
 }
 
@@ -507,7 +508,7 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
 }
 
 /* MyMobile */
-#mymobile .course-content ul.ctopics li.tcsection .content, #mymobile .course-content ul.ctopics li.section.main .content{
+#mymobile .course-content ul.ctopics li.tcsection .content, #mymobile .course-content ul.ctopics li.section.main .content {
     margin: 0;
 }
 
@@ -556,15 +557,24 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
     vertical-align: baseline;
 }
 
-/* -- The section name and summary of a Toggle -- */
-.course-content ul.ctopics li.section .content .toggle, .course-content ul.ctopics li.section.hidden .content  {
+/* -- The section name in a Toggle and hidden section -- */
+.course-content ul.ctopics li.section .content .toggle, .course-content ul.ctopics li.section .content.sectionhidden  {
     display: block;
     text-align: left;
     padding: 0 0;
-    width: 100%;
     -moz-border-radius: 0.7em;
     -webkit-border-radius: 0.7em;
     border-radius: 0.7em;
+}
+
+/* -- The width of a section name in a Toggle -- */
+.course-content ul.ctopics li.section .content .toggle {
+    width: 100%;
+}
+
+/* -- The padding of a hidden section -- */
+.course-content ul.ctopics li.section .content.sectionhidden  {
+    padding: 6px 0px 6px 0px;
 }
 
 /* -- The topic summary text -- */
@@ -581,7 +591,7 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
 }
 
 /* -- Toggle text -- */
-.course-content ul.ctopics li.section .content .toggle a, .course-content ul.ctopics li.section.hidden .content {
+.course-content ul.ctopics li.section .content .toggle a, .course-content ul.ctopics li.section .content.sectionhidden {
     text-decoration: none;
     font-weight: bold;
 }

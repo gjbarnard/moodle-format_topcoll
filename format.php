@@ -105,7 +105,7 @@ if (!empty($displaysection)) {
     /* <![CDATA[ */
 
     /* -- Toggle -- */
-    .course-content ul.ctopics li.section .content .toggle, .course-content ul.ctopics li.section.hidden .content {
+    .course-content ul.ctopics li.section .content .toggle, .course-content ul.ctopics li.section .content.sectionhidden {
         background-color: <?php
                             if ($tcsettings['togglebackgroundcolour'][0] != '#') {
                                 echo '#';
@@ -115,7 +115,7 @@ if (!empty($displaysection)) {
     }
 
     /* -- Toggle text -- */
-    .course-content ul.ctopics li.section .content .toggle a h3, .course-content ul.ctopics li.section.hidden .content {
+    .course-content ul.ctopics li.section .content .toggle a h3, .course-content ul.ctopics li.section .content.sectionhidden {
         color: <?php
                 if ($tcsettings['toggleforegroundcolour'][0] != '#') {
                     echo '#';

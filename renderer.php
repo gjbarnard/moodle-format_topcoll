@@ -441,6 +441,45 @@ class format_topcoll_renderer extends format_section_renderer_base {
     }
 
     /**
+     * Generate the html for a hidden section
+     *
+     * @param int $sectionno The section number in the course which is being dsiplayed
+     * @return string HTML to output.
+     */
+    protected function section_hidden($section) {
+        $o = '';
+        $course = $this->courseformat->get_course();
+        $liattributes = array(
+            'id' => 'section-' . $section->section,
+            'class' => 'section main clearfix hidden',
+            'role' => 'region',
+            'aria-label' => $this->courseformat->get_topcoll_section_name($course, $section, false)
+        );
+        if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
+            $liattributes['style'] = 'width:' . $this->tccolumnwidth . '%;';
+        }
+
+        $o .= html_writer::start_tag('li', $liattributes);
+        //$o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
+        //$o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
+        if (($this->mobiletheme === false) && ($this->tablettheme === false)) {
+            $leftcontent = $this->section_left_content($section, $course, false);
+            $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
+        }
+
+        if (($this->mobiletheme === false) && ($this->tablettheme === false)) {
+            $rightcontent = $this->section_right_content($section, $course, false);
+            $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
+        }
+
+        $o .= html_writer::start_tag('div', array('class' => 'content sectionhidden'));
+        $o .= html_writer::tag('h3', get_string('notavailable'));
+        $o .= html_writer::end_tag('div');
+        $o .= html_writer::end_tag('li');
+        return $o;
+    }
+
+    /**
      * Output the html for a single section page.
      *
      * @param stdClass $course The course entry from DB
@@ -658,7 +697,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     if ($this->tcsettings['layoutstructure'] != 4) {
                         if (($this->tcsettings['layoutstructure'] != 3) || ($userisediting)) {
                             if (!$course->hiddensections && $thissection->available) {
-                                echo $this->section_hidden($section);
+                                $shownsectioncount++;
+                                echo $this->section_hidden($thissection);
                             }
                         }
                     }
