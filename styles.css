@@ -53,7 +53,7 @@
 }
 
 .course-content ul.ctopics li.section.main .content, .course-content ul.ctopics li.tcsection .content {
-    margin: 0 40px; /* Default used in editing mode. */
+    margin: 0 0px; /* Override default for tablets / mobiles.  When have sides, set in format.php. */
     padding: 0px;
 }
 
@@ -87,8 +87,14 @@ body.tablettheme .course-content ul.ctopics li.tcsection .content, body.tabletth
 }
 
 /* CONTRIB-4106 */
-.course-content ul.ctopics li.section .content .toggle a  h3.sectionname,
+.course-content ul.ctopics li.section .content .toggle a  h3,
 .course-content ul.ctopics li.section .content.sectionhidden h3 {
+    margin: 0px;
+    word-break: break-all;
+}
+
+.course-content ul.ctopics li.section .content .toggle a  h3.sectionname,
+.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname {
     margin: 4px;
 }
 
@@ -555,6 +561,15 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
 .course-content ul.ctopics li.section .left .section-handle img.icon {
     padding:0;
     vertical-align: baseline;
+}
+
+/* Assist the layout. */
+body.format-topcoll .ctopics .section .activity .mod-indent-outer {
+    padding-left: 0px;
+}
+
+body.format-topcoll .course-content ul.ctopics li.section .summary {
+    margin-left: 0px;
 }
 
 /* -- The section name in a Toggle and hidden section -- */

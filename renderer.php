@@ -460,8 +460,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
 
         $o .= html_writer::start_tag('li', $liattributes);
-        //$o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
-        //$o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
         if (($this->mobiletheme === false) && ($this->tablettheme === false)) {
             $leftcontent = $this->section_left_content($section, $course, false);
             $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
@@ -473,7 +471,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
 
         $o .= html_writer::start_tag('div', array('class' => 'content sectionhidden'));
-        $o .= html_writer::tag('h3', get_string('notavailable'));
+
+        $title = get_string('notavailable');
+        if (($this->mobiletheme === false) && ($this->tablettheme === false)) {
+            $o .= $this->output->heading($title, 3, 'sectionname');
+        } else {
+            $o .= html_writer::tag('h3', $title); // Moodle H3's look bad on mobile / tablet with CT so use plain.
+        }
         $o .= html_writer::end_tag('div');
         $o .= html_writer::end_tag('li');
         return $o;

@@ -249,10 +249,11 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
-11th March 2014 Version 2.6.1.4
+14th March 2014 Version 2.6.1.4
   1.  Fixed slight issue with mobile / tablet display issue of toggle all and instructions.
   2.  Fixed issue with Bootstrap 3 breaking the layout of hidden sections when >= 2 columns.
   3.  Fixed hidden section when "Hidden sections are shown in collapsed form." mode breaks columns.
+  4.  Fixed slight mobile / tablet display issues as shown on https://moodle.org/mod/forum/discuss.php?d=256093.
 
 20th February 2014 Version 2.6.1.3
   1.  Refactoring for the 'Elegance' theme: https://github.com/moodleman/moodle-theme_elegance.
@@ -1093,6 +1094,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 5th March 2014.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 14th March 2014.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard
