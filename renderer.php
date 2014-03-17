@@ -776,7 +776,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 }
                 if ($section > $course->numsections) {
                     // Activities inside this section are 'orphaned', this section will be printed as 'stealth' below.
-                    continue;
+                    break;
                 }
             }
         }
