@@ -564,12 +564,54 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
 }
 
 /* Assist the layout. */
-body.format-topcoll .ctopics .section .activity .mod-indent-outer {
+body.format-topcoll .ctopics .section .activity .mod-indent-outer, 
+body.format-topcoll.editing.dir-rtl .ctopics .section .activity .mod-indent-outer {
     padding-left: 0px;
+}
+
+body.format-topcoll.editing .ctopics .section .activity .mod-indent-outer {
+    padding-left: 32px;
+}
+
+body.format-topcoll.dir-rtl .ctopics .section .activity .mod-indent-outer {
+    padding-right: 0px;
+}
+
+body.format-topcoll.editing.dir-rtl .ctopics .section .activity .mod-indent-outer {
+    padding-right: 32px;
+}
+
+body.format-topcoll .ctopics .section  {
+    margin: 1em 0em;
 }
 
 body.format-topcoll .course-content ul.ctopics li.section .summary {
     margin-left: 0px;
+}
+
+body.format-topcoll.dir-rtl .course-content ul.ctopics li.section .summary {
+    margin-right: 0px;
+}
+
+body.format-topcoll.editing .section .activity .contentwithoutlink, body.format-topcoll.editing .section .activity .activityinstance {
+    padding-right: 0px;
+    display: inline;
+}
+
+body.format-topcoll.editing.dir-rtl .section .activity .contentwithoutlink, body.format-topcoll.editing.dir-rtl .section .activity .activityinstance {
+    padding-left: 0px;
+}
+
+body.format-topcoll.editing .section .activity .actions {
+    position: relative;
+}
+
+body.format-topcoll.editing .moodle-actionmenu ul.menubar {
+    display: none;
+}
+
+body.format-topcoll.editing.jsenabled .moodle-actionmenu[data-enhance] ul.menubar {
+    display: inline-block;
 }
 
 /* -- The section name in a Toggle and hidden section -- */
