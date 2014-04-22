@@ -443,14 +443,16 @@ class format_topcoll_renderer extends format_section_renderer_base {
     /**
      * Generate the html for a hidden section
      *
-     * @param int $sectionno The section number in the course which is being dsiplayed
+     * @param int $sectionno The section number in the course which is being displayed
+     * @param int|stdClass $courseorid The course to get the section name for (object or just course id)
      * @return string HTML to output.
      */
-    protected function section_hidden($section) {
+    protected function section_hidden($sectionno, $courseorid = NULL) {
         $o = '';
         $course = $this->courseformat->get_course();
+        $section = $course->get_section($sectionno);
         $liattributes = array(
-            'id' => 'section-' . $section->section,
+            'id' => 'section-' . $sectionno,
             'class' => 'section main clearfix hidden',
             'role' => 'region',
             'aria-label' => $this->courseformat->get_topcoll_section_name($course, $section, false)

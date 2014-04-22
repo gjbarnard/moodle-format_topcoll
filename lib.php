@@ -230,7 +230,6 @@ class format_topcoll extends format_base {
     public function supports_ajax() {
         $ajaxsupport = new stdClass();
         $ajaxsupport->capable = true;
-        $ajaxsupport->testedbrowsers = array('MSIE' => 8.0, 'Gecko' => 20061111, 'Opera' => 9.0, 'Safari' => 531, 'Chrome' => 6.0);
         return $ajaxsupport;
     }
 

@@ -6,24 +6,24 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 ==========================
-This version works with Moodle version 2013111800.00 release 2.6 (Build: 20131118) and above within the 2.6 branch until the
+This version works with Moodle version 2014041700.00 release 2.7beta+ (Build: 20140417) and above within the 2.7 branch until the
 next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
-'docs.moodle.org/26/en/Installing_Moodle'.
+'docs.moodle.org/27/en/Installing_Moodle'.
 
 Downloads and documentation
 ===========================
 The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
-with 'Select Moodle version:' set at 'Moodle 2.6'.
+with 'Select Moodle version:' set at 'Moodle 2.7'.
 
-The secondary source is a tagged version with the v2.6 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
+The secondary source is a tagged version with the v2.7 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
 
-If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/tree/MOODLE_26 - consider that
+If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/tree/master - consider that
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
-Documented on http://docs.moodle.org/26/en/Collapsed_Topics_course_format
+Documented on http://docs.moodle.org/27/en/Collapsed_Topics_course_format
 
 Free Software
 =============
@@ -49,19 +49,9 @@ PayPal link:
 
 I develop and maintain for free and any donations to assist me in this endeavour are appreciated.
 
-Previous versions and required version of Moodle
-================================================
-If this version does not work with your version of Moodle because it requires a newer version of Moodle, then
-please download an older version from https://moodle.org/plugins/pluginversions.php?plugin=format_topcoll using
-this table as a guide:
-
-CT version - Moodle version
-V2.5.0.1     2.5beta+ version 2013041100.00 (Build: 20130411).
-V2.5.0.4     2.5beta+ version 2013050200.00 (Build: 20130502).
-
-New features for this Moodle 2.6 version
+New features for this Moodle 2.7 version
 ========================================
- 1. Same features as version 2.5.3.5 in Moodle 2.5.
+ 1. Same features as version 2.6.1.5 in Moodle 2.6.
 
 Installation
 ============
@@ -249,6 +239,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+22nd April 2014 Version 2.7.0.1 - BETA
+  1.  First beta version for Moodle 2.7beta.
+
 17th April 2014 Version 2.6.1.5
   1.  Fixed CONTRIB-4099 with the arrangement of the editing icon and associated functionality such that a better solution is
       applied for the specific nature of the format.
@@ -1100,6 +1093,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th April 2014.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 22nd April 2014.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard
