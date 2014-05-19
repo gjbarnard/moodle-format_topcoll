@@ -6,7 +6,7 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 ==========================
-This version works with Moodle version 2014041700.00 release 2.7beta+ (Build: 20140417) and above within the 2.7 branch until the
+This version works with Moodle version 2014051200.00 release 2.7 (Build: 20140512) and above within the 2.7 branch until the
 next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
@@ -19,7 +19,7 @@ with 'Select Moodle version:' set at 'Moodle 2.7'.
 
 The secondary source is a tagged version with the v2.7 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
 
-If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/tree/master - consider that
+If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/tree/MOODLE_27 - consider that
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
@@ -239,6 +239,10 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+20th May 2014 Version 2.7.1 - Stable.
+  1.  Stable release for M2.7.
+  2.  Fixed CONTRIB-5073 - invisible section causes an error with "topcoll" format.
+
 22nd April 2014 Version 2.7.0.1 - BETA
   1.  First beta version for Moodle 2.7beta.
 
@@ -1093,6 +1097,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 22nd April 2014.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 20th May 2014.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard
