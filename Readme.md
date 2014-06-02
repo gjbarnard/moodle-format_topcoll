@@ -239,6 +239,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+2nd June 2014 Version 2.7.1.1.
+  1.  Fixed toggle name word break: https://moodle.org/mod/forum/discuss.php?d=261388.
+
 20th May 2014 Version 2.7.1 - Stable.
   1.  Stable release for M2.7.
   2.  Fixed CONTRIB-5073 - invisible section causes an error with "topcoll" format.

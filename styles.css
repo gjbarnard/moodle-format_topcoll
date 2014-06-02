@@ -90,7 +90,9 @@ body.tablettheme .course-content ul.ctopics li.tcsection .content, body.tabletth
 .course-content ul.ctopics li.section .content .toggle a  h3,
 .course-content ul.ctopics li.section .content.sectionhidden h3 {
     margin: 0px;
-    word-break: break-all;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .course-content ul.ctopics li.section .content .toggle a  h3.sectionname,
