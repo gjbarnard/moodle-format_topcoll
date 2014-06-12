@@ -103,6 +103,7 @@ $string['resetalllayout'] = 'Layouts';
 $string['setcolour'] = 'Set colour';
 $string['colourrule'] = "Please enter a valid RGB colour, six hexadecimal digits.";
 $string['settoggleforegroundcolour'] = 'Toggle foreground';
+$string['settoggleforegroundhovercolour'] = 'Toggle foreground hover';
 $string['settogglebackgroundcolour'] = 'Toggle background';
 $string['settogglebackgroundhovercolour'] = 'Toggle background hover';
 $string['resetcolour'] = 'Colour';
@@ -140,6 +141,7 @@ $string['resetalllayout_help'] = 'Resets the layout to the default values for al
 // Moodle Tracker CONTRIB-3529.
 $string['setcolour_help'] = 'Contains the settings to do with the colour of the format within the course.';
 $string['settoggleforegroundcolour_help'] = 'Sets the colour of the text on the toggle.';
+$string['settoggleforegroundhovercolour_help'] = 'Sets the colour of the text on the toggle when the mouse moves over it.';
 $string['settogglebackgroundcolour_help'] = 'Sets the background colour of the toggle.';
 $string['settogglebackgroundhovercolour_help'] = 'Sets the background colour of the toggle when the mouse moves over it.';
 $string['resetcolour_help'] = 'Resets the colours to the default values so it will be the same as a course the first time it is in the Collapsed Topics format.';
@@ -257,6 +259,9 @@ $string['defaultlayoutcolumnorientation_desc'] = "The default column orientation
 
 $string['defaulttgfgcolour'] = 'Default toggle foreground colour';
 $string['defaulttgfgcolour_desc'] = "Toggle foreground colour in hexidecimal RGB.";
+
+$string['defaulttgfghvrcolour'] = 'Default toggle foreground hover colour';
+$string['defaulttgfghvrcolour_desc'] = "Toggle foreground hover colour in hexidecimal RGB.";
 
 $string['defaulttgbgcolour'] = 'Default toggle background colour';
 $string['defaulttgbgcolour_desc'] = "Toggle background colour in hexidecimal RGB.";

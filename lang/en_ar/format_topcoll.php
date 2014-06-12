@@ -74,7 +74,8 @@ $string['resetalllayout'] = 'Thee layouts';
 $string['setcolour'] = 'Set thee colour';
 $string['colourrule'] = "Enter a valid RGB colour, a '#' and then six hexadecimal digits or walk thy plank.";
 $string['settoggleforegroundcolour'] = 'Thy toggle foreground';
-$string['settogglebackgroundcolour'] = 'Thy toggle background';
+$string['settogglebackgroundhovercolour'] = 'Thy toggle foreground hover';
+$string['settoggleforegroundcolour'] = 'Thy toggle foreground';
 $string['settogglebackgroundhovercolour'] = 'Thy toggle background hover';
 $string['resetcolour'] = 'Thee colour';
 $string['resetallcolour'] = 'Thee colours';
@@ -111,6 +112,7 @@ $string['resetalllayout_help'] = 'Resets the layout to the default values for al
 // Moodle Tracker CONTRIB-3529.
 $string['setcolour_help'] = 'Contains thee settings to do with thy colour of the format within the course.';
 $string['settoggleforegroundcolour_help'] = 'Sets thee colour of thy text on the toggle.';
+$string['settoggleforegroundhovercolour_help'] = 'Sets thee colour of thy text on thy toggle when thee mouse scuttles over it.';
 $string['settogglebackgroundcolour_help'] = 'Sets thee background of thy toggle.';
 $string['settogglebackgroundhovercolour_help'] = 'Sets thee background of thy toggle when thee mouse scuttles over it.';
 $string['resetcolour_help'] = 'Resets thee colours to thee default values so it will be thee same as a course thy first time it is in thee Collapsed Topics format';
@@ -219,6 +221,9 @@ $string['defaultlayoutcolumnorientation_desc'] = "Thee default column orientatio
 
 $string['defaulttgfgcolour'] = 'Default toggle foreground colour';
 $string['defaulttgfgcolour_desc'] = "Toggle foreground colour in hexidecimal RGB.";
+
+$string['defaulttgfghvrcolour'] = 'Default toggle foreground hover colour';
+$string['defaulttgfghvrcolour_desc'] = "Toggle foreground hover colour in hexidecimal RGB.";
 
 $string['defaulttgbgcolour'] = 'Default toggle background colour';
 $string['defaulttgbgcolour_desc'] = "Toggle background colour in hexidecimal RGB.";

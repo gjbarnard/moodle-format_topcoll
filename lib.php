@@ -296,6 +296,10 @@ class format_topcoll extends format_base {
             if ($defaulttgfgcolour[0] == '#') {
                 $defaulttgfgcolour = substr($defaulttgfgcolour, 1);
             }
+            $defaulttgfghvrcolour = get_config('format_topcoll', 'defaulttgfghvrcolour');
+            if ($defaulttgfghvrcolour[0] == '#') {
+                $defaulttgfghvrcolour = substr($defaulttgfghvrcolour, 1);
+            }
             $defaulttgbgcolour = get_config('format_topcoll', 'defaulttgbgcolour');
             if ($defaulttgbgcolour[0] == '#') {
                 $defaulttgbgcolour = substr($defaulttgbgcolour, 1);
@@ -358,6 +362,10 @@ class format_topcoll extends format_base {
                     'default' => $defaulttgfgcolour,
                     'type' => PARAM_ALPHANUM,
                 ),
+                'toggleforegroundhovercolour' => array(
+                    'default' => $defaulttgfghvrcolour,
+                    'type' => PARAM_ALPHANUM,
+                ),
                 'togglebackgroundcolour' => array(
                     'default' => $defaulttgbgcolour,
                     'type' => PARAM_ALPHANUM,
@@ -374,6 +382,10 @@ class format_topcoll extends format_base {
             $defaulttgfgcolour = get_config('format_topcoll', 'defaulttgfgcolour');
             if ($defaulttgfgcolour[0] == '#') {
                 $defaulttgfgcolour = substr($defaulttgfgcolour, 1);
+            }
+            $defaulttgfghvrcolour = get_config('format_topcoll', 'defaulttgfghvrcolour');
+            if ($defaulttgfghvrcolour[0] == '#') {
+                $defaulttgfghvrcolour = substr($defaulttgfghvrcolour, 1);
             }
             $defaulttgbgcolour = get_config('format_topcoll', 'defaulttgbgcolour');
             if ($defaulttgbgcolour[0] == '#') {
@@ -572,6 +584,15 @@ class format_topcoll extends format_base {
                         array('tabindex' => -1, 'value' => $defaulttgfgcolour)
                     )
                 );
+                $courseformatoptionsedit['toggleforegroundhovercolour'] = array(
+                    'label' => new lang_string('settoggleforegroundhovercolour', 'format_topcoll'),
+                    'help' => 'settoggleforegroundhovercolour',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'tccolourpopup',
+                    'element_attributes' => array(
+                        array('tabindex' => -1, 'value' => $defaulttgfghvrcolour)
+                    )
+                );
                 $courseformatoptionsedit['togglebackgroundcolour'] = array(
                     'label' => new lang_string('settogglebackgroundcolour', 'format_topcoll'),
                     'help' => 'settogglebackgroundcolour',
@@ -593,6 +614,8 @@ class format_topcoll extends format_base {
             } else {
                 $courseformatoptionsedit['toggleforegroundcolour'] =
                     array('label' => $defaulttgfgcolour, 'element_type' => 'hidden');
+                $courseformatoptionsedit['toggleforegroundhovercolour'] =
+                    array('label' => $defaulttgfghvrcolour, 'element_type' => 'hidden');
                 $courseformatoptionsedit['togglebackgroundcolour'] =
                     array('label' => $defaulttgbgcolour, 'element_type' => 'hidden');
                 $courseformatoptionsedit['togglebackgroundhovercolour'] =
@@ -713,6 +736,9 @@ class format_topcoll extends format_base {
 
         if ($this->validate_colour($data['toggleforegroundcolour']) === false) {
             $retr['toggleforegroundcolour'] = get_string('colourrule', 'format_topcoll');
+        }
+        if ($this->validate_colour($data['toggleforegroundhovercolour']) === false) {
+            $retr['toggleforegroundhovercolour'] = get_string('colourrule', 'format_topcoll');
         }
         if ($this->validate_colour($data['togglebackgroundcolour']) === false) {
             $retr['togglebackgroundcolour'] = get_string('colourrule', 'format_topcoll');
@@ -982,6 +1008,7 @@ class format_topcoll extends format_base {
         }
         if ($colour && has_capability('format/topcoll:changecolour', $coursecontext) && $resetallifall) {
             $updatedata['toggleforegroundcolour'] = get_config('format_topcoll', 'defaulttgfgcolour');
+            $updatedata['toggleforegroundhovercolour'] = get_config('format_topcoll', 'defaulttgfghvrcolour');
             $updatedata['togglebackgroundcolour'] = get_config('format_topcoll', 'defaulttgbgcolour');
             $updatedata['togglebackgroundhovercolour'] = get_config('format_topcoll', 'defaulttgbghvrcolour');
             $updatecolour = true;

@@ -115,7 +115,7 @@ if (!empty($displaysection)) {
     }
 
     /* -- Toggle text -- */
-    .course-content ul.ctopics li.section .content .toggle a h3, .course-content ul.ctopics li.section .content.sectionhidden {
+    .course-content ul.ctopics li.section .content .toggle a, .course-content ul.ctopics li.section .content.sectionhidden {
         color: <?php
                 if ($tcsettings['toggleforegroundcolour'][0] != '#') {
                     echo '#';
@@ -150,8 +150,16 @@ if (!empty($displaysection)) {
     }
 
     /* -- What happens when a toggle is hovered over -- */
-    .course-content ul.ctopics li.section .content div.toggle:hover
-    {
+    .course-content ul.ctopics li.section .content .toggle a:hover, .course-content ul.ctopics li.section .content.sectionhidden .toggle a:hover {
+        color: <?php
+                 if ($tcsettings['toggleforegroundhovercolour'][0] != '#') {
+                     echo '#';
+                 }
+                 echo $tcsettings['toggleforegroundhovercolour'];
+               ?>;
+    }
+
+    .course-content ul.ctopics li.section .content div.toggle:hover {
         background-color: <?php
                             if ($tcsettings['togglebackgroundhovercolour'][0] != '#') {
                                 echo '#';

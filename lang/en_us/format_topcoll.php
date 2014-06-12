@@ -46,6 +46,7 @@ $string['resetallcolour'] = 'Colors';
 // Moodle Tracker CONTRIB-3529.
 $string['setcolour_help'] = 'Contains the settings to do with the color of the format within the course.';
 $string['settoggleforegroundcolour_help'] = 'Sets the color of the text on the toggle.';
+$string['settoggleforegroundhovercolour_help'] = 'Sets the color of the text on the toggle when the mouse moves over it.';
 $string['settogglebackgroundcolour_help'] = 'Sets the background color of the toggle.';
 $string['settogglebackgroundhovercolour_help'] = 'Sets the background color of the toggle when the mouse moves over it.';
 $string['resetcolour_help'] = 'Resets the colors to the default values so it will be the same as a course the first time it is in the Collapsed Topics format.';
@@ -57,6 +58,9 @@ $string['center'] = 'Center';
 // Site Administration -> Plugins -> Course formats -> Collapsed Topics or Manage course formats - Settings.
 $string['defaulttgfgcolour'] = 'Default toggle foreground color';
 $string['defaulttgfgcolour_desc'] = "Toggle foreground color in hexidecimal RGB.";
+
+$string['defaulttgfghvrcolour'] = 'Default toggle foreground hover color';
+$string['defaulttgfghvrcolour_desc'] = "Toggle foreground hover color in hexidecimal RGB.";
 
 $string['defaulttgbgcolour'] = 'Default toggle background color';
 $string['defaulttgbgcolour_desc'] = "Toggle background color in hexidecimal RGB.";
