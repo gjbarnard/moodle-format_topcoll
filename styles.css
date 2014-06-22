@@ -556,12 +556,8 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
     line-height: 1.3;
 }
 
-.course-content ul.ctopics li.section .right .tceditsection {
-    float: left;
-}
-
 .course-content ul.ctopics li.section .left .section-handle img.icon {
-    padding:0;
+    padding: 0;
     vertical-align: baseline;
 }
 

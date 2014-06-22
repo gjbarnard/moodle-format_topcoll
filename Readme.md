@@ -239,7 +239,10 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
-12th June 2014 Version 2.7.1.1.
+22nd June 2014 Version 2.7.1.2
+  1.  Slight tweak to css to tidy things up when editing.
+
+12th June 2014 Version 2.7.1.1
   1.  Fixed toggle name word break: https://moodle.org/mod/forum/discuss.php?d=261388.
   2.  Added toggle foreground colour hover.
 
@@ -1101,6 +1104,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 12th June 2014.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 22nd June 2014.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

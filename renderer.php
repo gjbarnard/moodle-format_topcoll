@@ -122,7 +122,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @return string HTML to output.
      */
     protected function section_right_content($section, $course, $onsectionpage) {
-        $o = $this->output->spacer();
+        $o = '';
 
         if ($section->section != 0) {
             $controls = $this->section_edit_controls($course, $section, $onsectionpage);
@@ -167,7 +167,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @return string HTML to output.
      */
     protected function section_left_content($section, $course, $onsectionpage) {
-        $o = $this->output->spacer();
+        $o = '';
 
         if ($section->section != 0) {
             // Only in the non-general sections.
@@ -351,7 +351,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
                 $rightcontent .= html_writer::link($url, html_writer::empty_tag('img',
                                     array('src' => $this->output->pix_url('t/edit'),
-                                          'class' => 'iconsmall edit tceditsection', 'alt' => get_string('edit'))),
+                                          'class' => 'icon edit tceditsection', 'alt' => get_string('edit'))),
                                     array('title' => get_string('editsummary'), 'class' => 'tceditsection'));
                 $rightcontent .= html_writer::empty_tag('br');
             }
