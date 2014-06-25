@@ -41,6 +41,7 @@ M.format_topcoll.courseid;
 M.format_topcoll.togglePersistence = 1; // Toggle persistence - 1 = on, 0 = off.
 M.format_topcoll.ourYUI;
 M.format_topcoll.numSections;
+M.format_topcoll.ie8;
 
 // Namespace constants:
 M.format_topcoll.TOGGLE_6 = 1;
@@ -67,6 +68,10 @@ M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections,
     this.togglestate = theToggleState;
     this.numSections = parseInt(theNumSections);
     this.togglePersistence = theTogglePersistence;
+
+    // IE8 - humm!
+    var bodyNode = Y.one(document.body);
+    M.format_topcoll.ie8 = bodyNode.hasClass('ie8');
 
     if (this.togglestate !== null) {
         if (this.is_old_preference(this.togglestate) == true) {
@@ -160,6 +165,12 @@ M.format_topcoll.toggle_topic = function(targetNode, toggleNum) {
         targetNode.next('.toggledsection').removeClass('sectionopen');
         state = false;
     }
+    //IE 8 Hack/workaround to force IE8 to repaint everything
+    if (M.format_topcoll.ie8) {
+        M.format_topcoll.ourYUI.all(".toggle a").addClass('ie8_hackclass_donotuseincss').removeClass('ie8_hackclass_donotuseincss');
+        console.log('IE8 repaint.');
+    }
+
     this.set_toggle_state(toggleNum, state);
     this.save_toggles();
 };
