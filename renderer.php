@@ -37,6 +37,8 @@ require_once($CFG->dirroot . '/course/format/renderer.php');
 require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
 require_once($CFG->dirroot . '/course/format/topcoll/togglelib.php');
 
+class format_topcoll_courseheader implements renderable {}
+
 class format_topcoll_renderer extends format_section_renderer_base {
 
     private $tccolumnwidth = 100; // Default width in percent of the column(s).
@@ -65,6 +67,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
            mode is on we need to be sure that the link 'Turn editing mode on' is available for a user who does not have any
            other managing capability. */
         $page->set_other_editing_capability('moodle/course:setcurrentsection');
+    }
+
+    protected function render_format_topcoll_courseheader(format_topcoll_courseheader $me) {
+        // Do nothing with $me.
+        return html_writer::tag('div', 'This is my header');
     }
 
     /**

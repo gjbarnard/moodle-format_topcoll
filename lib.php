@@ -54,6 +54,10 @@ class format_topcoll extends format_base {
         parent::__construct($format, $courseid);
     }
 
+    public function course_header() {
+        return new format_topcoll_courseheader;
+    }
+
     /**
      * Returns the format's settings and gets them if they do not exist.
      * @return type The settings as an array.
