@@ -175,7 +175,7 @@ if (!empty($displaysection)) {
         margin: 0 <?php echo get_string('topcollsidewidth', 'format_topcoll'); ?>;
     }
 <?php
-    } else if ($portable == 0) { ?>
+    } else if ($PAGE->user_is_editing()) { ?>
     .course-content ul.ctopics li.section.main .content, .course-content ul.ctopics li.tcsection .content {
         margin: 0 40px;
     }
