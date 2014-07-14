@@ -373,6 +373,10 @@ class format_topcoll extends format_base {
                 'togglebackgroundhovercolour' => array(
                     'default' => $defaulttgbghvrcolour,
                     'type' => PARAM_ALPHANUM,
+                ),
+                'bespoke' => array(
+                    'default' => 'Would you like a bespoke Collapsed Topics?  Contact me via '.html_writer::link('//gjbarnard.co.uk/contact/', 'gjbarnard.co.uk/contact', array('target' => '_blank')).' for a competitive quote.',
+                    'type' => PARAM_ALPHA,
                 )
             );
         }
@@ -621,6 +625,10 @@ class format_topcoll extends format_base {
                 $courseformatoptionsedit['togglebackgroundhovercolour'] =
                     array('label' => $defaulttgbghvrcolour, 'element_type' => 'hidden');
             }
+            $courseformatoptionsedit['bespoke'] = array(
+                    'label' => 'Bespoke',
+                    'element_type' => 'static'
+                );
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
         return $courseformatoptions;
