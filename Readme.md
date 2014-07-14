@@ -239,11 +239,12 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
-25th June 2014 Version 2.7.1.2
+11th July 2014 Version 2.7.1.2
   1.  Slight tweak to css to tidy things up when editing.
   2.  Patch for IE8(!!!) kindly supplied by Mathew Gancarz - https://moodle.org/user/profile.php?id=1471695.  To fix an issue
       where the activities / resources were still being displayed even after the toggle had closed.  If you are still on IE8,
       then please see this: http://www.microsoft.com/en-gb/security/pc-security/updates.aspx?linkId=8591289.
+  3.  Fixed being able to manipulate sections via left and right content areas on tablets.  Thanks to Rick Jerz for reporting this.
 
 12th June 2014 Version 2.7.1.1
   1.  Fixed toggle name word break: https://moodle.org/mod/forum/discuss.php?d=261388.
