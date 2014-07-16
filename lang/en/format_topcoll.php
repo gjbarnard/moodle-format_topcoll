@@ -317,7 +317,7 @@ $string['topcoll:changecolour'] = 'Change or reset the colour';
 $string['topcoll:changetogglealignment'] = 'Change or reset the toggle alignment';
 $string['topcoll:changetoggleiconset'] = 'Change or reset the toggle icon set';
 
-// Instructions
+// Instructions.
 $string['instructions'] = 'Instructions: Clicking on the section name will show / hide the section.';
 $string['displayinstructions'] = 'Display instructions';
 $string['displayinstructions_help'] = 'States that the instructions should be displayed to the user or not.';
@@ -327,3 +327,7 @@ $string['resetdisplayinstructions'] = 'Display instructions';
 $string['resetalldisplayinstructions'] = 'Display instructions';
 $string['resetdisplayinstructions_help'] = 'Resets the display instructions to the default value so it will be the same as a course the first time it is in the Collapsed Topics format.';
 $string['resetalldisplayinstructions_help'] = 'Resets the display instructions to the default value for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
+
+// Readme.
+$string['readme_title'] = 'Collapsed Topics read-me';
+$string['readme_desc'] = 'Please click on \'{$a->url}\' for lots more information about Collapsed Topics.';

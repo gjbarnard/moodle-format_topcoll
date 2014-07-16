@@ -25,7 +25,11 @@ and use GitHub as a means of backup.  Therefore the code is not finished, subjec
 
 Documented on http://docs.moodle.org/27/en/Collapsed_Topics_course_format
 
-Free Software
+Bespoke changes
+===============
+Would you like a bespoke Collapsed Topics? Contact me via http://gjbarnard.co.uk/contact/ for a competitive quote.
+
+Free software
 =============
 The Collapsed Topics format is 'free' software under the terms of the GNU GPLv3 License, please see 'COPYING.txt'.
 

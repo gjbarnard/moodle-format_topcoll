@@ -308,6 +308,8 @@ class format_topcoll extends format_base {
             if ($defaulttgbghvrcolour[0] == '#') {
                 $defaulttgbghvrcolour = substr($defaulttgbghvrcolour, 1);
             }
+            $readme = new moodle_url('/course/format/topcoll/Readme.md');
+            $readme = html_writer::link($readme, 'Readme.md', array('target' => '_blank'));
             $courseconfig = get_config('moodlecourse');
             $courseformatoptions = array(
                 'numsections' => array(
@@ -374,8 +376,8 @@ class format_topcoll extends format_base {
                     'default' => $defaulttgbghvrcolour,
                     'type' => PARAM_ALPHANUM,
                 ),
-                'bespoke' => array(
-                    'default' => 'Would you like a bespoke Collapsed Topics?  Contact me via '.html_writer::link('//gjbarnard.co.uk/contact/', 'gjbarnard.co.uk/contact', array('target' => '_blank')).' for a competitive quote.',
+                'readme' => array(
+                    'default' => get_string('readme_desc', 'format_topcoll', array('url' => $readme)),
                     'type' => PARAM_ALPHA,
                 )
             );
@@ -625,8 +627,8 @@ class format_topcoll extends format_base {
                 $courseformatoptionsedit['togglebackgroundhovercolour'] =
                     array('label' => $defaulttgbghvrcolour, 'element_type' => 'hidden');
             }
-            $courseformatoptionsedit['bespoke'] = array(
-                    'label' => 'Bespoke',
+            $courseformatoptionsedit['readme'] = array(
+                    'label' => get_string('readme_title', 'format_topcoll'),
                     'element_type' => 'static'
                 );
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
