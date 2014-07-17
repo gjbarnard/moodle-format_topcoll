@@ -206,7 +206,7 @@ M.format_topcoll.to2baseString = function(thirtysix) {
 M.format_topcoll.save_toggles = function() {
     "use strict";
     if (this.togglePersistence == 1) { // Toggle persistence - 1 = on, 0 = off.
-        M.util.set_user_preference('topcoll_toggle_'+this.courseid , this.togglestate);
+        M.util.set_user_preference('topcoll_toggle_' + this.courseid, this.togglestate);
     }
 };
 
@@ -230,8 +230,8 @@ M.format_topcoll.convert_to_new_preference = function() {
     this.togglestate = "";
     var logbintext = "";
 
-    for (var i = 1; i <= 43; i = i+6) {
-        bin = toggleBinary.substring(i, i+6);
+    for (var i = 1; i <= 43; i = i + 6) {
+        bin = toggleBinary.substring(i, i + 6);
         value = parseInt(bin, 2);
         this.togglestate += this.encode_value_to_character(value);
         logbintext += bin + ' ';
@@ -253,7 +253,7 @@ M.format_topcoll.set_toggle_state = function(togglenum, state) {
     "use strict";
     var togglecharpos = this.get_toggle_pos(togglenum);
     var toggleflag = this.get_toggle_flag(togglenum, togglecharpos);
-    var value = this.decode_character_to_value(this.togglestate.charAt(togglecharpos-1));
+    var value = this.decode_character_to_value(this.togglestate.charAt(togglecharpos - 1));
     if (state == true) {
         value |= toggleflag;
     } else {
@@ -261,7 +261,7 @@ M.format_topcoll.set_toggle_state = function(togglenum, state) {
     }
     var newchar = this.encode_value_to_character(value);
     //this.togglestate[togglecharpos-1] = newchar;
-    var start = this.togglestate.substring(0,togglecharpos-1);
+    var start = this.togglestate.substring(0,togglecharpos - 1);
     var end = this.togglestate.substring(togglecharpos);
     this.togglestate = start + newchar + end;
 };
@@ -288,7 +288,7 @@ M.format_topcoll.get_max_digit = function() {
 
 M.format_topcoll.get_toggle_flag = function(togglenum, togglecharpos) {
     "use strict";
-    var toggleflagpos = togglenum - ((togglecharpos-1)*6);
+    var toggleflagpos = togglenum - ((togglecharpos - 1) * 6);
     var flag;
     switch (toggleflagpos) {
         case 1:

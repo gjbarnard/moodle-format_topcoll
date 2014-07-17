@@ -35,15 +35,15 @@
 // English Pirate Translation of Collapsed Topics Course Format.
 
 // Used in format.php.
-$string['topcollsidewidth']='40px';
+$string['topcollsidewidth'] = '40px';
 
 // These are 'topic' as they are only shown in 'topic' based structures.
 $string['markedthissection'] = 'Thy topic is illuminated as thee current topic';
 $string['markthissection'] = 'Illuminate thy topic as thee current topic';
 
 // Toggle all - Moodle Tracker CONTRIB-3190.
-$string['topcollopened']='Untie';
-$string['topcollclosed']='Tie';
+$string['topcollopened'] = 'Untie';
+$string['topcollclosed'] = 'Tie';
 
 // Layout enhancement - Moodle Tracker CONTRIB-3378.
 $string['formatsettings'] = 'Ye format settings'; // CONTRIB-3529.
@@ -62,11 +62,11 @@ $string['setlayout_toggle_section_x'] = "'Treasure Chest x' / 'Sailing Week x' /
 $string['setlayout_toggle_section_x'] = "'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 8.
 
 $string['setlayoutstructure'] = 'Set thee structure';
-$string['setlayoutstructuretopic']='Treasure Chest';
-$string['setlayoutstructureweek']='Sailing Week';
+$string['setlayoutstructuretopic'] = 'Treasure Chest';
+$string['setlayoutstructureweek'] = 'Sailing Week';
 $string['setlayoutstructureday'] = 'Sailing Day';
-$string['setlayoutstructurelatweekfirst']='Current Sailing Week First';
-$string['setlayoutstructurecurrenttopicfirst']='Current Treasure Chest First';
+$string['setlayoutstructurelatweekfirst'] = 'Current Sailing Week First';
+$string['setlayoutstructurecurrenttopicfirst'] = 'Current Treasure Chest First';
 $string['resetlayout'] = 'Thee layout'; // CONTRIB-3529.
 $string['resetalllayout'] = 'Thee layouts';
 
@@ -94,8 +94,8 @@ $string['columnhorizontal'] = 'Horizontal as a cannon';
 $string['maincoursepage'] = 'Ye main course page';
 
 // Help.
-$string['setlayoutelements_help']='How much information about thee toggles / sections you wish to be displayed.';
-$string['setlayoutstructure_help']="Avast ye landlubbers, this be thee layout structure of thee course.  Ye choose between:
+$string['setlayoutelements_help'] = 'How much information about thee toggles / sections you wish to be displayed.';
+$string['setlayoutstructure_help'] = "Avast ye landlubbers, this be thee layout structure of thee course.  Ye choose between:
 
 'Treasure Chest' - where each section is presented as thy treasure chest in section number order.
 

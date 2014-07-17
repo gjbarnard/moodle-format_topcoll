@@ -27,7 +27,7 @@ Documented on http://docs.moodle.org/27/en/Collapsed_Topics_course_format
 
 Bespoke changes
 ===============
-Would you like a bespoke Collapsed Topics? Contact me via http://gjbarnard.co.uk/contact/ for a competitive quote.
+Would you like a bespoke Collapsed Topics? Contact me via www.gjbarnard.co.uk/contact/ for a competitive quote.
 
 Free software
 =============
@@ -243,12 +243,13 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
-11th July 2014 Version 2.7.1.2
+17th July 2014 Version 2.7.1.2
   1.  Slight tweak to css to tidy things up when editing.
   2.  Patch for IE8(!!!) kindly supplied by Mathew Gancarz - https://moodle.org/user/profile.php?id=1471695.  To fix an issue
       where the activities / resources were still being displayed even after the toggle had closed.  If you are still on IE8,
       then please see this: http://www.microsoft.com/en-gb/security/pc-security/updates.aspx?linkId=8591289.
-  3.  Fixed being able to manipulate sections via left and right content areas on tablets.  Thanks to Rick Jerz for reporting this.
+  3.  Fixed being able to manipulate sections via left and right content areas on tablets.  Thanks to Rick Jerz for reporting this
+      on https://moodle.org/mod/forum/discuss.php?d=263739.
 
 12th June 2014 Version 2.7.1.1
   1.  Fixed toggle name word break: https://moodle.org/mod/forum/discuss.php?d=261388.
@@ -1112,6 +1113,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 25th June 2014.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th July 2014.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

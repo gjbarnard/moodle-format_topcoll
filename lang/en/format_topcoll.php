@@ -62,7 +62,7 @@ $string['currentsection'] = 'This section';
 $string['markedthissection'] = 'This topic is highlighted as the current topic';
 $string['markthissection'] = 'Highlight this topic as the current topic';
 
-// Reset
+// Reset.
 $string['resetgrp'] = 'Reset:';
 $string['resetallgrp'] = 'Reset all:';
 

@@ -80,11 +80,11 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
         } // From /course/view.php.
         $courseformat = course_get_format($course);
 
-        if (empty($data->layoutcolumns)) {        
+        if (empty($data->layoutcolumns)) {
             // Cope with backups from Moodle 2.0, 2.1 and 2.2 versions.
             $data->layoutcolumns = get_config('format_topcoll', 'defaultlayoutcolumns');
         }
-        
+
         $courseformat->restore_topcoll_setting(
             $data->courseid,
             $data->layoutelement,

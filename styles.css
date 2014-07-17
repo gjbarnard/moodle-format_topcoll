@@ -562,7 +562,7 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
 }
 
 /* Assist the layout. */
-body.format-topcoll .ctopics .section .activity .mod-indent-outer, 
+body.format-topcoll .ctopics .section .activity .mod-indent-outer,
 body.format-topcoll.editing.dir-rtl .ctopics .section .activity .mod-indent-outer {
     padding-left: 0px;
 }

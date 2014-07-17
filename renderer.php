@@ -270,7 +270,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             'id' => 'section-'.$section->section,
             'class' => $classattr,
             'role' => 'region',
-            'aria-label'=> $title
+            'aria-label' => $title
         );
         if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
             $liattributes['style'] = 'width:' . $this->tccolumnwidth . '%;';
@@ -287,10 +287,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
         $o .= $this->output->heading($title, 3, 'section-title');
 
-        $o.= html_writer::start_tag('div', array('class' => 'summarytext'));
-        $o.= $this->format_summary_text($section);
-        $o.= html_writer::end_tag('div');
-        $o.= $this->section_activity_summary($section, $course, null);
+        $o .= html_writer::start_tag('div', array('class' => 'summarytext'));
+        $o .= $this->format_summary_text($section);
+        $o .= html_writer::end_tag('div');
+        $o .= $this->section_activity_summary($section, $course, null);
 
         $context = context_course::instance($course->id);
         $o .= $this->section_availability_message($section,
@@ -394,7 +394,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             if ($this->userisediting && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
-                $o.= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
+                $o .= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
                                     'class' => 'iconsmall edit', 'alt' => get_string('edit'))),
                                     array('title' => get_string('editsummary')));
             }
@@ -417,7 +417,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             if ($this->userisediting && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
-                $o.= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
+                $o .= html_writer::link($url, html_writer::empty_tag('img', array('src' => $this->output->pix_url('t/edit'),
                                     'class' => 'iconsmall edit', 'alt' => get_string('edit'))),
                                     array('title' => get_string('editsummary')));
             }
@@ -447,7 +447,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @param int|stdClass $courseorid The course to get the section name for (object or just course id)
      * @return string HTML to output.
      */
-    protected function section_hidden($section, $courseorid = NULL) {
+    protected function section_hidden($section, $courseorid = null) {
         $o = '';
         $course = $this->courseformat->get_course();
         $liattributes = array(
@@ -607,7 +607,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 } else {
                     $this->tccolumnwidth -= 0.2;
                 }
-                $this->tccolumnpadding = 0; // 'px'.
+                $this->tccolumnpadding = 0; // In 'px'.
             } else if ($this->tcsettings['layoutcolumns'] < 1) {
                 // Distributed default in plugin settings (and reset in database) or database has been changed incorrectly.
                 $this->tcsettings['layoutcolumns'] = 1;

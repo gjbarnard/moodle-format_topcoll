@@ -65,7 +65,7 @@ class topcoll_togglelib {
     public function get_toggle_state($togglenum) {
         $togglecharpos = self::get_toggle_pos($togglenum);
         $toggleflag = self::get_toggle_flag($togglenum, $togglecharpos);
-        return ((self::decode_character_to_value($this->toggles[$togglecharpos-1]) & $toggleflag) == $toggleflag);
+        return ((self::decode_character_to_value($this->toggles[$togglecharpos - 1]) & $toggleflag) == $toggleflag);
     }
 
     /**
@@ -76,13 +76,13 @@ class topcoll_togglelib {
     public function set_toggle_state($togglenum, $state) {
         $togglecharpos = self::get_toggle_pos($togglenum);
         $toggleflag = self::get_toggle_flag($togglenum, $togglecharpos);
-        $value = self::decode_character_to_value($this->toggles[$togglecharpos-1]);
+        $value = self::decode_character_to_value($this->toggles[$togglecharpos - 1]);
         if ($state == true) {
             $value |= $toggleflag;
         } else {
             $value &= ~$toggleflag;
         }
-        $this->toggles[$togglecharpos-1] = self::encode_value_to_character($value);
+        $this->toggles[$togglecharpos - 1] = self::encode_value_to_character($value);
     }
 
     /**
@@ -142,7 +142,7 @@ class topcoll_togglelib {
      * returns int - Digit flag.
      */
     private static function get_toggle_flag($togglenum, $togglecharpos) {
-        $toggleflagpos = $togglenum - (($togglecharpos-1)*6);
+        $toggleflagpos = $togglenum - (($togglecharpos - 1) * 6);
         switch ($toggleflagpos) {
             case 1:
                 $flag = self::TOGGLE_1;
