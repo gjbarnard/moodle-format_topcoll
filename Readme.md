@@ -243,6 +243,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+18th July 2014 Version 2.7.1.3
+  1.  Fixed a few typos.
+
 17th July 2014 Version 2.7.1.2
   1.  Slight tweak to css to tidy things up when editing.
   2.  Patch for IE8(!!!) kindly supplied by Mathew Gancarz - https://moodle.org/user/profile.php?id=1471695.  To fix an issue
@@ -1113,6 +1116,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th July 2014.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 18th July 2014.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

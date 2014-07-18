@@ -72,7 +72,7 @@ course_create_sections_if_missing($course, range(0, $course->numsections));
 
 $renderer = $PAGE->get_renderer('format_topcoll');
 
-$devicetype = core_useragent::get_device_type(); // In moodlelib.php.
+$devicetype = core_useragent::get_device_type(); // In /lib/classes/useragent.php.
 if ($devicetype == "mobile") {
     $portable = 1;
 } else if ($devicetype == "tablet") {

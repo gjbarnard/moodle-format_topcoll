@@ -20,7 +20,7 @@
  * A topic based format that solves the issue of the 'Scroll of Death' when a course has many topics. All topics
  * except zero have a toggle that displays that topic. One or more topics can be displayed at any given time.
  * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
- * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
+ * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.md' file.
  *
  * @package    course/format
  * @subpackage topcoll
