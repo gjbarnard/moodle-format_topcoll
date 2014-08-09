@@ -549,18 +549,19 @@ class format_topcoll extends format_base {
                     'element_type' => 'select',
                     'element_attributes' => array(
                         array(
-                            'arrow' => new lang_string('arrow', 'format_topcoll'),     // Arrow icon set.
-                            'bulb' => new lang_string('bulb', 'format_topcoll'),       // Bulb icon set.
-                            'cloud' => new lang_string('cloud', 'format_topcoll'),     // Cloud icon set.
-                            'eye' => new lang_string('eye', 'format_topcoll'),         // Eye icon set.
-                            'led' => new lang_string('led', 'format_topcoll'),         // LED icon set.
-                            'point' => new lang_string('point', 'format_topcoll'),     // Point icon set.
-                            'power' => new lang_string('power', 'format_topcoll'),     // Power icon set.
-                            'radio' => new lang_string('radio', 'format_topcoll'),     // Radio icon set.
-                            'smiley' => new lang_string('smiley', 'format_topcoll'),   // Smiley icon set.
-                            'square' => new lang_string('square', 'format_topcoll'),   // Square icon set.
-                            'sunmoon' => new lang_string('sunmoon', 'format_topcoll'), // Sun / Moon icon set.
-                            'switch' => new lang_string('switch', 'format_topcoll'))   // Switch icon set.
+                            'arrow' => new lang_string('arrow', 'format_topcoll'),               // Arrow icon set.
+                            'bulb' => new lang_string('bulb', 'format_topcoll'),                 // Bulb icon set.
+                            'cloud' => new lang_string('cloud', 'format_topcoll'),               // Cloud icon set.
+                            'eye' => new lang_string('eye', 'format_topcoll'),                   // Eye icon set.
+                            'groundsignal' => new lang_string('groundsignal', 'format_topcoll'), // Ground signal set.
+                            'led' => new lang_string('led', 'format_topcoll'),                   // LED icon set.
+                            'point' => new lang_string('point', 'format_topcoll'),               // Point icon set.
+                            'power' => new lang_string('power', 'format_topcoll'),               // Power icon set.
+                            'radio' => new lang_string('radio', 'format_topcoll'),               // Radio icon set.
+                            'smiley' => new lang_string('smiley', 'format_topcoll'),             // Smiley icon set.
+                            'square' => new lang_string('square', 'format_topcoll'),             // Square icon set.
+                            'sunmoon' => new lang_string('sunmoon', 'format_topcoll'),           // Sun / Moon icon set.
+                            'switch' => new lang_string('switch', 'format_topcoll'))             // Switch icon set.
                     )
                 );
                 $courseformatoptionsedit['toggleallhover'] = array(

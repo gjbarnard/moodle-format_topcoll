@@ -223,6 +223,35 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-eye a.togg
     background-image: url([[pix:format_topcoll|eye_show_glow]]);
 }
 
+/* Ground signal set. */
+.course-content ul.ctopics li.section .content .toggle-groundsignal a.toggle_closed, .course-content ul.ctopics li.section .content .toggle-ground-signal a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|ground_signal_on]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-groundsignal a.toggle_closed { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|ground_signal_off]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-groundsignal a.toggle_open { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|ground_signal_on]]);
+}
+
+#toggle-all .content .toggle-groundsignal h4 a.off {
+    background-image: url([[pix:format_topcoll|ground_signal_on]]);
+}
+
+#toggle-all .content .toggle-groundsignal-hover h4 a.off:hover {
+    background-image: url([[pix:format_topcoll|ground_signal_off]]);
+}
+
+#toggle-all .content .toggle-groundsignal h4 a.on {
+    background-image: url([[pix:format_topcoll|ground_signal_off]]);
+}
+
+#toggle-all .content .toggle-groundsignal-hover h4 a.on:hover {
+    background-image: url([[pix:format_topcoll|ground_signal_on]]);
+}
+
 /* LED icon set. */
 .course-content ul.ctopics li.section .content .toggle-led a.toggle_closed, .course-content ul.ctopics li.section .content .toggle-led a.toggle_open { /* JavaScript disabled */
     background-image: url([[pix:format_topcoll|led_on]]);
