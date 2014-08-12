@@ -166,7 +166,7 @@ Course Backup and Restore Instructions
 ======================================
 1. Backup as you would any other course.  The layout configuration will be stored with the course settings.
 2. Restore as you would any other course.  If you are offered the option of 'Overwrite Course Configuration'
-   you must say 'Yes' to have thelayout configuration restored otherwise the restored course will retain the
+   you must say 'Yes' to have the layout configuration restored otherwise the restored course will retain the
    layout it previously had or the default in the 'config.php' file as mentioned in the 'Installation'
    instructions above depending on the situation.
 3. Note: I believe that if you restore a Collapsed Topic's course on an installation that does not have the
@@ -243,8 +243,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
-18th July 2014 Version 2.7.1.3
+18th August 2014 Version 2.7.1.3
   1.  Fixed a few typos.
+  2.  Fixed CONTRIB-5211: Section 5 does not remain expanded when browsing away and back.
 
 17th July 2014 Version 2.7.1.2
   1.  Slight tweak to css to tidy things up when editing.
@@ -589,7 +590,7 @@ Change by G J Barnard
       Thanks to [Rick Jerz](https://moodle.org/user/profile.php?id=520965) for reporting this.
 
 18th October 2012 - Version 2.3.9.1
-  1. Fixed potenial issue when the course is first accessed and there is no user preference.
+  1. Fixed potential issue when the course is first accessed and there is no user preference.
   2. Identified that sometimes when restoring a course, it is accessed for the first time and a toggle is clicked a 'Error
      updating user preference 'topcoll_toggle_x'' (where 'x' is the course id as shown in the URL 'id=x') can occur.  I'm not
      completely sure why this is happening as the 'user_preference_allow_ajax_update' call in 'format.php' should establish that
@@ -1116,6 +1117,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 18th July 2014.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 18th August 2014.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

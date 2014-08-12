@@ -206,7 +206,7 @@ M.format_topcoll.to2baseString = function(thirtysix) {
 M.format_topcoll.save_toggles = function() {
     "use strict";
     if (this.togglePersistence == 1) { // Toggle persistence - 1 = on, 0 = off.
-        M.util.set_user_preference('topcoll_toggle_' + this.courseid, this.togglestate);
+        M.format_topcoll.set_user_preference('topcoll_toggle_' + this.courseid, this.togglestate);
     }
 };
 
@@ -260,7 +260,6 @@ M.format_topcoll.set_toggle_state = function(togglenum, state) {
         value &= ~toggleflag;
     }
     var newchar = this.encode_value_to_character(value);
-    //this.togglestate[togglecharpos-1] = newchar;
     var start = this.togglestate.substring(0,togglecharpos - 1);
     var end = this.togglestate.substring(togglecharpos);
     this.togglestate = start + newchar + end;
@@ -278,12 +277,12 @@ M.format_topcoll.get_toggle_pos = function(togglenum) {
 
 M.format_topcoll.get_min_digit = function() {
     "use strict";
-    return ':';
+    return ':'; // 58 ':';
 };
 
 M.format_topcoll.get_max_digit = function() {
     "use strict";
-    return 'y';
+    return 'y'; // 58 'y';
 };
 
 M.format_topcoll.get_toggle_flag = function(togglenum, togglecharpos) {
@@ -321,4 +320,36 @@ M.format_topcoll.decode_character_to_value = function(character) {
 M.format_topcoll.encode_value_to_character = function(val) {
     "use strict";
     return String.fromCharCode(val + 58);
+};
+
+/**
+ * Makes a best effort to connect back to Moodle to update a user preference,
+ * however, there is no mechanism for finding out if the update succeeded.
+ *
+ * Before you can use this function in your JavsScript, you must have called
+ * user_preference_allow_ajax_update from moodlelib.php to tell Moodle that
+ * the update is allowed, and how to safely clean and submitted values.
+ *
+ * @param String name the name of the setting to update.
+ * @param String the value to set it to.
+ */
+M.format_topcoll.set_user_preference = function(name, value) {
+    YUI().use('io', function(Y) {
+        var url = M.cfg.wwwroot + '/course/format/topcoll/settopcollpref.php?sesskey=' +
+                M.cfg.sesskey + '&pref=' + encodeURI(name) + '&value=' + encodeURI(value);
+
+        // If we are a developer, ensure that failures are reported.
+        var cfg = {
+                method: 'get',
+                on: {}
+            };
+        if (M.cfg.developerdebug) {
+            cfg.on.failure = function(id, o, args) {
+                console.log("Error updating topcoll preference '" + name + "' using AJAX.  Almost certainly your session has timed out.  Clicking this link will repeat the AJAX call that failed so you can see the error: ");
+            }
+        }
+
+        // Make the request.
+        Y.io(url, cfg);
+    });
 };
