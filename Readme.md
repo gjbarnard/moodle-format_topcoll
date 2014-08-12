@@ -249,6 +249,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+18th August 2014 Version 2.6.1.6
+  1.  Fixed CONTRIB-5211: Section 5 does not remain expanded when browsing away and back.
+
 17th April 2014 Version 2.6.1.5
   1.  Fixed CONTRIB-4099 with the arrangement of the editing icon and associated functionality such that a better solution is
       applied for the specific nature of the format.

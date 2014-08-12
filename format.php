@@ -28,7 +28,7 @@
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */
 defined('MOODLE_INTERNAL') || die();
@@ -85,7 +85,7 @@ $renderer->set_portable($portable);
 if (!empty($displaysection)) {
     $renderer->print_single_section_page($course, null, null, null, null, $displaysection);
 } else {
-    user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_TEXT);
+    user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_TOPCOLL);
     $userpreference = get_user_preferences('topcoll_toggle_' . $course->id);
     $renderer->set_user_preference($userpreference);
 
