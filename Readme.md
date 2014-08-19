@@ -243,6 +243,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+19th August 2014 Version 2.7.1.4
+  1.  Fixed issue #11: Moodle notice - https://github.com/gjb2048/moodle-format_topcoll/issues/11.
+
 18th August 2014 Version 2.7.1.3
   1.  Fixed a few typos.
   2.  Fixed CONTRIB-5211: Section 5 does not remain expanded when browsing away and back.
@@ -1117,6 +1120,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 18th August 2014.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 19th August 2014.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

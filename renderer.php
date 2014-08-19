@@ -570,7 +570,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 while ($loopsection <= $course->numsections) {
                     $nextweekdate = $weekdate - ($weekofseconds);
                     if ((($thissection->uservisible ||
-                            ($thissection->visible && !$thissection->available && $thissection->showavailability))
+                            ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo)))
                             && ($nextweekdate <= $timenow)) == true) {
                         $numsections++; // Section not shown so do not count in columns calculation.
                     }
@@ -676,13 +676,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $thissection = $modinfo->get_section_info($section);
 
                 /* Show the section if the user is permitted to access it, OR if it's not available
-                   but showavailability is turned on. */
+                   but there is some available info text which explains the reason & should display. */
                 if (($this->tcsettings['layoutstructure'] != 3) || ($this->userisediting)) {
                     $showsection = $thissection->uservisible ||
-                            ($thissection->visible && !$thissection->available && $thissection->showavailability);
+                            ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo));
                 } else {
                     $showsection = ($thissection->uservisible ||
-                            ($thissection->visible && !$thissection->available && $thissection->showavailability))
+                            ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo)))
                             && ($nextweekdate <= $timenow);
                 }
                 if (($currentsectionfirst == true) && ($showsection == true)) {
@@ -692,7 +692,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     $showsection = false; // Do not reshow current section.
                 }
                 if (!$showsection) {
-                    // Hidden section message is overridden by 'unavailable' control (showavailability option).
+                    // Hidden section message is overridden by 'unavailable' control.
                     if ($this->tcsettings['layoutstructure'] != 4) {
                         if (($this->tcsettings['layoutstructure'] != 3) || ($this->userisediting)) {
                             if (!$course->hiddensections && $thissection->available) {
