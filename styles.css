@@ -53,7 +53,7 @@
 }
 
 .course-content ul.ctopics li.section.main .content, .course-content ul.ctopics li.tcsection .content {
-    margin: 0 40px; /* Default used in editing mode. */
+    margin: 0 0px; /* Override default for tablets / mobiles.  When have sides, set in format.php. */
     padding: 0px;
 }
 
@@ -87,7 +87,14 @@ body.tablettheme .course-content ul.ctopics li.tcsection .content, body.tabletth
 }
 
 /* CONTRIB-4106 */
-.course-content ul.ctopics li.section .content .toggle a  h3.sectionname {
+.course-content ul.ctopics li.section .content .toggle a  h3,
+.course-content ul.ctopics li.section .content.sectionhidden h3 {
+    margin: 0px;
+    word-break: break-all;
+}
+
+.course-content ul.ctopics li.section .content .toggle a  h3.section-title,
+.course-content ul.ctopics li.section .content.sectionhidden h3.section-title {
     margin: 4px;
 }
 
@@ -556,12 +563,62 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
     vertical-align: baseline;
 }
 
-/* -- The section name and summary of a Toggle -- */
-.course-content ul.ctopics li.section .content .toggle  {
+/* Assist the layout. */
+body.format-topcoll .ctopics .section .activity .mod-indent-outer, 
+body.format-topcoll.editing.dir-rtl .ctopics .section .activity .mod-indent-outer {
+    padding-left: 0px;
+}
+
+body.format-topcoll.editing .ctopics .section .activity .mod-indent-outer {
+    padding-left: 32px;
+}
+
+body.format-topcoll.dir-rtl .ctopics .section .activity .mod-indent-outer {
+    padding-right: 0px;
+}
+
+body.format-topcoll.editing.dir-rtl .ctopics .section .activity .mod-indent-outer {
+    padding-right: 32px;
+}
+
+body.format-topcoll .ctopics .section  {
+    margin: 1em 0em;
+}
+
+body.format-topcoll .course-content ul.ctopics li.section .summary {
+    margin-left: 0px;
+}
+
+body.format-topcoll.dir-rtl .course-content ul.ctopics li.section .summary {
+    margin-right: 0px;
+}
+
+body.format-topcoll.editing .section .activity .contentwithoutlink, body.format-topcoll.editing .section .activity .activityinstance {
+    padding-right: 0px;
+    display: inline;
+}
+
+body.format-topcoll.editing.dir-rtl .section .activity .contentwithoutlink, body.format-topcoll.editing.dir-rtl .section .activity .activityinstance {
+    padding-left: 0px;
+}
+
+body.format-topcoll.editing .section .activity .actions {
+    position: relative;
+}
+
+body.format-topcoll.editing .moodle-actionmenu ul.menubar {
+    display: none;
+}
+
+body.format-topcoll.editing.jsenabled .moodle-actionmenu[data-enhance] ul.menubar {
+    display: inline-block;
+}
+
+/* -- The section name in a Toggle and hidden section -- */
+.course-content ul.ctopics li.section .content .toggle, .course-content ul.ctopics li.section .content.sectionhidden  {
     display: block;
     text-align: left;
     padding: 0 0;
-    width: auto;
     -moz-border-radius: 0.7em;
     -webkit-border-radius: 0.7em;
     border-radius: 0.7em;
@@ -580,12 +637,8 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
     font-size: 0.7em;
 }
 
-.course-content ul.ctopics li.section .content .toggle {
-    width: 100%;
-}
-
 /* -- Toggle text -- */
-.course-content ul.ctopics li.section .content .toggle a {
+.course-content ul.ctopics li.section .content .toggle a, .course-content ul.ctopics li.section .content.sectionhidden {
     text-decoration: none;
     font-weight: bold;
 }
@@ -634,7 +687,14 @@ body.jsenabled #toggle-all {
 
 #toggle-all .content .sectionbody h4 a {
     padding: 7px 26px; /* The 26px allows the arrow to be with the text next to it. */
-    text-align: left;
     width: 35px;
     text-decoration: none;
+}
+
+#toggle-all .content .sectionbody h4, #toggle-all .content .sectionbody h4 a {
+    text-align: left;
+}
+
+.dir-rtl #toggle-all .content .sectionbody h4, .dir-rtl #toggle-all .content .sectionbody h4 a {
+    text-align: right;
 }
