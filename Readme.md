@@ -243,6 +243,12 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+20th September 2014 Version 2.7.1.5
+  1.  Fixed issue where a debug message was being written to the PHP error log.
+  2.  When toggle persistence is off then the state of the toggles on page load will depend on the default user preference setting.
+  3.  Added the ability to set the size of the toggle icon site wide as: Small = 16px, Medium = 24px and Large = 32px.
+  4.  Added the ability to set each corner of the toggle border radius site wide between 0.0 and 4.0em in increments of 0.1.
+
 19th August 2014 Version 2.7.1.4
   1.  Fixed issue #11: Moodle notice - https://github.com/gjb2048/moodle-format_topcoll/issues/11.
 
@@ -1120,6 +1126,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 19th August 2014.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 20th September 2014.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

@@ -50,6 +50,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
     private $togglelib;
     private $isoldtogglepreference = false;
     private $userisediting = false;
+    private $tctoggleiconsize;
 
     /**
      * Constructor method, calls the parent constructor - MDL-21097
@@ -69,6 +70,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         global $PAGE;
         $this->userisediting = $PAGE->user_is_editing();
+        $this->tctoggleiconsize = clean_param(get_config('format_topcoll', 'defaulttoggleiconsize'), PARAM_TEXT);
     }
 
     /**
@@ -372,7 +374,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $toggleclass = 'toggle_closed';
                 $sectionclass = '';
             }
-            $toggleclass .= ' the_toggle';
+            $toggleclass .= ' the_toggle '.$this->tctoggleiconsize;
             $toggleurl = new moodle_url('/course/view.php', array('id' => $course->id));
             $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => $toggleurl));
 
@@ -382,7 +384,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             $title = $this->courseformat->get_topcoll_section_name($course, $section, true);
             if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
-                $o .= $this->output->heading($title, 3, 'sectionname');
+                $o .= $this->output->heading($title, 3, 'section-title');
             } else {
                 $o .= html_writer::tag('h3', $title); // Moodle H3's look bad on mobile / tablet with CT so use plain.
             }
@@ -410,7 +412,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $hasnamesecpg = ($section->section == 0 && (string) $section->name !== '');
 
             if ($hasnamesecpg) {
-                $o .= $this->output->heading($this->section_title($section, $course), 3, 'sectionname');
+                $o .= $this->output->heading($this->section_title($section, $course), 3, 'section-title');
             }
             $o .= html_writer::start_tag('div', array('class' => 'summary'));
             $o .= $this->format_summary_text($section);
@@ -473,7 +475,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         $title = get_string('notavailable');
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
-            $o .= $this->output->heading($title, 3, 'sectionname');
+            $o .= $this->output->heading($title, 3, 'section-title');
         } else {
             $o .= html_writer::tag('h3', $title); // Moodle H3's look bad on mobile / tablet with CT so use plain.
         }
@@ -838,9 +840,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::start_tag('div', array('class' => 'sectionbody'.$iconsetclass));
         $o .= html_writer::start_tag('h4', null);
         $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'),
-                               array('class' => 'on', 'href' => '#', 'id' => 'toggles-all-opened'));
+                               array('class' => 'on '.$this->tctoggleiconsize, 'href' => '#', 'id' => 'toggles-all-opened'));
         $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'),
-                               array('class' => 'off', 'href' => '#', 'id' => 'toggles-all-closed'));
+                               array('class' => 'off '.$this->tctoggleiconsize, 'href' => '#', 'id' => 'toggles-all-closed'));
         $o .= html_writer::end_tag('h4');
         $o .= html_writer::end_tag('div');
         $o .= html_writer::end_tag('div');

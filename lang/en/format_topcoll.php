@@ -198,12 +198,17 @@ $string['resetalltoggleiconset'] = 'Toggle icon sets';
 $string['resettoggleiconset_help'] = 'Resets the toggle icon set and toggle all hover to the default values so it will be the same as a course the first time it is in the Collapsed Topics format.';
 $string['resetalltoggleiconset_help'] = 'Resets the toggle icon set and toggle all hover to the default values for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 
-// Site Administration -> Plugins -> Course formats -> Collapsed Topics or Manage course formats - Settings.
+// Site Administration -> Plugins -> Course formats -> Collapsed Topics.
+$string['defaultheadingsub'] = 'Defaults';
+$string['defaultheadingsubdesc'] = 'Default settings';
+$string['configurationheadingsub'] = 'Configuration';
+$string['configurationheadingsubdesc'] = 'Configuration settings';
+
 $string['off'] = 'Off';
 $string['on'] = 'On';
-$string['defaultcoursedisplay'] = 'Course display default';
+$string['defaultcoursedisplay'] = 'Course display';
 $string['defaultcoursedisplay_desc'] = "Either show all the sections on a single page or section zero and the chosen section on page.";
-$string['defaultlayoutelement'] = 'Default layout configuration';
+$string['defaultlayoutelement'] = 'Layout';
 // Negative view of layout, kept for previous versions until such time as they are updated.
 $string['defaultlayoutelement_desc'] = "The layout setting can be one of:
 
@@ -239,7 +244,7 @@ Section number.
 
 No additions.";
 
-$string['defaultlayoutstructure'] = 'Default structure configuration';
+$string['defaultlayoutstructure'] = 'Structure configuration';
 $string['defaultlayoutstructure_desc'] = "The structure setting can be one of:
 
 Topic
@@ -252,35 +257,28 @@ Current Topic First
 
 Day";
 
-$string['defaultlayoutcolumns'] = 'Default number of columns';
+$string['defaultlayoutcolumns'] = 'Number of columns';
 $string['defaultlayoutcolumns_desc'] = "Number of columns between one and four.";
 
-$string['defaultlayoutcolumnorientation'] = 'Default column orientation';
+$string['defaultlayoutcolumnorientation'] = 'Column orientation';
 $string['defaultlayoutcolumnorientation_desc'] = "The default column orientation: Vertical or Horizontal.";
 
-$string['defaulttgfgcolour'] = 'Default toggle foreground colour';
+$string['defaulttgfgcolour'] = 'Toggle foreground colour';
 $string['defaulttgfgcolour_desc'] = "Toggle foreground colour in hexidecimal RGB.";
 
-$string['defaulttgfghvrcolour'] = 'Default toggle foreground hover colour';
+$string['defaulttgfghvrcolour'] = 'Toggle foreground hover colour';
 $string['defaulttgfghvrcolour_desc'] = "Toggle foreground hover colour in hexidecimal RGB.";
 
-$string['defaulttgbgcolour'] = 'Default toggle background colour';
+$string['defaulttgbgcolour'] = 'Toggle background colour';
 $string['defaulttgbgcolour_desc'] = "Toggle background colour in hexidecimal RGB.";
 
-$string['defaulttgbghvrcolour'] = 'Default toggle background hover colour';
+$string['defaulttgbghvrcolour'] = 'Toggle background hover colour';
 $string['defaulttgbghvrcolour_desc'] = "Toggle background hover colour in hexidecimal RGB.";
 
-$string['defaulttogglepersistence'] = 'Toggle persistence';
-$string['defaulttogglepersistence_desc'] = "'On' or 'Off'.  You may wish to turn off for an AJAX performance increase but user toggle selections will not be recalled on page refresh or revisit.
-
-Note: If turning persistence off remove any rows containing 'topcoll_toggle_x' in the 'name' field
-      of the 'user_preferences' table in the database.  Where the 'x' in 'topcoll_toggle_x' will be
-      a course id.";
-
-$string['defaulttogglealignment'] = 'Default toggle text alignment';
+$string['defaulttogglealignment'] = 'Toggle text alignment';
 $string['defaulttogglealignment_desc'] = "'Left', 'Centre' or 'Right'.";
 
-$string['defaulttoggleiconset'] = 'Default toggle icon set';
+$string['defaulttoggleiconset'] = 'Toggle icon set';
 $string['defaulttoggleiconset_desc'] = "'Arrow'                => Arrow icon set.
 
 'Bulb'                 => Bulb icon set.
@@ -305,12 +303,76 @@ $string['defaulttoggleiconset_desc'] = "'Arrow'                => Arrow icon set
 
 'Switch'               => Switch icon set.";
 
-$string['defaulttoggleallhover'] = 'Default toggle all icon hovers';
+$string['defaulttoggleallhover'] = 'Toggle all icon hovers';
 $string['defaulttoggleallhover_desc'] = "'No' or 'Yes'.";
 
-// Default user preference.
-$string['defaultuserpreference'] = 'What to do with the toggles when the user first accesses the course or adds more sections';
-$string['defaultuserpreference_desc'] = 'States what to do with the toggles when the user first accesses the course or the state of additional sections when they are added.';
+$string['defaulttogglepersistence'] = 'Toggle persistence';
+$string['defaulttogglepersistence_desc'] = "'On' or 'Off'.  Turn off for an AJAX performance increase but user toggle selections will not be remembered on page refresh or revisit.
+
+Note: When turning persistence off, please remove any rows containing 'topcoll_toggle_x' in the 'name' field
+      of the 'user_preferences' table in the database.  Where the 'x' in 'topcoll_toggle_x' will be
+      a course id.  This is to save space if you do not intend to turn it back on.";
+
+$string['defaultuserpreference'] = 'What to do with the toggles when the user first accesses the course, adds more sections or toggle peristence is off';
+$string['defaultuserpreference_desc'] = 'States what to do with the toggles when the user first accesses the course, the state of additional sections when they are added or toggle persistence id off.';
+
+// Toggle icon size.
+$string['defaulttoggleiconsize'] = 'Toggle icon size';
+$string['defaulttoggleiconsize_desc'] = "Icon size: Small = 16px, Medium = 24px and Large = 32px.";
+$string['small'] = 'Small';
+$string['medium'] = 'Medium';
+$string['large'] = 'Large';
+
+// Toggle border radius.
+$string['defaulttoggleborderradiustl'] = 'Toggle top left border radius';
+$string['defaulttoggleborderradiustl_desc'] = 'Border top left radius of the toggle.';
+$string['defaulttoggleborderradiustr'] = 'Toggle top right border radius';
+$string['defaulttoggleborderradiustr_desc'] = 'Border top right radius of the toggle.';
+$string['defaulttoggleborderradiusbr'] = 'Toggle bottom right border radius';
+$string['defaulttoggleborderradiusbr_desc'] = 'Border bottom right radius of the toggle.';
+$string['defaulttoggleborderradiusbl'] = 'Toggle bottom left border radius';
+$string['defaulttoggleborderradiusbl_desc'] = 'Border bottom left radius of the toggle.';
+$string['em0_0'] = '0.0em';
+$string['em0_1'] = '0.1em';
+$string['em0_2'] = '0.2em';
+$string['em0_3'] = '0.3em';
+$string['em0_4'] = '0.4em';
+$string['em0_5'] = '0.5em';
+$string['em0_6'] = '0.6em';
+$string['em0_7'] = '0.7em';
+$string['em0_8'] = '0.8em';
+$string['em0_9'] = '0.9em';
+$string['em1_0'] = '1.0em';
+$string['em1_1'] = '1.1em';
+$string['em1_2'] = '1.2em';
+$string['em1_3'] = '1.3em';
+$string['em1_4'] = '1.4em';
+$string['em1_5'] = '1.5em';
+$string['em1_6'] = '1.6em';
+$string['em1_7'] = '1.7em';
+$string['em1_8'] = '1.8em';
+$string['em1_9'] = '1.9em';
+$string['em2_0'] = '2.0em';
+$string['em2_1'] = '2.1em';
+$string['em2_2'] = '2.2em';
+$string['em2_3'] = '2.3em';
+$string['em2_4'] = '2.4em';
+$string['em2_5'] = '2.5em';
+$string['em2_6'] = '2.6em';
+$string['em2_7'] = '2.7em';
+$string['em2_8'] = '2.8em';
+$string['em2_9'] = '2.9em';
+$string['em3_0'] = '3.0em';
+$string['em3_1'] = '3.1em';
+$string['em3_2'] = '3.2em';
+$string['em3_3'] = '3.3em';
+$string['em3_4'] = '3.4em';
+$string['em3_5'] = '3.5em';
+$string['em3_6'] = '3.6em';
+$string['em3_7'] = '3.7em';
+$string['em3_8'] = '3.8em';
+$string['em3_9'] = '3.9em';
+$string['em4_0'] = '4.0em';
 
 // Capabilities.
 $string['topcoll:changelayout'] = 'Change or reset the layout';

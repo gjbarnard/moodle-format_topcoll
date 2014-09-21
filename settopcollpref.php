@@ -45,7 +45,6 @@ if (!isset($USER->ajax_updatable_user_prefs[$name])) {
 
 // Get and set the value.
 $value = required_topcoll_param('value', $USER->ajax_updatable_user_prefs[$name]);
-error_log($name.' is before: '.$USER->ajax_updatable_user_prefs[$name].' after: '.$value);
 // Update
 if (!set_user_preference($name, $value)) {
     print_error('errorsettinguserpref');

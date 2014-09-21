@@ -72,8 +72,7 @@ M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections,
     // IE8 - humm!
     var bodyNode = Y.one(document.body);
     M.format_topcoll.ie8 = bodyNode.hasClass('ie8');
-
-    if (this.togglestate !== null) {
+    if ((this.togglestate !== null) && (this.togglePersistence == 1)) { // Toggle persistence - 1 = on, 0 = off.
         if (this.is_old_preference(this.togglestate) == true) {
             // Old preference, so convert to new.
             this.convert_to_new_preference();

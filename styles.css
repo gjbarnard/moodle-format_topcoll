@@ -65,25 +65,44 @@
     padding: 0px 0px 5px 0px;
 }
 
+/* Toggle icon size */
+#toggle-all .content .sectionbody h4 a.tc-small, .course-content ul.ctopics li.section .content .toggle a.tc-small {
+    background-size: 16px 16px;
+}
+
+#toggle-all .content .sectionbody h4 a.tc-medium, .course-content ul.ctopics li.section .content .toggle a.tc-medium {
+    background-size: 24px 24px;
+}
+#toggle-all .content .sectionbody h4 a.tc-large, .course-content ul.ctopics li.section .content .toggle a.tc-large {
+    background-size: 32px 32px;
+}
+
 /* -- Set the clickable element of the Toggle -- */
-.course-content ul.ctopics li.section .content .toggle a  {
+.course-content ul.ctopics li.section .content .toggle a {
     display: block;
     width: auto;
-    padding: 6px 24px 6px 24px; /* The 24px allows the arrow to be with the text next to it. */
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.course-content ul.ctopics li.section .content .toggle a.tc-small {
+    padding-left: 16px; /* The 16px allows the arrow to be with the text next to it. */
+    padding-right: 16px;
+}
+
+.course-content ul.ctopics li.section .content .toggle a.tc-medium {
+    padding-left: 24px; /* The 24px allows the arrow to be with the text next to it. */
+    padding-right: 24px;
+}
+
+.course-content ul.ctopics li.section .content .toggle a.tc-large {
+    padding-left: 32px; /* The 32px allows the arrow to be with the text next to it. */
+    padding-right: 32px;
 }
 
 body.ie7 .course-content ul.ctopics li.section .content .toggle a {
-    padding: 7px 24px 7px 24px; /* The 24px allows the arrow to be with the text next to it. */
-}
-
-body.mobiletheme .course-content ul.ctopics li.section .content .toggle a,
-body.tablettheme .course-content ul.ctopics li.section .content .toggle a {
-    padding: 7px 35px 7px 35px; /* The 35px allows the arrow to be with the text next to it. */
-}
-
-body.mobiletheme .course-content ul.ctopics li.tcsection .content, body.mobiletheme  .course-content ul.ctopics li.section.main .content,
-body.tablettheme .course-content ul.ctopics li.tcsection .content, body.tablettheme  .course-content ul.ctopics li.section.main .content {
-    margin: 0;
+    padding-top: 7px;
+    padding-bottom: 7px;
 }
 
 /* CONTRIB-4106 */
@@ -95,8 +114,8 @@ body.tablettheme .course-content ul.ctopics li.tcsection .content, body.tabletth
     word-wrap: break-word;
 }
 
-.course-content ul.ctopics li.section .content .toggle a  h3.sectionname,
-.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname {
+.course-content ul.ctopics li.section .content .toggle a  h3.section-title,
+.course-content ul.ctopics li.section .content.sectionhidden h3.section-title {
     margin: 4px;
 }
 
@@ -646,9 +665,6 @@ body.format-topcoll.editing.jsenabled .moodle-actionmenu[data-enhance] ul.menuba
     display: block;
     text-align: left;
     padding: 0 0;
-    -moz-border-radius: 0.7em;
-    -webkit-border-radius: 0.7em;
-    border-radius: 0.7em;
 }
 
 /* -- The width of a section name in a Toggle -- */
@@ -723,9 +739,25 @@ body.jsenabled #toggle-all {
 }
 
 #toggle-all .content .sectionbody h4 a {
-    padding: 7px 26px; /* The 26px allows the arrow to be with the text next to it. */
+    padding-top: 7px;
+    padding-bottom: 7px;
     width: 35px;
     text-decoration: none;
+}
+
+#toggle-all .content .sectionbody h4 a.tc-small {
+    padding-left: 18px; /* The 18px allows the arrow to be with the text next to it. */
+    padding-right: 18px;
+}
+
+#toggle-all .content .sectionbody h4 a.tc-medium {
+    padding-left: 26px; /* The 26px allows the arrow to be with the text next to it. */
+    padding-right: 26px;
+}
+
+#toggle-all .content .sectionbody h4 a.tc-large {
+    padding-left: 34px; /* The 34px allows the arrow to be with the text next to it. */
+    padding-right: 34px;
 }
 
 #toggle-all .content .sectionbody h4, #toggle-all .content .sectionbody h4 a {

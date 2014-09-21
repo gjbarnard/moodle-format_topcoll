@@ -85,8 +85,14 @@ $renderer->set_portable($portable);
 if (!empty($displaysection)) {
     $renderer->print_single_section_page($course, null, null, null, null, $displaysection);
 } else {
-    user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_TOPCOLL);
-    $userpreference = get_user_preferences('topcoll_toggle_' . $course->id);
+    $defaulttogglepersistence = clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT);
+
+    if ($defaulttogglepersistence == 1) {
+        user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_TOPCOLL);
+        $userpreference = get_user_preferences('topcoll_toggle_' . $course->id);
+    } else {
+        $userpreference = null;
+    }
     $renderer->set_user_preference($userpreference);
 
     $defaultuserpreference = clean_param(get_config('format_topcoll', 'defaultuserpreference'), PARAM_INT);
@@ -96,7 +102,7 @@ if (!empty($displaysection)) {
         $course->id,
         $userpreference,
         $course->numsections,
-        clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT),
+        $defaulttogglepersistence,
         $defaultuserpreference));
 
     $tcsettings = $courseformat->get_settings();
@@ -205,7 +211,26 @@ if (!empty($displaysection)) {
     }
 <?php
     }
+    // Site wide configuration Site Administration -> Plugins -> Course formats -> Collapsed Topics.
+    $tcborderradiustl = clean_param(get_config('format_topcoll', 'defaulttoggleborderradiustl'), PARAM_TEXT);
+    $tcborderradiustr = clean_param(get_config('format_topcoll', 'defaulttoggleborderradiustr'), PARAM_TEXT);
+    $tcborderradiusbr = clean_param(get_config('format_topcoll', 'defaulttoggleborderradiusbr'), PARAM_TEXT);
+    $tcborderradiusbl = clean_param(get_config('format_topcoll', 'defaulttoggleborderradiusbl'), PARAM_TEXT);
     ?>
+    .course-content ul.ctopics li.section .content .toggle, .course-content ul.ctopics li.section .content.sectionhidden {
+        -moz-border-top-left-radius: <?php echo $tcborderradiustl ?>em;
+        -webkit-border-top-left-radius: <?php echo $tcborderradiustl ?>em;
+        border-top-left-radius: <?php echo $tcborderradiustl ?>em;
+        -moz-border-top-right-radius: <?php echo $tcborderradiustr ?>em;
+        -webkit-border-top-right-radius: <?php echo $tcborderradiustr ?>em;
+        border-top-right-radius: <?php echo $tcborderradiustr ?>em;
+        -moz-border-bottom-right-radius: <?php echo $tcborderradiusbr ?>em;
+        -webkit-border-bottom-right-radius: <?php echo $tcborderradiusbr ?>em;
+        border-bottom-right-radius: <?php echo $tcborderradiusbr ?>em;
+        -moz-border-bottom-left-radius: <?php echo $tcborderradiusbl ?>em;
+        -webkit-border-bottom-left-radius: <?php echo $tcborderradiusbl ?>em;
+        border-bottom-left-radius: <?php echo $tcborderradiusbl ?>em;
+    }
     /* ]]> */
     </style>
     <?php
