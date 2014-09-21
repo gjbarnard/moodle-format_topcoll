@@ -249,6 +249,10 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+20th September 2014 Version 2.6.1.7
+  1.  Fixed issue where a debug message was being written to the PHP error log.
+  2.  When toggle persistence is off then the state of the toggles on page load will depend on the default user preference setting.
+
 18th August 2014 Version 2.6.1.6
   1.  Fixed CONTRIB-5211: Section 5 does not remain expanded when browsing away and back.
 
@@ -1103,6 +1107,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 17th April 2014.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 20th September 2014.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard

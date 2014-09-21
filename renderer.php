@@ -382,7 +382,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             $title = $this->courseformat->get_topcoll_section_name($course, $section, true);
             if (($this->mobiletheme === false) && ($this->tablettheme === false)) {
-                $o .= $this->output->heading($title, 3, 'sectionname');
+                $o .= $this->output->heading($title, 3, 'section-title');
             } else {
                 $o .= html_writer::tag('h3', $title); // Moodle H3's look bad on mobile / tablet with CT so use plain.
             }
@@ -410,7 +410,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $hasnamesecpg = ($section->section == 0 && (string) $section->name !== '');
 
             if ($hasnamesecpg) {
-                $o .= $this->output->heading($this->section_title($section, $course), 3, 'sectionname');
+                $o .= $this->output->heading($this->section_title($section, $course), 3, 'section-title');
             }
             $o .= html_writer::start_tag('div', array('class' => 'summary'));
             $o .= $this->format_summary_text($section);
@@ -474,7 +474,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         $title = get_string('notavailable');
         if (($this->mobiletheme === false) && ($this->tablettheme === false)) {
-            $o .= $this->output->heading($title, 3, 'sectionname');
+            $o .= $this->output->heading($title, 3, 'section-title');
         } else {
             $o .= html_writer::tag('h3', $title); // Moodle H3's look bad on mobile / tablet with CT so use plain.
         }

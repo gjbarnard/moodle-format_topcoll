@@ -93,8 +93,8 @@ body.tablettheme .course-content ul.ctopics li.tcsection .content, body.tabletth
     word-break: break-all;
 }
 
-.course-content ul.ctopics li.section .content .toggle a  h3.sectionname,
-.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname {
+.course-content ul.ctopics li.section .content .toggle a  h3.section-title,
+.course-content ul.ctopics li.section .content.sectionhidden h3.section-title {
     margin: 4px;
 }
 
