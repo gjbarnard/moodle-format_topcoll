@@ -20,7 +20,7 @@
  * A topic based format that solves the issue of the 'Scroll of Death' when a course has many topics. All topics
  * except zero have a toggle that displays that topic. One or more topics can be displayed at any given time.
  * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
- * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
+ * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.md' file.
  *
  * @package    course/format
  * @subpackage topcoll
@@ -35,7 +35,7 @@
 // English American Translation of Collapsed Topics Course Format.
 
 // Used in format.php.
-$string['topcollsidewidth'] = '28px';
+$string['topcollsidewidth']='28px';
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529.
 $string['setcolour'] = 'Set color';
@@ -56,16 +56,13 @@ $string['resetallcolour_help'] = 'Resets the colors to the default values for al
 $string['center'] = 'Center';
 
 // Site Administration -> Plugins -> Course formats -> Collapsed Topics or Manage course formats - Settings.
-$string['defaulttgfgcolour'] = 'Default toggle foreground color';
+$string['defaulttgfgcolour'] = 'Toggle foreground color';
 $string['defaulttgfgcolour_desc'] = "Toggle foreground color in hexidecimal RGB.";
 
-$string['defaulttgfghvrcolour'] = 'Default toggle foreground hover color';
-$string['defaulttgfghvrcolour_desc'] = "Toggle foreground hover color in hexidecimal RGB.";
-
-$string['defaulttgbgcolour'] = 'Default toggle background color';
+$string['defaulttgbgcolour'] = 'Toggle background color';
 $string['defaulttgbgcolour_desc'] = "Toggle background color in hexidecimal RGB.";
 
-$string['defaulttgbghvrcolour'] = 'Default toggle background hover color';
+$string['defaulttgbghvrcolour'] = 'Toggle background hover color';
 $string['defaulttgbghvrcolour_desc'] = "Toggle background hover color in hexidecimal RGB.";
 
 // Capabilities.

@@ -20,7 +20,7 @@
  * A topic based format that solves the issue of the 'Scroll of Death' when a course has many topics. All topics
  * except zero have a toggle that displays that topic. One or more topics can be displayed at any given time.
  * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
- * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
+ * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.md' file.
  *
  * @package    course/format
  * @subpackage topcoll
@@ -35,15 +35,15 @@
 // English Pirate Translation of Collapsed Topics Course Format.
 
 // Used in format.php.
-$string['topcollsidewidth'] = '40px';
+$string['topcollsidewidth']='40px';
 
 // These are 'topic' as they are only shown in 'topic' based structures.
 $string['markedthissection'] = 'Thy topic is illuminated as thee current topic';
 $string['markthissection'] = 'Illuminate thy topic as thee current topic';
 
 // Toggle all - Moodle Tracker CONTRIB-3190.
-$string['topcollopened'] = 'Untie';
-$string['topcollclosed'] = 'Tie';
+$string['topcollopened']='Untie';
+$string['topcollclosed']='Tie';
 
 // Layout enhancement - Moodle Tracker CONTRIB-3378.
 $string['formatsettings'] = 'Ye format settings'; // CONTRIB-3529.
@@ -62,11 +62,11 @@ $string['setlayout_toggle_section_x'] = "'Treasure Chest x' / 'Sailing Week x' /
 $string['setlayout_toggle_section_x'] = "'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 8.
 
 $string['setlayoutstructure'] = 'Set thee structure';
-$string['setlayoutstructuretopic'] = 'Treasure Chest';
-$string['setlayoutstructureweek'] = 'Sailing Week';
+$string['setlayoutstructuretopic']='Treasure Chest';
+$string['setlayoutstructureweek']='Sailing Week';
 $string['setlayoutstructureday'] = 'Sailing Day';
-$string['setlayoutstructurelatweekfirst'] = 'Current Sailing Week First';
-$string['setlayoutstructurecurrenttopicfirst'] = 'Current Treasure Chest First';
+$string['setlayoutstructurelatweekfirst']='Current Sailing Week First';
+$string['setlayoutstructurecurrenttopicfirst']='Current Treasure Chest First';
 $string['resetlayout'] = 'Thee layout'; // CONTRIB-3529.
 $string['resetalllayout'] = 'Thee layouts';
 
@@ -94,14 +94,14 @@ $string['columnhorizontal'] = 'Horizontal as a cannon';
 $string['maincoursepage'] = 'Ye main course page';
 
 // Help.
-$string['setlayoutelements_help'] = 'How much information about thee toggles / sections you wish to be displayed.';
-$string['setlayoutstructure_help'] = "Avast ye landlubbers, this be thee layout structure of thee course.  Ye choose between:
+$string['setlayoutelements_help']='How much information about thee toggles / sections you wish to be displayed.';
+$string['setlayoutstructure_help']="Avast ye landlubbers, this be thee layout structure of thee course.  Ye choose between:
 
 'Treasure Chest' - where each section is presented as thy treasure chest in section number order.
 
 'Sailing Week' - where each section is presented as thy week in ascending week order.
 
-'Current Sailing Week First' - which is the same as weeks but thee current week is shown at thee top and preceding weeks in decending order are displayed below except in editing mode where thee structure is thy same as 'Weeks'.
+'Current Sailing Week First' - which is the same as weeks but thee current week is shown at thee top and preceding weeks in descending order are displayed below except in editing mode where thee structure is thy same as 'Weeks'.
 
 'Current Treasure Chest First' - which is thee same as 'Treasure Chest' except that thee current treasure chest is shown at thee top if it has been set.
 
@@ -164,7 +164,7 @@ $string['off'] = 'Off';
 $string['on'] = 'On';
 $string['defaultcoursedisplay'] = 'Course display default';
 $string['defaultcoursedisplay_desc'] = "Either show all thee sections on a single page or section zero and thee chosen section on page.";
-$string['defaultlayoutelement'] = 'Default layout configuration';
+$string['defaultlayoutelement'] = 'Layout configuration';
 // Negative view of layout, kept for previous versions until such time as they are updated.
 $string['defaultlayoutelement_desc'] = "Thee layout setting can be one of:
 
@@ -200,7 +200,7 @@ Section number.
 
 Nay additions.";
 
-$string['defaultlayoutstructure'] = 'Default structure configuration';
+$string['defaultlayoutstructure'] = 'Structure configuration';
 $string['defaultlayoutstructure_desc'] = "Thee structure setting can be one of:
 
 Treasure Chest
@@ -213,22 +213,19 @@ Current Treasure Chest First
 
 Sailing Day";
 
-$string['defaultlayoutcolumns'] = 'Default number of columns';
+$string['defaultlayoutcolumns'] = 'Number of columns';
 $string['defaultlayoutcolumns_desc'] = "Number of columns between one and four.";
 
-$string['defaultlayoutcolumnorientation'] = 'Default column orientation';
+$string['defaultlayoutcolumnorientation'] = 'Column orientation';
 $string['defaultlayoutcolumnorientation_desc'] = "Thee default column orientation: Vertical or Horizontal.";
 
-$string['defaulttgfgcolour'] = 'Default toggle foreground colour';
+$string['defaulttgfgcolour'] = 'Toggle foreground colour';
 $string['defaulttgfgcolour_desc'] = "Toggle foreground colour in hexidecimal RGB.";
 
-$string['defaulttgfghvrcolour'] = 'Default toggle foreground hover colour';
-$string['defaulttgfghvrcolour_desc'] = "Toggle foreground hover colour in hexidecimal RGB.";
-
-$string['defaulttgbgcolour'] = 'Default toggle background colour';
+$string['defaulttgbgcolour'] = 'Toggle background colour';
 $string['defaulttgbgcolour_desc'] = "Toggle background colour in hexidecimal RGB.";
 
-$string['defaulttgbghvrcolour'] = 'Default toggle background hover colour';
+$string['defaulttgbghvrcolour'] = 'Toggle background hover colour';
 $string['defaulttgbghvrcolour_desc'] = "Toggle background hover colour in hexidecimal RGB.";
 
 $string['defaulttogglepersistence'] = 'Toggle persistence';
@@ -238,10 +235,10 @@ Note: If turning persistence off remove any rows containing 'topcoll_toggle_x' i
       of the 'user_preferences' table in the database.  Where thee 'x' in 'topcoll_toggle_x' will be
       a course id.";
 
-$string['defaulttogglealignment'] = 'Default toggle text alignment';
+$string['defaulttogglealignment'] = 'Toggle text alignment';
 $string['defaulttogglealignment_desc'] = "'Left', 'Centre' or 'Right'.";
 
-$string['defaulttoggleiconset'] = 'Default toggle icon set';
+$string['defaulttoggleiconset'] = 'Toggle icon set';
 $string['defaulttoggleiconset_desc'] = "'Straight as an arrow'                => Arrow icon set.
 
 'Lantern'                             => Bulb icon set.
@@ -266,7 +263,7 @@ $string['defaulttoggleiconset_desc'] = "'Straight as an arrow'                =>
 
 'Switch thy flag'                     => Switch icon set.";
 
-$string['defaulttoggleallhover'] = 'Default toggle all icon hovers';
+$string['defaulttoggleallhover'] = 'Toggle all icon hovers';
 $string['defaulttoggleallhover_desc'] = "'Nay' or 'Aye'.";
 
 // Default sailor preference.
@@ -289,3 +286,20 @@ $string['resetdisplayinstructions'] = 'Display orders';
 $string['resetalldisplayinstructions'] = 'Display orders';
 $string['resetdisplayinstructions_help'] = 'Resets thy display orders to thee default value so it will be thy same as a course thee first time it is in thy Collapsed Topics format.';
 $string['resetalldisplayinstructions_help'] = 'Resets thy display orders to thee default value for all courses so it will be thee same as a course thee first time it is in thy Collapsed Topics format.';
+
+// Toggle icon size.
+$string['defaulttoggleiconsize'] = 'Toggle icon size';
+$string['defaulttoggleiconsize_desc'] = "Icon size: Cutter = 16px, Brig = 24px and Barque = 32px.";
+$string['small'] = 'Cutter';
+$string['medium'] = 'Brig';
+$string['large'] = 'Barque';
+
+// Toggle border radius.
+$string['defaulttoggleborderradiustl'] = 'Toggle top left border radius';
+$string['defaulttoggleborderradiustl_desc'] = 'Border top left radius of thy toggle.';
+$string['defaulttoggleborderradiustr'] = 'Toggle top right border radius';
+$string['defaulttoggleborderradiustr_desc'] = 'Border top right radius of thy toggle.';
+$string['defaulttoggleborderradiusbr'] = 'Toggle bottom right border radius';
+$string['defaulttoggleborderradiusbr_desc'] = 'Border bottom right radius of thy toggle.';
+$string['defaulttoggleborderradiusbl'] = 'Toggle bottom left border radius';
+$string['defaulttoggleborderradiusbl_desc'] = 'Border bottom left radius of thy toggle.';
