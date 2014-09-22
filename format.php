@@ -168,10 +168,16 @@ if (!empty($displaysection)) {
 
     <?php
     // Dynamically changing widths with language.
-    if ((!$PAGE->user_is_editing()) && ($portable == 0)) {
-        echo '.course-content ul.ctopics li.section.main .content, .course-content ul.ctopics li.tcsection .content {';
-        echo 'margin: 0 ' . get_string('topcollsidewidth', 'format_topcoll');
-        echo '}';
+    if ((!$PAGE->user_is_editing()) && ($portable == 0)) { ?>
+    .course-content ul.ctopics li.section.main .content, .course-content ul.ctopics li.tcsection .content {
+        margin: 0 <?php echo get_string('topcollsidewidth', 'format_topcoll'); ?>;
+    }
+    <?php
+    } else if ($PAGE->user_is_editing()) { ?>
+    .course-content ul.ctopics li.section.main .content, .course-content ul.ctopics li.tcsection .content {
+        margin: 0 40px;
+    }
+    <?php
     }
 
     // Make room for editing icons.
