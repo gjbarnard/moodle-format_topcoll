@@ -6,24 +6,24 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 ==========================
-This version works with Moodle version 2014051200.00 release 2.7 (Build: 20140512) and above within the 2.7 branch until the
+This version works with Moodle version 2014111000.00 release 2.8 (Build: 20141110) and above within the 2.8 branch until the
 next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
-'docs.moodle.org/27/en/Installing_Moodle'.
+'docs.moodle.org/28/en/Installing_Moodle'.
 
 Downloads and documentation
 ===========================
 The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
-with 'Select Moodle version:' set at 'Moodle 2.7'.
+with 'Select Moodle version:' set at 'Moodle 2.8'.
 
-The secondary source is a tagged version with the v2.7 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
+The secondary source is a tagged version with the v2.8 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
 
 If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/tree/MOODLE_27 - consider that
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
-Documented on http://docs.moodle.org/27/en/Collapsed_Topics_course_format
+Documented on http://docs.moodle.org/28/en/Collapsed_Topics_course_format
 
 Bespoke changes
 ===============
@@ -46,16 +46,17 @@ Moodle community benefits.
 
 Supporting Collapsed Topics development
 =======================================
-If you find Collapsed Topics useful and beneficial, please consider donating to its development through the following
-PayPal link:
+If you find Collapsed Topics useful and beneficial, please consider donating by:
 
-[PayPal donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6KEALTXATCXVE)
+PayPal - Please contact me via my 'Moodle profile' (above) for details as I am an individual and therefore am unable to have 'donation' / 'buy me now' buttons under their terms.
+
+Flattr - https://flattr.com/profile/gjb2048
 
 I develop and maintain for free and any donations to assist me in this endeavour are appreciated.
 
-New features for this Moodle 2.7 version
+New features for this Moodle 2.8 version
 ========================================
- 1. Same features as version 2.6.1.5 in Moodle 2.6.
+ 1. Same features as version 2.7.1.5 in Moodle 2.7.
 
 Installation
 ============
@@ -243,6 +244,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+10th November 2014 Version 2.8.0.1 - Release Candidate
+  1.  Release candidate for Moodle 2.8 - NOT for production servers.
+
 20th September 2014 Version 2.7.1.5
   1.  Fixed issue where a debug message was being written to the PHP error log.
   2.  When toggle persistence is off then the state of the toggles on page load will depend on the default user preference setting.
@@ -1126,6 +1130,6 @@ Desired Enhancements
 
 Me
 ==
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE. - 20th September 2014.
+G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE.
 Moodle profile: http://moodle.org/user/profile.php?id=442195.
 Web profile   : http://about.me/gjbarnard
