@@ -244,6 +244,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+16th November 2014 Version 2.8.1
+  1.  Stable version for Moodle 2.8.
+
 10th November 2014 Version 2.8.0.1 - Release Candidate
   1.  Release candidate for Moodle 2.8 - NOT for production servers.
 
