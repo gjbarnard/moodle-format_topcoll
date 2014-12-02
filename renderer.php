@@ -390,6 +390,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             $o .= html_writer::end_tag('a');
             $o .= html_writer::end_tag('div');
+
+            if ($this->tcsettings['showsectionsummary'] == 2) {
+                $o .= $this->section_summary_container($section);
+            }
+
             $o .= html_writer::start_tag('div', array('class' => 'sectionbody toggledsection'.$sectionclass,
                                                       'id' => 'toggledsection-' . $section->section));
 
@@ -400,10 +405,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
                                     array('title' => get_string('editsummary')));
             }
 
-            $o .= html_writer::start_tag('div', array('class' => 'summary'));
-            $o .= $this->format_summary_text($section);
-
-            $o .= html_writer::end_tag('div');
+            if ($this->tcsettings['showsectionsummary'] == 1) {
+                $o .= $this->section_summary_container($section);
+            }
 
             $o .= $this->section_availability_message($section, has_capability('moodle/course:viewhiddensections', $context));
         } else {
@@ -425,6 +429,19 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $o .= html_writer::end_tag('div');
 
             $o .= $this->section_availability_message($section, has_capability('moodle/course:viewhiddensections', $context));
+        }
+        return $o;
+    }
+
+    protected function section_summary_container($section) {
+        $summarytext = $this->format_summary_text($section);
+        if ($summarytext) {
+            $classextra = ($this->tcsettings['showsectionsummary'] == 1) ? '' : ' summaryalwaysshown' ;
+            $o = html_writer::start_tag('div', array('class' => 'summary'.$classextra));
+            $o .= $this->format_summary_text($section);
+            $o .= html_writer::end_tag('div');
+        } else {
+            $o = '';
         }
         return $o;
     }

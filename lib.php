@@ -376,6 +376,10 @@ class format_topcoll extends format_base {
                     'default' => $defaulttgbghvrcolour,
                     'type' => PARAM_ALPHANUM,
                 ),
+                'showsectionsummary' => array(
+                    'default' => get_config('format_topcoll', 'defaultshowsectionsummary'),
+                    'type' => PARAM_INT,
+                ),
                 'readme' => array(
                     'default' => get_string('readme_desc', 'format_topcoll', array('url' => $readme)),
                     'type' => PARAM_ALPHA,
@@ -511,6 +515,16 @@ class format_topcoll extends format_base {
                               2 => new lang_string('right', 'format_topcoll'))  // Right.
                     )
                 );
+                $courseformatoptionsedit['showsectionsummary'] = array(
+                    'label' => new lang_string('setshowsectionsummary', 'format_topcoll'),
+                    'help' => 'setshowsectionsummary',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => array(
+                        array(1 => new lang_string('no'),
+                              2 => new lang_string('yes'))
+                    )
+                );
             } else {
                 $courseformatoptionsedit['layoutelement'] =
                     array('label' => get_config('format_topcoll', 'defaultlayoutelement'), 'element_type' => 'hidden');
@@ -522,6 +536,8 @@ class format_topcoll extends format_base {
                     array('label' => get_config('format_topcoll', 'defaultlayoutcolumnorientation'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['toggleiconposition'] =
                     array('label' => get_config('format_topcoll', 'defaulttoggleiconposition'), 'element_type' => 'hidden');
+                $courseformatoptionsedit['showsectionsummary'] =
+                    array('label' => get_config('format_topcoll', 'defaultshowsectionsummary'), 'element_type' => 'hidden');
             }
 
             if (has_capability('format/topcoll:changetogglealignment', $coursecontext)) {
@@ -1011,6 +1027,7 @@ class format_topcoll extends format_base {
             $updatedata['layoutcolumns'] = get_config('format_topcoll', 'defaultlayoutcolumns');
             $updatedata['layoutcolumnorientation'] = get_config('format_topcoll', 'defaultlayoutcolumnorientation');
             $updatedata['toggleiconposition'] = get_config('format_topcoll', 'defaulttoggleiconposition');
+            $updatedata['showsectionsummary'] = get_config('format_topcoll', 'defaultshowsectionsummary');
             $updatelayout = true;
         }
         if ($togglealignment && has_capability('format/topcoll:changetogglealignment', $coursecontext) && $resetallifall) {
@@ -1071,12 +1088,13 @@ class format_topcoll extends format_base {
         if (empty($lco)) {
             // Upgrading from M2.3 and the defaults in 'settings.php' have not been processed at this time.
             // Defaults taken from 'settings.php'.
-            $data['displayinstructions'] = 2;
-            $data['layoutcolumnorientation'] = 2;
-            $data['togglealignment'] = 2;
-            $data['toggleiconposition'] = 1;
-            $data['toggleiconset'] = 'arrow';
-            $data['toggleallhover'] = 2;
+            $data['displayinstructions'] = get_config('format_topcoll', 'defaultdisplayinstructions');
+            $data['layoutcolumnorientation'] = get_config('format_topcoll', 'defaultlayoutcolumnorientation');
+            $data['showsectionsummary'] = get_config('format_topcoll', 'defaultshowsectionsummary');
+            $data['togglealignment'] = get_config('format_topcoll', 'defaulttogglealignment');
+            $data['toggleallhover'] = get_config('format_topcoll', 'defaulttoggleallhover');
+            $data['toggleiconposition'] = get_config('format_topcoll', 'defaulttoggleiconposition');
+            $data['toggleiconset'] = get_config('format_topcoll', 'defaulttoggleiconset');
         }
         $this->update_course_format_options($data);
 

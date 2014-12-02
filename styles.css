@@ -642,6 +642,10 @@ body.format-topcoll.dir-rtl .course-content ul.ctopics li.section .summary {
     margin-right: 0px;
 }
 
+body.format-topcoll .course-content ul.ctopics li.section .summary.summaryalwaysshown {
+    padding-top: 10px;
+}
+
 body.format-topcoll.editing .section .activity .contentwithoutlink, body.format-topcoll.editing .section .activity .activityinstance {
     padding-right: 0px;
     display: inline;
