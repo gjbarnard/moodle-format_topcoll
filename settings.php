@@ -244,6 +244,19 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
+    // Show the section summary when collapsed.
+    // 1 => No.
+    // 2 => Yes.
+    $name = 'format_topcoll/defaultshowsectionsummary';
+    $title = get_string('defaultshowsectionsummary', 'format_topcoll');
+    $description = get_string('defaultshowsectionsummary_desc', 'format_topcoll');
+    $default = 1;
+    $choices = array(
+        1 => new lang_string('no'),
+        2 => new lang_string('yes')
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
     $settings->add(new admin_setting_heading('format_topcoll_configuration', get_string('configurationheadingsub', 'format_topcoll'),
         format_text(get_string('configurationheadingsubdesc', 'format_topcoll'), FORMAT_MARKDOWN)));
 
