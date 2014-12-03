@@ -244,6 +244,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+ 3rd December 2014 Version 2.8.1.1
+  1.  Fix CONTRIB-5472.
+
 16th November 2014 Version 2.8.1
   1.  Stable version for Moodle 2.8.
 
