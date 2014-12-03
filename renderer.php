@@ -133,7 +133,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if ($section->section != 0) {
             $controls = $this->section_edit_controls($course, $section, $onsectionpage);
             if (!empty($controls)) {
-                $o .= implode('<br />', $controls);
+                $o .= implode('', $controls);  // No 'br' as done in styles.css with a 'display:block' so will not have to many of them when the up arrow is removed by JS.
             } else {
                 if (empty($this->tcsettings)) {
                     $this->tcsettings = $this->courseformat->get_settings();
@@ -355,7 +355,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
                                     array('src' => $this->output->pix_url('t/edit'),
                                           'class' => 'icon edit tceditsection', 'alt' => get_string('edit'))),
                                     array('title' => get_string('editsummary'), 'class' => 'tceditsection'));
-                $rightcontent .= html_writer::empty_tag('br');
             }
             $rightcontent .= $this->section_right_content($section, $course, $onsectionpage);
             $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
@@ -566,7 +565,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
 
             $numsections = $course->numsections; // Because we want to manipulate this for column breakpoints.
-            if (($this->tcsettings['layoutstructure'] == 3) && ($userisediting == false)) {
+            if (($this->tcsettings['layoutstructure'] == 3) && ($this->userisediting == false)) {
                 $loopsection = 1;
                 $numsections = 0;
                 while ($loopsection <= $course->numsections) {

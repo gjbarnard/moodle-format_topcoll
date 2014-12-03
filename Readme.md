@@ -243,6 +243,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+ 3rd December 2014 Version 2.7.1.6
+  1.  Fix CONTRIB-5472.
+
 20th September 2014 Version 2.7.1.5
   1.  Fixed issue where a debug message was being written to the PHP error log.
   2.  When toggle persistence is off then the state of the toggles on page load will depend on the default user preference setting.
