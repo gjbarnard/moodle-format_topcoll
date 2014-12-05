@@ -244,9 +244,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
- 3rd December 2014 Version 2.8.1.1
-  1.  Fix CONTRIB-5472.
-  2.  New 'Show section summary when collapsed' feture gratefully funded by 'Te Rito Maioha Early Childhood New Zealand - https://ecnz.ac.nz'.
+ 5th December 2014 Version 2.8.1.1
+  1.  New 'Show section summary when collapsed' feture gratefully funded by 'Te Rito Maioha Early Childhood New Zealand - https://ecnz.ac.nz'.
+  2.  Fix CONTRIB-5472.
 
 16th November 2014 Version 2.8.1
   1.  Stable version for Moodle 2.8.
