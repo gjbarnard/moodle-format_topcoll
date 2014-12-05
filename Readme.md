@@ -244,8 +244,8 @@ can be really useful in visualising the issue along with any files you consider 
 Version Information
 ===================
  5th December 2014 Version 2.7.2
-  1.  Fix CONTRIB-5472.
-  2.  New 'Show section summary when collapsed' feture gratefully funded by 'Te Rito Maioha Early Childhood New Zealand - https://ecnz.ac.nz'.
+  1.  New 'Show section summary when collapsed' feature gratefully funded by 'Te Rito Maioha Early Childhood New Zealand - https://ecnz.ac.nz'.
+  2.  Fix CONTRIB-5472.
 
 20th September 2014 Version 2.7.1.5
   1.  Fixed issue where a debug message was being written to the PHP error log.
