@@ -88,7 +88,7 @@ if (!empty($displaysection)) {
     $defaulttogglepersistence = clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT);
 
     if ($defaulttogglepersistence == 1) {
-        user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_TOPCOLL);
+        user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_RAW);
         $userpreference = get_user_preferences('topcoll_toggle_' . $course->id);
     } else {
         $userpreference = null;
