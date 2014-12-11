@@ -244,9 +244,13 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
- 5th December 2014 Version 2.8.1.1
-  1.  New 'Show section summary when collapsed' feture gratefully funded by 'Te Rito Maioha Early Childhood New Zealand - https://ecnz.ac.nz'.
+11th December 2014 Version 2.8.1.1
+  1.  New 'Show section summary when collapsed' feature gratefully funded by 'Te Rito Maioha Early Childhood New Zealand - https://ecnz.ac.nz'.
   2.  Fix CONTRIB-5472.
+  3.  Integrated 'Use core required_param for toggle parameters.': https://github.com/gjb2048/moodle-format_topcoll/pull/12
+      "This work was made possible through funding from Te Rito Maioha Early Childhood New Zealand".
+      Improves on work instigated in CONTRIB-5211 and related to MDL-46754.
+  4.  Improved HTTP protocol handling in 'settopcollpref.php'.
 
 16th November 2014 Version 2.8.1
   1.  Stable version for Moodle 2.8.

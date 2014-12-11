@@ -260,7 +260,7 @@ function clean_topcoll_param($param) {
     for ($i = 0; $i < $chars; $i++) {
         $charval = ord($param[$i]);
         if (($charval < 58) || ($charval > 121)) {
-            return '';
+            return false;
         }
     }
     return $param;
