@@ -107,6 +107,7 @@ class format_topcoll extends format_base {
         }
         $o = '';
         $tcsettings = $this->get_settings();
+        $tcsectionsettings = $this->get_format_options($thesection->section);
         $coursecontext = context_course::instance($course->id);
 
         // We can't add a node without any text.
@@ -118,7 +119,9 @@ class format_topcoll extends format_base {
                 if ($additional == true) { // Break 'br' tags break backups!
                     $o .= html_writer::empty_tag('br');
                 }
-                $o .= $this->get_section_dates($section, $course, $tcsettings);
+                if (empty($tcsectionsettings['donotshowdate'])) {
+                    $o .= $this->get_section_dates($section, $course, $tcsettings);
+                }
             }
         } else if ($thesection->section == 0) {
             $o = get_string('section0name', 'format_topcoll');
@@ -126,7 +129,7 @@ class format_topcoll extends format_base {
             if (($tcsettings['layoutstructure'] == 1) || ($tcsettings['layoutstructure'] == 4)) {
                 $o = get_string('sectionname', 'format_topcoll') . ' ' . $thesection->section;
             } else {
-                $o = $this->get_section_dates($thesection, $course, $tcsettings);
+                $o .= $this->get_section_dates($section, $course, $tcsettings);
             }
         }
 
@@ -275,6 +278,38 @@ class format_topcoll extends format_base {
         );
     }
 
+    public function section_format_options($foreditform = false) {
+        static $sectionformatoptions = false;
+
+        if ($sectionformatoptions === false) {
+            $sectionformatoptions = array(
+                'donotshowdate' => array(
+                    'default' => 0,
+                    'type' => PARAM_INT
+                )
+            );
+        }
+        if ($foreditform && !isset($sectionformatoptions['donotshowdate']['label'])) {
+            $sectionformatoptionsedit = array(
+                'donotshowdate' => array(
+                    'label' => new lang_string('donotshowdate', 'format_topcoll'),
+                    'help' => 'donotshowdate',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'checkbox'
+                )
+            );
+            $sectionformatoptions = array_merge_recursive($sectionformatoptions, $sectionformatoptionsedit);
+        }
+
+        $tcsettings = $this->get_settings();
+        if (($tcsettings['layoutstructure'] == 2) || ($tcsettings['layoutstructure'] == 3) ||
+            ($tcsettings['layoutstructure'] == 5)) {
+            // Weekly layout.
+            return $sectionformatoptions;
+        } else {
+            return array();
+        }
+    }
     /**
      * Definitions of the additional options that this course format uses for course
      *

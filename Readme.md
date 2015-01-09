@@ -244,6 +244,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+10th January 2014 Version 2.8.2
+  1.  New 'Do not show date' feature gratefully funded by 'GAC Corporate Academy, GAC HQ, Dubai, UAE (http://www.gacacademy.com)'.
+
 11th December 2014 Version 2.8.1.1
   1.  New 'Show section summary when collapsed' feature gratefully funded by 'Te Rito Maioha Early Childhood New Zealand - https://ecnz.ac.nz'.
   2.  Fix CONTRIB-5472.
