@@ -380,6 +380,10 @@ $string['setshowsectionsummary_help'] = 'States if the section summary will alwa
 $string['defaultshowsectionsummary'] = 'Show the section summary when collapsed';
 $string['defaultshowsectionsummary_desc'] = 'States if the section summary will always be shown regardless of toggle state.';
 
+// Do not show date.
+$string['donotshowdate'] = 'Do not show the date';
+$string['donotshowdate_help'] = 'Do not show the date when using a weekly based structure and \'Use default section name\' has been un-ticked.';
+
 // Capabilities.
 $string['topcoll:changelayout'] = 'Change or reset the layout';
 $string['topcoll:changecolour'] = 'Change or reset the colour';
