@@ -243,8 +243,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
- 9th January 2014 Version 2.7.3
+23rd January 2015 Version 2.7.3
   1.  New 'Do not show date' feature gratefully funded by 'GAC Corporate Academy, GAC HQ, Dubai, UAE (http://www.gacacademy.com)'.
+  2.  Fix issue #14 - No block drag and drop icon when blockeditingmenu is false.
 
 11th December 2014 Version 2.7.2
   1.  New 'Show section summary when collapsed' feature gratefully funded by 'Te Rito Maioha Early Childhood New Zealand - https://ecnz.ac.nz'.
