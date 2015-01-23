@@ -659,7 +659,7 @@ body.format-topcoll.editing .section .activity .actions {
     position: relative;
 }
 
-body.format-topcoll.editing .moodle-actionmenu ul.menubar {
+body.format-topcoll.editing #region-main .moodle-actionmenu ul.menubar {
     display: none;
 }
 
