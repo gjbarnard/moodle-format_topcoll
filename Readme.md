@@ -243,6 +243,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+27th January 2015 Version 2.7.3.1
+  1.  Refix issue #4 - No block drag and drop icon when blockeditingmenu is false - activity editing menu no longer shows.
+  
 23rd January 2015 Version 2.7.3
   1.  New 'Do not show date' feature gratefully funded by 'GAC Corporate Academy, GAC HQ, Dubai, UAE (http://www.gacacademy.com)'.
   2.  Fix issue #14 - No block drag and drop icon when blockeditingmenu is false.

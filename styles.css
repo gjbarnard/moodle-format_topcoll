@@ -663,7 +663,7 @@ body.format-topcoll.editing #region-main .moodle-actionmenu ul.menubar {
     display: none;
 }
 
-body.format-topcoll.editing.jsenabled .moodle-actionmenu[data-enhance] ul.menubar {
+body.format-topcoll.editing.jsenabled #region-main .moodle-actionmenu[data-enhance] ul.menubar {
     display: inline-block;
 }
 
