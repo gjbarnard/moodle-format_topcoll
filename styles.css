@@ -749,13 +749,17 @@ body.ie7 .course-content ul.ctopics li.section .right .spacer {
 }
 
 /* Toggle all */
-#toggle-all {
+#toggle-all, #topcoll-display-instructions {
     display: none; /* Hide when JavaScript not enabled. */
+}
+
+body.jsenabled #toggle-all, body.jsenabled #topcoll-display-instructions {
+    display: block;
 }
 
 body.jsenabled #toggle-all {
     background: none repeat scroll 0 0 transparent;
-    display: block;
+
 }
 
 #toggle-all .content .sectionbody h4 {
