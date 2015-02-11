@@ -730,13 +730,16 @@ body.ie7 .course-content ul.ctopics li.section .right .spacer {
 }
 
 /* Toggle all */
-#toggle-all {
+#toggle-all, #topcoll-display-instructions {
     display: none; /* Hide when JavaScript not enabled. */
+}
+
+body.jsenabled #toggle-all, body.jsenabled #topcoll-display-instructions {
+    display: block;
 }
 
 body.jsenabled #toggle-all {
     background: none repeat scroll 0 0 transparent;
-    display: block;
 }
 
 #toggle-all .content .sectionbody h4 {
@@ -774,3 +777,17 @@ body.jsenabled #toggle-all {
 .dir-rtl #toggle-all .content .sectionbody h4, .dir-rtl #toggle-all .content .sectionbody h4 a {
     text-align: right;
 }
+
+/* print styles. */
+@media print {
+    body.jsenabled .toggledsection {
+        display: block; /* If JavaScript is enabled and we are printing then this css will apply and the section will be shown. */
+    }
+    body.jsenabled #toggle-all, body.jsenabled #topcoll-display-instructions {
+        display: none;
+    }
+    .course-content ul.ctopics li.section.main {
+        float: left;
+    }
+}
+
