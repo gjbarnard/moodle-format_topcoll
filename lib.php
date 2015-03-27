@@ -146,7 +146,7 @@ class format_topcoll extends format_base {
                 case 2:
                 case 3:
                 case 4:
-                    $o .= ' - ' . get_string('topcolltoggle', 'format_topcoll'); // The word 'Toggle'.
+                    $o .= '<span class="cttoggle"> - ' . get_string('topcolltoggle', 'format_topcoll') . '</span>'; // The word 'Toggle'.
                     break;
             }
         }
