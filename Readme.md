@@ -254,6 +254,7 @@ Version 2.7.3.2
   6. Fix CONTRIB-5817.
   7. Removed out of date development test code.
   8. Fixed logic flaw with section parameters on course URL's when using single page display.
+  9. Added print media styles.
 
 27th January 2015 Version 2.7.3.1
   1. Refix issue #4 - No block drag and drop icon when blockeditingmenu is false - activity editing menu no longer shows.

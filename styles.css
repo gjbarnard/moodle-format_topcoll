@@ -793,3 +793,29 @@ body.jsenabled #toggle-all {
 .dir-rtl #toggle-all .content .sectionbody h4, .dir-rtl #toggle-all .content .sectionbody h4 a {
     text-align: right;
 }
+
+.cttoggle {
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+}
+
+/* print styles. */
+@media print {
+    body.jsenabled .toggledsection {
+        display: block; /* If JavaScript is enabled and we are printing then this css will apply and the section will be shown. */
+    }
+    body.jsenabled #toggle-all, body.jsenabled #topcoll-display-instructions, .cttoggle {
+        display: none;
+    }
+    .course-content ul.ctopics li.section.main {
+        float: left;
+    }
+    body.format-topcoll .course-content ul.ctopics li.section.main {
+        padding-bottom: 0px;
+    }
+    ul.ctopics {
+        page-break-before: avoid;
+        page-break-after: avoid;
+    }
+}
