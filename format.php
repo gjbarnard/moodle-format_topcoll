@@ -82,7 +82,7 @@ if ($devicetype == "mobile") {
 }
 $renderer->set_portable($portable);
 
-if (!empty($displaysection)) {
+if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTIPAGE)) {
     $renderer->print_single_section_page($course, null, null, null, null, $displaysection);
 } else {
     $defaulttogglepersistence = clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT);

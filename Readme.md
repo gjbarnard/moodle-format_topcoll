@@ -244,6 +244,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+Version 2.8.2.3
+  1.  Fixed logic flaw with section parameters on course URL's when using single page display.
+
 Version 2.8.2.2
   1.  Added print media styles.
   2.  Version information to no longer have the date as will work better.
