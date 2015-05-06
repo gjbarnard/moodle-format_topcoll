@@ -6,7 +6,7 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 ==========================
-This version works with Moodle version 2014111000.00 release 2.8 (Build: 20141110) and above within the 2.8 branch until the
+This version works with Moodle version 2015050500.00 2.9rc1 (Build: 20150505) and above within the 2.9 branch until the
 next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
@@ -15,15 +15,15 @@ Please ensure that your hardware and software complies with 'Requirements' in 'I
 Downloads and documentation
 ===========================
 The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
-with 'Select Moodle version:' set at 'Moodle 2.8'.
+with 'Select Moodle version:' set at 'Moodle 2.9'.
 
-The secondary source is a tagged version with the v2.8 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
+The secondary source is a tagged version with the v2.9 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
 
-If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/tree/MOODLE_27 - consider that
+If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/tree/MOODLE_29 - consider that
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
-Documented on http://docs.moodle.org/28/en/Collapsed_Topics_course_format
+Documented on http://docs.moodle.org/29/en/Collapsed_Topics_course_format
 
 Bespoke changes
 ===============
@@ -244,6 +244,12 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+Version 2.9.0.1.
+  1.  First 'alpha' version for Moodle 2.9.
+  2.  Note: Need to seriously think about using AMD and transitioning to using jQuery instead of YUI as AJAX is possible in jQuery,
+            but almost certainly not in the first instance as YUI is still supported in core.  Modularisation is do-able in AMD
+            with parameters required: https://docs.moodle.org/dev/Javascript_Modules.
+
 Version 2.8.2.3
   1.  Fixed logic flaw with section parameters on course URL's when using single page display.
 
