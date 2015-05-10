@@ -245,7 +245,7 @@ can be really useful in visualising the issue along with any files you consider 
 Version Information
 ===================
 Version 2.9.0.1.
-  1.  First 'alpha' version for Moodle 2.9.
+  1.  First 'release candidate' version for Moodle 2.9.
   2.  Note: Need to seriously think about using AMD and transitioning to using jQuery instead of YUI as AJAX is possible in jQuery,
             but almost certainly not in the first instance as YUI is still supported in core.  Modularisation is do-able in AMD
             with parameters required: https://docs.moodle.org/dev/Javascript_Modules.
