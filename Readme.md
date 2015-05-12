@@ -6,11 +6,11 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 ==========================
-This version works with Moodle version 2015050500.00 2.9rc1 (Build: 20150505) and above within the 2.9 branch until the
+This version works with Moodle version 2015051100.00 2.9 (Build: 20150511) and above within the 2.9 branch until the
 next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
-'docs.moodle.org/28/en/Installing_Moodle'.
+'docs.moodle.org/29/en/Installing_Moodle'.
 
 Downloads and documentation
 ===========================
@@ -19,7 +19,7 @@ with 'Select Moodle version:' set at 'Moodle 2.9'.
 
 The secondary source is a tagged version with the v2.9 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
 
-If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/tree/MOODLE_29 - consider that
+If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/ - consider that
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
@@ -54,9 +54,9 @@ Flattr - https://flattr.com/profile/gjb2048
 
 I develop and maintain for free and any donations to assist me in this endeavour are appreciated.
 
-New features for this Moodle 2.8 version
+New features for this Moodle 2.9 version
 ========================================
- 1. Same features as version 2.7.1.5 in Moodle 2.7.
+ 1. Same features as version 2.8.2.3 in Moodle 2.8.
 
 Installation
 ============
