@@ -252,6 +252,7 @@ Version 2.7.3.2
   5. Improve side widths in different languages by checking that the value retrieved is for the current language and
      not the default English one by mistake so that the default value in the styles.css file is used in preference.
   6. Fix CONTRIB-5817.
+  7.  Removed out of date development test code.
 
 27th January 2015 Version 2.7.3.1
   1.  Refix issue #4 - No block drag and drop icon when blockeditingmenu is false - activity editing menu no longer shows.
