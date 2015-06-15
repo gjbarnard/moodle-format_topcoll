@@ -247,6 +247,7 @@ Version Information
 Version 2.9.0.2.
   1.  Added the capability to delete a section.
   2.  Tidy up column padding after testing with Shoehorn.
+  3.  Removed out of date development test code.
 
 Version 2.9.0.1.
   1.  First 'release candidate' version for Moodle 2.9.
