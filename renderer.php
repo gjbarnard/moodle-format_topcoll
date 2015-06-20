@@ -40,7 +40,7 @@ require_once($CFG->dirroot . '/course/format/topcoll/togglelib.php');
 class format_topcoll_renderer extends format_section_renderer_base {
 
     private $tccolumnwidth = 100; // Default width in percent of the column(s).
-    private $tccolumnpadding = 20; // Default padding in pixels of the column(s).
+    private $tccolumnpadding = 0; // Default padding in pixels of the column(s).
     private $mobiletheme = false; // As not using a mobile theme we can react to the number of columns setting.
     private $tablettheme = false; // As not using a tablet theme we can react to the number of columns setting.
     private $courseformat = null; // Our course format object as defined in lib.php;
@@ -96,7 +96,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if ($this->mobiletheme === false) {
             $classes .= ' ctlayout';
         }
-        $style .= ' padding: ' . $this->tccolumnpadding . 'px;';
+        $style .= ' padding-left: ' . $this->tccolumnpadding . 'px; padding-right: ' . $this->tccolumnpadding . 'px;';
         $attributes = array('class' => $classes);
         $attributes['style'] = $style;
         return html_writer::start_tag('ul', $attributes);
@@ -622,10 +622,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $this->tccolumnwidth = 100 / $this->tcsettings['layoutcolumns'];
                 if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
                     $this->tccolumnwidth -= 0.5;
+                    $this->tccolumnpadding = 0; // In 'px'.
                 } else {
                     $this->tccolumnwidth -= 0.2;
-                }
-                $this->tccolumnpadding = 20; // In 'px'.
+                    $this->tccolumnpadding = 0; // In 'px'.
+            }
             } else if ($this->tcsettings['layoutcolumns'] < 1) {
                 // Distributed default in plugin settings (and reset in database) or database has been changed incorrectly.
                 $this->tcsettings['layoutcolumns'] = 1;
