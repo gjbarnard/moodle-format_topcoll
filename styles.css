@@ -102,11 +102,6 @@
     padding-right: 32px;
 }
 
-body.ie7 .course-content ul.ctopics li.section .content .toggle a {
-    padding-top: 7px;
-    padding-bottom: 7px;
-}
-
 /* CONTRIB-4106 */
 .course-content ul.ctopics li.section .content .toggle a  h3,
 .course-content ul.ctopics li.section .content.sectionhidden h3 {
@@ -725,10 +720,6 @@ body.jsenabled .toggledsection.sectionopen {
 /* -- Size of the spacer row -- */
 .section .spacer {
     height:0.5em;
-}
-
-body.ie7 .course-content ul.ctopics li.section .right .spacer {
-    height:0.0em;
 }
 
 /* Toggle all */
