@@ -244,6 +244,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+Version 2.9.1.
+  1. First stable version for Moodle 2.9.
+  
 Version 2.9.0.2.
   1.  Added the capability to delete a section.
   2.  Tidy up column padding after testing with Shoehorn.  TODO: Decide if column padding is needed now.
