@@ -244,6 +244,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+Version 2.9.1.2.
+  1. Fixed coding fault when restoring a course from backup file.
+
 Version 2.9.1.1.
   1. Fixed broken default for defaulttoggleiconsize - thanks to Davo Smith - issue #16.
 

@@ -854,6 +854,7 @@ class format_topcoll extends format_base {
      */
     public function update_course_format_options($data, $oldcourse = null) {
         global $DB; // MDL-37976.
+
         /*
          * Notes: Using 'unset' to really ensure that the reset form elements never get into the database.
          *        This has to be done here so that the reset occurs after we have done updates such that the
@@ -910,8 +911,8 @@ class format_topcoll extends format_base {
             unset($data->resetalltoggleiconset);
         }
 
+        $data = (array) $data;
         if ($oldcourse !== null) {
-            $data = (array) $data;
             $oldcourse = (array) $oldcourse;
             $options = $this->course_format_options();
             foreach ($options as $key => $unused) {
