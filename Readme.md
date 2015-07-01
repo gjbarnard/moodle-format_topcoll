@@ -246,6 +246,7 @@ Version Information
 ===================
 Version 2.8.2.3
   1.  Fixed logic flaw with section parameters on course URL's when using single page display.
+  2.  Fixed broken default for defaulttoggleiconsize - thanks to Davo Smith.
 
 Version 2.8.2.2
   1.  Added print media styles.
