@@ -291,7 +291,7 @@ if ($ADMIN->fulltree) {
     $name = 'format_topcoll/defaulttoggleiconsize';
     $title = get_string('defaulttoggleiconsize', 'format_topcoll');
     $description = get_string('defaulttoggleiconsize_desc', 'format_topcoll');
-    $default = 'medium';
+    $default = 'tc-medium';
     $choices = array(
         'tc-small' => new lang_string('small', 'format_topcoll'),
         'tc-medium' => new lang_string('medium', 'format_topcoll'),
