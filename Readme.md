@@ -244,6 +244,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+Version 2.9.1.1.
+  1. Fixed broken default for defaulttoggleiconsize - thanks to Davo Smith - issue #16.
+
 Version 2.9.1.
   1. First stable version for Moodle 2.9.
   
