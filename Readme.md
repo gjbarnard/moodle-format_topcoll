@@ -244,6 +244,10 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+Version 2.8.2.4
+  1.  Removed MyMobile theme support as theme has passed away.
+  2.  Fix CONTRIB-5817.
+
 Version 2.8.2.3
   1.  Fixed logic flaw with section parameters on course URL's when using single page display.
   2.  Fixed broken default for defaulttoggleiconsize - thanks to Davo Smith.
