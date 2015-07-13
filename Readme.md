@@ -46,14 +46,13 @@ Moodle community benefits.
 
 Supporting Collapsed Topics development
 =======================================
-If you find Collapsed Topics useful and beneficial, please consider sponsoring by:
+If you find Collapsed Topics useful and beneficial, please consider donating by:
 
-PayPal - Please contact me via my 'Moodle profile' (above) for details as I am an individual and therefore am unable
-to have 'buy me now' buttons under their terms.
+PayPal - Please contact me via my 'Moodle profile' (above) for details as I am an individual and therefore am unable to have 'donation' / 'buy me now' buttons under their terms.
 
 Flattr - https://flattr.com/profile/gjb2048
 
-I develop and maintain for free and any sponsorships to assist me in this endeavour are appreciated.
+I develop and maintain for free and any donations to assist me in this endeavour are appreciated.
 
 New features for this Moodle 2.9 version
 ========================================
@@ -246,12 +245,14 @@ can be really useful in visualising the issue along with any files you consider 
 Version Information
 ===================
 Version 2.9.1.3
-  1. Update readme.
+  1. Removed MyMobile theme support as theme has passed away.
+  2. Fix CONTRIB-5817.
+  3. Update readme.
 
-Version 2.9.1.2
+Version 2.9.1.2.
   1. Fixed coding fault when restoring a course from backup file.
 
-Version 2.9.1.1
+Version 2.9.1.1.
   1. Fixed broken default for defaulttoggleiconsize - thanks to Davo Smith - issue #16.
 
 Version 2.9.1.

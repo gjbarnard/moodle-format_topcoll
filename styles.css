@@ -560,11 +560,6 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
     background-position: 220px 45%; /* Pirate strings are longer. */
 }
 
-/* MyMobile */
-#mymobile .course-content ul.ctopics li.tcsection .content, #mymobile .course-content ul.ctopics li.section.main .content {
-    margin: 0;
-}
-
 /* Display instructions */
 .topcoll-display-instructions {
     margin: 0px;
@@ -604,6 +599,11 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
 .course-content ul.ctopics li.section .right a {
     display: block;  /* So that section_right_content() does not implode with 'br's and get too many when the up arrow is removed by JS. */
 }
+
+.course-content ul.ctopics li.section .right a img.hide{
+    display: inline;  /* CONTRIB-5817 - Align the eye icon. */
+}
+
 .course-content ul.ctopics li.section .left .section-handle img.icon {
     padding: 0;
     vertical-align: baseline;
@@ -698,10 +698,6 @@ body.format-topcoll.editing.jsenabled #region-main .moodle-actionmenu[data-enhan
 .course-content ul.ctopics li.section .content .toggle a, .course-content ul.ctopics li.section .content.sectionhidden {
     text-decoration: none;
     font-weight: bold;
-}
-
-#mymobile .course-content ul.ctopics li.section .content .toggle a {
-    font-weight: normal; /* So not blurred on mobile devices. */
 }
 
 .course-content ul.ctopics li.section .content .toggledsection {
