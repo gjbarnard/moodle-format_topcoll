@@ -646,24 +646,24 @@ body.format-topcoll .course-content ul.ctopics li.section .summary.summaryalways
     padding-top: 10px;
 }
 
-body.format-topcoll.editing .section .activity .contentwithoutlink, body.format-topcoll.editing .section .activity .activityinstance {
+body.format-topcoll.editing ul.ctopics .section .activity .contentwithoutlink, body.format-topcoll.editing ul.ctopics .section .activity .activityinstance {
     padding-right: 0px;
     display: inline;
 }
 
-body.format-topcoll.editing.dir-rtl .section .activity .contentwithoutlink, body.format-topcoll.editing.dir-rtl .section .activity .activityinstance {
+body.format-topcoll.editing.dir-rtl ul.ctopics .section .activity .contentwithoutlink, body.format-topcoll.editing.dir-rtl ul.ctopics .section .activity .activityinstance {
     padding-left: 0px;
 }
 
-body.format-topcoll.editing .section .activity .actions {
+body.format-topcoll.editing ul.ctopics .section .activity .actions {
     position: relative;
 }
 
-body.format-topcoll.editing #region-main .moodle-actionmenu ul.menubar {
+body.format-topcoll.editing #region-main ul.ctopics .moodle-actionmenu ul.menubar {
     display: none;
 }
 
-body.format-topcoll.editing.jsenabled #region-main .moodle-actionmenu[data-enhance] ul.menubar {
+body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu[data-enhance] ul.menubar {
     display: inline-block;
 }
 
