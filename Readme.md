@@ -44,15 +44,17 @@ If you make improvements or bug fixes then I would appreciate if you would send 
 https://github.com/gjb2048/moodle-format_topcoll and doing a 'Pull Request' so that the rest of the
 Moodle community benefits.
 
-Supporting Collapsed Topics development
-=======================================
-If you find Collapsed Topics useful and beneficial, please consider donating by:
+Sponsorships
+============
+Collapsed Topics is provided to you for free, and if you want to express your gratitude for using this format, please consider
+sponsoring by:
 
-PayPal - Please contact me via my 'Moodle profile' (above) for details as I am an individual and therefore am unable to have 'donation' / 'buy me now' buttons under their terms.
+PayPal - Please contact me via my 'Moodle profile' (above) for details as I am an individual and therefore am unable to have
+'buy me now' buttons under their terms.
 
 Flattr - https://flattr.com/profile/gjb2048
 
-I develop and maintain for free and any donations to assist me in this endeavour are appreciated.
+Sponsorships may allow me to provide you with more or better features in less time.
 
 New features for this Moodle 2.9 version
 ========================================
