@@ -248,6 +248,7 @@ Version 2.9.1.3
   1. Removed MyMobile theme support as theme has passed away.
   2. Fix CONTRIB-5817.
   3. Update readme.
+  4. Fix 'Edit quiz page displays oddly' - https://moodle.org/mod/forum/discuss.php?d=317476.
 
 Version 2.9.1.2.
   1. Fixed coding fault when restoring a course from backup file.
