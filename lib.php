@@ -513,7 +513,7 @@ class format_topcoll extends format_base {
                     'element_attributes' => array(
                         array(1 => new lang_string('setlayoutstructuretopic', 'format_topcoll'),             // Topic.
                               2 => new lang_string('setlayoutstructureweek', 'format_topcoll'),              // Week.
-                              3 => new lang_string('setlayoutstructurelatweekfirst', 'format_topcoll'),      // Latest Week First.
+                              3 => new lang_string('setlayoutstructurelatweekfirst', 'format_topcoll'),      // Current Week First.
                               4 => new lang_string('setlayoutstructurecurrenttopicfirst', 'format_topcoll'), // Current Topic First.
                               5 => new lang_string('setlayoutstructureday', 'format_topcoll'))               // Day.
                     )

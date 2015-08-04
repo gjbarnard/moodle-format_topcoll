@@ -246,6 +246,11 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+Version 2.8.2.5
+  1. Fixed display of sections when 'Hidden sections' is set to 'Hidden sections are shown in collapsed form' and the
+     'Structure' is one of 'Current topic first' or 'Current week first'.
+  2. Language files tidy up.
+
 Version 2.8.2.4
   1. Removed MyMobile theme support as theme has passed away.
   2. Fix CONTRIB-5817.
