@@ -566,7 +566,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 }
             }
             $currentsectionfirst = false;
-            if ($this->tcsettings['layoutstructure'] == 4) {
+            if (($this->tcsettings['layoutstructure'] == 4) && (!$this->userisediting)) {
                 $currentsectionfirst = true;
             }
 
@@ -704,19 +704,31 @@ class format_topcoll_renderer extends format_section_renderer_base {
                             && ($nextweekdate <= $timenow);
                 }
                 if (($currentsectionfirst == true) && ($showsection == true)) {
-                    // Show  the section if we were meant to and it is the current section:....
+                    // Show the section if we were meant to and it is the current section:....
                     $showsection = ($course->marker == $section);
-                } else if (($this->tcsettings['layoutstructure'] == 4) && ($course->marker == $section)) {
+                } else if (($this->tcsettings['layoutstructure'] == 4) && ($course->marker == $section) && (!$this->userisediting)) {
                     $showsection = false; // Do not reshow current section.
                 }
                 if (!$showsection) {
                     // Hidden section message is overridden by 'unavailable' control.
+                    $testhidden = false;
                     if ($this->tcsettings['layoutstructure'] != 4) {
                         if (($this->tcsettings['layoutstructure'] != 3) || ($this->userisediting)) {
-                            if (!$course->hiddensections && $thissection->available) {
-                                $shownsectioncount++;
-                                echo $this->section_hidden($thissection);
-                            }
+                            $testhidden = true;
+                        } else if ($nextweekdate <= $timenow) {
+                            $testhidden = true;
+                        }
+                    } else {
+                        if (($currentsectionfirst == true) && ($course->marker == $section)) {
+                            $testhidden = true;
+                        } else if (($currentsectionfirst == false) && ($course->marker != $section)) {
+                            $testhidden = true;
+                        }
+                    }
+                    if ($testhidden) {
+                        if (!$course->hiddensections && $thissection->available) {
+                            $shownsectioncount++;
+                            echo $this->section_hidden($thissection);
                         }
                     }
                 } else {

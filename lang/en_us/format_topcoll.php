@@ -38,7 +38,7 @@
 $string['topcollsidewidth']='28px';
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529.
-$string['setcolour'] = 'Set color';
+$string['setcolour'] = 'Color';
 $string['colourrule'] = "Please enter a valid RGB color, a '#' and then six hexadecimal digits.";
 $string['resetcolour'] = 'Color';
 $string['resetallcolour'] = 'Colors';

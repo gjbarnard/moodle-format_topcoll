@@ -243,6 +243,11 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+Version 2.7.3.2
+  1. Fixed display of sections when 'Hidden sections' is set to 'Hidden sections are shown in collapsed form' and the
+     'Structure' is one of 'Current topic first' or 'Current week first'.
+  2. Language files tidy up.
+
 27th January 2015 Version 2.7.3.1
   1.  Refix issue #4 - No block drag and drop icon when blockeditingmenu is false - activity editing menu no longer shows.
   
