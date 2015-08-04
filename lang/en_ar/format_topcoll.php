@@ -47,9 +47,9 @@ $string['topcollclosed']='Tie';
 
 // Layout enhancement - Moodle Tracker CONTRIB-3378.
 $string['formatsettings'] = 'Ye format settings'; // CONTRIB-3529.
-$string['setlayout'] = 'Set thee layout';
+$string['setlayout'] = 'Thee layout';
 $string['setlayout_default'] = 'Default';
-$string['setlayoutelements'] = 'Set thee elements';
+$string['setlayoutelements'] = 'Thee elements';
 // Negative view of layout, kept for previous versions until such time as they are updated.
 $string['setlayout_no_toggle_section_x'] = "Nay 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 2.
 $string['setlayout_no_toggle_section_x_section_no'] = "Nay 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 4.
@@ -61,7 +61,7 @@ $string['setlayout_toggle_word_section_x'] = "Toggle word and 'Treasure Chest x'
 $string['setlayout_toggle_section_x'] = "'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number"; // 5.
 $string['setlayout_toggle_section_x'] = "'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 8.
 
-$string['setlayoutstructure'] = 'Set thee structure';
+$string['setlayoutstructure'] = 'Thee structure';
 $string['setlayoutstructuretopic']='Treasure Chest';
 $string['setlayoutstructureweek']='Sailing Week';
 $string['setlayoutstructureday'] = 'Sailing Day';
@@ -71,7 +71,7 @@ $string['resetlayout'] = 'Thee layout'; // CONTRIB-3529.
 $string['resetalllayout'] = 'Thee layouts';
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529.
-$string['setcolour'] = 'Set thee colour';
+$string['setcolour'] = 'Thee colour';
 $string['colourrule'] = "Enter a valid RGB colour, a '#' and then six hexadecimal digits or walk thy plank.";
 $string['settoggleforegroundcolour'] = 'Thy toggle foreground';
 $string['settogglebackgroundhovercolour'] = 'Thy toggle foreground hover';
@@ -81,12 +81,12 @@ $string['resetcolour'] = 'Thee colour';
 $string['resetallcolour'] = 'Thee colours';
 
 // Columns enhancement.
-$string['setlayoutcolumns'] = 'Set thee columns';
+$string['setlayoutcolumns'] = 'Thee columns';
 $string['one'] = 'One';
 $string['two'] = 'Two';
 $string['three'] = 'Three';
 $string['four'] = 'Four';
-$string['setlayoutcolumnorientation'] = 'Set the column orientation';
+$string['setlayoutcolumnorientation'] = 'Thee column orientation';
 $string['columnvertical'] = 'Vertical as a mast';
 $string['columnhorizontal'] = 'Horizontal as a cannon';
 
@@ -97,13 +97,13 @@ $string['maincoursepage'] = 'Ye main course page';
 $string['setlayoutelements_help']='How much information about thee toggles / sections you wish to be displayed.';
 $string['setlayoutstructure_help']="Avast ye landlubbers, this be thee layout structure of thee course.  Ye choose between:
 
-'Treasure Chest' - where each section is presented as thy treasure chest in section number order.
+'Treasure chest' - where each section is presented as thy treasure chest in section number order.
 
-'Sailing Week' - where each section is presented as thy week in ascending week order.
+'Sailing week' - where each section is presented as thy week in ascending week order.
 
-'Current Sailing Week First' - which is the same as weeks but thee current week is shown at thee top and preceding weeks in descending order are displayed below except in editing mode where thee structure is thy same as 'Weeks'.
+'Current sailing week first' - which is the same as weeks but thee current week is shown at thee top and preceding weeks in descending order are displayed below except in editing mode where thee structure is thy same as 'Weeks'.
 
-'Current Treasure Chest First' - which is thee same as 'Treasure Chest' except that thee current treasure chest is shown at thee top if it has been set.
+'Current treasure chest first' - which is thee same as 'Treasure chest' except that thee current treasure chest is shown at thee top if it has been set.
 
 'Sailing Day' - where each section is presented as a day in thy ascending day order from thee start date of thee course.";
 $string['setlayout_help'] = 'Contains thee settings to do with thee layout of the format within thy course.';
@@ -121,7 +121,7 @@ $string['resetallcolour_help'] = 'Resets thee colours to the default values for 
 $string['setlayoutcolumns_help'] = 'How many columns to use.';
 
 // Toggle alignment - CONTRIB-4098.
-$string['settogglealignment'] = 'Set thee toggle text alignment';
+$string['settogglealignment'] = 'Thee toggle text alignment';
 $string['settogglealignment_help'] = 'Sets thee alignment of thee text in thy toggle.';
 $string['left'] = 'Port';
 $string['center'] = 'Midships';
@@ -132,13 +132,13 @@ $string['resettogglealignment_help'] = 'Resets thee toggle alignment to thy defa
 $string['resetalltogglealignment_help'] = 'Resets thee toggle alignment to thy default values for all courses so it will be thy same as a course thee first time it is in thee Collapsed Topics format.';
 
 // Icon position - CONTRIB-4470.
-$string['settoggleiconposition'] = 'Set icon position';
+$string['settoggleiconposition'] = 'Icon position';
 $string['settoggleiconposition_help'] = 'States that thee icon should be on thy left or thee right of thy toggle text.';
 $string['defaulttoggleiconposition'] = 'Icon position';
 $string['defaulttoggleiconposition_desc'] = 'States if thee icon should be on thy left or thee right of thy toggle text.';
 
 // Icon set enhancement.
-$string['settoggleiconset'] = 'Set thee icon set';
+$string['settoggleiconset'] = 'Thee icon set';
 $string['settoggleiconset_help'] = 'Sets thee icon set of thy toggle.';
 $string['settoggleallhover'] = 'Set thee toggle all icon hover';
 $string['settoggleallhover_help'] = 'Sets if thee toggle all icons will change when thy mouse moves over them.';
@@ -170,31 +170,31 @@ $string['defaultlayoutelement_desc'] = "Thee layout setting can be one of:
 
 'Default' with everything displayed.
 
-Nay 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'.
+Nay 'Treasure chest x' / 'Sailing week x' / 'Sailing day x'.
 
 Nay section number.
 
-Nay 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and nay section number.
+Nay 'Treasure chest x' / 'Sailing week x' / 'Sailing day x' and nay section number.
 
 Nay 'Toggle' word.
 
-Nay 'Toggle' word and nay 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'.
+Nay 'Toggle' word and nay 'Treasure chest x' / 'Sailing week x' / 'Sailing day x'.
 
-Nay 'Toggle' word, nay 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and nay section number.";
+Nay 'Toggle' word, nay 'Treasure chest x' / 'Sailing week x' / 'Sailing day x' and nay section number.";
 // Positive view of layout.
 $string['defaultlayoutelement_descpositive'] = "The layout setting can be one of:
 
-Toggle word, 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number.
+Toggle word, 'Treasure chest x' / 'Sailing week x' / 'Sailing day x' and section number.
 
-Toggle word and 'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'.
+Toggle word and 'Treasure chest x' / 'Sailing week x' / 'Sailing day x'.
 
 Toggle word and section number.
 
-'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x' and section number.
+'Treasure chest x' / 'Sailing week x' / 'Sailing day x' and section number.
 
 Toggle word.
 
-'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'.
+'Treasure chest x' / 'Sailing week x' / 'Sailing day x'.
 
 Section number.
 
