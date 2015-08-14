@@ -38,7 +38,7 @@ $string['formattopcoll'] = 'Collapsed Topics';
 
 // Used in format.php.
 $string['topcolltoggle'] = 'Toggle';
-$string['topcollsidewidth'] = '28px';
+$string['topcollsidewidthlang'] = 'en-28px';
 
 // Toggle all - Moodle Tracker CONTRIB-3190.
 $string['topcollall'] = 'sections.';  // Leave as AMOS maintains only the latest translation - so previous versions are still supported.

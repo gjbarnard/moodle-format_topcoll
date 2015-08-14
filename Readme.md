@@ -251,6 +251,9 @@ Version 2.9.1.4
      'Structure' is one of 'Current topic first' or 'Current week first'.
   2. Language files tidy up.
   3. Fix left and right section information not being displayed in Bootstrap V3 themes.
+  4. Improve RTL support by swapping left and right sides.
+  5. Improve side widths in different languages by checking that the value retrieved is for the current language and
+     not the default English one by mistake so that the default value in the styles.css file is used in preference.
 
 Version 2.9.1.3
   1. Removed MyMobile theme support as theme has passed away.

@@ -35,7 +35,7 @@
 // English Pirate Translation of Collapsed Topics Course Format.
 
 // Used in format.php.
-$string['topcollsidewidth']='40px';
+$string['topcollsidewidthlang'] = 'en_ar-40px';
 
 // These are 'topic' as they are only shown in 'topic' based structures.
 $string['markedthissection'] = 'Thy topic is illuminated as thee current topic';
