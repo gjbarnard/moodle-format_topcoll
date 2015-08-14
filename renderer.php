@@ -51,6 +51,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
     private $isoldtogglepreference = false;
     private $userisediting = false;
     private $tctoggleiconsize;
+    private $rtl = false;
 
     /**
      * Constructor method, calls the parent constructor - MDL-21097
@@ -71,6 +72,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
         global $PAGE;
         $this->userisediting = $PAGE->user_is_editing();
         $this->tctoggleiconsize = clean_param(get_config('format_topcoll', 'defaulttoggleiconsize'), PARAM_TEXT);
+
+        $this->rtl = right_to_left();
     }
 
     /**
@@ -87,6 +90,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
      */
     protected function start_toggle_section_list() {
         $classes = 'ctopics topics';
+        if (($this->mobiletheme === true) || ($this->tablettheme === true)) {
+            $classes .= ' ctportable';
+        }
         $style = '';
         if ($this->tcsettings['layoutcolumnorientation'] == 1) {
             $style .= 'width:' . $this->tccolumnwidth . '%;';  // Vertical columns.
@@ -345,8 +351,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
             $leftcontent = $this->section_left_content($section, $course, $onsectionpage);
-            $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
-
             $rightcontent = '';
             if (($section->section != 0) && $this->userisediting && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
@@ -357,6 +361,15 @@ class format_topcoll_renderer extends format_section_renderer_base {
                                     array('title' => get_string('editsummary'), 'class' => 'tceditsection'));
             }
             $rightcontent .= $this->section_right_content($section, $course, $onsectionpage);
+
+            if ($this->rtl) {
+                // Swap content.
+                $tempcontent = $leftcontent;
+                $leftcontent = $rightcontent;
+                $rightcontent = $tempcontent;
+            }
+
+            $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
             $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
         }
         $o .= html_writer::start_tag('div', array('class' => 'content'));
@@ -481,9 +494,16 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::start_tag('li', $liattributes);
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
             $leftcontent = $this->section_left_content($section, $course, false);
-            $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
-
             $rightcontent = $this->section_right_content($section, $course, false);
+
+            if ($this->rtl) {
+                // Swap content.
+                $tempcontent = $leftcontent;
+                $leftcontent = $rightcontent;
+                $rightcontent = $tempcontent;
+            }
+
+            $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
             $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
         }
 

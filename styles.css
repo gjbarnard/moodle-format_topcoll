@@ -58,8 +58,13 @@
 }
 
 .course-content ul.ctopics li.section.main .content, .course-content ul.ctopics li.tcsection .content {
-    margin: 0 0px; /* Override default for tablets / mobiles.  When have sides, set in format.php. */
+    /* Default for non tablets / mobiles.  If the language file has 'topcollsidewidth' for the current language, then will be set in format.php. */
+    margin: 0 40px;
     padding: 0px;
+}
+
+.course-content ul.ctopics.ctportable li.section.main .content, .course-content ul.ctopics.ctportable li.tcsection .content {
+    margin: 0 0px; /* Override default for tablets / mobiles.  When have sides, set in format.php. */
 }
 
 .course-content ul.ctopics li .content .sectionhead h3 {
@@ -579,7 +584,7 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
 }
 
 .course-content ul.ctopics li.section.main .side, .course-content ul.ctopics li.tcsection .side {
-    width: 40px; /* Default used in editing mode. */
+    width: 40px; /* Default used in editing mode or when not defined in the language file. */
     text-align: center;
     padding: 0px;
 }
@@ -697,9 +702,13 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
 }
 
 /* -- For centring the 'Topic / Week / Day x' text -- */
-.course-content ul.ctopics li.section .right span.cps_centre {
+.course-content ul.ctopics li.section .right span.cps_centre, .dir-rtl .course-content ul.ctopics li.section .left span.cps_centre {
     text-align: center;
     font-size: 0.7em;
+}
+
+.dir-rtl .course-content ul.ctopics li.section .right span.cps_centre {
+    font-size: 14px;
 }
 
 /* -- Toggle text -- */

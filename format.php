@@ -175,10 +175,14 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
     }
 
 <?php
+    $topcollsidewidth = get_string('topcollsidewidthlang', 'format_topcoll');
+    $topcollsidewidthdelim = strpos($topcollsidewidth, '-');
+    $topcollsidewidthlang = strcmp(substr($topcollsidewidth, 0, $topcollsidewidthdelim), current_language());
+    $topcollsidewidthval = substr($topcollsidewidth, $topcollsidewidthdelim + 1);
     // Dynamically changing widths with language.
-    if ((!$PAGE->user_is_editing()) && ($portable == 0)) { ?>
+    if ((!$PAGE->user_is_editing()) && ($portable == 0) && ($topcollsidewidthlang == 0)) { ?>
     .course-content ul.ctopics li.section.main .content, .course-content ul.ctopics li.tcsection .content {
-        margin: 0 <?php echo get_string('topcollsidewidth', 'format_topcoll'); ?>;
+        margin: 0 <?php echo $topcollsidewidthval; ?>;
     }
 <?php
     } else if ($PAGE->user_is_editing()) { ?>
@@ -189,9 +193,9 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
     }
 
     // Make room for editing icons.
-    if (!$PAGE->user_is_editing()) { ?>
+    if ((!$PAGE->user_is_editing()) && ($topcollsidewidthlang == 0)) { ?>
     .course-content ul.ctopics li.section.main .side, .course-content ul.ctopics li.tcsection .side {
-        width: <?php echo get_string('topcollsidewidth', 'format_topcoll'); ?>;
+        width: <?php echo $topcollsidewidthval; ?>;
     }
 <?php
     }
