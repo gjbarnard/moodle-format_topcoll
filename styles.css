@@ -38,6 +38,11 @@
     vertical-align: top;
 }
 
+.course-content ul.ctopics li.section.main .left, .course-content ul.ctopics li.section.main .right {
+    /* Fix for Bootstrap V3 based themes in less/moodle/course.less . */
+    display: block;
+}
+
 .course-content ul.ctopics li.section.main, .course-content ul.ctopics li.tcsection {
     list-style: none;
     margin: 4px 1px 1px 1px;
