@@ -199,6 +199,7 @@ if ($ADMIN->fulltree) {
     // Toggle icon set.
     // arrow        => Arrow icon set.
     // bulb         => Bulb icon set.
+    // camera       => Camera icon set.
     // cloud        => Cloud icon set.
     // eye          => Eye icon set.
     // groundsignal => Ground signal set.
@@ -217,6 +218,7 @@ if ($ADMIN->fulltree) {
     $choices = array(
         'arrow' => new lang_string('arrow', 'format_topcoll'),               // Arrow icon set.
         'bulb' => new lang_string('bulb', 'format_topcoll'),                 // Bulb icon set.
+        'camera' => new lang_string('camera', 'format_topcoll'),             // Camera icon set.
         'cloud' => new lang_string('cloud', 'format_topcoll'),               // Cloud icon set.
         'eye' => new lang_string('eye', 'format_topcoll'),                   // Eye icon set.
         'groundsignal' => new lang_string('groundsignal', 'format_topcoll'), // Ground signal set.

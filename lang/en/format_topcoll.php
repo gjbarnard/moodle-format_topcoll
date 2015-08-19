@@ -182,6 +182,7 @@ $string['settoggleallhover'] = 'Toggle all icon hover';
 $string['settoggleallhover_help'] = 'Sets if the toggle all icons will change when the mouse moves over them.';
 $string['arrow'] = 'Arrow';
 $string['bulb'] = 'Bulb';
+$string['camera'] = 'Camera';
 $string['cloud'] = 'Cloud';
 $string['eye'] = 'Eye';
 $string['groundsignal'] = 'Ground signal';
@@ -282,6 +283,8 @@ $string['defaulttoggleiconset'] = 'Toggle icon set';
 $string['defaulttoggleiconset_desc'] = "'Arrow'                => Arrow icon set.
 
 'Bulb'                 => Bulb icon set.
+
+'Camera'               => Camera icon set.
 
 'Cloud'                => Cloud icon set.
 

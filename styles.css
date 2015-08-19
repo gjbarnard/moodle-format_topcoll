@@ -191,6 +191,35 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-bulb a.tog
     background-image: url([[pix:format_topcoll|bulb_on_glow]]);
 }
 
+/* Camera icon set. */
+.course-content ul.ctopics li.section .content .toggle-camera a.toggle_closed, .course-content ul.ctopics li.section .content .toggle-camera a.toggle_open { /* JavaScript disabled */
+    background-image: url([[pix:format_topcoll|camera_open]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-camera a.toggle_closed { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|camera_closed]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-camera a.toggle_open { /* JavaScript enabled */
+    background-image: url([[pix:format_topcoll|camera_open]]);
+}
+
+#toggle-all .content .toggle-camera h4 a.off {
+    background-image: url([[pix:format_topcoll|camera_open]]);
+}
+
+#toggle-all .content .toggle-camera-hover h4 a.off:hover {
+    background-image: url([[pix:format_topcoll|camera_closed_glow]]);
+}
+
+#toggle-all .content .toggle-camera h4 a.on {
+    background-image: url([[pix:format_topcoll|camera_closed]]);
+}
+
+#toggle-all .content .toggle-camera-hover h4 a.on:hover {
+    background-image: url([[pix:format_topcoll|camera_open_glow]]);
+}
+
 /* Cloud icon set. */
 .course-content ul.ctopics li.section .content .toggle-cloud a.toggle_closed, .course-content ul.ctopics li.section .content .toggle-cloud a.toggle_open { /* JavaScript disabled */
     background-image: url([[pix:format_topcoll|cloud_on]]);
@@ -517,6 +546,10 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
 
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="bulb"], body.format-topcoll select#id_toggleiconset option[value="bulb"] {
     background-image: url([[pix:format_topcoll|bulb_off]]);
+}
+
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="camera"], body.format-topcoll select#id_toggleiconset option[value="camera"] {
+    background-image: url([[pix:format_topcoll|camera_closed]]);
 }
 
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="cloud"], body.format-topcoll select#id_toggleiconset option[value="cloud"] {
