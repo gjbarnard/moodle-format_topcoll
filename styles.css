@@ -527,6 +527,10 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
     background-image: url([[pix:format_topcoll|eye_hide]]);
 }
 
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="groundsignal"], body.format-topcoll select#id_toggleiconset option[value="groundsignal"] {
+    background-image: url([[pix:format_topcoll|ground_signal_off]]);
+}
+
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="led"], body.format-topcoll select#id_toggleiconset option[value="led"] {
     background-image: url([[pix:format_topcoll|led_off]]);
 }
@@ -562,7 +566,7 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option, body.format-topcoll select#id_toggleiconset option {
     background-color: transparent;
     background-repeat: no-repeat;
-    background-position: 45px 45%; /* Position the icon roughly to the right of the selection text. */
+    background-position: right center; /* Position the icon to the right of the selection text. */
     padding: 3px 20px 3px 3px; /* The 20px allows the image to be on the right and the text next to it. */
 }
 

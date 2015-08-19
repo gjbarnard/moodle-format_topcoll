@@ -254,6 +254,8 @@ Version 2.9.1.4
   4. Improve RTL support by swapping left and right sides.
   5. Improve side widths in different languages by checking that the value retrieved is for the current language and
      not the default English one by mistake so that the default value in the styles.css file is used in preference.
+  6. Fix position of icon set icon in course settings 'Icon set' drop down.
+  7. Fix missing ground signal icon in course settings 'Icon set' drop down.
 
 Version 2.9.1.3
   1. Removed MyMobile theme support as theme has passed away.
