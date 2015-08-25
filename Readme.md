@@ -257,7 +257,9 @@ Version 2.8.2.5
   6.  Removed out of date development test code.
   7. Fix position of icon set icon in course settings 'Icon set' drop down.
   8. Fix missing ground signal icon in course settings 'Icon set' drop down.
-  
+  9. Change 'Configuration' setting 'What to do with the toggles when the user first accesses the course, adds more sections or
+     toggle peristence is off' to 'Initial toggle state' for clarity.
+
 Version 2.8.2.4
   1. Removed MyMobile theme support as theme has passed away.
   2. Fix CONTRIB-5817.
