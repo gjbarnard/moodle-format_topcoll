@@ -256,6 +256,8 @@ Version 2.9.1.4
      not the default English one by mistake so that the default value in the styles.css file is used in preference.
   6. Fix position of icon set icon in course settings 'Icon set' drop down.
   7. Fix missing ground signal icon in course settings 'Icon set' drop down.
+  8. Change 'Configuration' setting 'What to do with the toggles when the user first accesses the course, adds more sections or
+     toggle peristence is off' to 'Initial toggle state' for clarity.
 
 Version 2.9.1.3
   1. Removed MyMobile theme support as theme has passed away.
