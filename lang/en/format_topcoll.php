@@ -313,8 +313,8 @@ Note: When turning persistence off, please remove any rows containing 'topcoll_t
       of the 'user_preferences' table in the database.  Where the 'x' in 'topcoll_toggle_x' will be
       a course id.  This is to save space if you do not intend to turn it back on.";
 
-$string['defaultuserpreference'] = 'What to do with the toggles when the user first accesses the course, adds more sections or toggle peristence is off';
-$string['defaultuserpreference_desc'] = 'States what to do with the toggles when the user first accesses the course, the state of additional sections when they are added or toggle persistence id off.';
+$string['defaultuserpreference'] = 'Initial toggle state';
+$string['defaultuserpreference_desc'] = 'States what to do with the toggles when the user first accesses the course, the state of additional sections when they are added or toggle persistence is off.';
 
 // Toggle icon size.
 $string['defaulttoggleiconsize'] = 'Toggle icon size';

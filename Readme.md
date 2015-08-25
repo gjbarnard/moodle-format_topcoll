@@ -257,6 +257,8 @@ Version 2.7.3.2
   9. Added print media styles.
  10. Fix position of icon set icon in course settings 'Icon set' drop down.
  11. Fix missing ground signal icon in course settings 'Icon set' drop down.
+ 12. Change 'Configuration' setting 'What to do with the toggles when the user first accesses the course, adds more sections or
+     toggle peristence is off' to 'Initial toggle state' for clarity.
 
 27th January 2015 Version 2.7.3.1
   1. Refix issue #4 - No block drag and drop icon when blockeditingmenu is false - activity editing menu no longer shows.
