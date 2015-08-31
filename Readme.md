@@ -254,7 +254,7 @@ Version 2.8.2.5
   4. Improve RTL support by swapping left and right sides.
   5. Improve side widths in different languages by checking that the value retrieved is for the current language and
      not the default English one by mistake so that the default value in the styles.css file is used in preference.
-  6.  Removed out of date development test code.
+  6. Removed out of date development test code.
   7. Fix position of icon set icon in course settings 'Icon set' drop down.
   8. Fix missing ground signal icon in course settings 'Icon set' drop down.
   9. Change 'Configuration' setting 'What to do with the toggles when the user first accesses the course, adds more sections or
