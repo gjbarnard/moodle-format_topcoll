@@ -478,7 +478,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @param int|stdClass $courseorid The course to get the section name for (object or just course id)
      * @return string HTML to output.
      */
-    protected function section_hidden($section, $courseorid = null) {
+    protected function section_hidden($section, $courseorid = NULL) {
         $o = '';
         $course = $this->courseformat->get_course();
         $liattributes = array(
