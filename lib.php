@@ -87,6 +87,18 @@ class format_topcoll extends format_base {
     }
 
     /**
+     * Returns the default section name for the format.
+     *
+     * @param stdClass $section Section object from database or just field course_sections section
+     * @return string The default value for the section name.
+     */
+    public function get_default_section_name($section) {
+        /* Follow the same logic so that this method is supported.  The MDL-51610 enchancement refactored things,
+           but that is not appropriate for us. */
+        return $this->get_section_name($section);
+    }
+    
+    /**
      * Gets the name for the provided course, section and state if need to add addional text.
      *
      * @param stdClass $course The course entry from DB

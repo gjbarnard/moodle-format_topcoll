@@ -64,7 +64,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $this->togglelib = new topcoll_togglelib;
         $this->courseformat = course_get_format($page->course); // Needed for collapsed topics settings retrieval.
 
-        /* Since format_topcoll_renderer::section_edit_controls() only displays the 'Set current section' control when editing
+        /* Since format_topcoll_renderer::section_edit_control_items() only displays the 'Set current section' control when editing
            mode is on we need to be sure that the link 'Turn editing mode on' is available for a user who does not have any
            other managing capability. */
         $page->set_other_editing_capability('moodle/course:setcurrentsection');
@@ -137,9 +137,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o = '';
 
         if ($section->section != 0) {
-            $controls = $this->section_edit_controls($course, $section, $onsectionpage);
+            $controls = $this->section_edit_control_items($course, $section, $onsectionpage);
             if (!empty($controls)) {
-                $o .= implode('', $controls);  // No 'br' as done in styles.css with a 'display:block' so will not have to many of them when the up arrow is removed by JS.
+                $o .= $this->section_edit_control_menu($controls, $course, $section);
             } else {
                 if (empty($this->tcsettings)) {
                     $this->tcsettings = $this->courseformat->get_settings();
@@ -209,7 +209,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @param bool $onsectionpage true if being printed on a section page
      * @return array of links with edit controls
      */
-    protected function section_edit_controls($course, $section, $onsectionpage = false) {
+    protected function section_edit_control_items($course, $section, $onsectionpage = false) {
 
         if (!$this->userisediting) {
             return array();
@@ -231,25 +231,43 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if ((($this->tcsettings['layoutstructure'] == 1) || ($this->tcsettings['layoutstructure'] == 4)) &&
               has_capability('moodle/course:setcurrentsection', $coursecontext)) {
             if ($course->marker == $section->section) {  // Show the "light globe" on/off.
-                $strmarkedthissection = get_string('markedthissection', 'format_topcoll');
                 $url->param('marker', 0);
-                $controls[] = html_writer::link($url, html_writer::empty_tag('img',
-                                    array('src' => $this->output->pix_url('i/marked'),
-                                          'class' => 'icon ', 'alt' => $strmarkedthissection)),
-                                    array('title' => $strmarkedthissection,
-                                          'class' => 'editing_highlight'));
+                $markedthissection = get_string('markedthissection', 'format_topcoll');
+                $highlightoff = get_string('highlightoff');
+                $controls['highlight'] = array('url' => $url, "icon" => 'i/marked',
+                                               'name' => $highlightoff,
+                                               'pixattr' => array('class' => '', 'alt' => $markedthissection),
+                                               'attr' => array('class' => 'editing_highlight', 'title' => $markedthissection));
             } else {
-                $strmarkthissection = get_string('markthissection', 'format_topcoll');
                 $url->param('marker', $section->section);
-                $controls[] = html_writer::link($url, html_writer::empty_tag('img',
-                                    array('src' => $this->output->pix_url('i/marker'),
-                                          'class' => 'icon', 'alt' => $strmarkthissection)),
-                                    array('title' => $strmarkthissection,
-                                          'class' => 'editing_highlight'));
+                $markthissection = get_string('markthissection', 'format_topcoll');
+                $highlight = get_string('highlight');
+                $controls['highlight'] = array('url' => $url, "icon" => 'i/marker',
+                                               'name' => $highlight,
+                                               'pixattr' => array('class' => '', 'alt' => $markthissection),
+                                               'attr' => array('class' => 'editing_highlight', 'title' => $markthissection));
             }
         }
 
-        return array_merge($controls, parent::section_edit_controls($course, $section, $onsectionpage));
+        $parentcontrols = parent::section_edit_control_items($course, $section, $onsectionpage);
+
+        // If the edit key exists, we are going to insert our controls after it.
+        if (array_key_exists("edit", $parentcontrols)) {
+            $merged = array();
+            // We can't use splice because we are using associative arrays.
+            // Step through the array and merge the arrays.
+            foreach ($parentcontrols as $key => $action) {
+                $merged[$key] = $action;
+                if ($key == "edit") {
+                    // If we have come to the edit key, merge these controls here.
+                    $merged = array_merge($merged, $controls);
+                }
+            }
+
+            return $merged;
+        } else {
+            return array_merge($controls, $parentcontrols);
+        }
     }
 
     /**

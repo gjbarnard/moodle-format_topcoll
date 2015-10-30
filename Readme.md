@@ -6,18 +6,18 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 ==========================
-This version works with Moodle version 2015051100.00 2.9 (Build: 20150511) and above within the 2.9 branch until the
+This version works with Moodle version 2015102800.00 3.0beta+ (Build: 20151028) and above within the 3.0 branch until the
 next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
-'docs.moodle.org/29/en/Installing_Moodle'.
+'docs.moodle.org/30/en/Installing_Moodle'.
 
 Downloads and documentation
 ===========================
 The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
-with 'Select Moodle version:' set at 'Moodle 2.9'.
+with 'Select Moodle version:' set at 'Moodle 3.0'.
 
-The secondary source is a tagged version with the v2.9 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
+The secondary source is a tagged version with the v3.0 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
 
 If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/ - consider that
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
@@ -56,9 +56,9 @@ Flattr - https://flattr.com/profile/gjb2048
 
 Sponsorships may allow me to provide you with more or better features in less time.
 
-New features for this Moodle 2.9 version
+New features for this Moodle 3.0 version
 ========================================
- 1. Same features as version 2.8.2.3 in Moodle 2.8.
+ 1. Same features as version 2.9.1.5 in Moodle 2.9.
 
 Installation
 ============
@@ -246,6 +246,10 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+Version 3.0.0.1
+  1. First 'beta' version for M3.0.
+  2. Apply MDL-48947, MDL-51250 and MDL-51610.
+
 Version 2.9.1.5
   1. Fixed 'Strict standards warning shown when using collapsed topics format' - CONTRIB-5974.
   2. Fixed iconset issue when editing the course settings.
