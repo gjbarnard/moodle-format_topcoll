@@ -75,6 +75,11 @@
     padding: 0px 0px 5px 0px;
 }
 
+.course-content ul.ctopics li.section.hidden .content > div {
+    margin-left: 0;
+    margin-right: 0;
+}
+
 /* Toggle icon size */
 #toggle-all .content .sectionbody h4 a.tc-small, .course-content ul.ctopics li.section .content .toggle a.tc-small {
     background-size: 16px 16px;
@@ -514,66 +519,66 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-switch a.t
 }
 
 /* Background images for the settings - does not work in Chrome or Safari - known issue */
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="arrow"], body.format-topcoll select#id_toggleiconset option[value="arrow"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="arrow"], body#page-course-edit select#id_toggleiconset option[value="arrow"] {
     background-image: url([[pix:format_topcoll|arrow_right]]);
 }
 
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="bulb"], body.format-topcoll select#id_toggleiconset option[value="bulb"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="bulb"], body#page-course-edit select#id_toggleiconset option[value="bulb"] {
     background-image: url([[pix:format_topcoll|bulb_off]]);
 }
 
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="cloud"], body.format-topcoll select#id_toggleiconset option[value="cloud"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="cloud"], body#page-course-edit select#id_toggleiconset option[value="cloud"] {
     background-image: url([[pix:format_topcoll|cloud_off]]);
 }
 
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="eye"], body.format-topcoll select#id_toggleiconset option[value="eye"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="eye"], body#page-course-edit select#id_toggleiconset option[value="eye"] {
     background-image: url([[pix:format_topcoll|eye_hide]]);
 }
 
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="groundsignal"], body.format-topcoll select#id_toggleiconset option[value="groundsignal"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="groundsignal"], body#page-course-edit select#id_toggleiconset option[value="groundsignal"] {
     background-image: url([[pix:format_topcoll|ground_signal_off]]);
 }
 
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="led"], body.format-topcoll select#id_toggleiconset option[value="led"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="led"], body#page-course-edit select#id_toggleiconset option[value="led"] {
     background-image: url([[pix:format_topcoll|led_off]]);
 }
 
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="point"], body.format-topcoll select#id_toggleiconset option[value="point"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="point"], body#page-course-edit select#id_toggleiconset option[value="point"] {
     background-image: url([[pix:format_topcoll|point_right]]);
 }
 
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="power"], body.format-topcoll select#id_toggleiconset option[value="power"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="power"], body#page-course-edit select#id_toggleiconset option[value="power"] {
     background-image: url([[pix:format_topcoll|toggle_minus]]);
 }
 
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="radio"], body.format-topcoll select#id_toggleiconset option[value="radio"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="radio"], body#page-course-edit select#id_toggleiconset option[value="radio"] {
     background-image: url([[pix:format_topcoll|radio_off]]);
 }
 
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="smiley"], body.format-topcoll select#id_toggleiconset option[value="smiley"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="smiley"], body#page-course-edit select#id_toggleiconset option[value="smiley"] {
     background-image: url([[pix:format_topcoll|smiley_off]]);
 }
 
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="square"], body.format-topcoll select#id_toggleiconset option[value="square"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="square"], body#page-course-edit select#id_toggleiconset option[value="square"] {
     background-image: url([[pix:format_topcoll|square_off]]);
 }
 
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="sunmoon"], body.format-topcoll select#id_toggleiconset option[value="sunmoon"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="sunmoon"], body#page-course-edit select#id_toggleiconset option[value="sunmoon"] {
     background-image: url([[pix:format_topcoll|sunmoon_off]]);
 }
 
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="switch"], body.format-topcoll select#id_toggleiconset option[value="switch"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="switch"], body#page-course-edit select#id_toggleiconset option[value="switch"] {
     background-image: url([[pix:format_topcoll|switch_off]]);
 }
 
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option, body.format-topcoll select#id_toggleiconset option {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option, body#page-course-edit select#id_toggleiconset option {
     background-color: transparent;
     background-repeat: no-repeat;
     background-position: right center; /* Position the icon to the right of the selection text. */
     padding: 3px 20px 3px 3px; /* The 20px allows the image to be on the right and the text next to it. */
 }
 
-body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topcoll_defaulttoggleiconset option, body.format-topcoll.lang-en_ar select#id_toggleiconset option {
+body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topcoll_defaulttoggleiconset option, body#page-course-edit.lang-en_ar select#id_toggleiconset option {
     background-position: 220px 45%; /* Pirate strings are longer. */
 }
 

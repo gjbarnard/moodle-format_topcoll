@@ -246,6 +246,11 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+Version 2.8.2.6
+  1. Fixed 'Strict standards warning shown when using collapsed topics format' - CONTRIB-5974.
+  2. Fixed iconset issue when editing the course settings.
+  3. Fixed hidden content margins
+
 Version 2.8.2.5
   1. Fixed display of sections when 'Hidden sections' is set to 'Hidden sections are shown in collapsed form' and the
      'Structure' is one of 'Current topic first' or 'Current week first'.
