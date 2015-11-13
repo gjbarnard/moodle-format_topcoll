@@ -250,6 +250,9 @@ Version 2.8.2.6
   1. Fixed 'Strict standards warning shown when using collapsed topics format' - CONTRIB-5974.
   2. Fixed iconset issue when editing the course settings.
   3. Fixed hidden content margins
+  4. Added responsive theme support, now a new 'Format responsive' setting in Site Administration -> Plugins ->
+     Course Formats -> Collapsed Topics where you can turn on the old responsive behaviour that the format
+     provided if you don't have a responsive theme.
 
 Version 2.8.2.5
   1. Fixed display of sections when 'Hidden sections' is set to 'Hidden sections are shown in collapsed form' and the
