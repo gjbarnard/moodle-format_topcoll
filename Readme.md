@@ -246,6 +246,11 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+Version 2.9.1.6
+  1. Added responsive theme support, now a new 'Format responsive' setting in Site Administration -> Plugins ->
+     Course Formats -> Collapsed Topics where you can turn on the old responsive behaviour that the format
+     provided if you don't have a responsive theme.
+
 Version 2.9.1.5
   1. Fixed 'Strict standards warning shown when using collapsed topics format' - CONTRIB-5974.
   2. Fixed iconset issue when editing the course settings.

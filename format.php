@@ -201,7 +201,7 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
     }
 
     // Establish horizontal unordered list for horizontal columns.
-    if ($tcsettings['layoutcolumnorientation'] == 2) { ?>
+    if (($renderer->get_format_responsive()) && ($tcsettings['layoutcolumnorientation'] == 2)) { ?>
     .course-content ul.ctopics li.section {
         display: inline-block;
         vertical-align: top;
