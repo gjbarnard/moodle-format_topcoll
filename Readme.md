@@ -246,7 +246,7 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
-Version 2.9.1.6
+Version 2.9.2
   1. Added responsive theme support, now a new 'Format responsive' setting in Site Administration -> Plugins ->
      Course Formats -> Collapsed Topics where you can turn on the old responsive behaviour that the format
      provided if you don't have a responsive theme.
