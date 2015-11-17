@@ -246,6 +246,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+Version 3.0.0.3
+  1. Fixed #18, Collapsed Topics Edit menu and MDL-42634-28, ref: https://github.com/gjb2048/moodle-format_topcoll/issues/18
+
 Version 3.0.0.2
   1. Added responsive theme support, now a new 'Format responsive' setting in Site Administration -> Plugins ->
      Course Formats -> Collapsed Topics where you can turn on the old responsive behaviour that the format
