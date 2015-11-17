@@ -246,13 +246,15 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
-Version 2.8.2.6
+Version 2.8.3
   1. Fixed 'Strict standards warning shown when using collapsed topics format' - CONTRIB-5974.
   2. Fixed iconset issue when editing the course settings.
   3. Fixed hidden content margins
   4. Added responsive theme support, now a new 'Format responsive' setting in Site Administration -> Plugins ->
      Course Formats -> Collapsed Topics where you can turn on the old responsive behaviour that the format
      provided if you don't have a responsive theme.
+  5. Fixed #18, Collapsed Topics Edit menu and MDL-42634-28, ref: https://github.com/gjb2048/moodle-format_topcoll/issues/18
+  6. Fixed slight issue with heading colour conflict and themes.
 
 Version 2.8.2.5
   1. Fixed display of sections when 'Hidden sections' is set to 'Hidden sections are shown in collapsed form' and the
