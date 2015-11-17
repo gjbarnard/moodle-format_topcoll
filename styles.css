@@ -809,6 +809,11 @@ body.jsenabled #toggle-all {
     opacity: inherit;
 }
 
+.course-content ul.ctopics li.section.hidden h3.section-title,
+.course-content ul.ctopics li.section.hidden .content .summary {
+    opacity: 0.5;
+}
+
 /* Print styles. */
 @media print {
     body.jsenabled .toggledsection {
