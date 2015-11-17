@@ -132,6 +132,7 @@ body.ie7 .course-content ul.ctopics li.section .content .toggle a {
 .course-content ul.ctopics li.section .content .toggle a  h3.section-title,
 .course-content ul.ctopics li.section .content.sectionhidden h3.section-title {
     margin: 4px;
+    color: inherit;
 }
 
 /* Icon set common. */
@@ -813,7 +814,12 @@ body.jsenabled #toggle-all {
     font-style: inherit;
 }
 
-/* print styles. */
+/* MDL-42634 */
+.course-content ul.ctopics li.section.hidden .sectionname, .course-content ul.ctopics li.section.hidden .content>div, .course-content ul.ctopics li.section.hidden .activity .activityinstance {
+    opacity: inherit;
+}
+
+/* Print styles. */
 @media print {
     body.jsenabled .toggledsection {
         display: block; /* If JavaScript is enabled and we are printing then this css will apply and the section will be shown. */
