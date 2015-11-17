@@ -129,6 +129,7 @@
 .course-content ul.ctopics li.section .content .toggle a  h3.section-title,
 .course-content ul.ctopics li.section .content.sectionhidden h3.section-title {
     margin: 4px;
+    color: inherit;
 }
 
 /* Icon set common. */
