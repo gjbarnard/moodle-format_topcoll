@@ -255,6 +255,7 @@ Version 2.8.3
      provided if you don't have a responsive theme.
   5. Fixed #18, Collapsed Topics Edit menu and MDL-42634-28, ref: https://github.com/gjb2048/moodle-format_topcoll/issues/18
   6. Fixed slight issue with heading colour conflict and themes.
+  7. Fixed #19, Drag and drop handle does not show when editing in RTL.
 
 Version 2.8.2.5
   1. Fixed display of sections when 'Hidden sections' is set to 'Hidden sections are shown in collapsed form' and the
