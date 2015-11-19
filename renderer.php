@@ -382,13 +382,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             if ($this->rtl) {
                 // Swap content.
-                $tempcontent = $leftcontent;
-                $leftcontent = $rightcontent;
-                $rightcontent = $tempcontent;
+                $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
+                $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
+            } else {
+                $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
+                $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
             }
-
-            $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
-            $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
         }
         $o .= html_writer::start_tag('div', array('class' => 'content'));
 
@@ -527,13 +526,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             if ($this->rtl) {
                 // Swap content.
-                $tempcontent = $leftcontent;
-                $leftcontent = $rightcontent;
-                $rightcontent = $tempcontent;
+                $o .= html_writer::tag('div', $leftcontent, array('class' => 'right side'));
+                $o .= html_writer::tag('div', $rightcontent, array('class' => 'left side'));
+            } else {
+                $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
+                $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
             }
 
-            $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
-            $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
         }
 
         $o .= html_writer::start_tag('div', array('class' => 'content sectionhidden'));
