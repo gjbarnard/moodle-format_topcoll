@@ -250,6 +250,7 @@ Version 3.0.0.3
   1. Fixed #18, Collapsed Topics Edit menu and MDL-42634-28, ref: https://github.com/gjb2048/moodle-format_topcoll/issues/18
   2. Fixed slight issue with heading colour conflict and themes.
   3. Fixed #19, Drag and drop handle does not show when editing in RTL.
+  4. Apply MDL-10405.
 
 Version 3.0.0.2
   1. Added responsive theme support, now a new 'Format responsive' setting in Site Administration -> Plugins ->

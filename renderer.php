@@ -240,9 +240,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if (empty($this->tcsettings)) {
             $this->tcsettings = $this->courseformat->get_settings();
         }
+        $isstealth = $section->section > $course->numsections;
         $controls = array();
         if ((($this->tcsettings['layoutstructure'] == 1) || ($this->tcsettings['layoutstructure'] == 4)) &&
-                has_capability('moodle/course:setcurrentsection', $coursecontext)) {
+                !$isstealth && $section->section && has_capability('moodle/course:setcurrentsection', $coursecontext)) {
             if ($course->marker == $section->section) {  // Show the "light globe" on/off.
                 $url->param('marker', 0);
                 $markedthissection = get_string('markedthissection', 'format_topcoll');
