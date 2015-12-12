@@ -496,6 +496,38 @@ class format_topcoll_renderer extends format_section_renderer_base {
     }
 
     /**
+     * Generate the header html of a stealth section
+     *
+     * @param int $sectionno The section number in the coruse which is being dsiplayed
+     * @return string HTML to output.
+     */
+    protected function stealth_section_header($sectionno) {
+        $o = '';
+        $sectionstyle = '';
+        $course = $this->courseformat->get_course();
+        if ((!$this->formatresponsive) && ($sectionno != 0) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
+            $sectionstyle .= ' ' . $this->get_column_class($this->tcsettings['layoutcolumns']);
+        }
+        $liattributes = array(
+            'id' => 'section-' . $sectionno,
+            'class' => 'section main clearfix orphaned hidden' . $sectionstyle,
+            'role' => 'region',
+            'aria-label' => $this->courseformat->get_topcoll_section_name($course, $sectionno, false)
+        );
+        if (($this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
+            $liattributes['style'] = 'width: ' . $this->tccolumnwidth . '%;';
+        }
+        $o .= html_writer::start_tag('li', $liattributes);
+        $o .= html_writer::tag('div', '', array('class' => 'left side'));
+        $section = $this->courseformat->get_section($sectionno);
+        $rightcontent = $this->section_right_content($section, $course, false);
+        $o.= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
+        $o.= html_writer::start_tag('div', array('class' => 'content'));
+        $o.= $this->output->heading(get_string('orphanedactivitiesinsectionno', '', $sectionno), 3, 'sectionname');
+        return $o;
+    }
+
+    /**
      * Generate the html for a hidden section
      *
      * @param stdClass $section The section in the course which is being displayed.
