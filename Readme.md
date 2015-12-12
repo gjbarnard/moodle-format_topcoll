@@ -246,6 +246,9 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+Version 2.9.2.2
+  1. Fixed #22, Orphaned sections are not responsive.
+
 Version 2.9.2.1
   1. Fixed #18, Collapsed Topics Edit menu and MDL-42634-28, ref: https://github.com/gjb2048/moodle-format_topcoll/issues/18
   2. Fixed slight issue with heading colour conflict and themes.
