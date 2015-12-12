@@ -248,6 +248,7 @@ Version Information
 ===================
 Version 2.9.2.2
   1. Fixed #22, Orphaned sections are not responsive.
+  2. Start of PHPUnit tests.
 
 Version 2.9.2.1
   1. Fixed #18, Collapsed Topics Edit menu and MDL-42634-28, ref: https://github.com/gjb2048/moodle-format_topcoll/issues/18

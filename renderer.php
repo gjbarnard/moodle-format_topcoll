@@ -55,10 +55,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
     private $rtl = false;
 
     /**
-     * Constructor method, calls the parent constructor - MDL-21097
+     * Constructor method, calls the parent constructor - MDL-21097.
      *
-     * @param moodle_page $page
-     * @param string $target one of rendering target constants
+     * @param moodle_page $page.
+     * @param string $target one of rendering target constants.
      */
     public function __construct(moodle_page $page, $target) {
         parent::__construct($page, $target);
@@ -79,7 +79,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
     }
 
     /**
-     * Generate the starting container html for a list of sections
+     * Generate the starting container html for a list of sections.
      * @return string HTML to output.
      */
     protected function start_section_list() {
@@ -121,7 +121,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
     }
 
     /**
-     * Generate the closing container html for a list of sections
+     * Generate the closing container html for a list of sections.
      * @return string HTML to output.
      */
     protected function end_section_list() {
@@ -129,8 +129,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
     }
 
     /**
-     * Generate the title for this section page
-     * @return string the page title
+     * Generate the title for this section page.
+     * @return string the page title.
      */
     protected function page_title() {
         return get_string('sectionname', 'format_topcoll');
@@ -138,11 +138,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
     /**
      * Generate the content to displayed on the right part of a section
-     * before course modules are included
+     * before course modules are included.
      *
-     * @param stdClass $section The course_section entry from DB
-     * @param stdClass $course The course entry from DB
-     * @param bool $onsectionpage true if being printed on a section page
+     * @param stdClass $section The course_section entry from DB.
+     * @param stdClass $course The course entry from DB.
+     * @param bool $onsectionpage true if being printed on a section page.
      * @return string HTML to output.
      */
     protected function section_right_content($section, $course, $onsectionpage) {
@@ -184,11 +184,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
     /**
      * Generate the content to displayed on the left part of a section
-     * before course modules are included
+     * before course modules are included.
      *
-     * @param stdClass $section The course_section entry from DB
-     * @param stdClass $course The course entry from DB
-     * @param bool $onsectionpage true if being printed on a section page
+     * @param stdClass $section The course_section entry from DB.
+     * @param stdClass $course The course entry from DB.
+     * @param bool $onsectionpage true if being printed on a section page.
      * @return string HTML to output.
      */
     protected function section_left_content($section, $course, $onsectionpage) {
@@ -215,12 +215,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
     }
 
     /**
-     * Generate the edit controls of a section
+     * Generate the edit controls of a section.
      *
-     * @param stdClass $course The course entry from DB
-     * @param stdClass $section The course_section entry from DB
-     * @param bool $onsectionpage true if being printed on a section page
-     * @return array of links with edit controls
+     * @param stdClass $course The course entry from DB.
+     * @param stdClass $section The course_section entry from DB.
+     * @param bool $onsectionpage true if being printed on a section page.
+     * @return array of links with edit controls.
      */
     protected function section_edit_controls($course, $section, $onsectionpage = false) {
 
@@ -268,11 +268,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
     }
 
     /**
-     * Generate a summary of a section for display on the 'course index page'
+     * Generate a summary of a section for display on the 'course index page'.
      *
-     * @param stdClass $section The course_section entry from DB
-     * @param stdClass $course The course entry from DB
-     * @param array    $mods (argument not used)
+     * @param stdClass $section The course_section entry from DB.
+     * @param stdClass $course The course entry from DB.
+     * @param array    $mods (argument not used).
      * @return string HTML to output.
      */
     protected function section_summary($section, $course, $mods) {
@@ -326,12 +326,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
     /**
      * Generate the display of the header part of a section before
-     * course modules are included
+     * course modules are included.
      *
-     * @param stdClass $section The course_section entry from DB
-     * @param stdClass $course The course entry from DB
-     * @param bool $onsectionpage true if being printed on a section page
-     * @param int $sectionreturn The section to return to after an action
+     * @param stdClass $section The course_section entry from DB.
+     * @param stdClass $course The course entry from DB.
+     * @param bool $onsectionpage true if being printed on a section page.
+     * @param int $sectionreturn The section to return to after an action.
      * @return string HTML to output.
      */
     protected function section_header($section, $course, $onsectionpage, $sectionreturn = null) {
@@ -484,7 +484,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
     }
 
     /**
-     * Generate the display of the footer part of a section
+     * Generate the display of the footer part of a section.
      *
      * @return string HTML to output.
      */
@@ -496,9 +496,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
     }
 
     /**
-     * Generate the header html of a stealth section
+     * Generate the header html of a stealth section.
      *
-     * @param int $sectionno The section number in the coruse which is being dsiplayed
+     * @param int $sectionno The section number in the coruse which is being dsiplayed.
      * @return string HTML to output.
      */
     protected function stealth_section_header($sectionno) {
@@ -528,10 +528,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
     }
 
     /**
-     * Generate the html for a hidden section
+     * Generate the html for a hidden section.
      *
      * @param stdClass $section The section in the course which is being displayed.
-     * @param int|stdClass $courseorid The course to get the section name for (object or just course id)
+     * @param int|stdClass $courseorid The course to get the section name for (object or just course id).
      * @return string HTML to output.
      */
     protected function section_hidden($section, $courseorid = NULL) {
@@ -583,12 +583,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
     /**
      * Output the html for a single section page.
      *
-     * @param stdClass $course The course entry from DB
-     * @param array $sections (argument not used)
-     * @param array $mods (argument not used)
-     * @param array $modnames (argument not used)
-     * @param array $modnamesused (argument not used)
-     * @param int $displaysection The section number in the course which is being displayed
+     * @param stdClass $course The course entry from DB.
+     * @param array $sections (argument not used).
+     * @param array $mods (argument not used).
+     * @param array $modnames (argument not used).
+     * @param array $modnamesused (argument not used).
+     * @param int $displaysection The section number in the course which is being displayed.
      */
     public function print_single_section_page($course, $sections, $mods, $modnames, $modnamesused, $displaysection) {
         parent::print_single_section_page($course, $sections, $mods, $modnames, $modnamesused, $displaysection);
