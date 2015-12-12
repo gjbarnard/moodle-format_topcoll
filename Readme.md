@@ -248,6 +248,7 @@ Version Information
 ===================
 Version 2.8.3.1
   1. Fixed #22, Orphaned sections are not responsive.
+  2. Start of PHPUnit tests.
 
 Version 2.8.3
   1. Fixed 'Strict standards warning shown when using collapsed topics format' - CONTRIB-5974.
