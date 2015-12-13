@@ -88,7 +88,8 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         global $PAGE;
         $this->outputus = $PAGE->get_renderer('format_topcoll');
         // https://docs.moodle.org/dev/Writing_PHPUnit_tests.
-        $this->course = $this->getDataGenerator()->create_course(array('format' => 'topcoll', 'numsections' => 1), array('createsections' => true));
+        $this->course = $this->getDataGenerator()->create_course(array('format' => 'topcoll', 'numsections' => 1),
+            array('createsections' => true));
 
         $this->courseformat = course_get_format($this->course);
         format_topcoll_courseformatrenderer_testcase::set_property($this->outputus, 'courseformat', $this->courseformat);
@@ -108,7 +109,8 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
     public function test_start_toggle_section_list() {
         // With defaults unchanged.
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'start_toggle_section_list', array());
+        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'start_toggle_section_list',
+            array());
         $thevalue = '<ul class="ctopics topics row-fluid">';
 
         $this->assertEquals($thevalue, $theclass);
@@ -126,12 +128,14 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         // With defaults unchanged.
         $section = $this->courseformat->get_section(1);
         $onsectionpage = false;
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_right_content', array($section, $this->course, $onsectionpage));
+        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_right_content',
+            array($section, $this->course, $onsectionpage));
         $thevalue = '<span class="cps_centre">Topic<br />1</span>';
         $this->assertEquals($thevalue, $theclass);
 
         $onsectionpage = true;
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_right_content', array($section, $this->course, $onsectionpage));
+        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_right_content',
+            array($section, $this->course, $onsectionpage));
         $thevalue = '<span class="cps_centre">Topic<br />1</span>';
         $this->assertEquals($thevalue, $theclass);
     }
@@ -139,12 +143,14 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
     public function test_section_left_content() {
         $section = $this->courseformat->get_section(1);
         $onsectionpage = false;
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_left_content', array($section, $this->course, $onsectionpage));
+        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_left_content',
+            array($section, $this->course, $onsectionpage));
         $thevalue = '<span class="cps_centre">1</span>';
         $this->assertEquals($thevalue, $theclass);
 
         $onsectionpage = true;
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_left_content', array($section, $this->course, $onsectionpage));
+        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_left_content',
+            array($section, $this->course, $onsectionpage));
         $thevalue = '<span class="cps_centre">1</span>';
         $this->assertEquals($thevalue, $theclass);
     }
@@ -155,8 +161,8 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
             array($section, $this->course, null));
         $thevalue = '<li id="section-1" class="section main section-summary clearfix" role="region" aria-label="Section 1">';
         $thevalue .= '<div class="left side"></div><div class="right side"></div><div class="content"><h3 class="section-title">';
-        $thevalue .= '<a href="http://www.example.com/moodle/course/view.php?id=2#section-1" class="">Section 1</a></h3>';
-        $thevalue .= '<div class="summarytext"></div></div></li>';
+        $thevalue .= '<a href="http://www.example.com/moodle/course/view.php?id='.$this->course->id.'#section-1" class="">';
+        $thevalue .= 'Section 1</a></h3><div class="summarytext"></div></div></li>';
 
         $this->assertEquals($thevalue, $theclass);
     }
@@ -172,13 +178,14 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $thevalue .= '<div class="left side"><span class="cps_centre">1</span></div><div class="right side">';
         $thevalue .= '<span class="cps_centre">Topic<br />1</span></div><div class="content">';
         $thevalue .= '<div class="sectionhead toggle toggle-arrow" id="toggle-1">';
-        $thevalue .= '<a class="toggle_closed the_toggle tc-medium" href="http://www.example.com/moodle/course/view.php?id=2">';
-        $thevalue .= '<h3 class="section-title">Section 1<span class="cttoggle"> - Toggle</span></h3></a></div>';
-        $thevalue .= '<div class="sectionbody toggledsection" id="toggledsection-1">';
+        $thevalue .= '<a class="toggle_closed the_toggle tc-medium" href="http://www.example.com/moodle/course/view.php?id=';
+        $thevalue .= $this->course->id.'"><h3 class="section-title">Section 1<span class="cttoggle"> - Toggle</span></h3></a>';
+        $thevalue .= '</div><div class="sectionbody toggledsection" id="toggledsection-1">';
         $this->assertEquals($thevalue, $theclass);
 
         $onsectionpage = true;
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_header', array($section, $this->course, $onsectionpage));
+        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_header',
+            array($section, $this->course, $onsectionpage));
         $thevalue = '<li id="section-1" class="section main clearfix span12" role="region" aria-label="Section 1">';
         $thevalue .= '<div class="left side"><span class="cps_centre">1</span></div><div class="right side">';
         $thevalue .= '<span class="cps_centre">Topic<br />1</span></div><div class="content"><div class="summary"></div>';
@@ -216,7 +223,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '="Section 1"><div class="left side"><span class="cps_centre">1</span></div><div ';
         $theoutput .= 'class="right side"><span class="cps_centre">Topic<br />1</span></div><div class="content">';
         $theoutput .= '<div class="sectionhead toggle toggle-arrow" id="toggle-1"><a class="toggle_closed ';
-        $theoutput .= 'the_toggle tc-medium" href="http://www.example.com/moodle/course/view.php?id=2">';
+        $theoutput .= 'the_toggle tc-medium" href="http://www.example.com/moodle/course/view.php?id='.$this->course->id.'">';
         $theoutput .= '<h3 class="section-title">Section 1<span class="cttoggle"> - Toggle</span></h3></a></div>';
         $theoutput .= '<div class="sectionbody toggledsection" id="toggledsection-1"><ul class="section img-text">';
         $theoutput .= '</ul></div></div></li></ul>';
