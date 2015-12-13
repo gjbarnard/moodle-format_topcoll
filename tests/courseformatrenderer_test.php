@@ -162,8 +162,8 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
             array($section, $this->course, null));
         $thevalue = '<li id="section-1" class="section main section-summary clearfix" role="region" aria-label="';
         $thevalue .= 'Section 1"><div class="left side"></div><div class="right side"></div><div class="content">';
-        $thevalue .= '<h3 class="section-title"><a href="http://www.example.com/moodle/course/view.php?id=252000#section-1" ';
-        $thevalue .= 'class="">Section 1</a></h3><div class="summarytext"></div></div></li>';
+        $thevalue .= '<h3 class="section-title"><a href="http://www.example.com/moodle/course/view.php?id=';
+        $thevalue .= $this->course->id.'#section-1" class="">Section 1</a></h3><div class="summarytext"></div></div></li>';
 
         $this->assertEquals($thevalue, $theclass);
     }
@@ -179,8 +179,9 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $thevalue .= '<div class="left side"><span class="cps_centre">1</span></div><div class="right side"><span ';
         $thevalue .= 'class="cps_centre">Topic<br />1</span></div><div class="content"><div class="sectionhead toggle ';
         $thevalue .= 'toggle-arrow" id="toggle-1"><a class="toggle_closed the_toggle tc-medium" href="';
-        $thevalue .= 'http://www.example.com/moodle/course/view.php?id=252000"><h3 class="section-title">Section 1<span class=';
-        $thevalue .= '"cttoggle"> - Toggle</span></h3></a></div><div class="sectionbody toggledsection" id="toggledsection-1">';
+        $thevalue .= 'http://www.example.com/moodle/course/view.php?id='.$this->course->id.'"><h3 class="section-title">';
+        $thevalue .= 'Section 1<span class="cttoggle"> - Toggle</span></h3></a></div><div class="sectionbody ';
+        $thevalue .= 'toggledsection" id="toggledsection-1">';
         $this->assertEquals($thevalue, $theclass);
 
         $onsectionpage = true;
@@ -223,8 +224,8 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '<div class="left side"><span class="cps_centre">1</span></div><div class="right side">';
         $theoutput .= '<span class="cps_centre">Topic<br />1</span></div><div class="content"><div class="sectionhead ';
         $theoutput .= 'toggle toggle-arrow" id="toggle-1"><a class="toggle_closed the_toggle tc-medium" href="';
-        $theoutput .= 'http://www.example.com/moodle/course/view.php?id=252000"><h3 class="section-title">Section 1';
-        $theoutput .= '<span class="cttoggle"> - Toggle</span></h3></a></div><div class="sectionbody toggledsection" ';
+        $theoutput .= 'http://www.example.com/moodle/course/view.php?id='.$this->course->id.'"><h3 class="section-title">';
+        $theoutput .= 'Section 1<span class="cttoggle"> - Toggle</span></h3></a></div><div class="sectionbody toggledsection" ';
         $theoutput .= 'id="toggledsection-1"><ul class="section img-text"></ul></div></div></li></ul>';
 
         $this->expectOutputString($theoutput);
