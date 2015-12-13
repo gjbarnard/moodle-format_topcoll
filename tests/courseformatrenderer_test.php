@@ -82,6 +82,11 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         return $property;
     }
 
+    protected static function strip_view_url_id($thestring) {
+        // Remove the id from http://www.example.com/moodle/course/view.php?id=166000.
+        
+    }
+
     protected function setUp() {
         $this->resetAfterTest(true);
 
@@ -161,8 +166,8 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
             array($section, $this->course, null));
         $thevalue = '<li id="section-1" class="section main section-summary clearfix" role="region" aria-label="';
         $thevalue .= 'Section 1"><div class="left side"></div><div class="right side"></div><div class="content">';
-        $thevalue .= '<h3 class="section-title"><a href="http://www.example.com/moodle/course/view.php?id=166000#section-1" ';
-        $thevalue .= 'class="">Section 1</a></h3><div class="summarytext"></div></div></li>';
+        $thevalue .= '<h3 class="section-title"><a href="http://www.example.com/moodle/course/view.php?id=';
+        $thevalue .= $this->course->id.'#section-1" class="">Section 1</a></h3><div class="summarytext"></div></div></li>';
 
         $this->assertEquals($thevalue, $theclass);
     }
@@ -178,8 +183,8 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $thevalue .= '<div class="left side"><span class="cps_centre">1</span></div><div class="right side"><span ';
         $thevalue .= 'class="cps_centre">Topic<br />1</span></div><div class="content"><div class="sectionhead toggle ';
         $thevalue .= 'toggle-arrow" id="toggle-1"><a class="toggle_closed the_toggle tc-medium" href=';
-        $thevalue .= '"http://www.example.com/moodle/course/view.php?id=166000"><h3 class="section-title">Section 1<span ';
-        $thevalue .= 'class="cttoggle"> - Toggle</span></h3></a></div><div class="sectionbody toggledsection" ';
+        $thevalue .= '"http://www.example.com/moodle/course/view.php?id='.$this->course->id.'"><h3 class="section-title">';
+        $thevalue .= 'Section 1<span class="cttoggle"> - Toggle</span></h3></a></div><div class="sectionbody toggledsection" ';
         $thevalue .= 'id="toggledsection-1">';
         $this->assertEquals($thevalue, $theclass);
 
@@ -207,7 +212,10 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $section = $this->courseformat->get_section(1);
         $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_hidden',
             array($section, null));
-        $thevalue = '<li id="section-1" class="section main clearfix hidden span12" role="region" aria-label="Section 1"><div class="left side"><span class="cps_centre">1</span></div><div class="right side"><span class="cps_centre">Topic<br />1</span></div><div class="content sectionhidden"><h3 class="section-title">Not available</h3></div></li>';
+        $thevalue = '<li id="section-1" class="section main clearfix hidden span12" role="region" aria-label="Section 1">';
+        $thevalue .= '<div class="left side"><span class="cps_centre">1</span></div><div class="right side"><span class=';
+        $thevalue .= '"cps_centre">Topic<br />1</span></div><div class="content sectionhidden"><h3 class="section-title">';
+        $thevalue .= 'Not available</h3></div></li>';
 
         $this->assertEquals($thevalue, $theclass);
     }
@@ -220,7 +228,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= 'aria-label="Section 1"><div class="left side"><span class="cps_centre">1</span></div>';
         $theoutput .= '<div class="right side"><span class="cps_centre">Topic<br />1</span></div><div class=';
         $theoutput .= '"content"><div class="sectionhead toggle toggle-arrow" id="toggle-1"><a class="toggle_closed ';
-        $theoutput .= 'the_toggle tc-medium" href="http://www.example.com/moodle/course/view.php?id=166000">';
+        $theoutput .= 'the_toggle tc-medium" href="http://www.example.com/moodle/course/view.php?id='.$this->course->id.'">';
         $theoutput .= '<h3 class="section-title">Section 1<span class="cttoggle"> - Toggle</span></h3></a>';
         $theoutput .= '</div><div class="sectionbody toggledsection" id="toggledsection-1"><ul class="section img-text">';
         $theoutput .= '</ul></div></div></li></ul>';
