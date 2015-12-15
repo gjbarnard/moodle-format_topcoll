@@ -104,7 +104,7 @@ M.course.format.process_sections = function(Y, sectionlist, response, sectionfro
         for (var i = sectionfrom; i <= sectionto; i++) {
             // Update section title.
             var content = Y.Node.create('<span>' + response.sectiontitles[i] + '</span>');
-            sectionlist.item(i).all('.'+CSS.SECTIONNAME).setHTML(content);
+            sectionlist.item(i).all('.' + CSS.SECTIONNAME).setHTML(content);
             // If the left content section number exists, then set it.
             leftcontent = sectionlist.item(i).one(SELECTORS.LEFTCONTENT);
             if (leftcontent) { // Only set if the section number is shown otherwise JS crashes and stops working.

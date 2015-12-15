@@ -246,6 +246,12 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+Version 3.0.2
+  1. Code checker tidy up.
+  2. ARIA button role: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_button_role but
+     still need to think about keyboard control.
+  3. Add TravisCI support: https://docs.moodle.org/dev/Travis_Integration and https://github.com/moodlerooms/moodle-plugin-ci.
+
 Version 3.0.1
   1. Fixed #22, Orphaned sections are not responsive.
   2. Stable version.

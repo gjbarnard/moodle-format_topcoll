@@ -113,21 +113,19 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
     /* -- Toggle -- */
     .course-content ul.ctopics li.section .content .toggle, .course-content ul.ctopics li.section .content.sectionhidden {
         background-color: <?php
-                            if ($tcsettings['togglebackgroundcolour'][0] != '#') {
-                                echo '#';
-                            }
-                            echo $tcsettings['togglebackgroundcolour'];
-                          ?>;
+    if ($tcsettings['togglebackgroundcolour'][0] != '#') {
+        echo '#';
+    }
+    echo $tcsettings['togglebackgroundcolour']; ?>;
     }
 
     /* -- Toggle text -- */
     .course-content ul.ctopics li.section .content .toggle a, .course-content ul.ctopics li.section .content.sectionhidden {
         color: <?php
-                if ($tcsettings['toggleforegroundcolour'][0] != '#') {
-                    echo '#';
-                }
-                echo $tcsettings['toggleforegroundcolour'];
-               ?>;
+    if ($tcsettings['toggleforegroundcolour'][0] != '#') {
+        echo '#';
+    }
+    echo $tcsettings['toggleforegroundcolour']; ?>;
         text-align: <?php
     switch ($tcsettings['togglealignment']) {
         case 1:
@@ -138,8 +136,7 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
             break;
         default:
             echo 'center';
-    }
-    ?>;
+    } ?>;
     }
 
     /* Toggle icon position. */
@@ -151,27 +148,25 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
             break;
         default:
             echo 'left';
-    }
-    ?> center;
+    } ?> center;
     }
 
     /* -- What happens when a toggle is hovered over -- */
-    .course-content ul.ctopics li.section .content .toggle a:hover, .course-content ul.ctopics li.section .content.sectionhidden .toggle a:hover {
+    .course-content ul.ctopics li.section .content .toggle a:hover,
+    .course-content ul.ctopics li.section .content.sectionhidden .toggle a:hover {
         color: <?php
-                 if ($tcsettings['toggleforegroundhovercolour'][0] != '#') {
-                     echo '#';
-                 }
-                 echo $tcsettings['toggleforegroundhovercolour'];
-               ?>;
+    if ($tcsettings['toggleforegroundhovercolour'][0] != '#') {
+        echo '#';
+    }
+    echo $tcsettings['toggleforegroundhovercolour']; ?>;
     }
 
     .course-content ul.ctopics li.section .content div.toggle:hover {
         background-color: <?php
-                            if ($tcsettings['togglebackgroundhovercolour'][0] != '#') {
-                                echo '#';
-                            }
-                            echo $tcsettings['togglebackgroundhovercolour'];
-                          ?>;
+    if ($tcsettings['togglebackgroundhovercolour'][0] != '#') {
+        echo '#';
+    }
+    echo $tcsettings['togglebackgroundhovercolour']; ?>;
     }
 
 <?php

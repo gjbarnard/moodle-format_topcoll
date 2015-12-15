@@ -102,11 +102,14 @@ M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections,
         }
     }
 
-    // Info on http://yuilibrary.com/yui/docs/event/delegation.html
-    // Delegated event handler for the toggles.
-    // Inspiration thanks to Ben Kelada.
-    // Code help thanks to the guru Andrew Nicols.
+    /* Info on http://yuilibrary.com/yui/docs/event/delegation.html
+       Delegated event handler for the toggles.
+       Inspiration thanks to Ben Kelada.
+       Code help thanks to the guru Andrew Nicols. */
     Y.delegate('click', this.toggleClick, Y.config.doc, 'ul.ctopics .toggle', this);
+    /*Y.use('node-event-delegate', 'event-key', function (Y) {
+        Y.delegate('key', M.format_topcoll.toggleClick, 'up:32', 'ul.ctopics .toggle');
+    });*/
 
     // Event handlers for all opened / closed.
     var allopen = Y.one("#toggles-all-opened");
@@ -128,7 +131,7 @@ M.format_topcoll.toggleClick = function(e) {
 M.format_topcoll.allOpenClick = function(e) {
     e.preventDefault();
     M.format_topcoll.ourYUI.all(".toggledsection").addClass('sectionopen');
-    M.format_topcoll.ourYUI.all(".toggle a").addClass('toggle_open').removeClass('toggle_closed');
+    M.format_topcoll.ourYUI.all(".toggle a").addClass('toggle_open').removeClass('toggle_closed').setAttribute('aria-pressed', 'true');
     M.format_topcoll.resetState(M.format_topcoll.get_max_digit());
     M.format_topcoll.save_toggles();
 };
@@ -136,7 +139,7 @@ M.format_topcoll.allOpenClick = function(e) {
 M.format_topcoll.allCloseClick = function(e) {
     e.preventDefault();
     M.format_topcoll.ourYUI.all(".toggledsection").removeClass('sectionopen');
-    M.format_topcoll.ourYUI.all(".toggle a").addClass('toggle_closed').removeClass('toggle_open');
+    M.format_topcoll.ourYUI.all(".toggle a").addClass('toggle_closed').removeClass('toggle_open').setAttribute('aria-pressed', 'false');
     M.format_topcoll.resetState(M.format_topcoll.get_min_digit());
     M.format_topcoll.save_toggles();
 };
@@ -156,15 +159,15 @@ M.format_topcoll.toggle_topic = function(targetNode, toggleNum) {
     var targetLink = targetNode.one('a');
     var state;
     if (!targetLink.hasClass('toggle_open')) {
-        targetLink.addClass('toggle_open').removeClass('toggle_closed');
+        targetLink.addClass('toggle_open').removeClass('toggle_closed').setAttribute('aria-pressed', 'true');
         targetNode.next('.toggledsection').addClass('sectionopen');
         state = true;
     } else {
-        targetLink.addClass('toggle_closed').removeClass('toggle_open');
+        targetLink.addClass('toggle_closed').removeClass('toggle_open').setAttribute('aria-pressed', 'false');
         targetNode.next('.toggledsection').removeClass('sectionopen');
         state = false;
     }
-    //IE 8 Hack/workaround to force IE8 to repaint everything
+    // IE 8 Hack/workaround to force IE8 to repaint everything.
     if (M.format_topcoll.ie8) {
         M.format_topcoll.ourYUI.all(".toggle a").addClass('ie8_hackclass_donotuseincss').removeClass('ie8_hackclass_donotuseincss');
         console.log('IE8 repaint.');
@@ -174,11 +177,11 @@ M.format_topcoll.toggle_topic = function(targetNode, toggleNum) {
     this.save_toggles();
 };
 
-// Old maximum number of sections was 52, but as the conversion utilises integers which are 32 bit signed, this must be broken into two string segments for the
-// process to work.  Therefore each 6 character base 36 string will represent 26 characters for part 1 and 27 for part 2 in base 2.
-// This is all required to save cookie space, so instead of using 53 bytes (characters) per course, only 12 are used.
-// Convert from a base 36 string to a base 2 string - effectively a private function.
-// Args - thirtysix - a 12 character string representing a base 36 number.
+/* Old maximum number of sections was 52, but as the conversion utilises integers which are 32 bit signed, this must be broken into two string segments for the
+   process to work.  Therefore each 6 character base 36 string will represent 26 characters for part 1 and 27 for part 2 in base 2.
+   This is all required to save cookie space, so instead of using 53 bytes (characters) per course, only 12 are used.
+   Convert from a base 36 string to a base 2 string - effectively a private function.
+  Args - thirtysix - a 12 character string representing a base 36 number. */
 M.format_topcoll.to2baseString = function(thirtysix) {
     "use strict";
     // Break apart the string because integers are signed 32 bit and therefore can only store 31 bits, therefore a 53 bit number will cause overflow / carry with loss of resolution.
@@ -187,7 +190,7 @@ M.format_topcoll.to2baseString = function(thirtysix) {
     var fps = firstpart.toString(2);
     var sps = secondpart.toString(2);
 
-    // Add in preceding 0's if base 2 sub strings are not long enough
+    // Add in preceding 0's if base 2 sub strings are not long enough.
     if (fps.length < 26) {
         // Need to PAD.
         fps = this.thesparezeros.substring(0,(26 - fps.length)) + fps;
@@ -200,8 +203,8 @@ M.format_topcoll.to2baseString = function(thirtysix) {
     return fps + sps;
 };
 
-// Save the toggles - called from togglebinary and allToggle.
-// AJAX call to server to save the state of the toggles for this course for the current user if on.
+/* Save the toggles - called from togglebinary and allToggle.
+   AJAX call to server to save the state of the toggles for this course for the current user if on. */
 M.format_topcoll.save_toggles = function() {
     "use strict";
     if (this.togglePersistence == 1) { // Toggle persistence - 1 = on, 0 = off.
@@ -334,8 +337,7 @@ M.format_topcoll.encode_value_to_character = function(val) {
  */
 M.format_topcoll.set_user_preference = function(name, value) {
     YUI().use('io', function(Y) {
-        var url = M.cfg.wwwroot + '/course/format/topcoll/settopcollpref.php?sesskey=' +
-                M.cfg.sesskey + '&pref=' + encodeURI(name) + '&value=' + encodeURI(value);
+        var url = M.cfg.wwwroot + '/course/format/topcoll/settopcollpref.php?sesskey=' + M.cfg.sesskey + '&pref=' + encodeURI(name) + '&value=' + encodeURI(value);
 
         // If we are a developer, ensure that failures are reported.
         var cfg = {

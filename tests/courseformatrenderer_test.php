@@ -46,7 +46,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
      * @return any What the method returns if anything, go, go on, look at the specification, you know you want to.
      */
     protected static function call_method($obj, $name, array $args) {
-        // http://stackoverflow.com/questions/249664/best-practices-to-test-protected-methods-with-phpunit.
+        // Ref: http://stackoverflow.com/questions/249664/best-practices-to-test-protected-methods-with-phpunit.
         $class = new \ReflectionClass($obj);
         $method = $class->getMethod($name);
         $method->setAccessible(true);
@@ -61,7 +61,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
      * @param any $value Value to set.
      */
     protected static function set_property($obj, $name, $value) {
-        // http://stackoverflow.com/questions/18558183/phpunit-mockbuilder-set-mock-object-internal-property ish.
+        // Ref: http://stackoverflow.com/questions/18558183/phpunit-mockbuilder-set-mock-object-internal-property ish.
         $class = new \ReflectionClass($obj);
         $property = $class->getProperty($name);
         $property->setAccessible(true);
@@ -75,7 +75,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
      * @param string $name Name of the method.
      */
     protected static function get_property($obj, $name) {
-        // http://stackoverflow.com/questions/18558183/phpunit-mockbuilder-set-mock-object-internal-property ish.
+        // Ref: http://stackoverflow.com/questions/18558183/phpunit-mockbuilder-set-mock-object-internal-property ish.
         $class = new \ReflectionClass($obj);
         $property = $class->getProperty($name);
         $property->setAccessible(true);
@@ -87,21 +87,21 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
         global $PAGE;
         $this->outputus = $PAGE->get_renderer('format_topcoll');
-        // https://docs.moodle.org/dev/Writing_PHPUnit_tests.
+        // Ref: https://docs.moodle.org/dev/Writing_PHPUnit_tests.
         $this->course = $this->getDataGenerator()->create_course(array('format' => 'topcoll', 'numsections' => 1),
             array('createsections' => true));
 
         $this->courseformat = course_get_format($this->course);
-        format_topcoll_courseformatrenderer_testcase::set_property($this->outputus, 'courseformat', $this->courseformat);
-        $target = format_topcoll_courseformatrenderer_testcase::get_property($this->outputus, 'target');
+        self::set_property($this->outputus, 'courseformat', $this->courseformat);
+        $target = self::get_property($this->outputus, 'target');
         $ouroutput = $PAGE->get_renderer('core', null, $target);
-        format_topcoll_courseformatrenderer_testcase::set_property($this->outputus, 'output', $ouroutput);
+        self::set_property($this->outputus, 'output', $ouroutput);
         $tcsettings = $this->courseformat->get_settings();
-        format_topcoll_courseformatrenderer_testcase::set_property($this->outputus, 'tcsettings', $tcsettings);
+        self::set_property($this->outputus, 'tcsettings', $tcsettings);
     }
 
     public function test_start_section_list() {
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'start_section_list',
+        $theclass = self::call_method($this->outputus, 'start_section_list',
             array());
         $thevalue = '<ul class="ctopics">';
 
@@ -110,7 +110,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
     public function test_start_toggle_section_list() {
         // With defaults unchanged.
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'start_toggle_section_list',
+        $theclass = self::call_method($this->outputus, 'start_toggle_section_list',
             array());
         $thevalue = '<ul class="ctopics topics row-fluid">';
 
@@ -119,7 +119,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
     public function test_page_title() {
         // With defaults unchanged.
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'page_title', array());
+        $theclass = self::call_method($this->outputus, 'page_title', array());
         $thevalue = 'Section';
 
         $this->assertEquals($thevalue, $theclass);
@@ -129,13 +129,13 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         // With defaults unchanged.
         $section = $this->courseformat->get_section(1);
         $onsectionpage = false;
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_right_content',
+        $theclass = self::call_method($this->outputus, 'section_right_content',
             array($section, $this->course, $onsectionpage));
         $thevalue = '<span class="cps_centre">Topic<br />1</span>';
         $this->assertEquals($thevalue, $theclass);
 
         $onsectionpage = true;
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_right_content',
+        $theclass = self::call_method($this->outputus, 'section_right_content',
             array($section, $this->course, $onsectionpage));
         $thevalue = '<span class="cps_centre">Topic<br />1</span>';
         $this->assertEquals($thevalue, $theclass);
@@ -144,13 +144,13 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
     public function test_section_left_content() {
         $section = $this->courseformat->get_section(1);
         $onsectionpage = false;
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_left_content',
+        $theclass = self::call_method($this->outputus, 'section_left_content',
             array($section, $this->course, $onsectionpage));
         $thevalue = '<span class="cps_centre">1</span>';
         $this->assertEquals($thevalue, $theclass);
 
         $onsectionpage = true;
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_left_content',
+        $theclass = self::call_method($this->outputus, 'section_left_content',
             array($section, $this->course, $onsectionpage));
         $thevalue = '<span class="cps_centre">1</span>';
         $this->assertEquals($thevalue, $theclass);
@@ -158,7 +158,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
     public function test_section_summary() {
         $section = $this->courseformat->get_section(1);
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_summary',
+        $theclass = self::call_method($this->outputus, 'section_summary',
             array($section, $this->course, null));
         $thevalue = '<li id="section-1" class="section main section-summary clearfix" role="region" aria-label="';
         $thevalue .= 'Section 1"><div class="left side"></div><div class="right side"></div><div class="content">';
@@ -173,19 +173,20 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $section->toggle = false;
 
         $onsectionpage = false;
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_header',
+        $theclass = self::call_method($this->outputus, 'section_header',
             array($section, $this->course, $onsectionpage));
         $thevalue = '<li id="section-1" class="section main clearfix span12" role="region" aria-label="Section 1">';
         $thevalue .= '<div class="left side"><span class="cps_centre">1</span></div><div class="right side">';
-        $thevalue .= '<span class="cps_centre">Topic<br />1</span></div><div class="content"><div class="sectionhead ';
-        $thevalue .= 'toggle toggle-arrow" id="toggle-1"><a class="toggle_closed the_toggle tc-medium" href="';
-        $thevalue .= 'http://www.example.com/moodle/course/view.php?id='.$this->course->id.'"><h3 class="section-title">Section 1';
-        $thevalue .= '<span class="cttoggle"> - Toggle</span></h3></a></div><div class="sectionbody toggledsection" ';
-        $thevalue .= 'id="toggledsection-1">';
+        $thevalue .= '<span class="cps_centre">Topic<br />1</span></div><div class="content">';
+        $thevalue .= '<div class="sectionhead toggle toggle-arrow" id="toggle-1">';
+        $thevalue .= '<a class="toggle_closed the_toggle tc-medium" href="';
+        $thevalue .= 'http://www.example.com/moodle/course/view.php?id='.$this->course->id.'" role="button" aria-pressed="false">';
+        $thevalue .= '<h3 class="section-title">Section 1<span class="cttoggle"> - Toggle</span></h3></a></div>';
+        $thevalue .= '<div class="sectionbody toggledsection" id="toggledsection-1">';
         $this->assertEquals($thevalue, $theclass);
 
         $onsectionpage = true;
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_header',
+        $theclass = self::call_method($this->outputus, 'section_header',
             array($section, $this->course, $onsectionpage));
         $thevalue = '<li id="section-1" class="section main clearfix span12" role="region" aria-label="Section 1">';
         $thevalue .= '<div class="left side"><span class="cps_centre">1</span></div><div class="right side"><span ';
@@ -195,7 +196,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
     }
 
     public function test_stealth_section_header() {
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'stealth_section_header',
+        $theclass = self::call_method($this->outputus, 'stealth_section_header',
             array(1));
         $thevalue = '<li id="section-1" class="section main clearfix orphaned hidden span12" role="region" aria-label=';
         $thevalue .= '"Section 1"><div class="left side"></div><div class="right side"><span class="cps_centre">Topic';
@@ -206,7 +207,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
     public function test_section_hidden() {
         $section = $this->courseformat->get_section(1);
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'section_hidden',
+        $theclass = self::call_method($this->outputus, 'section_hidden',
             array($section, null));
         $thevalue = '<li id="section-1" class="section main clearfix hidden span12" role="region" aria-label="Section 1">';
         $thevalue .= '<div class="left side"><span class="cps_centre">1</span></div><div class="right side"><span class="';
@@ -217,35 +218,34 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
     }
 
     public function test_print_multiple_section_page() {
-        format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'print_multiple_section_page',
+        self::call_method($this->outputus, 'print_multiple_section_page',
             array($this->course, null, null, null, null, null));
         $theoutput = '<h2 class="accesshide">Section</h2><ul class="ctopics"></ul><ul class="ctopics topics row-fluid">';
         $theoutput .= '<li id="section-1" class="section main clearfix span12" role="region" aria-label="Section 1">';
         $theoutput .= '<div class="left side"><span class="cps_centre">1</span></div><div class="right side">';
         $theoutput .= '<span class="cps_centre">Topic<br />1</span></div><div class="content"><div class="sectionhead ';
         $theoutput .= 'toggle toggle-arrow" id="toggle-1"><a class="toggle_closed the_toggle tc-medium" href="';
-        $theoutput .= 'http://www.example.com/moodle/course/view.php?id='.$this->course->id.'"><h3 class="section-title">Secti';
-        $theoutput .= 'on 1<span class="cttoggle"> - Toggle</span></h3></a></div><div class="sectionbody toggledsection" ';
-        $theoutput .= 'id="toggledsection-1"><ul class="section img-text"></ul></div></div></li></ul>';
-
+        $theoutput .= 'http://www.example.com/moodle/course/view.php?id='.$this->course->id.'" role="button" aria-pressed="false">';
+        $theoutput .= '<h3 class="section-title">Section 1<span class="cttoggle"> - Toggle</span></h3></a></div>';
+        $theoutput .= '<div class="sectionbody toggledsection" id="toggledsection-1"><ul class="section img-text">';
+        $theoutput .= '</ul></div></div></li></ul>';
         $this->expectOutputString($theoutput);
     }
 
     public function test_toggle_all() {
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'toggle_all', array());
+        $theclass = self::call_method($this->outputus, 'toggle_all', array());
         $thevalue = '<li class="tcsection main clearfix" id="toggle-all"><div class="left side"><img width="1" height="1" ';
         $thevalue .= 'class="spacer" alt="" src="http://www.example.com/moodle/theme/image.php/_s/clean/core/1/spacer" />';
         $thevalue .= '</div><div class="right side"><img width="1" height="1" class="spacer" alt="" src="';
         $thevalue .= 'http://www.example.com/moodle/theme/image.php/_s/clean/core/1/spacer" /></div><div class="content">';
         $thevalue .= '<div class="sectionbody toggle-arrow-hover toggle-arrow"><h4><a class="on tc-medium" href="#" id="';
-        $thevalue .= 'toggles-all-opened">Open all</a><a class="off tc-medium" href="#" id="toggles-all-closed">Close all</a>';
-        $thevalue .= '</h4></div></div></li>';
-
+        $thevalue .= 'toggles-all-opened" role="button">Open all</a><a class="off tc-medium" href="#" id="toggles-all-closed" ';
+        $thevalue .= 'role="button">Close all</a></h4></div></div></li>';
         $this->assertEquals($thevalue, $theclass);
     }
 
     public function test_display_instructions() {
-        $theclass = format_topcoll_courseformatrenderer_testcase::call_method($this->outputus, 'display_instructions', array());
+        $theclass = self::call_method($this->outputus, 'display_instructions', array());
         $thevalue = '<li class="tcsection main clearfix" id="topcoll-display-instructions"><div class="left side">';
         $thevalue .= '<img width="1" height="1" class="spacer" alt="" src="';
         $thevalue .= 'http://www.example.com/moodle/theme/image.php/_s/clean/core/1/spacer" /></div><div class="right side">';
