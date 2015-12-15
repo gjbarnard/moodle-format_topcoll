@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -97,22 +96,22 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $classes .= ' ctportable';
         }
         if ($this->formatresponsive) {
-        $style = '';
+            $style = '';
             if ($this->tcsettings['layoutcolumnorientation'] == 1) { // Vertical columns.
                 $style .= 'width:' . $this->tccolumnwidth . '%;';
-        } else {
+            } else {
                 $style .= 'width: 100%;';  // Horizontal columns.
-        }
-        if ($this->mobiletheme === false) {
-            $classes .= ' ctlayout';
-        }
-        $style .= ' padding:' . $this->tccolumnpadding . 'px;';
-        $attributes['style'] = $style;
+            }
+            if ($this->mobiletheme === false) {
+                $classes .= ' ctlayout';
+            }
+            $style .= ' padding-left: '.$this->tccolumnpadding.'px; padding-right: '.$this->tccolumnpadding.'px;';
+            $attributes['style'] = $style;
         } else {
             if ($this->tcsettings['layoutcolumnorientation'] == 1) { // Vertical columns.
-                $classes .= ' ' . $this->get_column_class($this->tcsettings['layoutcolumns']);
+                $classes .= ' '.$this->get_column_class($this->tcsettings['layoutcolumns']);
             } else {
-                $classes .= ' ' . $this->get_row_class();
+                $classes .= ' '.$this->get_row_class();
             }
         }
         $attributes['class'] = $classes;
@@ -151,7 +150,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if ($section->section != 0) {
             $controls = $this->section_edit_controls($course, $section, $onsectionpage);
             if (!empty($controls)) {
-                $o .= implode('', $controls);  // No 'br' as done in styles.css with a 'display:block' so will not have to many of them when the up arrow is removed by JS.
+                /* No 'br' as done in styles.css with a 'display:block' so will not have to many of them
+                   when the up arrow is removed by JS. */
+                $o .= implode('', $controls);
             } else {
                 if (empty($this->tcsettings)) {
                     $this->tcsettings = $this->courseformat->get_settings();
@@ -172,8 +173,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
                         }
 
                         $o .= html_writer::tag('span',
-                                        $topictext . html_writer::empty_tag('br') .
-                                               $section->section, array('class' => 'cps_centre'));
+                            $topictext . html_writer::empty_tag('br') .
+                            $section->section, array('class' => 'cps_centre'));
                         break;
                 }
             }
@@ -306,7 +307,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         if ($section->uservisible) {
             $title = html_writer::tag('a', $title,
-                    array('href' => course_get_url($course, $section->section), 'class' => $linkclasses));
+                array('href' => course_get_url($course, $section->section), 'class' => $linkclasses));
         }
         $o .= $this->output->heading($title, 3, 'section-title');
 
@@ -352,7 +353,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
         }
 
-        if ((!$this->formatresponsive) && ($section->section != 0) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
+        if ((!$this->formatresponsive) && ($section->section != 0) &&
+            ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
             $sectionstyle .= ' ' . $this->get_column_class($this->tcsettings['layoutcolumns']);
         }
         $liattributes = array(
@@ -376,7 +378,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                                 html_writer::empty_tag('img',
                                     array('src' => $this->output->pix_url('t/edit'),
                                           'class' => 'icon edit tceditsection', 'alt' => get_string('edit'))),
-                                    array('title' => get_string('editsummary'), 'class' => 'tceditsection'));
+                                array('title' => get_string('editsection', 'format_topcoll'), 'class' => 'tceditsection'));
             }
             $rightcontent .= $this->section_right_content($section, $course, $onsectionpage);
 
@@ -398,14 +400,17 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             if ((!($section->toggle === null)) && ($section->toggle == true)) {
                 $toggleclass = 'toggle_open';
+                $ariapressed = 'true';
                 $sectionclass = ' sectionopen';
             } else {
                 $toggleclass = 'toggle_closed';
+                $ariapressed = 'false';
                 $sectionclass = '';
             }
             $toggleclass .= ' the_toggle '.$this->tctoggleiconsize;
             $toggleurl = new moodle_url('/course/view.php', array('id' => $course->id));
-            $o .= html_writer::start_tag('a', array('class' => $toggleclass, 'href' => $toggleurl));
+            $o .= html_writer::start_tag('a',
+                array('class' => $toggleclass, 'href' => $toggleurl, 'role' => 'button', 'aria-pressed' => $ariapressed));
 
             if (empty($this->tcsettings)) {
                 $this->tcsettings = $this->courseformat->get_settings();
@@ -435,7 +440,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                                 html_writer::empty_tag('img',
                                         array('src' => $this->output->pix_url('t/edit'),
                                     'class' => 'iconsmall edit', 'alt' => get_string('edit'))),
-                                    array('title' => get_string('editsummary')));
+                                array('title' => get_string('editsection', 'format_topcoll')));
             }
 
             if ($this->tcsettings['showsectionsummary'] == 1) {
@@ -460,7 +465,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                                 html_writer::empty_tag('img',
                                         array('src' => $this->output->pix_url('t/edit'),
                                     'class' => 'iconsmall edit', 'alt' => get_string('edit'))),
-                                    array('title' => get_string('editsummary')));
+                                array('title' => get_string('editsection', 'format_topcoll')));
             }
             $o .= html_writer::end_tag('div');
 
@@ -473,7 +478,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
     protected function section_summary_container($section) {
         $summarytext = $this->format_summary_text($section);
         if ($summarytext) {
-            $classextra = ($this->tcsettings['showsectionsummary'] == 1) ? '' : ' summaryalwaysshown' ;
+            $classextra = ($this->tcsettings['showsectionsummary'] == 1) ? '' : ' summaryalwaysshown';
             $o = html_writer::start_tag('div', array('class' => 'summary'.$classextra));
             $o .= $this->format_summary_text($section);
             $o .= html_writer::end_tag('div');
@@ -505,7 +510,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o = '';
         $sectionstyle = '';
         $course = $this->courseformat->get_course();
-        if ((!$this->formatresponsive) && ($sectionno != 0) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
+        // Horizontal column layout.
+        if ((!$this->formatresponsive) && ($sectionno != 0) && ($this->tcsettings['layoutcolumnorientation'] == 2)) {
             $sectionstyle .= ' ' . $this->get_column_class($this->tcsettings['layoutcolumns']);
         }
         $liattributes = array(
@@ -521,9 +527,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::tag('div', '', array('class' => 'left side'));
         $section = $this->courseformat->get_section($sectionno);
         $rightcontent = $this->section_right_content($section, $course, false);
-        $o.= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
-        $o.= html_writer::start_tag('div', array('class' => 'content'));
-        $o.= $this->output->heading(get_string('orphanedactivitiesinsectionno', '', $sectionno), 3, 'sectionname');
+        $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
+        $o .= html_writer::start_tag('div', array('class' => 'content'));
+        $o .= $this->output->heading(get_string('orphanedactivitiesinsectionno', '', $sectionno), 3, 'sectionname');
         return $o;
     }
 
@@ -534,13 +540,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @param int|stdClass $courseorid The course to get the section name for (object or just course id).
      * @return string HTML to output.
      */
-    protected function section_hidden($section, $courseorid = NULL) {
+    protected function section_hidden($section, $courseorid = null) {
         $o = '';
         $course = $this->courseformat->get_course();
         $sectionstyle = 'section main clearfix hidden';
         if ((!$this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
             $sectionstyle .= ' ' . $this->get_column_class($this->tcsettings['layoutcolumns']);
-        }        
+        }
         $liattributes = array(
             'id' => 'section-' . $section->section,
             'class' => $sectionstyle,
@@ -578,20 +584,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::end_tag('div');
         $o .= html_writer::end_tag('li');
         return $o;
-    }
-
-    /**
-     * Output the html for a single section page.
-     *
-     * @param stdClass $course The course entry from DB.
-     * @param array $sections (argument not used).
-     * @param array $mods (argument not used).
-     * @param array $modnames (argument not used).
-     * @param array $modnamesused (argument not used).
-     * @param int $displaysection The section number in the course which is being displayed.
-     */
-    public function print_single_section_page($course, $sections, $mods, $modnames, $modnamesused, $displaysection) {
-        parent::print_single_section_page($course, $sections, $mods, $modnames, $modnamesused, $displaysection);
     }
 
     /**
@@ -670,8 +662,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 while ($loopsection <= $course->numsections) {
                     $nextweekdate = $weekdate - ($weekofseconds);
                     if ((($thissection->uservisible ||
-                            ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo))) && ($nextweekdate
-                            <= $timenow)) == true) {
+                            ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo))) &&
+                            ($nextweekdate <= $timenow)) == true) {
                         $numsections++; // Section not shown so do not count in columns calculation.
                     }
                     $weekdate = $nextweekdate;
@@ -787,13 +779,14 @@ class format_topcoll_renderer extends format_section_renderer_base {
                             ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo));
                 } else {
                     $showsection = ($thissection->uservisible ||
-                            ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo))) && ($nextweekdate
-                            <= $timenow);
+                        ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo))) &&
+                        ($nextweekdate <= $timenow);
                 }
                 if (($currentsectionfirst == true) && ($showsection == true)) {
                     // Show the section if we were meant to and it is the current section:....
                     $showsection = ($course->marker == $section);
-                } else if (($this->tcsettings['layoutstructure'] == 4) && ($course->marker == $section) && (!$this->userisediting)) {
+                } else if (($this->tcsettings['layoutstructure'] == 4) &&
+                    ($course->marker == $section) && (!$this->userisediting)) {
                     $showsection = false; // Do not reshow current section.
                 }
                 if (!$showsection) {
@@ -858,12 +851,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     }
                 }
 
-                if ((!$this->formatresponsive) || ($this->mobiletheme === false)) { // Only break in non-mobile themes or using a reponsive theme.
+                // Only break in non-mobile themes or using a reponsive theme.
+                if ((!$this->formatresponsive) || ($this->mobiletheme === false)) {
                     if ($this->tcsettings['layoutcolumnorientation'] == 1) {  // Only break columns in vertical mode.
                         if (($canbreak == false) && ($currentsectionfirst == false) && ($showsection == true)) {
                             $canbreak = true;
-                            $columnbreakpoint = ($shownsectioncount + ($numsections / $this->tcsettings['layoutcolumns']))
-                                    - 1;
+                            $columnbreakpoint = ($shownsectioncount + ($numsections / $this->tcsettings['layoutcolumns'])) - 1;
                             if ($this->tcsettings['layoutstructure'] == 4) {
                                 $columnbreakpoint -= 1;
                             }
@@ -964,9 +957,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::start_tag('div', array('class' => 'sectionbody'.$iconsetclass));
         $o .= html_writer::start_tag('h4', null);
         $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'),
-                               array('class' => 'on '.$this->tctoggleiconsize, 'href' => '#', 'id' => 'toggles-all-opened'));
+                        array('class' => 'on ' . $this->tctoggleiconsize, 'href' => '#', 'id' => 'toggles-all-opened',
+                              'role' => 'button'));
         $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'),
-                               array('class' => 'off '.$this->tctoggleiconsize, 'href' => '#', 'id' => 'toggles-all-closed'));
+                        array('class' => 'off ' . $this->tctoggleiconsize, 'href' => '#', 'id' => 'toggles-all-closed',
+                              'role' => 'button'));
         $o .= html_writer::end_tag('h4');
         $o .= html_writer::end_tag('div');
         $o .= html_writer::end_tag('div');
@@ -991,7 +986,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::start_tag('div', array('class' => 'content'));
         $o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
         $o .= html_writer::tag('p', get_string('instructions', 'format_topcoll'),
-                        array('class' => 'topcoll-display-instructions'));
+            array('class' => 'topcoll-display-instructions'));
         $o .= html_writer::end_tag('div');
         $o .= html_writer::end_tag('div');
         $o .= html_writer::end_tag('li');
@@ -1035,5 +1030,4 @@ class format_topcoll_renderer extends format_section_renderer_base {
     public function get_format_responsive() {
         return $this->formatresponsive;
     }
-
 }

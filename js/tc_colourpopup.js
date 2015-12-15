@@ -55,8 +55,8 @@
              * Initalises the colour popup by putting everything together and wiring the events
              */
             init : function() {
-                this.input = Y.one('#'+id);
-                this.swatch = Y.one('#colpicked_'+id);
+                this.input = Y.one('#' + id);
+                this.swatch = Y.one('#colpicked_' + id);
                 this.box = this.input.ancestor().one('.admin_colourpicker');
                 this.image = Y.Node.create('<img alt="" class="colourdialogue" />');
                 this.image.setAttribute('src', M.util.image_url('i/colourpicker', 'moodle'));
@@ -68,7 +68,7 @@
                 //this.box.setContent('');
 
                 if (typeof(previewconf) === 'object' && previewconf !== null) {
-                    Y.one('#'+id+'_preview').on('click', function(e){
+                    Y.one('#' + id + '_preview').on('click', function(e){
                         if (Y.Lang.isString(previewconf.selector)) {
                             Y.all(previewconf.selector).setStyle(previewconf.style, this.input.get('value'));
                         } else {
@@ -156,16 +156,16 @@
                     colour[1] += matrix[1] * factor;
                     colour[2] += matrix[2] * factor;
 
-                    if (eventx==x) {
+                    if (eventx == x) {
                         break;
                     }
                 }
 
                 var pixel = [colour[0], colour[1], colour[2]];
                 if (eventy < heightbreak) {
-                    pixel[0] += Math.floor(((255-pixel[0]) / heightbreak) * (heightbreak - eventy));
-                    pixel[1] += Math.floor(((255-pixel[1]) / heightbreak) * (heightbreak - eventy));
-                    pixel[2] += Math.floor(((255-pixel[2]) / heightbreak) * (heightbreak - eventy));
+                    pixel[0] += Math.floor(((255 - pixel[0]) / heightbreak) * (heightbreak - eventy));
+                    pixel[1] += Math.floor(((255 - pixel[1]) / heightbreak) * (heightbreak - eventy));
+                    pixel[2] += Math.floor(((255 - pixel[2]) / heightbreak) * (heightbreak - eventy));
                 } else if (eventy > heightbreak) {
                     pixel[0] = Math.floor((imageheight - eventy) * (pixel[0] / heightbreak));
                     pixel[1] = Math.floor((imageheight - eventy) * (pixel[1] / heightbreak));
@@ -180,12 +180,12 @@
             convert_rgb_to_hex : function(rgb) {
                 var hex = '';
                 var hexchars = "0123456789ABCDEF";
-                for (var i=0; i<3; i++) {
+                for (var i = 0; i < 3; i++) {
                     var number = Math.abs(rgb[i]);
                     if (number == 0 || isNaN(number)) {
                         hex += '00';
                     } else {
-                        hex += hexchars.charAt((number-number % 16) / 16) + hexchars.charAt(number % 16);
+                        hex += hexchars.charAt((number - number % 16) / 16) + hexchars.charAt(number % 16);
                     }
                 }
                 return hex;

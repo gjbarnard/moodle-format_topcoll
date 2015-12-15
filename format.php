@@ -37,7 +37,7 @@ require_once($CFG->libdir . '/filelib.php');
 require_once($CFG->libdir . '/completionlib.php');
 require_once($CFG->dirroot . '/course/format/topcoll/togglelib.php');
 
-// Horrible backwards compatible parameter aliasing..
+// Horrible backwards compatible parameter aliasing....
 if ($ctopic = optional_param('ctopics', 0, PARAM_INT)) { // Collapsed Topics old section parameter.
     $url = $PAGE->url;
     $url->param('section', $ctopic);
@@ -56,7 +56,7 @@ if ($week = optional_param('week', 0, PARAM_INT)) { // Weeks old section paramet
     debugging('Outdated week param passed to course/view.php', DEBUG_DEVELOPER);
     redirect($url);
 }
-// End backwards-compatible aliasing..
+// End backwards-compatible aliasing....
 
 $context = context_course::instance($course->id);
 
@@ -113,21 +113,19 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
     /* -- Toggle -- */
     .course-content ul.ctopics li.section .content .toggle, .course-content ul.ctopics li.section .content.sectionhidden {
         background-color: <?php
-                            if ($tcsettings['togglebackgroundcolour'][0] != '#') {
-                                echo '#';
-                            }
-                            echo $tcsettings['togglebackgroundcolour'];
-                          ?>;
+    if ($tcsettings['togglebackgroundcolour'][0] != '#') {
+        echo '#';
+    }
+    echo $tcsettings['togglebackgroundcolour']; ?>;
     }
 
     /* -- Toggle text -- */
     .course-content ul.ctopics li.section .content .toggle a, .course-content ul.ctopics li.section .content.sectionhidden {
         color: <?php
-                if ($tcsettings['toggleforegroundcolour'][0] != '#') {
-                    echo '#';
-                }
-                echo $tcsettings['toggleforegroundcolour'];
-               ?>;
+    if ($tcsettings['toggleforegroundcolour'][0] != '#') {
+        echo '#';
+    }
+    echo $tcsettings['toggleforegroundcolour']; ?>;
         text-align: <?php
     switch ($tcsettings['togglealignment']) {
         case 1:
@@ -138,8 +136,7 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
             break;
         default:
             echo 'center';
-    }
-    ?>;
+    } ?>;
     }
 
     /* Toggle icon position. */
@@ -151,27 +148,25 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
             break;
         default:
             echo 'left';
-    }
-    ?> center;
+    } ?> center;
     }
 
     /* -- What happens when a toggle is hovered over -- */
-    .course-content ul.ctopics li.section .content .toggle a:hover, .course-content ul.ctopics li.section .content.sectionhidden .toggle a:hover {
+    .course-content ul.ctopics li.section .content .toggle a:hover,
+    .course-content ul.ctopics li.section .content.sectionhidden .toggle a:hover {
         color: <?php
-                 if ($tcsettings['toggleforegroundhovercolour'][0] != '#') {
-                     echo '#';
-                 }
-                 echo $tcsettings['toggleforegroundhovercolour'];
-               ?>;
+    if ($tcsettings['toggleforegroundhovercolour'][0] != '#') {
+        echo '#';
+    }
+    echo $tcsettings['toggleforegroundhovercolour']; ?>;
     }
 
     .course-content ul.ctopics li.section .content div.toggle:hover {
         background-color: <?php
-                            if ($tcsettings['togglebackgroundhovercolour'][0] != '#') {
-                                echo '#';
-                            }
-                            echo $tcsettings['togglebackgroundhovercolour'];
-                          ?>;
+    if ($tcsettings['togglebackgroundhovercolour'][0] != '#') {
+        echo '#';
+    }
+    echo $tcsettings['togglebackgroundhovercolour']; ?>;
     }
 
 <?php
