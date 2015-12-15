@@ -42,8 +42,8 @@ $string['markedthissection'] = 'Thy topic is illuminated as thee current topic';
 $string['markthissection'] = 'Illuminate thy topic as thee current topic';
 
 // Toggle all - Moodle Tracker CONTRIB-3190.
-$string['topcollopened']='Untie';
-$string['topcollclosed']='Tie';
+$string['topcollopened'] = 'Untie';
+$string['topcollclosed'] = 'Tie';
 
 // Layout enhancement - Moodle Tracker CONTRIB-3378.
 $string['formatsettings'] = 'Ye format settings'; // CONTRIB-3529.
@@ -62,11 +62,11 @@ $string['setlayout_toggle_section_x'] = "'Treasure Chest x' / 'Sailing Week x' /
 $string['setlayout_toggle_section_x'] = "'Treasure Chest x' / 'Sailing Week x' / 'Sailing Day x'"; // 8.
 
 $string['setlayoutstructure'] = 'Thee structure';
-$string['setlayoutstructuretopic']='Treasure Chest';
-$string['setlayoutstructureweek']='Sailing Week';
+$string['setlayoutstructuretopic'] = 'Treasure Chest';
+$string['setlayoutstructureweek'] = 'Sailing Week';
 $string['setlayoutstructureday'] = 'Sailing Day';
-$string['setlayoutstructurelatweekfirst']='Current Sailing Week First';
-$string['setlayoutstructurecurrenttopicfirst']='Current Treasure Chest First';
+$string['setlayoutstructurelatweekfirst'] = 'Current Sailing Week First';
+$string['setlayoutstructurecurrenttopicfirst'] = 'Current Treasure Chest First';
 $string['resetlayout'] = 'Thee layout'; // CONTRIB-3529.
 $string['resetalllayout'] = 'Thee layouts';
 
@@ -94,18 +94,8 @@ $string['columnhorizontal'] = 'Horizontal as a cannon';
 $string['maincoursepage'] = 'Ye main course page';
 
 // Help.
-$string['setlayoutelements_help']='How much information about thee toggles / sections you wish to be displayed.';
-$string['setlayoutstructure_help']="Avast ye landlubbers, this be thee layout structure of thee course.  Ye choose between:
-
-'Treasure chest' - where each section is presented as thy treasure chest in section number order.
-
-'Sailing week' - where each section is presented as thy week in ascending week order.
-
-'Current sailing week first' - which is the same as weeks but thee current week is shown at thee top and preceding weeks in descending order are displayed below except in editing mode where thee structure is thy same as 'Weeks'.
-
-'Current treasure chest first' - which is thee same as 'Treasure chest' except that thee current treasure chest is shown at thee top if it has been set.
-
-'Sailing Day' - where each section is presented as a day in thy ascending day order from thee start date of thee course.";
+$string['setlayoutelements_help'] = 'How much information about thee toggles / sections you wish to be displayed.';
+$string['setlayoutstructure_help'] = "Avast ye landlubbers, this be thee layout structure of thee course.  Ye choose between:<br />'Treasure chest' - where each section is presented as thy treasure chest in section number order.<br />'Sailing week' - where each section is presented as thy week in ascending week order.<br />'Current sailing week first' - which is the same as weeks but thee current week is shown at thee top and preceding weeks in descending order are displayed below except in editing mode where thee structure is thy same as 'Weeks'.<br />'Current treasure chest first' - which is thee same as 'Treasure chest' except that thee current treasure chest is shown at thee top if it has been set.<br />'Sailing Day' - where each section is presented as a day in thy ascending day order from thee start date of thee course.";
 $string['setlayout_help'] = 'Contains thee settings to do with thee layout of the format within thy course.';
 $string['resetlayout_help'] = 'Resets thee layout to thee default so it will be the same as a course the first time it is in thy Collapsed Topics format';
 $string['resetalllayout_help'] = 'Resets the layout to the default values for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
@@ -166,52 +156,12 @@ $string['defaultcoursedisplay'] = 'Course display default';
 $string['defaultcoursedisplay_desc'] = "Either show all thee sections on a single page or section zero and thee chosen section on page.";
 $string['defaultlayoutelement'] = 'Layout configuration';
 // Negative view of layout, kept for previous versions until such time as they are updated.
-$string['defaultlayoutelement_desc'] = "Thee layout setting can be one of:
-
-'Default' with everything displayed.
-
-Nay 'Treasure chest x' / 'Sailing week x' / 'Sailing day x'.
-
-Nay section number.
-
-Nay 'Treasure chest x' / 'Sailing week x' / 'Sailing day x' and nay section number.
-
-Nay 'Toggle' word.
-
-Nay 'Toggle' word and nay 'Treasure chest x' / 'Sailing week x' / 'Sailing day x'.
-
-Nay 'Toggle' word, nay 'Treasure chest x' / 'Sailing week x' / 'Sailing day x' and nay section number.";
+$string['defaultlayoutelement_desc'] = "Thee layout setting can be one of:<br />'Default' with everything displayed.<br />Nay 'Treasure chest x' / 'Sailing week x' / 'Sailing day x'.<br />Nay section number.<br />Nay 'Treasure chest x' / 'Sailing week x' / 'Sailing day x' and nay section number.<br />Nay 'Toggle' word.<br />Nay 'Toggle' word and nay 'Treasure chest x' / 'Sailing week x' / 'Sailing day x'.<br />Nay 'Toggle' word, nay 'Treasure chest x' / 'Sailing week x' / 'Sailing day x' and nay section number.";
 // Positive view of layout.
-$string['defaultlayoutelement_descpositive'] = "The layout setting can be one of:
-
-Toggle word, 'Treasure chest x' / 'Sailing week x' / 'Sailing day x' and section number.
-
-Toggle word and 'Treasure chest x' / 'Sailing week x' / 'Sailing day x'.
-
-Toggle word and section number.
-
-'Treasure chest x' / 'Sailing week x' / 'Sailing day x' and section number.
-
-Toggle word.
-
-'Treasure chest x' / 'Sailing week x' / 'Sailing day x'.
-
-Section number.
-
-Nay additions.";
+$string['defaultlayoutelement_descpositive'] = "The layout setting can be one of:<br />Toggle word, 'Treasure chest x' / 'Sailing week x' / 'Sailing day x' and section number.<br />Toggle word and 'Treasure chest x' / 'Sailing week x' / 'Sailing day x'.<br />Toggle word and section number.<br />'Treasure chest x' / 'Sailing week x' / 'Sailing day x' and section number.<br />Toggle word.<br />'Treasure chest x' / 'Sailing week x' / 'Sailing day x'.<br />Section number.<br />Nay additions.";
 
 $string['defaultlayoutstructure'] = 'Structure configuration';
-$string['defaultlayoutstructure_desc'] = "Thee structure setting can be one of:
-
-Treasure Chest
-
-Sailing Week
-
-Current Sailing Week First
-
-Current Treasure Chest First
-
-Sailing Day";
+$string['defaultlayoutstructure_desc'] = "Thee structure setting can be one of:<br />Treasure Chest<br />Sailing Week<br />Current Sailing Week First<br />Current Treasure Chest First<br />Sailing Day";
 
 $string['defaultlayoutcolumns'] = 'Number of columns';
 $string['defaultlayoutcolumns_desc'] = "Number of columns between one and four.";
@@ -229,39 +179,13 @@ $string['defaulttgbghvrcolour'] = 'Toggle background hover colour';
 $string['defaulttgbghvrcolour_desc'] = "Toggle background hover colour in hexidecimal RGB.";
 
 $string['defaulttogglepersistence'] = 'Toggle persistence';
-$string['defaulttogglepersistence_desc'] = "'On' or 'Off'.  You may wish to turn off for an AJAX performance increase but sailor toggle selections will not be recalled on page refresh or revisit.
-
-Note: If turning persistence off remove any rows containing 'topcoll_toggle_x' in the 'name' field
-      of the 'user_preferences' table in the database.  Where thee 'x' in 'topcoll_toggle_x' will be
-      a course id.";
+$string['defaulttogglepersistence_desc'] = "'On' or 'Off'.  You may wish to turn off for an AJAX performance increase but sailor toggle selections will not be recalled on page refresh or revisit.<br />Note: If turning persistence off remove any rows containing 'topcoll_toggle_x' in the 'name' field of the 'user_preferences' table in the database.  Where thee 'x' in 'topcoll_toggle_x' will be a course id.";
 
 $string['defaulttogglealignment'] = 'Toggle text alignment';
 $string['defaulttogglealignment_desc'] = "'Left', 'Centre' or 'Right'.";
 
 $string['defaulttoggleiconset'] = 'Toggle icon set';
-$string['defaulttoggleiconset_desc'] = "'Straight as an arrow'                => Arrow icon set.
-
-'Lantern'                             => Bulb icon set.
-
-'Cloud'                               => Cloud icon set.
-
-'Eyeball'                             => Eye icon set.
-
-'LED from thee future'                => LED icon set.
-
-'Point thee bow towards thy treasure' => Point icon set.
-
-'Power mee hearties'                  => Power icon set.
-
-'Wireless'                            => Radio icon set.
-
-'Smiley they bee not'                 => Smiley icon set.
-
-'Square riggin'                       => Square icon set.
-
-'Sun / Moon'                          => Sun / Moon icon set.
-
-'Switch thy flag'                     => Switch icon set.";
+$string['defaulttoggleiconset_desc'] = "'Straight as an arrow'                => Arrow icon set.<br />'Lantern'                             => Bulb icon set.<br />'Cloud'                               => Cloud icon set.<br />'Eyeball'                             => Eye icon set.<br />'LED from thee future'                => LED icon set.<br />'Point thee bow towards thy treasure' => Point icon set.<br />'Power mee hearties'                  => Power icon set.<br />'Wireless'                            => Radio icon set.<br />'Smiley they bee not'                 => Smiley icon set.<br />'Square riggin'                       => Square icon set.<br />'Sun / Moon'                          => Sun / Moon icon set.<br />'Switch thy flag'                     => Switch icon set.";
 
 $string['defaulttoggleallhover'] = 'Toggle all icon hovers';
 $string['defaulttoggleallhover_desc'] = "'Nay' or 'Aye'.";
@@ -276,7 +200,7 @@ $string['topcoll:changecolour'] = 'Change or reset thee colour';
 $string['topcoll:changetogglealignment'] = 'Change or reset thee toggle alignment';
 $string['topcoll:changetoggleiconset'] = 'Change or reset thee toggle icon set';
 
-// Instructions
+// Instructions.
 $string['instructions'] = 'Orders: Avast! Clicking on thee section name will show / hide thy section.  And yee betin not forgetin dat!';
 $string['displayinstructions'] = 'Display orders';
 $string['displayinstructions_help'] = 'States that thee orders should be displayed to thy crew or not.';
