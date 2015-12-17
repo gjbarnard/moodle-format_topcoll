@@ -37,7 +37,7 @@ require_once($CFG->libdir . '/filelib.php');
 require_once($CFG->libdir . '/completionlib.php');
 require_once($CFG->dirroot . '/course/format/topcoll/togglelib.php');
 
-// Horrible backwards compatible parameter aliasing..
+// Horrible backwards compatible parameter aliasing....
 if ($ctopic = optional_param('ctopics', 0, PARAM_INT)) { // Collapsed Topics old section parameter.
     $url = $PAGE->url;
     $url->param('section', $ctopic);
@@ -56,7 +56,7 @@ if ($week = optional_param('week', 0, PARAM_INT)) { // Weeks old section paramet
     debugging('Outdated week param passed to course/view.php', DEBUG_DEVELOPER);
     redirect($url);
 }
-// End backwards-compatible aliasing..
+// End backwards-compatible aliasing....
 
 $context = context_course::instance($course->id);
 

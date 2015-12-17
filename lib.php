@@ -34,7 +34,6 @@
 require_once($CFG->dirroot . '/course/format/lib.php'); // For format_base.
 
 class format_topcoll extends format_base {
-
     private $settings;
 
     /**
@@ -852,19 +851,19 @@ class format_topcoll extends format_base {
     /**
      * Validates the colour that was entered by the user.
      * Borrowed from 'admin_setting_configcolourpicker' in '/lib/adminlib.php'.
-     * 
+     *
      * I'm not completely happy with this solution as would rather embed in the colour
      * picker code in the form, however I find this area rather fraut and I hear that
      * Dan Poltawski (via MDL-42270) will be re-writing the forms lib so hopefully more
      * developer friendly.
-     * 
+     *
      * Note: Colour names removed, but might consider putting them back in if asked, but
      *       at the moment that would require quite a few changes and coping with existing
      *       settings.  Either convert the names to hex or allow them as valid values and
      *       fix the colour picker code and the CSS code in 'format.php' for the setting.
-     * 
+     *
      * Colour name to hex on: http://www.w3schools.com/cssref/css_colornames.asp.
-     * 
+     *
      * @param string $data the colour string to validate.
      * @return true|false
      */

@@ -244,8 +244,6 @@ function required_topcoll_param($parname) {
  * @throws coding_exception
  */
 function clean_topcoll_param($param) {
-    global $CFG;
-
     if (is_array($param)) {
         throw new coding_exception('clean_topcoll_param() can not process arrays.');
     } else if (is_object($param)) {

@@ -4,6 +4,8 @@ Topic based course format with an individual 'toggle' for each topic except 0.
 
 If you find an issue with the format, please see the 'Reporting Issues' section below.
 
+[![Build Status](https://travis-ci.org/gjb2048/moodle-format_topcoll.svg?branch=master)](https://travis-ci.org/gjb2048/moodle-format_topcoll)
+
 Required version of Moodle
 ==========================
 This version works with Moodle version 2015111600.00 3.0 (Build: 20151116) and above within the 3.0 branch until the
@@ -23,7 +25,7 @@ If you download from the development area - https://github.com/gjb2048/moodle-fo
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
-Documented on http://docs.moodle.org/29/en/Collapsed_Topics_course_format
+Documented on http://docs.moodle.org/30/en/Collapsed_Topics_course_format
 
 Bespoke changes
 ===============
@@ -251,6 +253,9 @@ Version 3.0.2
   2. ARIA button role: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_button_role but
      still need to think about keyboard control.
   3. Add TravisCI support: https://docs.moodle.org/dev/Travis_Integration and https://github.com/moodlerooms/moodle-plugin-ci.
+  4. Simplify icon set CSS.
+  5. Using https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage#ignoring-parts-of-a-file on bitwise operators in
+     module.js until CONTRIB-5862 / https://github.com/moodlerooms/moodle-plugin-ci/issues/6 resolved.
 
 Version 3.0.1
   1. Fixed #22, Orphaned sections are not responsive.
