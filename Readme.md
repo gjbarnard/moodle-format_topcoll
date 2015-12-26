@@ -248,6 +248,10 @@ can be really useful in visualising the issue along with any files you consider 
 
 Version Information
 ===================
+Version 3.0.2.1
+  1. Put back word-break on section-title.
+  2. Change edit summary to edit section on cog icon to be consistent.
+
 Version 3.0.2
   1. Code checker tidy up.
   2. ARIA button role: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_button_role but

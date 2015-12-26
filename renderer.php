@@ -393,7 +393,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                                 html_writer::empty_tag('img',
                                         array('src' => $this->output->pix_url('t/edit'),
                                     'class' => 'icon edit tceditsection', 'alt' => get_string('edit'))),
-                                array('title' => get_string('editsummary'), 'class' => 'tceditsection'));
+                                array('title' => get_string('editsection', 'format_topcoll'), 'class' => 'tceditsection'));
             }
             $rightcontent .= $this->section_right_content($section, $course, $onsectionpage);
 
@@ -455,7 +455,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                                 html_writer::empty_tag('img',
                                         array('src' => $this->output->pix_url('t/edit'),
                                     'class' => 'iconsmall edit', 'alt' => get_string('edit'))),
-                                array('title' => get_string('editsummary')));
+                                array('title' => get_string('editsection', 'format_topcoll')));
             }
 
             if ($this->tcsettings['showsectionsummary'] == 1) {
@@ -480,7 +480,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                                 html_writer::empty_tag('img',
                                         array('src' => $this->output->pix_url('t/edit'),
                                     'class' => 'iconsmall edit', 'alt' => get_string('edit'))),
-                                array('title' => get_string('editsummary')));
+                                array('title' => get_string('editsection', 'format_topcoll')));
             }
             $o .= html_writer::end_tag('div');
 

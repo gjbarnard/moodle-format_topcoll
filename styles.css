@@ -121,6 +121,7 @@
 .course-content ul.ctopics li.section .content .toggle a  h3,
 .course-content ul.ctopics li.section .content.sectionhidden h3 {
     margin: 0;
+    word-wrap: break-word;
 }
 
 .course-content ul.ctopics li.section .content .toggle a  h3.section-title,
