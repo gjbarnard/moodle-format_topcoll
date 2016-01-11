@@ -3,6 +3,7 @@
 Version 3.0.2.1
   1. Put back word-break on section-title.
   2. Change edit summary to edit section on cog icon to be consistent.
+  3. Fix editing side width.
 
 Version 3.0.2
   1. Code checker tidy up.
