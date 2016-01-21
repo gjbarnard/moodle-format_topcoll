@@ -298,7 +298,7 @@ $string['em3_9'] = '3.9em';
 $string['em4_0'] = '4.0em';
 
 $string['formatresponsive'] = 'Format responsive';
-$string['formatresponsive_desc'] = "Turn on if you are using a non-responsive theme and the format will adjust to the screen size / device.  Turn off if you are using a reponsive theme.  Bootstrap 2.3.2 support is built in, for other frameworks and versions, override the methods 'get_row_class()' and 'get_column_class()' in renderer.php.";
+$string['formatresponsive_desc'] = "Turn on if you are using a non-responsive theme and the format will adjust to the screen size / device.  Turn off if you are using a responsive theme.  Bootstrap 2.3.2 support is built in, for other frameworks and versions, override the methods 'get_row_class()' and 'get_column_class()' in renderer.php.";
 
 // Show section summary when collapsed.
 $string['setshowsectionsummary'] = 'Show the section summary when collapsed';
