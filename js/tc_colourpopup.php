@@ -51,6 +51,7 @@ class MoodleQuickForm_tccolourpopup extends HTML_QuickForm_text {
 
     public function MoodleQuickForm_tccolourpopup($elementname = null, $elementlabel = null, $attributes = null, $options = null) {
         parent::__construct($elementname, $elementlabel, $attributes);
+        $this->_type = 'colourtext';
     }
 
     public function setHiddenLabel($hiddenLabel) {

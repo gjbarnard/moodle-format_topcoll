@@ -427,7 +427,7 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
 }
 
 .course-content ul.ctopics li.section.main .side, .course-content ul.ctopics li.tcsection .side,
-.jsenabled .course-content ul.ctopics li.section.main .side, .jsenabled .course-content ul.ctopics li.tcsection .side {
+.editing .course-content ul.ctopics li.section.main .side, .editing .course-content ul.ctopics li.tcsection .side {
     width: 40px; /* Default used in editing mode or when not defined in the language file. */
     text-align: center;
     padding: 0;
