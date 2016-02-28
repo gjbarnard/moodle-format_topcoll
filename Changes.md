@@ -5,6 +5,7 @@ Version 3.0.2.1
   2. Change edit summary to edit section on cog icon to be consistent.
   3. Fix editing side width.
   4. Change colour setting type from 'text' to 'colourtext - 'ftext' -> 'fcolourtext' for theme styling.
+  5. Fix 'Managers assigned at Course Category levels cannot change topcoll settings until course exists' - #24.
 
 Version 3.0.2
   1. Code checker tidy up.
