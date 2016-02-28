@@ -10,6 +10,7 @@ Version 2.9.3
      module.js until CONTRIB-5862 / https://github.com/moodlerooms/moodle-plugin-ci/issues/6 resolved.
   6. Put back word-break on section-title.
   7. Change edit summary to edit section on cog icon to be consistent.
+  8. Fix 'Managers assigned at Course Category levels cannot change topcoll settings until course exists' - #24.
 
 Version 2.9.2.2
   1. Fixed #22, Orphaned sections are not responsive.
