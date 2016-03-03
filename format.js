@@ -67,7 +67,7 @@ M.course.format.swap_sections = function(Y, node1, node2) {
     };
 
     var sectionlist = Y.Node.all(CSS.COURSECONTENT + ' ' + M.course.format.get_section_selector(Y));
-    // Swap menus
+    // Swap menus.
     sectionlist.item(node1).one(CSS.SECTIONADDMENUS).swap(sectionlist.item(node2).one(CSS.SECTIONADDMENUS));
 };
 
@@ -90,7 +90,7 @@ M.course.format.process_sections = function(Y, sectionlist, response, sectionfro
     };
 
     if (response.action == 'move') {
-        if (sectionfrom > sectionto) { // MDL-34798
+        if (sectionfrom > sectionto) { // MDL-34798.
             var temp = sectionto;
             sectionto = sectionfrom;
             sectionfrom = temp;
