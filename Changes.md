@@ -11,6 +11,7 @@ Version 2.8.4
   6. Put back word-break on section-title.
   7. Change edit summary to edit section on cog icon to be consistent.
   8. Fix 'Managers assigned at Course Category levels cannot change topcoll settings until course exists' - #24.
+  9. TravisCI fixes.
 
 Version 2.8.3.1
   1. Fixed #22, Orphaned sections are not responsive.
