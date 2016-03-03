@@ -45,7 +45,7 @@ M.format_topcoll.ourYUI = false;
 M.format_topcoll.numSections = 0;
 M.format_topcoll.ie8 = false;
 
-// Namespace constants:
+// Namespace constants:....
 M.format_topcoll.TOGGLE_6 = 1;
 M.format_topcoll.TOGGLE_5 = 2;
 M.format_topcoll.TOGGLE_4 = 4;
@@ -217,7 +217,7 @@ M.format_topcoll.save_toggles = function() {
     }
 };
 
-// New base 64 code:
+// New base 64 code:....
 M.format_topcoll.is_old_preference = function(pref) {
     "use strict";
     var retr = false;
@@ -290,12 +290,12 @@ M.format_topcoll.get_toggle_pos = function(togglenum) {
 
 M.format_topcoll.get_min_digit = function() {
     "use strict";
-    return ':'; // 58 ':';
+    return ':'; // ':' is 58.
 };
 
 M.format_topcoll.get_max_digit = function() {
     "use strict";
-    return 'y'; // 58 'y';
+    return 'y'; // 'y' is 121.
 };
 
 M.format_topcoll.get_toggle_flag = function(togglenum, togglecharpos) {
@@ -352,9 +352,9 @@ M.format_topcoll.set_user_preference = function(name, value) {
 
         // If we are a developer, ensure that failures are reported.
         var cfg = {
-                method: 'get',
-                on: {}
-            };
+            method: 'get',
+            on: {}
+        };
         if (M.cfg.developerdebug) {
             cfg.on.failure = function() {
                 console.log("Error updating topcoll preference '" + name + "' using AJAX.  Almost certainly your session has timed out.  Clicking this link will repeat the AJAX call that failed so you can see the error: "); // jshint ignore:line
