@@ -36,7 +36,7 @@ class topcoll_togglelib {
 
     // Digits used = ":;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy";
     // Note: An ':' is 58 Ascii so to go between six digit base 2 and this then add / subtract 58.
-    //       This has been chosen to avoid digits which are in the old method.
+    // This has been chosen to avoid digits which are in the old method.
 
     const TOGGLE_6 = 1;
     const TOGGLE_5 = 2;
