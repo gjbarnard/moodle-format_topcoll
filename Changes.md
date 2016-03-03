@@ -6,6 +6,7 @@ Version 3.0.2.1
   3. Fix editing side width.
   4. Change colour setting type from 'text' to 'colourtext - 'ftext' -> 'fcolourtext' for theme styling.
   5. Fix 'Managers assigned at Course Category levels cannot change topcoll settings until course exists' - #24.
+  6. Implement MDL-26226 / CONTRIB-6178.
 
 Version 3.0.2
   1. Code checker tidy up.
