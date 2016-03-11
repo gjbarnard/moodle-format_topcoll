@@ -1046,5 +1046,4 @@ class format_topcoll_renderer extends format_section_renderer_base {
     public function get_format_responsive() {
         return $this->formatresponsive;
     }
-
 }

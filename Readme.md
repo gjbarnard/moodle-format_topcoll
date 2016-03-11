@@ -220,6 +220,8 @@ Known Issues
     currently experiencing with the MyMobile theme - MDL-33115.  The work around is to refresh the page.  Having altered some
     of the event handing code to operate after page load, I'm hoping that this has now been resolved, please let me know
     if you encounter it.
+4.  If you get HTTP 403 errors on the browsers console for the 'settopcollpref.php' then check that the permissions within the
+    'topcoll' folder are 755 for folders and 644 for files.  Ref: https://moodle.org/mod/forum/discuss.php?d=329620.
 
 Reporting Issues
 ================
