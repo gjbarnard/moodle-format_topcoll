@@ -1217,7 +1217,7 @@ class format_topcoll extends format_base {
     }
 
     /**
-     * Whether this format allows to delete sections
+     * Whether this format allows to delete sections.
      *
      * Do not call this function directly, instead use {@link course_can_delete_section()}
      *
@@ -1238,6 +1238,51 @@ class format_topcoll extends format_base {
         } else {
             return context_course::instance($this->courseid);
         }
+    }
+
+    /**
+     * Prepares the templateable object to display section name.
+     *
+     * @param \section_info|\stdClass $section
+     * @param bool $linkifneeded
+     * @param bool $editable
+     * @param null|lang_string|string $edithint
+     * @param null|lang_string|string $editlabel
+     * @return \core\output\inplace_editable
+     */
+    public function inplace_editable_render_section_name($section, $linkifneeded = true,
+                                                         $editable = null, $edithint = null, $editlabel = null) {
+        if (empty($edithint)) {
+            $edithint = new lang_string('editsectionname', 'format_topcoll');
+        }
+        if (empty($editlabel)) {
+            //$title = get_section_name($section->course, $section);
+            $course = $this->get_course();
+            //$title = $this->get_topcoll_section_name($section->course, $section, true);
+            $title = $this->get_topcoll_section_name($course, $section, true);
+            $editlabel = new lang_string('newsectionname', 'format_topcoll', $title);
+        }
+        return parent::inplace_editable_render_section_name($section, $linkifneeded, $editable, $edithint, $editlabel);
+    }
+}
+
+/**
+ * Implements callback inplace_editable() allowing to edit values in-place.
+ *
+ * @param string $itemtype
+ * @param int $itemid
+ * @param mixed $newvalue
+ * @return \core\output\inplace_editable
+ */
+function format_topcoll_inplace_editable($itemtype, $itemid, $newvalue) {
+    global $CFG;
+    require_once($CFG->dirroot . '/course/lib.php');
+    if ($itemtype === 'sectionname' || $itemtype === 'sectionnamenl') {
+        global $DB;
+        $section = $DB->get_record_sql(
+            'SELECT s.* FROM {course_sections} s JOIN {course} c ON s.course = c.id WHERE s.id = ? AND c.format = ?',
+            array($itemid, 'topcoll'), MUST_EXIST);
+        return course_get_format($section->course)->inplace_editable_update_section_name($section, $itemtype, $newvalue);
     }
 }
 

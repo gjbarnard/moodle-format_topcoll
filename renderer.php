@@ -214,6 +214,28 @@ class format_topcoll_renderer extends format_section_renderer_base {
     }
 
     /**
+     * Generate the section title, wraps it in a link to the section page if page is to be displayed on a separate page
+     *
+     * @param stdClass $section The course_section entry from DB
+     * @param stdClass $course The course entry from DB
+     * @return string HTML to output.
+     */
+    public function section_title($section, $course) {
+        return $this->render($this->courseformat->inplace_editable_render_section_name($section));
+    }
+
+    /**
+     * Generate the section title to be displayed on the section page, without a link
+     *
+     * @param stdClass $section The course_section entry from DB
+     * @param stdClass $course The course entry from DB
+     * @return string HTML to output.
+     */
+    public function section_title_without_link($section, $course) {
+        return $this->render($this->courseformat->inplace_editable_render_section_name($section, false));
+    }
+
+    /**
      * Generate the edit controls of a section.
      *
      * @param stdClass $course The course entry from DB.
@@ -432,9 +454,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $this->tcsettings = $this->courseformat->get_settings();
             }
 
-            $title = $this->courseformat->get_topcoll_section_name($course, $section, true);
+            //$title = $this->courseformat->get_topcoll_section_name($course, $section, true);
+            //$sectionname = html_writer::tag('span', $this->section_title($section, $course));
+            $title = $this->section_title($section, $course);
             if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
-                $o .= $this->output->heading($title, 3, 'section-title');
+                $o .= $this->output->heading($title, 3, 'sectionname');
             } else {
                 $o .= html_writer::tag('h3', $title); // Moodle H3's look bad on mobile / tablet with CT so use plain.
             }
