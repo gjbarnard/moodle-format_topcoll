@@ -1,5 +1,8 @@
 ﻿Version Information
 ===================
+Version 3.1.0.1
+  1. Alpha version for Moodle 3.1.
+
 Version 3.0.2.1
   1. Put back word-break on section-title.
   2. Change edit summary to edit section on cog icon to be consistent.

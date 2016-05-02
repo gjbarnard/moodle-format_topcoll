@@ -20,7 +20,7 @@ matrix:
 
 env:
  global:
-  - MOODLE_BRANCH=MOODLE_30_STABLE
+  - MOODLE_BRANCH=master
   - IGNORE_NAMES=tc_colourpopup.php,tc_colourpopup.js
  matrix:
   - DB=pgsql

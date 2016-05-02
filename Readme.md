@@ -8,24 +8,24 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 ==========================
-This version works with Moodle version 2015111600.00 3.0 (Build: 20151116) and above within the 3.0 branch until the
+This version works with Moodle version 2016042900.00 3.1dev+ (Build: 20160429) and above within the 3.1 branch until the
 next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
-'docs.moodle.org/30/en/Installing_Moodle'.
+'docs.moodle.org/31/en/Installing_Moodle'.
 
 Downloads and documentation
 ===========================
 The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
-with 'Select Moodle version:' set at 'Moodle 3.0'.
+with 'Select Moodle version:' set at 'Moodle 3.1'.
 
-The secondary source is a tagged version with the v3.0 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
+The secondary source is a tagged version with the v3.1 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
 
 If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/ - consider that
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
-Documented on http://docs.moodle.org/30/en/Collapsed_Topics_course_format
+Documented on http://docs.moodle.org/31/en/Collapsed_Topics_course_format
 
 Bespoke changes
 ===============
@@ -58,9 +58,9 @@ Flattr - https://flattr.com/profile/gjb2048
 
 Sponsorships may allow me to provide you with more or better features in less time.
 
-New features for this Moodle 3.0 version
+New features for this Moodle 3.1 version
 ========================================
- 1. Same features as version 2.9.1.5 in Moodle 2.9.
+ 1. Same features as version 3.0.2.2 in Moodle 3.0.
 
 Installation
 ============
