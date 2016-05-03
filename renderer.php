@@ -424,9 +424,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $sectionclass = '';
             }
             $toggleclass .= ' the_toggle ' . $this->tctoggleiconsize;
-            $toggleurl = new moodle_url('/course/view.php', array('id' => $course->id));
-            $o .= html_writer::start_tag('a',
-                array('class' => $toggleclass, 'href' => $toggleurl, 'role' => 'button', 'aria-pressed' => $ariapressed)
+            $o .= html_writer::start_tag('span',
+                array('class' => $toggleclass, 'role' => 'button', 'aria-pressed' => $ariapressed)
             );
 
             if (empty($this->tcsettings)) {
@@ -440,7 +439,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $o .= html_writer::tag('h3', $title); // Moodle H3's look bad on mobile / tablet with CT so use plain.
             }
 
-            $o .= html_writer::end_tag('a');
+            $o .= html_writer::end_tag('span');
             $o .= html_writer::end_tag('div');
 
             if ($this->tcsettings['showsectionsummary'] == 2) {
@@ -980,12 +979,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
         $o .= html_writer::start_tag('div', array('class' => 'sectionbody' . $iconsetclass));
         $o .= html_writer::start_tag('h4', null);
-        $o .= html_writer::tag('a', get_string('topcollopened', 'format_topcoll'),
-            array('class' => 'on ' . $this->tctoggleiconsize, 'href' => '#', 'id' => 'toggles-all-opened',
+        $o .= html_writer::tag('span', get_string('topcollopened', 'format_topcoll'),
+            array('class' => 'on ' . $this->tctoggleiconsize, 'id' => 'toggles-all-opened',
             'role' => 'button')
         );
-        $o .= html_writer::tag('a', get_string('topcollclosed', 'format_topcoll'),
-            array('class' => 'off ' . $this->tctoggleiconsize, 'href' => '#', 'id' => 'toggles-all-closed',
+        $o .= html_writer::tag('span', get_string('topcollclosed', 'format_topcoll'),
+            array('class' => 'off ' . $this->tctoggleiconsize, 'id' => 'toggles-all-closed',
             'role' => 'button')
         );
         $o .= html_writer::end_tag('h4');

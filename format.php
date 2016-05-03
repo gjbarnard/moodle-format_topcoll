@@ -120,7 +120,7 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
     echo '}';
 
     echo '/* -- Toggle text -- */';
-    echo '.course-content ul.ctopics li.section .content .toggle a, .course-content ul.ctopics li.section .content.sectionhidden {';
+    echo '.course-content ul.ctopics li.section .content .toggle span, .course-content ul.ctopics li.section .content.sectionhidden {';
     echo 'color: ';
     if ($tcsettings['toggleforegroundcolour'][0] != '#') {
         echo '#';
@@ -140,7 +140,7 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
     echo '}';
 
     echo '/* Toggle icon position. */';
-    echo '.course-content ul.ctopics li.section .content .toggle a, #toggle-all .content h4 a {';
+    echo '.course-content ul.ctopics li.section .content .toggle span, #toggle-all .content h4 span {';
     echo 'background-position: ';
     switch ($tcsettings['toggleiconposition']) {
         case 2:
@@ -153,8 +153,8 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
     echo '}';
 
     echo '/* -- What happens when a toggle is hovered over -- */';
-    echo '.course-content ul.ctopics li.section .content .toggle a:hover,';
-    echo '.course-content ul.ctopics li.section .content.sectionhidden .toggle a:hover {';
+    echo '.course-content ul.ctopics li.section .content .toggle span:hover,';
+    echo '.course-content ul.ctopics li.section .content.sectionhidden .toggle span:hover {';
     echo 'color: ';
     if ($tcsettings['toggleforegroundhovercolour'][0] != '#') {
         echo '#';

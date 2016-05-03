@@ -131,7 +131,7 @@ M.format_topcoll.toggleClick = function(e) {
 M.format_topcoll.allOpenClick = function(e) {
     e.preventDefault();
     M.format_topcoll.ourYUI.all(".toggledsection").addClass('sectionopen');
-    M.format_topcoll.ourYUI.all(".toggle a").addClass('toggle_open').removeClass('toggle_closed')
+    M.format_topcoll.ourYUI.all(".toggle span.the_toggle").addClass('toggle_open').removeClass('toggle_closed')
         .setAttribute('aria-pressed', 'true');
     M.format_topcoll.resetState(M.format_topcoll.get_max_digit());
     M.format_topcoll.save_toggles();
@@ -140,7 +140,7 @@ M.format_topcoll.allOpenClick = function(e) {
 M.format_topcoll.allCloseClick = function(e) {
     e.preventDefault();
     M.format_topcoll.ourYUI.all(".toggledsection").removeClass('sectionopen');
-    M.format_topcoll.ourYUI.all(".toggle a").addClass('toggle_closed').removeClass('toggle_open')
+    M.format_topcoll.ourYUI.all(".toggle span.the_toggle").addClass('toggle_closed').removeClass('toggle_open')
         .setAttribute('aria-pressed', 'false');
     M.format_topcoll.resetState(M.format_topcoll.get_min_digit());
     M.format_topcoll.save_toggles();
@@ -158,20 +158,20 @@ M.format_topcoll.resetState = function(dchar) {
 // Args - targetNode that initiated the call, toggleNum the number of the toggle.
 M.format_topcoll.toggle_topic = function(targetNode, toggleNum) {
     "use strict";
-    var targetLink = targetNode.one('a');
+    var target = targetNode.one('span.the_toggle');
     var state;
-    if (!targetLink.hasClass('toggle_open')) {
-        targetLink.addClass('toggle_open').removeClass('toggle_closed').setAttribute('aria-pressed', 'true');
+    if (!target.hasClass('toggle_open')) {
+        target.addClass('toggle_open').removeClass('toggle_closed').setAttribute('aria-pressed', 'true');
         targetNode.next('.toggledsection').addClass('sectionopen');
         state = true;
     } else {
-        targetLink.addClass('toggle_closed').removeClass('toggle_open').setAttribute('aria-pressed', 'false');
+        target.addClass('toggle_closed').removeClass('toggle_open').setAttribute('aria-pressed', 'false');
         targetNode.next('.toggledsection').removeClass('sectionopen');
         state = false;
     }
     // IE 8 Hack/workaround to force IE8 to repaint everything.
     if (M.format_topcoll.ie8) {
-        M.format_topcoll.ourYUI.all(".toggle a").addClass('ie8_hackclass_donotuseincss')
+        M.format_topcoll.ourYUI.all(".toggle span.the_toggle").addClass('ie8_hackclass_donotuseincss')
             .removeClass('ie8_hackclass_donotuseincss');
         console.log('IE8 repaint.');
     }
