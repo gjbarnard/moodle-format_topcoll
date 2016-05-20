@@ -454,9 +454,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $this->tcsettings = $this->courseformat->get_settings();
             }
 
-            //$title = $this->courseformat->get_topcoll_section_name($course, $section, true);
-            //$sectionname = html_writer::tag('span', $this->section_title($section, $course));
-            $title = $this->section_title($section, $course);
+            if ($this->userisediting) {
+                $title = $this->section_title($section, $course);
+            } else {
+                $title = $this->courseformat->get_topcoll_section_name($course, $section, true);
+            }
             if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
                 $o .= $this->output->heading($title, 3, 'sectionname');
             } else {

@@ -181,7 +181,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $thevalue .= '<div class="sectionhead toggle toggle-arrow" id="toggle-1">';
         $thevalue .= '<span class="toggle_closed the_toggle tc-medium" ';
         $thevalue .= 'role="button" aria-pressed="false">';
-        $thevalue .= '<h3 class="section-title">Section 1<span class="cttoggle"> - Toggle</span></h3></span></div>';
+        $thevalue .= '<h3 class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3></span></div>';
         $thevalue .= '<div class="sectionbody toggledsection" id="toggledsection-1">';
         $this->assertEquals($thevalue, $theclass);
 
@@ -226,7 +226,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '<span class="cps_centre">Topic<br />1</span></div><div class="content"><div class="sectionhead ';
         $theoutput .= 'toggle toggle-arrow" id="toggle-1"><span class="toggle_closed the_toggle tc-medium" role="button" ';
         $theoutput .= 'aria-pressed="false">';
-        $theoutput .= '<h3 class="section-title">Section 1<span class="cttoggle"> - Toggle</span></h3></span></div>';
+        $theoutput .= '<h3 class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3></span></div>';
         $theoutput .= '<div class="sectionbody toggledsection" id="toggledsection-1"><ul class="section img-text">';
         $theoutput .= '</ul></div></div></li></ul>';
         $this->expectOutputString($theoutput);

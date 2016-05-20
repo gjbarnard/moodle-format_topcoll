@@ -159,7 +159,7 @@ class format_topcoll extends format_base {
                 case 3:
                 case 4:
                     // The word 'Toggle'.
-                    $o .= '<span class="cttoggle"> - ' . get_string('topcolltoggle', 'format_topcoll') . '</span>';
+                    $o .= '<div class="cttoggle"> - ' .get_string('topcolltoggle', 'format_topcoll') . '</div>';
                     break;
             }
         }
@@ -1256,10 +1256,8 @@ class format_topcoll extends format_base {
             $edithint = new lang_string('editsectionname', 'format_topcoll');
         }
         if (empty($editlabel)) {
-            //$title = get_section_name($section->course, $section);
             $course = $this->get_course();
-            //$title = $this->get_topcoll_section_name($section->course, $section, true);
-            $title = $this->get_topcoll_section_name($course, $section, true);
+            $title = $this->get_topcoll_section_name($course, $section, false);
             $editlabel = new lang_string('newsectionname', 'format_topcoll', $title);
         }
         return parent::inplace_editable_render_section_name($section, $linkifneeded, $editable, $edithint, $editlabel);

@@ -641,6 +641,7 @@ body.jsenabled #toggle-all {
     font-family: inherit;
     font-size: inherit;
     font-style: inherit;
+    display: inline;
 }
 
 /* MDL-42634 */
