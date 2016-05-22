@@ -8,7 +8,7 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 ==========================
-This version works with Moodle version 2016042900.00 3.1dev+ (Build: 20160429) and above within the 3.1 branch until the
+This version works with Moodle version 2016052300.00; // 3.1 (Build: 20160523) and above within the 3.1 branch until the
 next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
@@ -60,7 +60,7 @@ Sponsorships may allow me to provide you with more or better features in less ti
 
 New features for this Moodle 3.1 version
 ========================================
- 1. Same features as version 3.0.2.2 in Moodle 3.0.
+ 1. Features as version 3.0.2.2 in Moodle 3.0 and section name editing as implemented in core by MDL-51802.
 
 Installation
 ============
@@ -193,11 +193,11 @@ If you want to change what icon represents which state / action, then edit 'styl
 the 'background' attribute with a 'toggle-...' type class within them.  There are selectors for both the 'toggles' and
 the 'toggle all' functionality.  For example:
 
-    body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow a.toggle_closed {
+    body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow span.toggle_closed {
         background-image: url([[pix:format_topcoll|arrow_right]]);
     }
 
-    #toggle-all .content .toggle-arrow h4 a.off {
+    #toggle-all .content .toggle-arrow h4 span.off {
         background-image: url([[pix:format_topcoll|arrow_down]]); 
     }
 

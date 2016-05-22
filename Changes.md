@@ -1,5 +1,8 @@
 ﻿Version Information
 ===================
+Version 3.1.1
+  1. First stable version for Moodle 3.1.
+
 Version 3.1.0.1
   1. Alpha version for Moodle 3.1.
   2. Refactor to use spans instead of links for the toggle for MDL-51802 as cannot have a link in a link.
