@@ -58,6 +58,11 @@ Flattr - https://flattr.com/profile/gjb2048
 
 Sponsorships may allow me to provide you with more or better features in less time.
 
+Sponsors
+========
+Sponsorships gratefully received with thanks from:
+Emerogork: Central Connecticut State University, USA
+
 New features for this Moodle 3.1 version
 ========================================
  1. Features as version 3.0.2.2 in Moodle 3.0 and section name editing as implemented in core by MDL-51802.
