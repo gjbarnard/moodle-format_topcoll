@@ -43,6 +43,7 @@ M.format_topcoll.courseid = 0;
 M.format_topcoll.togglePersistence = 1; // Toggle persistence - 1 = on, 0 = off.
 M.format_topcoll.ourYUI = false;
 M.format_topcoll.numSections = 0;
+M.format_topcoll.userIsEditing = false;
 
 // Namespace constants:....
 M.format_topcoll.TOGGLE_6 = 1;
@@ -62,7 +63,7 @@ M.format_topcoll.TOGGLE_1 = 32;
  * @param {Integer} theDefaultTogglePersistence Persistence all open (1) or all closed (0) when thetogglestate is null.
  */
 M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections, theTogglePersistence,
-    theDefaultTogglePersistence) {
+    theDefaultTogglePersistence, theUserIsEditing) {
     "use strict";
     // Init.
     this.ourYUI = Y;
@@ -70,6 +71,7 @@ M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections,
     this.togglestate = theToggleState;
     this.numSections = parseInt(theNumSections);
     this.togglePersistence = theTogglePersistence;
+    this.userIsEditing = theUserIsEditing;
 
     if ((this.togglestate !== null) && (this.togglePersistence == 1)) { // Toggle persistence - 1 = on, 0 = off.
         if (this.is_old_preference(this.togglestate) === true) {
@@ -122,6 +124,12 @@ M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections,
 };
 
 M.format_topcoll.toggleClick = function(e) {
+    if (this.userIsEditing) {
+        var parentClasses = e.target.get('parentNode').getAttribute('class');
+        if ((parentClasses.indexOf('quickediticon') > -1) || (parentClasses.indexOf('inplaceeditable') > -1)) {
+            return;
+        }
+    }
     var toggleIndex = parseInt(e.currentTarget.get('id').replace("toggle-", ""));
     e.preventDefault();
     this.toggle_topic(e.currentTarget, toggleIndex);

@@ -103,7 +103,8 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
         $userpreference,
         $course->numsections,
         $defaulttogglepersistence,
-        $defaultuserpreference));
+        $defaultuserpreference,
+        $PAGE->user_is_editing()));
 
     $tcsettings = $courseformat->get_settings();
 

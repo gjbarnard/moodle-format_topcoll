@@ -680,6 +680,10 @@ body.jsenabled #toggle-all {
     font-style: italic;
 }
 
+.format-topcoll .inplaceeditable.inplaceeditingon input {
+    width: auto;
+}
+
 /* Print styles. */
 @media print {
     body.jsenabled .toggledsection {

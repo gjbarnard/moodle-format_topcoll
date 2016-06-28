@@ -1,5 +1,9 @@
 ﻿Version Information
 ===================
+Version 3.1.1.2
+  1. Fix toggle operating when editing the section name inline.
+  2. Fix the width of the input box for section name inline editing.
+
 Version 3.1.1.1
   1. Fix inoperable toggle on iPhone's / iPad's.
   2. Removed IE8 support.
