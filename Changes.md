@@ -1,6 +1,7 @@
 ﻿Version Information
 ===================
 Version 3.0.2.2
+  1. Improve and fix responsive column layouts.
 
 Version 3.0.2.1
   1. Put back word-break on section-title.
