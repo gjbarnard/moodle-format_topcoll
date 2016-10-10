@@ -1,6 +1,7 @@
 ﻿Version Information
 ===================
 Version 2.9.3.1
+  1. Improve and fix responsive column layouts.
 
 Version 2.9.3
   1. Code checker tidy up.
