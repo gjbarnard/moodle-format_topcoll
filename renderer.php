@@ -763,9 +763,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
             echo $this->start_toggle_section_list();
 
             $loopsection = 1;
-            $canbreak = false; // Once the first section is shown we can decide if we break on another column.
+            $breaking = false; // Once the first section is shown we can decide if we break on another column.
+            $canbreak = ($this->tcsettings['layoutcolumns'] > 1);
             $columncount = 1;
-            $columnbreakpoint = 0;
+            $breakpoint = 0;
             $shownsectioncount = 0;
 
             if ($this->userpreference != null) {
@@ -897,25 +898,39 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     }
                 }
 
-                // Only break in non-mobile themes or using a reponsive theme.
-                if ((!$this->formatresponsive) || ($this->mobiletheme === false)) {
-                    if ($this->tcsettings['layoutcolumnorientation'] == 1) {  // Only break columns in vertical mode.
-                        if (($canbreak == false) && ($currentsectionfirst == false) && ($showsection == true)) {
-                            $canbreak = true;
-                            $columnbreakpoint = ($shownsectioncount + ($numsections / $this->tcsettings['layoutcolumns'])) - 1;
-                            if ($this->tcsettings['layoutstructure'] == 4) {
-                                $columnbreakpoint -= 1;
+                // Only check for breaking up the structure with rows if more than one column and when we output all of the sections.
+                if (($canbreak === true) && ($currentsectionfirst === false)) {
+                    // Only break in non-mobile themes or using a responsive theme.
+                    if ((!$this->formatresponsive) || ($this->mobiletheme === false)) {
+                        if ($this->tcsettings['layoutcolumnorientation'] == 1) {  // Vertical mode.
+                            // This is not perfect yet as does not tally the shown sections and divide by columns.
+                            if (($breaking == false) && ($showsection == true)) {
+                                $breaking = true;
+                                // Divide the number of sections by the number of columns.
+                                $breakpoint = $numsections / $this->tcsettings['layoutcolumns'];
                             }
-                        }
 
-                        if (($currentsectionfirst == false) && ($canbreak == true) && ($shownsectioncount >= $columnbreakpoint)
-                                &&
+                            if (($breaking == true) && ($shownsectioncount >= $breakpoint) &&
                                 ($columncount < $this->tcsettings['layoutcolumns'])) {
-                            echo $this->end_section_list();
-                            echo $this->start_toggle_section_list();
-                            $columncount++;
-                            // Next breakpoint is...
-                            $columnbreakpoint += $numsections / $this->tcsettings['layoutcolumns'];
+                                echo $this->end_section_list();
+                                echo $this->start_toggle_section_list();
+                                $columncount++;
+                                // Next breakpoint is...
+                                $breakpoint += $numsections / $this->tcsettings['layoutcolumns'];
+                            }
+                        } else {  // Horizontal mode.
+                            if (($breaking == false) && ($showsection == true)) {
+                                $breaking = true;
+                                // The lowest value here for layoutcolumns is 2 and the maximum for shownsectioncount is 2, so :).
+                                $breakpoint = $this->tcsettings['layoutcolumns'];
+                            }
+
+                            if (($breaking == true) && ($shownsectioncount >= $breakpoint) && ($loopsection < $course->numsections)) {
+                                echo $this->end_section_list();
+                                echo $this->start_toggle_section_list();
+                                // Next breakpoint is...
+                                $breakpoint += $this->tcsettings['layoutcolumns'];
+                            }
                         }
                     }
                 }

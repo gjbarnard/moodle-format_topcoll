@@ -1,5 +1,8 @@
 ﻿Version Information
 ===================
+Version 3.1.1.3
+  1. Improve and fix responsive column layouts.
+
 Version 3.1.1.2
   1. Fix toggle operating when editing the section name inline.
   2. Fix the width of the input box for section name inline editing.
