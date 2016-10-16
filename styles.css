@@ -537,8 +537,9 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
     padding: 0 0;
 }
 
-/* -- The width of a section name in a Toggle -- */
+/* -- The Toggle -- */
 .course-content ul.ctopics li.section .content .toggle {
+    cursor: pointer;
     width: 100%;
 }
 
