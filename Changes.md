@@ -1,5 +1,7 @@
 ﻿Version Information
 ===================
+Version 2.9.3.1
+
 Version 2.9.3
   1. Code checker tidy up.
   2. ARIA button role: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_button_role but
