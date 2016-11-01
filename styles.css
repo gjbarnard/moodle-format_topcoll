@@ -50,6 +50,10 @@
     padding: 0;
 }
 
+.course-content ul.ctopics.bsfour li.section.main, .course-content ul.ctopics.bsfour li.tcsection {
+    margin: 0;
+}
+
 /* Fix for ordered and unordered list in course topic summary & course weekly summary - from theme/base/style/core.css
  * See: https://moodle.org/mod/forum/discuss.php?d=251944.
  */

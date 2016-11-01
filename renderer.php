@@ -52,6 +52,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
     private $tctoggleiconsize;
     private $formatresponsive;
     private $rtl = false;
+    private $bsfour = false;
 
     /**
      * Constructor method, calls the parent constructor - MDL-21097.
@@ -75,6 +76,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $this->formatresponsive = get_config('format_topcoll', 'formatresponsive');
 
         $this->rtl = right_to_left();
+
+        if (strcmp($page->theme->name, 'boost') === 0) {
+            $this->bsfour = true;
+        }
     }
 
     /**
@@ -82,7 +87,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @return string HTML to output.
      */
     protected function start_section_list() {
-        return html_writer::start_tag('ul', array('class' => 'ctopics'));
+        if ($this->bsfour) {
+            return html_writer::start_tag('ul', array('class' => 'ctopics'));
+        } else {
+            return html_writer::start_tag('ul', array('class' => 'ctopics bsfour'));
+        }
     }
 
     /**
@@ -91,6 +100,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
      */
     protected function start_toggle_section_list() {
         $classes = 'ctopics topics';
+        if ($this->bsfour) {
+            $classes .= ' bsfour';
+        }
         $attributes = array();
         if (($this->mobiletheme === true) || ($this->tablettheme === true)) {
             $classes .= ' ctportable';
@@ -1085,11 +1097,23 @@ class format_topcoll_renderer extends format_section_renderer_base {
     }
 
     protected function get_row_class() {
-        return 'row-fluid';
+        if ($this->bsfour) {
+            return 'row';
+        } else {
+            return 'row-fluid';
+        }
     }
 
     protected function get_column_class($columns) {
-        $colclasses = array(1 => 'span12', 2 => 'span6', 3 => 'span4', 4 => 'span3');
+        if ($this->bsfour) {
+            $colclasses = array(
+                1 => 'col-sm-12 col-md-12 col-lg-12',
+                2 => 'col-sm-6 col-md-6 col-lg-6',
+                3 => 'col-md-4 col-lg-4',
+                4 => 'col-lg-3');
+        } else {
+            $colclasses = array(1 => 'span12', 2 => 'span6', 3 => 'span4', 4 => 'span3');
+        }
 
         return $colclasses[$columns];
     }
