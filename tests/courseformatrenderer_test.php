@@ -85,6 +85,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
     protected function setUp() {
         $this->resetAfterTest(true);
 
+        set_config('theme', 'clean');
         global $PAGE;
         $this->outputus = $PAGE->get_renderer('format_topcoll');
         // Ref: https://docs.moodle.org/dev/Writing_PHPUnit_tests.

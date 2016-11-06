@@ -3,6 +3,7 @@
 Version 3.2.0.1
   1. Detect 'Boost' theme as different grid system and no way core would put in code for a contributed plugin.
   2. Update Travis CI.
+  3. Update tests for M3.2 and 'boost' as the new default theme.  Note: Need to write 'Boost' specific tests.
 
 Version 3.1.1.3
   1. Improve and fix responsive column layouts.
