@@ -1292,12 +1292,3 @@ function format_topcoll_inplace_editable($itemtype, $itemid, $newvalue) {
 function callback_topcoll_definition() {
     return get_string('sectionname', 'format_topcoll');
 }
-
-/**
- * Deletes the user preference entries for the given course upon course deletion.
- * CONTRIB-3520.
- */
-function format_topcoll_delete_course($courseid) {
-    global $DB;
-    $DB->delete_records("user_preferences", array("name" => 'topcoll_toggle_' . $courseid));
-}

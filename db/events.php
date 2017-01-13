@@ -24,18 +24,21 @@
  *
  * @package    course/format
  * @subpackage topcoll
+ * @category   event
  * @version    See the value of '$plugin->version' in below.
- * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
- * @author     G J Barnard - gjbarnard at gmail dot com, {@link http://about.me/gjbarnard} and
- *                           {@link http://moodle.org/user/profile.php?id=442195}
+ * @copyright  &copy; 2017-onwards G J Barnard based upon work done by Marina Glancy.
+ * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
  */
-defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2016110101;
-$plugin->maturity = MATURITY_BETA;
-$plugin->requires  = 2016110800.00; // 3.2beta (Build: 20161108).
-$plugin->component = 'format_topcoll';
-$plugin->release = '3.2.0.2';
+// List of observers.
+$observers = array(
+
+    array(
+        'eventname'   => '\core\event\course_content_deleted',
+        'callback'    => 'format_topcoll_observer::course_content_deleted',
+    ),
+
+);

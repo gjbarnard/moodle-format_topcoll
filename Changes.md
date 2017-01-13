@@ -1,5 +1,8 @@
 ﻿Version Information
 ===================
+Version 3.2.0.2
+  1. Remove old 'format_topcoll_delete_course' function and replace with '\core\event\course_content_deleted' event.
+
 Version 3.2.0.1
   1. Detect 'Boost' theme as different grid system and no way core would put in code for a contributed plugin.
   2. Update Travis CI.
