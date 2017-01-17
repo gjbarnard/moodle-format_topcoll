@@ -8,7 +8,7 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 ==========================
-This version works with Moodle 3.2 version 2016110800.00 (Build: 20161108) and above within the 3.2 branch until the
+This version works with Moodle 3.2 version 2016120500.00 (Build: 20161205) and above within the 3.2 branch until the
 next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
@@ -45,6 +45,12 @@ If you reuse any of the code then I kindly ask that you make reference to the fo
 If you make improvements or bug fixes then I would appreciate if you would send them back to me by forking from
 https://github.com/gjb2048/moodle-format_topcoll and doing a 'Pull Request' so that the rest of the
 Moodle community benefits.
+
+Support
+=======
+Collapsed Topics comes with NO support.  If you would like support from me (Gareth) then I'm happy to provide it
+for a fee (please see my contact details below).  Otherwise, the 'Courses and course formats' forum:
+moodle.org/mod/forum/view.php?id=47 is an excellent place to ask questions.
 
 Sponsorships
 ============
