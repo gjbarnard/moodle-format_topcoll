@@ -425,7 +425,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
                 $rightcontent .= html_writer::link($url,
                     html_writer::empty_tag('img',
-                        array('src' => $this->output->pix_url('t/edit'),
+                        array('src' => $this->output->image_url('t/edit'),
                         'class' => 'icon edit tceditsection', 'alt' => get_string('edit'))),
                         array('title' => get_string('editsection', 'format_topcoll'), 'class' => 'tceditsection'));
             }
@@ -493,7 +493,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
                 $o .= html_writer::link($url,
                     html_writer::empty_tag('img',
-                        array('src' => $this->output->pix_url('t/edit'),
+                        array('src' => $this->output->image_url('t/edit'),
                         'class' => 'iconsmall edit', 'alt' => get_string('edit'))),
                         array('title' => get_string('editsection', 'format_topcoll'))
                 );
@@ -519,7 +519,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
                 $o .= html_writer::link($url,
                     html_writer::empty_tag('img',
-                        array('src' => $this->output->pix_url('t/edit'),
+                        array('src' => $this->output->image_url('t/edit'),
                         'class' => 'iconsmall edit', 'alt' => get_string('edit'))),
                         array('title' => get_string('editsection', 'format_topcoll'))
                 );

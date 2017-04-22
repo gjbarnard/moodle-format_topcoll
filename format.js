@@ -86,7 +86,7 @@ M.course.format.process_sections = function(Y, sectionlist, response, sectionfro
     },
     SELECTORS = {
         LEFTCONTENT     : '.left .cps_centre',
-        SECTIONLEFTSIDE : '.left .section-handle img'
+        SECTIONLEFTSIDE : '.left .section-handle .icon'
     };
 
     if (response.action == 'move') {
