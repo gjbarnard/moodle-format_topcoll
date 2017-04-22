@@ -424,9 +424,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
 
                 $rightcontent .= html_writer::link($url,
-                    html_writer::empty_tag('img',
-                        array('src' => $this->output->image_url('t/edit'),
-                        'class' => 'icon edit tceditsection', 'alt' => get_string('edit'))),
+                    $this->output->pix_icon('t/edit', get_string('edit')),
                         array('title' => get_string('editsection', 'format_topcoll'), 'class' => 'tceditsection'));
             }
             $rightcontent .= $this->section_right_content($section, $course, $onsectionpage);
@@ -492,10 +490,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if ($this->userisediting && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
                 $o .= html_writer::link($url,
-                    html_writer::empty_tag('img',
-                        array('src' => $this->output->image_url('t/edit'),
-                        'class' => 'iconsmall edit', 'alt' => get_string('edit'))),
-                        array('title' => get_string('editsection', 'format_topcoll'))
+                    $this->output->pix_icon('t/edit', get_string('edit')),
+                    array('title' => get_string('editsection', 'format_topcoll'))
                 );
             }
 
@@ -518,10 +514,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if ($this->userisediting && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
                 $o .= html_writer::link($url,
-                    html_writer::empty_tag('img',
-                        array('src' => $this->output->image_url('t/edit'),
-                        'class' => 'iconsmall edit', 'alt' => get_string('edit'))),
-                        array('title' => get_string('editsection', 'format_topcoll'))
+                    $this->output->pix_icon('t/edit', get_string('edit')),
+                    array('title' => get_string('editsection', 'format_topcoll'))
                 );
             }
             $o .= html_writer::end_tag('div');

@@ -2,7 +2,7 @@
 ===================
 Version 3.3.0.1
   1. Apply MDL-58637.
-  2. pix_url to image_url.
+  2. pix_url to pix_icon.
 
 Version 3.2.1.0
   1. Remove old 'format_topcoll_delete_course' function and replace with '\core\event\course_content_deleted' event.
