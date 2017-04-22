@@ -158,12 +158,14 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
     }
 
     public function test_section_summary() {
+        global $CFG;
+
         $section = $this->courseformat->get_section(1);
         $theclass = self::call_method($this->outputus, 'section_summary',
             array($section, $this->course, null));
         $thevalue = '<li id="section-1" class="section main section-summary clearfix" role="region" aria-label="';
         $thevalue .= 'Section 1"><div class="left side"></div><div class="right side"></div><div class="content">';
-        $thevalue .= '<h3 class="section-title"><a href="http://www.example.com/moodle/course/view.php?id=';
+        $thevalue .= '<h3 class="section-title"><a href="'.$CFG->wwwroot.'/course/view.php?id=';
         $thevalue .= $this->course->id.'#section-1" class="">Section 1</a></h3><div class="summarytext"></div></div></li>';
 
         $this->assertEquals($thevalue, $theclass);
@@ -234,11 +236,13 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
     }
 
     public function test_toggle_all() {
+        global $CFG;
+
         $theclass = self::call_method($this->outputus, 'toggle_all', array());
-        $thevalue = '<li class="tcsection main clearfix" id="toggle-all"><div class="left side"><img width="1" height="1" ';
-        $thevalue .= 'class="spacer" alt="" src="http://www.example.com/moodle/theme/image.php/_s/clean/core/1/spacer" />';
-        $thevalue .= '</div><div class="right side"><img width="1" height="1" class="spacer" alt="" src="';
-        $thevalue .= 'http://www.example.com/moodle/theme/image.php/_s/clean/core/1/spacer" /></div><div class="content">';
+        $thevalue = '<li class="tcsection main clearfix" id="toggle-all"><div class="left side"><img class="icon spacer" ';
+        $thevalue .= 'width="1" height="1" alt="" src="'.$CFG->wwwroot.'/theme/image.php/_s/clean/core/1/spacer" />';
+        $thevalue .= '</div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" src="';
+        $thevalue .= $CFG->wwwroot.'/theme/image.php/_s/clean/core/1/spacer" /></div><div class="content">';
         $thevalue .= '<div class="sectionbody toggle-arrow-hover toggle-arrow"><h4><span class="on tc-medium" id="';
         $thevalue .= 'toggles-all-opened" role="button">Open all</span><span class="off tc-medium" id="toggles-all-closed" ';
         $thevalue .= 'role="button">Close all</span></h4></div></div></li>';
@@ -246,12 +250,14 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
     }
 
     public function test_display_instructions() {
+        global $CFG;
+
         $theclass = self::call_method($this->outputus, 'display_instructions', array());
         $thevalue = '<li class="tcsection main clearfix" id="topcoll-display-instructions"><div class="left side">';
-        $thevalue .= '<img width="1" height="1" class="spacer" alt="" src="';
-        $thevalue .= 'http://www.example.com/moodle/theme/image.php/_s/clean/core/1/spacer" /></div><div class="right side">';
-        $thevalue .= '<img width="1" height="1" class="spacer" alt="" src="';
-        $thevalue .= 'http://www.example.com/moodle/theme/image.php/_s/clean/core/1/spacer" /></div><div class="content">';
+        $thevalue .= '<img class="icon spacer" width="1" height="1" alt="" src="';
+        $thevalue .= $CFG->wwwroot.'/theme/image.php/_s/clean/core/1/spacer" /></div><div class="right side">';
+        $thevalue .= '<img class="icon spacer" width="1" height="1" alt="" src="';
+        $thevalue .= $CFG->wwwroot.'/theme/image.php/_s/clean/core/1/spacer" /></div><div class="content">';
         $thevalue .= '<div class="sectionbody"><p class="topcoll-display-instructions">Instructions: Clicking on the section ';
         $thevalue .= 'name will show / hide the section.</p></div></div></li>';
 
