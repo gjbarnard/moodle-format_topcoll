@@ -3,6 +3,7 @@
 Version 3.2.1.1
   1. Update tests for https.
   2. Update Travis CI for M3.2.
+  3. Fix section move name not changing.
 
 Version 3.2.1.0
   1. Remove old 'format_topcoll_delete_course' function and replace with '\core\event\course_content_deleted' event.
