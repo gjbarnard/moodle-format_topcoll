@@ -32,9 +32,6 @@ env:
  global:
   - MOODLE_BRANCH=master
   - IGNORE_NAMES=tc_colourpopup.php,tc_colourpopup.js
- matrix:
-  - DB=pgsql
-  - DB=mysqli
 
 before_install:
 # This disables XDebug which should speed up the build.  One reason to remove this

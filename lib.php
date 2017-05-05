@@ -329,7 +329,6 @@ class format_topcoll extends format_base {
      *
      * Collapsed Topics format uses the following options (until extras are migrated):
      * - coursedisplay
-     * - numsections
      * - hiddensections
      *
      * @param bool $foreditform
@@ -361,10 +360,6 @@ class format_topcoll extends format_base {
             $readme = html_writer::link($readme, 'Readme.md', array('target' => '_blank'));
             $courseconfig = get_config('moodlecourse');
             $courseformatoptions = array(
-                'numsections' => array(
-                    'default' => $courseconfig->numsections,
-                    'type' => PARAM_INT,
-                ),
                 'hiddensections' => array(
                     'default' => $courseconfig->hiddensections,
                     'type' => PARAM_INT,
@@ -457,17 +452,7 @@ class format_topcoll extends format_base {
 
             $context = $this->get_context();
 
-            $courseconfig = get_config('moodlecourse');
-            $sectionmenu = array();
-            for ($i = 0; $i <= $courseconfig->maxsections; $i++) {
-                $sectionmenu[$i] = "$i";
-            }
             $courseformatoptionsedit = array(
-                'numsections' => array(
-                    'label' => new lang_string('numbersections', 'format_topcoll'),
-                    'element_type' => 'select',
-                    'element_attributes' => array($sectionmenu),
-                ),
                 'hiddensections' => array(
                     'label' => new lang_string('hiddensections'),
                     'help' => 'hiddensections',
@@ -727,29 +712,25 @@ class format_topcoll extends format_base {
      * @return array array of references to the added form elements
      */
     public function create_edit_form_elements(&$mform, $forsection = false) {
-        global $CFG, $OUTPUT;
+        global $CFG, $COURSE, $OUTPUT;
         MoodleQuickForm::registerElementType('tccolourpopup', "$CFG->dirroot/course/format/topcoll/js/tc_colourpopup.php",
                                              'MoodleQuickForm_tccolourpopup');
 
         $elements = parent::create_edit_form_elements($mform, $forsection);
-        if ($forsection == false) {
+        if (!$forsection && (empty($COURSE->id) || $COURSE->id == SITEID)) {
             global $USER;
-            /*
-             Increase the number of sections combo box values if the user has increased the number of sections
-             using the icon on the course page beyond course 'maxsections' or course 'maxsections' has been
-             reduced below the number of sections already set for the course on the site administration course
-             defaults page.  This is so that the number of sections is not reduced leaving unintended orphaned
-             activities / resources.
-             */
-            $maxsections = get_config('moodlecourse', 'maxsections');
-            $numsections = $mform->getElementValue('numsections');
-            $numsections = $numsections[0];
-            if ($numsections > $maxsections) {
-                $element = $mform->getElement('numsections');
-                for ($i = ($maxsections + 1); $i <= $numsections; $i++) {
-                    $element->addOption("$i", $i);
-                }
+            /* Add "numsections" element to the create course form - it will force new course to be prepopulated
+               with empty sections.
+               The "Number of sections" option is no longer available when editing course, instead teachers should
+               delete and add sections when needed. */
+            $courseconfig = get_config('moodlecourse');
+            $max = (int)$courseconfig->maxsections;
+            $element = $mform->addElement('select', 'numsections', get_string('numberweeks'), range(0, $max ?: 52));
+            $mform->setType('numsections', PARAM_INT);
+            if (is_null($mform->getElementValue('numsections'))) {
+                $mform->setDefault('numsections', $courseconfig->numsections);
             }
+            array_unshift($elements, $element);
 
             $context = $this->get_context();
 
@@ -881,7 +862,7 @@ class format_topcoll extends format_base {
      * Updates format options for a course
      *
      * In case if course format was changed to 'Collapsed Topics', we try to copy options
-     * 'coursedisplay', 'numsections' and 'hiddensections' from the previous format.
+     * 'coursedisplay' and 'hiddensections' from the previous format.
      * If previous course format did not have 'numsections' option, we populate it with the
      * current number of sections.  The layout and colour defaults will come from 'course_format_options'.
      *
@@ -891,8 +872,6 @@ class format_topcoll extends format_base {
      * @return bool whether there were any changes to the options values
      */
     public function update_course_format_options($data, $oldcourse = null) {
-        global $DB; // MDL-37976.
-
         /*
          * Notes: Using 'unset' to really ensure that the reset form elements never get into the database.
          *        This has to be done here so that the reset occurs after we have done updates such that the
@@ -957,34 +936,12 @@ class format_topcoll extends format_base {
                 if (!array_key_exists($key, $data)) {
                     if (array_key_exists($key, $oldcourse)) {
                         $data[$key] = $oldcourse[$key];
-                    } else if ($key === 'numsections') {
-                        /* If previous format does not have the field 'numsections'
-                         * and $data['numsections'] is not set,
-                         * we fill it with the maximum section number from the DB */
-                        $maxsection = $DB->get_field_sql('SELECT max(section) from {course_sections} WHERE course = ?',
-                            array($this->courseid));
-                        if ($maxsection) {
-                            // If there are no sections, or just default 0-section, 'numsections' will be set to default.
-                            $data['numsections'] = $maxsection;
-                        }
                     }
                 }
             }
         }
 
         $changes = $this->update_format_options($data);
-
-        if ($changes && array_key_exists('numsections', $data)) {
-            // If the numsections was decreased, try to completely delete the orphaned sections (unless they are not empty).
-            $numsections = (int)$data['numsections'];
-            $maxsection = $DB->get_field_sql(
-                'SELECT max(section) from {course_sections} WHERE course = ?', array($this->courseid));
-            for ($sectionnum = $maxsection; $sectionnum > $numsections; $sectionnum--) {
-                if (!$this->delete_section($sectionnum, false)) {
-                    break;
-                }
-            }
-        }
 
         // Now we can do the reset.
         if (($resetalldisplayinstructions) ||
@@ -1261,6 +1218,45 @@ class format_topcoll extends format_base {
             $editlabel = new lang_string('newsectionname', 'format_topcoll', $title);
         }
         return parent::inplace_editable_render_section_name($section, $linkifneeded, $editable, $edithint, $editlabel);
+    }
+
+    /**
+     * Indicates whether the course format supports the creation of a news forum.
+     *
+     * @return bool
+     */
+    public function supports_news() {
+        return true;
+    }
+
+    /**
+     * Returns whether this course format allows the activity to
+     * have "triple visibility state" - visible always, hidden on course page but available, hidden.
+     *
+     * @param stdClass|cm_info $cm course module (may be null if we are displaying a form for adding a module)
+     * @param stdClass|section_info $section section where this module is located or will be added to
+     * @return bool
+     */
+    public function allow_stealth_module_visibility($cm, $section) {
+        // Allow the third visibility state inside visible sections or in section 0.
+        return !$section->section || $section->visible;
+    }
+
+    public function section_action($section, $action, $sr) {
+        global $PAGE;
+
+        if ($section->section && ($action === 'setmarker' || $action === 'removemarker')) {
+            // Format 'Topcoll' allows to set and remove markers in addition to common section actions.
+            require_capability('moodle/course:setcurrentsection', context_course::instance($this->courseid));
+            course_set_marker($this->courseid, ($action === 'setmarker') ? $section->section : 0);
+            return null;
+        }
+
+        // For show/hide actions call the parent method and return the new content for .section_availability element.
+        $rv = parent::section_action($section, $action, $sr);
+        $renderer = $PAGE->get_renderer('format_topcoll');
+        $rv['section_availability'] = $renderer->section_availability($this->get_section($section));
+        return $rv;
     }
 }
 

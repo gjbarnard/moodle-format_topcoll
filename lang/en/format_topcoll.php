@@ -54,7 +54,7 @@ $string['section0name'] = 'General';
 $string['page-course-view-topcoll'] = 'Any course main page in the collapsed topics format';
 $string['page-course-view-topcoll-x'] = 'Any course page in the collapsed topics format';
 
-// Moodle 2.3 Enhancement.
+$string['addsection'] = 'Add section';
 $string['hidefromothers'] = 'Hide section';
 $string['showfromothers'] = 'Show section';
 $string['currentsection'] = 'This section';
