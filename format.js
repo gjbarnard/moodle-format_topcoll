@@ -82,7 +82,7 @@ M.course.format.swap_sections = function(Y, node1, node2) {
  */
 M.course.format.process_sections = function(Y, sectionlist, response, sectionfrom, sectionto) {
     var CSS = {
-        SECTIONNAME     : '.the_toggle h3'
+        SECTIONNAME     : 'the_toggle h3'
     },
     SELECTORS = {
         LEFTCONTENT     : '.left .cps_centre',
