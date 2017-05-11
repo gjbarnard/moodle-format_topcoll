@@ -1,6 +1,8 @@
 ﻿Version Information
 ===================
 Version 3.3.0.2
+  1. Make the 'readme' course setting only display and not store in the database, thus regenerate and not broken in the
+     course backup.
 
 Version 3.3.0.1
   1. Apply MDL-58637.
