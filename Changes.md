@@ -1,5 +1,7 @@
 ﻿Version Information
 ===================
+Version 3.3.0.2
+
 Version 3.3.0.1
   1. Apply MDL-58637.
   2. pix_url to pix_icon.
