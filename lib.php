@@ -357,8 +357,6 @@ class format_topcoll extends format_base {
             if ($defaulttgbghvrcolour[0] == '#') {
                 $defaulttgbghvrcolour = substr($defaulttgbghvrcolour, 1);
             }
-            $readme = new moodle_url('/course/format/topcoll/Readme.md');
-            $readme = html_writer::link($readme, 'Readme.md', array('target' => '_blank'));
             $courseconfig = get_config('moodlecourse');
             $courseformatoptions = array(
                 'numsections' => array(
@@ -428,10 +426,6 @@ class format_topcoll extends format_base {
                 'showsectionsummary' => array(
                     'default' => get_config('format_topcoll', 'defaultshowsectionsummary'),
                     'type' => PARAM_INT,
-                ),
-                'readme' => array(
-                    'default' => get_string('readme_desc', 'format_topcoll', array('url' => $readme)),
-                    'type' => PARAM_ALPHA,
                 )
             );
         }
@@ -708,9 +702,12 @@ class format_topcoll extends format_base {
                 $courseformatoptionsedit['togglebackgroundhovercolour'] = array(
                     'label' => $defaulttgbghvrcolour, 'element_type' => 'hidden');
             }
+            $readme = new moodle_url('/course/format/topcoll/Readme.md');
+            $readme = html_writer::link($readme, 'Readme.md', array('target' => '_blank'));
             $courseformatoptionsedit['readme'] = array(
                     'label' => get_string('readme_title', 'format_topcoll'),
-                    'element_type' => 'static'
+                    'element_type' => 'static',
+                    'element_attributes' => array(get_string('readme_desc', 'format_topcoll', array('url' => $readme)))
                 );
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
