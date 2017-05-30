@@ -69,9 +69,9 @@ class MoodleQuickForm_tccolourpopup extends HTML_QuickForm_text {
         }
         $content = "<input size='8' name='" . $this->getName() . "' value='" . $colour . "'id='{$id}' type='text' " .
                     $this->_getAttrString($this->_attributes) . " >";
-        $content .= html_writer::tag('span', '&nbsp;', array('id' => 'colpicked_' . $id, 'tabindex' => '-1',
-                                     'style' => 'background-color:#' . $colour .
-                                     ';cursor:pointer;margin:0px;padding: 0 8px;border:1px solid black'));
+        $content .= html_writer::tag('span', '&nbsp;', array('id' => 'colpicked_'.$id, 'tabindex' => '-1',
+                                     'style' => 'background-color: #'.$colour.
+                                     '; cursor:pointer; margin: 0; padding: 0 8px; border:1px solid black'));
         $content .= html_writer::start_tag('div', array('id' => 'colpick_' . $id,
                                            'style' => "display:none;position:absolute;z-index:500;",
                     'class' => 'form-colourpicker defaultsnext'));

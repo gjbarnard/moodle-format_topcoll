@@ -3,6 +3,7 @@
 Version 3.3.0.2
   1. Make the 'readme' course setting only display and not store in the database, thus regenerate and not broken in the
      course backup.
+  2. Fix not being able to tab to colour settings.
 
 Version 3.3.0.1
   1. Apply MDL-58637.
