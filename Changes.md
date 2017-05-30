@@ -6,6 +6,7 @@ Version 3.2.1.1
   3. Fix section move name not changing.
   4. Make the 'readme' course setting only display and not store in the database, thus regenerate and not broken in the
      course backup.
+  5. Fix not being able to tab to colour settings.
 
 Version 3.2.1.0
   1. Remove old 'format_topcoll_delete_course' function and replace with '\core\event\course_content_deleted' event.

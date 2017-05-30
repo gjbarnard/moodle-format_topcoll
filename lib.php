@@ -662,7 +662,7 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => array(
-                        array('tabindex' => -1, 'value' => $defaulttgfgcolour)
+                        array('value' => $defaulttgfgcolour)
                     )
                 );
                 $courseformatoptionsedit['toggleforegroundhovercolour'] = array(
@@ -671,7 +671,7 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => array(
-                        array('tabindex' => -1, 'value' => $defaulttgfghvrcolour)
+                        array('value' => $defaulttgfghvrcolour)
                     )
                 );
                 $courseformatoptionsedit['togglebackgroundcolour'] = array(
@@ -680,7 +680,7 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => array(
-                        array('tabindex' => -1, 'value' => $defaulttgbgcolour)
+                        array('value' => $defaulttgbgcolour)
                     )
                 );
                 $courseformatoptionsedit['togglebackgroundhovercolour'] = array(
@@ -689,7 +689,7 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => array(
-                        array('tabindex' => -1, 'value' => $defaulttgbghvrcolour)
+                        array('value' => $defaulttgbghvrcolour)
                     )
                 );
             } else {
