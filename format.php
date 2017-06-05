@@ -112,7 +112,8 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
     echo '/* <![CDATA[ */';
 
     echo '/* -- Toggle -- */';
-    echo '.course-content ul.ctopics li.section .content .toggle, .course-content ul.ctopics li.section .content.sectionhidden {';
+    echo '.course-content ul.ctopics li.section .content .toggle,';
+    echo '.course-content ul.ctopics li.section .content.sectionhidden {';
     echo 'background-color: ';
     if ($tcsettings['togglebackgroundcolour'][0] != '#') {
         echo '#';
@@ -121,7 +122,8 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
     echo '}';
 
     echo '/* -- Toggle text -- */';
-    echo '.course-content ul.ctopics li.section .content .toggle span, .course-content ul.ctopics li.section .content.sectionhidden {';
+    echo '.course-content ul.ctopics li.section .content .toggle span, ';
+    echo '.course-content ul.ctopics li.section .content.sectionhidden {';
     echo 'color: ';
     if ($tcsettings['toggleforegroundcolour'][0] != '#') {
         echo '#';
