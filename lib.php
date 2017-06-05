@@ -1242,11 +1242,15 @@ class format_topcoll extends format_base {
     public function section_action($section, $action, $sr) {
         global $PAGE;
 
-        if ($section->section && ($action === 'setmarker' || $action === 'removemarker')) {
-            // Format 'Topcoll' allows to set and remove markers in addition to common section actions.
-            require_capability('moodle/course:setcurrentsection', context_course::instance($this->courseid));
-            course_set_marker($this->courseid, ($action === 'setmarker') ? $section->section : 0);
-            return null;
+        // Topic based course.
+        $tcsettings = $this->get_settings();
+        if (($tcsettings['layoutstructure'] == 1) || ($tcsettings['layoutstructure'] == 4)) {
+            if ($section->section && ($action === 'setmarker' || $action === 'removemarker')) {
+                // Format 'Topcoll' allows to set and remove markers in addition to common section actions.
+                require_capability('moodle/course:setcurrentsection', context_course::instance($this->courseid));
+                course_set_marker($this->courseid, ($action === 'setmarker') ? $section->section : 0);
+                return null;
+            }
         }
 
         // For show/hide actions call the parent method and return the new content for .section_availability element.

@@ -4,6 +4,7 @@ Version 3.3.0.2
   1. Make the 'readme' course setting only display and not store in the database, thus regenerate and not broken in the
      course backup.
   2. Fix not being able to tab to colour settings.
+  3. Implement MDL-4782.  Ref: 'https://docs.moodle.org/33/en/Stealth_activities' - 'allowstealth' admin setting.
 
 Version 3.3.0.1
   1. Apply MDL-58637.

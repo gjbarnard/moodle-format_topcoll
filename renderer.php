@@ -262,12 +262,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
 
         $coursecontext = context_course::instance($course->id);
+        $sectionreturn = $onsectionpage ? $section->section : null;
 
-        if ($onsectionpage) {
-            $url = course_get_url($course, $section->section);
-        } else {
-            $url = course_get_url($course);
-        }
+        $url = course_get_url($course, $sectionreturn);
         $url->param('sesskey', sesskey());
 
         if (empty($this->tcsettings)) {
@@ -283,7 +280,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $controls['highlight'] = array('url' => $url, "icon" => 'i/marked',
                                                'name' => $highlightoff,
                                                'pixattr' => array('class' => '', 'alt' => $markedthissection),
-                                               'attr' => array('class' => 'editing_highlight', 'title' => $markedthissection));
+                                               'attr' => array('class' => 'editing_highlight', 'title' => $markedthissection,
+                                               'data-action' => 'removemarker'));
             } else {
                 $url->param('marker', $section->section);
                 $markthissection = get_string('markthissection', 'format_topcoll');
@@ -291,7 +289,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $controls['highlight'] = array('url' => $url, "icon" => 'i/marker',
                                                'name' => $highlight,
                                                'pixattr' => array('class' => '', 'alt' => $markthissection),
-                                               'attr' => array('class' => 'editing_highlight', 'title' => $markthissection));
+                                               'attr' => array('class' => 'editing_highlight', 'title' => $markthissection,
+                                               'data-action' => 'setmarker'));
             }
         }
 
@@ -364,8 +363,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::end_tag('div');
         $o .= $this->section_activity_summary($section, $course, null);
 
-        $context = context_course::instance($course->id);
-        $o .= $this->section_availability_message($section, has_capability('moodle/course:viewhiddensections', $context));
+        $o .= $this->section_availability($section);
 
         $o .= html_writer::end_tag('div');
         $o .= html_writer::end_tag('li');
@@ -394,7 +392,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
             // Only in the non-general sections.
             if (!$section->visible) {
                 $sectionstyle = ' hidden';
-            } else if ($this->courseformat->is_section_current($section)) {
+            }
+            if ($this->courseformat->is_section_current($section)) {
                 $section->toggle = true; // Open current section regardless of toggle state.
                 $sectionstyle = ' current';
                 $rightcurrent = ' left';
@@ -474,6 +473,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $o .= html_writer::tag('h3', $title); // Moodle H3's look bad on mobile / tablet with CT so use plain.
             }
 
+            $o .= $this->section_availability($section);
+
             $o .= html_writer::end_tag('span');
             $o .= html_writer::end_tag('div');
 
@@ -497,9 +498,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if ($this->tcsettings['showsectionsummary'] == 1) {
                 $o .= $this->section_summary_container($section);
             }
-
-            $o .= $this->section_availability_message($section,
-                has_capability('moodle/course:viewhiddensections', $context));
         } else {
             // When on a section page, we only display the general section title, if title is not the default one.
             $hasnamesecpg = ($section->section == 0 && (string) $section->name !== '');
@@ -507,6 +505,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if ($hasnamesecpg) {
                 $o .= $this->output->heading($this->section_title($section, $course), 3, 'section-title');
             }
+            $o .= $this->section_availability($section);
             $o .= html_writer::start_tag('div', array('class' => 'summary'));
             $o .= $this->format_summary_text($section);
 
@@ -518,9 +517,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 );
             }
             $o .= html_writer::end_tag('div');
-
-            $o .= $this->section_availability_message($section,
-                has_capability('moodle/course:viewhiddensections', $context));
         }
         return $o;
     }
