@@ -102,9 +102,9 @@
 /* -- Set the clickable element of the Toggle -- */
 .course-content ul.ctopics li.section .content .toggle span.the_toggle {
     display: block;
-    width: auto;
-    padding-top: 6px;
     padding-bottom: 6px;
+    padding-top: 6px;
+    width: auto;
 }
 
 .course-content ul.ctopics li.section .content .toggle span.the_toggle.tc-small {
@@ -131,14 +131,14 @@
 
 .course-content ul.ctopics li.section .content .toggle span.the_toggle h3.sectionname,
 .course-content ul.ctopics li.section .content.sectionhidden h3.sectionname {
-    margin: 4px;
     color: inherit;
+    margin: 4px;
 }
 
 /* Icon set common. */
 .course-content ul.ctopics li.section .content .toggle span.the_toggle, #toggle-all .content h4 span {
-    background-repeat: no-repeat;
     background-color: transparent;
+    background-repeat: no-repeat;
     margin: 0 4px;
 }
 
@@ -412,8 +412,8 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
 
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option, body#page-course-edit select#id_toggleiconset option {
     background-color: transparent;
-    background-repeat: no-repeat;
     background-position: right center; /* Position the icon to the right of the selection text. */
+    background-repeat: no-repeat;
     padding: 3px 20px 3px 3px; /* The 20px allows the image to be on the right and the text next to it. */
 }
 
@@ -433,9 +433,9 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
 
 .course-content ul.ctopics li.section.main .side, .course-content ul.ctopics li.tcsection .side,
 .editing .course-content ul.ctopics li.section.main .side, .editing .course-content ul.ctopics li.tcsection .side {
-    width: 40px; /* Default used in editing mode or when not defined in the language file. */
-    text-align: center;
     padding: 0;
+    text-align: center;
+    width: 40px; /* Default used in editing mode or when not defined in the language file. */
 }
 
 .course-content ul.ctopics li.section .left, .course-content ul.ctopics li.tcsection .left {
@@ -514,8 +514,8 @@ body.format-topcoll .course-content ul.ctopics li.section .summary.summaryalways
 }
 
 body.format-topcoll.editing ul.ctopics .section .activity .contentwithoutlink, body.format-topcoll.editing ul.ctopics .section .activity .activityinstance {
-    padding-right: 0;
     display: inline;
+    padding-right: 0;
 }
 
 body.format-topcoll.editing.dir-rtl ul.ctopics .section .activity .contentwithoutlink, body.format-topcoll.editing.dir-rtl ul.ctopics .section .activity .activityinstance {
@@ -537,8 +537,8 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
 /* -- The section name in a Toggle and hidden section -- */
 .course-content ul.ctopics li.section .content .toggle, .course-content ul.ctopics li.section .content.sectionhidden  {
     display: block;
+    padding: 0;
     text-align: left;
-    padding: 0 0;
 }
 
 /* -- The Toggle -- */
@@ -561,8 +561,8 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
 
 /* -- For centring the 'Topic / Week / Day x' text -- */
 .course-content ul.ctopics li.section .right span.cps_centre, .dir-rtl .course-content ul.ctopics li.section .left span.cps_centre {
-    text-align: center;
     font-size: 0.7em;
+    text-align: center;
 }
 
 .dir-rtl .course-content ul.ctopics li.section .right span.cps_centre {
@@ -571,8 +571,8 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
 
 /* -- Toggle text -- */
 .course-content ul.ctopics li.section .content .toggle span.the_toggle, .course-content ul.ctopics li.section .content.sectionhidden {
-    text-decoration: none;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .course-content ul.ctopics li.section .content .toggledsection {
@@ -608,15 +608,15 @@ body.jsenabled #toggle-all {
 
 #toggle-all .content .sectionbody h4 {
     display: block;
-    padding: 6px 0;
     margin-bottom: 0;
+    padding: 6px 0;
 }
 
 #toggle-all .content .sectionbody h4 span {
-    padding-top: 7px;
     padding-bottom: 7px;
-    width: 35px;
+    padding-top: 7px;
     text-decoration: none;
+    width: 35px;
 }
 
 #toggle-all .content .sectionbody h4 span.tc-small {
@@ -643,10 +643,10 @@ body.jsenabled #toggle-all {
 }
 
 .cttoggle {
+    display: inline;
     font-family: inherit;
     font-size: inherit;
     font-style: inherit;
-    display: inline;
 }
 
 /* MDL-42634 */
@@ -704,7 +704,7 @@ body.jsenabled #toggle-all {
         padding-bottom: 0;
     }
     ul.ctopics {
-        page-break-before: avoid;
         page-break-after: avoid;
+        page-break-before: avoid;
     }
 }

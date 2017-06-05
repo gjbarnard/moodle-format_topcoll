@@ -33,6 +33,8 @@
  *
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 // List of observers.
 $observers = array(
 
