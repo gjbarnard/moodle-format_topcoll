@@ -5,6 +5,7 @@ Version 3.3.0.2
      course backup.
   2. Fix not being able to tab to colour settings.
   3. Implement MDL-4782.  Ref: 'https://docs.moodle.org/33/en/Stealth_activities' - 'allowstealth' admin setting.
+  4. Apply MDL-55074 - #30.
 
 Version 3.3.0.1
   1. Apply MDL-58637.
