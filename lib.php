@@ -608,6 +608,7 @@ class format_topcoll extends format_base {
                             'bulb' => new lang_string('bulb', 'format_topcoll'),                 // Bulb icon set.
                             'cloud' => new lang_string('cloud', 'format_topcoll'),               // Cloud icon set.
                             'eye' => new lang_string('eye', 'format_topcoll'),                   // Eye icon set.
+                            'folder' => new lang_string('folder', 'format_topcoll'),             // Folder icon set.
                             'groundsignal' => new lang_string('groundsignal', 'format_topcoll'), // Ground signal set.
                             'led' => new lang_string('led', 'format_topcoll'),                   // LED icon set.
                             'point' => new lang_string('point', 'format_topcoll'),               // Point icon set.

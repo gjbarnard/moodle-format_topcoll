@@ -201,6 +201,7 @@ if ($ADMIN->fulltree) {
     // bulb         => Bulb icon set.
     // cloud        => Cloud icon set.
     // eye          => Eye icon set.
+    // folder       => Folder icon set.
     // groundsignal => Ground signal set.
     // led          => LED icon set.
     // point        => Point icon set.
@@ -219,6 +220,7 @@ if ($ADMIN->fulltree) {
         'bulb' => new lang_string('bulb', 'format_topcoll'), // Bulb icon set.
         'cloud' => new lang_string('cloud', 'format_topcoll'), // Cloud icon set.
         'eye' => new lang_string('eye', 'format_topcoll'), // Eye icon set.
+        'folder' => new lang_string('eye', 'format_topcoll'), // Folder icon set.
         'groundsignal' => new lang_string('groundsignal', 'format_topcoll'), // Ground signal set.
         'led' => new lang_string('led', 'format_topcoll'), // LED icon set.
         'point' => new lang_string('point', 'format_topcoll'), // Point icon set.
@@ -227,7 +229,7 @@ if ($ADMIN->fulltree) {
         'smiley' => new lang_string('smiley', 'format_topcoll'), // Smiley icon set.
         'square' => new lang_string('square', 'format_topcoll'), // Square icon set.
         'sunmoon' => new lang_string('sunmoon', 'format_topcoll'), // Sun / Moon icon set.
-        'switch' => new lang_string('switch', 'format_topcoll')              // Switch icon set.
+        'switch' => new lang_string('switch', 'format_topcoll') // Switch icon set.
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 

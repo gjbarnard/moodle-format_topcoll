@@ -177,6 +177,7 @@ $string['arrow'] = 'Arrow';
 $string['bulb'] = 'Bulb';
 $string['cloud'] = 'Cloud';
 $string['eye'] = 'Eye';
+$string['folder'] = 'Folder';
 $string['groundsignal'] = 'Ground signal';
 $string['led'] = 'Light emitting diode';
 $string['point'] = 'Point';

@@ -227,6 +227,27 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
     background-image: url([[pix:format_topcoll|eye_show_glow]]);
 }
 
+/* Folder icon set. */
+.course-content ul.ctopics li.section .content .toggle-folder span.toggle_closed, .course-content ul.ctopics li.section .content .toggle-folder span.toggle_open, /* JavaScript disabled */
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-folder span.toggle_open, /* JavaScript enabled */
+#toggle-all .content .toggle-folder h4 span.off {
+    background-image: url([[pix:format_topcoll|folder_open]]);
+}
+
+body.jsenabled .course-content ul.ctopics li.section .content .toggle-folder span.toggle_closed, /* JavaScript enabled */
+#toggle-all .content .toggle-folder h4 span.on,
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="folder"], body#page-course-edit select#id_toggleiconset option[value="folder"] {
+    background-image: url([[pix:format_topcoll|folder_closed]]);
+}
+
+#toggle-all .content .toggle-folder-hover h4 span.off:hover {
+    background-image: url([[pix:format_topcoll|folder_closed_glow]]);
+}
+
+#toggle-all .content .toggle-folder-hover h4 span.on:hover {
+    background-image: url([[pix:format_topcoll|folder_open_glow]]);
+}
+
 /* Ground signal set. */
 .course-content ul.ctopics li.section .content .toggle-groundsignal span.toggle_closed, .course-content ul.ctopics li.section .content .toggle-ground-signal span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-groundsignal span.toggle_open, /* JavaScript enabled */
