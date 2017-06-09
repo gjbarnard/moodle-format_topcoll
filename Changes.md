@@ -8,6 +8,10 @@ Version 3.2.1.1
      course backup.
   5. Fix not being able to tab to colour settings.
   6. Fix toggle all cursor.
+  7. Add folder icon from /pix/f.
+  8. One section only.
+  9. Remove 'coursedisplay' setting favour of combining the two and adding a link on the right of the toggle.
+ 10. Add opactity option for all four toggle colour settings
 
 Version 3.2.1.0
   1. Remove old 'format_topcoll_delete_course' function and replace with '\core\event\course_content_deleted' event.

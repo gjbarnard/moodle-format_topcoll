@@ -26,7 +26,7 @@
  * @subpackage topcoll
  * @version    See the value of '$plugin->version' in below.
  * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
- * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
+ * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
@@ -37,22 +37,6 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_heading('format_topcoll_defaults',
             get_string('defaultheadingsub', 'format_topcoll'),
             format_text(get_string('defaultheadingsubdesc', 'format_topcoll'), FORMAT_MARKDOWN)));
-
-    /* Default course display.
-     * Course display default, can be either one of:
-     * COURSE_DISPLAY_SINGLEPAGE or - All sections on one page.
-     * COURSE_DISPLAY_MULTIPAGE     - One section per page.
-     * as defined in moodlelib.php.
-     */
-    $name = 'format_topcoll/defaultcoursedisplay';
-    $title = get_string('defaultcoursedisplay', 'format_topcoll');
-    $description = get_string('defaultcoursedisplay_desc', 'format_topcoll');
-    $default = COURSE_DISPLAY_SINGLEPAGE;
-    $choices = array(
-        COURSE_DISPLAY_SINGLEPAGE => new lang_string('coursedisplay_single'),
-        COURSE_DISPLAY_MULTIPAGE => new lang_string('coursedisplay_multi')
-    );
-    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     /* Toggle instructions - 1 = no, 2 = yes. */
     $name = 'format_topcoll/defaultdisplayinstructions';
@@ -139,38 +123,6 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
-    // Default toggle foreground colour in hexadecimal RGB with preceding '#'.
-    $name = 'format_topcoll/defaulttgfgcolour';
-    $title = get_string('defaulttgfgcolour', 'format_topcoll');
-    $description = get_string('defaulttgfgcolour_desc', 'format_topcoll');
-    $default = '#000000';
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
-    $settings->add($setting);
-
-    // Default toggle foreground hover colour in hexadecimal RGB with preceding '#'.
-    $name = 'format_topcoll/defaulttgfghvrcolour';
-    $title = get_string('defaulttgfghvrcolour', 'format_topcoll');
-    $description = get_string('defaulttgfghvrcolour_desc', 'format_topcoll');
-    $default = '#888888';
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
-    $settings->add($setting);
-
-    // Default toggle background colour in hexadecimal RGB with preceding '#'.
-    $name = 'format_topcoll/defaulttgbgcolour';
-    $title = get_string('defaulttgbgcolour', 'format_topcoll');
-    $description = get_string('defaulttgbgcolour_desc', 'format_topcoll');
-    $default = '#e2e2f2';
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
-    $settings->add($setting);
-
-    // Default toggle background hover colour in hexadecimal RGB with preceding '#'.
-    $name = 'format_topcoll/defaulttgbghvrcolour';
-    $title = get_string('defaulttgbghvrcolour', 'format_topcoll');
-    $description = get_string('defaulttgbghvrcolour_desc', 'format_topcoll');
-    $default = '#eeeeff';
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
-    $settings->add($setting);
-
     // Toggle text alignment.
     // 1 = left, 2 = center and 3 = right - done this way to avoid typos.
     $name = 'format_topcoll/defaulttogglealignment';
@@ -201,6 +153,7 @@ if ($ADMIN->fulltree) {
     // bulb         => Bulb icon set.
     // cloud        => Cloud icon set.
     // eye          => Eye icon set.
+    // folder       => Folder icon set.
     // groundsignal => Ground signal set.
     // led          => LED icon set.
     // point        => Point icon set.
@@ -219,6 +172,7 @@ if ($ADMIN->fulltree) {
         'bulb' => new lang_string('bulb', 'format_topcoll'), // Bulb icon set.
         'cloud' => new lang_string('cloud', 'format_topcoll'), // Cloud icon set.
         'eye' => new lang_string('eye', 'format_topcoll'), // Eye icon set.
+        'folder' => new lang_string('eye', 'format_topcoll'), // Folder icon set.
         'groundsignal' => new lang_string('groundsignal', 'format_topcoll'), // Ground signal set.
         'led' => new lang_string('led', 'format_topcoll'), // LED icon set.
         'point' => new lang_string('point', 'format_topcoll'), // Point icon set.
@@ -227,7 +181,18 @@ if ($ADMIN->fulltree) {
         'smiley' => new lang_string('smiley', 'format_topcoll'), // Smiley icon set.
         'square' => new lang_string('square', 'format_topcoll'), // Square icon set.
         'sunmoon' => new lang_string('sunmoon', 'format_topcoll'), // Sun / Moon icon set.
-        'switch' => new lang_string('switch', 'format_topcoll')              // Switch icon set.
+        'switch' => new lang_string('switch', 'format_topcoll') // Switch icon set.
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
+    /* One section - 1 = no, 2 = yes. */
+    $name = 'format_topcoll/defaultonesection';
+    $title = get_string('defaultonesection', 'format_topcoll');
+    $description = get_string('defaultonesection_desc', 'format_topcoll');
+    $default = 1;
+    $choices = array(
+        1 => new lang_string('no'), // No.
+        2 => new lang_string('yes')   // Yes.
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
@@ -243,6 +208,80 @@ if ($ADMIN->fulltree) {
         2 => new lang_string('yes')
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
+    // Default toggle foreground colour in hexadecimal RGB with preceding '#'.
+    $name = 'format_topcoll/defaulttgfgcolour';
+    $title = get_string('defaulttgfgcolour', 'format_topcoll');
+    $description = get_string('defaulttgfgcolour_desc', 'format_topcoll');
+    $default = '#000000';
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $settings->add($setting);
+
+    $opacityvalues = array(
+        '0.0' => '0.0',
+        '0.1' => '0.1',
+        '0.2' => '0.2',
+        '0.3' => '0.3',
+        '0.4' => '0.4',
+        '0.5' => '0.5',
+        '0.6' => '0.6',
+        '0.7' => '0.7',
+        '0.8' => '0.8',
+        '0.9' => '0.9',
+        '1.0' => '1.0'
+    );
+
+    // Default toggle foreground opacity between 0 and 1 in 0.1 increments.
+    $name = 'format_topcoll/defaulttgfgopacity';
+    $title = get_string('defaulttgfgopacity', 'format_topcoll');
+    $description = get_string('defaulttgfgopacity_desc', 'format_topcoll');
+    $default = '1.0';
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $opacityvalues));
+
+    // Default toggle foreground hover colour in hexadecimal RGB with preceding '#'.
+    $name = 'format_topcoll/defaulttgfghvrcolour';
+    $title = get_string('defaulttgfghvrcolour', 'format_topcoll');
+    $description = get_string('defaulttgfghvrcolour_desc', 'format_topcoll');
+    $default = '#888888';
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $settings->add($setting);
+
+    // Default toggle foreground hover opacity between 0 and 1 in 0.1 increments.
+    $name = 'format_topcoll/defaulttgfghvropacity';
+    $title = get_string('defaulttgfghvropacity', 'format_topcoll');
+    $description = get_string('defaulttgfghvropacity_desc', 'format_topcoll');
+    $default = '1.0';
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $opacityvalues));
+
+    // Default toggle background colour in hexadecimal RGB with preceding '#'.
+    $name = 'format_topcoll/defaulttgbgcolour';
+    $title = get_string('defaulttgbgcolour', 'format_topcoll');
+    $description = get_string('defaulttgbgcolour_desc', 'format_topcoll');
+    $default = '#e2e2f2';
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $settings->add($setting);
+
+    // Default toggle background opacity between 0 and 1 in 0.1 increments.
+    $name = 'format_topcoll/defaulttgbgopacity';
+    $title = get_string('defaulttgbgopacity', 'format_topcoll');
+    $description = get_string('defaulttgbgopacity_desc', 'format_topcoll');
+    $default = '1.0';
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $opacityvalues));
+
+    // Default toggle background hover colour in hexadecimal RGB with preceding '#'.
+    $name = 'format_topcoll/defaulttgbghvrcolour';
+    $title = get_string('defaulttgbghvrcolour', 'format_topcoll');
+    $description = get_string('defaulttgbghvrcolour_desc', 'format_topcoll');
+    $default = '#eeeeff';
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $settings->add($setting);
+
+    // Default toggle background hover opacity between 0 and 1 in 0.1 increments.
+    $name = 'format_topcoll/defaulttgbghvropacity';
+    $title = get_string('defaulttgbghvropacity', 'format_topcoll');
+    $description = get_string('defaulttgbghvropacity_desc', 'format_topcoll');
+    $default = '1.0';
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $opacityvalues));
 
     // Show the section summary when collapsed.
     // 1 => No.

@@ -24,7 +24,7 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' in below.
+ * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
@@ -49,8 +49,8 @@ $string['settoggleforegroundcolour_help'] = 'Sets the color of the text on the t
 $string['settoggleforegroundhovercolour_help'] = 'Sets the color of the text on the toggle when the mouse moves over it.';
 $string['settogglebackgroundcolour_help'] = 'Sets the background color of the toggle.';
 $string['settogglebackgroundhovercolour_help'] = 'Sets the background color of the toggle when the mouse moves over it.';
-$string['resetcolour_help'] = 'Resets the colors to the default values so it will be the same as a course the first time it is in the Collapsed Topics format.';
-$string['resetallcolour_help'] = 'Resets the colors to the default values for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resetcolour_help'] = 'Resets the colors and opacities to the default values so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resetallcolour_help'] = 'Resets the colors and opacities to the default values for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 
 // Toggle alignment - CONTRIB-4098.
 $string['center'] = 'Center';

@@ -24,9 +24,9 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' in below.
+ * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
- * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
+ * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
@@ -63,6 +63,7 @@ $string['deletesection'] = 'Delete section';
 // These are 'sections' as they are only shown in 'section' based structures.
 $string['markedthissection'] = 'This section is highlighted as the current section';
 $string['markthissection'] = 'Highlight this section as the current section';
+$string['viewonly'] = 'View only \'{$a->sectionname}\'';
 
 // MDL-51802.
 $string['editsectionname'] = 'Edit section name';
@@ -132,16 +133,16 @@ $string['maincoursepage'] = 'Main course page';
 $string['setlayoutelements_help'] = 'How much information about the toggles / sections you wish to be displayed.';
 $string['setlayoutstructure_help'] = "The layout structure of the course.  You can choose between:<br />'Topics' - where each section is presented as a topic in section number order.<br />'Weeks' - where each section is presented as a week in ascending week order from the start date of the course.<br />'Current week first' - which is the same as weeks but the current week is shown at the top and preceding weeks in descending order are displayed below except in editing mode where the structure is the same as 'Weeks'.<br />'Current topic first' - which is the same as 'Topics' except that the current topic is shown at the top if it has been set.<br />'Day' - where each section is presented as a day in ascending day order from the start date of the course.";
 $string['setlayout_help'] = 'Contains the settings to do with the layout of the format within the course.';
-$string['resetlayout_help'] = 'Resets the layout element, structure, columns, icon position and shown section summary to the default values so it will be the same as a course the first time it is in the \'Collapsed Topics\' format.';
-$string['resetalllayout_help'] = 'Resets the layout to the default values for all courses so it will be the same as a course the first time it is in the \'Collapsed Topics \'format.';
+$string['resetlayout_help'] = 'Resets the layout element, structure, columns, icon position, one section and shown section summary to the default values so it will be the same as a course the first time it is in the \'Collapsed Topics\' format.';
+$string['resetalllayout_help'] = 'Resets the layout element, structure, columns, icon position, one section and shown section summary to the default values for all courses so it will be the same as a course the first time it is in the \'Collapsed Topics \'format.';
 // Moodle Tracker CONTRIB-3529.
 $string['setcolour_help'] = 'Contains the settings to do with the colour of the format within the course.';
 $string['settoggleforegroundcolour_help'] = 'Sets the colour of the text on the toggle.';
 $string['settoggleforegroundhovercolour_help'] = 'Sets the colour of the text on the toggle when the mouse moves over it.';
 $string['settogglebackgroundcolour_help'] = 'Sets the background colour of the toggle.';
 $string['settogglebackgroundhovercolour_help'] = 'Sets the background colour of the toggle when the mouse moves over it.';
-$string['resetcolour_help'] = 'Resets the colours to the default values so it will be the same as a course the first time it is in the \'Collapsed Topics\' format.';
-$string['resetallcolour_help'] = 'Resets the colours to the default values for all courses so it will be the same as a course the first time it is in the \'Collapsed Topics\' format.';
+$string['resetcolour_help'] = 'Resets the colours and opacities to the default values so it will be the same as a course the first time it is in the \'Collapsed Topics\' format.';
+$string['resetallcolour_help'] = 'Resets the colours and opacities to the default values for all courses so it will be the same as a course the first time it is in the \'Collapsed Topics\' format.';
 // Columns enhancement.
 $string['setlayoutcolumns_help'] = 'How many columns to use.';
 $string['setlayoutcolumnorientation_help'] = 'Vertical - Sections go top to bottom.<br />Horizontal - Sections go left to right.';
@@ -177,6 +178,7 @@ $string['arrow'] = 'Arrow';
 $string['bulb'] = 'Bulb';
 $string['cloud'] = 'Cloud';
 $string['eye'] = 'Eye';
+$string['folder'] = 'Folder';
 $string['groundsignal'] = 'Ground signal';
 $string['led'] = 'Light emitting diode';
 $string['point'] = 'Point';
@@ -191,6 +193,12 @@ $string['resetalltoggleiconset'] = 'Toggle icon sets';
 $string['resettoggleiconset_help'] = 'Resets the toggle icon set and toggle all hover to the default values so it will be the same as a course the first time it is in the \'Collapsed Topics\' format.';
 $string['resetalltoggleiconset_help'] = 'Resets the toggle icon set and toggle all hover to the default values for all courses so it will be the same as a course the first time it is in the \'Collapsed Topics\' format.';
 
+// One section enhancement.
+$string['onesection'] = 'One section';
+$string['onesection_help'] = 'States if only one section should be open at any given time.  Note: Ignored when editing to allow activities and resources to be moved around the sections.';
+$string['defaultonesection'] = 'One section';
+$string['defaultonesection_desc'] = "States if only one section should be open at any given time.  Note: Ignored when editing to allow activities and resources to be moved around the sections.";
+
 // Site Administration -> Plugins -> Course formats -> Collapsed Topics.
 $string['defaultheadingsub'] = 'Defaults';
 $string['defaultheadingsubdesc'] = 'Default settings';
@@ -199,8 +207,6 @@ $string['configurationheadingsubdesc'] = 'Configuration settings';
 
 $string['off'] = 'Off';
 $string['on'] = 'On';
-$string['defaultcoursedisplay'] = 'Course display';
-$string['defaultcoursedisplay_desc'] = "Either show all the sections on a single page or section zero and the chosen section on page.";
 $string['defaultlayoutelement'] = 'Layout';
 // Negative view of layout, kept for previous versions until such time as they are updated.
 $string['defaultlayoutelement_desc'] = "The layout setting can be one of:<br />'Default' with everything displayed.<br />No 'Topic x' / 'Week x' / 'Day x'.<br />No section number.<br />No 'Topic x' / 'Week x' / 'Day x' and no section number.<br />No 'Toggle' word.<br />No 'Toggle' word and no 'Topic x' / 'Week x' / 'Day x'.<br />No 'Toggle' word, no 'Topic x' / 'Week x' / 'Day x' and no section number.";
@@ -242,6 +248,27 @@ $string['defaulttogglepersistence_desc'] = "'On' or 'Off'.  Turn off for an AJAX
 
 $string['defaultuserpreference'] = 'Initial toggle state';
 $string['defaultuserpreference_desc'] = 'States what to do with the toggles when the user first accesses the course, the state of additional sections when they are added or toggle persistence is off.';
+
+// Toggle opacities.
+$string['settoggleforegroundopacity'] = 'Toggle foreground opacity';
+$string['settoggleforegroundopacity_help'] = 'Sets the opacity of the text on the toggle between 0 and 1 in 0.1 increments.';
+$string['defaulttgfgopacity'] = 'Toggle foreground opacity';
+$string['defaulttgfgopacity_desc'] = "Toggle foreground text opacity between 0 and 1 in 0.1 increments.";
+
+$string['settoggleforegroundhoveropacity'] = 'Toggle foreground hover opacity';
+$string['settoggleforegroundhoveropacity_help'] = 'Sets the opacity of the text on hover on the toggle between 0 and 1 in 0.1 increments.';
+$string['defaulttgfghvropacity'] = 'Toggle foreground hover opacity';
+$string['defaulttgfghvropacity_desc'] = "Toggle foreground text on hover opacity between 0 and 1 in 0.1 increments.";
+
+$string['settogglebackgroundopacity'] = 'Toggle background opacity';
+$string['settogglebackgroundopacity_help'] = 'Sets the opacity of the background on the toggle between 0 and 1 in 0.1 increments.';
+$string['defaulttgbgopacity'] = 'Toggle background opacity';
+$string['defaulttgbgopacity_desc'] = "Toggle background opacity between 0 and 1 in 0.1 increments.";
+
+$string['settogglebackgroundhoveropacity'] = 'Toggle background hover opacity';
+$string['settogglebackgroundhoveropacity_help'] = 'Sets the opacity of the background on hover on the toggle between 0 and 1 in 0.1 increments.';
+$string['defaulttgbghvropacity'] = 'Toggle background hover opacity';
+$string['defaulttgbghvropacity_desc'] = "Toggle background on hover opacity between 0 and 1 in 0.1 increments.";
 
 // Toggle icon size.
 $string['defaulttoggleiconsize'] = 'Toggle icon size';
@@ -334,3 +361,7 @@ $string['resetalldisplayinstructions_help'] = 'Resets the display instructions t
 // Readme.
 $string['readme_title'] = 'Collapsed Topics read-me';
 $string['readme_desc'] = 'Please click on \'{$a->url}\' for lots more information about Collapsed Topics.';
+
+// Depreciated.  Remove in M3.4 version.
+$string['defaultcoursedisplay'] = 'Course display';
+$string['defaultcoursedisplay_desc'] = "Either show all the sections on a single page or section zero and the chosen section on page.";
