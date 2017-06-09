@@ -26,11 +26,12 @@
  * @subpackage topcoll
  * @version    See the value of '$plugin->version' in below.
  * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
- * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
+ * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
  */
+defined('MOODLE_INTERNAL') || die();
 
 class topcoll_togglelib {
 
@@ -54,6 +55,14 @@ class topcoll_togglelib {
      */
     public function set_toggles($toggles) {
         $this->toggles = $toggles;
+    }
+
+    /**
+     * Tells us the toggle state from the DB.
+     * returns $toggles - Toggles state..
+     */
+    public function get_toggles() {
+        return $this->toggles;
     }
 
     // Note: http://php.net/manual/en/language.operators.bitwise.php very useful.

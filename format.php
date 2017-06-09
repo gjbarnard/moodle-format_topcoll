@@ -24,9 +24,9 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' in below.
+ * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
- * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
+ * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -84,7 +84,7 @@ if ($devicetype == "mobile") {
 }
 $renderer->set_portable($portable);
 
-if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTIPAGE)) {
+if (!empty($displaysection)) {
     $renderer->print_single_section_page($course, null, null, null, null, $displaysection);
 } else {
     $defaulttogglepersistence = clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT);
@@ -95,18 +95,10 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
     } else {
         $userpreference = null;
     }
-    $renderer->set_user_preference($userpreference);
 
     $defaultuserpreference = clean_param(get_config('format_topcoll', 'defaultuserpreference'), PARAM_INT);
-    $renderer->set_default_user_preference($defaultuserpreference);
 
-    $PAGE->requires->js_init_call('M.format_topcoll.init', array(
-        $course->id,
-        $userpreference,
-        $courseformat->get_last_section_number(),
-        $defaulttogglepersistence,
-        $defaultuserpreference,
-        $PAGE->user_is_editing()));
+    $renderer->set_user_preference($userpreference, $defaultuserpreference, $defaulttogglepersistence);
 
     $tcsettings = $courseformat->get_settings();
 
@@ -117,20 +109,16 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
     echo '.course-content ul.ctopics li.section .content .toggle,';
     echo '.course-content ul.ctopics li.section .content.sectionhidden {';
     echo 'background-color: ';
-    if ($tcsettings['togglebackgroundcolour'][0] != '#') {
-        echo '#';
-    }
-    echo $tcsettings['togglebackgroundcolour'].';';
+    echo \format_topcoll\toolbox::hex2rgba($tcsettings['togglebackgroundcolour'], $tcsettings['togglebackgroundopacity']);
+    echo ';';
     echo '}';
 
     echo '/* -- Toggle text -- */';
     echo '.course-content ul.ctopics li.section .content .toggle span, ';
     echo '.course-content ul.ctopics li.section .content.sectionhidden {';
     echo 'color: ';
-    if ($tcsettings['toggleforegroundcolour'][0] != '#') {
-        echo '#';
-    }
-    echo $tcsettings['toggleforegroundcolour'].';';
+    echo \format_topcoll\toolbox::hex2rgba($tcsettings['toggleforegroundcolour'], $tcsettings['toggleforegroundopacity']);
+    echo ';';
     echo 'text-align: ';
     switch ($tcsettings['togglealignment']) {
         case 1:
@@ -161,18 +149,14 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
     echo '.course-content ul.ctopics li.section .content .toggle span:hover,';
     echo '.course-content ul.ctopics li.section .content.sectionhidden .toggle span:hover {';
     echo 'color: ';
-    if ($tcsettings['toggleforegroundhovercolour'][0] != '#') {
-        echo '#';
-    }
-    echo $tcsettings['toggleforegroundhovercolour'].';';
+    echo \format_topcoll\toolbox::hex2rgba($tcsettings['toggleforegroundhovercolour'], $tcsettings['toggleforegroundhoveropacity']);
+    echo ';';
     echo '}';
 
     echo '.course-content ul.ctopics li.section .content div.toggle:hover {';
     echo 'background-color: ';
-    if ($tcsettings['togglebackgroundhovercolour'][0] != '#') {
-        echo '#';
-    }
-    echo $tcsettings['togglebackgroundhovercolour'].';';
+    echo \format_topcoll\toolbox::hex2rgba($tcsettings['togglebackgroundhovercolour'], $tcsettings['togglebackgroundhoveropacity']);
+    echo ';';
     echo '}';
 
     $topcollsidewidth = get_string('topcollsidewidthlang', 'format_topcoll');
