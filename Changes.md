@@ -1,5 +1,7 @@
 ﻿Version Information
 ===================
+Version 3.3.0.3
+
 Version 3.3.0.2
   1. Make the 'readme' course setting only display and not store in the database, thus regenerate and not broken in the
      course backup.
