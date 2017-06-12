@@ -43,6 +43,9 @@ M.format_topcoll.courseid = 0;
 M.format_topcoll.togglePersistence = 1; // Toggle persistence - 1 = on, 0 = off.
 M.format_topcoll.ourYUI = false;
 M.format_topcoll.numSections = 0;
+M.format_topcoll.oneTopic = false;
+M.format_topcoll.currentTopic = null; // For oneTopic when true represents the current open topic or null if none.
+M.format_topcoll.currentTopicNum = 0; // For oneTopic when true represents the current open topic number or 0 if none.
 M.format_topcoll.userIsEditing = false;
 
 // Namespace constants:....
@@ -60,10 +63,12 @@ M.format_topcoll.TOGGLE_1 = 32;
  * @param {String} theToggleState the current state of the toggles.
  * @param {Integer} theNumSections the number of sections in the course.
  * @param {Integer} theTogglePersistence Persistence on (1) or off (0).
- * @param {Integer} theDefaultTogglePersistence Persistence all open (1) or all closed (0) when thetogglestate is null.
+ * @param {Integer} theDefaultTogglePersistence Persistence all open (1) or all closed (0) when theToggleState is null.
+ * @param {Boolean} theOneTopic One toggle open at a time (true) or not (false).
+ * @param {Boolean} theUserIsEditing User is editing (true) or or not (false).
  */
 M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections, theTogglePersistence,
-    theDefaultTogglePersistence, theUserIsEditing) {
+    theDefaultTogglePersistence, theOneTopic, theUserIsEditing) {
     "use strict";
     // Init.
     this.ourYUI = Y;
@@ -71,6 +76,7 @@ M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections,
     this.togglestate = theToggleState;
     this.numSections = parseInt(theNumSections);
     this.togglePersistence = theTogglePersistence;
+    this.oneTopic = theOneTopic;
     this.userIsEditing = theUserIsEditing;
 
     if ((this.togglestate !== null) && (this.togglePersistence == 1)) { // Toggle persistence - 1 = on, 0 = off.
@@ -112,14 +118,16 @@ M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections,
         }
     }
 
-    // Event handlers for all opened / closed.
-    var allopen = Y.one("#toggles-all-opened");
-    if (allopen) {
-        allopen.on('click', this.allOpenClick);
-    }
-    var allclosed = Y.one("#toggles-all-closed");
-    if (allclosed) {
-        allclosed.on('click', this.allCloseClick);
+    if (this.oneTopic === false) {
+        // Event handlers for all opened / closed.
+        var allopen = Y.one("#toggles-all-opened");
+        if (allopen) {
+            allopen.on('click', this.allOpenClick);
+        }
+        var allclosed = Y.one("#toggles-all-closed");
+        if (allclosed) {
+            allclosed.on('click', this.allCloseClick);
+        }
     }
 };
 
@@ -165,16 +173,36 @@ M.format_topcoll.resetState = function(dchar) {
 // Args - targetNode that initiated the call, toggleNum the number of the toggle.
 M.format_topcoll.toggle_topic = function(targetNode, toggleNum) {
     "use strict";
+
+    if (this.oneTopic === true) {
+        if ((this.currentTopicNum != 0) && (this.currentTopicNum != toggleNum)) {
+            var currentTarget = this.currentTopic.one('span.the_toggle');
+            currentTarget.addClass('toggle_closed').removeClass('toggle_open').setAttribute('aria-pressed', 'false');
+            this.currentTopic.next('.toggledsection').removeClass('sectionopen');
+            this.set_toggle_state(this.currentTopicNum, false);
+            this.currentTopic = null;
+            this.currentTopicNum = 0;
+        }
+    }
+
     var target = targetNode.one('span.the_toggle');
     var state;
     if (!target.hasClass('toggle_open')) {
         target.addClass('toggle_open').removeClass('toggle_closed').setAttribute('aria-pressed', 'true');
         targetNode.next('.toggledsection').addClass('sectionopen');
         state = true;
+        if (this.oneTopic === true) {
+            this.currentTopic = targetNode;
+            this.currentTopicNum = toggleNum;
+        }
     } else {
         target.addClass('toggle_closed').removeClass('toggle_open').setAttribute('aria-pressed', 'false');
         targetNode.next('.toggledsection').removeClass('sectionopen');
         state = false;
+        if (this.oneTopic === true) {
+            this.currentTopic = null;
+            this.currentTopicNum = 0;
+        }
     }
 
     this.set_toggle_state(toggleNum, state);

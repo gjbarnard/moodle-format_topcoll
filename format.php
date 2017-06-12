@@ -95,18 +95,10 @@ if ((!empty($displaysection)) && ($course->coursedisplay == COURSE_DISPLAY_MULTI
     } else {
         $userpreference = null;
     }
-    $renderer->set_user_preference($userpreference);
 
     $defaultuserpreference = clean_param(get_config('format_topcoll', 'defaultuserpreference'), PARAM_INT);
-    $renderer->set_default_user_preference($defaultuserpreference);
 
-    $PAGE->requires->js_init_call('M.format_topcoll.init', array(
-        $course->id,
-        $userpreference,
-        $courseformat->get_last_section_number(),
-        $defaulttogglepersistence,
-        $defaultuserpreference,
-        $PAGE->user_is_editing()));
+    $renderer->set_user_preference($userpreference, $defaultuserpreference, $defaulttogglepersistence);
 
     $tcsettings = $courseformat->get_settings();
 

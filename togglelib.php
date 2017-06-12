@@ -56,6 +56,14 @@ class topcoll_togglelib {
         $this->toggles = $toggles;
     }
 
+    /**
+     * Tells us the toggle state from the DB.
+     * returns $toggles - Toggles state..
+     */
+    public function get_toggles() {
+        return $this->toggles;
+    }
+
     // Note: http://php.net/manual/en/language.operators.bitwise.php very useful.
     /**
      * Gets the state of the requested Toggle number.

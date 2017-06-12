@@ -3,6 +3,7 @@
 Version 3.3.0.3
   1. Fix missing reset course settings.
   2. Add folder icon from /pix/f.
+  3. One toggle only - WORK IN PROGRESS.
 
 Version 3.3.0.2
   1. Make the 'readme' course setting only display and not store in the database, thus regenerate and not broken in the

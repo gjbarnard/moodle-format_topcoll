@@ -44,7 +44,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
     private $tablettheme = false; // As not using a tablet theme we can react to the number of columns setting.
     private $courseformat = null; // Our course format object as defined in lib.php;
     private $tcsettings; // Settings for the format - array.
-    private $userpreference; // User toggle state preference - string.
+    private $defaulttogglepersistence; // Default toggle persistence.
     private $defaultuserpreference; // Default user preference when none set - bool - true all open, false all closed.
     private $togglelib;
     private $isoldtogglepreference = false;
@@ -397,6 +397,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $section->toggle = true; // Open current section regardless of toggle state.
                 $sectionstyle = ' current';
                 $rightcurrent = ' left';
+                $this->togglelib->set_toggle_state($section->section, true);
             }
         }
 
@@ -771,50 +772,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $breakpoint = 0;
             $shownsectioncount = 0;
 
-            if ($this->userpreference != null) {
-                $this->isoldtogglepreference = $this->togglelib->is_old_preference($this->userpreference);
-                if ($this->isoldtogglepreference == true) {
-                    $ts1 = base_convert(substr($this->userpreference, 0, 6), 36, 2);
-                    $ts2 = base_convert(substr($this->userpreference, 6, 12), 36, 2);
-                    $thesparezeros = "00000000000000000000000000";
-                    if (strlen($ts1) < 26) {
-                        // Need to PAD.
-                        $ts1 = substr($thesparezeros, 0, (26 - strlen($ts1))) . $ts1;
-                    }
-                    if (strlen($ts2) < 27) {
-                        // Need to PAD.
-                        $ts2 = substr($thesparezeros, 0, (27 - strlen($ts2))) . $ts2;
-                    }
-                    $tb = $ts1 . $ts2;
-                } else {
-                    // Check we have enough digits for the number of toggles in case this has increased.
-                    $numdigits = $this->togglelib->get_required_digits($coursenumsections);
-                    if ($numdigits > strlen($this->userpreference)) {
-                        if ($this->defaultuserpreference == 0) {
-                            $dchar = $this->togglelib->get_min_digit();
-                        } else {
-                            $dchar = $this->togglelib->get_max_digit();
-                        }
-                        for ($i = strlen($this->userpreference); $i < $numdigits; $i++) {
-                            $this->userpreference .= $dchar;
-                        }
-                    }
-                    $this->togglelib->set_toggles($this->userpreference);
-                }
-            } else {
-                $numdigits = $this->togglelib->get_required_digits($coursenumsections);
-                if ($this->defaultuserpreference == 0) {
-                    $dchar = $this->togglelib->get_min_digit();
-                } else {
-                    $dchar = $this->togglelib->get_max_digit();
-                }
-                $this->userpreference = '';
-                for ($i = 0; $i < $numdigits; $i++) {
-                    $this->userpreference .= $dchar;
-                }
-                $this->togglelib->set_toggles($this->userpreference);
-            }
-
             while ($loopsection <= $coursenumsections) {
                 if (($this->tcsettings['layoutstructure'] == 3) && ($this->userisediting == false)) {
                     $nextweekdate = $weekdate - ($weekofseconds);
@@ -867,7 +824,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                         echo $this->section_summary($thissection, $course, null);
                     } else {
                         if ($this->isoldtogglepreference == true) {
-                            $togglestate = substr($tb, $section, 1);
+                            $togglestate = substr($this->togglelib->get_toggles(), $section, 1);
                             if ($togglestate == '1') {
                                 $thissection->toggle = true;
                             } else {
@@ -888,7 +845,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
                 if ($currentsectionfirst == false) {
                     /* Only need to do this on the iteration when $currentsectionfirst is not true as this iteration will always
-                      happen.  Otherwise you get duplicate entries in course_sections in the DB. */
+                       happen.  Otherwise you get duplicate entries in course_sections in the DB. */
                     unset($sections[$section]);
                 }
                 if (($this->tcsettings['layoutstructure'] != 3) || ($this->userisediting)) {
@@ -976,6 +933,16 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 echo html_writer::end_tag('div');
             }
         }
+
+        // Now initialise the JavaScript.
+        $this->page->requires->js_init_call('M.format_topcoll.init', array(
+            $course->id,
+            $this->togglelib->get_toggles(),
+            $this->courseformat->get_last_section_number(),
+            $this->defaulttogglepersistence,
+            $this->defaultuserpreference,
+            true,
+            $this->page->user_is_editing()));
     }
 
     /**
@@ -1053,12 +1020,58 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
     }
 
-    public function set_user_preference($preference) {
-        $this->userpreference = $preference;
-    }
-
-    public function set_default_user_preference($defaultpreference) {
-        $this->defaultuserpreference = $defaultpreference;
+    public function set_user_preference($userpreference, $defaultuserpreference, $defaulttogglepersistence) {
+        $this->defaultuserpreference = $defaultuserpreference;
+        $this->defaulttogglepersistence = $defaulttogglepersistence;
+        $coursenumsections = $this->courseformat->get_last_section_number();
+        if ($userpreference != null) {
+            $this->isoldtogglepreference = $this->togglelib->is_old_preference($userpreference);
+            if ($this->isoldtogglepreference == true) {
+                $ts1 = base_convert(substr($userpreference, 0, 6), 36, 2);
+                $ts2 = base_convert(substr($userpreference, 6, 12), 36, 2);
+                $thesparezeros = "00000000000000000000000000";
+                if (strlen($ts1) < 26) {
+                    // Need to PAD.
+                    $ts1 = substr($thesparezeros, 0, (26 - strlen($ts1))) . $ts1;
+                }
+                if (strlen($ts2) < 27) {
+                    // Need to PAD.
+                    $ts2 = substr($thesparezeros, 0, (27 - strlen($ts2))) . $ts2;
+                }
+                $tb = $ts1 . $ts2;
+                $this->togglelib->set_toggles($tb);
+            } else {
+                // Check we have enough digits for the number of toggles in case this has increased.
+                $numdigits = $this->togglelib->get_required_digits($coursenumsections);
+                $totdigits = strlen($userpreference);
+                if ($numdigits > $totdigits) {
+                    if ($this->defaultuserpreference == 0) {
+                        $dchar = $this->togglelib->get_min_digit();
+                    } else {
+                        $dchar = $this->togglelib->get_max_digit();
+                    }
+                    for ($i = $totdigits; $i < $numdigits; $i++) {
+                        $userpreference .= $dchar;
+                    }
+                } else if ($numdigits < $totdigits) {
+                    // Shorten to save space.
+                    $userpreference = substr($userpreference, 0, $numdigits);
+                }
+                $this->togglelib->set_toggles($userpreference);
+            }
+        } else {
+            $numdigits = $this->togglelib->get_required_digits($coursenumsections);
+            if ($this->defaultuserpreference == 0) {
+                $dchar = $this->togglelib->get_min_digit();
+            } else {
+                $dchar = $this->togglelib->get_max_digit();
+            }
+            $userpreference = '';
+            for ($i = 0; $i < $numdigits; $i++) {
+                $userpreference .= $dchar;
+            }
+            $this->togglelib->set_toggles($userpreference);
+        }
     }
 
     protected function get_row_class() {
