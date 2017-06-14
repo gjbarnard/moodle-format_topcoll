@@ -139,38 +139,6 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
-    // Default toggle foreground colour in hexadecimal RGB with preceding '#'.
-    $name = 'format_topcoll/defaulttgfgcolour';
-    $title = get_string('defaulttgfgcolour', 'format_topcoll');
-    $description = get_string('defaulttgfgcolour_desc', 'format_topcoll');
-    $default = '#000000';
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
-    $settings->add($setting);
-
-    // Default toggle foreground hover colour in hexadecimal RGB with preceding '#'.
-    $name = 'format_topcoll/defaulttgfghvrcolour';
-    $title = get_string('defaulttgfghvrcolour', 'format_topcoll');
-    $description = get_string('defaulttgfghvrcolour_desc', 'format_topcoll');
-    $default = '#888888';
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
-    $settings->add($setting);
-
-    // Default toggle background colour in hexadecimal RGB with preceding '#'.
-    $name = 'format_topcoll/defaulttgbgcolour';
-    $title = get_string('defaulttgbgcolour', 'format_topcoll');
-    $description = get_string('defaulttgbgcolour_desc', 'format_topcoll');
-    $default = '#e2e2f2';
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
-    $settings->add($setting);
-
-    // Default toggle background hover colour in hexadecimal RGB with preceding '#'.
-    $name = 'format_topcoll/defaulttgbghvrcolour';
-    $title = get_string('defaulttgbghvrcolour', 'format_topcoll');
-    $description = get_string('defaulttgbghvrcolour_desc', 'format_topcoll');
-    $default = '#eeeeff';
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
-    $settings->add($setting);
-
     // Toggle text alignment.
     // 1 = left, 2 = center and 3 = right - done this way to avoid typos.
     $name = 'format_topcoll/defaulttogglealignment';
@@ -233,6 +201,17 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
+    /* One section - 1 = no, 2 = yes. */
+    $name = 'format_topcoll/defaultonesection';
+    $title = get_string('defaultonesection', 'format_topcoll');
+    $description = get_string('defaultonesection_desc', 'format_topcoll');
+    $default = 1;
+    $choices = array(
+        1 => new lang_string('no'), // No.
+        2 => new lang_string('yes')   // Yes.
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
     // Toggle all icon hovers.
     // 1 => No.
     // 2 => Yes.
@@ -245,6 +224,38 @@ if ($ADMIN->fulltree) {
         2 => new lang_string('yes')
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
+    // Default toggle foreground colour in hexadecimal RGB with preceding '#'.
+    $name = 'format_topcoll/defaulttgfgcolour';
+    $title = get_string('defaulttgfgcolour', 'format_topcoll');
+    $description = get_string('defaulttgfgcolour_desc', 'format_topcoll');
+    $default = '#000000';
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $settings->add($setting);
+
+    // Default toggle foreground hover colour in hexadecimal RGB with preceding '#'.
+    $name = 'format_topcoll/defaulttgfghvrcolour';
+    $title = get_string('defaulttgfghvrcolour', 'format_topcoll');
+    $description = get_string('defaulttgfghvrcolour_desc', 'format_topcoll');
+    $default = '#888888';
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $settings->add($setting);
+
+    // Default toggle background colour in hexadecimal RGB with preceding '#'.
+    $name = 'format_topcoll/defaulttgbgcolour';
+    $title = get_string('defaulttgbgcolour', 'format_topcoll');
+    $description = get_string('defaulttgbgcolour_desc', 'format_topcoll');
+    $default = '#e2e2f2';
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $settings->add($setting);
+
+    // Default toggle background hover colour in hexadecimal RGB with preceding '#'.
+    $name = 'format_topcoll/defaulttgbghvrcolour';
+    $title = get_string('defaulttgbghvrcolour', 'format_topcoll');
+    $description = get_string('defaulttgbghvrcolour_desc', 'format_topcoll');
+    $default = '#eeeeff';
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $settings->add($setting);
 
     // Show the section summary when collapsed.
     // 1 => No.

@@ -682,7 +682,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if ($coursenumsections > 1) {
                 if ($this->userisediting || $course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
                     // Collapsed Topics all toggles.
-                    echo $this->toggle_all();
+                    if ($this->tcsettings['onesection'] == 1) {
+                        echo $this->toggle_all();
+                    }
                     if ($this->tcsettings['displayinstructions'] == 2) {
                         // Collapsed Topics instructions.
                         echo $this->display_instructions();
@@ -925,7 +927,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $columncount = 1;
             $breakpoint = 0;
             $shownsectioncount = 0;
-            if ((true) && (!empty($this->currentsection))) {
+            if (($this->tcsettings['onesection'] == 2) && (!empty($this->currentsection))) {
                 $shownonetoggle = $this->currentsection; // One toggle open only, so as we have a current section it will be it.
             }
             foreach ($sectiondisplayarray as $thissection) {
@@ -936,7 +938,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 } else if (!empty($thissection->issummary)) {
                     echo $this->section_summary($thissection, $course, null);
                 } else if (!empty($thissection->isshown)) {
-                    if (true) {
+                    if ($this->tcsettings['onesection'] == 2) {
                         if ($thissection->toggle) {
                             if (!empty($shownonetoggle)) {
                                 // Make sure the current section is not closed if set above.
@@ -1036,7 +1038,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $this->courseformat->get_last_section_number(),
             $this->defaulttogglepersistence,
             $this->defaultuserpreference,
-            true,
+            ($this->tcsettings['onesection'] == 2),
             $shownonetoggle,
             $this->page->user_is_editing()));
         // Make sure the database has the correct state of the toggles if changed by the code.

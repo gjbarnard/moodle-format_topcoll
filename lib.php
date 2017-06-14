@@ -394,6 +394,10 @@ class format_topcoll extends format_base {
                     'default' => get_config('format_topcoll', 'defaulttoggleiconset'),
                     'type' => PARAM_ALPHA,
                 ),
+                'onesection' => array(
+                    'default' => get_config('format_topcoll', 'defaultonesection'),
+                    'type' => PARAM_INT,
+                ),
                 'toggleallhover' => array(
                     'default' => get_config('format_topcoll', 'defaulttoggleallhover'),
                     'type' => PARAM_INT,
@@ -554,6 +558,16 @@ class format_topcoll extends format_base {
                               2 => new lang_string('right', 'format_topcoll'))  // Right.
                     )
                 );
+                $courseformatoptionsedit['onesection'] = array(
+                    'label' => new lang_string('onesection', 'format_topcoll'),
+                    'help' => 'onesection',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => array(
+                        array(1 => new lang_string('no'),
+                              2 => new lang_string('yes'))
+                    )
+                );
                 $courseformatoptionsedit['showsectionsummary'] = array(
                     'label' => new lang_string('setshowsectionsummary', 'format_topcoll'),
                     'help' => 'setshowsectionsummary',
@@ -575,6 +589,8 @@ class format_topcoll extends format_base {
                     'label' => get_config('format_topcoll', 'defaultlayoutcolumnorientation'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['toggleiconposition'] = array(
                     'label' => get_config('format_topcoll', 'defaulttoggleiconposition'), 'element_type' => 'hidden');
+                $courseformatoptionsedit['onesection'] = array(
+                    'label' => get_config('format_topcoll', 'defaultonesection'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['showsectionsummary'] = array(
                     'label' => get_config('format_topcoll', 'defaultshowsectionsummary'), 'element_type' => 'hidden');
             }
@@ -1076,6 +1092,7 @@ class format_topcoll extends format_base {
             $updatedata['layoutcolumns'] = get_config('format_topcoll', 'defaultlayoutcolumns');
             $updatedata['layoutcolumnorientation'] = get_config('format_topcoll', 'defaultlayoutcolumnorientation');
             $updatedata['toggleiconposition'] = get_config('format_topcoll', 'defaulttoggleiconposition');
+            $updatedata['onesection'] = get_config('format_topcoll', 'defaultonesection');
             $updatedata['showsectionsummary'] = get_config('format_topcoll', 'defaultshowsectionsummary');
             $updatelayout = true;
         }
