@@ -65,10 +65,11 @@ M.format_topcoll.TOGGLE_1 = 32;
  * @param {Integer} theTogglePersistence Persistence on (1) or off (0).
  * @param {Integer} theDefaultTogglePersistence Persistence all open (1) or all closed (0) when theToggleState is null.
  * @param {Boolean} theOneTopic One toggle open at a time (true) or not (false).
+ * @param {Integer} theOneTopicToggle Number of the toggle that is open for one toggle open functionality.
  * @param {Boolean} theUserIsEditing User is editing (true) or or not (false).
  */
 M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections, theTogglePersistence,
-    theDefaultTogglePersistence, theOneTopic, theUserIsEditing) {
+    theDefaultTogglePersistence, theOneTopic, theOneTopicToggle, theUserIsEditing) {
     "use strict";
     // Init.
     this.ourYUI = Y;
@@ -128,6 +129,11 @@ M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections,
         if (allclosed) {
             allclosed.on('click', this.allCloseClick);
         }
+    } else {
+        if (theOneTopicToggle !== false) {
+            this.currentTopic = Y.one("ul.ctopics #toggle-" + theOneTopicToggle);;
+            this.currentTopicNum = theOneTopicToggle;
+        }
     }
 };
 
@@ -175,13 +181,13 @@ M.format_topcoll.toggle_topic = function(targetNode, toggleNum) {
     "use strict";
 
     if (this.oneTopic === true) {
-        if ((this.currentTopicNum != 0) && (this.currentTopicNum != toggleNum)) {
+        if ((this.currentTopicNum != false) && (this.currentTopicNum != toggleNum)) {
             var currentTarget = this.currentTopic.one('span.the_toggle');
             currentTarget.addClass('toggle_closed').removeClass('toggle_open').setAttribute('aria-pressed', 'false');
             this.currentTopic.next('.toggledsection').removeClass('sectionopen');
             this.set_toggle_state(this.currentTopicNum, false);
             this.currentTopic = null;
-            this.currentTopicNum = 0;
+            this.currentTopicNum = false;
         }
     }
 
@@ -201,7 +207,7 @@ M.format_topcoll.toggle_topic = function(targetNode, toggleNum) {
         state = false;
         if (this.oneTopic === true) {
             this.currentTopic = null;
-            this.currentTopicNum = 0;
+            this.currentTopicNum = false;
         }
     }
 

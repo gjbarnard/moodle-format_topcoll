@@ -47,6 +47,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
     private $defaulttogglepersistence; // Default toggle persistence.
     private $defaultuserpreference; // Default user preference when none set - bool - true all open, false all closed.
     private $togglelib;
+    private $currentsection = false; // If not false then will be the current section number.
     private $isoldtogglepreference = false;
     private $userisediting = false;
     private $tctoggleiconsize;
@@ -393,11 +394,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if (!$section->visible) {
                 $sectionstyle = ' hidden';
             }
-            if ($this->courseformat->is_section_current($section)) {
-                $section->toggle = true; // Open current section regardless of toggle state.
+            // if ($this->courseformat->is_section_current($section)) {
+            if ($section->section == $this->currentsection) {
                 $sectionstyle = ' current';
                 $rightcurrent = ' left';
-                $this->togglelib->set_toggle_state($section->section, true);
             }
         }
 
@@ -675,8 +675,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
             echo $this->section_footer();
         }
 
+        $shownonetoggle = false;
         $coursenumsections = $this->courseformat->get_last_section_number();
         if ($coursenumsections > 0) {
+            $sectiondisplayarray = array();
             if ($coursenumsections > 1) {
                 if ($this->userisediting || $course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
                     // Collapsed Topics all toggles.
@@ -767,10 +769,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             $loopsection = 1;
             $breaking = false; // Once the first section is shown we can decide if we break on another column.
-            $canbreak = ($this->tcsettings['layoutcolumns'] > 1);
-            $columncount = 1;
-            $breakpoint = 0;
-            $shownsectioncount = 0;
+            //$canbreak = ($this->tcsettings['layoutcolumns'] > 1);
+            //$columncount = 1;
+            //$breakpoint = 0;
+            //$shownsectioncount = 0;
 
             while ($loopsection <= $coursenumsections) {
                 if (($this->tcsettings['layoutstructure'] == 3) && ($this->userisediting == false)) {
@@ -813,15 +815,19 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     }
                     if ($testhidden) {
                         if (!$course->hiddensections && $thissection->available) {
-                            $shownsectioncount++;
-                            echo $this->section_hidden($thissection);
+                            //$shownsectioncount++;
+                            //echo $this->section_hidden($thissection);
+                            $thissection->ishidden = true;
+                            $sectiondisplayarray[] = $thissection;
                         }
                     }
                 } else {
-                    $shownsectioncount++;
+                    //$shownsectioncount++;
                     if (!$this->userisediting && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                         // Display section summary only.
-                        echo $this->section_summary($thissection, $course, null);
+                        //echo $this->section_summary($thissection, $course, null);
+                        $thissection->issummary = true;
+                        $sectiondisplayarray[] = $thissection;
                     } else {
                         if ($this->isoldtogglepreference == true) {
                             $togglestate = substr($this->togglelib->get_toggles(), $section, 1);
@@ -833,21 +839,29 @@ class format_topcoll_renderer extends format_section_renderer_base {
                         } else {
                             $thissection->toggle = $this->togglelib->get_toggle_state($thissection->section);
                         }
-                        echo $this->section_header($thissection, $course, false, 0);
+                        /*echo $this->section_header($thissection, $course, false, 0);
                         if ($thissection->uservisible) {
                             echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
                             echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0);
                         }
                         echo html_writer::end_tag('div');
-                        echo $this->section_footer();
+                        echo $this->section_footer();*/
+                        if ($this->courseformat->is_section_current($thissection)) {
+                            $this->currentsection = $thissection->section;
+                            $thissection->toggle = true; // Open current section regardless of toggle state.
+                            $this->togglelib->set_toggle_state($thissection->section, true);
+                        }
+
+                        $thissection->isshown = true;
+                        $sectiondisplayarray[] = $thissection;
                     }
                 }
 
-                if ($currentsectionfirst == false) {
+                //if ($currentsectionfirst == false) {
                     /* Only need to do this on the iteration when $currentsectionfirst is not true as this iteration will always
                        happen.  Otherwise you get duplicate entries in course_sections in the DB. */
-                    unset($sections[$section]);
-                }
+                    //unset($sections[$section]);
+                //}
                 if (($this->tcsettings['layoutstructure'] != 3) || ($this->userisediting)) {
                     $section++;
                 } else {
@@ -858,7 +872,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 }
 
                 // Only check for breaking up the structure with rows if more than one column and when we output all of the sections.
-                if (($canbreak === true) && ($currentsectionfirst === false)) {
+                /*if (($canbreak === true) && ($currentsectionfirst === false)) {
                     // Only break in non-mobile themes or using a responsive theme.
                     if ((!$this->formatresponsive) || ($this->mobiletheme === false)) {
                         if ($this->tcsettings['layoutcolumnorientation'] == 1) {  // Vertical mode.
@@ -892,7 +906,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                             }
                         }
                     }
-                }
+                }*/
 
                 $loopsection++;
                 if (($currentsectionfirst == true) && ($loopsection > $coursenumsections)) {
@@ -905,6 +919,86 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     // Activities inside this section are 'orphaned', this section will be printed as 'stealth' below.
                     break;
                 }
+            }
+
+            $canbreak = ($this->tcsettings['layoutcolumns'] > 1);
+            $columncount = 1;
+            $breakpoint = 0;
+            $shownsectioncount = 0;
+            if ((true) && (!empty($this->currentsection))) {
+                $shownonetoggle = $this->currentsection; // One toggle open only, so as we have a current section it will be it.
+            }
+            foreach ($sectiondisplayarray as $thissection) {
+                $shownsectioncount++;
+
+                if (!empty($thissection->ishidden)) {
+                    echo $this->section_hidden($thissection);
+                } else if (!empty($thissection->issummary)) {
+                    echo $this->section_summary($thissection, $course, null);
+                } else if (!empty($thissection->isshown)) {
+                    if (true) {
+                        if ($thissection->toggle) {
+                            if (!empty($shownonetoggle)) {
+                                // Make sure the current section is not closed if set above.
+                                if ($shownonetoggle != $thissection->section) {
+                                    // There is already a toggle open so others need to be closed.
+                                    $thissection->toggle = false;
+                                    $this->togglelib->set_toggle_state($thissection->section, false);
+                                }
+                            } else {
+                                // No open toggle, so as this is the first, it can be the one.
+                                $shownonetoggle = $thissection->section;
+                            }
+                        }
+                    }
+                    echo $this->section_header($thissection, $course, false, 0);
+                    if ($thissection->uservisible) {
+                        echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
+                        echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0);
+                    }
+                    echo html_writer::end_tag('div');
+                    echo $this->section_footer();
+                }
+
+                // Only check for breaking up the structure with rows if more than one column and when we output all of the sections.
+                if ($canbreak === true) {
+                    // Only break in non-mobile themes or using a responsive theme.
+                    if ((!$this->formatresponsive) || ($this->mobiletheme === false)) {
+                        if ($this->tcsettings['layoutcolumnorientation'] == 1) {  // Vertical mode.
+                            // This is not perfect yet as does not tally the shown sections and divide by columns.
+                            if (($breaking == false) && ($showsection == true)) {
+                                $breaking = true;
+                                // Divide the number of sections by the number of columns.
+                                $breakpoint = $numsections / $this->tcsettings['layoutcolumns'];
+                            }
+
+                            if (($breaking == true) && ($shownsectioncount >= $breakpoint) &&
+                                ($columncount < $this->tcsettings['layoutcolumns'])) {
+                                echo $this->end_section_list();
+                                echo $this->start_toggle_section_list();
+                                $columncount++;
+                                // Next breakpoint is...
+                                $breakpoint += $numsections / $this->tcsettings['layoutcolumns'];
+                            }
+                        } else {  // Horizontal mode.
+                            if (($breaking == false) && ($showsection == true)) {
+                                $breaking = true;
+                                // The lowest value here for layoutcolumns is 2 and the maximum for shownsectioncount is 2, so :).
+                                $breakpoint = $this->tcsettings['layoutcolumns'];
+                            }
+
+                            //if (($breaking == true) && ($shownsectioncount >= $breakpoint) && ($loopsection < $coursenumsections)) {
+                            if (($breaking == true) && ($shownsectioncount >= $breakpoint)) {
+                                echo $this->end_section_list();
+                                echo $this->start_toggle_section_list();
+                                // Next breakpoint is...
+                                $breakpoint += $this->tcsettings['layoutcolumns'];
+                            }
+                        }
+                    }
+                }
+
+                unset($sections[$thissection->section]);
             }
         }
 
@@ -935,14 +1029,19 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
 
         // Now initialise the JavaScript.
+        $toggles = $this->togglelib->get_toggles();
         $this->page->requires->js_init_call('M.format_topcoll.init', array(
             $course->id,
-            $this->togglelib->get_toggles(),
+            $toggles,
             $this->courseformat->get_last_section_number(),
             $this->defaulttogglepersistence,
             $this->defaultuserpreference,
             true,
+            $shownonetoggle,
             $this->page->user_is_editing()));
+        // Make sure the database has the correct state of the toggles if changed by the code.
+        // This ensures that a no-change page reload is correct.
+        set_user_preference('topcoll_toggle_'.$course->id, $toggles);
     }
 
     /**
