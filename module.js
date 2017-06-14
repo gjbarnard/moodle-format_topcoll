@@ -131,7 +131,7 @@ M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections,
         }
     } else {
         if (theOneTopicToggle !== false) {
-            this.currentTopic = Y.one("ul.ctopics #toggle-" + theOneTopicToggle);;
+            this.currentTopic = Y.one("ul.ctopics #toggle-" + theOneTopicToggle);
             this.currentTopicNum = theOneTopicToggle;
         }
     }
@@ -181,7 +181,7 @@ M.format_topcoll.toggle_topic = function(targetNode, toggleNum) {
     "use strict";
 
     if (this.oneTopic === true) {
-        if ((this.currentTopicNum != false) && (this.currentTopicNum != toggleNum)) {
+        if ((this.currentTopicNum !== false) && (this.currentTopicNum != toggleNum)) {
             var currentTarget = this.currentTopic.one('span.the_toggle');
             currentTarget.addClass('toggle_closed').removeClass('toggle_open').setAttribute('aria-pressed', 'false');
             this.currentTopic.next('.toggledsection').removeClass('sectionopen');

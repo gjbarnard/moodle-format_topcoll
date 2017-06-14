@@ -71,8 +71,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
           other managing capability. */
         $page->set_other_editing_capability('moodle/course:setcurrentsection');
 
-        global $PAGE;
-        $this->userisediting = $PAGE->user_is_editing();
+        $this->userisediting = $page->user_is_editing();
         $this->tctoggleiconsize = clean_param(get_config('format_topcoll', 'defaulttoggleiconsize'), PARAM_TEXT);
         $this->formatresponsive = get_config('format_topcoll', 'formatresponsive');
 
@@ -682,7 +681,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if ($coursenumsections > 1) {
                 if ($this->userisediting || $course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
                     // Collapsed Topics all toggles.
-                    if ($this->tcsettings['onesection'] == 1) {
+                    if (($this->userisediting) || ($this->tcsettings['onesection'] == 1)) {
                         echo $this->toggle_all();
                     }
                     if ($this->tcsettings['displayinstructions'] == 2) {
@@ -871,7 +870,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $columncount = 1;
             $breakpoint = 0;
             $shownsectioncount = 0;
-            if (($this->tcsettings['onesection'] == 2) && (!empty($this->currentsection))) {
+            if ((!$this->userisediting) && ($this->tcsettings['onesection'] == 2) && (!empty($this->currentsection))) {
                 $shownonetoggle = $this->currentsection; // One toggle open only, so as we have a current section it will be it.
             }
             foreach ($sectiondisplayarray as $thissection) {
@@ -882,7 +881,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 } else if (!empty($thissection->issummary)) {
                     echo $this->section_summary($thissection, $course, null);
                 } else if (!empty($thissection->isshown)) {
-                    if ($this->tcsettings['onesection'] == 2) {
+                    if ((!$this->userisediting) && ($this->tcsettings['onesection'] == 2)) {
                         if ($thissection->toggle) {
                             if (!empty($shownonetoggle)) {
                                 // Make sure the current section is not closed if set above.
@@ -978,12 +977,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $this->page->requires->js_init_call('M.format_topcoll.init', array(
             $course->id,
             $toggles,
-            $this->courseformat->get_last_section_number(),
+            $coursenumsections,
             $this->defaulttogglepersistence,
             $this->defaultuserpreference,
-            ($this->tcsettings['onesection'] == 2),
+            ((!$this->userisediting) && ($this->tcsettings['onesection'] == 2)),
             $shownonetoggle,
-            $this->page->user_is_editing()));
+            $this->userisediting));
         // Make sure the database has the correct state of the toggles if changed by the code.
         // This ensures that a no-change page reload is correct.
         set_user_preference('topcoll_toggle_'.$course->id, $toggles);
