@@ -771,10 +771,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             $loopsection = 1;
             $breaking = false; // Once the first section is shown we can decide if we break on another column.
-            //$canbreak = ($this->tcsettings['layoutcolumns'] > 1);
-            //$columncount = 1;
-            //$breakpoint = 0;
-            //$shownsectioncount = 0;
 
             while ($loopsection <= $coursenumsections) {
                 if (($this->tcsettings['layoutstructure'] == 3) && ($this->userisediting == false)) {
@@ -817,17 +813,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     }
                     if ($testhidden) {
                         if (!$course->hiddensections && $thissection->available) {
-                            //$shownsectioncount++;
-                            //echo $this->section_hidden($thissection);
                             $thissection->ishidden = true;
                             $sectiondisplayarray[] = $thissection;
                         }
                     }
                 } else {
-                    //$shownsectioncount++;
                     if (!$this->userisediting && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                         // Display section summary only.
-                        //echo $this->section_summary($thissection, $course, null);
                         $thissection->issummary = true;
                         $sectiondisplayarray[] = $thissection;
                     } else {
@@ -841,13 +833,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                         } else {
                             $thissection->toggle = $this->togglelib->get_toggle_state($thissection->section);
                         }
-                        /*echo $this->section_header($thissection, $course, false, 0);
-                        if ($thissection->uservisible) {
-                            echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
-                            echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0);
-                        }
-                        echo html_writer::end_tag('div');
-                        echo $this->section_footer();*/
+
                         if ($this->courseformat->is_section_current($thissection)) {
                             $this->currentsection = $thissection->section;
                             $thissection->toggle = true; // Open current section regardless of toggle state.
@@ -859,11 +845,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     }
                 }
 
-                //if ($currentsectionfirst == false) {
-                    /* Only need to do this on the iteration when $currentsectionfirst is not true as this iteration will always
-                       happen.  Otherwise you get duplicate entries in course_sections in the DB. */
-                    //unset($sections[$section]);
-                //}
                 if (($this->tcsettings['layoutstructure'] != 3) || ($this->userisediting)) {
                     $section++;
                 } else {
@@ -872,43 +853,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
                         $weekdate = $nextweekdate;
                     }
                 }
-
-                // Only check for breaking up the structure with rows if more than one column and when we output all of the sections.
-                /*if (($canbreak === true) && ($currentsectionfirst === false)) {
-                    // Only break in non-mobile themes or using a responsive theme.
-                    if ((!$this->formatresponsive) || ($this->mobiletheme === false)) {
-                        if ($this->tcsettings['layoutcolumnorientation'] == 1) {  // Vertical mode.
-                            // This is not perfect yet as does not tally the shown sections and divide by columns.
-                            if (($breaking == false) && ($showsection == true)) {
-                                $breaking = true;
-                                // Divide the number of sections by the number of columns.
-                                $breakpoint = $numsections / $this->tcsettings['layoutcolumns'];
-                            }
-
-                            if (($breaking == true) && ($shownsectioncount >= $breakpoint) &&
-                                ($columncount < $this->tcsettings['layoutcolumns'])) {
-                                echo $this->end_section_list();
-                                echo $this->start_toggle_section_list();
-                                $columncount++;
-                                // Next breakpoint is...
-                                $breakpoint += $numsections / $this->tcsettings['layoutcolumns'];
-                            }
-                        } else {  // Horizontal mode.
-                            if (($breaking == false) && ($showsection == true)) {
-                                $breaking = true;
-                                // The lowest value here for layoutcolumns is 2 and the maximum for shownsectioncount is 2, so :).
-                                $breakpoint = $this->tcsettings['layoutcolumns'];
-                            }
-
-                            if (($breaking == true) && ($shownsectioncount >= $breakpoint) && ($loopsection < $coursenumsections)) {
-                                echo $this->end_section_list();
-                                echo $this->start_toggle_section_list();
-                                // Next breakpoint is...
-                                $breakpoint += $this->tcsettings['layoutcolumns'];
-                            }
-                        }
-                    }
-                }*/
 
                 $loopsection++;
                 if (($currentsectionfirst == true) && ($loopsection > $coursenumsections)) {
@@ -989,7 +933,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
                                 $breakpoint = $this->tcsettings['layoutcolumns'];
                             }
 
-                            //if (($breaking == true) && ($shownsectioncount >= $breakpoint) && ($loopsection < $coursenumsections)) {
                             if (($breaking == true) && ($shownsectioncount >= $breakpoint)) {
                                 echo $this->end_section_list();
                                 echo $this->start_toggle_section_list();
