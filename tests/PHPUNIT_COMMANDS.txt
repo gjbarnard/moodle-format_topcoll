@@ -4,9 +4,17 @@ composer install --dev
 
 php admin/tool/phpunit/cli/init.php
 
+vendor/bin/phpunit format_topcoll_courseformatlib_testcase course/format/topcoll/tests/courseformatlib_test.php
+or
+vendor\bin\phpunit format_topcoll_courseformatlib_testcase course/format/topcoll/tests/courseformatlib_test.php
+
 vendor/bin/phpunit format_topcoll_courseformatrenderer_testcase course/format/topcoll/tests/courseformatrenderer_test.php
 or
 vendor\bin\phpunit format_topcoll_courseformatrenderer_testcase course/format/topcoll/tests/courseformatrenderer_test.php
+
+vendor/bin/phpunit format_topcoll_courseformattoolbox_testcase course/format/topcoll/tests/courseformattoolbox_test.php
+or
+vendor\bin\phpunit format_topcoll_courseformattoolbox_testcase course/format/topcoll/tests/courseformattoolbox_test.php
 
 vendor/bin/phpunit --group format_topcoll
 or

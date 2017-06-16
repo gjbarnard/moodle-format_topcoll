@@ -233,6 +233,27 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
 
+    $opacityvalues = array(
+        '0.0' => '0.0',
+        '0.1' => '0.1',
+        '0.2' => '0.2',
+        '0.3' => '0.3',
+        '0.4' => '0.4',
+        '0.5' => '0.5',
+        '0.6' => '0.6',
+        '0.7' => '0.7',
+        '0.8' => '0.8',
+        '0.9' => '0.9',
+        '1.0' => '1.0'
+    );
+
+    // Default toggle foreground opacity between 0 and 1 in 0.1 increments.
+    $name = 'format_topcoll/defaulttgfgopacity';
+    $title = get_string('defaulttgfgopacity', 'format_topcoll');
+    $description = get_string('defaulttgfgopacity_desc', 'format_topcoll');
+    $default = '1.0';
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $opacityvalues));
+
     // Default toggle foreground hover colour in hexadecimal RGB with preceding '#'.
     $name = 'format_topcoll/defaulttgfghvrcolour';
     $title = get_string('defaulttgfghvrcolour', 'format_topcoll');
@@ -240,6 +261,13 @@ if ($ADMIN->fulltree) {
     $default = '#888888';
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
+
+    // Default toggle foreground hover opacity between 0 and 1 in 0.1 increments.
+    $name = 'format_topcoll/defaulttgfghvropacity';
+    $title = get_string('defaulttgfghvropacity', 'format_topcoll');
+    $description = get_string('defaulttgfghvropacity_desc', 'format_topcoll');
+    $default = '1.0';
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $opacityvalues));
 
     // Default toggle background colour in hexadecimal RGB with preceding '#'.
     $name = 'format_topcoll/defaulttgbgcolour';
@@ -249,6 +277,13 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
 
+    // Default toggle background opacity between 0 and 1 in 0.1 increments.
+    $name = 'format_topcoll/defaulttgbgopacity';
+    $title = get_string('defaulttgbgopacity', 'format_topcoll');
+    $description = get_string('defaulttgbgopacity_desc', 'format_topcoll');
+    $default = '1.0';
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $opacityvalues));
+
     // Default toggle background hover colour in hexadecimal RGB with preceding '#'.
     $name = 'format_topcoll/defaulttgbghvrcolour';
     $title = get_string('defaulttgbghvrcolour', 'format_topcoll');
@@ -256,6 +291,13 @@ if ($ADMIN->fulltree) {
     $default = '#eeeeff';
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
+
+    // Default toggle background hover opacity between 0 and 1 in 0.1 increments.
+    $name = 'format_topcoll/defaulttgbghvropacity';
+    $title = get_string('defaulttgbghvropacity', 'format_topcoll');
+    $description = get_string('defaulttgbghvropacity_desc', 'format_topcoll');
+    $default = '1.0';
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $opacityvalues));
 
     // Show the section summary when collapsed.
     // 1 => No.

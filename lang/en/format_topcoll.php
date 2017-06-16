@@ -24,7 +24,7 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' in below.
+ * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
@@ -140,8 +140,8 @@ $string['settoggleforegroundcolour_help'] = 'Sets the colour of the text on the 
 $string['settoggleforegroundhovercolour_help'] = 'Sets the colour of the text on the toggle when the mouse moves over it.';
 $string['settogglebackgroundcolour_help'] = 'Sets the background colour of the toggle.';
 $string['settogglebackgroundhovercolour_help'] = 'Sets the background colour of the toggle when the mouse moves over it.';
-$string['resetcolour_help'] = 'Resets the colours to the default values so it will be the same as a course the first time it is in the \'Collapsed Topics\' format.';
-$string['resetallcolour_help'] = 'Resets the colours to the default values for all courses so it will be the same as a course the first time it is in the \'Collapsed Topics\' format.';
+$string['resetcolour_help'] = 'Resets the colours and opacities to the default values so it will be the same as a course the first time it is in the \'Collapsed Topics\' format.';
+$string['resetallcolour_help'] = 'Resets the colours and opacities to the default values for all courses so it will be the same as a course the first time it is in the \'Collapsed Topics\' format.';
 // Columns enhancement.
 $string['setlayoutcolumns_help'] = 'How many columns to use.';
 $string['setlayoutcolumnorientation_help'] = 'Vertical - Sections go top to bottom.<br />Horizontal - Sections go left to right.';
@@ -249,6 +249,27 @@ $string['defaulttogglepersistence_desc'] = "'On' or 'Off'.  Turn off for an AJAX
 
 $string['defaultuserpreference'] = 'Initial toggle state';
 $string['defaultuserpreference_desc'] = 'States what to do with the toggles when the user first accesses the course, the state of additional sections when they are added or toggle persistence is off.';
+
+// Toggle opacities.
+$string['settoggleforegroundopacity'] = 'Toggle foreground opacity';
+$string['settoggleforegroundopacity_help'] = 'Sets the opacity of the text on the toggle between 0 and 1 in 0.1 increments.';
+$string['defaulttgfgopacity'] = 'Toggle foreground opacity';
+$string['defaulttgfgopacity_desc'] = "Toggle foreground text opacity between 0 and 1 in 0.1 increments.";
+
+$string['settoggleforegroundhoveropacity'] = 'Toggle foreground hover opacity';
+$string['settoggleforegroundhoveropacity_help'] = 'Sets the opacity of the text on hover on the toggle between 0 and 1 in 0.1 increments.';
+$string['defaulttgfghvropacity'] = 'Toggle foreground hover opacity';
+$string['defaulttgfghvropacity_desc'] = "Toggle foreground text on hover opacity between 0 and 1 in 0.1 increments.";
+
+$string['settogglebackgroundopacity'] = 'Toggle background opacity';
+$string['settogglebackgroundopacity_help'] = 'Sets the opacity of the background on the toggle between 0 and 1 in 0.1 increments.';
+$string['defaulttgbgopacity'] = 'Toggle background opacity';
+$string['defaulttgbgopacity_desc'] = "Toggle background opacity between 0 and 1 in 0.1 increments.";
+
+$string['settogglebackgroundhoveropacity'] = 'Toggle background hover opacity';
+$string['settogglebackgroundhoveropacity_help'] = 'Sets the opacity of the background on hover on the toggle between 0 and 1 in 0.1 increments.';
+$string['defaulttgbghvropacity'] = 'Toggle background hover opacity';
+$string['defaulttgbghvropacity_desc'] = "Toggle background on hover opacity between 0 and 1 in 0.1 increments.";
 
 // Toggle icon size.
 $string['defaulttoggleiconsize'] = 'Toggle icon size';

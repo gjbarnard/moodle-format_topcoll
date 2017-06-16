@@ -24,7 +24,7 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' in below.
+ * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
@@ -406,17 +406,33 @@ class format_topcoll extends format_base {
                     'default' => $defaulttgfgcolour,
                     'type' => PARAM_ALPHANUM,
                 ),
+                'toggleforegroundopacity' => array(
+                    'default' => get_config('format_topcoll', 'defaulttgfgopacity'),
+                    'type' => PARAM_RAW,
+                ),
                 'toggleforegroundhovercolour' => array(
                     'default' => $defaulttgfghvrcolour,
                     'type' => PARAM_ALPHANUM,
+                ),
+                'toggleforegroundhoveropacity' => array(
+                    'default' => get_config('format_topcoll', 'defaulttgbghvropacity'),
+                    'type' => PARAM_RAW,
                 ),
                 'togglebackgroundcolour' => array(
                     'default' => $defaulttgbgcolour,
                     'type' => PARAM_ALPHANUM,
                 ),
+                'togglebackgroundopacity' => array(
+                    'default' => get_config('format_topcoll', 'defaulttgbgopacity'),
+                    'type' => PARAM_RAW,
+                ),
                 'togglebackgroundhovercolour' => array(
                     'default' => $defaulttgbghvrcolour,
                     'type' => PARAM_ALPHANUM,
+                ),
+                'togglebackgroundhoveropacity' => array(
+                    'default' => get_config('format_topcoll', 'defaulttgbghvropacity'),
+                    'type' => PARAM_RAW,
                 ),
                 'showsectionsummary' => array(
                     'default' => get_config('format_topcoll', 'defaultshowsectionsummary'),
@@ -654,6 +670,19 @@ class format_topcoll extends format_base {
             }
 
             if (has_capability('format/topcoll:changecolour', $context)) {
+                $opacityvalues = array(
+                    '0.0' => '0.0',
+                    '0.1' => '0.1',
+                    '0.2' => '0.2',
+                    '0.3' => '0.3',
+                    '0.4' => '0.4',
+                    '0.5' => '0.5',
+                    '0.6' => '0.6',
+                    '0.7' => '0.7',
+                    '0.8' => '0.8',
+                    '0.9' => '0.9',
+                    '1.0' => '1.0'
+                );
                 $courseformatoptionsedit['toggleforegroundcolour'] = array(
                     'label' => new lang_string('settoggleforegroundcolour', 'format_topcoll'),
                     'help' => 'settoggleforegroundcolour',
@@ -662,6 +691,13 @@ class format_topcoll extends format_base {
                     'element_attributes' => array(
                         array('value' => $defaulttgfgcolour)
                     )
+                );
+                $courseformatoptionsedit['toggleforegroundopacity'] = array(
+                    'label' => new lang_string('settoggleforegroundopacity', 'format_topcoll'),
+                    'help' => 'settoggleforegroundopacity',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => array($opacityvalues)
                 );
                 $courseformatoptionsedit['toggleforegroundhovercolour'] = array(
                     'label' => new lang_string('settoggleforegroundhovercolour', 'format_topcoll'),
@@ -672,6 +708,13 @@ class format_topcoll extends format_base {
                         array('value' => $defaulttgfghvrcolour)
                     )
                 );
+                $courseformatoptionsedit['toggleforegroundhoveropacity'] = array(
+                    'label' => new lang_string('settoggleforegroundhoveropacity', 'format_topcoll'),
+                    'help' => 'settoggleforegroundhoveropacity',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => array($opacityvalues)
+                );
                 $courseformatoptionsedit['togglebackgroundcolour'] = array(
                     'label' => new lang_string('settogglebackgroundcolour', 'format_topcoll'),
                     'help' => 'settogglebackgroundcolour',
@@ -680,6 +723,13 @@ class format_topcoll extends format_base {
                     'element_attributes' => array(
                         array('value' => $defaulttgbgcolour)
                     )
+                );
+                $courseformatoptionsedit['togglebackgroundopacity'] = array(
+                    'label' => new lang_string('settogglebackgroundopacity', 'format_topcoll'),
+                    'help' => 'settogglebackgroundopacity',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => array($opacityvalues)
                 );
                 $courseformatoptionsedit['togglebackgroundhovercolour'] = array(
                     'label' => new lang_string('settogglebackgroundhovercolour', 'format_topcoll'),
@@ -690,15 +740,30 @@ class format_topcoll extends format_base {
                         array('value' => $defaulttgbghvrcolour)
                     )
                 );
+                $courseformatoptionsedit['togglebackgroundhoveropacity'] = array(
+                    'label' => new lang_string('settogglebackgroundhoveropacity', 'format_topcoll'),
+                    'help' => 'settogglebackgroundhoveropacity',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => array($opacityvalues)
+                );
             } else {
                 $courseformatoptionsedit['toggleforegroundcolour'] = array(
                     'label' => $defaulttgfgcolour, 'element_type' => 'hidden');
+                $courseformatoptionsedit['toggleforegroundopacity'] = array(
+                    'label' => get_config('format_topcoll', 'defaulttgfgopacity'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['toggleforegroundhovercolour'] = array(
                     'label' => $defaulttgfghvrcolour, 'element_type' => 'hidden');
+                $courseformatoptionsedit['toggleforegroundhoveopacity'] = array(
+                    'label' => get_config('format_topcoll', 'defaulttgfghvropacity'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['togglebackgroundcolour'] = array(
                     'label' => $defaulttgbgcolour, 'element_type' => 'hidden');
+                $courseformatoptionsedit['togglebackgroundopacity'] = array(
+                    'label' => get_config('format_topcoll', 'defaulttgbgopacity'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['togglebackgroundhovercolour'] = array(
                     'label' => $defaulttgbghvrcolour, 'element_type' => 'hidden');
+                $courseformatoptionsedit['togglebackgroundhoveopacity'] = array(
+                    'label' => get_config('format_topcoll', 'defaulttgbghvropacity'), 'element_type' => 'hidden');
             }
             $readme = new moodle_url('/course/format/topcoll/Readme.md');
             $readme = html_writer::link($readme, 'Readme.md', array('target' => '_blank'));
@@ -1102,9 +1167,13 @@ class format_topcoll extends format_base {
         }
         if ($colour && has_capability('format/topcoll:changecolour', $context) && $resetallifall) {
             $updatedata['toggleforegroundcolour'] = get_config('format_topcoll', 'defaulttgfgcolour');
+            $updatedata['toggleforegroundopacity'] = get_config('format_topcoll', 'defaulttgfgopacity');
             $updatedata['toggleforegroundhovercolour'] = get_config('format_topcoll', 'defaulttgfghvrcolour');
+            $updatedata['toggleforegroundhoveropacity'] = get_config('format_topcoll', 'defaulttgfghvropacity');
             $updatedata['togglebackgroundcolour'] = get_config('format_topcoll', 'defaulttgbgcolour');
+            $updatedata['togglebackgroundopacity'] = get_config('format_topcoll', 'defaulttgbgopacity');
             $updatedata['togglebackgroundhovercolour'] = get_config('format_topcoll', 'defaulttgbghvrcolour');
+            $updatedata['togglebackgroundhoveropacity'] = get_config('format_topcoll', 'defaulttgbghvropacity');
             $updatecolour = true;
         }
         if ($toggleiconset && has_capability('format/topcoll:changetoggleiconset', $context) && $resetallifall) {
