@@ -613,6 +613,7 @@ body.jsenabled #toggle-all {
 }
 
 #toggle-all .content .sectionbody h4 span {
+    cursor: pointer;
     padding-bottom: 7px;
     padding-top: 7px;
     text-decoration: none;
