@@ -3,6 +3,7 @@
 Version 3.3.0.3
   1. Fix missing reset course settings.
   2. Add 'numsections' coping restore code from Topics format.
+  3. Fix toggle all cursor.
 
 Version 3.3.0.2
   1. Make the 'readme' course setting only display and not store in the database, thus regenerate and not broken in the
