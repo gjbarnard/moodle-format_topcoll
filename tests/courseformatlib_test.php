@@ -25,6 +25,7 @@
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  */
+defined('MOODLE_INTERNAL') || die();
 
 /**
  * Library unit tests for the Collapsed Topics course format.
@@ -39,7 +40,6 @@ class format_topcoll_courseformatlib_testcase extends advanced_testcase {
         $this->resetAfterTest(true);
 
         set_config('theme', 'clean');
-        global $PAGE;
         // Ref: https://docs.moodle.org/dev/Writing_PHPUnit_tests.
         $this->course = $this->getDataGenerator()->create_course(array(
             'format' => 'topcoll',

@@ -26,7 +26,7 @@
  * @subpackage topcoll
  * @version    See the value of '$plugin->version' in below.
  * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
- * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
+ * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
@@ -37,22 +37,6 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_heading('format_topcoll_defaults',
             get_string('defaultheadingsub', 'format_topcoll'),
             format_text(get_string('defaultheadingsubdesc', 'format_topcoll'), FORMAT_MARKDOWN)));
-
-    /* Default course display.
-     * Course display default, can be either one of:
-     * COURSE_DISPLAY_SINGLEPAGE or - All sections on one page.
-     * COURSE_DISPLAY_MULTIPAGE     - One section per page.
-     * as defined in moodlelib.php.
-     */
-    $name = 'format_topcoll/defaultcoursedisplay';
-    $title = get_string('defaultcoursedisplay', 'format_topcoll');
-    $description = get_string('defaultcoursedisplay_desc', 'format_topcoll');
-    $default = COURSE_DISPLAY_SINGLEPAGE;
-    $choices = array(
-        COURSE_DISPLAY_SINGLEPAGE => new lang_string('coursedisplay_single'),
-        COURSE_DISPLAY_MULTIPAGE => new lang_string('coursedisplay_multi')
-    );
-    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     /* Toggle instructions - 1 = no, 2 = yes. */
     $name = 'format_topcoll/defaultdisplayinstructions';

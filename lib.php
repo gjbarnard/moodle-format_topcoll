@@ -26,14 +26,18 @@
  * @subpackage topcoll
  * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
- * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
+ * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
  */
+defined('MOODLE_INTERNAL') || die();
+
 require_once($CFG->dirroot . '/course/format/lib.php'); // For format_base.
 
 class format_topcoll extends format_base {
+    // Used to determine the type of view URL to generate - parameter or anchor.
+    private $coursedisplay = COURSE_DISPLAY_SINGLEPAGE;
     private $settings;
 
     /**
@@ -51,6 +55,11 @@ class format_topcoll extends format_base {
             $courseid = $COURSE->id;  // Save lots of global $COURSE as we will never be the site course.
         }
         parent::__construct($format, $courseid);
+
+        $section = optional_param('section', 0, PARAM_INT);
+        if ($section) {
+            $this->coursedisplay = COURSE_DISPLAY_MULTIPAGE;
+        }
     }
 
     /**
@@ -220,7 +229,7 @@ class format_topcoll extends format_base {
                     $usercoursedisplay = COURSE_DISPLAY_SINGLEPAGE;
                 }
             } else {
-                $usercoursedisplay = $course->coursedisplay;
+                $usercoursedisplay = $this->coursedisplay;
             }
             if ($sectionno != 0 && $usercoursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                 $url->param('section', $sectionno);
@@ -324,7 +333,6 @@ class format_topcoll extends format_base {
      * Definitions of the additional options that this course format uses for course
      *
      * Collapsed Topics format uses the following options (until extras are migrated):
-     * - coursedisplay
      * - hiddensections
      *
      * @param bool $foreditform
@@ -356,10 +364,6 @@ class format_topcoll extends format_base {
             $courseformatoptions = array(
                 'hiddensections' => array(
                     'default' => $courseconfig->hiddensections,
-                    'type' => PARAM_INT,
-                ),
-                'coursedisplay' => array(
-                    'default' => get_config('format_topcoll', 'defaultcoursedisplay'),
                     'type' => PARAM_INT,
                 ),
                 'displayinstructions' => array(
@@ -440,7 +444,7 @@ class format_topcoll extends format_base {
                 )
             );
         }
-        if ($foreditform && !isset($courseformatoptions['coursedisplay']['label'])) {
+        if ($foreditform && !isset($courseformatoptions['displayinstructions']['label'])) {
             /* Note: Because 'admin_setting_configcolourpicker' in 'settings.php' needs to use a prefixing '#'
                      this needs to be stripped off here if it's there for the format's specific colour picker. */
             $defaulttgfgcolour = get_config('format_topcoll', 'defaulttgfgcolour');
@@ -473,18 +477,6 @@ class format_topcoll extends format_base {
                               1 => new lang_string('hiddensectionsinvisible')
                         )
                     ),
-                ),
-                'coursedisplay' => array(
-                    'label' => new lang_string('coursedisplay'),
-                    'element_type' => 'select',
-                    'element_attributes' => array(
-                        array(
-                            COURSE_DISPLAY_SINGLEPAGE => new lang_string('coursedisplay_single'),
-                            COURSE_DISPLAY_MULTIPAGE => new lang_string('coursedisplay_multi')
-                        )
-                    ),
-                    'help' => 'coursedisplay',
-                    'help_component' => 'moodle',
                 ),
                 'displayinstructions' => array(
                     'label' => new lang_string('displayinstructions', 'format_topcoll'),
@@ -936,7 +928,7 @@ class format_topcoll extends format_base {
      * Updates format options for a course
      *
      * In case if course format was changed to 'Collapsed Topics', we try to copy options
-     * 'coursedisplay' and 'hiddensections' from the previous format.
+     * 'hiddensections' from the previous format.
      * If previous course format did not have 'numsections' option, we populate it with the
      * current number of sections.  The layout and colour defaults will come from 'course_format_options'.
      *
@@ -1151,7 +1143,6 @@ class format_topcoll extends format_base {
             $updatedisplayinstructions = true;
         }
         if ($layout && has_capability('format/topcoll:changelayout', $context) && $resetallifall) {
-            $updatedata['coursedisplay'] = get_config('format_topcoll', 'defaultcoursedisplay');
             $updatedata['layoutelement'] = get_config('format_topcoll', 'defaultlayoutelement');
             $updatedata['layoutstructure'] = get_config('format_topcoll', 'defaultlayoutstructure');
             $updatedata['layoutcolumns'] = get_config('format_topcoll', 'defaultlayoutcolumns');

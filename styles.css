@@ -581,13 +581,17 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
 }
 
 /* -- For centring the 'Topic / Week / Day x' text -- */
-.course-content ul.ctopics li.section .right span.cps_centre, .dir-rtl .course-content ul.ctopics li.section .left span.cps_centre {
+.course-content ul.ctopics li.section .right .cps_centre, .dir-rtl .course-content ul.ctopics li.section .left .cps_centre {
     font-size: 0.7em;
     text-align: center;
 }
 
-.dir-rtl .course-content ul.ctopics li.section .right span.cps_centre {
+.dir-rtl .course-content ul.ctopics li.section .right .cps_centre {
     font-size: 14px;
+}
+
+.course-content ul.ctopics li.section .right .cps_centre img.icon {
+    padding-top: 8px;
 }
 
 /* -- Toggle text -- */

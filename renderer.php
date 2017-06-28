@@ -26,12 +26,13 @@
  * @subpackage topcoll
  * @version    See the value of '$plugin->version' in below.
  * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
- * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
+ * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
  */
 defined('MOODLE_INTERNAL') || die();
+
 require_once($CFG->dirroot . '/course/format/renderer.php');
 require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
 require_once($CFG->dirroot . '/course/format/topcoll/togglelib.php');
@@ -163,28 +164,34 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $controls = $this->section_edit_control_items($course, $section, $onsectionpage);
             if (!empty($controls)) {
                 $o .= $this->section_edit_control_menu($controls, $course, $section);
-            } else {
+            } else if (!$onsectionpage) {
                 if (empty($this->tcsettings)) {
                     $this->tcsettings = $this->courseformat->get_settings();
                 }
+                $url = new moodle_url('/course/view.php', array('id' => $course->id, 'section' => $section->section));
+                // Get the specific words from the language files.
+                $topictext = null;
+                if (($this->tcsettings['layoutstructure'] == 1) || ($this->tcsettings['layoutstructure'] == 4)) {
+                    $topictext = get_string('setlayoutstructuretopic', 'format_topcoll');
+                } else if (($this->tcsettings['layoutstructure'] == 2) || ($this->tcsettings['layoutstructure'] == 3)) {
+                    $topictext = get_string('setlayoutstructureweek', 'format_topcoll');
+                } else {
+                    $topictext = get_string('setlayoutstructureday', 'format_topcoll');
+                }
+                $title = get_string('viewonly', 'format_topcoll', array('sectionname' => $topictext.' '.$section->section));
                 switch ($this->tcsettings['layoutelement']) { // Toggle section x.
                     case 1:
                     case 3:
                     case 5:
                     case 8:
-                        // Get the specific words from the language files.
-                        $topictext = null;
-                        if (($this->tcsettings['layoutstructure'] == 1) || ($this->tcsettings['layoutstructure'] == 4)) {
-                            $topictext = get_string('setlayoutstructuretopic', 'format_topcoll');
-                        } else if (($this->tcsettings['layoutstructure'] == 2) || ($this->tcsettings['layoutstructure'] == 3)) {
-                            $topictext = get_string('setlayoutstructureweek', 'format_topcoll');
-                        } else {
-                            $topictext = get_string('setlayoutstructureday', 'format_topcoll');
-                        }
-
-                        $o .= html_writer::tag('span',
-                                        $topictext . html_writer::empty_tag('br') .
-                                        $section->section, array('class' => 'cps_centre'));
+                        $o .= html_writer::link($url,
+                            $topictext.html_writer::empty_tag('br').
+                            $section->section, array('title' => $title, 'class' => 'cps_centre'));
+                        break;
+                    default:
+                        $o .= html_writer::link($url,
+                            $this->output->pix_icon('one_section', $title, 'format_topcoll'),
+                            array('title' => $title, 'class' => 'cps_centre'));
                         break;
                 }
             }
@@ -205,7 +212,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
     protected function section_left_content($section, $course, $onsectionpage) {
         $o = '';
 
-        if ($section->section != 0) {
+        if (($section->section != 0) && (!$onsectionpage)) {
             // Only in the non-general sections.
             if ($this->courseformat->is_section_current($section)) {
                 $o .= get_accesshide(get_string('currentsection', 'format_' . $course->format));
@@ -679,15 +686,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if ($coursenumsections > 0) {
             $sectiondisplayarray = array();
             if ($coursenumsections > 1) {
-                if ($this->userisediting || $course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
+                if (($this->userisediting) || ($this->tcsettings['onesection'] == 1)) {
                     // Collapsed Topics all toggles.
-                    if (($this->userisediting) || ($this->tcsettings['onesection'] == 1)) {
-                        echo $this->toggle_all();
-                    }
-                    if ($this->tcsettings['displayinstructions'] == 2) {
-                        // Collapsed Topics instructions.
-                        echo $this->display_instructions();
-                    }
+                    echo $this->toggle_all();
+                }
+                if ($this->tcsettings['displayinstructions'] == 2) {
+                    // Collapsed Topics instructions.
+                    echo $this->display_instructions();
                 }
             }
             $currentsectionfirst = false;
@@ -817,31 +822,25 @@ class format_topcoll_renderer extends format_section_renderer_base {
                         }
                     }
                 } else {
-                    if (!$this->userisediting && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
-                        // Display section summary only.
-                        $thissection->issummary = true;
-                        $sectiondisplayarray[] = $thissection;
-                    } else {
-                        if ($this->isoldtogglepreference == true) {
-                            $togglestate = substr($this->togglelib->get_toggles(), $section, 1);
-                            if ($togglestate == '1') {
-                                $thissection->toggle = true;
-                            } else {
-                                $thissection->toggle = false;
-                            }
+                    if ($this->isoldtogglepreference == true) {
+                        $togglestate = substr($this->togglelib->get_toggles(), $section, 1);
+                        if ($togglestate == '1') {
+                            $thissection->toggle = true;
                         } else {
-                            $thissection->toggle = $this->togglelib->get_toggle_state($thissection->section);
+                            $thissection->toggle = false;
                         }
-
-                        if ($this->courseformat->is_section_current($thissection)) {
-                            $this->currentsection = $thissection->section;
-                            $thissection->toggle = true; // Open current section regardless of toggle state.
-                            $this->togglelib->set_toggle_state($thissection->section, true);
-                        }
-
-                        $thissection->isshown = true;
-                        $sectiondisplayarray[] = $thissection;
+                    } else {
+                        $thissection->toggle = $this->togglelib->get_toggle_state($thissection->section);
                     }
+
+                    if ($this->courseformat->is_section_current($thissection)) {
+                        $this->currentsection = $thissection->section;
+                        $thissection->toggle = true; // Open current section regardless of toggle state.
+                        $this->togglelib->set_toggle_state($thissection->section, true);
+                    }
+
+                    $thissection->isshown = true;
+                    $sectiondisplayarray[] = $thissection;
                 }
 
                 if (($this->tcsettings['layoutstructure'] != 3) || ($this->userisediting)) {

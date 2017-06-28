@@ -26,7 +26,7 @@
  * @subpackage topcoll
  * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
- * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
+ * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
@@ -63,6 +63,7 @@ $string['deletesection'] = 'Delete section';
 // These are 'sections' as they are only shown in 'section' based structures.
 $string['markedthissection'] = 'This section is highlighted as the current section';
 $string['markthissection'] = 'Highlight this section as the current section';
+$string['viewonly'] = 'View only \'{$a->sectionname}\'';
 
 // MDL-51802.
 $string['editsectionname'] = 'Edit section name';
@@ -206,8 +207,6 @@ $string['configurationheadingsubdesc'] = 'Configuration settings';
 
 $string['off'] = 'Off';
 $string['on'] = 'On';
-$string['defaultcoursedisplay'] = 'Course display';
-$string['defaultcoursedisplay_desc'] = "Either show all the sections on a single page or section zero and the chosen section on page.";
 $string['defaultlayoutelement'] = 'Layout';
 // Negative view of layout, kept for previous versions until such time as they are updated.
 $string['defaultlayoutelement_desc'] = "The layout setting can be one of:<br />'Default' with everything displayed.<br />No 'Topic x' / 'Week x' / 'Day x'.<br />No section number.<br />No 'Topic x' / 'Week x' / 'Day x' and no section number.<br />No 'Toggle' word.<br />No 'Toggle' word and no 'Topic x' / 'Week x' / 'Day x'.<br />No 'Toggle' word, no 'Topic x' / 'Week x' / 'Day x' and no section number.";
@@ -362,3 +361,7 @@ $string['resetalldisplayinstructions_help'] = 'Resets the display instructions t
 // Readme.
 $string['readme_title'] = 'Collapsed Topics read-me';
 $string['readme_desc'] = 'Please click on \'{$a->url}\' for lots more information about Collapsed Topics.';
+
+// Depreciated.  Remove in M3.4 version.
+$string['defaultcoursedisplay'] = 'Course display';
+$string['defaultcoursedisplay_desc'] = "Either show all the sections on a single page or section zero and the chosen section on page.";
