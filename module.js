@@ -45,7 +45,7 @@ M.format_topcoll.ourYUI = false;
 M.format_topcoll.numSections = 0;
 M.format_topcoll.oneTopic = false;
 M.format_topcoll.currentTopic = null; // For oneTopic when true represents the current open topic or null if none.
-M.format_topcoll.currentTopicNum = 0; // For oneTopic when true represents the current open topic number or 0 if none.
+M.format_topcoll.currentTopicNum = false; // For oneTopic when true represents the current open topic number or 0 if none.
 M.format_topcoll.userIsEditing = false;
 
 // Namespace constants:....
