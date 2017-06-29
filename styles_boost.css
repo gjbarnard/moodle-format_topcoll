@@ -32,3 +32,8 @@ ul.ctopics .content .summary ul,
 ul.ctopics .content .section ul {
     margin: 0 0 10px 10px;
 }
+
+ul.ctopics :target {
+    padding-top: 0!important;
+    margin-top: 0!important;
+}
