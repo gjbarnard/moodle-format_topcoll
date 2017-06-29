@@ -199,7 +199,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
             array($section, $this->course, $onsectionpage));
         $thevalue = '<li id="section-1" class="section main clearfix span12" role="region" aria-label="Section 1">';
         $thevalue .= '<div class="left side"></div><div class="right side"></div><div class="content">';
-        $thevalue .= '<div class="section_availability"></div><div class="summary"></div>';
+        $thevalue .= '<div class="summary"></div>';
 
         $this->assertEquals($thevalue, $theclass);
     }
