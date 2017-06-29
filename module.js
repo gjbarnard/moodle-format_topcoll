@@ -325,12 +325,12 @@ M.format_topcoll.get_toggle_pos = function(togglenum) {
 
 M.format_topcoll.get_min_digit = function() {
     "use strict";
-    return ':'; // ':' is 58.
+    return ':'; // Digit ':' is 58.
 };
 
 M.format_topcoll.get_max_digit = function() {
     "use strict";
-    return 'y'; // 'y' is 121.
+    return 'y'; // Digit 'y' is 121.
 };
 
 M.format_topcoll.get_toggle_flag = function(togglenum, togglecharpos) {
