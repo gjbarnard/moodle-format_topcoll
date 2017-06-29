@@ -39,22 +39,22 @@ require_once($CFG->dirroot . '/course/format/topcoll/togglelib.php');
 
 class format_topcoll_renderer extends format_section_renderer_base {
 
-    private $tccolumnwidth = 100; // Default width in percent of the column(s).
-    private $tccolumnpadding = 0; // Default padding in pixels of the column(s).
-    private $mobiletheme = false; // As not using a mobile theme we can react to the number of columns setting.
-    private $tablettheme = false; // As not using a tablet theme we can react to the number of columns setting.
-    private $courseformat = null; // Our course format object as defined in lib.php;
-    private $tcsettings; // Settings for the format - array.
-    private $defaulttogglepersistence; // Default toggle persistence.
-    private $defaultuserpreference; // Default user preference when none set - bool - true all open, false all closed.
-    private $togglelib;
-    private $currentsection = false; // If not false then will be the current section number.
-    private $isoldtogglepreference = false;
-    private $userisediting = false;
-    private $tctoggleiconsize;
-    private $formatresponsive;
-    private $rtl = false;
-    private $bsnewgrid = false;
+    protected $tccolumnwidth = 100; // Default width in percent of the column(s).
+    protected $tccolumnpadding = 0; // Default padding in pixels of the column(s).
+    protected $mobiletheme = false; // As not using a mobile theme we can react to the number of columns setting.
+    protected $tablettheme = false; // As not using a tablet theme we can react to the number of columns setting.
+    protected $courseformat = null; // Our course format object as defined in lib.php;
+    protected $tcsettings; // Settings for the format - array.
+    protected $defaulttogglepersistence; // Default toggle persistence.
+    protected $defaultuserpreference; // Default user preference when none set - bool - true all open, false all closed.
+    protected $togglelib;
+    protected $currentsection = false; // If not false then will be the current section number.
+    protected $isoldtogglepreference = false;
+    protected $userisediting = false;
+    protected $tctoggleiconsize;
+    protected $formatresponsive;
+    protected $rtl = false;
+    protected $bsnewgrid = false;
 
     /**
      * Constructor method, calls the parent constructor - MDL-21097.
