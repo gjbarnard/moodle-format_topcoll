@@ -39,38 +39,45 @@
     vertical-align: top;
 }
 
-.course-content ul.ctopics li.section.main .left, .course-content ul.ctopics li.section.main .right {
+.course-content ul.ctopics li.section.main .left,
+.course-content ul.ctopics li.section.main .right {
     /* Fix for Bootstrap V3 based themes in less/moodle/course.less . */
     display: block;
 }
 
-.course-content ul.ctopics li.section.main, .course-content ul.ctopics li.tcsection {
+.course-content ul.ctopics li.section.main,
+.course-content ul.ctopics li.tcsection {
     list-style: none;
     margin: 4px 1px 1px 1px;
     padding: 0;
 }
 
-.course-content ul.ctopics.bsnewgrid li.section.main, .course-content ul.ctopics.bsnewgrid li.tcsection {
+.course-content ul.ctopics.bsnewgrid li.section.main,
+.course-content ul.ctopics.bsnewgrid li.tcsection {
     margin: 0;
 }
 
 /* Fix for ordered and unordered list in course topic summary & course weekly summary - from theme/base/style/core.css
  * See: https://moodle.org/mod/forum/discuss.php?d=251944.
  */
-.course-content ul.ctopics .content .summary ul, .course-content ul.ctopics .content .summarytext ul {
+.course-content ul.ctopics .content .summary ul,
+.course-content ul.ctopics .content .summarytext ul {
     list-style: disc outside none;
 }
-.course-content ul.ctopics .content .summary ol, .course-content ul.ctopics .content .summarytext ol {
+.course-content ul.ctopics .content .summary ol,
+.course-content ul.ctopics .content .summarytext ol {
     list-style: decimal outside none;
 }
 
-.course-content ul.ctopics li.section.main .content, .course-content ul.ctopics li.tcsection .content {
+.course-content ul.ctopics li.section.main .content,
+.course-content ul.ctopics li.tcsection .content {
     /* Default for non tablets / mobiles.  If the language file has 'topcollsidewidth' for the current language, then will be set in format.php. */
     margin: 0 40px;
     padding: 0;
 }
 
-.course-content ul.ctopics.ctportable li.section.main .content, .course-content ul.ctopics.ctportable li.tcsection .content {
+.course-content ul.ctopics.ctportable li.section.main .content,
+.course-content ul.ctopics.ctportable li.tcsection .content {
     margin: 0 0; /* Override default for tablets / mobiles.  When have sides, set in format.php. */
 }
 
@@ -88,14 +95,17 @@
 }
 
 /* Toggle icon size */
-#toggle-all .content .sectionbody h4 span.tc-small, .course-content ul.ctopics li.section .content .toggle span.tc-small {
+#toggle-all .content .sectionbody h4 span.tc-small,
+.course-content ul.ctopics li.section .content .toggle span.tc-small {
     background-size: 16px 16px;
 }
 
-#toggle-all .content .sectionbody h4 span.tc-medium, .course-content ul.ctopics li.section .content .toggle span.tc-medium {
+#toggle-all .content .sectionbody h4 span.tc-medium,
+.course-content ul.ctopics li.section .content .toggle span.tc-medium {
     background-size: 24px 24px;
 }
-#toggle-all .content .sectionbody h4 span.tc-large, .course-content ul.ctopics li.section .content .toggle span.tc-large {
+#toggle-all .content .sectionbody h4 span.tc-large,
+.course-content ul.ctopics li.section .content .toggle span.tc-large {
     background-size: 32px 32px;
 }
 
@@ -144,7 +154,8 @@
 
 /* Icon sets.  Note: Background images for the settings - does not work in Chrome or Safari - known issue. */
 /* Arrow icon set. */
-.course-content ul.ctopics li.section .content .toggle-arrow span.toggle_closed, .course-content ul.ctopics li.section .content .toggle-arrow span.toggle_open, /* JavaScript disabled */
+.course-content ul.ctopics li.section .content .toggle-arrow span.toggle_closed,
+.course-content ul.ctopics li.section .content .toggle-arrow span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-arrow h4 span.off {
     background-image: url([[pix:format_topcoll|arrow_down]]);
@@ -152,7 +163,8 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow span
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-arrow h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="arrow"], body#page-course-edit select#id_toggleiconset option[value="arrow"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="arrow"],
+body#page-course-edit select#id_toggleiconset option[value="arrow"] {
     background-image: url([[pix:format_topcoll|arrow_right]]);
 }
 
@@ -165,7 +177,8 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
 }
 
 /* Bulb icon set. */
-.course-content ul.ctopics li.section .content .toggle-bulb span.toggle_closed, .course-content ul.ctopics li.section .content .toggle-bulb span.toggle_open, /* JavaScript disabled */
+.course-content ul.ctopics li.section .content .toggle-bulb span.toggle_closed,
+.course-content ul.ctopics li.section .content .toggle-bulb span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-bulb span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-bulb h4 span.off {
     background-image: url([[pix:format_topcoll|bulb_on]]);
@@ -173,7 +186,8 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-bulb span.
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-bulb span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-bulb h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="bulb"], body#page-course-edit select#id_toggleiconset option[value="bulb"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="bulb"],
+body#page-course-edit select#id_toggleiconset option[value="bulb"] {
     background-image: url([[pix:format_topcoll|bulb_off]]);
 }
 
@@ -186,7 +200,8 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
 }
 
 /* Cloud icon set. */
-.course-content ul.ctopics li.section .content .toggle-cloud span.toggle_closed, .course-content ul.ctopics li.section .content .toggle-cloud span.toggle_open, /* JavaScript disabled */
+.course-content ul.ctopics li.section .content .toggle-cloud span.toggle_closed,
+.course-content ul.ctopics li.section .content .toggle-cloud span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-cloud span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-cloud h4 span.off {
     background-image: url([[pix:format_topcoll|cloud_on]]);
@@ -194,7 +209,8 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-cloud span
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-cloud span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-cloud h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="cloud"], body#page-course-edit select#id_toggleiconset option[value="cloud"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="cloud"],
+body#page-course-edit select#id_toggleiconset option[value="cloud"] {
     background-image: url([[pix:format_topcoll|cloud_off]]);
 }
 
@@ -207,7 +223,8 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
 }
 
 /* Eye icon set. */
-.course-content ul.ctopics li.section .content .toggle-eye span.toggle_closed, .course-content ul.ctopics li.section .content .toggle-eye span.toggle_open, /* JavaScript disabled */
+.course-content ul.ctopics li.section .content .toggle-eye span.toggle_closed,
+.course-content ul.ctopics li.section .content .toggle-eye span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-eye span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-eye h4 span.off {
     background-image: url([[pix:format_topcoll|eye_show]]);
@@ -215,7 +232,8 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-eye span.t
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-eye span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-eye h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="eye"], body#page-course-edit select#id_toggleiconset option[value="eye"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="eye"],
+body#page-course-edit select#id_toggleiconset option[value="eye"] {
     background-image: url([[pix:format_topcoll|eye_hide]]);
 }
 
@@ -228,7 +246,8 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
 }
 
 /* Folder icon set. */
-.course-content ul.ctopics li.section .content .toggle-folder span.toggle_closed, .course-content ul.ctopics li.section .content .toggle-folder span.toggle_open, /* JavaScript disabled */
+.course-content ul.ctopics li.section .content .toggle-folder span.toggle_closed,
+.course-content ul.ctopics li.section .content .toggle-folder span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-folder span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-folder h4 span.off {
     background-image: url([[pix:format_topcoll|folder_open]]);
@@ -236,7 +255,8 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-folder spa
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-folder span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-folder h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="folder"], body#page-course-edit select#id_toggleiconset option[value="folder"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="folder"],
+body#page-course-edit select#id_toggleiconset option[value="folder"] {
     background-image: url([[pix:format_topcoll|folder_closed]]);
 }
 
@@ -249,7 +269,8 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
 }
 
 /* Ground signal set. */
-.course-content ul.ctopics li.section .content .toggle-groundsignal span.toggle_closed, .course-content ul.ctopics li.section .content .toggle-ground-signal span.toggle_open, /* JavaScript disabled */
+.course-content ul.ctopics li.section .content .toggle-groundsignal span.toggle_closed,
+.course-content ul.ctopics li.section .content .toggle-ground-signal span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-groundsignal span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-groundsignal h4 span.off,
 #toggle-all .content .toggle-groundsignal-hover h4 span.on:hover {
@@ -259,12 +280,14 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-groundsign
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-groundsignal span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-groundsignal-hover h4 span.off:hover,
 #toggle-all .content .toggle-groundsignal h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="groundsignal"], body#page-course-edit select#id_toggleiconset option[value="groundsignal"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="groundsignal"],
+body#page-course-edit select#id_toggleiconset option[value="groundsignal"] {
     background-image: url([[pix:format_topcoll|ground_signal_off]]);
 }
 
 /* LED icon set. */
-.course-content ul.ctopics li.section .content .toggle-led span.toggle_closed, .course-content ul.ctopics li.section .content .toggle-led span.toggle_open, /* JavaScript disabled */
+.course-content ul.ctopics li.section .content .toggle-led span.toggle_closed,
+.course-content ul.ctopics li.section .content .toggle-led span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-led span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-led h4 span.off {
     background-image: url([[pix:format_topcoll|led_on]]);
@@ -272,7 +295,8 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-led span.t
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-led span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-led h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="led"], body#page-course-edit select#id_toggleiconset option[value="led"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="led"],
+body#page-course-edit select#id_toggleiconset option[value="led"] {
     background-image: url([[pix:format_topcoll|led_off]]);
 }
 
@@ -285,7 +309,8 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
 }
 
 /* Point icon set. */
-.course-content ul.ctopics li.section .content .toggle-point span.toggle_closed, .course-content ul.ctopics li.section .content .toggle-point span.toggle_open, /* JavaScript disabled */
+.course-content ul.ctopics li.section .content .toggle-point span.toggle_closed,
+.course-content ul.ctopics li.section .content .toggle-point span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-point span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-point h4 span.off {
     background-image: url([[pix:format_topcoll|point_down]]);
@@ -293,7 +318,8 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-point span
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-point span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-point h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="point"], body#page-course-edit select#id_toggleiconset option[value="point"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="point"],
+body#page-course-edit select#id_toggleiconset option[value="point"] {
     background-image: url([[pix:format_topcoll|point_right]]);
 }
 
@@ -306,7 +332,8 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
 }
 
 /* Power icon set. */
-.course-content ul.ctopics li.section .content .toggle-power span.toggle_closed, .course-content ul.ctopics li.section .content .toggle-power span.toggle_open, /* JavaScript disabled */
+.course-content ul.ctopics li.section .content .toggle-power span.toggle_closed,
+.course-content ul.ctopics li.section .content .toggle-power span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-power span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-power h4 span.off {
     background-image: url([[pix:format_topcoll|toggle_plus]]);
@@ -314,7 +341,8 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-power span
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-power span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-power h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="power"], body#page-course-edit select#id_toggleiconset option[value="power"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="power"],
+body#page-course-edit select#id_toggleiconset option[value="power"] {
     background-image: url([[pix:format_topcoll|toggle_minus]]);
 }
 
@@ -327,7 +355,8 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
 }
 
 /* Radio icon set. */
-.course-content ul.ctopics li.section .content .toggle-radio span.toggle_closed, .course-content ul.ctopics li.section .content .toggle-radio span.toggle_open, /* JavaScript disabled */
+.course-content ul.ctopics li.section .content .toggle-radio span.toggle_closed,
+.course-content ul.ctopics li.section .content .toggle-radio span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-radio span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-radio h4 span.off {
     background-image: url([[pix:format_topcoll|radio_on]]);
@@ -335,7 +364,8 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-radio span
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-radio span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-radio h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="radio"], body#page-course-edit select#id_toggleiconset option[value="radio"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="radio"],
+body#page-course-edit select#id_toggleiconset option[value="radio"] {
     background-image: url([[pix:format_topcoll|radio_off]]);
 }
 
@@ -348,7 +378,8 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
 }
 
 /* Smiley icon set. */
-.course-content ul.ctopics li.section .content .toggle-smiley span.toggle_closed, .course-content ul.ctopics li.section .content .toggle-smiley span.toggle_open, /* JavaScript disabled */
+.course-content ul.ctopics li.section .content .toggle-smiley span.toggle_closed,
+.course-content ul.ctopics li.section .content .toggle-smiley span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-smiley span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-smiley h4 span.off {
     background-image: url([[pix:format_topcoll|smiley_on]]);
@@ -356,7 +387,8 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-smiley spa
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-smiley span.toggle_closed , /* JavaScript enabled */
 #toggle-all .content .toggle-smiley h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="smiley"], body#page-course-edit select#id_toggleiconset option[value="smiley"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="smiley"],
+body#page-course-edit select#id_toggleiconset option[value="smiley"] {
     background-image: url([[pix:format_topcoll|smiley_off]]);
 }
 
@@ -369,7 +401,8 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
 }
 
 /* Square icon set. */
-.course-content ul.ctopics li.section .content .toggle-square span.toggle_closed, .course-content ul.ctopics li.section .content .toggle-square span.toggle_open, /* JavaScript disabled */
+.course-content ul.ctopics li.section .content .toggle-square span.toggle_closed,
+.course-content ul.ctopics li.section .content .toggle-square span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-square span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-square h4 span.off {
     background-image: url([[pix:format_topcoll|square_on]]);
@@ -377,7 +410,8 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-square spa
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-square span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-square h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="square"], body#page-course-edit select#id_toggleiconset option[value="square"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="square"],
+body#page-course-edit select#id_toggleiconset option[value="square"] {
     background-image: url([[pix:format_topcoll|square_off]]);
 }
 
@@ -390,7 +424,8 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
 }
 
 /* Sun / Moon icon set. */
-.course-content ul.ctopics li.section .content .toggle-sunmoon span.toggle_closed, .course-content ul.ctopics li.section .content .toggle-sunmoon span.toggle_open, /* JavaScript disabled */
+.course-content ul.ctopics li.section .content .toggle-sunmoon span.toggle_closed,
+.course-content ul.ctopics li.section .content .toggle-sunmoon span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-sunmoon span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-sunmoon h4 span.off {
     background-image: url([[pix:format_topcoll|sunmoon_on]]);
@@ -398,7 +433,8 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-sunmoon sp
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-sunmoon span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-sunmoon h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="sunmoon"], body#page-course-edit select#id_toggleiconset option[value="sunmoon"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="sunmoon"],
+body#page-course-edit select#id_toggleiconset option[value="sunmoon"] {
     background-image: url([[pix:format_topcoll|sunmoon_off]]);
 }
 
@@ -411,7 +447,8 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
 }
 
 /* Switch icon set. */
-.course-content ul.ctopics li.section .content .toggle-switch span.toggle_closed, .course-content ul.ctopics li.section .content .toggle-switch span.toggle_open, /* JavaScript disabled */
+.course-content ul.ctopics li.section .content .toggle-switch span.toggle_closed,
+.course-content ul.ctopics li.section .content .toggle-switch span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-switch span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-switch h4 span.off {
     background-image: url([[pix:format_topcoll|switch_on]]);
@@ -419,7 +456,8 @@ body.jsenabled .course-content ul.ctopics li.section .content .toggle-switch spa
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-switch span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-switch h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="switch"], body#page-course-edit select#id_toggleiconset option[value="switch"] {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="switch"],
+body#page-course-edit select#id_toggleiconset option[value="switch"] {
     background-image: url([[pix:format_topcoll|switch_off]]);
 }
 
@@ -431,14 +469,16 @@ body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaultt
     background-image: url([[pix:format_topcoll|switch_on_glow]]);
 }
 
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option, body#page-course-edit select#id_toggleiconset option {
+body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option,
+body#page-course-edit select#id_toggleiconset option {
     background-color: transparent;
     background-position: right center; /* Position the icon to the right of the selection text. */
     background-repeat: no-repeat;
     padding: 3px 20px 3px 3px; /* The 20px allows the image to be on the right and the text next to it. */
 }
 
-body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topcoll_defaulttoggleiconset option, body#page-course-edit.lang-en_ar select#id_toggleiconset option {
+body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topcoll_defaulttoggleiconset option,
+body#page-course-edit.lang-en_ar select#id_toggleiconset option {
     background-position: 220px 45%; /* Pirate strings are longer. */
 }
 
@@ -471,7 +511,8 @@ body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topco
     padding: 0 0 0 0; /* Cancel out effect of above when having to use 'left' side selector for getting the correct text colour on the right for the current section.  This is because the selector '.course-content .current .left' defines the colour in the theme and therefore any CT specific 'right' implementation would not work for all themes. */
 }
 
-.course-content ul.ctopics li.section .right, .course-content ul.ctopics li.tcsection .right {
+.course-content ul.ctopics li.section .right,
+.course-content ul.ctopics li.tcsection .right {
     float:right;
 }
 
@@ -534,12 +575,14 @@ body.format-topcoll .course-content ul.ctopics li.section .summary.summaryalways
     padding-top: 10px;
 }
 
-body.format-topcoll.editing ul.ctopics .section .activity .contentwithoutlink, body.format-topcoll.editing ul.ctopics .section .activity .activityinstance {
+body.format-topcoll.editing ul.ctopics .section .activity .contentwithoutlink,
+body.format-topcoll.editing ul.ctopics .section .activity .activityinstance {
     display: inline;
     padding-right: 0;
 }
 
-body.format-topcoll.editing.dir-rtl ul.ctopics .section .activity .contentwithoutlink, body.format-topcoll.editing.dir-rtl ul.ctopics .section .activity .activityinstance {
+body.format-topcoll.editing.dir-rtl ul.ctopics .section .activity .contentwithoutlink,
+body.format-topcoll.editing.dir-rtl ul.ctopics .section .activity .activityinstance {
     padding-left: 0;
 }
 
@@ -556,7 +599,8 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
 }
 
 /* -- The section name in a Toggle and hidden section -- */
-.course-content ul.ctopics li.section .content .toggle, .course-content ul.ctopics li.section .content.sectionhidden  {
+.course-content ul.ctopics li.section .content .toggle,
+.course-content ul.ctopics li.section .content.sectionhidden  {
     display: block;
     padding: 0;
     text-align: left;
@@ -581,7 +625,8 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
 }
 
 /* -- For centring the 'Topic / Week / Day x' text -- */
-.course-content ul.ctopics li.section .right .cps_centre, .dir-rtl .course-content ul.ctopics li.section .left .cps_centre {
+.course-content ul.ctopics li.section .right .cps_centre,
+.dir-rtl .course-content ul.ctopics li.section .left .cps_centre {
     font-size: 0.7em;
     text-align: center;
 }
@@ -595,7 +640,8 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
 }
 
 /* -- Toggle text -- */
-.course-content ul.ctopics li.section .content .toggle span.the_toggle, .course-content ul.ctopics li.section .content.sectionhidden {
+.course-content ul.ctopics li.section .content .toggle span.the_toggle,
+.course-content ul.ctopics li.section .content.sectionhidden {
     font-weight: bold;
     text-decoration: none;
 }
