@@ -1,6 +1,6 @@
 ﻿Version Information
 ===================
-Version 3.3.0.3
+Version 3.3.1.0
   1. Fix missing reset course settings.
   2. Add 'numsections' coping restore code from Topics format.
   3. Fix toggle all cursor.
