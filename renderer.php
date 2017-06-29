@@ -400,7 +400,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if (!$section->visible) {
                 $sectionstyle = ' hidden';
             }
-            // if ($this->courseformat->is_section_current($section)) {
             if ($section->section == $this->currentsection) {
                 $sectionstyle = ' current';
                 $rightcurrent = ' left';
@@ -786,7 +785,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                   but there is some available info text which explains the reason & should display. */
                 if (($this->tcsettings['layoutstructure'] != 3) || ($this->userisediting)) {
                     $showsection = $thissection->uservisible ||
-                            ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo));
+                        ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo));
                 } else {
                     $showsection = ($thissection->uservisible ||
                         ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo))) &&
