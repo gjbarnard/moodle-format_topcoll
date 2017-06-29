@@ -169,15 +169,15 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     $this->tcsettings = $this->courseformat->get_settings();
                 }
                 $url = new moodle_url('/course/view.php', array('id' => $course->id, 'section' => $section->section));
-                        // Get the specific words from the language files.
-                        $topictext = null;
-                        if (($this->tcsettings['layoutstructure'] == 1) || ($this->tcsettings['layoutstructure'] == 4)) {
-                            $topictext = get_string('setlayoutstructuretopic', 'format_topcoll');
-                        } else if (($this->tcsettings['layoutstructure'] == 2) || ($this->tcsettings['layoutstructure'] == 3)) {
-                            $topictext = get_string('setlayoutstructureweek', 'format_topcoll');
-                        } else {
-                            $topictext = get_string('setlayoutstructureday', 'format_topcoll');
-                        }
+                // Get the specific words from the language files.
+                $topictext = null;
+                if (($this->tcsettings['layoutstructure'] == 1) || ($this->tcsettings['layoutstructure'] == 4)) {
+                    $topictext = get_string('setlayoutstructuretopic', 'format_topcoll');
+                } else if (($this->tcsettings['layoutstructure'] == 2) || ($this->tcsettings['layoutstructure'] == 3)) {
+                    $topictext = get_string('setlayoutstructureweek', 'format_topcoll');
+                } else {
+                    $topictext = get_string('setlayoutstructureday', 'format_topcoll');
+                }
                 $title = get_string('viewonly', 'format_topcoll', array('sectionname' => $topictext.' '.$section->section));
                 switch ($this->tcsettings['layoutelement']) { // Toggle section x.
                     case 1:
@@ -1107,11 +1107,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 if (strlen($ts1) < 26) {
                     // Need to PAD.
                     $ts1 = substr($thesparezeros, 0, (26 - strlen($ts1))) . $ts1;
-    }
+                }
                 if (strlen($ts2) < 27) {
                     // Need to PAD.
                     $ts2 = substr($thesparezeros, 0, (27 - strlen($ts2))) . $ts2;
-    }
+                }
                 $tb = $ts1 . $ts2;
                 $this->togglelib->set_toggles($tb);
             } else {

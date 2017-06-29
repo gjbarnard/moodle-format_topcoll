@@ -170,7 +170,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $thevalue .= 'Section 1"><div class="left side"></div><div class="right side"></div><div class="content">';
         $thevalue .= '<h3 class="section-title"><a href="'.$CFG->wwwroot.'/course/view.php?id=';
         $thevalue .= $this->course->id.'#section-1" class="">Section 1</a></h3><div class="summarytext"></div>';
-        $thevalue .= '<div class="section_availability"></div></div></li>';
+        $thevalue .= '</div></li>';
 
         $this->assertEquals($thevalue, $theclass);
     }
@@ -191,7 +191,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $thevalue .= '</div><div class="content"><div class="sectionhead toggle toggle-arrow" id="toggle-1">';
         $thevalue .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-pressed="false">';
         $thevalue .= '<h3 class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>';
-        $thevalue .= '<div class="section_availability"></div></span></div>';
+        $thevalue .= '</span></div>';
         $thevalue .= '<div class="sectionbody toggledsection" id="toggledsection-1">';
         $this->assertEquals($thevalue, $theclass);
         $onsectionpage = true;
@@ -246,7 +246,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '</div><div class="content"><div class="sectionhead toggle toggle-arrow" id="toggle-1">';
         $theoutput .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-pressed="false">';
         $theoutput .= '<h3 class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>';
-        $theoutput .= '<div class="section_availability"></div></span></div>';
+        $theoutput .= '</span></div>';
         $theoutput .= '<div class="sectionbody toggledsection" id="toggledsection-1"><ul class="section img-text">';
         $theoutput .= '</ul></div></div></li></ul>';
         $this->expectOutputString($theoutput);
@@ -256,13 +256,14 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         global $CFG;
 
         $theclass = self::call_method($this->outputus, 'toggle_all', array());
-        $thevalue = '<li class="tcsection main clearfix" id="toggle-all"><div class="left side"><img class="icon spacer" ';
-        $thevalue .= 'width="1" height="1" alt="" src="'.$CFG->wwwroot.'/theme/image.php/_s/clean/core/1/spacer" />';
-        $thevalue .= '</div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" src="';
-        $thevalue .= $CFG->wwwroot.'/theme/image.php/_s/clean/core/1/spacer" /></div><div class="content">';
-        $thevalue .= '<div class="sectionbody toggle-arrow-hover toggle-arrow"><h4><span class="on tc-medium" id="';
-        $thevalue .= 'toggles-all-opened" role="button">Open all</span><span class="off tc-medium" id="toggles-all-closed" ';
-        $thevalue .= 'role="button">Close all</span></h4></div></div></li>';
+        $thevalue = '<li class="tcsection main clearfix" id="toggle-all"><div class="left side"><img ';
+        $thevalue .= 'width="1" height="1" class="spacer" alt="" src="'.$CFG->wwwroot.'/theme/image.php/_s/clean/core/1/spacer"/>';
+        $thevalue .= '</div><div class="right side"><img width="1" height="1" class="spacer" alt="" ';
+        $thevalue .= 'src="'.$CFG->wwwroot.'/theme/image.php/_s/clean/core/1/spacer"/></div><div class="content">';
+        $thevalue .= '<div class="sectionbody toggle-arrow-hover toggle-arrow"><h4><span class="on tc-medium" ';
+        $thevalue .= 'id="toggles-all-opened" role="button">Open all</span><span class="off tc-medium" ';
+        $thevalue .= 'id="toggles-all-closed" role="button">Close all</span></h4></div></div></li>';
+
         $this->assertEquals($thevalue, $theclass);
     }
 
@@ -271,10 +272,10 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
         $theclass = self::call_method($this->outputus, 'display_instructions', array());
         $thevalue = '<li class="tcsection main clearfix" id="topcoll-display-instructions"><div class="left side">';
-        $thevalue .= '<img class="icon spacer" width="1" height="1" alt="" src="';
-        $thevalue .= $CFG->wwwroot.'/theme/image.php/_s/clean/core/1/spacer" /></div><div class="right side">';
-        $thevalue .= '<img class="icon spacer" width="1" height="1" alt="" src="';
-        $thevalue .= $CFG->wwwroot.'/theme/image.php/_s/clean/core/1/spacer" /></div><div class="content">';
+        $thevalue .= '<img width="1" height="1" class="spacer" alt="" ';
+        $thevalue .= 'src="'.$CFG->wwwroot.'/theme/image.php/_s/clean/core/1/spacer"/></div><div class="right side">';
+        $thevalue .= '<img width="1" height="1" class="spacer" alt="" ';
+        $thevalue .= 'src="'.$CFG->wwwroot.'/theme/image.php/_s/clean/core/1/spacer"/></div><div class="content">';
         $thevalue .= '<div class="sectionbody"><p class="topcoll-display-instructions">Instructions: Clicking on the section ';
         $thevalue .= 'name will show / hide the section.</p></div></div></li>';
 
