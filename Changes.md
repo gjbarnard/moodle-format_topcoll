@@ -1,5 +1,7 @@
 ﻿Version Information
 ===================
+Version 3.3.1.1
+
 Version 3.3.1.0
   1. Fix missing reset course settings.
   2. Add 'numsections' coping restore code from Topics format.
