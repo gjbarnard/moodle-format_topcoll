@@ -676,7 +676,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if ($thissection->summary or ! empty($modinfo->sections[0]) or $this->userisediting) {
             echo $this->section_header($thissection, $course, false, 0);
             echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
-            echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0, 0);
+            echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0);
             echo $this->section_footer();
         }
 

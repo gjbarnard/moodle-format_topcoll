@@ -1,6 +1,7 @@
 ﻿Version Information
 ===================
 Version 3.3.1.1
+  1. Revert MDL-55074 by applying MDL-57412 - #30.
 
 Version 3.3.1.0
   1. Fix missing reset course settings.
