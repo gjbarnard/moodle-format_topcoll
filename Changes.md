@@ -1,5 +1,7 @@
 ﻿Version Information
 ===================
+Version 3.2.1.2
+
 Version 3.2.1.1
   1. Update tests for https.
   2. Update Travis CI for M3.2.
