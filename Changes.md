@@ -3,6 +3,7 @@
 Version 3.3.1.1
   1. Revert MDL-55074 by applying MDL-57412 - #30.
   2. Fix CONTRIB-7056 - Edit menu cut off for some activities when using collapsed topics and boost.
+  3. Apply MDL-35628 - thanks to Skylar Kelty for the patch.
 
 Version 3.3.1.0
   1. Fix missing reset course settings.
