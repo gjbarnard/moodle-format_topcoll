@@ -34,8 +34,8 @@ ul.ctopics .content .section ul {
 }
 
 ul.ctopics :target {
-    padding-top: 0!important;
     margin-top: 0!important;
+    padding-top: 0!important;
 }
 
 .format-topcoll.path-course-view.editing #region-main > .card-block {
