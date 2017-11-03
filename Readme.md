@@ -4,7 +4,7 @@ Topic based course format with an individual 'toggle' for each topic except 0.
 
 If you find an issue with the format, please see the 'Reporting Issues' section below.
 
-[![Build Status](https://travis-ci.org/gjb2048/moodle-format_topcoll.svg?branch=master)](https://travis-ci.org/gjb2048/moodle-format_topcoll)
+[![Build Status](https://travis-ci.org/gjb2048/moodle-format_topcoll.svg?branch=MOODLE_33)](https://travis-ci.org/gjb2048/moodle-format_topcoll)
 
 Required version of Moodle
 ==========================
