@@ -1,5 +1,8 @@
 ﻿Version Information
 ===================
+Version 3.4.0.1
+  1. First beta version for M3.4.
+
 Version 3.3.1.1
   1. Revert MDL-55074 by applying MDL-57412 - #30.
   2. Fix CONTRIB-7056 - Edit menu cut off for some activities when using collapsed topics and boost.
