@@ -1,6 +1,7 @@
 ﻿Version Information
 ===================
 Version 3.4.0.2
+  1. Fix colour popup form element not rendering correctly in Boost theme.
 
 Version 3.4.0.1
   1. First beta version for M3.4.
