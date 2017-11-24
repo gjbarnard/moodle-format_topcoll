@@ -25,7 +25,7 @@ If you download from the development area - https://github.com/gjb2048/moodle-fo
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
-Documented on http://docs.moodle.org/33/en/Collapsed_Topics_course_format
+Documented on http://docs.moodle.org/34/en/Collapsed_Topics_course_format
 
 Bespoke changes
 ===============
