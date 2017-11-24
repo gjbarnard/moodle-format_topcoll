@@ -2,6 +2,7 @@
 ===================
 Version 3.2.1.2
   1. Fix CONTRIB-7056 - Edit menu cut off for some activities when using collapsed topics and boost.
+  2. Fix colour popup form element not rendering correctly in Boost theme.
 
 Version 3.2.1.1
   1. Update tests for https.
