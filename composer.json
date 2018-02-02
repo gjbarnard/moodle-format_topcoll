@@ -1,0 +1,10 @@
+{
+    "name": "gjb2048/moodle-format_topcoll",
+    "type": "moodle-format",
+    "require": {
+        "composer/installers": "~1.0"
+    },
+    "extra": {
+        "installer-name": "topcoll"
+    }
+}
