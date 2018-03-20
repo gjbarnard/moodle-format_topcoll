@@ -358,6 +358,10 @@ $string['resetalldisplayinstructions'] = 'Display instructions';
 $string['resetdisplayinstructions_help'] = 'Resets the display instructions to the default value so it will be the same as a course the first time it is in the Collapsed Topics format.';
 $string['resetalldisplayinstructions_help'] = 'Resets the display instructions to the default value for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 
+// Privacy.
+$string['privacy:metadata:preference:toggle'] = 'The state of the toggles on a course.';
+$string['privacy:request:preference:toggle'] = 'The course id "{$a->name}" has the value {$a->value} for the state of the toggles.';
+
 // Readme.
 $string['readme_title'] = 'Collapsed Topics read-me';
 $string['readme_desc'] = 'Please click on \'{$a->url}\' for lots more information about Collapsed Topics.';

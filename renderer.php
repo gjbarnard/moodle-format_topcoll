@@ -24,7 +24,7 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' in below.
+ * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
@@ -35,7 +35,6 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/course/format/renderer.php');
 require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
-require_once($CFG->dirroot . '/course/format/topcoll/togglelib.php');
 
 class format_topcoll_renderer extends format_section_renderer_base {
 
@@ -64,7 +63,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
      */
     public function __construct(moodle_page $page, $target) {
         parent::__construct($page, $target);
-        $this->togglelib = new topcoll_togglelib;
+        $this->togglelib = new \format_topcoll\togglelib;
         $this->courseformat = course_get_format($page->course); // Needed for collapsed topics settings retrieval.
 
         /* Since format_topcoll_renderer::section_edit_control_items() only displays the 'Set current section' control when editing

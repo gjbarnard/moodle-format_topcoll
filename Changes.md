@@ -3,6 +3,7 @@
 Version 3.4.0.2
   1. Fix colour popup form element not rendering correctly in Boost theme.
   2. Apply MDL-60241 course: General section always visible.
+  3. Support Privacy API - Requires M3.4.2.
 
 Version 3.4.0.1
   1. First beta version for M3.4.
