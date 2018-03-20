@@ -40,6 +40,8 @@ class toolbox {
 
     protected static $instance;
 
+    const TOPCOLL_TOGGLE = 'topcoll_toggle';
+
     private function __construct() {
     }
 

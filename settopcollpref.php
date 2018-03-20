@@ -44,7 +44,7 @@ if (!isset($USER->ajax_updatable_user_prefs[$name])) {
 }
 
 // Get and set the value.
-$value = required_topcoll_param('value');
+$value = \format_topcoll\togglelib::required_topcoll_param('value');
 // Update.
 if ($value) {
     if (!set_user_preference($name, $value)) {
