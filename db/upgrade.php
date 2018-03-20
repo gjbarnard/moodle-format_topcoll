@@ -165,6 +165,16 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         } // ...else Nothing to do as settings put in DB on first use.
     }
 
+    if ($oldversion < 2017110301) {
+
+        // During upgrade to Moodle 3.3 it could happen that general section (section 0) became 'invisible'.
+        // It should always be visible.
+        $DB->execute("UPDATE {course_sections} SET visible=1 WHERE visible=0 AND section=0 AND course IN
+        (SELECT id FROM {course} WHERE format=?)", ['topcoll']);
+
+        upgrade_plugin_savepoint(true, 2017111301, 'format', 'topcoll');
+    }
+
     // Automatic 'Purge all caches'....
     if ($oldversion < 2114052000) {
         purge_all_caches();
