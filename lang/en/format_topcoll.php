@@ -360,7 +360,7 @@ $string['resetalldisplayinstructions_help'] = 'Resets the display instructions t
 
 // Privacy.
 $string['privacy:metadata:preference:toggle'] = 'The state of the toggles on a course.';
-$string['privacy:request:preference:toggle'] = 'The course id "{$a->name}" has the value {$a->value} for the state of the toggles.';
+$string['privacy:request:preference:toggle'] = 'The course id "{$a->name}" has the value "{$a->value}" which represents "{$a->decoded}" for the state of the toggles.';
 
 // Readme.
 $string['readme_title'] = 'Collapsed Topics read-me';

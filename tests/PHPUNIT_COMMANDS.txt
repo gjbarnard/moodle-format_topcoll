@@ -16,6 +16,14 @@ vendor/bin/phpunit format_topcoll_courseformattoolbox_testcase course/format/top
 or
 vendor\bin\phpunit format_topcoll_courseformattoolbox_testcase course/format/topcoll/tests/courseformattoolbox_test.php
 
+vendor/bin/phpunit format_topcoll_privacy_testcase course/format/topcoll/tests/privacy_provider_test.php
+or
+vendor\bin\phpunit format_topcoll_privacy_testcase course/format/topcoll/tests/privacy_provider_test.php
+
+vendor/bin/phpunit format_topcoll_togglelib_testcase course/format/topcoll/tests/togglelib_test.php
+or
+vendor\bin\phpunit format_topcoll_togglelib_testcase course/format/topcoll/tests/togglelib_test.php
+
 vendor/bin/phpunit --group format_topcoll
 or
 vendor\bin\phpunit --group format_topcoll
