@@ -42,7 +42,7 @@ class format_topcoll_togglelib_testcase extends advanced_testcase {
         $testval = 0;
         while ($currentdigit != $maxdigit) {
             $this->assertEquals(sprintf('%06d', decbin($testval)), $togglelib->decode_toggle_state($currentdigit));
-            $currentdigit = chr(ord($currentdigit)+1);
+            $currentdigit = chr(ord($currentdigit) + 1);
             $testval++;
         }
         $this->assertEquals(sprintf('%06d', decbin($testval)), $togglelib->decode_toggle_state($maxdigit));
@@ -52,19 +52,20 @@ class format_topcoll_togglelib_testcase extends advanced_testcase {
         $testval = 0;
         while ($currentouterdigit != $maxdigit) {
             while ($currentinnerdigit != $maxdigit) {
-                $this->assertEquals(sprintf('%012d', decbin($testval)), $togglelib->decode_toggle_state($currentouterdigit.$currentinnerdigit));
-                $currentinnerdigit = chr(ord($currentinnerdigit)+1);
+                $this->assertEquals(sprintf('%012d', decbin($testval)),
+                    $togglelib->decode_toggle_state($currentouterdigit.$currentinnerdigit));
+                $currentinnerdigit = chr(ord($currentinnerdigit) + 1);
                 $testval++;
             }
             $this->assertEquals(sprintf('%012d', decbin($testval)), $togglelib->decode_toggle_state($currentouterdigit.$maxdigit));
             $testval++;
             $currentinnerdigit = $mindigit;
-            $currentouterdigit = chr(ord($currentouterdigit)+1);
+            $currentouterdigit = chr(ord($currentouterdigit) + 1);
         }
         $currentinnerdigit = $mindigit;
         while ($currentinnerdigit != $maxdigit) {
             $this->assertEquals(sprintf('%012d', decbin($testval)), $togglelib->decode_toggle_state($maxdigit.$currentinnerdigit));
-            $currentinnerdigit = chr(ord($currentinnerdigit)+1);
+            $currentinnerdigit = chr(ord($currentinnerdigit) + 1);
             $testval++;
         }
         $this->assertEquals(sprintf('%012d', decbin($testval)), $togglelib->decode_toggle_state($maxdigit.$maxdigit));
