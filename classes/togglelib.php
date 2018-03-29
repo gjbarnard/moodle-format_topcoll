@@ -24,7 +24,7 @@
  *
  * @package    course/format
  * @subpackage topcoll
- * @version    See the value of '$plugin->version' in below.
+ * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
@@ -60,8 +60,8 @@ class togglelib {
     }
 
     /**
-     * Tells us the toggle state from the DB.
-     * returns $toggles - Toggles state..
+     * Gets toggle state stored here.
+     * returns $toggles - Toggles state.
      */
     public function get_toggles() {
         return $this->toggles;
@@ -94,6 +94,26 @@ class togglelib {
             $value &= ~$toggleflag;
         }
         $this->toggles[$togglecharpos - 1] = self::encode_value_to_character($value);
+    }
+
+    /**
+     * Gets the string binary representation of the given toggle state.
+     * string $toggles - Toggles state.
+     * returns string.
+     */
+    public function decode_toggle_state($toggles) {
+        $togglestate = '';
+        $strlen = strlen($toggles);
+        for ($chars = 0; $chars < $strlen; $chars++) {
+            $charval = self::decode_character_to_value($toggles[$chars]);
+            $togglestate .= (($charval & self::TOGGLE_1) == self::TOGGLE_1) ? '1' : '0';
+            $togglestate .= (($charval & self::TOGGLE_2) == self::TOGGLE_2) ? '1' : '0';
+            $togglestate .= (($charval & self::TOGGLE_3) == self::TOGGLE_3) ? '1' : '0';
+            $togglestate .= (($charval & self::TOGGLE_4) == self::TOGGLE_4) ? '1' : '0';
+            $togglestate .= (($charval & self::TOGGLE_5) == self::TOGGLE_5) ? '1' : '0';
+            $togglestate .= (($charval & self::TOGGLE_6) == self::TOGGLE_6) ? '1' : '0';
+        }
+        return $togglestate;
     }
 
     /**
@@ -237,7 +257,7 @@ class togglelib {
      * @return mixed
      * @throws coding_exception
      */
-    static function required_topcoll_param($parname) {
+    static public function required_topcoll_param($parname) {
         if (empty($parname)) {
             throw new coding_exception('required_topcoll_param() requires $parname to be specified');
         }
@@ -253,7 +273,7 @@ class togglelib {
      * @return mixed
      * @throws coding_exception
      */
-    static function clean_topcoll_param($param) {
+    static public function clean_topcoll_param($param) {
         if (is_array($param)) {
             throw new coding_exception('clean_topcoll_param() can not process arrays.');
         } else if (is_object($param)) {

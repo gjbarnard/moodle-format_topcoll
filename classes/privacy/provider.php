@@ -65,18 +65,20 @@ class provider implements
      */
     public static function export_user_preferences(int $userid) {
         $preferences = get_user_preferences();
+        $togglelib = new \format_topcoll\togglelib;
         foreach ($preferences as $name => $value) {
             $courseid = null;
             if (strpos($name, \format_topcoll\toolbox::TOPCOLL_TOGGLE) === 0) {
-                $courseid = substr($name, strlen(\format_topcoll\toolbox::TOPCOLL_TOGGLE));
+                $courseid = substr($name, strlen(\format_topcoll\toolbox::TOPCOLL_TOGGLE) + 1);
 
                 writer::export_user_preference(
                     'format_topcoll',
                     $name,
                     $value,
                     get_string('privacy:request:preference:toggle', 'format_topcoll', (object) [
-                        'courseid' => $courseid,
+                        'name' => $courseid,
                         'value' => $value,
+                        'decoded' => $togglelib->decode_toggle_state($value),
                     ])
                 );
             }
