@@ -52,7 +52,7 @@ class provider implements
      * @param   collection $itemcollection The initialised item collection to add items to.
      * @return  collection A listing of user data stored through this system.
      */
-    public static function get_metadata(collection $items) : collection {
+    public static function get_metadata(collection $items) {
         $items->add_user_preference(\format_topcoll\toolbox::TOPCOLL_TOGGLE, 'privacy:metadata:preference:toggle');
 
         return $items;
@@ -63,7 +63,7 @@ class provider implements
      *
      * @param int $userid The userid of the user whose data is to be exported.
      */
-    public static function export_user_preferences(int $userid) {
+    public static function export_user_preferences($userid) {
         $preferences = get_user_preferences();
         $togglelib = new \format_topcoll\togglelib;
         foreach ($preferences as $name => $value) {
