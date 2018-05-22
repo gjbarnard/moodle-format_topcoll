@@ -43,8 +43,7 @@ class provider implements
     \core_privacy\local\metadata\provider,
 
     // This plugin has some sitewide user preferences to export.
-    \core_privacy\local\request\user_preference_provider
-{
+    \core_privacy\local\request\user_preference_provider {
 
     /**
      * Returns meta data about this system.
@@ -64,7 +63,7 @@ class provider implements
      * @param int $userid The userid of the user whose data is to be exported.
      */
     public static function export_user_preferences(int $userid) {
-        $preferences = get_user_preferences();
+        $preferences = get_user_preferences(null, null, $userid);
         $togglelib = new \format_topcoll\togglelib;
         foreach ($preferences as $name => $value) {
             $courseid = null;

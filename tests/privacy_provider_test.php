@@ -30,8 +30,6 @@ defined('MOODLE_INTERNAL') || die();
 
 use \core_privacy\local\metadata\collection;
 use \core_privacy\local\request\writer;
-use \core_privacy\local\request\approved_contextlist;
-use \core_privacy\local\request\deletion_criteria;
 use \format_topcoll\privacy\provider;
 
 /**
@@ -116,7 +114,7 @@ class format_topcoll_privacy_testcase extends \core_privacy\tests\provider_testc
     }
 
     /**
-     * Ensure that export_user_preferences returns request completion data.
+     * Ensure that export_user_preferences returns request data.
      */
     public function test_export_user_preferences() {
         $togglelib = new \format_topcoll\togglelib;
