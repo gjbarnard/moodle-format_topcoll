@@ -133,11 +133,12 @@ class format_topcoll_privacy_testcase extends \core_privacy\tests\provider_testc
 
         $this->assertTrue($writer->has_any_data());
 
-        $prefs = $writer->get_user_preferences('format_topcoll');
+        $prefs = (array) $writer->get_user_preferences('format_topcoll');
 
-        $this->assertCount(1, (array) $prefs);
+        $this->assertCount(1, $prefs);
 
-        $this->assertEquals('FAB', ((array)$prefs)['topcoll_toggle_'.$this->course->id]->value);
+        $toggle = $prefs['topcoll_toggle_'.$this->course->id];
+        $this->assertEquals('FAB', $toggle->value);
 
         $description = get_string('privacy:request:preference:toggle', 'format_topcoll', (object) [
             'name' => $this->course->id,
