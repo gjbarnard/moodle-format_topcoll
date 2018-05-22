@@ -145,6 +145,6 @@ class format_topcoll_privacy_testcase extends \core_privacy\tests\provider_testc
             'value' => 'FAB',
             'decoded' => $togglelib->decode_toggle_state('FAB'),
         ]);
-        $this->assertEquals($description, ((array)$prefs)['topcoll_toggle_'.$this->course->id]->description);
+        $this->assertEquals($description, $toggle->description);
     }
 }
