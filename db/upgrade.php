@@ -172,7 +172,7 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         $DB->execute("UPDATE {course_sections} SET visible=1 WHERE visible=0 AND section=0 AND course IN
         (SELECT id FROM {course} WHERE format=?)", ['topcoll']);
 
-        upgrade_plugin_savepoint(true, 2017111301, 'format', 'topcoll');
+        upgrade_plugin_savepoint(true, 2017110301, 'format', 'topcoll');
     }
 
     // Automatic 'Purge all caches'....
