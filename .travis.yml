@@ -24,7 +24,7 @@ matrix:
       postgresql: 9.3
 env:
  global:
-  - MOODLE_BRANCH=master
+  - MOODLE_BRANCH=MOODLE_35_STABLE
   - IGNORE_NAMES=tc_colourpopup.php,tc_colourpopup.js
 
 before_install:
