@@ -1,7 +1,8 @@
 ﻿Version Information
 ===================
 Version 3.5.0.1
-  1. M3.5 version based on V3.4.0.2
+  1. M3.5 version based on V3.4.0.2.
+  2. Put back 'numsections'.
 
 Version 3.4.0.2
   1. Fix colour popup form element not rendering correctly in Boost theme.
