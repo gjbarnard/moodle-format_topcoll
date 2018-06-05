@@ -47,12 +47,21 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
      * Checks if backup file was made on Moodle before 3.3 and we should respect the 'numsections'
      * and potential "orphaned" sections in the end of the course.
      *
-     * @return bool
+     * @return bool Need to restore numsections.
      */
     protected function need_restore_numsections() {
         $backupinfo = $this->step->get_task()->get_info();
         $backuprelease = $backupinfo->backup_release;
-        return version_compare($backuprelease, '3.3', 'lt');
+        $prethreethree = version_compare($backuprelease, '3.3', 'lt');
+        if ($prethreethree) {
+            // Pre version 3.3 so, yes!
+            return true;
+        }
+        /* Post 3.3 may or may not have numsections in the backup depending on the version.
+           of Collapsed Topics used.  So use the existance of 'numsections' in the course.xml
+           part of the backup to determine this. */
+        $data = $this->connectionpoint->get_data();
+        return (isset($data['tags']['numsections']));
     }
 
     /**
@@ -133,14 +142,15 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
      */
     public function after_restore_course() {
         if (!$this->need_restore_numsections()) {
-            // Backup file was made in Moodle 3.3 or later, we don't need to process 'numsecitons'.
+            /* Backup file was made in Moodle 3.3 or later and does not contain 'numsections',
+               so we don't need to process 'numsecitons'. */
             return;
         }
 
         $data = $this->connectionpoint->get_data();
         $backupinfo = $this->step->get_task()->get_info();
-        if ($backupinfo->original_course_format !== 'topcoll' || !isset($data['tags']['numsections'])) {
-            // Backup from another course format or backup file does not even have 'numsections'.
+        if ($backupinfo->original_course_format !== 'topcoll') {
+            // Backup from another course format.
             return;
         }
 

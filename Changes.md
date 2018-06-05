@@ -1,6 +1,7 @@
 ﻿Version Information
 ===================
 Version 3.4.0.3
+  1. Put back 'numsections'.
 
 Version 3.4.0.2
   1. Fix colour popup form element not rendering correctly in Boost theme.
