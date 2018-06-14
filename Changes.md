@@ -1,5 +1,7 @@
 ﻿Version Information
 ===================
+Version 3.4.0.3
+
 Version 3.4.0.2
   1. Fix colour popup form element not rendering correctly in Boost theme.
   2. Apply MDL-60241 course: General section always visible.
