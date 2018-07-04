@@ -79,6 +79,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         if (strcmp($page->theme->name, 'boost') === 0) {
             $this->bsnewgrid = true;
+        } else if (!empty($page->theme->parents)) {
+            if (in_array('boost', $page->theme->parents) === true) {
+                $this->bsnewgrid = true;
+            }
         }
     }
 
