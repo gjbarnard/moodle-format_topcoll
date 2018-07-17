@@ -624,20 +624,6 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
     text-align: left;
 }
 
-/* -- For centring the 'Topic / Week / Day x' text -- */
-.course-content ul.ctopics li.section .right .cps_centre,
-.dir-rtl .course-content ul.ctopics li.section .left .cps_centre {
-    font-size: 0.7em;
-    text-align: center;
-}
-
-.dir-rtl .course-content ul.ctopics li.section .right .cps_centre {
-    font-size: 14px;
-}
-
-.course-content ul.ctopics li.section .right .cps_centre img.icon {
-    padding-top: 8px;
-}
 
 /* -- Toggle text -- */
 .course-content ul.ctopics li.section .content .toggle span.the_toggle,
@@ -648,6 +634,22 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
 
 .course-content ul.ctopics li.section .content .toggledsection {
     min-height: 30px;
+}
+
+/* -- For centring the 'Topic / Week / Day x' text -- */
+.course-content ul.ctopics li.section .right .cps_centre,
+.dir-rtl .course-content ul.ctopics li.section .left .cps_centre {
+    font-size: 0.7em;
+    min-height: 28px;
+    text-align: center;
+}
+
+.dir-rtl .course-content ul.ctopics li.section .right .cps_centre {
+    font-size: 14px;
+}
+
+.course-content ul.ctopics li.section .right .cps_centre img {
+    margin: 6px auto;
 }
 
 /* -- Hiding / Showing the sections -- */
