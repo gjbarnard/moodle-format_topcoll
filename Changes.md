@@ -2,6 +2,7 @@
 ===================
 Version 3.4.0.4
   1. Fix CONTRIB-7393.
+  2. Tidy up one section icon.
 
 Version 3.4.0.3
   1. Put back 'numsections'.
