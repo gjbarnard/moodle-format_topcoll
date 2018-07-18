@@ -1,6 +1,7 @@
 ﻿Version Information
 ===================
 Version 3.4.0.4
+  1. Fix CONTRIB-7393.
 
 Version 3.4.0.3
   1. Put back 'numsections'.
