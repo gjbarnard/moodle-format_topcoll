@@ -2,6 +2,7 @@
 ===================
 Version 3.5.0.2
   1. Tidy up one section icon.
+  2. Fix CONTRIB-7393.
 
 Version 3.5.0.1
   1. M3.5 version based on V3.4.0.2.
