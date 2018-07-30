@@ -1,5 +1,7 @@
 ﻿Version Information
 ===================
+Version 3.4.0.4
+
 Version 3.4.0.3
   1. Put back 'numsections'.
 
