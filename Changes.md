@@ -3,6 +3,7 @@
 Version 3.5.0.2
   1. Tidy up one section icon.
   2. Fix CONTRIB-7393.
+  3. Treat themes using Boost as a parent the same as Boost - thanks to Tony Butler.
 
 Version 3.5.0.1
   1. M3.5 version based on V3.4.0.2.
