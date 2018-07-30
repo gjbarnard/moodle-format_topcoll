@@ -3,6 +3,7 @@
 Version 3.4.0.4
   1. Fix CONTRIB-7393.
   2. Tidy up one section icon.
+  3. Treat themes using Boost as a parent the same as Boost - thanks to Tony Butler.
 
 Version 3.4.0.3
   1. Put back 'numsections'.
