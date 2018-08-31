@@ -1,6 +1,12 @@
 ﻿Version Information
 ===================
 Version 3.5.0.3
+  1. Fix CONTRIB-7434:
+        With reference to 'global_start_keyboard_drag' and 'find_element_text' in /lib/yui/src/dragdrop/js/dragdrop.js
+        and 'initializer' of /course/yui/src/dragdrop/js/resource.js this is down to the 'droptargets' list not containing
+        a node that contains the section name because CT has broken down the section content into two separate sub-sections
+        and other core course formats only have the one section containing the section markup.  Therefore the solution effectively
+        allows 'find_element_text' to find the hidden section name first within the 'labelroot' node that is determined.
 
 Version 3.5.0.2
   1. Tidy up one section icon.

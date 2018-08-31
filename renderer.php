@@ -496,6 +496,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 'id' => 'toggledsection-' . $section->section)
             );
 
+            if ($this->userisediting) {
+                // CONTRIB-7434.
+                $o .= html_writer::tag('span',
+                    $this->courseformat->get_topcoll_section_name($course, $section, false),
+                    array('class' => 'hidden', 'aria-hidden' => 'true'));
+            }
+
             if ($this->userisediting && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
                 $o .= html_writer::link($url,
