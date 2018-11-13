@@ -267,6 +267,8 @@ class format_topcoll extends format_base {
      * @return array This will be passed in ajax respose
      */
     public function ajax_section_move() {
+        global $PAGE;
+
         $titles = array();
         $current = -1;  // MDL-33546.
         $weekformat = false;
@@ -277,9 +279,10 @@ class format_topcoll extends format_base {
         }
         $course = $this->get_course();
         $modinfo = get_fast_modinfo($course);
-        if ($sections = $modinfo->get_section_info_all()) {
+        $renderer = $PAGE->get_renderer('format_topcoll');
+        if ($renderer && $sections = $modinfo->get_section_info_all()) {
             foreach ($sections as $number => $section) {
-                $titles[$number] = $this->get_topcoll_section_name($course, $section, true);
+                $titles[$number] = $this->get_topcoll_section_name($course, $section, false);
                 if (($weekformat == true) && ($this->is_section_current($section))) {
                     $current = $number;  // Only set if a week based course to keep the current week in the same place.
                 }
