@@ -279,12 +279,12 @@ class format_topcoll extends format_base {
         }
         $course = $this->get_course();
         $modinfo = get_fast_modinfo($course);
-        $renderer = $PAGE->get_renderer('format_topcoll');
-        if ($renderer && $sections = $modinfo->get_section_info_all()) {
-            foreach ($sections as $number => $section) {
-                $titles[$number] = $this->get_topcoll_section_name($course, $section, false);
+        $formatrenderer = $PAGE->get_renderer('format_topcoll');
+        if ($formatrenderer && $sections = $modinfo->get_section_info_all()) {
+            foreach ($sections as $sectionnumber => $section) {
+                $titles[$sectionnumber] = $formatrenderer->section_title($section, null); // Course not needed.
                 if (($weekformat == true) && ($this->is_section_current($section))) {
-                    $current = $number;  // Only set if a week based course to keep the current week in the same place.
+                    $current = $sectionnumber;  // Only set if a week based course to keep the current week in the same place.
                 }
             }
         }

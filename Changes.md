@@ -9,6 +9,8 @@ Version 3.5.0.3
         allows 'find_element_text' to find the hidden section name first within the 'labelroot' node that is determined.
   2. When accessing a module through a single section page (not the navigation block) then ensure that you are returned
      to the same single section page when using the breadcrumb.
+  3. Fix 'Edit section name button disappearing when moving section and Toggle word added' - #44 - with thanks to
+     Joshua Ebarvia - https://github.com/jebarviabb - for the patch.
 
 Version 3.5.0.2
   1. Tidy up one section icon.
