@@ -8,24 +8,24 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 
 Required version of Moodle
 ==========================
-This version works with Moodle 3.5 version 2018051700.00 (Build: 20180517) and above within the 3.5 branch until the
+This version works with Moodle 3.6.1 version 2018120301.00 (Build: 20181205) and above within the 3.6 branch until the
 next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
-'docs.moodle.org/35/en/Installing_Moodle'.
+'docs.moodle.org/36/en/Installing_Moodle'.
 
 Downloads and documentation
 ===========================
 The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
-with 'Select Moodle version:' set at 'Moodle 3.5'.
+with 'Select Moodle version:' set at 'Moodle 3.6'.
 
-The secondary source is a tagged version with the v3.5 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
+The secondary source is a tagged version with the v3.6 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
 
 If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/ - consider that
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
-Documented on http://docs.moodle.org/35/en/Collapsed_Topics_course_format
+Documented on http://docs.moodle.org/36/en/Collapsed_Topics_course_format
 
 Bespoke changes
 ===============
