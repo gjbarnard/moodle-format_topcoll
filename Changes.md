@@ -1,6 +1,7 @@
 ﻿Version Information
 ===================
 Version 3.6.0.2
+  1. Fix invalid HTML in case of zero section elements - thanks to Mario Wehr for raising this - #47.
 
 Version 3.6.0.1
   1. Beta version for Moodle 3.6.
