@@ -11,6 +11,7 @@ Version 3.4.0.5
      to the same single section page when using the breadcrumb.
   3. Fix 'Edit section name button disappearing when moving section and Toggle word added' - #44 - with thanks to
      Joshua Ebarvia - https://github.com/jebarviabb - for the patch.
+  4. Fix invalid HTML in case of zero section elements - thanks to Mario Wehr for raising this - #47.
 
 Version 3.4.0.4
   1. Fix CONTRIB-7393.
