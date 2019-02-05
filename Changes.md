@@ -1,6 +1,7 @@
 ﻿Version Information
 ===================
 Version 3.5.0.4
+  1. Fix invalid HTML in case of zero section elements - thanks to Mario Wehr for raising this - #47.
 
 Version 3.5.0.3
   1. Fix CONTRIB-7434:

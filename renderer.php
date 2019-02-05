@@ -1041,6 +1041,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
         }
 
+        $changenumsections = '';
         if ($this->userisediting and has_capability('moodle/course:update', $context)) {
             // Print stealth sections if present.
             foreach ($modinfo->get_section_info_all() as $section => $thissection) {
@@ -1053,19 +1054,16 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 echo $this->stealth_section_footer();
             }
 
-            echo $this->end_section_list();
-
-            if ((!$this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 1)) { // Vertical columns.
-                echo html_writer::end_tag('div');
-            }
-
-            echo $this->change_number_sections($course, 0);
-        } else {
-            echo $this->end_section_list();
+            $changenumsections = $this->change_number_sections($course, 0);
+        }
+        echo $this->end_section_list();
+        if ($coursenumsections > 0) {
             if ((!$this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 1)) { // Vertical columns.
                 echo html_writer::end_tag('div');
             }
         }
+
+        echo $changenumsections;
 
         // Now initialise the JavaScript.
         $toggles = $this->togglelib->get_toggles();
