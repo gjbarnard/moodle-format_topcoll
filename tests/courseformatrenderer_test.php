@@ -257,8 +257,8 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
         $theclass = self::call_method($this->outputus, 'toggle_all', array());
         $thevalue = '<li class="tcsection main clearfix" id="toggle-all"><div class="left side"><img class="icon spacer" ';
-        $thevalue .= 'width="1" height="1" alt="" src="'.$CFG->wwwroot.'/theme/image.php/_s/clean/core/1/spacer" />';
-        $thevalue .= '</div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" src="';
+        $thevalue .= 'width="1" height="1" alt="" aria-hidden="true" src="'.$CFG->wwwroot.'/theme/image.php/_s/clean/core/1/spacer" />';
+        $thevalue .= '</div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" aria-hidden="true" src="';
         $thevalue .= $CFG->wwwroot.'/theme/image.php/_s/clean/core/1/spacer" /></div><div class="content">';
         $thevalue .= '<div class="sectionbody toggle-arrow-hover toggle-arrow"><h4><span class="on tc-medium" id="';
         $thevalue .= 'toggles-all-opened" role="button">Open all</span><span class="off tc-medium" id="toggles-all-closed" ';
@@ -271,9 +271,9 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
         $theclass = self::call_method($this->outputus, 'display_instructions', array());
         $thevalue = '<li class="tcsection main clearfix" id="topcoll-display-instructions"><div class="left side">';
-        $thevalue .= '<img class="icon spacer" width="1" height="1" alt="" src="';
+        $thevalue .= '<img class="icon spacer" width="1" height="1" alt="" aria-hidden="true" src="';
         $thevalue .= $CFG->wwwroot.'/theme/image.php/_s/clean/core/1/spacer" /></div><div class="right side">';
-        $thevalue .= '<img class="icon spacer" width="1" height="1" alt="" src="';
+        $thevalue .= '<img class="icon spacer" width="1" height="1" alt="" aria-hidden="true" src="';
         $thevalue .= $CFG->wwwroot.'/theme/image.php/_s/clean/core/1/spacer" /></div><div class="content">';
         $thevalue .= '<div class="sectionbody"><p class="topcoll-display-instructions">Instructions: Clicking on the section ';
         $thevalue .= 'name will show / hide the section.</p></div></div></li>';
