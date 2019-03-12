@@ -232,7 +232,7 @@ Version 2.8.2.2
   1. First beta version for Moodle 2.7beta.
 
 17th April 2014 Version 2.6.1.5
-  1. Fixed CONTRIB-4099 with the arrangement of the editing icon and associated functionality such that a better solution is
+  1. Fixed CONTRIB-4999 with the arrangement of the editing icon and associated functionality such that a better solution is
      applied for the specific nature of the format.
 
 28th March 2014 Version 2.6.1.4
