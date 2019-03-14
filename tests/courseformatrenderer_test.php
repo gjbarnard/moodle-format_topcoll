@@ -361,12 +361,16 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
     public function test_toggle_all() {
         global $CFG;
+        $ariahidden = '';
+        if ($CFG->version >= 2018051700) {
+            $ariahidden = 'aria-hidden="true" ';
+        }
 
         $this->init();
         $theclass = self::call_method($this->outputus, 'toggle_all', array());
         $thevalue = '<li class="tcsection main clearfix" id="toggle-all"><div class="left side"><img class="icon spacer" ';
-        $thevalue .= 'width="1" height="1" alt="" src="'.$CFG->wwwroot.'/theme/image.php/_s/boost/core/1/spacer" />';
-        $thevalue .= '</div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" src="';
+        $thevalue .= 'width="1" height="1" alt="" '.$ariahidden.'src="'.$CFG->wwwroot.'/theme/image.php/_s/boost/core/1/spacer" />';
+        $thevalue .= '</div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" '.$ariahidden.'src="';
         $thevalue .= $CFG->wwwroot.'/theme/image.php/_s/boost/core/1/spacer" /></div><div class="content">';
         $thevalue .= '<div class="sectionbody toggle-arrow-hover toggle-arrow"><h4><span class="on tc-medium" id="';
         $thevalue .= 'toggles-all-opened" role="button">Open all</span><span class="off tc-medium" id="toggles-all-closed" ';
@@ -376,13 +380,17 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
     public function test_display_instructions() {
         global $CFG;
+        $ariahidden = '';
+        if ($CFG->version >= 2018051700) {
+            $ariahidden = 'aria-hidden="true" ';
+        }
 
         $this->init();
         $theclass = self::call_method($this->outputus, 'display_instructions', array());
         $thevalue = '<li class="tcsection main clearfix" id="topcoll-display-instructions"><div class="left side">';
-        $thevalue .= '<img class="icon spacer" width="1" height="1" alt="" src="';
+        $thevalue .= '<img class="icon spacer" width="1" height="1" alt="" '.$ariahidden.'src="';
         $thevalue .= $CFG->wwwroot.'/theme/image.php/_s/boost/core/1/spacer" /></div><div class="right side">';
-        $thevalue .= '<img class="icon spacer" width="1" height="1" alt="" src="';
+        $thevalue .= '<img class="icon spacer" width="1" height="1" alt="" '.$ariahidden.'src="';
         $thevalue .= $CFG->wwwroot.'/theme/image.php/_s/boost/core/1/spacer" /></div><div class="content">';
         $thevalue .= '<div class="sectionbody"><p class="topcoll-display-instructions">Instructions: Clicking on the section ';
         $thevalue .= 'name will show / hide the section.</p></div></div></li>';
