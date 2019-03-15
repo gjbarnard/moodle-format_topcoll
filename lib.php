@@ -781,7 +781,7 @@ class format_topcoll extends format_base {
                     'label' => get_config('format_topcoll', 'defaulttgfgopacity'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['toggleforegroundhovercolour'] = array(
                     'label' => $defaulttgfghvrcolour, 'element_type' => 'hidden');
-                $courseformatoptionsedit['toggleforegroundhoveopacity'] = array(
+                $courseformatoptionsedit['toggleforegroundhoveropacity'] = array(
                     'label' => get_config('format_topcoll', 'defaulttgfghvropacity'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['togglebackgroundcolour'] = array(
                     'label' => $defaulttgbgcolour, 'element_type' => 'hidden');
@@ -789,7 +789,7 @@ class format_topcoll extends format_base {
                     'label' => get_config('format_topcoll', 'defaulttgbgopacity'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['togglebackgroundhovercolour'] = array(
                     'label' => $defaulttgbghvrcolour, 'element_type' => 'hidden');
-                $courseformatoptionsedit['togglebackgroundhoveopacity'] = array(
+                $courseformatoptionsedit['togglebackgroundhoveropacity'] = array(
                     'label' => get_config('format_topcoll', 'defaulttgbghvropacity'), 'element_type' => 'hidden');
             }
             $readme = new moodle_url('/course/format/topcoll/Readme.md');
