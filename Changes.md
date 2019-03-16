@@ -13,6 +13,7 @@ Version 3.4.0.5
      Joshua Ebarvia - https://github.com/jebarviabb - for the patch.
   4. Fix invalid HTML in case of zero section elements - thanks to Mario Wehr for raising this - #47.
   5. Fix: Two strange input fields remain in teacher view when all capabilities are forbidden - thanks to Tobias Reischmann for the patch - #54.
+  6. Fix: Selecting specific topics breaks a section just above the selected topic - CONTRIB-7607.
 
 Version 3.4.0.4
   1. Fix CONTRIB-7393.
