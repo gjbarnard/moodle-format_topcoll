@@ -12,6 +12,7 @@ Version 3.4.0.5
   3. Fix 'Edit section name button disappearing when moving section and Toggle word added' - #44 - with thanks to
      Joshua Ebarvia - https://github.com/jebarviabb - for the patch.
   4. Fix invalid HTML in case of zero section elements - thanks to Mario Wehr for raising this - #47.
+  5. Fix: Two strange input fields remain in teacher view when all capabilities are forbidden - thanks to Tobias Reischmann for the patch - #54.
 
 Version 3.4.0.4
   1. Fix CONTRIB-7393.
