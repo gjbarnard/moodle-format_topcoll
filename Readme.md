@@ -2,7 +2,12 @@
 ============
 Topic based course format with an individual 'toggle' for each topic except 0.
 
-If you find an issue with the format, please see the 'Reporting Issues' section below.
+If you find an issue with the format, please see the 'Reporting Issues' section below or contact your Moodle administrator.
+
+This file contains general information about the format.  If you're reading this as an educator then you can learn about the format
+from the documentation on http://docs.moodle.org/36/en/Collapsed_Topics_course_format.  If you get stuck and your Moodle support
+are unable to help / not sure what to do, then please go to https://moodle.org/mod/forum/view.php?id=47.  If you like the format,
+then please do spread the word to other educators.  The main page for the format is https://moodle.org/plugins/format_topcoll.
 
 [![Build Status](https://travis-ci.org/gjb2048/moodle-format_topcoll.svg?branch=MOODLE_35)](https://travis-ci.org/gjb2048/moodle-format_topcoll)
 
@@ -50,7 +55,7 @@ Support
 =======
 Collapsed Topics comes with NO support.  If you would like support from me (Gareth) then I'm happy to provide it
 for a fee (please see my contact details below).  Otherwise, the 'Courses and course formats' forum:
-moodle.org/mod/forum/view.php?id=47 is an excellent place to ask questions.
+https://moodle.org/mod/forum/view.php?id=47 is an excellent place to ask questions.
 
 Sponsorships
 ============
