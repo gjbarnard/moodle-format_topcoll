@@ -33,9 +33,14 @@ ul.ctopics .content .section ul {
     margin: 0 0 10px 10px;
 }
 
-ul.ctopics :target {
-    margin-top: 0!important;
-    padding-top: 0!important;
+ul.ctopics :target::before { /* CONTRIB-7607 */
+    pointer-events: none;
+    width: 0;
+}
+
+.course-content ul.ctopics .current::before { /* CONTRIB-7607 */
+    height: auto;
+    margin-top: 0;
 }
 
 .format-topcoll.path-course-view.editing #region-main > .card-block {
