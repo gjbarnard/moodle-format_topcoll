@@ -2,6 +2,8 @@
 ===================
 Version 3.6.0.2
   1. Fix invalid HTML in case of zero section elements - thanks to Mario Wehr for raising this - #47.
+  2. Fix: PHP Unit test failure (due to MDL-62680) - thanks to Anupama Dharmajan for the patch - #52.
+  3. Fix: Two strange input fields remain in teacher view when all capabilities are forbidden - thanks to Tobias Reischmann for the patch - #54.
 
 Version 3.6.0.1
   1. Beta version for Moodle 3.6.
