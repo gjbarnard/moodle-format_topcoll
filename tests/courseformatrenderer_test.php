@@ -362,7 +362,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
     public function test_toggle_all() {
         global $CFG;
         $ariahidden = '';
-        if ($CFG->version >= 2018051700) {
+        if ($CFG->version >= 2018120302.07) {
             $ariahidden = 'aria-hidden="true" ';
         }
 
@@ -381,7 +381,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
     public function test_display_instructions() {
         global $CFG;
         $ariahidden = '';
-        if ($CFG->version >= 2018051700) {
+        if ($CFG->version >= 2018120302.07) {
             $ariahidden = 'aria-hidden="true" ';
         }
 
