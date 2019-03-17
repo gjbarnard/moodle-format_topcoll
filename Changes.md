@@ -1,5 +1,7 @@
 ﻿Version Information
 ===================
+Version 3.5.0.4
+
 Version 3.5.0.3
   1. Fix CONTRIB-7434:
         With reference to 'global_start_keyboard_drag' and 'find_element_text' in /lib/yui/src/dragdrop/js/dragdrop.js
