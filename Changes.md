@@ -1,5 +1,7 @@
 ﻿Version Information
 ===================
+Version 3.4.0.5
+
 Version 3.4.0.4
   1. Fix CONTRIB-7393.
   2. Tidy up one section icon.
