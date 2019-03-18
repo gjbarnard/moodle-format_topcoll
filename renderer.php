@@ -1102,11 +1102,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o .= html_writer::start_tag('h4', null);
         $o .= html_writer::tag('span', get_string('topcollopened', 'format_topcoll'),
             array('class' => 'on ' . $this->tctoggleiconsize, 'id' => 'toggles-all-opened',
-            'role' => 'button')
+            'role' => 'button', 'tabindex' => '0')
         );
         $o .= html_writer::tag('span', get_string('topcollclosed', 'format_topcoll'),
             array('class' => 'off ' . $this->tctoggleiconsize, 'id' => 'toggles-all-closed',
-            'role' => 'button')
+            'role' => 'button', 'tabindex' => '0')
         );
         $o .= html_writer::end_tag('h4');
         $o .= html_writer::end_tag('div');
