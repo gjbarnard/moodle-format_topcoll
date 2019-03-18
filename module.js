@@ -124,10 +124,12 @@ M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections,
         var allopen = Y.one("#toggles-all-opened");
         if (allopen) {
             allopen.on('click', this.allOpenClick);
+            allopen.on('key', this.allOpenClick, 'enter');
         }
         var allclosed = Y.one("#toggles-all-closed");
         if (allclosed) {
             allclosed.on('click', this.allCloseClick);
+            allclosed.on('key', this.allCloseClick, 'enter');
         }
     } else {
         if (theOneTopicToggle !== false) {
