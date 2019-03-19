@@ -211,7 +211,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $thevalue .= '<div class="left side"><span class="cps_centre">1</span></div><div class="right side">';
         $thevalue .= '<a title="View only &#039;Topic 1&#039;" class="cps_centre" ';
         $thevalue .= 'href="'.$CFG->wwwroot.'/course/view.php?id='.$this->course->id.'&amp;section=1">Topic<br />1</a>';
-        $thevalue .= '</div><div class="content"><div class="sectionhead toggle toggle-arrow" id="toggle-1">';
+        $thevalue .= '</div><div class="content"><div class="sectionhead toggle toggle-arrow" id="toggle-1" tabindex="0">';
         $thevalue .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-pressed="false">';
         $thevalue .= '<h3 class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>';
         $thevalue .= '<div class="section_availability"></div></span></div>';
@@ -279,7 +279,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '<div class="left side"><span class="cps_centre">1</span></div><div class="right side">';
         $theoutput .= '<a title="View only &#039;Topic 1&#039;" class="cps_centre" ';
         $theoutput .= 'href="'.$CFG->wwwroot.'/course/view.php?id='.$this->course->id.'&amp;section=1">Topic<br />1</a>';
-        $theoutput .= '</div><div class="content"><div class="sectionhead toggle toggle-arrow" id="toggle-1">';
+        $theoutput .= '</div><div class="content"><div class="sectionhead toggle toggle-arrow" id="toggle-1" tabindex="0">';
         $theoutput .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-pressed="false">';
         $theoutput .= '<h3 class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>';
         $theoutput .= '<div class="section_availability"></div></span></div>';
@@ -309,7 +309,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '<div class="left side"><span class="cps_centre">1</span></div><div class="right side">';
         $theoutput .= '<a title="View only &#039;Topic 1&#039;" class="cps_centre" ';
         $theoutput .= 'href="'.$CFG->wwwroot.'/course/view.php?id='.$this->course->id.'&amp;section=1">Topic<br />1</a>';
-        $theoutput .= '</div><div class="content"><div class="sectionhead toggle toggle-arrow" id="toggle-1">';
+        $theoutput .= '</div><div class="content"><div class="sectionhead toggle toggle-arrow" id="toggle-1" tabindex="0">';
         $theoutput .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-pressed="false">';
         $theoutput .= '<h3 class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>';
         $theoutput .= '<div class="section_availability"></div></span></div>';

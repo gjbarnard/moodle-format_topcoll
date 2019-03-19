@@ -451,7 +451,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if (($onsectionpage == false) && ($section->section != 0)) {
             $o .= html_writer::start_tag('div',
                 array('class' => 'sectionhead toggle toggle-'.$this->tcsettings['toggleiconset'],
-                'id' => 'toggle-'.$section->section)
+                'id' => 'toggle-'.$section->section, 'tabindex' => '0')
             );
 
             if ((!($section->toggle === null)) && ($section->toggle == true)) {
