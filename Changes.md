@@ -9,6 +9,8 @@ Version 3.5.1.0
   6. Fix position of activity / resource editing menu.
   7. Change position of the window when clicking on a section anchor such that a navbar would not be in the way.
      Thanks for the information in the Adaptable theme referencing: https://github.com/twbs/bootstrap/issues/1768.
+  8. New: Improve accessibility of the open and close all buttons - thanks to Rossco Hellmans for the patch - #56.
+  9. New: Based on '8', add key operation of toggles.
 
 Version 3.5.0.3
   1. Fix CONTRIB-7434:

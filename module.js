@@ -117,6 +117,7 @@ M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections,
         var toggle = Y.one("ul.ctopics #toggle-" + togi);
         if (toggle) {
             toggle.on('click', this.toggleClick, this);
+            toggle.on('key', this.toggleClick, 'enter', this);
             if (toggleHeight === false) {
                 toggleHeight = toggle.get('offsetHeight');
             }

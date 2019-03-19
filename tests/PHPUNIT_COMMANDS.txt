@@ -4,6 +4,10 @@ composer install --dev
 
 php admin/tool/phpunit/cli/init.php
 
+Linux/Unix/MacOS
+or
+Windows\
+
 vendor/bin/phpunit format_topcoll_courseformatlib_testcase course/format/topcoll/tests/courseformatlib_test.php
 or
 vendor\bin\phpunit format_topcoll_courseformatlib_testcase course/format/topcoll/tests/courseformatlib_test.php
