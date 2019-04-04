@@ -260,6 +260,10 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
     public function test_print_multiple_section_page_horizontal() {
         global $CFG;
+        $activityicon = 'alt=" " role="presentation" ';
+        if ($CFG->version >= 2018051705.05) {
+            $activityicon = 'alt="" role="presentation" aria-hidden="true" ';
+        }
 
         $this->init();
         self::call_method($this->outputus, 'print_multiple_section_page',
@@ -271,7 +275,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '<li class="activity forum modtype_forum " id="module-'.$this->cmid.'"><div><div class="mod-indent-outer">';
         $theoutput .= '<div class="mod-indent"></div><div><div class="activityinstance">';
         $theoutput .= '<a class="" onclick="" href="https://www.example.com/moodle/mod/forum/view.php?id='.$this->cmid.'">';
-        $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" alt=" " role="presentation" />';
+        $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" '.$activityicon.'/>';
         $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a></div></div>';
         $theoutput .= '</div></div></li></ul></div></li></ul>';
         $theoutput .= '<ul class="ctopics topics bsnewgrid row">';
@@ -290,6 +294,10 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
     public function test_print_multiple_section_page_vertical() {
         global $CFG;
+        $activityicon = 'alt=" " role="presentation" ';
+        if ($CFG->version >= 2018051705.05) {
+            $activityicon = 'alt="" role="presentation" aria-hidden="true" ';
+        }
 
         $this->init(1, 1);
         self::call_method($this->outputus, 'print_multiple_section_page',
@@ -301,7 +309,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '<ul class="section img-text"><li class="activity forum modtype_forum " id="module-'.$this->cmid.'"><div>';
         $theoutput .= '<div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance">';
         $theoutput .= '<a class="" onclick="" href="https://www.example.com/moodle/mod/forum/view.php?id='.$this->cmid.'">';
-        $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" alt=" " role="presentation" />';
+        $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" '.$activityicon.'/>';
         $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a>';
         $theoutput .= '</div></div></div></div></li></ul>';
         $theoutput .= '</div></li></ul><div class="row"><ul class="ctopics topics bsnewgrid col-sm-12 col-md-12 col-lg-12">';
@@ -320,6 +328,10 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
     public function test_print_multiple_section_page_no_sections_horizontal() {
         global $CFG;
+        $activityicon = 'alt=" " role="presentation" ';
+        if ($CFG->version >= 2018051705.05) {
+            $activityicon = 'alt="" role="presentation" aria-hidden="true" ';
+        }
 
         $this->init(0);
         self::call_method($this->outputus, 'print_multiple_section_page',
@@ -332,7 +344,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '<li class="activity forum modtype_forum " id="module-'.$this->cmid.'"><div><div class="mod-indent-outer">';
         $theoutput .= '<div class="mod-indent"></div><div><div class="activityinstance">';
         $theoutput .= '<a class="" onclick="" href="https://www.example.com/moodle/mod/forum/view.php?id='.$this->cmid.'">';
-        $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" alt=" " role="presentation" />';
+        $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" '.$activityicon.'/>';
         $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a></div></div>';
         $theoutput .= '</div></div></li></ul></div></li>';
         $theoutput .= '</ul>';
@@ -341,6 +353,10 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
     public function test_print_multiple_section_page_no_sections_vertical() {
         global $CFG;
+        $activityicon = 'alt=" " role="presentation" ';
+        if ($CFG->version >= 2018051705.05) {
+            $activityicon = 'alt="" role="presentation" aria-hidden="true" ';
+        }
 
         $this->init(0, 1);
         self::call_method($this->outputus, 'print_multiple_section_page',
@@ -353,7 +369,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '<li class="activity forum modtype_forum " id="module-'.$this->cmid.'"><div><div class="mod-indent-outer">';
         $theoutput .= '<div class="mod-indent"></div><div><div class="activityinstance">';
         $theoutput .= '<a class="" onclick="" href="https://www.example.com/moodle/mod/forum/view.php?id='.$this->cmid.'">';
-        $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" alt=" " role="presentation" />';
+        $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" '.$activityicon.'/>';
         $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a></div></div></div></div></li></ul></div></li>';
         $theoutput .= '</ul>';
         $this->expectOutputString($theoutput);
