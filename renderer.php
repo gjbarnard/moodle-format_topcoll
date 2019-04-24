@@ -456,16 +456,16 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             if ((!($section->toggle === null)) && ($section->toggle == true)) {
                 $toggleclass = 'toggle_open';
-                $ariapressed = 'true';
+                $ariaexpanded = 'true';
                 $sectionclass = ' sectionopen';
             } else {
                 $toggleclass = 'toggle_closed';
-                $ariapressed = 'false';
+                $ariaexpanded = 'false';
                 $sectionclass = '';
             }
             $toggleclass .= ' the_toggle ' . $this->tctoggleiconsize;
             $o .= html_writer::start_tag('span',
-                array('class' => $toggleclass, 'role' => 'button', 'aria-pressed' => $ariapressed)
+                array('class' => $toggleclass, 'role' => 'button', 'aria-expanded' => $ariaexpanded, 'tabindex' => '0')
             );
 
             if (empty($this->tcsettings)) {

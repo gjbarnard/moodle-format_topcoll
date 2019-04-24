@@ -153,7 +153,7 @@ M.format_topcoll.allOpenClick = function(e) {
     e.preventDefault();
     M.format_topcoll.ourYUI.all(".toggledsection").addClass('sectionopen');
     M.format_topcoll.ourYUI.all(".toggle span.the_toggle").addClass('toggle_open').removeClass('toggle_closed')
-        .setAttribute('aria-pressed', 'true');
+        .setAttribute('aria-expanded', 'true');
     M.format_topcoll.resetState(M.format_topcoll.get_max_digit());
     M.format_topcoll.save_toggles();
 };
@@ -162,7 +162,7 @@ M.format_topcoll.allCloseClick = function(e) {
     e.preventDefault();
     M.format_topcoll.ourYUI.all(".toggledsection").removeClass('sectionopen');
     M.format_topcoll.ourYUI.all(".toggle span.the_toggle").addClass('toggle_closed').removeClass('toggle_open')
-        .setAttribute('aria-pressed', 'false');
+        .setAttribute('aria-expanded', 'false');
     M.format_topcoll.resetState(M.format_topcoll.get_min_digit());
     M.format_topcoll.save_toggles();
 };
@@ -183,7 +183,7 @@ M.format_topcoll.toggle_topic = function(targetNode, toggleNum) {
     if (this.oneTopic === true) {
         if ((this.currentTopicNum !== false) && (this.currentTopicNum != toggleNum)) {
             var currentTarget = this.currentTopic.one('span.the_toggle');
-            currentTarget.addClass('toggle_closed').removeClass('toggle_open').setAttribute('aria-pressed', 'false');
+            currentTarget.addClass('toggle_closed').removeClass('toggle_open').setAttribute('aria-expanded', 'false');
             this.currentTopic.next('.toggledsection').removeClass('sectionopen');
             this.set_toggle_state(this.currentTopicNum, false);
             this.currentTopic = null;
@@ -194,7 +194,7 @@ M.format_topcoll.toggle_topic = function(targetNode, toggleNum) {
     var target = targetNode.one('span.the_toggle');
     var state;
     if (!target.hasClass('toggle_open')) {
-        target.addClass('toggle_open').removeClass('toggle_closed').setAttribute('aria-pressed', 'true');
+        target.addClass('toggle_open').removeClass('toggle_closed').setAttribute('aria-expanded', 'true');
         targetNode.next('.toggledsection').addClass('sectionopen');
         state = true;
         if (this.oneTopic === true) {
@@ -202,7 +202,7 @@ M.format_topcoll.toggle_topic = function(targetNode, toggleNum) {
             this.currentTopicNum = toggleNum;
         }
     } else {
-        target.addClass('toggle_closed').removeClass('toggle_open').setAttribute('aria-pressed', 'false');
+        target.addClass('toggle_closed').removeClass('toggle_open').setAttribute('aria-expanded', 'false');
         targetNode.next('.toggledsection').removeClass('sectionopen');
         state = false;
         if (this.oneTopic === true) {
