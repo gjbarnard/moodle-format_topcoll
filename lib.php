@@ -374,7 +374,7 @@ class format_topcoll extends format_base {
 
             $courseid = $this->get_courseid();
             if ($courseid == 1) { // New course.
-                 $defaultnumsections = $courseconfig->numsections;
+                $defaultnumsections = $courseconfig->numsections;
             } else { // Existing course that may not have 'numsections' - see get_last_section().
                 global $DB;
                 $defaultnumsections = $DB->get_field_sql('SELECT max(section) from {course_sections}

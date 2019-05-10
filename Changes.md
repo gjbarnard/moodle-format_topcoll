@@ -5,6 +5,7 @@ Version 3.5.0.4
   2. Fix: PHP Unit test failure (due to MDL-62680) - thanks to Anupama Dharmajan for the patch - #52.
   3. Fix: Two strange input fields remain in teacher view when all capabilities are forbidden - thanks to Tobias Reischmann for the patch - #54.
   4. Fix: Selecting specific topics breaks a section just above the selected topic - CONTRIB-7607.
+  5. New: Accordion/Collapsed Topic aria attributes improvements - thanks to John Y for the patch - #62 and #64.
 
 Version 3.5.0.3
   1. Fix CONTRIB-7434:
