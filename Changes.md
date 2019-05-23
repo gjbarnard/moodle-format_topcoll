@@ -7,6 +7,8 @@ Version 3.5.1.0
   4. Fix: Selecting specific topics breaks a section just above the selected topic - CONTRIB-7607.
   5. New: Accordion/Collapsed Topic aria attributes improvements - thanks to John Y for the patch - #62 and #64.
   6. Fix position of activity / resource editing menu.
+  7. Change position of the window when clicking on a section anchor such that a navbar would not be in the way.
+     Thanks for the information in the Adaptable theme referencing: https://github.com/twbs/bootstrap/issues/1768.
 
 Version 3.5.0.3
   1. Fix CONTRIB-7434:

@@ -111,11 +111,15 @@ M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections,
     }
 
     // For some reason Y.delegate does not work on iPhones / iPad's on M3.1 with 'spans' instead of 'a' tags.
+    var toggleHeight = false;
     for (var togi = 1; togi <= this.numSections; togi++) {
         // Cope with hidden / not shown toggles.
         var toggle = Y.one("ul.ctopics #toggle-" + togi);
         if (toggle) {
             toggle.on('click', this.toggleClick, this);
+            if (toggleHeight === false) {
+                toggleHeight = toggle.get('offsetHeight');
+            }
         }
     }
 
@@ -134,6 +138,20 @@ M.format_topcoll.init = function(Y, theCourseId, theToggleState, theNumSections,
             this.currentTopic = Y.one("ul.ctopics #toggle-" + theOneTopicToggle);
             this.currentTopicNum = theOneTopicToggle;
         }
+    }
+
+    if (toggleHeight !== false) {
+        /* Ref: https://github.com/twbs/bootstrap/issues/1768 from Adaptable theme bsoptions.js,
+           but improved such that only the toggles are affected. */
+        var topcollShiftWindow = function() {
+            if (location.hash.startsWith('#section-')) {
+                scrollBy(0, -toggleHeight);
+            }
+        };
+        if (location.hash) {
+            topcollShiftWindow();
+        }
+        window.addEventListener("hashchange", topcollShiftWindow);
     }
 };
 
