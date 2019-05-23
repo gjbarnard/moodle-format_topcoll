@@ -6,6 +6,8 @@ Version 3.6.0.3
   3. Added SVG version of one section icon - thanks to Luca Bösch for the patch - #60.
   4. New: Accordion/Collapsed Topic aria attributes improvements - thanks to John Y for the patch - #62 and #63.
   5. Fix position of activity / resource editing menu.
+  6. Change position of the window when clicking on a section anchor such that a navbar would not be in the way.
+     Thanks for the information in the Adaptable theme referencing: https://github.com/twbs/bootstrap/issues/1768.
 
 Version 3.6.0.2
   1. Fix invalid HTML in case of zero section elements - thanks to Mario Wehr for raising this - #47.
