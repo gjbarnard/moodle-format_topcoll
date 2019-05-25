@@ -10,21 +10,21 @@ matrix:
  allow_failures:
  fast_finish: true
  include:
- - php: 7.0
+ - php: 7.1
    env: DB=mysqli
- - php: 7.0
+ - php: 7.1
    env: DB=pgsql
    addons:
       postgresql: 9.4
- - php: 7.1
+ - php: 7.2
    env: DB=mysqli
- - php: 7.1
+ - php: 7.2
    env: DB=pgsql
    addons:
       postgresql: 9.4
 env:
  global:
-  - MOODLE_BRANCH=MOODLE_36_STABLE
+  - MOODLE_BRANCH=MOODLE_37_STABLE
   - IGNORE_NAMES=tc_colourpopup.php,tc_colourpopup.js
 
 before_install:

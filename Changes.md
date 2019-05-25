@@ -1,5 +1,8 @@
 ﻿Version Information
 ===================
+Version 3.7.0.1
+  1. Beta version for Moodle 3.7 based on 3.6.0.3.
+
 Version 3.6.0.3
   1. Apply MDL-64819 - #61.
   2. Fix phpunit tests for MDL-64492 - thanks to Rossco Hellmans for the patch - #59.
