@@ -36,7 +36,7 @@ class format_topcoll_courseformattoolbox_testcase extends advanced_testcase {
     protected function setUp() {
         $this->resetAfterTest(true);
 
-        set_config('theme', 'clean');
+        set_config('theme', 'boost');
     }
 
     public function test_hex2rgba() {

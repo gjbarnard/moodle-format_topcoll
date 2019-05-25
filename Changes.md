@@ -11,6 +11,10 @@ Version 3.5.1.0
      Thanks for the information in the Adaptable theme referencing: https://github.com/twbs/bootstrap/issues/1768.
   8. New: Improve accessibility of the open and close all buttons - thanks to Rossco Hellmans for the patch - #56.
   9. New: Based on '8', add key operation of toggles.
+ 10. Added the course and admin settings to enable or disable the toggle all functionality.  Reset in the 'layout'
+     area with associated capability for non-admins.
+ 11. Added the course and admin settings to enable or disable the view single section functionality.  Reset in the
+     'layout' area with associated capability for non-admins.
 
 Version 3.5.0.3
   1. Fix CONTRIB-7434:

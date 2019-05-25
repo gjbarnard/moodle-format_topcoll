@@ -83,7 +83,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         return $property;
     }
 
-    protected function init($numsections = 1, $layoutcolumnorientation = 2) {
+    protected function init($numsections = 1, $layoutcolumnorientation = 2, $toggleallenabled = 2, $viewsinglesectionenabled = 2) {
         $this->resetAfterTest(true);
 
         set_config('theme', 'boost');
@@ -114,6 +114,8 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         self::set_property($this->outputus, 'output', $ouroutput);
         $tcsettings = $this->courseformat->get_settings();
         $tcsettings['layoutcolumnorientation'] = $layoutcolumnorientation;
+        $tcsettings['toggleallenabled'] = $toggleallenabled;
+        $tcsettings['viewsinglesectionenabled'] = $viewsinglesectionenabled;
         self::set_property($this->outputus, 'tcsettings', $tcsettings);
     }
 

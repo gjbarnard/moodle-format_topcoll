@@ -39,7 +39,7 @@ class format_topcoll_courseformatlib_testcase extends advanced_testcase {
     protected function setUp() {
         $this->resetAfterTest(true);
 
-        set_config('theme', 'clean');
+        set_config('theme', 'boost');
         // Ref: https://docs.moodle.org/dev/Writing_PHPUnit_tests.
         $this->course = $this->getDataGenerator()->create_course(array(
             'format' => 'topcoll',
