@@ -44,6 +44,10 @@ $string['topcollsidewidthlang'] = 'en-28px';
 $string['topcollall'] = 'sections.';  // Leave as AMOS maintains only the latest translation - so previous versions are still supported.
 $string['topcollopened'] = 'Open all';
 $string['topcollclosed'] = 'Close all';
+$string['settoggleallenabled'] = 'Toggle all enabled';
+$string['settoggleallenabled_help'] = 'Toggle all functionality enabled.';
+$string['defaulttoggleallenabled'] = 'Toggle all enabled';
+$string['defaulttoggleallenabled_desc'] = 'States if the toggle all functionality should be enabled.';
 
 // Moodle 2.0 Enhancement - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages.
 $string['sectionname'] = 'Section';
@@ -63,7 +67,13 @@ $string['deletesection'] = 'Delete section';
 // These are 'sections' as they are only shown in 'section' based structures.
 $string['markedthissection'] = 'This section is highlighted as the current section';
 $string['markthissection'] = 'Highlight this section as the current section';
+
+// View single section.
 $string['viewonly'] = 'View only \'{$a->sectionname}\'';
+$string['setviewsinglesectionenabled'] = 'View single section enabled';
+$string['setviewsinglesectionenabled_help'] = 'View single section functionality enabled.';
+$string['defaultviewsinglesectionenabled'] = 'View single section enabled';
+$string['defaultviewsinglesectionenabled_desc'] = 'States if the view single section functionality should be enabled.';
 
 // MDL-51802.
 $string['editsectionname'] = 'Edit section name';
@@ -133,8 +143,8 @@ $string['maincoursepage'] = 'Main course page';
 $string['setlayoutelements_help'] = 'How much information about the toggles / sections you wish to be displayed.';
 $string['setlayoutstructure_help'] = "The layout structure of the course.  You can choose between:<br />'Topics' - where each section is presented as a topic in section number order.<br />'Weeks' - where each section is presented as a week in ascending week order from the start date of the course.<br />'Current week first' - which is the same as weeks but the current week is shown at the top and preceding weeks in descending order are displayed below except in editing mode where the structure is the same as 'Weeks'.<br />'Current topic first' - which is the same as 'Topics' except that the current topic is shown at the top if it has been set.<br />'Day' - where each section is presented as a day in ascending day order from the start date of the course.";
 $string['setlayout_help'] = 'Contains the settings to do with the layout of the format within the course.';
-$string['resetlayout_help'] = 'Resets the layout element, structure, columns, icon position, one section and shown section summary to the default values so it will be the same as a course the first time it is in the \'Collapsed Topics\' format.';
-$string['resetalllayout_help'] = 'Resets the layout element, structure, columns, icon position, one section and shown section summary to the default values for all courses so it will be the same as a course the first time it is in the \'Collapsed Topics \'format.';
+$string['resetlayout_help'] = 'Resets the layout element, structure, columns, toggle all, view single section, icon position, one section and shown section summary to the default values so it will be the same as a course the first time it is in the \'Collapsed Topics\' format.';
+$string['resetalllayout_help'] = 'Resets the layout element, structure, columns, toggle all, view single section, icon position, one section and shown section summary to the default values for all courses so it will be the same as a course the first time it is in the \'Collapsed Topics \'format.';
 // Moodle Tracker CONTRIB-3529.
 $string['setcolour_help'] = 'Contains the settings to do with the colour of the format within the course.';
 $string['settoggleforegroundcolour_help'] = 'Sets the colour of the text on the toggle.';

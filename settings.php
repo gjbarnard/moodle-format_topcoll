@@ -123,6 +123,28 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
+    /* Toggle all enabled - 1 = no, 2 = yes. */
+    $name = 'format_topcoll/defaulttoggleallenabled';
+    $title = get_string('defaulttoggleallenabled', 'format_topcoll');
+    $description = get_string('defaulttoggleallenabled_desc', 'format_topcoll');
+    $default = 2;
+    $choices = array(
+        1 => new lang_string('no'), // No.
+        2 => new lang_string('yes') // Yes.
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
+    /* View single section enabled - 1 = no, 2 = yes. */
+    $name = 'format_topcoll/defaultviewsinglesectionenabled';
+    $title = get_string('defaultviewsinglesectionenabled', 'format_topcoll');
+    $description = get_string('defaultviewsinglesectionenabled_desc', 'format_topcoll');
+    $default = 2;
+    $choices = array(
+        1 => new lang_string('no'), // No.
+        2 => new lang_string('yes') // Yes.
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
     // Toggle text alignment.
     // 1 = left, 2 = center and 3 = right - done this way to avoid typos.
     $name = 'format_topcoll/defaulttogglealignment';
@@ -192,7 +214,7 @@ if ($ADMIN->fulltree) {
     $default = 1;
     $choices = array(
         1 => new lang_string('no'), // No.
-        2 => new lang_string('yes')   // Yes.
+        2 => new lang_string('yes') // Yes.
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 

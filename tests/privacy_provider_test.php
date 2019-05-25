@@ -75,7 +75,7 @@ class format_topcoll_privacy_testcase extends \core_privacy\tests\provider_testc
     protected function set_up() {
         $this->resetAfterTest(true);
 
-        set_config('theme', 'clean');
+        set_config('theme', 'boost');
         global $PAGE;
         $this->outputus = $PAGE->get_renderer('format_topcoll');
         // Ref: https://docs.moodle.org/dev/Writing_PHPUnit_tests.
