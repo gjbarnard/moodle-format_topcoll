@@ -17,8 +17,7 @@
 /**
  * Unit tests for the implementation of the privacy API.
  *
- * @package    course/format
- * @subpackage topcoll
+ * @package    format_topcoll
  * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2018-onwards G J Barnard based upon code originally written by Andrew Nicols.
  * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
