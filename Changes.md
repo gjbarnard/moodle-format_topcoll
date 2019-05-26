@@ -1,6 +1,7 @@
 ﻿Version Information
 ===================
 Version 3.6.1.0
+  1. Add missing Moodle define.
 
 Version 3.6.0.3
   1. Apply MDL-64819 - #61.
