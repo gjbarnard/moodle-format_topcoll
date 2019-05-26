@@ -17,9 +17,7 @@
 /**
  * Privacy Subsystem implementation for format_topcoll.
  *
- * @package    course/format
- * @subpackage topcoll
- * @category   event
+ * @package    format_topcoll
  * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2018-onwards G J Barnard based upon work done by Andrew Nicols <andrew@nicols.co.uk>.
  * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
