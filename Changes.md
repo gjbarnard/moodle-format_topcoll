@@ -1,6 +1,7 @@
 ﻿Version Information
 ===================
 Version 3.7.0.2
+  1. Add missing Moodle define.
 
 Version 3.7.0.1
   1. Beta version for Moodle 3.7 based on 3.6.0.3.
