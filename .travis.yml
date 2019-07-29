@@ -12,12 +12,16 @@ matrix:
  include:
  - php: 7.1
    env: DB=mysqli
+   services:
+   - mysql
  - php: 7.1
    env: DB=pgsql
    addons:
       postgresql: 9.4
  - php: 7.2
    env: DB=mysqli
+   services:
+   - mysql
  - php: 7.2
    env: DB=pgsql
    addons:
