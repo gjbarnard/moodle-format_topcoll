@@ -574,17 +574,6 @@ body.format-topcoll .course-content ul.ctopics li.section .summary.summaryalways
     padding-top: 10px;
 }
 
-body.format-topcoll.editing ul.ctopics .section .activity .contentwithoutlink,
-body.format-topcoll.editing ul.ctopics .section .activity .activityinstance {
-    display: inline;
-    padding-right: 0;
-}
-
-body.format-topcoll.editing.dir-rtl ul.ctopics .section .activity .contentwithoutlink,
-body.format-topcoll.editing.dir-rtl ul.ctopics .section .activity .activityinstance {
-    padding-left: 0;
-}
-
 body.format-topcoll.editing #region-main ul.ctopics .moodle-actionmenu ul.menubar {
     display: none;
 }

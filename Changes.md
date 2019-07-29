@@ -2,6 +2,7 @@
 ===================
 Version 3.7.0.2
   1. Add missing Moodle define.
+  2. Fix "Collapsed Topic Content/EditMenu Overlap" - https://moodle.org/mod/forum/discuss.php?d=388969.
 
 Version 3.7.0.1
   1. Beta version for Moodle 3.7 based on 3.6.0.3.
