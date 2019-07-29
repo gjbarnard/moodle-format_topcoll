@@ -16,6 +16,7 @@ Version 3.5.1.0
  11. Added the course and admin settings to enable or disable the view single section functionality.  Reset in the
      'layout' area with associated capability for non-admins.
  12. Add missing Moodle define.
+ 13. Fix "Collapsed Topic Content/EditMenu Overlap" - https://moodle.org/mod/forum/discuss.php?d=388969.
 
 Version 3.5.0.3
   1. Fix CONTRIB-7434:
