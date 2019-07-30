@@ -3,6 +3,7 @@
 Version 3.6.1.0
   1. Add missing Moodle define.
   2. Fix "Collapsed Topic Content/EditMenu Overlap" - https://moodle.org/mod/forum/discuss.php?d=388969.
+  3. Fix error with analytic - get_section_dates function - thanks to https://github.com/tuanngocnguyen for the patch - #65.
 
 Version 3.6.0.3
   1. Apply MDL-64819 - #61.
