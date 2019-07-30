@@ -1,5 +1,7 @@
 ﻿Version Information
 ===================
+Version 3.6.1.0
+
 Version 3.6.0.3
   1. Apply MDL-64819 - #61.
   2. Fix phpunit tests for MDL-64492 - thanks to Rossco Hellmans for the patch - #59.
