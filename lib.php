@@ -176,19 +176,16 @@ class format_topcoll extends format_base {
     }
 
     public function get_section_dates($section, $course = null, $tcsettings = null) {
-        $dateformat = get_string('strftimedateshort');
-        $o = '';
-
         if (empty($tcsettings) && empty($course)) {
-            $course = $this->get_course();
-            $dates = $this->format_topcoll_get_section_dates($section, $course);
-            return $dates;
+            return $this->format_topcoll_get_section_dates($section, $this->get_course());
         }
 
         if (empty($tcsettings)) {
             $tcsettings = $this->get_settings();
         }
 
+        $dateformat = get_string('strftimedateshort');
+        $o = '';
         if ($tcsettings['layoutstructure'] == 5) {
             $day = $this->format_topcoll_get_section_day($section, $course);
 
