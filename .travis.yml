@@ -12,16 +12,20 @@ matrix:
  include:
  - php: 7.0
    env: DB=mysqli
+   services:
+   - mysql
  - php: 7.0
    env: DB=pgsql
    addons:
-      postgresql: 9.3
+      postgresql: 9.4
  - php: 7.1
    env: DB=mysqli
+   services:
+   - mysql
  - php: 7.1
    env: DB=pgsql
    addons:
-      postgresql: 9.3
+      postgresql: 9.4
 env:
  global:
   - MOODLE_BRANCH=MOODLE_35_STABLE
