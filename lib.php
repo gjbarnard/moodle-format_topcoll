@@ -205,6 +205,32 @@ class format_topcoll extends format_base {
     }
 
     /**
+     * What structure collection type are we using?
+     *
+     * @return string Structure collection type.
+     */
+    public function get_structure_collection_type() {
+        $tcsettings = $this->get_settings();
+        $o = '';
+
+        switch($tcsettings['layoutstructure']) {
+            case 1:
+            case 4:
+                $o = get_string('layoutstructuretopics', 'format_topcoll');
+            break;
+            case 2:
+            case 3:
+                $o = get_string('layoutstructureweeks', 'format_topcoll');
+            break;
+            case 5:
+                $o = get_string('layoutstructuredays', 'format_topcoll');
+            break;
+        }
+
+        return $o;
+    }
+
+    /**
      * The URL to use for the specified course (with section)
      *
      * @param int|stdClass $section Section object from database or just field course_sections.section

@@ -413,8 +413,9 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $thevalue .= '</div>';
         $thevalue .= '<div class="content">';
         $thevalue .= '<div class="sectionbody toggle-arrow-hover toggle-arrow"><h4><span class="on tc-medium" id="';
-        $thevalue .= 'toggles-all-opened" role="button" tabindex="0">Open all</span><span class="off tc-medium" id="toggles-all-closed" ';
-        $thevalue .= 'role="button" tabindex="0">Close all</span></h4></div></div>';
+        $thevalue .= 'toggles-all-opened" role="button" tabindex="0" title="Open all topics">Open all</span>';
+        $thevalue .= '<span class="off tc-medium" id="toggles-all-closed" role="button" tabindex="0" ';
+        $thevalue .= 'title="Close all topics">Close all</span></h4></div></div>';
         $thevalue .= '<div class="right side"><img class="icon spacer" width="1" height="1" alt="" '.$ariahidden.'src="';
         $thevalue .= $CFG->wwwroot.'/theme/image.php/_s/boost/core/1/spacer" /></div>';
         $thevalue .= '</li>';
