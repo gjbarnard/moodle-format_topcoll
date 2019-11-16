@@ -43,6 +43,9 @@ $string['topcollsidewidthlang'] = 'en-28px';
 $string['topcollall'] = 'sections.';  // Leave as AMOS maintains only the latest translation - so previous versions are still supported.
 $string['topcollopened'] = 'Open all';
 $string['topcollclosed'] = 'Close all';
+$string['sctopenall'] = 'Open all {$a}';
+$string['sctcloseall'] = 'Close all {$a}';
+
 $string['settoggleallenabled'] = 'Toggle all enabled';
 $string['settoggleallenabled_help'] = 'Toggle all functionality enabled.';
 $string['defaulttoggleallenabled'] = 'Toggle all enabled';
@@ -114,6 +117,10 @@ $string['setlayoutstructurecurrenttopicfirst'] = 'Current topic first';
 $string['setlayoutstructureday'] = 'Day';
 $string['resetlayout'] = 'Layout'; // CONTRIB-3529.
 $string['resetalllayout'] = 'Layouts';
+$string['layoutstructuretopics'] = 'topics';
+$string['layoutstructureweeks'] = 'weeks';
+$string['layoutstructuredays'] = 'days';
+
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529.
 $string['setcolour'] = 'Colour';
