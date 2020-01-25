@@ -2,6 +2,7 @@
 ===================
 Version 3.7.1.2 - TBD
   1. Fix 'Multiple columns changes to one column for students when last section is set to hidden' - CONTRIB-8008.
+  2. Fix 'Section edit link is moved on top of previous sections edit link when deleting a section' - CONTRIB-7957.
 
 Version 3.7.1.1 - 17/11/2019
   1. Fix Collapsed topics format zoom issue - CONTRIB-7893.
