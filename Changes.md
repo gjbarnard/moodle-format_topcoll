@@ -4,6 +4,7 @@ Version 3.6.1.1 - TBD
   1. Fix Collapsed topics format zoom issue - CONTRIB-7893.
   2. Adjust position of 'view only' icon.
   3. More accessible open all / close all - #67.
+  4. Fix 'Multiple columns changes to one column for students when last section is set to hidden' - CONTRIB-8008.
 
 Version 3.6.1.0
   1. Add missing Moodle define.

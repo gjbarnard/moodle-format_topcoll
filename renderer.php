@@ -1020,6 +1020,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if ((!$this->userisediting) && ($this->tcsettings['onesection'] == 2) && (!empty($this->currentsection))) {
                 $shownonetoggle = $this->currentsection; // One toggle open only, so as we have a current section it will be it.
             }
+
+            $numshownsections = count($sectiondisplayarray);
             foreach ($sectiondisplayarray as $thissection) {
                 $shownsectioncount++;
 
@@ -1057,11 +1059,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     // Only break in non-mobile themes or using a responsive theme.
                     if ((!$this->formatresponsive) || ($this->mobiletheme === false)) {
                         if ($this->tcsettings['layoutcolumnorientation'] == 1) {  // Vertical mode.
-                            // This is not perfect yet as does not tally the shown sections and divide by columns.
-                            if (($breaking == false) && ($showsection == true)) {
+                            if ($breaking == false) {
                                 $breaking = true;
                                 // Divide the number of sections by the number of columns.
-                                $breakpoint = $numsections / $this->tcsettings['layoutcolumns'];
+                                $breakpoint = $numshownsections / $this->tcsettings['layoutcolumns'];
                             }
 
                             if (($breaking == true) && ($shownsectioncount >= $breakpoint) &&
@@ -1070,10 +1071,10 @@ class format_topcoll_renderer extends format_section_renderer_base {
                                 echo $this->start_toggle_section_list();
                                 $columncount++;
                                 // Next breakpoint is...
-                                $breakpoint += $numsections / $this->tcsettings['layoutcolumns'];
+                                $breakpoint += $numshownsections / $this->tcsettings['layoutcolumns'];
                             }
                         } else {  // Horizontal mode.
-                            if (($breaking == false) && ($showsection == true)) {
+                            if ($breaking == false) {
                                 $breaking = true;
                                 // The lowest value here for layoutcolumns is 2 and the maximum for shownsectioncount is 2, so :).
                                 $breakpoint = $this->tcsettings['layoutcolumns'];
