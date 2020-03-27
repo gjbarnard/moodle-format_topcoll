@@ -1,5 +1,7 @@
 ﻿Version Information
 ===================
+Version 3.7.1.2 - TBD
+
 Version 3.7.1.1 - 17/11/2019
   1. Fix Collapsed topics format zoom issue - CONTRIB-7893.
   2. Adjust position of 'view only' icon.
