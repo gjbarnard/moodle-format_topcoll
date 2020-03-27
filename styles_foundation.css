@@ -41,6 +41,7 @@ ul.ctopics :target::before {
 
 .course-content ul.ctopics .current::before {
     height: auto;
+    left: 0;
     margin-top: 0;
 }
 
