@@ -13,7 +13,7 @@ then please do spread the word to other educators.  The main page for the format
 
 Required version of Moodle
 ==========================
-This version works with Moodle 3.8rc1 version 2019111500.00 (Build: 20191115) and above within the 3.8 branch until the
+This version works with Moodle 3.8 version 2019111800.00 (Build: 20191118) and above within the 3.8 branch until the
 next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
