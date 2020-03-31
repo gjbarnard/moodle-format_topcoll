@@ -1,5 +1,7 @@
 ﻿Version Information
 ===================
+Version 3.6.1.1 - TBD
+
 Version 3.6.1.0
   1. Add missing Moodle define.
   2. Fix "Collapsed Topic Content/EditMenu Overlap" - https://moodle.org/mod/forum/discuss.php?d=388969.
