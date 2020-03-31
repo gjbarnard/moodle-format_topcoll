@@ -1,6 +1,6 @@
 ﻿Version Information
 ===================
-Version 3.7.1.2 - TBD
+Version 3.7.1.2 - 31/03/2020
   1. Fix 'Multiple columns changes to one column for students when last section is set to hidden' - CONTRIB-8008.
   2. Fix 'Section edit link is moved on top of previous sections edit link when deleting a section' - CONTRIB-7957.
   3. Fix current section bar overlap.
