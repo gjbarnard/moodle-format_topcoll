@@ -1,6 +1,6 @@
 ﻿Version Information
 ===================
-Version 3.6.1.1 - TBD
+Version 3.6.1.1 - 31/03/2020
   1. Fix Collapsed topics format zoom issue - CONTRIB-7893.
   2. Adjust position of 'view only' icon.
   3. More accessible open all / close all - #67.
