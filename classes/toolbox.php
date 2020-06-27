@@ -86,4 +86,47 @@ class toolbox {
         $rgba[] = $alpha;
         return 'rgba('.implode(", ", $rgba).')'; // Returns the rgba values separated by commas.
     }
+
+    /**
+     * Get total participant count for specific courseid. Originally from
+     * the snap theme by Moodlerooms.
+     *
+     * @param int $courseid
+     * @param string $modname the name of the module, used to build a capability check
+     * @return int
+     */
+    public static function course_participant_count($courseid, $modname = null) {
+        static $participantcount = array();
+
+        // Incorporate the modname in the static cache index.
+        $idx = $courseid . $modname;
+
+        if (!isset($participantcount[$idx])) {
+            // Use the modname to determine the best capability.
+            switch ($modname) {
+                case 'assign':
+                    $capability = 'mod/assign:submit';
+                    break;
+                case 'quiz':
+                    $capability = 'mod/quiz:attempt';
+                    break;
+                case 'choice':
+                    $capability = 'mod/choice:choose';
+                    break;
+                case 'feedback':
+                    $capability = 'mod/feedback:complete';
+                    break;
+                default:
+                    // If no modname is specified, assume a count of all users is required.
+                    $capability = '';
+            }
+
+            $context = \context_course::instance($courseid);
+            $onlyactive = true;
+            $enrolled = count_enrolled_users($context, $capability, null, $onlyactive);
+            $participantcount[$idx] = $enrolled;
+        }
+
+        return $participantcount[$idx];
+    }
 }

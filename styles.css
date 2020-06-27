@@ -774,6 +774,54 @@ body.jsenabled #toggle-all {
     width: auto;
 }
 
+/* Activity further information styling */
+.format-topcoll .ct-activity-meta-container {
+    padding: 5px 0 0 0;
+    margin: 0px 10px 0 30px;
+}
+
+.format-topcoll .ct-activity-due-date {
+    background-color: #555;
+    border-radius: 0.5em;
+    color: #fff;
+    font-size: 0.9em;
+    font-weight: 500;
+    line-height: 3em;
+    margin: 0 10px 0 0;
+    padding: 7px;
+    white-space: nowrap;
+}
+
+.format-topcoll .ct-activity-due-date a {
+    color: #fff;
+ }
+
+.format-topcoll .ct-activity-mod-feedback {
+    padding: 5px 0;
+}
+
+.format-topcoll .ct-activity-mod-feedback .icon {
+    font-size: 1.1em;
+}
+
+.format-topcoll .ct-activity-date-overdue {
+    background-color: #ee0000;
+}
+
+.format-topcoll .ct-activity-date-submitted {
+    background-color: #00cc00;
+}
+
+.format-topcoll .ct-activity-date-nearly-due {
+    background-color: #f79100;
+}
+
+.format-topcoll .ct-activity-due-date .icon,
+.format-topcoll .ct-activity-mod-engagement .icon,
+.format-topcoll .ct-activity-mod-feedback .icon {
+    font-size: 1.1em;
+}
+
 /* Print styles. */
 @media print {
     body.jsenabled .toggledsection {
