@@ -800,7 +800,7 @@ body.jsenabled #toggle-all {
     padding: 5px 0;
 }
 
-.format-topcoll .ct-activity-mod-feedback i {
+.format-topcoll .ct-activity-mod-feedback .icon {
     font-size: 1.1em;
 }
 
@@ -816,9 +816,9 @@ body.jsenabled #toggle-all {
     background-color: #f79100;
 }
 
-.format-topcoll .ct-activity-mod-feedback i,
-.format-topcoll .ct-activity-mod-engagement i,
-.format-topcoll .ct-activity-due-date i {
+.format-topcoll .ct-activity-due-date .icon,
+.format-topcoll .ct-activity-mod-engagement .icon,
+.format-topcoll .ct-activity-mod-feedback .icon {
     font-size: 1.1em;
 }
 

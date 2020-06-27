@@ -317,8 +317,6 @@ class format_topcoll_course_renderer extends \core_course_renderer {
                 $warningclass = '';
                 $labeltext = '';
 
-                // If assignment due in 7 days or less, display in amber, if overdue, then in red, or if submitted, turn to green.
-
                 // If assignment is 7 days before date due(nearly due).
                 $timedue = $meta->$field - (86400 * 7);
                 if ( (time() > $timedue) &&  !(time() > $meta->$field) ) {
@@ -329,7 +327,7 @@ class format_topcoll_course_renderer extends \core_course_renderer {
                     if ($mod->modname == 'assign') {
                         $warningclass = ' ct-activity-date-overdue';
                     }
-                    $labeltext .= html_writer::tag('i', '', array('class' => 'fa fa-exclamation')) . ' ';
+                    $labeltext .= $OUTPUT->pix_icon('i/warning', get_string('warning', 'format_topcoll'));
                 }
 
                 $labeltext .= $due;
@@ -375,7 +373,7 @@ class format_topcoll_course_renderer extends \core_course_renderer {
                 );
                 $url = new moodle_url("/mod/{$mod->modname}/view.php", $params);
 
-                $icon = html_writer::tag('i', '', array('class' => 'fa fa-info-circle'));
+                $icon = $OUTPUT->pix_icon('docs', get_string('info'));
                 $content .= html_writer::start_tag('div', array('class' => 'ct-activity-mod-engagement'));
                 $content .= html_writer::link($url, $icon . $engagementstr);
                 $content .= html_writer::end_tag('div');
@@ -389,7 +387,8 @@ class format_topcoll_course_renderer extends \core_course_renderer {
                     $url = new \moodle_url('/mod/'.$mod->modname.'/view.php?id='.$mod->id);
                 }
                 $content .= html_writer::start_tag('span', array('class' => 'ct-activity-mod-feedback'));
-                $feedbackavailable = html_writer::tag('i', '', array('class' => 'fa fa-commenting-o')) .
+
+                $feedbackavailable = $OUTPUT->pix_icon('t/message', get_string('feedback')) .
                     get_string('feedbackavailable', 'format_topcoll');
                 $content .= html_writer::link($url, $feedbackavailable);
                 $content .= html_writer::end_tag('span');
@@ -415,7 +414,7 @@ class format_topcoll_course_renderer extends \core_course_renderer {
      * @throws coding_exception
      */
     public function submission_cta(cm_info $mod, \format_topcoll\activity_meta $meta) {
-        global $CFG;
+        global $CFG, $OUTPUT;
 
         if (empty($meta->submissionnotrequired)) {
 
@@ -427,12 +426,13 @@ class format_topcoll_course_renderer extends \core_course_renderer {
                 } else {
                     $submittedonstr = ' '.userdate($meta->timesubmitted, get_string('strftimedate', 'langconfig'));
                 }
-                $message = html_writer::tag('i', '&nbsp;', array('class' => 'fa fa-check')) . $meta->submittedstr.$submittedonstr;
+                $message = $OUTPUT->pix_icon('i/checked', get_string('checked', 'format_topcoll')).$meta->submittedstr.$submittedonstr;
             } else {
                 $warningstr = $meta->draft ? $meta->draftstr : $meta->notsubmittedstr;
                 $warningstr = $meta->reopened ? $meta->reopenedstr : $warningstr;
                 $message = $warningstr;
-                $message = html_writer::tag('i', '&nbsp;', array('class' => 'fa fa-info-circle')) . $message;
+
+                $message = $OUTPUT->pix_icon('i/warning', get_string('warning', 'format_topcoll')).$message;
             }
 
             return html_writer::link($url, $message);

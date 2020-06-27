@@ -384,16 +384,19 @@ $string['feedbackavailable'] = 'Feedback available';
 $string['notanswered'] = 'Not answered';
 $string['notattempted'] = 'Not attempted';
 $string['notcontributed'] = 'Not contributed';
-$string['notsubmitted'] = 'Not Submitted';
+$string['notsubmitted'] = 'Not submitted';
 $string['overdue'] = 'Overdue';
 $string['reopened'] = 'Reopened';
 $string['submitted'] = 'Submitted';
 
-$string['xofyanswered'] = '{$a->completed} of {$a->participants} Answered';
-$string['xofyattempted'] = '{$a->completed} of {$a->participants} Attempted';
-$string['xofycontributed'] = '{$a->completed} of {$a->participants} Contributed';
-$string['xofysubmitted'] = '{$a->completed} of {$a->participants} Submitted';
-$string['xungraded'] = '{$a} Ungraded';
+$string['xofyanswered'] = '{$a->completed} of {$a->participants} answered';
+$string['xofyattempted'] = '{$a->completed} of {$a->participants} attempted';
+$string['xofycontributed'] = '{$a->completed} of {$a->participants} contributed';
+$string['xofysubmitted'] = '{$a->completed} of {$a->participants} submitted';
+$string['xungraded'] = '{$a} ungraded';
+
+$string['checked'] = 'Checked';
+$string['warning'] = 'Warning';
 
 // Privacy.
 $string['privacy:metadata:preference:toggle'] = 'The state of the toggles on a course.';
