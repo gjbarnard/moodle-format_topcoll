@@ -374,6 +374,27 @@ $string['resetalldisplayinstructions'] = 'Display instructions';
 $string['resetdisplayinstructions_help'] = 'Resets the display instructions to the default value so it will be the same as a course the first time it is in the Collapsed Topics format.';
 $string['resetalldisplayinstructions_help'] = 'Resets the display instructions to the default value for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
 
+// Activity display *********************************.
+$string['answered'] = 'Answered';
+$string['attempted'] = 'Attempted';
+$string['contributed'] = 'Contributed';
+$string['draft'] = 'Not published to students';
+$string['due'] = 'Due {$a}';
+$string['feedbackavailable'] = 'Feedback available';
+$string['notanswered'] = 'Not answered';
+$string['notattempted'] = 'Not attempted';
+$string['notcontributed'] = 'Not contributed';
+$string['notsubmitted'] = 'Not Submitted';
+$string['overdue'] = 'Overdue';
+$string['reopened'] = 'Reopened';
+$string['submitted'] = 'Submitted';
+
+$string['xofyanswered'] = '{$a->completed} of {$a->participants} Answered';
+$string['xofyattempted'] = '{$a->completed} of {$a->participants} Attempted';
+$string['xofycontributed'] = '{$a->completed} of {$a->participants} Contributed';
+$string['xofysubmitted'] = '{$a->completed} of {$a->participants} Submitted';
+$string['xungraded'] = '{$a} Ungraded';
+
 // Privacy.
 $string['privacy:metadata:preference:toggle'] = 'The state of the toggles on a course.';
 $string['privacy:request:preference:toggle'] = 'The course id "{$a->name}" has the value "{$a->value}" which represents "{$a->decoded}" for the state of the toggles.';
