@@ -227,10 +227,12 @@ class format_topcoll_course_renderer extends \core_course_renderer {
         // Get further information.
         //$settingname = 'coursesectionactivityfurtherinformation'. $mod->modname;
         //if (isset ($PAGE->theme->settings->$settingname) && $PAGE->theme->settings->$settingname == true) {
-            $output .= html_writer::start_tag('div', array('class' => 'ct-activity-meta-container'));
-            $output .= $this->course_section_cm_get_meta($mod);
-            $output .= html_writer::end_tag('div');
-            // TO BE DELETED    $output .= '<div style="clear: both;"></div>'; ????
+            $cm_meta_output = $this->course_section_cm_get_meta($mod);
+            if (!empty($cm_meta_output)) {
+                $output .= html_writer::start_tag('div', array('class' => 'ct-activity-meta-container'));
+                $output .= $cm_meta_output;
+                $output .= html_writer::end_tag('div');
+            }
         //}
 
         // If there is content AND a link, then display the content here
