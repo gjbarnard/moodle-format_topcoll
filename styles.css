@@ -787,8 +787,8 @@ body.jsenabled #toggle-all {
     font-size: 0.9em;
     font-weight: 500;
     line-height: 3em;
-    padding: 7px;
     margin: 0 10px 0 0;
+    padding: 7px;
     white-space: nowrap;
 }
 

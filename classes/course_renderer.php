@@ -228,10 +228,10 @@ class format_topcoll_course_renderer extends \core_course_renderer {
         $settingname = 'coursesectionactivityfurtherinformation'.$mod->modname;
         $setting = get_config('format_topcoll', $settingname);
         if (!empty($setting) && ($setting == 2)) {
-            $cm_meta_output = $this->course_section_cm_get_meta($mod);
-            if (!empty($cm_meta_output)) {
+            $cmmetaoutput = $this->course_section_cm_get_meta($mod);
+            if (!empty($cmmetaoutput)) {
                 $output .= html_writer::start_tag('div', array('class' => 'ct-activity-meta-container'));
-                $output .= $cm_meta_output;
+                $output .= $cmmetaoutput;
                 $output .= html_writer::end_tag('div');
             }
         }
