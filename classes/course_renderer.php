@@ -225,15 +225,16 @@ class format_topcoll_course_renderer extends \core_course_renderer {
         $output .= $this->course_section_cm_availability($mod, $displayoptions);
 
         // Get further information.
-        //$settingname = 'coursesectionactivityfurtherinformation'. $mod->modname;
-        //if (isset ($PAGE->theme->settings->$settingname) && $PAGE->theme->settings->$settingname == true) {
+        $settingname = 'coursesectionactivityfurtherinformation'.$mod->modname;
+        $setting = get_config('format_topcoll', $settingname);
+        if (!empty($setting) && ($setting == 2)) {
             $cm_meta_output = $this->course_section_cm_get_meta($mod);
             if (!empty($cm_meta_output)) {
                 $output .= html_writer::start_tag('div', array('class' => 'ct-activity-meta-container'));
                 $output .= $cm_meta_output;
                 $output .= html_writer::end_tag('div');
             }
-        //}
+        }
 
         // If there is content AND a link, then display the content here
         // (AFTER any icons). Otherwise it was displayed before

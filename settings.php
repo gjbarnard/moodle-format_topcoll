@@ -322,9 +322,9 @@ if ($ADMIN->fulltree) {
             format_text(get_string('configurationheadingsubdesc', 'format_topcoll'), FORMAT_MARKDOWN)));
 
     /* Toggle persistence - 1 = on, 0 = off.  You may wish to disable for an AJAX performance increase.
-      Note: If turning persistence off remove any rows containing 'topcoll_toggle_x' in the 'name' field
-      of the 'user_preferences' table in the database.  Where the 'x' in 'topcoll_toggle_x' will be
-      a course id. */
+       Note: If turning persistence off remove any rows containing 'topcoll_toggle_x' in the 'name' field
+       of the 'user_preferences' table in the database.  Where the 'x' in 'topcoll_toggle_x' will be
+       a course id. */
     $name = 'format_topcoll/defaulttogglepersistence';
     $title = get_string('defaulttogglepersistence', 'format_topcoll');
     $description = get_string('defaulttogglepersistence_desc', 'format_topcoll');
@@ -439,6 +439,85 @@ if ($ADMIN->fulltree) {
     $choices = array(
         0 => new lang_string('off', 'format_topcoll'), // Off.
         1 => new lang_string('on', 'format_topcoll')   // On.
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
+    // Show the section summary when collapsed.
+    // 1 => No.
+    // 2 => Yes.
+    $name = 'format_topcoll/defaultshowsectionsummary';
+    $title = get_string('defaultshowsectionsummary', 'format_topcoll');
+    $description = get_string('defaultshowsectionsummary_desc', 'format_topcoll');
+    $default = 1;
+    $choices = array(
+        1 => new lang_string('no'),
+        2 => new lang_string('yes')
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
+    // Course Activity Further Information section heading.
+    $name = 'format_topcoll/coursesectionactivityfurtherinformation';
+    $heading = get_string('coursesectionactivityfurtherinformation', 'format_topcoll');
+    $setting = new admin_setting_heading($name, $heading, '');
+    $settings->add($setting);
+
+    $name = 'format_topcoll/coursesectionactivityfurtherinformationassign';
+    $title = get_string('coursesectionactivityfurtherinformationassign', 'format_topcoll');
+    $description = get_string('coursesectionactivityfurtherinformationassigndesc', 'format_topcoll');
+    $default = 2;
+    $choices = array(
+        1 => new lang_string('no'),
+        2 => new lang_string('yes')
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
+    $name = 'format_topcoll/coursesectionactivityfurtherinformationquiz';
+    $title = get_string('coursesectionactivityfurtherinformationquiz', 'format_topcoll');
+    $description = get_string('coursesectionactivityfurtherinformationquizdesc', 'format_topcoll');
+    $default = 2;
+    $choices = array(
+        1 => new lang_string('no'),
+        2 => new lang_string('yes')
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
+    $name = 'format_topcoll/coursesectionactivityfurtherinformationchoice';
+    $title = get_string('coursesectionactivityfurtherinformationchoice', 'format_topcoll');
+    $description = get_string('coursesectionactivityfurtherinformationchoicedesc', 'format_topcoll');
+    $default = 2;
+    $choices = array(
+        1 => new lang_string('no'),
+        2 => new lang_string('yes')
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
+    $name = 'format_topcoll/coursesectionactivityfurtherinformationfeedback';
+    $title = get_string('coursesectionactivityfurtherinformationfeedback', 'format_topcoll');
+    $description = get_string('coursesectionactivityfurtherinformationfeedbackdesc', 'format_topcoll');
+    $default = 2;
+    $choices = array(
+        1 => new lang_string('no'),
+        2 => new lang_string('yes')
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
+    $name = 'format_topcoll/coursesectionactivityfurtherinformationlesson';
+    $title = get_string('coursesectionactivityfurtherinformationlesson', 'format_topcoll');
+    $description = get_string('coursesectionactivityfurtherinformationlessondesc', 'format_topcoll');
+    $default = 2;
+    $choices = array(
+        1 => new lang_string('no'),
+        2 => new lang_string('yes')
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
+    $name = 'format_topcoll/coursesectionactivityfurtherinformationdata';
+    $title = get_string('coursesectionactivityfurtherinformationdata', 'format_topcoll');
+    $description = get_string('coursesectionactivityfurtherinformationdatadesc', 'format_topcoll');
+    $default = 2;
+    $choices = array(
+        1 => new lang_string('no'),
+        2 => new lang_string('yes')
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 }
