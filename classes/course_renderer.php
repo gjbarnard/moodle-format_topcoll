@@ -227,7 +227,7 @@ class format_topcoll_course_renderer extends \core_course_renderer {
         // Get further information.
         //$settingname = 'coursesectionactivityfurtherinformation'. $mod->modname;
         //if (isset ($PAGE->theme->settings->$settingname) && $PAGE->theme->settings->$settingname == true) {
-            $output .= html_writer::start_tag('div', array('class' => 'activity-meta-container'));
+            $output .= html_writer::start_tag('div', array('class' => 'ct-activity-meta-container'));
             $output .= $this->course_section_cm_get_meta($mod);
             $output .= html_writer::end_tag('div');
             // TO BE DELETED    $output .= '<div style="clear: both;"></div>'; ????
@@ -272,20 +272,20 @@ class format_topcoll_course_renderer extends \core_course_renderer {
 
         $warningclass = '';
         if ($meta->submitted) {
-            $warningclass = ' activity-date-submitted ';
+            $warningclass = ' ct-activity-date-submitted ';
         }
 
         $activitycontent = $this->submission_cta($mod, $meta);
 
         if (!(empty($activitycontent))) {
             if ( ($mod->modname == 'assign') && ($meta->submitted) ) {
-                $content .= html_writer::start_tag('span', array('class' => ' activity-due-date ' . $warningclass));
+                $content .= html_writer::start_tag('span', array('class' => 'ct-activity-due-date' . $warningclass));
                 $content .= $activitycontent;
                 $content .= html_writer::end_tag('span') . '<br>';
             } else {
                 // Only display if this is really a student on the course (i.e. not anyone who can grade an assignment).
                 if (!has_capability('mod/assign:grade', $mod->context)) {
-                    $content .= html_writer::start_tag('div', array('class' => 'activity-mod-engagement' . $warningclass));
+                    $content .= html_writer::start_tag('div', array('class' => 'ct-activity-mod-engagement' . $warningclass));
                     $content .= $activitycontent;
                     $content .= html_writer::end_tag('div');
                 }
@@ -323,27 +323,27 @@ class format_topcoll_course_renderer extends \core_course_renderer {
                 $timedue = $meta->$field - (86400 * 7);
                 if ( (time() > $timedue) &&  !(time() > $meta->$field) ) {
                     if ($mod->modname == 'assign') {
-                        $warningclass = ' activity-date-nearly-due';
+                        $warningclass = ' ct-activity-date-nearly-due';
                     }
                 } else if (time() > $meta->$field) { // If assignment is actually overdue.
                     if ($mod->modname == 'assign') {
-                        $warningclass = ' activity-date-overdue';
+                        $warningclass = ' ct-activity-date-overdue';
                     }
-                    $labeltext .= html_writer::tag('i', '&nbsp;', array('class' => 'fa fa-exclamation')) . ' ';
+                    $labeltext .= html_writer::tag('i', '', array('class' => 'fa fa-exclamation')) . ' ';
                 }
 
                 $labeltext .= $due;
 
                 $activityclass = '';
                 if ($mod->modname == 'assign') {
-                        $activityclass = ' activity-due-date ';
+                        $activityclass = 'ct-activity-due-date';
                 }
                 $duedate .= html_writer::start_tag('span', array('class' => $activityclass . $warningclass));
                 $duedate .= html_writer::link($url, $labeltext);
                 $duedate .= html_writer::end_tag('span');
             }
 
-            $content .= html_writer::start_tag('div', array('class' => 'activity-mod-engagement'));
+            $content .= html_writer::start_tag('div', array('class' => 'ct-activity-mod-engagement'));
             $content .= $duedate . html_writer::end_tag('div');
         }
 
@@ -376,7 +376,7 @@ class format_topcoll_course_renderer extends \core_course_renderer {
                 $url = new moodle_url("/mod/{$mod->modname}/view.php", $params);
 
                 $icon = html_writer::tag('i', '', array('class' => 'fa fa-info-circle'));
-                $content .= html_writer::start_tag('div', array('class' => 'activity-mod-engagement'));
+                $content .= html_writer::start_tag('div', array('class' => 'ct-activity-mod-engagement'));
                 $content .= html_writer::link($url, $icon . $engagementstr);
                 $content .= html_writer::end_tag('div');
             }
@@ -388,7 +388,7 @@ class format_topcoll_course_renderer extends \core_course_renderer {
                 if (in_array($mod->modname, ['quiz', 'assign'])) {
                     $url = new \moodle_url('/mod/'.$mod->modname.'/view.php?id='.$mod->id);
                 }
-                $content .= html_writer::start_tag('span', array('class' => 'activity-mod-feedback'));
+                $content .= html_writer::start_tag('span', array('class' => 'ct-activity-mod-feedback'));
                 $feedbackavailable = html_writer::tag('i', '', array('class' => 'fa fa-commenting-o')) .
                     get_string('feedbackavailable', 'format_topcoll');
                 $content .= html_writer::link($url, $feedbackavailable);
