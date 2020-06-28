@@ -24,7 +24,7 @@
  *
  * @package    format_topcoll
  * @version    See the value of '$plugin->version' in version.php.
- * @copyright  &copy; 2020-onwards G J Barnard in respect to modifications of Adaptable activity related meta data,
+ * @copyright  &copy; 2020-onwards G J Barnard in respect to modifications of Adaptable null object pattern,
  *             see below.
  * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format

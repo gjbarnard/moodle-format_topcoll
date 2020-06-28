@@ -174,11 +174,9 @@ class activity {
                             case ASSIGN_SUBMISSION_STATUS_DRAFT:
                                 $meta->draft = true;
                                 break;
-
                             case ASSIGN_SUBMISSION_STATUS_REOPENED:
                                 $meta->reopened = true;
                                 break;
-
                             case ASSIGN_SUBMISSION_STATUS_SUBMITTED:
                                 $meta->submitted = true;
                                 break;
@@ -245,9 +243,9 @@ class activity {
 
         $courseid = $modinst->course;
 
-        // Get count of enabled submission plugins grouped by assignment id.
-        // Note, under normal circumstances we only run this once but with PHP unit tests, assignments are being
-        // created one after the other and so this needs to be run each time during a PHP unit test.
+        /* Get count of enabled submission plugins grouped by assignment id.
+           Note, under normal circumstances we only run this once but with PHP unit tests, assignments are being
+           created one after the other and so this needs to be run each time during a PHP unit test. */
         if (empty($submissionsenabled) || PHPUNIT_TEST) {
             $sql = "SELECT a.id, count(1) AS submissionsenabled
                       FROM {assign} a
@@ -271,7 +269,7 @@ class activity {
         }
 
         $meta = self::std_meta($modinst, 'allowsubmissionsfromdate', 'duedate', 'assignment', 'submission',
-                'timemodified', 'submitted', true, $submitselect, $submissionnotrequired);
+            'timemodified', 'submitted', true, $submitselect, $submissionnotrequired);
 
         return ($meta);
     }
@@ -326,7 +324,7 @@ class activity {
      */
     public static function quiz_meta(\cm_info $modinst) {
         return self::std_meta($modinst, 'timeopen', 'timeclose', 'quiz',
-                'attempts', 'timemodified', 'attempted', true, 'AND st.state=\'finished\'');
+            'attempts', 'timemodified', 'attempted', true, 'AND st.state=\'finished\'');
     }
 
     /**
@@ -464,8 +462,8 @@ class activity {
         return $ungraded;
     }
 
-    // The lesson_ungraded function has been removed as it was very tricky to implement.
-    // This was because it creates a grade record as soon as a student finishes the lesson.
+    /* The lesson_ungraded function has been removed as it was very tricky to implement.
+       This was because it creates a grade record as soon as a student finishes the lesson. */
 
     /**
      * Get number of ungraded submissions for specific assignment
@@ -504,8 +502,8 @@ class activity {
                 'gradetypetext' => GRADE_TYPE_TEXT,
         );
 
-        // Fix #932.  When a grade AND outcome exists for an assignment, duplicate value error
-        // comes from the Data API in Moodle due to multiple iteminstances.  Added check for outcomeid is null.
+        /* Fix #932.  When a grade AND outcome exists for an assignment, duplicate value error
+           comes from the Data API in Moodle due to multiple iteminstances.  Added check for outcomeid is null. */
         $sql = 'SELECT iteminstance
                 FROM {grade_items}
                 WHERE courseid = ?
@@ -643,8 +641,8 @@ class activity {
         static $modtotalsbyid = array();
 
         if (!isset($modtotalsbyid['assign'][$courseid])) {
-            // Results are not cached, so lets get them.
 
+            // Results are not cached, so lets get them.
             list($esql, $params) = get_enrolled_sql(\context_course::instance($courseid), 'mod/assign:submit', 0, true);
             $params['courseid'] = $courseid;
             $params['submitted'] = ASSIGN_SUBMISSION_STATUS_SUBMITTED;
@@ -698,7 +696,6 @@ class activity {
             $modtotalsbyid['data'][$modid] = $DB->get_records_sql($sql, $params);
         }
         $totalsbyid = $modtotalsbyid['data'][$modid];
-        // TO BE DELETED echo '<br>' . print_r($totalsbyid, 1) . '<br>'; ....
         if (!empty($totalsbyid)) {
             if (isset($totalsbyid[$modid])) {
                 return intval($totalsbyid[$modid]->total);
@@ -863,8 +860,8 @@ class activity {
                     ORDER BY $modfield DESC, st.id DESC";
         }
 
-        // Not every activity has a status field...
-        // Add one if it is missing so code assuming there is a status property doesn't explode.
+        /* Not every activity has a status field...
+           Add one if it is missing so code assuming there is a status property doesn't explode. */
         $result = $DB->get_records_sql($sql, $params);
         if (!$result) {
             unset($submissions[$courseid.'_'.$mod->modname]);
