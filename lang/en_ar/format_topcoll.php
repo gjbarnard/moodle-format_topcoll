@@ -151,8 +151,6 @@ $string['resetalltoggleiconset_help'] = 'Resets thee toggle icon set and thy tog
 // Site Administration -> Plugins -> Course formats -> Collapsed Topics or Manage course formats - Settings.
 $string['off'] = 'Off';
 $string['on'] = 'On';
-$string['defaultcoursedisplay'] = 'Course display default';
-$string['defaultcoursedisplay_desc'] = "Either show all thee sections on a single page or section zero and thee chosen section on page.";
 $string['defaultlayoutelement'] = 'Layout configuration';
 // Negative view of layout, kept for previous versions until such time as they are updated.
 $string['defaultlayoutelement_desc'] = "Thee layout setting can be one of:<br />'Default' with everything displayed.<br />Nay 'Treasure chest x' / 'Sailing week x' / 'Sailing day x'.<br />Nay section number.<br />Nay 'Treasure chest x' / 'Sailing week x' / 'Sailing day x' and nay section number.<br />Nay 'Toggle' word.<br />Nay 'Toggle' word and nay 'Treasure chest x' / 'Sailing week x' / 'Sailing day x'.<br />Nay 'Toggle' word, nay 'Treasure chest x' / 'Sailing week x' / 'Sailing day x' and nay section number.";

@@ -30,11 +30,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
  */
-// Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
-// Possibly legacy to be removed after Moodle 2.0 is stable.
-$string['nametopcoll'] = 'Collapsed Topics';
-$string['formattopcoll'] = 'Collapsed Topics';
-
 // Used in format.php.
 $string['topcolltoggle'] = 'Toggle';
 $string['topcollsidewidthlang'] = 'en-28px';
@@ -419,7 +414,3 @@ $string['privacy:request:preference:toggle'] = 'The course id "{$a->name}" has t
 // Readme.
 $string['readme_title'] = 'Collapsed Topics read-me';
 $string['readme_desc'] = 'Please click on \'{$a->url}\' for lots more information about Collapsed Topics.';
-
-// Depreciated.  Remove in M3.4 version.
-$string['defaultcoursedisplay'] = 'Course display';
-$string['defaultcoursedisplay_desc'] = "Either show all the sections on a single page or section zero and the chosen section on page.";
