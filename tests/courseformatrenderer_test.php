@@ -209,7 +209,8 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $onsectionpage = false;
         $theclass = self::call_method($this->outputus, 'section_header',
             array($section, $this->course, $onsectionpage));
-        $thevalue = '<li id="section-1" class="section main clearfix col-sm-12 col-md-12 col-lg-12" role="region" aria-labelledby="sectionid-'.$section->id.'-title" data-sectionid="1">';
+        $thevalue = '<li id="section-1" class="section main clearfix col-sm-12 col-md-12 col-lg-12" role="region" ';
+        $thevalue .= 'aria-labelledby="sectionid-'.$section->id.'-title" data-sectionid="1">';
         $thevalue .= '<div class="left side"><span class="cps_centre">1</span></div>';
         $thevalue .= '<div class="content"><div class="sectionhead toggle toggle-arrow" id="toggle-1" tabindex="0">';
         $thevalue .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-expanded="false">';
@@ -220,7 +221,8 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $onsectionpage = true;
         $theclass = self::call_method($this->outputus, 'section_header',
             array($section, $this->course, $onsectionpage));
-        $thevalue = '<li id="section-1" class="section main clearfix col-sm-12 col-md-12 col-lg-12" role="region" aria-labelledby="sectionid-'.$section->id.'-title" data-sectionid="1">';
+        $thevalue = '<li id="section-1" class="section main clearfix col-sm-12 col-md-12 col-lg-12" role="region" ';
+        $thevalue .= 'aria-labelledby="sectionid-'.$section->id.'-title" data-sectionid="1">';
         $thevalue .= '<div class="left side"></div>';
         $thevalue .= '<div class="content">';
         $thevalue .= '<h3 id="sectionid-'.$section->id.'-title" class="accesshide">Section 1</h3>';
@@ -247,7 +249,8 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $section = $this->courseformat->get_section(1);
         $theclass = self::call_method($this->outputus, 'section_hidden',
             array($section, null));
-        $thevalue = '<li id="section-1" class="section main clearfix hidden col-sm-12 col-md-12 col-lg-12" role="region" aria-labelledby="sectionid-'.$section->id.'-title" data-sectionid="1">';
+        $thevalue = '<li id="section-1" class="section main clearfix hidden col-sm-12 col-md-12 col-lg-12" role="region" ';
+        $thevalue .= 'aria-labelledby="sectionid-'.$section->id.'-title" data-sectionid="1">';
         $thevalue .= '<div class="left side"><span class="cps_centre">1</span></div>';
         $thevalue .= '<div class="content sectionhidden"><h3 id="sectionid-'.$section->id.'-title" class="section-title">Not available</h3></div>';
         $thevalue .= '<div class="right side">';
@@ -272,21 +275,23 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         self::call_method($this->outputus, 'print_multiple_section_page',
             array($this->course, null, null, null, null, null));
         $theoutput = '<h2 class="accesshide">Section</h2><ul class="ctopics bsnewgrid">';
-        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="1" data-sectionreturnid="0">';
+        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" ';
+        $theoutput .= 'aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="0" data-sectionreturnid="0">';
         $theoutput .= '<div class="left side"></div>';
         $theoutput .= '<div class="content">';
         $theoutput .= '<h3 id="sectionid-'.$section0->id.'-title" class="accesshide">General</h3>';
         $theoutput .= '<div class="section_availability"></div><div class="summary"></div><ul class="section img-text">';
         $theoutput .= '<li class="activity forum modtype_forum " id="module-'.$this->cmid.'"><div><div class="mod-indent-outer">';
         $theoutput .= '<div class="mod-indent"></div><div><div class="activityinstance">';
-        $theoutput .= '<a class="" onclick="" href="https://www.example.com/moodle/mod/forum/view.php?id='.$this->cmid.'">';
+        $theoutput .= '<a class="aalink" onclick="" href="https://www.example.com/moodle/mod/forum/view.php?id='.$this->cmid.'">';
         $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" '.$activityicon.'/>';
         $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a></div></div>';
         $theoutput .= '</div></div></li></ul></div>';
         $theoutput .= '<div class="right side"></div>';
         $theoutput .= '</li></ul>';
         $theoutput .= '<ul class="ctopics topics bsnewgrid row">';
-        $theoutput .= '<li id="section-1" class="section main clearfix col-sm-12 col-md-12 col-lg-12" role="region" aria-labelledby="sectionid-'.$section1->id.'-title" data-sectionid="1">';
+        $theoutput .= '<li id="section-1" class="section main clearfix col-sm-12 col-md-12 col-lg-12" role="region" ';
+        $theoutput .= 'aria-labelledby="sectionid-'.$section1->id.'-title" data-sectionid="1" data-sectionreturnid="0">';
         $theoutput .= '<div class="left side"><span class="cps_centre">1</span></div>';
         $theoutput .= '<div class="content"><div class="sectionhead toggle toggle-arrow" id="toggle-1" tabindex="0">';
         $theoutput .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-expanded="false">';
@@ -316,14 +321,15 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         self::call_method($this->outputus, 'print_multiple_section_page',
             array($this->course, null, null, null, null, null));
         $theoutput = '<h2 class="accesshide">Section</h2><ul class="ctopics bsnewgrid">';
-        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="1" data-sectionreturnid="0">';
+        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" ';
+        $theoutput .= 'aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="0" data-sectionreturnid="0">';
         $theoutput .= '<div class="left side"></div>';
         $theoutput .= '<div class="content">';
         $theoutput .= '<h3 id="sectionid-'.$section0->id.'-title" class="accesshide">General</h3>';
         $theoutput .= '<div class="section_availability"></div><div class="summary"></div>';
         $theoutput .= '<ul class="section img-text"><li class="activity forum modtype_forum " id="module-'.$this->cmid.'"><div>';
         $theoutput .= '<div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance">';
-        $theoutput .= '<a class="" onclick="" href="https://www.example.com/moodle/mod/forum/view.php?id='.$this->cmid.'">';
+        $theoutput .= '<a class="aalink" onclick="" href="https://www.example.com/moodle/mod/forum/view.php?id='.$this->cmid.'">';
         $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" '.$activityicon.'/>';
         $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a>';
         $theoutput .= '</div></div></div></div></li></ul>';
@@ -331,7 +337,8 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '<div class="right side"></div>';
         $theoutput .= '</li></ul>';
         $theoutput .= '<div class="row"><ul class="ctopics topics bsnewgrid col-sm-12 col-md-12 col-lg-12">';
-        $theoutput .= '<li id="section-1" class="section main clearfix" role="region" aria-labelledby="sectionid-'.$section1->id.'-title" data-sectionid="1">';
+        $theoutput .= '<li id="section-1" class="section main clearfix" role="region" ';
+        $theoutput .= 'aria-labelledby="sectionid-'.$section1->id.'-title" data-sectionid="1" data-sectionreturnid="0">';
         $theoutput .= '<div class="left side"><span class="cps_centre">1</span></div>';
         $theoutput .= '<div class="content"><div class="sectionhead toggle toggle-arrow" id="toggle-1" tabindex="0">';
         $theoutput .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-expanded="false">';
@@ -361,14 +368,15 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
             array($this->course, null, null, null, null, null));
         $theoutput = '<h2 class="accesshide">Section</h2>';
         $theoutput .= '<ul class="ctopics bsnewgrid">';
-        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="1" data-sectionreturnid="0">';
+        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" ';
+        $theoutput .= 'aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="0" data-sectionreturnid="0">';
         $theoutput .= '<div class="left side"></div>';
         $theoutput .= '<div class="content">';
         $theoutput .= '<h3 id="sectionid-'.$section0->id.'-title" class="accesshide">General</h3>';
         $theoutput .= '<div class="section_availability"></div><div class="summary"></div><ul class="section img-text">';
         $theoutput .= '<li class="activity forum modtype_forum " id="module-'.$this->cmid.'"><div><div class="mod-indent-outer">';
         $theoutput .= '<div class="mod-indent"></div><div><div class="activityinstance">';
-        $theoutput .= '<a class="" onclick="" href="https://www.example.com/moodle/mod/forum/view.php?id='.$this->cmid.'">';
+        $theoutput .= '<a class="aalink" onclick="" href="https://www.example.com/moodle/mod/forum/view.php?id='.$this->cmid.'">';
         $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" '.$activityicon.'/>';
         $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a></div></div>';
         $theoutput .= '</div></div></li></ul></div>';
@@ -392,14 +400,15 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
             array($this->course, null, null, null, null, null));
         $theoutput = '<h2 class="accesshide">Section</h2>';
         $theoutput .= '<ul class="ctopics bsnewgrid">';
-        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="1" data-sectionreturnid="0">';
+        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" ';
+        $theoutput .= 'aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="0" data-sectionreturnid="0">';
         $theoutput .= '<div class="left side"></div>';
         $theoutput .= '<div class="content">';
         $theoutput .= '<h3 id="sectionid-'.$section0->id.'-title" class="accesshide">General</h3>';
         $theoutput .= '<div class="section_availability"></div><div class="summary"></div><ul class="section img-text">';
         $theoutput .= '<li class="activity forum modtype_forum " id="module-'.$this->cmid.'"><div><div class="mod-indent-outer">';
         $theoutput .= '<div class="mod-indent"></div><div><div class="activityinstance">';
-        $theoutput .= '<a class="" onclick="" href="https://www.example.com/moodle/mod/forum/view.php?id='.$this->cmid.'">';
+        $theoutput .= '<a class="aalink" onclick="" href="https://www.example.com/moodle/mod/forum/view.php?id='.$this->cmid.'">';
         $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" '.$activityicon.'/>';
         $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a></div></div></div></div></li></ul></div>';
         $theoutput .= '<div class="right side"></div>';

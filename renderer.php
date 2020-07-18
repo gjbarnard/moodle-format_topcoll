@@ -520,10 +520,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
             if ($hasnamesecpg) {
                 $headingclass = 'section-title';
+                $title = $this->section_title($section, $course);
             } else {
                 $headingclass = 'accesshide';
+                $title = $this->section_title_without_link($section, $course);
             }
-            $o .= $this->output->heading($this->section_title($section, $course), 3, $headingclass, "sectionid-{$section->id}-title");
+            $o .= $this->output->heading($title, 3, $headingclass, "sectionid-{$section->id}-title");
             $o .= $this->section_availability($section);
             $o .= html_writer::start_tag('div', array('class' => 'summary'));
             $o .= $this->format_summary_text($section);
