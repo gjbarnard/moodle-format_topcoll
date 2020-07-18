@@ -519,7 +519,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $hasnamesecpg = ($section->section == 0 && (string) $section->name !== '');
 
             if ($hasnamesecpg) {
-                $o .= $this->output->heading($this->section_title($section, $course), 3, 'section-title');
+                $o .= $this->output->heading($this->section_title($section, $course), 3, 'section-title', "sectionid-{$section->id}-title");
+            } else {
+                $o .= $this->output->heading(get_string('section0name', 'format_topcoll'), 3, 'accesshide', "sectionid-{$section->id}-title");
             }
             $o .= $this->section_availability($section);
             $o .= html_writer::start_tag('div', array('class' => 'summary'));
