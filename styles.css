@@ -776,8 +776,8 @@ body.jsenabled #toggle-all {
 
 /* Activity further information styling */
 .format-topcoll .ct-activity-meta-container {
+    margin: 0 10px 0 30px;
     padding: 5px 0 0 0;
-    margin: 0px 10px 0 30px;
 }
 
 .format-topcoll .ct-activity-due-date {
