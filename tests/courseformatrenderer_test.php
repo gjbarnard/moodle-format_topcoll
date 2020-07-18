@@ -354,7 +354,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $this->expectOutputString($theoutput);
     }
 
-    public function test_print_multiple_section_page_no_sections_horizontal() {
+    public function test_print_multiple_section_page_no_sections() {
         global $CFG;
         $activityicon = 'alt=" " role="presentation" ';
         if ($CFG->version >= 2018120303.06) {
@@ -380,37 +380,6 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" '.$activityicon.'/>';
         $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a></div></div>';
         $theoutput .= '</div></div></li></ul></div>';
-        $theoutput .= '<div class="right side"></div>';
-        $theoutput .= '</li>';
-        $theoutput .= '</ul>';
-        $this->expectOutputString($theoutput);
-    }
-
-    public function test_print_multiple_section_page_no_sections_vertical() {
-        global $CFG;
-        $activityicon = 'alt=" " role="presentation" ';
-        if ($CFG->version >= 2018120303.06) {
-            $activityicon = 'alt="" role="presentation" aria-hidden="true" ';
-        }
-
-        $this->init(0, 1);
-        $section0 = $this->courseformat->get_section(0);
-
-        self::call_method($this->outputus, 'print_multiple_section_page',
-            array($this->course, null, null, null, null, null));
-        $theoutput = '<h2 class="accesshide">Section</h2>';
-        $theoutput .= '<ul class="ctopics bsnewgrid">';
-        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" ';
-        $theoutput .= 'aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="0" data-sectionreturnid="0">';
-        $theoutput .= '<div class="left side"></div>';
-        $theoutput .= '<div class="content">';
-        $theoutput .= '<h3 id="sectionid-'.$section0->id.'-title" class="accesshide">General</h3>';
-        $theoutput .= '<div class="section_availability"></div><div class="summary"></div><ul class="section img-text">';
-        $theoutput .= '<li class="activity forum modtype_forum " id="module-'.$this->cmid.'"><div><div class="mod-indent-outer">';
-        $theoutput .= '<div class="mod-indent"></div><div><div class="activityinstance">';
-        $theoutput .= '<a class="aalink" onclick="" href="https://www.example.com/moodle/mod/forum/view.php?id='.$this->cmid.'">';
-        $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" '.$activityicon.'/>';
-        $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a></div></div></div></div></li></ul></div>';
         $theoutput .= '<div class="right side"></div>';
         $theoutput .= '</li>';
         $theoutput .= '</ul>';
