@@ -519,10 +519,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $hasnamesecpg = ($section->section == 0 && (string) $section->name !== '');
 
             if ($hasnamesecpg) {
-                $o .= $this->output->heading($this->section_title($section, $course), 3, 'section-title', "sectionid-{$section->id}-title");
+                $headingclass = 'section-title';
             } else {
-                $o .= $this->output->heading(get_string('section0name', 'format_topcoll'), 3, 'accesshide', "sectionid-{$section->id}-title");
+                $headingclass = 'accesshide';
             }
+            $o .= $this->output->heading($this->section_title($section, $course), 3, $headingclass, "sectionid-{$section->id}-title");
             $o .= $this->section_availability($section);
             $o .= html_writer::start_tag('div', array('class' => 'summary'));
             $o .= $this->format_summary_text($section);
@@ -602,6 +603,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if ((!$this->formatresponsive) && ($sectionno != 0) && ($this->tcsettings['layoutcolumnorientation'] == 2)) {
             $sectionstyle .= ' ' . $this->get_column_class($this->tcsettings['layoutcolumns']);
         }
+        $section = $this->courseformat->get_section($sectionno);
         $liattributes = array(
             'id' => 'section-' . $sectionno,
             'class' => 'section main clearfix orphaned hidden' . $sectionstyle,
@@ -614,7 +616,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
         }
         $o .= html_writer::start_tag('li', $liattributes);
         if ($this->rtl) {
-            $section = $this->courseformat->get_section($sectionno);
             $rightcontent = $this->section_right_content($section, $course, false);
             $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
         } else {

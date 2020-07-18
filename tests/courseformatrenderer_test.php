@@ -220,9 +220,10 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $onsectionpage = true;
         $theclass = self::call_method($this->outputus, 'section_header',
             array($section, $this->course, $onsectionpage));
-        $thevalue = '<li id="section-1" class="section main clearfix col-sm-12 col-md-12 col-lg-12" role="region" aria-label="Section 1">';
+        $thevalue = '<li id="section-1" class="section main clearfix col-sm-12 col-md-12 col-lg-12" role="region" aria-labelledby="sectionid-'.$section->id.'-title" data-sectionid="1">';
         $thevalue .= '<div class="left side"></div>';
         $thevalue .= '<div class="content">';
+        $thevalue .= '<h3 id="sectionid-'.$section->id.'-title" class="accesshide">Section 1</h3>';
         $thevalue .= '<div class="section_availability"></div><div class="summary"></div>';
 
         $this->assertEquals($thevalue, $theclass);
@@ -230,12 +231,12 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
     public function test_stealth_section_header() {
         $this->init();
-        $theclass = self::call_method($this->outputus, 'stealth_section_header',
-            array(1));
+        $section = $this->courseformat->get_section(1);
+        $theclass = self::call_method($this->outputus, 'stealth_section_header', array(1));
         $thevalue = '<li id="section-1" class="section main clearfix orphaned hidden col-sm-12 col-md-12 col-lg-12" role="region" ';
-        $thevalue .= 'aria-label="Section 1" data-sectionid="1">';
+        $thevalue .= 'aria-labelledby="sectionid-'.$section->id.'-title" data-sectionid="1">';
         $thevalue .= '<div class="left side"></div>';
-        $thevalue .= '<div class="content"><h3 class="sectionname">Orphaned activities (section 1)</h3>';
+        $thevalue .= '<div class="content"><h3 id="sectionid-'.$section->id.'-title" class="sectionname">Orphaned activities (section 1)</h3>';
 
         $this->assertEquals($thevalue, $theclass);
     }
@@ -271,7 +272,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         self::call_method($this->outputus, 'print_multiple_section_page',
             array($this->course, null, null, null, null, null));
         $theoutput = '<h2 class="accesshide">Section</h2><ul class="ctopics bsnewgrid">';
-        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="1">';
+        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="1" data-sectionreturnid="0">';
         $theoutput .= '<div class="left side"></div>';
         $theoutput .= '<div class="content">';
         $theoutput .= '<h3 id="sectionid-'.$section0->id.'-title" class="accesshide">General</h3>';
@@ -315,7 +316,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         self::call_method($this->outputus, 'print_multiple_section_page',
             array($this->course, null, null, null, null, null));
         $theoutput = '<h2 class="accesshide">Section</h2><ul class="ctopics bsnewgrid">';
-        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="1">';
+        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="1" data-sectionreturnid="0">';
         $theoutput .= '<div class="left side"></div>';
         $theoutput .= '<div class="content">';
         $theoutput .= '<h3 id="sectionid-'.$section0->id.'-title" class="accesshide">General</h3>';
@@ -360,7 +361,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
             array($this->course, null, null, null, null, null));
         $theoutput = '<h2 class="accesshide">Section</h2>';
         $theoutput .= '<ul class="ctopics bsnewgrid">';
-        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="1">';
+        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="1" data-sectionreturnid="0">';
         $theoutput .= '<div class="left side"></div>';
         $theoutput .= '<div class="content">';
         $theoutput .= '<h3 id="sectionid-'.$section0->id.'-title" class="accesshide">General</h3>';
@@ -391,7 +392,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
             array($this->course, null, null, null, null, null));
         $theoutput = '<h2 class="accesshide">Section</h2>';
         $theoutput .= '<ul class="ctopics bsnewgrid">';
-        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="1">';
+        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="1" data-sectionreturnid="0">';
         $theoutput .= '<div class="left side"></div>';
         $theoutput .= '<div class="content">';
         $theoutput .= '<h3 id="sectionid-'.$section0->id.'-title" class="accesshide">General</h3>';
