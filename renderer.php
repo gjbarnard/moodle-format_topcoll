@@ -348,10 +348,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
         $o = '';
         $title = $this->courseformat->get_topcoll_section_name($course, $section, false);
         $liattributes = array(
-            'id' => 'section-' . $section->section,
+            'id' => 'section-'.$section->section,
             'class' => $classattr,
             'role' => 'region',
-            'aria-label' => $title
+            'aria-label' => $title,
+            'data-sectionid' => $section->section
         );
         if (($this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
             $liattributes['style'] = 'width: ' . $this->tccolumnwidth . '%;';
@@ -417,7 +418,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
             'id' => 'section-' . $section->section,
             'class' => 'section main clearfix' . $sectionstyle,
             'role' => 'region',
-            'aria-label' => $this->courseformat->get_topcoll_section_name($course, $section, false)
+            'aria-labelledby' => "sectionid-{$section->id}-title",
+            'data-sectionid' => $section->section, // MDL-68235.
+            'data-sectionreturnid' => $sectionreturn // MDL-69065.
         );
         if (($this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
             $liattributes['style'] = 'width: ' . $this->tccolumnwidth . '%;';
@@ -474,9 +477,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $title = $this->courseformat->get_topcoll_section_name($course, $section, true);
             }
             if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
-                $o .= $this->output->heading($title, 3, 'sectionname');
+                $o .= $this->output->heading($title, 3, 'sectionname', "sectionid-{$section->id}-title");
             } else {
-                $o .= html_writer::tag('h3', $title); // Moodle H3's look bad on mobile / tablet with CT so use plain.
+                $o .= html_writer::tag('h3', $title, "sectionid-{$section->id}-title"); // Moodle H3's look bad on mobile / tablet with CT so use plain.
             }
 
             $o .= $this->section_availability($section);
@@ -601,7 +604,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
             'id' => 'section-' . $sectionno,
             'class' => 'section main clearfix orphaned hidden' . $sectionstyle,
             'role' => 'region',
-            'aria-label' => $this->courseformat->get_topcoll_section_name($course, $sectionno, false)
+            'aria-label' => $this->courseformat->get_topcoll_section_name($course, $sectionno, false),
+            'data-sectionid' => $sectionno
         );
         if (($this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
             $liattributes['style'] = 'width: ' . $this->tccolumnwidth . '%;';
@@ -654,10 +658,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $sectionstyle .= ' ' . $this->get_column_class($this->tcsettings['layoutcolumns']);
         }
         $liattributes = array(
-            'id' => 'section-' . $section->section,
+            'id' => 'section-'.$section->section,
             'class' => $sectionstyle,
             'role' => 'region',
-            'aria-label' => $this->courseformat->get_topcoll_section_name($course, $section, false)
+            'aria-label' => $this->courseformat->get_topcoll_section_name($course, $section, false),
+            'data-sectionid' => $section->section
         );
         if (($this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
             $liattributes['style'] = 'width: ' . $this->tccolumnwidth . '%;';

@@ -1,5 +1,11 @@
 ﻿Version Information
 ===================
+Version 3.9.0.1 - TDB
+  1. Apply MDL-65539.
+  2. Apply MDL-68231.
+  3. Apply MDL-68235.
+  4. Apply MDL-69065.
+
 Version 3.8.1.1 - 29/06/2020
   1. Added 'Course page further information' functionality from Adaptable theme.
 
