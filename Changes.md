@@ -5,6 +5,7 @@ Version 3.9.0.1 - TDB
   2. Apply MDL-68231.
   3. Apply MDL-68235.
   4. Apply MDL-69065.
+  5. Fix issue where 'numsections' is set to '0' on restore of backup file that does not have it set.
 
 Version 3.8.1.1 - 29/06/2020
   1. Added 'Course page further information' functionality from Adaptable theme.

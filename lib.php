@@ -1425,6 +1425,21 @@ class format_topcoll extends format_base {
     }
 
     /**
+     * Restores the numsections if was not in the backup.
+     * @param int $courseid If not 0, then a specific course to reset.
+     * @param int $numsections The number of sections.
+     */
+    public function restore_numsections($courseid, $numsections) {
+        $currentcourseid = $this->courseid;  // Save for later - stack data model.
+        $this->courseid = $courseid;
+
+        $data = array('numsections' => $numsections);
+        $this->update_course_format_options($data);
+
+        $this->courseid = $currentcourseid;
+    }
+
+    /**
      * Updates the number of columns when the renderer detects that they are wrong.
      * @param int $layoutcolumns The layout columns to use, see tcconfig.php.
      */

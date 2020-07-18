@@ -142,7 +142,18 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
     public function after_restore_course() {
         if (!$this->need_restore_numsections()) {
             /* Backup file was made in Moodle 3.3 or later and does not contain 'numsections',
-               so we don't need to process 'numsecitons'. */
+               so we don't need to process 'numsections' but we do need to set it! */
+            $courseid = $this->task->get_courseid();
+
+            global $DB;
+            if (!($course = $DB->get_record('course', array('id' => $courseid)))) {
+                print_error('invalidcourseid', 'error');
+            } // From /course/view.php.
+            $courseformat = course_get_format($course);
+
+            $maxsection = $DB->get_field_sql('SELECT max(section) FROM {course_sections} WHERE course = ?', [$courseid]);
+
+            $courseformat->restore_numsections($courseid, $maxsection);
             return;
         }
 
