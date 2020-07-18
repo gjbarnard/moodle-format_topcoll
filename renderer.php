@@ -606,7 +606,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             'id' => 'section-' . $sectionno,
             'class' => 'section main clearfix orphaned hidden' . $sectionstyle,
             'role' => 'region',
-            'aria-label' => $this->courseformat->get_topcoll_section_name($course, $sectionno, false),
+            'aria-labelledby' => "sectionid-{$section->id}-title",
             'data-sectionid' => $sectionno
         );
         if (($this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
@@ -621,7 +621,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             $o .= html_writer::tag('div', '', array('class' => 'left side'));
         }
         $o .= html_writer::start_tag('div', array('class' => 'content'));
-        $o .= $this->output->heading(get_string('orphanedactivitiesinsectionno', '', $sectionno), 3, 'sectionname');
+        $o .= $this->output->heading(get_string('orphanedactivitiesinsectionno', '', $sectionno), 3, 'sectionname', "sectionid-{$section->id}-title");
         return $o;
     }
 
@@ -663,7 +663,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
             'id' => 'section-'.$section->section,
             'class' => $sectionstyle,
             'role' => 'region',
-            'aria-label' => $this->courseformat->get_topcoll_section_name($course, $section, false),
+            'aria-labelledby' => "sectionid-{$section->id}-title",
             'data-sectionid' => $section->section
         );
         if (($this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
@@ -687,9 +687,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         $title = get_string('notavailable');
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
-            $o .= $this->output->heading($title, 3, 'section-title');
+            $o .= $this->output->heading($title, 3, 'section-title', "sectionid-{$section->id}-title");
         } else {
-            $o .= html_writer::tag('h3', $title); // Moodle H3's look bad on mobile / tablet with CT so use plain.
+            $o .= html_writer::tag('h3', $title, "sectionid-{$section->id}-title"); // Moodle H3's look bad on mobile / tablet with CT so use plain.
         }
         $o .= html_writer::end_tag('div');
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {

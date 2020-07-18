@@ -213,7 +213,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $thevalue .= '<div class="left side"><span class="cps_centre">1</span></div>';
         $thevalue .= '<div class="content"><div class="sectionhead toggle toggle-arrow" id="toggle-1" tabindex="0">';
         $thevalue .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-expanded="false">';
-        $thevalue .= '<h3 id="sectionid-'.$section-id.'-title"  class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>';
+        $thevalue .= '<h3 id="sectionid-'.$section->id.'-title" class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>';
         $thevalue .= '<div class="section_availability"></div></span></div>';
         $thevalue .= '<div class="sectionbody toggledsection" id="toggledsection-1">';
         $this->assertEquals($thevalue, $theclass);
@@ -242,14 +242,13 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
     public function test_section_hidden() {
         global $CFG;
-
         $this->init();
         $section = $this->courseformat->get_section(1);
         $theclass = self::call_method($this->outputus, 'section_hidden',
             array($section, null));
         $thevalue = '<li id="section-1" class="section main clearfix hidden col-sm-12 col-md-12 col-lg-12" role="region" aria-labelledby="sectionid-'.$section->id.'-title" data-sectionid="1">';
         $thevalue .= '<div class="left side"><span class="cps_centre">1</span></div>';
-        $thevalue .= '<div class="content sectionhidden"><h3 class="section-title">Not available</h3></div>';
+        $thevalue .= '<div class="content sectionhidden"><h3 id="sectionid-'.$section->id.'-title" class="section-title">Not available</h3></div>';
         $thevalue .= '<div class="right side">';
         $thevalue .= '<a title="View only &#039;Topic 1&#039;" class="cps_centre" ';
         $thevalue .= 'href="'.$CFG->wwwroot.'/course/view.php?id='.$this->course->id.'&amp;section=1">Topic<br />1</a></div>';
