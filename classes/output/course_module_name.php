@@ -33,6 +33,8 @@
 
 namespace format_topcoll\output;
 
+defined('MOODLE_INTERNAL') || die();
+
 class course_module_name extends \core_course\output\course_module_name {
     /**
      * Export this data so it can be used as the context for a mustache template (core/inplace_editable).
