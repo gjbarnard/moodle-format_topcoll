@@ -407,6 +407,16 @@ $string['coursesectionactivityfurtherinformationlessondesc'] = 'Show lesson info
 $string['coursesectionactivityfurtherinformationdata'] = 'Show database information';
 $string['coursesectionactivityfurtherinformationdatadesc'] = 'Show data information, such as submission status.  For teachers / admins, show number of submissions.';
 
+// Duplicate section.
+$string['creatingsection'] = 'Creating new section';
+$string['duplicate'] = 'Duplicate';
+$string['duplicateconfirm'] = 'Are you sure you want to duplicate the current section?  This can take a while depending on the amount of resources.';
+$string['duplicating'] = 'Duplicating';
+$string['errornosectioninfo'] = 'The indicated topic have not information';
+$string['progresscounter'] = 'Duplicating activities ({$a->current}/{$a->size})';
+$string['progressfull'] = 'Duplicating topic';
+$string['rebuildcoursecache'] = 'Rebuild course cache';
+
 // Privacy.
 $string['privacy:metadata:preference:toggle'] = 'The state of the toggles on a course.';
 $string['privacy:request:preference:toggle'] = 'The course id "{$a->name}" has the value "{$a->value}" which represents "{$a->decoded}" for the state of the toggles.';
