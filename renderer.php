@@ -1066,10 +1066,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
                                 array('courseid' => $course->id, 'sectionno' => $thissection->section, 'sesskey' => sesskey()));
 
                             $duplicatestr = get_string('duplicate', 'format_topcoll');
-                            $link = new action_link($duplicateurl, $duplicatestr);
+                            $link = new action_link($duplicateurl, $duplicatestr, null, array('class' => 'btn btn-link'),
+                                new pix_icon('t/copy', $duplicatestr));
                             $link->add_action(new confirm_action(get_string('duplicateconfirm', 'format_topcoll'), null,
                                 $duplicatestr));
+                            echo html_writer::start_tag('div', array('class' => 'mdl-right'));
                             echo $this->render($link);
+                            echo html_writer::end_tag('div');
                         }
                     }
                     echo html_writer::end_tag('div');
