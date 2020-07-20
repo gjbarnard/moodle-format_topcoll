@@ -1,6 +1,6 @@
 ﻿Version Information
 ===================
-Version 3.9.0.1 - TDB
+Version 3.9.0.1 - 19/7/20
   1. Apply MDL-65539.
   2. Apply MDL-68231.
   3. Apply MDL-68235.
