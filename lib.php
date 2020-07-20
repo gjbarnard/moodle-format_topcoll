@@ -1537,6 +1537,7 @@ class format_topcoll extends format_base {
         $rv = parent::section_action($section, $action, $sr);
         $renderer = $PAGE->get_renderer('format_topcoll');
         $rv['section_availability'] = $renderer->section_availability($this->get_section($section));
+
         return $rv;
     }
 }
