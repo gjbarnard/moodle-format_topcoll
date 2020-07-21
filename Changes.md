@@ -1,5 +1,8 @@
 ﻿Version Information
 ===================
+Version 3.9.0.2 - 21/7/20
+  1. Fix logic in restore of backup file for 'numsections' - #73.
+
 Version 3.9.0.1 - 19/7/20
   1. Apply MDL-65539.
   2. Apply MDL-68231.
