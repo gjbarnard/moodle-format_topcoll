@@ -2,6 +2,7 @@
 ===================
 Version 3.8.1.2 - TBD
   1. Fix issue where 'numsections' is set to '0' on restore of backup file that does not have it set.
+  2. Fix logic in restore of backup file for 'numsections' - #73.
 
 Version 3.8.1.1 - 29/06/2020
   1. Added 'Course page further information' functionality from Adaptable theme.

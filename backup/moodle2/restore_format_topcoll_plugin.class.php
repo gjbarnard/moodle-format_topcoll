@@ -140,12 +140,18 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
      * This method is only executed if course configuration was overridden
      */
     public function after_restore_course() {
+        $backupinfo = $this->step->get_task()->get_info();
+        if ($backupinfo->original_course_format !== 'topcoll') {
+            // Backup from another course format.
+            return;
+        }
+
+        global $DB;
         if (!$this->need_restore_numsections()) {
             /* Backup file was made in Moodle 3.3 or later and does not contain 'numsections',
                so we don't need to process 'numsections' but we do need to set it! */
             $courseid = $this->task->get_courseid();
 
-            global $DB;
             if (!($course = $DB->get_record('course', array('id' => $courseid)))) {
                 print_error('invalidcourseid', 'error');
             } // From /course/view.php.
@@ -158,13 +164,6 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
         }
 
         $data = $this->connectionpoint->get_data();
-        $backupinfo = $this->step->get_task()->get_info();
-        if ($backupinfo->original_course_format !== 'topcoll') {
-            // Backup from another course format.
-            return;
-        }
-
-        global $DB;
         $numsections = (int)$data['tags']['numsections'];
         foreach ($backupinfo->sections as $key => $section) {
             /* For each section from the backup file check if it was restored and if was "orphaned" in the original
