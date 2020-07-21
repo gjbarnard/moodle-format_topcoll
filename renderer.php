@@ -380,7 +380,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $duplicatestr = get_string('duplicate', 'format_topcoll');
                 $duplicateurl = new moodle_url('/course/format/topcoll/duplicate.php',
                     array('courseid' => $course->id, 'sectionno' => $section->section, 'sesskey' => sesskey()));
-                $link = new action_link($duplicateurl, ' '.$duplicatestr, null, null,
+                $link = new action_link($duplicateurl, ' '.$duplicatestr, null,
+                    array('class' => 'menu-action', 'role' => 'menuitem'),
                     new pix_icon('t/copy', $duplicatestr));
                 /*$link = new action_menu_link_secondary(
                     $duplicateurl,
@@ -388,10 +389,13 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     $duplicatestr,
                     array('class' => 'btn btn-link')
                 );*/
-                $link->primary = false;
+                //$link->primary = false;
                 $link->add_action(new confirm_action(get_string('duplicateconfirm', 'format_topcoll'), null,
-                        $duplicatestr));
-                $menu->add($link);
+                    $duplicatestr));
+                //$this->add_class('menu-action');
+                //$this->attributes['role'] = 'menuitem';
+                //$menu->add($link);
+                $menu->add_secondary_action($link);
                 /*echo html_writer::start_tag('div', array('class' => 'mdl-right'));
                 echo $this->render($link);
                 echo html_writer::end_tag('div');*/
