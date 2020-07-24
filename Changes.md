@@ -1,5 +1,8 @@
 ﻿Version Information
 ===================
+Version 3.9.0.3 - 24/7/20
+  1. Fix title.
+
 Version 3.9.0.2 - 21/7/20
   1. Fix logic in restore of backup file for 'numsections' - #73.
 

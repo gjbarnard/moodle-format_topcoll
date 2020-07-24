@@ -479,7 +479,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
                 $o .= $this->output->heading($title, 3, 'sectionname', "sectionid-{$section->id}-title");
             } else {
-                $o .= html_writer::tag('h3', $title, "sectionid-{$section->id}-title"); // Moodle H3's look bad on mobile / tablet with CT so use plain.
+                // Moodle H3's look bad on mobile / tablet with CT so use plain.
+                $o .= html_writer::tag('h3', $title, array('id' => "sectionid-{$section->id}-title"));
             }
 
             $o .= $this->section_availability($section);
@@ -692,7 +693,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
             $o .= $this->output->heading($title, 3, 'section-title', "sectionid-{$section->id}-title");
         } else {
-            $o .= html_writer::tag('h3', $title, "sectionid-{$section->id}-title"); // Moodle H3's look bad on mobile / tablet with CT so use plain.
+            // Moodle H3's look bad on mobile / tablet with CT so use plain.
+            $o .= html_writer::tag('h3', $title, array('id' => "sectionid-{$section->id}-title"));
         }
         $o .= html_writer::end_tag('div');
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
