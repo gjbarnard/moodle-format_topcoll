@@ -281,7 +281,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '<div class="content">';
         $theoutput .= '<h3 id="sectionid-'.$section0->id.'-title" class="accesshide">General</h3>';
         $theoutput .= '<div class="section_availability"></div><div class="summary"></div><ul class="section img-text">';
-        $theoutput .= '<li class="activity forum modtype_forum " id="module-'.$this->cmid.'"><div><div class="mod-indent-outer">';
+        $theoutput .= '<li class="activity forum modtype_forum " id="module-'.$this->cmid.'"><div><div class="mod-indent-outer w-100">';
         $theoutput .= '<div class="mod-indent"></div><div><div class="activityinstance">';
         $theoutput .= '<a class="aalink" onclick="" href="https://www.example.com/moodle/mod/forum/view.php?id='.$this->cmid.'">';
         $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" '.$activityicon.'/>';
@@ -328,7 +328,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '<h3 id="sectionid-'.$section0->id.'-title" class="accesshide">General</h3>';
         $theoutput .= '<div class="section_availability"></div><div class="summary"></div>';
         $theoutput .= '<ul class="section img-text"><li class="activity forum modtype_forum " id="module-'.$this->cmid.'"><div>';
-        $theoutput .= '<div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance">';
+        $theoutput .= '<div class="mod-indent-outer w-100"><div class="mod-indent"></div><div><div class="activityinstance">';
         $theoutput .= '<a class="aalink" onclick="" href="https://www.example.com/moodle/mod/forum/view.php?id='.$this->cmid.'">';
         $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" '.$activityicon.'/>';
         $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a>';
@@ -374,7 +374,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '<div class="content">';
         $theoutput .= '<h3 id="sectionid-'.$section0->id.'-title" class="accesshide">General</h3>';
         $theoutput .= '<div class="section_availability"></div><div class="summary"></div><ul class="section img-text">';
-        $theoutput .= '<li class="activity forum modtype_forum " id="module-'.$this->cmid.'"><div><div class="mod-indent-outer">';
+        $theoutput .= '<li class="activity forum modtype_forum " id="module-'.$this->cmid.'"><div><div class="mod-indent-outer w-100">';
         $theoutput .= '<div class="mod-indent"></div><div><div class="activityinstance">';
         $theoutput .= '<a class="aalink" onclick="" href="https://www.example.com/moodle/mod/forum/view.php?id='.$this->cmid.'">';
         $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" '.$activityicon.'/>';
