@@ -1522,6 +1522,21 @@ class format_topcoll extends format_base {
     public function section_action($section, $action, $sr) {
         global $PAGE;
 
+        /*if ($section->section && ($action === 'duplicate')) {
+            $duplicatestr = get_string('duplicate', 'format_topcoll');
+            $duplicateurl = new moodle_url('/course/format/topcoll/duplicate.php',
+                array('courseid' => '12', 'sectionno' => $section->section, 'sesskey' => sesskey()));
+            $renderer = $PAGE->get_renderer('format_topcoll');
+            $link = new action_link($duplicateurl, $duplicatestr, null, array('class' => 'btn btn-link'),
+                                new pix_icon('t/copy', $duplicatestr));
+                            $link->add_action(new confirm_action(get_string('duplicateconfirm', 'format_topcoll'), null,
+                                $duplicatestr));
+                            $mark = html_writer::start_tag('div', array('class' => 'mdl-right'));
+                            $mark .= $renderer->render($link);
+                            $mark .= html_writer::end_tag('div');
+            return array('duplicate' => $mark);
+        }*/
+
         // Topic based course.
         $tcsettings = $this->get_settings();
         if (($tcsettings['layoutstructure'] == 1) || ($tcsettings['layoutstructure'] == 4)) {
@@ -1537,6 +1552,7 @@ class format_topcoll extends format_base {
         $rv = parent::section_action($section, $action, $sr);
         $renderer = $PAGE->get_renderer('format_topcoll');
         $rv['section_availability'] = $renderer->section_availability($this->get_section($section));
+
         return $rv;
     }
 }
