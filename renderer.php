@@ -306,27 +306,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         $parentcontrols = parent::section_edit_control_items($course, $section, $onsectionpage);
 
-        /*if (has_capability('moodle/course:manageactivities', $coursecontext)) {
-            $duplicateurl = new moodle_url('/course/format/topcoll/duplicate.php',
-                array('courseid' => $course->id, 'sectionno' => $section->section, 'sesskey' => sesskey()));
-            $controls['duplicate'] = array(
-                'url' => $duplicateurl, 
-                "icon" => 't/copy',
-                'name' => get_string('duplicate', 'format_topcoll'),
-                'pixattr' => array('class' => ''),
-                'attr' => array('class' => '',
-                'data-action' => 'duplicate')
-            );
-                            $duplicatestr = get_string('duplicate', 'format_topcoll');
-                            $link = new action_link($duplicateurl, $duplicatestr, null, array('class' => 'btn btn-link'),
-                                new pix_icon('t/copy', $duplicatestr));
-                            $link->add_action(new confirm_action(get_string('duplicateconfirm', 'format_topcoll'), null,
-                                $duplicatestr));
-                            echo html_writer::start_tag('div', array('class' => 'mdl-right'));
-                            echo $this->render($link);
-                            echo html_writer::end_tag('div');
-        }*/
-
         // If the edit key exists, we are going to insert our controls after it.
         if (array_key_exists("edit", $parentcontrols)) {
             $merged = array();
@@ -383,22 +362,9 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $link = new action_link($duplicateurl, ' '.$duplicatestr, null,
                     array('class' => 'menu-action', 'role' => 'menuitem'),
                     new pix_icon('t/copy', $duplicatestr));
-                /*$link = new action_menu_link_secondary(
-                    $duplicateurl,
-                    new pix_icon('t/copy', $duplicatestr),
-                    $duplicatestr,
-                    array('class' => 'btn btn-link')
-                );*/
-                //$link->primary = false;
                 $link->add_action(new confirm_action(get_string('duplicateconfirm', 'format_topcoll'), null,
                     $duplicatestr));
-                //$this->add_class('menu-action');
-                //$this->attributes['role'] = 'menuitem';
-                //$menu->add($link);
                 $menu->add_secondary_action($link);
-                /*echo html_writer::start_tag('div', array('class' => 'mdl-right'));
-                echo $this->render($link);
-                echo html_writer::end_tag('div');*/
             }
 
             $o .= html_writer::div($this->render($menu), 'section_action_menu',
@@ -1144,19 +1110,6 @@ class format_topcoll_renderer extends format_section_renderer_base {
                     if ($thissection->uservisible) {
                         echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
                         echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0);
-                        if (has_capability('moodle/course:manageactivities', $context)) {
-                            $duplicateurl = new moodle_url('/course/format/topcoll/duplicate.php',
-                                array('courseid' => $course->id, 'sectionno' => $thissection->section, 'sesskey' => sesskey()));
-
-                            $duplicatestr = get_string('duplicate', 'format_topcoll');
-                            $link = new action_link($duplicateurl, $duplicatestr, null, array('class' => 'btn btn-link'),
-                                new pix_icon('t/copy', $duplicatestr));
-                            $link->add_action(new confirm_action(get_string('duplicateconfirm', 'format_topcoll'), null,
-                                $duplicatestr));
-                            echo html_writer::start_tag('div', array('class' => 'mdl-right'));
-                            echo $this->render($link);
-                            echo html_writer::end_tag('div');
-                        }
                     }
                     echo html_writer::end_tag('div');
                     echo $this->topcoll_section_footer($thissection, $course, false, 0);
