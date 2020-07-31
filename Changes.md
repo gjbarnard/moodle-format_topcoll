@@ -1,16 +1,16 @@
 ﻿Version Information
 ===================
-Version 3.9.0.4 - TBD
+Version 3.9.0.4 - 31/07/2020
   1. Add 'Duplicate section' functionality from 'onetopic' format, thanks to David Herney Bernal for the code - #72.
   2. Apply MDL-68330 - #74.
 
-Version 3.9.0.3 - 24/7/20
+Version 3.9.0.3 - 24/7/2020
   1. Fix title.
 
-Version 3.9.0.2 - 21/7/20
+Version 3.9.0.2 - 21/7/2020
   1. Fix logic in restore of backup file for 'numsections' - #73.
 
-Version 3.9.0.1 - 19/7/20
+Version 3.9.0.1 - 19/7/2020
   1. Apply MDL-65539.
   2. Apply MDL-68231.
   3. Apply MDL-68235.
