@@ -2,6 +2,7 @@
 ===================
 Version 3.9.0.4 - TBD
   1. Add 'Duplicate section' functionality from 'onetopic' format, thanks to David Herney Bernal for the code - #72.
+  2. Apply MDL-68330 - #74.
 
 Version 3.9.0.3 - 24/7/20
   1. Fix title.

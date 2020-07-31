@@ -568,6 +568,10 @@ body.format-topcoll.dir-rtl .course-content ul.ctopics li.section .right {
     float: left;
 }
 
+body.format-topcoll .ctopics .mod-indent-outer {
+    width: 100% !important; /* Same as w-100 on MDL-68330. */
+}
+
 body.format-topcoll .ctopics .section .activity .mod-indent-outer,
 body.format-topcoll.editing.dir-rtl .ctopics .section .activity .mod-indent-outer {
     padding-left: 0;
