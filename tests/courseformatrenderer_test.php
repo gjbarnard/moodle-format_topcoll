@@ -269,6 +269,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         }
 
         $this->init();
+        $this->outputus->set_user_preference(null, 0, 1);  // As is done in format.php.
         $section0 = $this->courseformat->get_section(0);
         $section1 = $this->courseformat->get_section(1);
 
@@ -315,6 +316,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         }
 
         $this->init(1, 1);
+        $this->outputus->set_user_preference(null, 0, 1);  // As is done in format.php.
         $section0 = $this->courseformat->get_section(0);
         $section1 = $this->courseformat->get_section(1);
 
@@ -362,6 +364,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         }
 
         $this->init(0);
+        $this->outputus->set_user_preference(null, 0, 1);  // As is done in format.php.
         $section0 = $this->courseformat->get_section(0);
 
         self::call_method($this->outputus, 'print_multiple_section_page',
