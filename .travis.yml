@@ -12,18 +12,18 @@ matrix:
  include:
  - php: 7.1
    env: DB=mysqli
-   services:
-   - mysql
+   services: mysql
  - php: 7.1
    env: DB=pgsql
+   services: postgresql
    addons:
       postgresql: 9.4
- - php: 7.2
+ - php: 7.4
    env: DB=mysqli
-   services:
-   - mysql
- - php: 7.2
+   services: mysql
+ - php: 7.4
    env: DB=pgsql
+   services: postgresql
    addons:
       postgresql: 9.4
 env:
@@ -41,7 +41,7 @@ before_install:
 # Update Composer.
   - composer selfupdate
 # Install this project into a directory called "ci".
-  - composer create-project -n --no-dev moodlerooms/moodle-plugin-ci ci ^1
+  - composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^3
 # Update the $PATH so scripts from this project can be called easily.
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
 
@@ -53,6 +53,9 @@ script:
   - moodle-plugin-ci phpcpd
   - moodle-plugin-ci phpmd
   - moodle-plugin-ci codechecker
+  - moodle-plugin-ci validate
+  - moodle-plugin-ci savepoints
   - moodle-plugin-ci csslint
   - moodle-plugin-ci jshint
+  - moodle-plugin-ci phpdoc
   - moodle-plugin-ci phpunit
