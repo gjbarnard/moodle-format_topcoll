@@ -1,5 +1,7 @@
 ﻿Version Information
 ===================
+Version 3.9.1.0 - TBC
+
 Version 3.9.0.4 - 31/07/2020
   1. Add 'Duplicate section' functionality from 'onetopic' format, thanks to David Herney Bernal for the code - #72.
   2. Apply MDL-68330 - #74.
