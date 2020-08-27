@@ -75,7 +75,8 @@ class togglelib {
     public function get_toggle_state($togglenum) {
         $togglecharpos = self::get_toggle_pos($togglenum);
         $toggleflag = self::get_toggle_flag($togglenum, $togglecharpos);
-        return ((self::decode_character_to_value($this->toggles[$togglecharpos - 1]) & $toggleflag) == $toggleflag);
+        $toggle = !empty($this->toggles) ? $this->toggles[$togglecharpos - 1] : null;
+        return ((self::decode_character_to_value($toggle) & $toggleflag) == $toggleflag);
     }
 
     /**
@@ -293,4 +294,3 @@ class togglelib {
         return $param;
     }
 }
-
