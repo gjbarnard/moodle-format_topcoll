@@ -5,6 +5,7 @@ sudo: false
 cache:
   directories:
     - $HOME/.composer/cache
+    - $HOME/.npm
 
 matrix:
  allow_failures:
@@ -55,7 +56,5 @@ script:
   - moodle-plugin-ci codechecker
   - moodle-plugin-ci validate
   - moodle-plugin-ci savepoints
-  - moodle-plugin-ci csslint
-  - moodle-plugin-ci jshint
-  - moodle-plugin-ci phpdoc
+#Not critical:  - moodle-plugin-ci phpdoc
   - moodle-plugin-ci phpunit
