@@ -19,14 +19,6 @@ matrix:
    services: postgresql
    addons:
       postgresql: 9.5
- - php: 7.3
-   env: DB=mysqli
-   services: mysql
- - php: 7.3
-   env: DB=pgsql
-   services: postgresql
-   addons:
-      postgresql: 9.5
  - php: 7.4
    env: DB=mysqli
    services: mysql
