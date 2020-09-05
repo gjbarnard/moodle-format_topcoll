@@ -174,10 +174,5 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         upgrade_plugin_savepoint(true, 2017110301, 'format', 'topcoll');
     }
 
-    // Automatic 'Purge all caches'....
-    if ($oldversion < 2114052000) {
-        purge_all_caches();
-    }
-
     return $result;
 }
