@@ -131,7 +131,8 @@ if (!empty($displaysection)) {
     echo '}';
 
     echo '/* Toggle icon position. */';
-    echo '.course-content ul.ctopics li.section .content .toggle span, #toggle-all .content h4 span {';
+    echo '.course-content ul.ctopics li.section .content .toggle span,';
+    echo '#toggle-all .content h4 span {';
     echo 'background-position: ';
     switch ($tcsettings['toggleiconposition']) {
         case 2:
@@ -145,13 +146,16 @@ if (!empty($displaysection)) {
 
     echo '/* -- What happens when a toggle is hovered over -- */';
     echo '.course-content ul.ctopics li.section .content .toggle span:hover,';
-    echo '.course-content ul.ctopics li.section .content.sectionhidden .toggle span:hover {';
+    echo '.course-content ul.ctopics li.section .content.sectionhidden .toggle span:hover,';
+    echo '.course-content ul.ctopics li.section .content .toggle span:focus,';
+    echo '.course-content ul.ctopics li.section .content.sectionhidden .toggle span:focus {';
     echo 'color: ';
     echo \format_topcoll\toolbox::hex2rgba($tcsettings['toggleforegroundhovercolour'], $tcsettings['toggleforegroundhoveropacity']);
     echo ';';
     echo '}';
 
-    echo '.course-content ul.ctopics li.section .content div.toggle:hover {';
+    echo '.course-content ul.ctopics li.section .content div.toggle:hover,';
+    echo '.course-content ul.ctopics li.section .content div.toggle:focus {';
     echo 'background-color: ';
     echo \format_topcoll\toolbox::hex2rgba($tcsettings['togglebackgroundhovercolour'], $tcsettings['togglebackgroundhoveropacity']);
     echo ';';
