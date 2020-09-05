@@ -1,5 +1,7 @@
 ﻿Version Information
 ===================
+Version 3.8.1.2 - TBD
+
 Version 3.8.1.1 - 29/06/2020
   1. Added 'Course page further information' functionality from Adaptable theme.
 
