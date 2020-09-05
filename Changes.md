@@ -2,6 +2,7 @@
 ===================
 Version 3.9.1.0 - TBC
   1. Fix 'Tests fail on PHP7.4' - #77.
+  2. Colour fixes for Adaptable theme version 3.0.0.
 
 Version 3.9.0.4 - 31/07/2020
   1. Add 'Duplicate section' functionality from 'onetopic' format, thanks to David Herney Bernal for the code - #72.

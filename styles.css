@@ -145,8 +145,18 @@
 }
 
 .course-content ul.ctopics li.section .content .toggle span.the_toggle h3.sectionname,
-.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname {
+.course-content ul.ctopics li.section .content .toggle span.the_toggle h3.sectionname a,
+.course-content ul.ctopics li.section .content .toggle span.the_toggle h3.sectionname a:hover,
+.course-content ul.ctopics li.section .content .toggle span.the_toggle h3.sectionname a:focus,
+.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname,
+.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname a,
+.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname a:hover,
+.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname a:focus {
     color: inherit;
+}
+
+.course-content ul.ctopics li.section .content .toggle span.the_toggle h3.sectionname,
+.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname {
     margin: 4px;
 }
 
