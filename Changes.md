@@ -4,6 +4,7 @@ Version 3.8.1.2 - TBD
   1. Fix issue where 'numsections' is set to '0' on restore of backup file that does not have it set.
   2. Fix logic in restore of backup file for 'numsections' - #73.
   3. Colour fixes for Adaptable theme version 2.3.1.
+  4. Fix 'Show hidden sections in collapsed form does not reveal section titles to students' - CONTRIB-7510.
 
 Version 3.8.1.1 - 29/06/2020
   1. Added 'Course page further information' functionality from Adaptable theme.
