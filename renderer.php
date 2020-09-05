@@ -158,16 +158,18 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @param stdClass $section The course_section entry from DB.
      * @param stdClass $course The course entry from DB.
      * @param bool $onsectionpage true if being printed on a section page.
+     * @param bool $sectionishidden true if section is hidden.
+     *
      * @return string HTML to output.
      */
-    protected function section_right_content($section, $course, $onsectionpage) {
+    protected function section_right_content($section, $course, $onsectionpage, $sectionishidden = false) {
         $o = '';
 
         if ($section->section != 0) {
             $controls = $this->section_edit_control_items($course, $section, $onsectionpage);
             if (!empty($controls)) {
                 $o .= $this->section_edit_control_menu($controls, $course, $section);
-            } else if (!$onsectionpage) {
+            } else if ((!$onsectionpage) && (!$sectionishidden)) {
                 if (empty($this->tcsettings)) {
                     $this->tcsettings = $this->courseformat->get_settings();
                 }
@@ -413,7 +415,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         if ($section->uservisible) {
             $title = html_writer::tag('a', $title,
-                            array('href' => course_get_url($course, $section->section), 'class' => $linkclasses));
+                array('href' => course_get_url($course, $section->section), 'class' => $linkclasses));
         }
         $o .= $this->output->heading($title, 3, 'section-title');
 
@@ -738,13 +740,14 @@ class format_topcoll_renderer extends format_section_renderer_base {
 
         $o .= html_writer::start_tag('div', array('class' => 'content sectionhidden'));
 
-        $title = get_string('notavailable');
+        $title = $this->section_title_without_link($section, $course);
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
             $o .= $this->output->heading($title, 3, 'section-title', "sectionid-{$section->id}-title");
         } else {
             // Moodle H3's look bad on mobile / tablet with CT so use plain.
             $o .= html_writer::tag('h3', $title, array('id' => "sectionid-{$section->id}-title"));
         }
+        $o .= $this->section_availability($section);
         $o .= html_writer::end_tag('div');
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
             if ($this->rtl) {
@@ -752,7 +755,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 $leftcontent = $this->section_left_content($section, $course, false);
                 $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
             } else {
-                $rightcontent = $this->section_right_content($section, $course, false);
+                $rightcontent = $this->section_right_content($section, $course, false, true);
                 $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
             }
         }
