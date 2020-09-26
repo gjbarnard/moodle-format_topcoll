@@ -5,6 +5,8 @@ Version 3.9.1.0 - TBC
   2. Colour fixes for Adaptable theme version 3.0.0.
   3. Fix 'Show hidden sections in collapsed form does not reveal section titles to students' - CONTRIB-7510.
   4. Port of fixes to activity meta from Adaptable - https://gitlab.com/jezhops/moodle-theme_adaptable/-/issues/161.
+  5. Fix 'Lesson meta information shows "Not attempted" even if it has been' - #79.
+  6. Update activity.php from Adaptable.
 
 Version 3.9.0.4 - 31/07/2020
   1. Add 'Duplicate section' functionality from 'onetopic' format, thanks to David Herney Bernal for the code - #72.
