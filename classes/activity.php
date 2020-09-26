@@ -171,7 +171,7 @@ class activity {
                     $meta->numparticipants = call_user_func('format_topcoll\\activity::'.
                         $methodparticipants, $courseid, $mod);
                 } else {
-                    $meta->numparticipants = self::course_participant_count($courseid, $mod->modname);
+                    $meta->numparticipants = self::course_participant_count($courseid, $mod);
                 }
             }
 
@@ -328,7 +328,7 @@ class activity {
      * @return string
      */
     protected static function lesson_meta(cm_info $modinst) {
-        $meta = self::std_meta($modinst, 'available', 'deadline', 'lessonid', 'attempts', 'timeseen', 'attempted', true);
+        $meta = self::std_meta($modinst, 'available', 'deadline', 'lessonid', 'timer', 'lessontime', 'attempted', true);
         // TO BE DELETED: $meta->submissionnotrequired = true; ..........
         return $meta;
     }
@@ -359,15 +359,14 @@ class activity {
      *
      * @return int
      */
-    protected static function std_num_submissions($courseid,
+    protected static function std_num_submissions(
+            $courseid,
             $mod,
             $maintable,
             $mainkey,
             $submittable,
             $extraselect = '') {
         global $DB;
-
-        $modid = $mod->id;
 
         static $modtotalsbyid = array();
 
@@ -392,8 +391,9 @@ class activity {
         $totalsbyid = $modtotalsbyid[$maintable][$courseid];
 
         if (!empty($totalsbyid)) {
-            if (isset($totalsbyid[$modid])) {
-                return intval($totalsbyid[$modid]->totalsubmitted);
+            $instanceid = $mod->instance;
+            if (isset($totalsbyid[$instanceid])) {
+                return intval($totalsbyid[$instanceid]->totalsubmitted);
             }
         }
         return 0;
@@ -491,7 +491,7 @@ class activity {
      * @return int
      */
     protected static function lesson_num_submissions($courseid, $mod) {
-        return self::std_num_submissions($courseid, $mod, 'lesson', 'lessonid', 'lesson_attempts');
+        return self::std_num_submissions($courseid, $mod, 'lesson', 'lessonid', 'lesson_timer');
     }
 
     /**
@@ -509,10 +509,10 @@ class activity {
      * Get number of ungraded quiz attempts for specific quiz.
      *
      * @param int $courseid
-     * @param int $quizid
+     * @param cm_info $mod
      * @return int
      */
-    protected static function quiz_num_submissions_ungraded($courseid, $quizid) {
+    protected static function quiz_num_submissions_ungraded($courseid, $mod) {
         global $DB;
 
         static $totalsbyquizid;
@@ -543,6 +543,7 @@ class activity {
         }
 
         if (!empty($totalsbyquizid)) {
+            $quizid = $mod->instance;
             if (isset($totalsbyquizid[$quizid])) {
                 return intval($totalsbyquizid[$quizid]->total);
             }
@@ -842,42 +843,67 @@ class activity {
     }
 
     /**
-     * Get total participant count for specific courseid. Originally from
-     * the snap theme by Moodlerooms.
+     * Get total participant count for specific courseid and module.
      *
      * @param int $courseid
-     * @param string $modname the name of the module, used to build a capability check
+     * @param cm_info $mod
+     *
      * @return int
      */
-    protected static function course_participant_count($courseid, $modname = null) {
-        static $participantcount = array();
-
-        // Incorporate the modname in the static cache index.
-        $idx = $courseid . $modname;
-
-        if (!isset($participantcount[$idx])) {
-            // Use the modname to determine the best capability.
-            switch ($modname) {
-                case 'quiz':
-                    $capability = 'mod/quiz:attempt';
-                    break;
-                case 'choice':
-                    $capability = 'mod/choice:choose';
-                    break;
-                case 'feedback':
-                    $capability = 'mod/feedback:complete';
-                    break;
-                default:
-                    // If no modname is specified, assume a count of all users is required.
-                    $capability = '';
+    protected static function course_participant_count($courseid, $mod) {
+        static $modulecount = array();  // 3D array on course id then module id.
+        static $studentroles = null;
+        if (empty($studentroles)) {
+            $studentarch = get_archetype_roles('student');
+            $studentroles = array();
+            foreach ($studentarch as $role) {
+                $studentroles[] = $role->shortname;
             }
-
-            $context = \context_course::instance($courseid);
-            $onlyactive = true;
-            $enrolled = count_enrolled_users($context, $capability, null, $onlyactive);
-            $participantcount[$idx] = $enrolled;
         }
 
-        return $participantcount[$idx];
+        if (!isset($modulecount[$courseid])) {
+            $modulecount[$courseid] = array();
+            $context = \context_course::instance($courseid);
+            $users = get_enrolled_users($context, '', 0, 'u.id', null, 0, 0, true);
+            $users = array_keys($users);
+            $alluserroles = get_users_roles($context, $users);
+
+            foreach ($users as $userid) {
+                $usershortnames = array();
+                foreach ($alluserroles[$userid] as $userrole) {
+                    $usershortnames[] = $userrole->shortname;
+                }
+                $isstudent = false;
+                foreach ($studentroles as $studentrole) {
+                    if (in_array($studentrole, $usershortnames)) {
+                        // User is in a role that is based on a student archetype on the course.
+                        $isstudent = true;
+                        break;
+                    }
+                }
+                if (!$isstudent) {
+                    // Don't go any further.
+                    continue;
+                }
+
+                $modinfo = get_fast_modinfo($courseid, $userid);
+                $cms = $modinfo->get_cms(); // Array of cm_info objects for the user on the course.
+                foreach ($cms as $usermod) {
+                    if (!isset($modulecount[$courseid][$usermod->id])) {
+                        $modulecount[$courseid][$usermod->id] = 0;
+                    }
+                    // From course_section_cm() in M3.8 - is_visible_on_course_page for M3.9+.
+                    if (((method_exists($usermod, 'is_visible_on_course_page')) && ($usermod->is_visible_on_course_page()))
+                        || ((!empty($usermod->availableinfo)) && ($usermod->url))) {
+                        // From course_section_cm_name_title().
+                        if ($usermod->uservisible) {
+                            $modulecount[$courseid][$usermod->id]++;
+                        }
+                    }
+                }
+            }
+        }
+
+        return $modulecount[$courseid][$mod->id];
     }
 }

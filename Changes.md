@@ -6,6 +6,8 @@ Version 3.8.1.2 - TBD
   3. Colour fixes for Adaptable theme version 2.3.1.
   4. Fix 'Show hidden sections in collapsed form does not reveal section titles to students' - CONTRIB-7510.
   5. Port of fixes to activity meta from Adaptable - https://gitlab.com/jezhops/moodle-theme_adaptable/-/issues/161.
+  6. Fix 'Lesson meta information shows "Not attempted" even if it has been' - #79.
+  7. Update activity.php from Adaptable.
 
 Version 3.8.1.1 - 29/06/2020
   1. Added 'Course page further information' functionality from Adaptable theme.
