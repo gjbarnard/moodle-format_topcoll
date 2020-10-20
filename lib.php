@@ -382,7 +382,13 @@ class format_topcoll extends format_base {
     public function course_format_options($foreditform = false) {
         static $courseformatoptions = false;
         $courseconfig = null;
-
+        $enabledplugins = array();
+        $engagaementactivities = array('assign', 'quiz', 'choice', 'feedback', 'lesson', 'data');
+        foreach ($engagaementactivities as $plugintype) {
+            if (get_config('format_topcoll', 'coursesectionactivityfurtherinformation' . $plugintype) == 2) {
+                array_push($enabledplugins, $plugintype);
+            }
+        }
         if ($courseformatoptions === false) {
             /* Note: Because 'admin_setting_configcolourpicker' in 'settings.php' needs to use a prefixing '#'
                      this needs to be stripped off here if it's there for the format's specific colour picker. */
@@ -506,11 +512,14 @@ class format_topcoll extends format_base {
                     'default' => get_config('format_topcoll', 'defaultshowsectionsummary'),
                     'type' => PARAM_INT,
                 ),
-                'showadditionalmoddata' => array(
-                    'default' => get_config('format_topcoll', 'showadditionalmoddata'),
-                    'type' => PARAM_INT,
-                )
             );
+            // In case all plugins are set to no set default to no.
+            if (!empty($enabledplugins)) {
+                $courseformatoptions['showadditionalmoddata'] = array(
+                    'default' => get_config('format_topcoll', 'showadditionalmoddata'),
+                    'type' => PARAM_INT);
+            }
+
         }
         if ($foreditform && !isset($courseformatoptions['displayinstructions']['label'])) {
             /* Note: Because 'admin_setting_configcolourpicker' in 'settings.php' needs to use a prefixing '#'
@@ -686,16 +695,23 @@ class format_topcoll extends format_base {
                               2 => new lang_string('yes'))
                     )
                 );
-                $courseformatoptionsedit['showadditionalmoddata'] = array(
-                    'label' => new lang_string('showadditionalmoddata', 'format_topcoll'),
-                    'help' => 'showadditionalmoddata',
-                    'help_component' => 'format_topcoll',
-                    'element_type' => 'select',
-                    'element_attributes' => array(
-                        array(1 => new lang_string('no'),
-                            2 => new lang_string('yes'))
-                    )
-                );
+                if (!empty($enabledplugins)) {
+                    $stringenabled = '';
+                    foreach ($enabledplugins as $value) {
+                        $stringenabled .= $value . ', ';
+                    }
+                    $stringenabled = substr($stringenabled, 0, -2);
+                    $courseformatoptionsedit['showadditionalmoddata'] = array(
+                        'label' => new lang_string('showadditionalmoddata', 'format_topcoll', $stringenabled),
+                        'help' => 'showadditionalmoddata',
+                        'help_component' => 'format_topcoll',
+                        'element_type' => 'select',
+                        'element_attributes' => array(
+                            array(1 => new lang_string('no'),
+                                2 => new lang_string('yes'))
+                        )
+                    );
+                }
             } else {
                 $courseformatoptionsedit['layoutelement'] = array(
                     'label' => get_config('format_topcoll', 'defaultlayoutelement'), 'element_type' => 'hidden');
@@ -715,8 +731,10 @@ class format_topcoll extends format_base {
                     'label' => get_config('format_topcoll', 'defaultonesection'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['showsectionsummary'] = array(
                     'label' => get_config('format_topcoll', 'defaultshowsectionsummary'), 'element_type' => 'hidden');
-                $courseformatoptionsedit['showadditionalmoddata'] = array(
-                    'label' => get_config('format_topcoll', 'showadditionalmoddata'), 'element_type' => 'hidden');
+                if (!empty($enabledplugins)) {
+                    $courseformatoptionsedit['showadditionalmoddata'] = array(
+                        'label' => get_config('format_topcoll', 'showadditionalmoddata'), 'element_type' => 'hidden');
+                }
             }
 
             if (has_capability('format/topcoll:changetogglealignment', $context)) {
