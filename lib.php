@@ -386,7 +386,22 @@ class format_topcoll extends format_base {
         $engagaementactivities = array('assign', 'quiz', 'choice', 'feedback', 'lesson', 'data');
         foreach ($engagaementactivities as $plugintype) {
             if (get_config('format_topcoll', 'coursesectionactivityfurtherinformation' . $plugintype) == 2) {
-                array_push($enabledplugins, $plugintype);
+                switch ($plugintype) {
+                    case 'assign':
+                        array_push($enabledplugins, 'assignments');
+                        break;
+                    case 'quiz':
+                        array_push($enabledplugins, 'quizzes');
+                        break;
+                    case 'data':
+                        array_push($enabledplugins, 'databases');
+                        break;
+                    case 'choice' || 'feedback' || 'lesson':
+                        array_push($enabledplugins, $plugintype . 's');
+                        break;
+                    default:
+                        coding_exception('Try to process invalid plugin', 'Check the plugintypes which are supported by format_topcoll');
+                }
             }
         }
         if ($courseformatoptions === false) {
@@ -513,7 +528,7 @@ class format_topcoll extends format_base {
                     'type' => PARAM_INT,
                 ),
             );
-            // In case all plugins are set to no set default to no.
+            // In case there exist enabled plugins take the previous value.
             if (!empty($enabledplugins)) {
                 $courseformatoptions['showadditionalmoddata'] = array(
                     'default' => get_config('format_topcoll', 'showadditionalmoddata'),
@@ -696,11 +711,9 @@ class format_topcoll extends format_base {
                     )
                 );
                 if (!empty($enabledplugins)) {
-                    $stringenabled = '';
-                    foreach ($enabledplugins as $value) {
-                        $stringenabled .= $value . ', ';
-                    }
-                    $stringenabled = substr($stringenabled, 0, -2);
+                    $stringenabled = implode(', ', $enabledplugins);
+                    $portion = strrchr($stringenabled, ',');
+                    $stringenabled = str_replace($portion, (" and" . substr($portion, 1)), $stringenabled);
                     $courseformatoptionsedit['showadditionalmoddata'] = array(
                         'label' => new lang_string('showadditionalmoddata', 'format_topcoll', $stringenabled),
                         'help' => 'showadditionalmoddata',
