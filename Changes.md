@@ -8,6 +8,7 @@ Version 3.8.1.2 - TBD
   5. Port of fixes to activity meta from Adaptable - https://gitlab.com/jezhops/moodle-theme_adaptable/-/issues/161.
   6. Fix 'Lesson meta information shows "Not attempted" even if it has been' - #79.
   7. Update activity.php from Adaptable.
+  8. Due date label doesn't honor overridden dates for mod_assign - #82 - thanks to https://github.com/golenkovm for the patch.
 
 Version 3.8.1.1 - 29/06/2020
   1. Added 'Course page further information' functionality from Adaptable theme.
