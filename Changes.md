@@ -8,6 +8,7 @@ Version 3.9.1.0 - TBC
   5. Fix 'Lesson meta information shows "Not attempted" even if it has been' - #79.
   6. Update activity.php from Adaptable.
   7. Due date label doesn't honor overridden dates for mod_assign - #82 - thanks to https://github.com/golenkovm for the patch.
+  8. Initial Behat test.
 
 Version 3.9.0.4 - 31/07/2020
   1. Add 'Duplicate section' functionality from 'onetopic' format, thanks to David Herney Bernal for the code - #72.
