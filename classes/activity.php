@@ -874,10 +874,18 @@ class activity {
 
         if (!isset($modulecount[$courseid])) {
             $modulecount[$courseid] = array();
+
+            // Initialise to zero in case of no enrolled students on the course.
+            $modinfo = get_fast_modinfo($courseid, -1);
+            $cms = $modinfo->get_cms(); // Array of cm_info objects.
+            foreach ($cms as $themod) {
+                $modulecount[$courseid][$themod->id] = 0;
+            }
+
             $context = \context_course::instance($courseid);
             $users = get_enrolled_users($context, '', 0, 'u.id', null, 0, 0, true);
             $users = array_keys($users);
-            $alluserroles = get_users_roles($context, $users);
+            $alluserroles = get_users_roles($context, $users, false);
 
             foreach ($users as $userid) {
                 $usershortnames = array();
@@ -900,9 +908,6 @@ class activity {
                 $modinfo = get_fast_modinfo($courseid, $userid);
                 $cms = $modinfo->get_cms(); // Array of cm_info objects for the user on the course.
                 foreach ($cms as $usermod) {
-                    if (!isset($modulecount[$courseid][$usermod->id])) {
-                        $modulecount[$courseid][$usermod->id] = 0;
-                    }
                     // From course_section_cm() in M3.8 - is_visible_on_course_page for M3.9+.
                     if (((method_exists($usermod, 'is_visible_on_course_page')) && ($usermod->is_visible_on_course_page()))
                         || ((!empty($usermod->availableinfo)) && ($usermod->url))) {
