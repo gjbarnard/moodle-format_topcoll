@@ -288,14 +288,15 @@ class activity {
         $meta = self::std_meta($modinst, 'allowsubmissionsfromdate', 'duedate', 'assignment', 'submission',
             'timemodified', 'submitted', true, $submitselect, $submissionnotrequired);
 
-        // Check assignment due date in user and group overrides.
-        $context = \context_module::instance($modinst->id);
-        $assign = new \assign($context, $modinst, $courseid);
-        $assign->update_effective_access($USER->id);
-        $submissionstatus = $assign->get_assign_submission_status_renderable($USER, false);
-
-        if (!empty($submissionstatus->duedate) && $submissionstatus->duedate != $meta->timeclose) {
-            $meta->timeclose = $submissionstatus->duedate;
+        if (!empty($meta)) {
+            // Check assignment due date in user and group overrides.
+            $context = \context_module::instance($modinst->id);
+            $assign = new \assign($context, $modinst, $courseid);
+            $assign->update_effective_access($USER->id);
+            $submissionstatus = $assign->get_assign_submission_status_renderable($USER, false);
+            if (!empty($submissionstatus->duedate) && $submissionstatus->duedate != $meta->timeclose) {
+                $meta->timeclose = $submissionstatus->duedate;
+            }
         }
 
         return ($meta);
