@@ -526,23 +526,22 @@ class format_topcoll extends format_base {
                 'showsectionsummary' => array(
                     'default' => get_config('format_topcoll', 'defaultshowsectionsummary'),
                     'type' => PARAM_INT,
-                ),
+                )
             );
 
-            // Case 1 : at least one plugin is set to yes show config with default either:
-            // Previousvalue - in case it was set.
-            // Yes (2) - if no value was set.
-            // Case 2: all plugins are set to no - set default to No (1)
-            $default = 1;
+            /** Case 1 : at least one plugin is set to yes show config with default either:
+            * Previousvalue - in case it was set.
+            * Yes (2) - if no value was set. */
             if (!empty($enabledplugins)) {
                 $default = get_config('format_topcoll', 'showadditionalmoddata');
                 if ($default == false) {
                     $default = 2;
                 }
+                $courseformatoptions['showadditionalmoddata'] = array(
+                    'default' => $default,
+                    'type' => PARAM_INT);
             }
-            $courseformatoptions['showadditionalmoddata'] = array(
-                'default' => $default,
-                'type' => PARAM_INT);
+
         }
         if ($foreditform && !isset($courseformatoptions['displayinstructions']['label'])) {
             /* Note: Because 'admin_setting_configcolourpicker' in 'settings.php' needs to use a prefixing '#'
