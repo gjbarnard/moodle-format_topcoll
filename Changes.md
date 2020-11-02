@@ -11,6 +11,7 @@ Version 3.8.1.2 - TBD
   8. Due date label doesn't honor overridden dates for mod_assign - #82 - thanks to https://github.com/golenkovm for the patch.
   9. Initial Behat test.
  10. No students port from Adaptable - https://gitlab.com/jezhops/moodle-theme_adaptable/-/issues/185.
+ 11. Fix 'Due date disappears when moving activities' - #87.
 
 Version 3.8.1.1 - 29/06/2020
   1. Added 'Course page further information' functionality from Adaptable theme.
