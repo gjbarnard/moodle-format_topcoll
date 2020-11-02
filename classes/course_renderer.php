@@ -147,6 +147,10 @@ class format_topcoll_course_renderer extends \core_course_renderer {
      * @return string
      */
     public function course_section_cm($course, &$completioninfo, cm_info $mod, $sectionreturn, $displayoptions = array()) {
+        if ($this->page->user_is_editing()) { // Don't display the activity meta when editing so that drag and drop is not broken.
+            return parent::course_section_cm($course, $completioninfo, $mod, $sectionreturn, $displayoptions);
+        }
+
         $output = '';
         /* We return empty string (because course module will not be displayed at all)
            if:
@@ -168,10 +172,6 @@ class format_topcoll_course_renderer extends \core_course_renderer {
         }
 
         $output .= html_writer::start_tag('div');
-
-        if ($this->page->user_is_editing()) {
-            $output .= course_get_cm_move($mod, $sectionreturn);
-        }
 
         $output .= html_writer::start_tag('div', array('class' => 'mod-indent-outer'));
 
@@ -208,14 +208,7 @@ class format_topcoll_course_renderer extends \core_course_renderer {
             $output .= $contentpart;
         }
 
-        $modicons = '';
-        if ($this->page->user_is_editing()) {
-            $editactions = course_get_cm_edit_actions($mod, $mod->indent, $sectionreturn);
-            $modicons .= ' '. $this->course_section_cm_edit_actions($editactions, $mod, $displayoptions);
-            $modicons .= $mod->afterediticons;
-        }
-
-        $modicons .= $this->course_section_cm_completion($course, $completioninfo, $mod, $displayoptions);
+        $modicons = $this->course_section_cm_completion($course, $completioninfo, $mod, $displayoptions);
 
         if (!empty($modicons)) {
             $output .= html_writer::span($modicons, 'actions');
@@ -422,7 +415,6 @@ class format_topcoll_course_renderer extends \core_course_renderer {
      * @param cm_info $mod
      * @param activity_meta $meta
      * @return string
-     * @throws coding_exception
      */
     public function submission_cta(cm_info $mod, \format_topcoll\activity_meta $meta) {
         global $CFG;
