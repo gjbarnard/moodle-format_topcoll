@@ -12,6 +12,7 @@ Version 3.8.1.2 - TBD
   9. Initial Behat test.
  10. No students port from Adaptable - https://gitlab.com/jezhops/moodle-theme_adaptable/-/issues/185.
  11. Fix 'Due date disappears when moving activities' - #87.
+ 12. Fix 'Issue with Assignment Meta-information' - #86.
 
 Version 3.8.1.1 - 29/06/2020
   1. Added 'Course page further information' functionality from Adaptable theme.
