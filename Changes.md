@@ -11,6 +11,7 @@ Version 3.9.1.0 - TBC
   8. Initial Behat test.
   9. No students port from Adaptable - https://gitlab.com/jezhops/moodle-theme_adaptable/-/issues/185.
  10. Fix 'Due date disappears when moving activities' - #87.
+ 11. Fix 'Issue with Assignment Meta-information' - #86.
 
 Version 3.9.0.4 - 31/07/2020
   1. Add 'Duplicate section' functionality from 'onetopic' format, thanks to David Herney Bernal for the code - #72.

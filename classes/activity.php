@@ -79,6 +79,11 @@ class activity {
         } else {
             $meta = new activity_meta(); // Return empty activity meta.
         }
+
+        if ((!empty($meta->timeclose)) && ($meta->timeclose < time())) {
+            $meta->expired = true;
+        }
+
         return $meta;
     }
 
@@ -124,17 +129,9 @@ class activity {
         $meta->set_default('submitstrkey', $submitstrkey);
         $meta->set_default('submittedstr', get_string($submitstrkey, 'format_topcoll'));
         $meta->set_default('notsubmittedstr', get_string('not'.$submitstrkey, 'format_topcoll'));
-        if (get_string_manager()->string_exists($mod->modname.'draft', 'format_topcoll')) {
-            $meta->set_default('draftstr', get_string($mod->modname.'draft', 'format_topcoll'));
-        } else {
-            $meta->set_default('draftstr', get_string('draft', 'format_topcoll'));
-        }
-
-        if (get_string_manager()->string_exists($mod->modname.'reopened', 'format_topcoll')) {
-            $meta->set_default('reopenedstr', get_string($mod->modname.'reopened', 'format_topcoll'));
-        } else {
-            $meta->set_default('reopenedstr', get_string('reopened', 'format_topcoll'));
-        }
+        $meta->set_default('draftstr', get_string('draft', 'format_topcoll'));
+        $meta->set_default('reopenedstr', get_string('reopened', 'format_topcoll'));
+        $meta->set_default('expiredstr', get_string('expired', 'format_topcoll'));
 
         $activitydates = self::instance_activity_dates($courseid, $mod, $timeopenfld, $timeclosefld);
         $meta->timeopen = $activitydates->timeopen;
@@ -352,7 +349,7 @@ class activity {
      */
     protected static function quiz_meta(cm_info $modinst) {
         return self::std_meta($modinst, 'timeopen', 'timeclose', 'quiz',
-                'attempts', 'timemodified', 'attempted', true, 'AND st.state=\'finished\'');
+            'attempts', 'timemodified', 'attempted', true, 'AND st.state=\'finished\'');
     }
 
     // The lesson_ungraded function has been removed as it was very tricky to implement.

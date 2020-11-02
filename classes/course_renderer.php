@@ -428,11 +428,21 @@ class format_topcoll_course_renderer extends \core_course_renderer {
                 }
                 $message = $this->output->pix_icon('i/checked', get_string('checked', 'format_topcoll')).$meta->submittedstr.$submittedonstr;
             } else {
-                $warningstr = $meta->draft ? $meta->draftstr : $meta->notsubmittedstr;
-                $warningstr = $meta->reopened ? $meta->reopenedstr : $warningstr;
-                $message = $warningstr;
+                if ($meta->expired) {
+                    $warningstr = $meta->expiredstr;
+                    $warningicon = 't/locked';
+                } else if ($meta->reopened) {
+                    $warningstr = $meta->reopenedstr;
+                    $warningicon = 't/unlocked';
+                } else if ($meta->draft) {
+                    $warningstr = $meta->draftstr;
+                    $warningicon = 'i/warning';
+                } else {
+                    $warningstr = $meta->notsubmittedstr;
+                    $warningicon = 'i/warning';
+                }
 
-                $message = $this->output->pix_icon('i/warning', get_string('warning', 'format_topcoll')).$message;
+                $message = $this->output->pix_icon($warningicon, get_string('warning', 'format_topcoll')).$warningstr;
             }
 
             return html_writer::link($url, $message);
