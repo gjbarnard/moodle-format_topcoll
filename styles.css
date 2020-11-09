@@ -814,16 +814,40 @@ body.jsenabled #toggle-all {
     font-size: 1.1em;
 }
 
-.format-topcoll .ct-activity-date-overdue {
-    background-color: #ee0000;
+.format-topcoll .ct-activity-action {
+    margin: 0 7px;
+}
+
+.format-topcoll .ct-activity-action i {
+    margin-right: 0.35rem;
 }
 
 .format-topcoll .ct-activity-date-submitted {
-    background-color: #00cc00;
+    background-color: #d4edda;
+}
+
+.format-topcoll .ct-activity-date-submitted a {
+    color: #155724;
 }
 
 .format-topcoll .ct-activity-date-nearly-due {
-    background-color: #f79100;
+    background-color: #FFF3CD;
+}
+
+.format-topcoll .ct-activity-date-nearly-due a {
+    color: #856404;
+}
+
+.format-topcoll .ct-activity-date-overdue {
+    background-color: #f8d7da;
+}
+
+.format-topcoll .ct-activity-date-overdue a {
+    color: #721c24;
+}
+
+.format-topcoll .ct-activity-date-overdue .text-warning {
+    color: #721C24 !important;
 }
 
 .format-topcoll .ct-activity-due-date .icon,
