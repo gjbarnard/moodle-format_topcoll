@@ -1,13 +1,11 @@
 language: php
 
-sudo: false
-
 cache:
   directories:
     - $HOME/.composer/cache
     - $HOME/.npm
 
-matrix:
+jobs:
  allow_failures:
  fast_finish: true
  include:
@@ -29,7 +27,7 @@ matrix:
       postgresql: 9.5
 env:
  global:
-  - MOODLE_BRANCH=MOODLE_39_STABLE
+  - MOODLE_BRANCH=MOODLE_310_STABLE
   - IGNORE_NAMES=tc_colourpopup.php,tc_colourpopup.js
 
 before_install:
