@@ -272,7 +272,6 @@ class format_topcoll_course_renderer extends \core_course_renderer {
             return '';
         }
         $content = '';
-        $duedate = '';
 
         $warningclass = '';
         if ($meta->submitted) {
@@ -289,7 +288,7 @@ class format_topcoll_course_renderer extends \core_course_renderer {
             } else {
                 // Only display if this is really a student on the course (i.e. not anyone who can grade an assignment).
                 if (!has_capability('mod/assign:grade', $mod->context)) {
-                    $content .= html_writer::start_tag('div', array('class' => 'ct-activity-mod-engagement' . $warningclass));
+                    $content .= html_writer::start_tag('div', array('class' => 'ct-activity-mod-engagement'.$warningclass));
                     $content .= $activitycontent;
                     $content .= html_writer::end_tag('div');
                 }
@@ -307,8 +306,6 @@ class format_topcoll_course_renderer extends \core_course_renderer {
             $dateformat = get_string('strftimedate', 'langconfig');
             $due = get_string('due', 'format_topcoll', userdate($meta->$field, $dateformat));
 
-            $pastdue = $meta->$field < time();
-
             // Create URL for due date.
             $url = new \moodle_url("/mod/{$mod->modname}/view.php", ['id' => $mod->id]);
             $dateformat = get_string('strftimedate', 'langconfig');
@@ -317,17 +314,18 @@ class format_topcoll_course_renderer extends \core_course_renderer {
 
             /* Display assignment status (due, nearly due, overdue), as long as it hasn't been submitted,
                or submission not required. */
-            if ( (!$meta->submitted) && (!$meta->submissionnotrequired) ) {
+            if ((!$meta->submitted) && (!$meta->submissionnotrequired)) {
                 $warningclass = '';
                 $labeltext = '';
 
+                $time = time();
                 // If assignment is 7 days before date due(nearly due).
                 $timedue = $meta->$field - (86400 * 7);
-                if ( (time() > $timedue) &&  !(time() > $meta->$field) ) {
+                if (($time > $timedue) &&  ($time <= $meta->$field)) {
                     if ($mod->modname == 'assign') {
                         $warningclass = ' ct-activity-date-nearly-due';
                     }
-                } else if (time() > $meta->$field) { // If assignment is actually overdue.
+                } else if ($time > $meta->$field) { // If assignment is actually overdue.
                     if ($mod->modname == 'assign') {
                         $warningclass = ' ct-activity-date-overdue';
                     }
@@ -338,15 +336,14 @@ class format_topcoll_course_renderer extends \core_course_renderer {
 
                 $activityclass = '';
                 if ($mod->modname == 'assign') {
-                        $activityclass = 'ct-activity-due-date';
+                    $activityclass = 'ct-activity-due-date';
                 }
-                $duedate .= html_writer::start_tag('span', array('class' => $activityclass . $warningclass));
+                $duedate = html_writer::start_tag('span', array('class' => $activityclass . $warningclass));
                 $duedate .= html_writer::link($url, $labeltext);
                 $duedate .= html_writer::end_tag('span');
+                $content .= html_writer::start_tag('div', array('class' => 'ct-activity-mod-engagement'));
+                $content .= $duedate . html_writer::end_tag('div');
             }
-
-            $content .= html_writer::start_tag('div', array('class' => 'ct-activity-mod-engagement'));
-            $content .= $duedate . html_writer::end_tag('div');
         }
 
         if ($meta->isteacher) {
@@ -379,7 +376,7 @@ class format_topcoll_course_renderer extends \core_course_renderer {
 
                 $icon = $this->output->pix_icon('docs', get_string('info'));
                 $content .= html_writer::start_tag('div', array('class' => 'ct-activity-mod-engagement'));
-                $content .= html_writer::link($url, $icon . $engagementstr);
+                $content .= html_writer::link($url, $icon.$engagementstr, array('class' => 'ct-activity-action'));
                 $content .= html_writer::end_tag('div');
             }
 
@@ -403,7 +400,6 @@ class format_topcoll_course_renderer extends \core_course_renderer {
                 // TODO - spit out a 'submissions allowed from' tag.
                 return $content;
             }
-
         }
 
         return $content;
@@ -447,7 +443,7 @@ class format_topcoll_course_renderer extends \core_course_renderer {
                 $message = $this->output->pix_icon($warningicon, get_string('warning', 'format_topcoll')).$warningstr;
             }
 
-            return html_writer::link($url, $message);
+            return html_writer::link($url, $message, array('class' => 'ct-activity-action'));
         }
         return '';
     }
