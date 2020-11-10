@@ -16,7 +16,7 @@ jobs:
    env: DB=pgsql
    services: postgresql
    addons:
-      postgresql: 9.5
+      postgresql: 9.6
  - php: 7.4
    env: DB=mysqli
    services: mysql
@@ -24,7 +24,7 @@ jobs:
    env: DB=pgsql
    services: postgresql
    addons:
-      postgresql: 9.5
+      postgresql: 9.6
 env:
  global:
   - MOODLE_BRANCH=MOODLE_310_STABLE
