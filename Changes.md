@@ -1,6 +1,6 @@
 ﻿Version Information
 ===================
-Version 3.10.0.1 - TBC
+Version 3.10.0.1 - 10/11/20
 Note: Functionally the same as 3.9.1.0.
   1. Fix 'Tests fail on PHP7.4' - #77.
   2. Colour fixes for Adaptable theme version 3.0.0.
