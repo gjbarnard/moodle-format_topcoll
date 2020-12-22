@@ -378,6 +378,7 @@ $string['attempted'] = 'Attempted';
 $string['contributed'] = 'Contributed';
 $string['draft'] = 'Not published to students';
 $string['due'] = 'Due {$a}';
+$string['expired'] = 'Expired';
 $string['feedbackavailable'] = 'Feedback available';
 $string['notanswered'] = 'Not answered';
 $string['notattempted'] = 'Not attempted';

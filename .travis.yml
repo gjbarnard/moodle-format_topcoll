@@ -1,13 +1,11 @@
 language: php
 
-sudo: false
-
 cache:
   directories:
     - $HOME/.composer/cache
     - $HOME/.npm
 
-matrix:
+jobs:
  allow_failures:
  fast_finish: true
  include:
@@ -18,7 +16,7 @@ matrix:
    env: DB=pgsql
    services: postgresql
    addons:
-      postgresql: 9.5
+      postgresql: 9.6
  - php: 7.4
    env: DB=mysqli
    services: mysql
@@ -26,10 +24,10 @@ matrix:
    env: DB=pgsql
    services: postgresql
    addons:
-      postgresql: 9.5
+      postgresql: 9.6
 env:
  global:
-  - MOODLE_BRANCH=MOODLE_39_STABLE
+  - MOODLE_BRANCH=MOODLE_310_STABLE
   - IGNORE_NAMES=tc_colourpopup.php,tc_colourpopup.js
 
 before_install:
@@ -56,5 +54,6 @@ script:
   - moodle-plugin-ci codechecker
   - moodle-plugin-ci validate
   - moodle-plugin-ci savepoints
+  - moodle-plugin-ci behat
 #Not critical:  - moodle-plugin-ci phpdoc
   - moodle-plugin-ci phpunit

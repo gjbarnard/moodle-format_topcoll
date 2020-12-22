@@ -62,30 +62,40 @@ class activity_meta {
      * @var string $submittedstr - string to use when submitted
      */
     public $submittedstr;
+
     /**
-     * @var string $notsubmittedstr - string to use when not submitted
+     * @var string $notsubmittedstr - string to use when not submitted.
      */
     public $notsubmittedstr;
+
     /**
-     * @var string $submitstrkey - language string key
+     * @var string $submitstrkey - language string key.
      */
     public $submitstrkey;
+
     /**
-     * @var string $draftstr - string for draft status
+     * @var string $draftstr - string for draft status.
      */
     public $draftstr;
+
     /**
-     * @var string $reopenedstr - string for reopened status
+     * @var string $reopenedstr - string for reopened status.
      */
     public $reopenedstr;
 
+    /**
+     * @var string $expiredstr - string for expired status.
+     */
+    public $expiredstr;
+
     // General meta data.
     /**
-     * @var int $timeopen - unix time stamp for time open
+     * @var int $timeopen - unix time stamp for time open.
      */
     public $timeopen;
+
     /**
-     * @var int $timeclose - unix time stamp for time closes
+     * @var int $timeclose - unix time stamp for time closed.
      */
     public $timeclose;
 
@@ -98,6 +108,7 @@ class activity_meta {
      * @var bool $isteacher - true if meta data is intended for teacher
      */
     public $isteacher = false;
+
     /**
      * @var bool $submissionnotrequired - true if a submission is not required
      */
@@ -108,22 +119,32 @@ class activity_meta {
      * @var bool $submitted - true if submission has been made
      */
     public $submitted = false; // Consider collapsing this variable + draft variable into one 'status' variable?
+
     /**
      * @var bool $draft - true if activity submission is in draft status
      */
     public $draft = false;
+
     /**
      * @var bool $reopened - true if reopened
      */
     public $reopened = false;
+
+    /**
+     * @var bool $expired - true if expired
+     */
+    public $expired = false;
+
     /**
      * @var int $timesubmitted - unix time stamp for time submitted
      */
     public $timesubmitted;
+
     /**
      * @var bool $grade - has the submission been graded
      */
     public $grade = false;
+
     /**
      * @var bool $overdue - is the submission overdue
      */
