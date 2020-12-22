@@ -529,9 +529,9 @@ class format_topcoll extends format_base {
                 )
             );
 
-            /** Case 1 : at least one plugin is set to yes show config with default either:
-            * Previousvalue - in case it was set.
-            * Yes (2) - if no value was set. */
+            /* Case 1 : at least one plugin is set to yes show config with default either:
+               Previousvalue - in case it was set.
+               Yes (2) - if no value was set. */
             if (!empty($enabledplugins)) {
                 $default = get_config('format_topcoll', 'showadditionalmoddata');
                 if ($default == false) {
