@@ -125,4 +125,21 @@ class format_topcoll_courseformatlib_testcase extends advanced_testcase {
         $this->assertEquals('0.7', $thesettings['togglebackgroundopacity']);
         $this->assertEquals('0.8', $thesettings['togglebackgroundhoveropacity']);
     }
+
+    public function test_showadditionalmoddata_default_yes() {
+        $this->setAdminUser();
+
+        set_config('coursesectionactivityfurtherinformationchoice', 2, 'format_topcoll');
+        set_config('coursesectionactivityfurtherinformationdata', 2, 'format_topcoll');
+
+        $thesettings = $this->courseformat->get_settings();
+        $this->assertEquals(2, $thesettings['showadditionalmoddata']);
+
+        set_config('coursesectionactivityfurtherinformationchoice', 1, 'format_topcoll');
+        set_config('coursesectionactivityfurtherinformationdata', 1, 'format_topcoll');
+        set_config('coursesectionactivityfurtherinformationlesson', 2, 'format_topcoll');
+
+        $thesettings = $this->courseformat->get_settings();
+        $this->assertEquals(2, $thesettings['showadditionalmoddata']);
+    }
 }

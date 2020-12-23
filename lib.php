@@ -382,7 +382,28 @@ class format_topcoll extends format_base {
     public function course_format_options($foreditform = false) {
         static $courseformatoptions = false;
         $courseconfig = null;
-
+        $enabledplugins = array();
+        $engagaementactivities = array('assign', 'quiz', 'choice', 'feedback', 'lesson', 'data');
+        foreach ($engagaementactivities as $plugintype) {
+            if (get_config('format_topcoll', 'coursesectionactivityfurtherinformation' . $plugintype) == 2) {
+                switch ($plugintype) {
+                    case 'assign':
+                        array_push($enabledplugins, 'assignments');
+                        break;
+                    case 'quiz':
+                        array_push($enabledplugins, 'quizzes');
+                        break;
+                    case 'data':
+                        array_push($enabledplugins, 'databases');
+                        break;
+                    case 'choice' || 'feedback' || 'lesson':
+                        array_push($enabledplugins, $plugintype . 's');
+                        break;
+                    default:
+                        coding_exception('Try to process invalid plugin', 'Check the plugintypes which are supported by format_topcoll');
+                }
+            }
+        }
         if ($courseformatoptions === false) {
             /* Note: Because 'admin_setting_configcolourpicker' in 'settings.php' needs to use a prefixing '#'
                      this needs to be stripped off here if it's there for the format's specific colour picker. */
@@ -507,6 +528,19 @@ class format_topcoll extends format_base {
                     'type' => PARAM_INT,
                 )
             );
+
+            /* If at least one plugin is set to yes show config with default either:
+               Previous Value - in case it was set in previous editing of the course
+               Default Value Yes (2) - if no value was set. */
+            if (!empty($enabledplugins)) {
+                $configshowmod = get_config('format_topcoll', 'showadditionalmoddata');
+                if ($configshowmod == false) {
+                    $configshowmod = 2;
+                }
+                $courseformatoptions['showadditionalmoddata'] = array(
+                    'default' => $configshowmod,
+                    'type' => PARAM_INT);
+            }
         }
         if ($foreditform && !isset($courseformatoptions['displayinstructions']['label'])) {
             /* Note: Because 'admin_setting_configcolourpicker' in 'settings.php' needs to use a prefixing '#'
@@ -682,6 +716,21 @@ class format_topcoll extends format_base {
                               2 => new lang_string('yes'))
                     )
                 );
+                if (!empty($enabledplugins)) {
+                    $stringenabled = implode(', ', $enabledplugins);
+                    $portion = strrchr($stringenabled, ',');
+                    $stringenabled = str_replace($portion, (" and" . substr($portion, 1)), $stringenabled);
+                    $courseformatoptionsedit['showadditionalmoddata'] = array(
+                        'label' => new lang_string('showadditionalmoddata', 'format_topcoll', $stringenabled),
+                        'help' => 'showadditionalmoddata',
+                        'help_component' => 'format_topcoll',
+                        'element_type' => 'select',
+                        'element_attributes' => array(
+                            array(1 => new lang_string('no'),
+                                2 => new lang_string('yes'))
+                        )
+                    );
+                }
             } else {
                 $courseformatoptionsedit['layoutelement'] = array(
                     'label' => get_config('format_topcoll', 'defaultlayoutelement'), 'element_type' => 'hidden');
@@ -701,6 +750,10 @@ class format_topcoll extends format_base {
                     'label' => get_config('format_topcoll', 'defaultonesection'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['showsectionsummary'] = array(
                     'label' => get_config('format_topcoll', 'defaultshowsectionsummary'), 'element_type' => 'hidden');
+                if (!empty($enabledplugins)) {
+                    $courseformatoptionsedit['showadditionalmoddata'] = array(
+                        'label' => get_config('format_topcoll', 'showadditionalmoddata'), 'element_type' => 'hidden');
+                }
             }
 
             if (has_capability('format/topcoll:changetogglealignment', $context)) {
@@ -1340,6 +1393,7 @@ class format_topcoll extends format_base {
             $updatedata['toggleiconposition'] = get_config('format_topcoll', 'defaulttoggleiconposition');
             $updatedata['onesection'] = get_config('format_topcoll', 'defaultonesection');
             $updatedata['showsectionsummary'] = get_config('format_topcoll', 'defaultshowsectionsummary');
+            $updatedata['showadditionalmoddata'] = get_config('format_topcoll', 'showadditionalmoddata');
             $updatelayout = true;
         }
         if ($togglealignment && has_capability('format/topcoll:changetogglealignment', $context) && $resetallifall) {
@@ -1418,6 +1472,7 @@ class format_topcoll extends format_base {
             $data['toggleallhover'] = get_config('format_topcoll', 'defaulttoggleallhover');
             $data['toggleiconposition'] = get_config('format_topcoll', 'defaulttoggleiconposition');
             $data['toggleiconset'] = get_config('format_topcoll', 'defaulttoggleiconset');
+            $data['showadditionalmoddata'] = get_config('format_topcoll', 'showadditionalmoddata');
         }
         $this->update_course_format_options($data);
 

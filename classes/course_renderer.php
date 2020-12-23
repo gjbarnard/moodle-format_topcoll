@@ -220,7 +220,9 @@ class format_topcoll_course_renderer extends \core_course_renderer {
         // Get further information.
         $settingname = 'coursesectionactivityfurtherinformation'.$mod->modname;
         $setting = get_config('format_topcoll', $settingname);
-        if (!empty($setting) && ($setting == 2)) {
+        $courseformat = course_get_format($course);
+        $course = $courseformat->get_course();
+        if (!empty($setting) && ($setting == 2) && ($course->showadditionalmoddata == 2)) {
             $cmmetaoutput = $this->course_section_cm_get_meta($mod);
             if (!empty($cmmetaoutput)) {
                 $output .= html_writer::start_tag('div', array('class' => 'ct-activity-meta-container'));

@@ -116,6 +116,9 @@ $string['layoutstructuretopics'] = 'topics';
 $string['layoutstructureweeks'] = 'weeks';
 $string['layoutstructuredays'] = 'days';
 
+// Coursesetting - Show addtional data for modules
+$string['showadditionalmoddata'] = 'Show additional information for: {$a} in the course';
+$string['showadditionalmoddata_help'] = 'Allow all users to see the activity deadline and users with grading permission to see the number of submissions on the course page for activities.';
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529.
 $string['setcolour'] = 'Colour';
