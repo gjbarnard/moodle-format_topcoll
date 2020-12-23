@@ -14,6 +14,7 @@ Version 3.8.1.2 - TBD
  11. Fix 'Due date disappears when moving activities' - #87.
  12. Fix 'Issue with Assignment Meta-information' - #86.
  13. Make show information alert colors accessible - #88 - thanks to https://github.com/haietza for the colours.
+ 14. Make engagement information optional - #80 and #91 - thanks to Nina Herrmann (https://github.com/NinaHerrmann) for the enhancement.
 
 Version 3.8.1.1 - 29/06/2020
   1. Added 'Course page further information' functionality from Adaptable theme.
