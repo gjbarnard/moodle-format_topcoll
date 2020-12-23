@@ -1,5 +1,8 @@
 ﻿Version Information
 ===================
+Version 3.9.1.1 - TBD
+  1. Make engagement information optional - #80 and #91 - thanks to Nina Herrmann (https://github.com/NinaHerrmann) for the enhancement.
+
 Version 3.9.1.0 - 10/11/20
   1. Fix 'Tests fail on PHP7.4' - #77.
   2. Colour fixes for Adaptable theme version 3.0.0.

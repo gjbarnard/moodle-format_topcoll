@@ -142,4 +142,17 @@ class format_topcoll_courseformatlib_testcase extends advanced_testcase {
         $thesettings = $this->courseformat->get_settings();
         $this->assertEquals(2, $thesettings['showadditionalmoddata']);
     }
+
+    public function test_showadditionalmoddata_reset() {
+        $this->setAdminUser();
+
+        set_config('coursesectionactivityfurtherinformationlesson', 2, 'format_topcoll');
+        set_config('defaultshowadditionalmoddata', 1, 'format_topcoll');
+
+        $testdata = new stdClass;
+        $testdata->resetalllayout = true;
+        $this->courseformat->update_course_format_options($testdata);
+        $thesettings = $this->courseformat->get_settings();
+        $this->assertEquals(1, $thesettings['showadditionalmoddata']);
+    }
 }

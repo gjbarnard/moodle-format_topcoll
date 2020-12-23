@@ -119,6 +119,8 @@ $string['layoutstructuredays'] = 'days';
 // Coursesetting - Show addtional data for modules
 $string['showadditionalmoddata'] = 'Show additional information for: {$a} in the course';
 $string['showadditionalmoddata_help'] = 'Allow all users to see the activity deadline and users with grading permission to see the number of submissions on the course page for activities.';
+$string['defaultshowadditionalmoddata'] = 'Default course \'Show additional information\' if not already set';
+$string['defaultshowadditionalmoddatadesc'] = 'If an activity is set at site level (below) to show additional information then this setting states the default state of the course specific instance of it.';
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529.
 $string['setcolour'] = 'Colour';
