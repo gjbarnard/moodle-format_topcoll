@@ -1,5 +1,8 @@
 ﻿Version Information
 ===================
+Version 3.10.0.2 - TBD
+  1. Make engagement information optional - #80 and #91 - thanks to Nina Herrmann (https://github.com/NinaHerrmann) for the enhancement.
+
 Version 3.10.0.1 - 10/11/20
 Note: Functionally the same as 3.9.1.0.
   1. Fix 'Tests fail on PHP7.4' - #77.

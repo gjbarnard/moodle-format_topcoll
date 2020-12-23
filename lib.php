@@ -383,9 +383,9 @@ class format_topcoll extends format_base {
         static $courseformatoptions = false;
         $courseconfig = null;
         $enabledplugins = array();
-        $engagaementactivities = array('assign', 'quiz', 'choice', 'feedback', 'lesson', 'data');
-        foreach ($engagaementactivities as $plugintype) {
-            if (get_config('format_topcoll', 'coursesectionactivityfurtherinformation' . $plugintype) == 2) {
+        $engagementactivities = array('assign', 'quiz', 'choice', 'feedback', 'lesson', 'data');
+        foreach ($engagementactivities as $plugintype) {
+            if (get_config('format_topcoll', 'coursesectionactivityfurtherinformation'.$plugintype) == 2) {
                 switch ($plugintype) {
                     case 'assign':
                         array_push($enabledplugins, 'assignments');
@@ -400,7 +400,7 @@ class format_topcoll extends format_base {
                         array_push($enabledplugins, $plugintype . 's');
                         break;
                     default:
-                        coding_exception('Try to process invalid plugin', 'Check the plugintypes which are supported by format_topcoll');
+                        coding_exception('Try to process invalid plugin', 'Check the plugintypes that are supported by format_topcoll');
                 }
             }
         }
@@ -525,21 +525,17 @@ class format_topcoll extends format_base {
                 ),
                 'showsectionsummary' => array(
                     'default' => get_config('format_topcoll', 'defaultshowsectionsummary'),
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 )
             );
 
-            /* If at least one plugin is set to yes show config with default either:
-               Previous Value - in case it was set in previous editing of the course
-               Default Value Yes (2) - if no value was set. */
+            /* If at least one plugin is set to 'yes' then show config with default of 'yes',
+               otherwise will use the value prevously stored. */
             if (!empty($enabledplugins)) {
-                $configshowmod = get_config('format_topcoll', 'showadditionalmoddata');
-                if ($configshowmod == false) {
-                    $configshowmod = 2;
-                }
                 $courseformatoptions['showadditionalmoddata'] = array(
-                    'default' => $configshowmod,
-                    'type' => PARAM_INT);
+                    'default' => get_config('format_topcoll', 'defaultshowadditionalmoddata'),
+                    'type' => PARAM_INT
+                );
             }
         }
         if ($foreditform && !isset($courseformatoptions['displayinstructions']['label'])) {
@@ -727,7 +723,7 @@ class format_topcoll extends format_base {
                         'element_type' => 'select',
                         'element_attributes' => array(
                             array(1 => new lang_string('no'),
-                                2 => new lang_string('yes'))
+                                  2 => new lang_string('yes'))
                         )
                     );
                 }
@@ -1393,7 +1389,7 @@ class format_topcoll extends format_base {
             $updatedata['toggleiconposition'] = get_config('format_topcoll', 'defaulttoggleiconposition');
             $updatedata['onesection'] = get_config('format_topcoll', 'defaultonesection');
             $updatedata['showsectionsummary'] = get_config('format_topcoll', 'defaultshowsectionsummary');
-            $updatedata['showadditionalmoddata'] = get_config('format_topcoll', 'showadditionalmoddata');
+            $updatedata['showadditionalmoddata'] = get_config('format_topcoll', 'defaultshowadditionalmoddata');
             $updatelayout = true;
         }
         if ($togglealignment && has_capability('format/topcoll:changetogglealignment', $context) && $resetallifall) {
@@ -1472,7 +1468,7 @@ class format_topcoll extends format_base {
             $data['toggleallhover'] = get_config('format_topcoll', 'defaulttoggleallhover');
             $data['toggleiconposition'] = get_config('format_topcoll', 'defaulttoggleiconposition');
             $data['toggleiconset'] = get_config('format_topcoll', 'defaulttoggleiconset');
-            $data['showadditionalmoddata'] = get_config('format_topcoll', 'showadditionalmoddata');
+            $data['showadditionalmoddata'] = get_config('format_topcoll', 'defaultshowadditionalmoddata');
         }
         $this->update_course_format_options($data);
 
