@@ -1131,7 +1131,9 @@ class format_topcoll extends format_base {
      * @return true|false
      */
     private function validate_colour($data) {
-        if (preg_match('/^#?([[:xdigit:]]{3}){1,2}$/', $data)) {
+        if ($data == '-') {
+            return true;
+        } else if (preg_match('/^#?([[:xdigit:]]{3}){1,2}$/', $data)) {
             return true;
         } else {
             return false;

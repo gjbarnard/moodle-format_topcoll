@@ -70,18 +70,31 @@ class MoodleQuickForm_tccolourpopup extends HTML_QuickForm_text implements templ
         $id = $this->getAttribute('id');
         $PAGE->requires->js('/course/format/topcoll/js/tc_colourpopup.js');
         $PAGE->requires->js_init_call('M.util.init_tccolour_popup', array($id));
-        $colour = $this->getValue();
-        if ((!empty($colour)) && ($colour[0] == '#')) {
-            $colour = substr($colour, 1);
+        $value = $this->getValue();
+        if (!empty($value)) {
+            if ($value[0] == '#') {
+                $colour = substr($value, 1);
+            } else if ($value[0] == '-') {
+                $colour = 'ffffff';
+            } else {
+                $colour = $value;
+            }
+        } else {
+            $value = '-';
+            $colour = 'ffffff';
         }
-        $content = "<input size='8' name='" . $this->getName() . "' value='" . $colour . "'id='{$id}' type='text' " .
-                    $this->_getAttrString($this->_attributes) . " >";
-        $content .= html_writer::tag('span', '&nbsp;', array('id' => 'colpicked_'.$id, 'tabindex' => '-1',
-                                     'style' => 'background-color: #'.$colour.
-                                     '; cursor:pointer; margin: 0; padding: 0 8px; border:1px solid black'));
-        $content .= html_writer::start_tag('div', array('id' => 'colpick_' . $id,
-                                           'style' => "display:none;position:absolute;z-index:500;",
-                    'class' => 'form-colourpicker defaultsnext'));
+        $content = "<input size='3' name='" . $this->getName() . "' value='" . $value . "'id='{$id}' type='text' " .
+            $this->_getAttrString($this->_attributes) . " >";
+        $content .= html_writer::tag('span', '&nbsp;', array(
+            'id' => 'colpicked_'.$id,
+            'class' => 'tccolourpopupbox',
+            'tabindex' => '-1',
+            'style' => 'background-color: #'.$colour.';')
+        );
+        $content .= html_writer::start_tag('div', array(
+            'id' => 'colpick_' . $id,
+            'style' => "display: none;",
+            'class' => 'tccolourpopupsel form-colourpicker defaultsnext'));
         $content .= html_writer::tag('div', '', array('class' => 'admin_colourpicker clearfix'));
         $content .= html_writer::end_tag('div');
         return $content;

@@ -124,7 +124,7 @@ $string['defaultshowadditionalmoddatadesc'] = 'If an activity is set at site lev
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529.
 $string['setcolour'] = 'Colour';
-$string['colourrule'] = "Please enter a valid RGB colour, six hexadecimal digits.";
+$string['colourrule'] = "Please enter a valid RGB colour, six hexadecimal digits or '-' for default.";
 $string['settoggleforegroundcolour'] = 'Toggle foreground';
 $string['settoggleforegroundhovercolour'] = 'Toggle foreground hover';
 $string['settogglebackgroundcolour'] = 'Toggle background';
