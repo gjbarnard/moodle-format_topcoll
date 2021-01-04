@@ -69,8 +69,10 @@ class format_topcoll extends format_base {
         if (empty($this->settings) == true) {
             $this->settings = $this->get_format_options();
             foreach($this->settings as $settingname => $settingvalue) {
-                if ((!empty($settingvalue)) && ($settingvalue[0] == '-')) {
-                    $this->settings[$settingname] = get_config('format_topcoll', 'default'.$settingname);
+                if (!empty($settingvalue)) {
+                    if (($settingvalue[0] == '-') || ($settingvalue < 1)) {
+                        $this->settings[$settingname] = get_config('format_topcoll', 'default'.$settingname);
+                    }
                 }
             }
         }
@@ -486,7 +488,7 @@ class format_topcoll extends format_base {
                 ),
                 'toggleiconset' => array(
                     'default' => get_config('format_topcoll', 'defaulttoggleiconset'),
-                    'type' => PARAM_ALPHA,
+                    'type' => PARAM_ALPHAEXT,
                 ),
                 'onesection' => array(
                     'default' => get_config('format_topcoll', 'defaultonesection'),
@@ -758,15 +760,36 @@ class format_topcoll extends format_base {
             }
 
             if (has_capability('format/topcoll:changetogglealignment', $context)) {
+                $leftstr = new lang_string('left', 'format_topcoll');
+                $centrestr = new lang_string('center', 'format_topcoll');
+                $rightstr = new lang_string('center', 'format_topcoll');
+                $default = get_config('format_topcoll', 'defaulttogglealignment');
+                switch($default) {
+                    case 1:
+                        $defaultstr = new lang_string('default', 'format_topcoll', $leftstr);
+                        break;
+                    case 2:
+                        $defaultstr = new lang_string('default', 'format_topcoll', $centrestr);
+                        break;
+                    case 3:
+                        $defaultstr = new lang_string('default', 'format_topcoll', $rightstr);
+                        break;
+                    default:
+                        $defaultstr = 'Bug!';
+                    break;
+                }
                 $courseformatoptionsedit['togglealignment'] = array(
                     'label' => new lang_string('settogglealignment', 'format_topcoll'),
                     'help' => 'settogglealignment',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => array(
-                        array(1 => new lang_string('left', 'format_topcoll'),   // Left.
-                              2 => new lang_string('center', 'format_topcoll'), // Centre.
-                              3 => new lang_string('right', 'format_topcoll'))  // Right.
+                        array(
+                            0 => $defaultstr, // Default.
+                            1 => $leftstr,    // Left.
+                            2 => $centrestr,  // Centre.
+                            3 => $rightstr    // Right.
+                        )
                     )
                 );
             } else {
@@ -782,6 +805,7 @@ class format_topcoll extends format_base {
                     'element_type' => 'select',
                     'element_attributes' => array(
                         array(
+                            '-' => new lang_string('default', 'format_topcoll', get_config('format_topcoll', 'defaulttoggleiconset')), // Default.
                             'arrow' => new lang_string('arrow', 'format_topcoll'),               // Arrow icon set.
                             'bulb' => new lang_string('bulb', 'format_topcoll'),                 // Bulb icon set.
                             'cloud' => new lang_string('cloud', 'format_topcoll'),               // Cloud icon set.
@@ -817,7 +841,7 @@ class format_topcoll extends format_base {
 
             if (has_capability('format/topcoll:changecolour', $context)) {
                 $opacityvalues = array(
-                    '-' => new lang_string('default'),
+                    '-' => '',
                     '0.0' => '0.0',
                     '0.1' => '0.1',
                     '0.2' => '0.2',
@@ -842,6 +866,7 @@ class format_topcoll extends format_base {
                         )
                     )
                 );
+                $opacityvalues['-'] = new lang_string('default', 'format_topcoll', get_config('format_topcoll', 'defaulttoggleforegroundopacity'));
                 $courseformatoptionsedit['toggleforegroundopacity'] = array(
                     'label' => new lang_string('settoggleforegroundopacity', 'format_topcoll'),
                     'help' => 'settoggleforegroundopacity',
@@ -861,6 +886,7 @@ class format_topcoll extends format_base {
                         )
                     )
                 );
+                $opacityvalues['-'] = new lang_string('default', 'format_topcoll', get_config('format_topcoll', 'defaulttoggleforegroundhoveropacity'));
                 $courseformatoptionsedit['toggleforegroundhoveropacity'] = array(
                     'label' => new lang_string('settoggleforegroundhoveropacity', 'format_topcoll'),
                     'help' => 'settoggleforegroundhoveropacity',
@@ -880,6 +906,7 @@ class format_topcoll extends format_base {
                         )
                     )
                 );
+                $opacityvalues['-'] = new lang_string('default', 'format_topcoll', get_config('format_topcoll', 'defaulttogglebackgroundopacity'));
                 $courseformatoptionsedit['togglebackgroundopacity'] = array(
                     'label' => new lang_string('settogglebackgroundopacity', 'format_topcoll'),
                     'help' => 'settogglebackgroundopacity',
@@ -899,6 +926,7 @@ class format_topcoll extends format_base {
                         )
                     )
                 );
+                $opacityvalues['-'] = new lang_string('default', 'format_topcoll', get_config('format_topcoll', 'defaulttogglebackgroundhoveropacity'));
                 $courseformatoptionsedit['togglebackgroundhoveropacity'] = array(
                     'label' => new lang_string('settogglebackgroundhoveropacity', 'format_topcoll'),
                     'help' => 'settogglebackgroundhoveropacity',
