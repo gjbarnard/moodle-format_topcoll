@@ -230,14 +230,6 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
-    // Default toggle foreground colour in hexadecimal RGB with preceding '#'.
-    $name = 'format_topcoll/defaulttgfgcolour';
-    $title = get_string('defaulttgfgcolour', 'format_topcoll');
-    $description = get_string('defaulttgfgcolour_desc', 'format_topcoll');
-    $default = '#000000';
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
-    $settings->add($setting);
-
     $opacityvalues = array(
         '0.0' => '0.0',
         '0.1' => '0.1',
@@ -252,15 +244,23 @@ if ($ADMIN->fulltree) {
         '1.0' => '1.0'
     );
 
+    // Default toggle foreground colour in hexadecimal RGB with preceding '#'.
+    $name = 'format_topcoll/defaulttoggleforegroundcolour';
+    $title = get_string('defaulttgfgcolour', 'format_topcoll');
+    $description = get_string('defaulttgfgcolour_desc', 'format_topcoll');
+    $default = '#000000';
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $settings->add($setting);
+
     // Default toggle foreground opacity between 0 and 1 in 0.1 increments.
-    $name = 'format_topcoll/defaulttgfgopacity';
+    $name = 'format_topcoll/defaulttoggleforegroundopacity';
     $title = get_string('defaulttgfgopacity', 'format_topcoll');
     $description = get_string('defaulttgfgopacity_desc', 'format_topcoll');
     $default = '1.0';
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $opacityvalues));
 
     // Default toggle foreground hover colour in hexadecimal RGB with preceding '#'.
-    $name = 'format_topcoll/defaulttgfghvrcolour';
+    $name = 'format_topcoll/defaulttoggleforegroundhovercolour';
     $title = get_string('defaulttgfghvrcolour', 'format_topcoll');
     $description = get_string('defaulttgfghvrcolour_desc', 'format_topcoll');
     $default = '#888888';
@@ -268,14 +268,14 @@ if ($ADMIN->fulltree) {
     $settings->add($setting);
 
     // Default toggle foreground hover opacity between 0 and 1 in 0.1 increments.
-    $name = 'format_topcoll/defaulttgfghvropacity';
+    $name = 'format_topcoll/defaulttoggleforegroundhoveropacity';
     $title = get_string('defaulttgfghvropacity', 'format_topcoll');
     $description = get_string('defaulttgfghvropacity_desc', 'format_topcoll');
     $default = '1.0';
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $opacityvalues));
 
     // Default toggle background colour in hexadecimal RGB with preceding '#'.
-    $name = 'format_topcoll/defaulttgbgcolour';
+    $name = 'format_topcoll/defaulttogglebackgroundcolour';
     $title = get_string('defaulttgbgcolour', 'format_topcoll');
     $description = get_string('defaulttgbgcolour_desc', 'format_topcoll');
     $default = '#e2e2f2';
@@ -283,14 +283,14 @@ if ($ADMIN->fulltree) {
     $settings->add($setting);
 
     // Default toggle background opacity between 0 and 1 in 0.1 increments.
-    $name = 'format_topcoll/defaulttgbgopacity';
+    $name = 'format_topcoll/defaulttogglebackgroundopacity';
     $title = get_string('defaulttgbgopacity', 'format_topcoll');
     $description = get_string('defaulttgbgopacity_desc', 'format_topcoll');
     $default = '1.0';
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $opacityvalues));
 
     // Default toggle background hover colour in hexadecimal RGB with preceding '#'.
-    $name = 'format_topcoll/defaulttgbghvrcolour';
+    $name = 'format_topcoll/defaulttogglebackgroundhovercolour';
     $title = get_string('defaulttgbghvrcolour', 'format_topcoll');
     $description = get_string('defaulttgbghvrcolour_desc', 'format_topcoll');
     $default = '#eeeeff';
@@ -298,7 +298,7 @@ if ($ADMIN->fulltree) {
     $settings->add($setting);
 
     // Default toggle background hover opacity between 0 and 1 in 0.1 increments.
-    $name = 'format_topcoll/defaulttgbghvropacity';
+    $name = 'format_topcoll/defaulttogglebackgroundhoveropacity';
     $title = get_string('defaulttgbghvropacity', 'format_topcoll');
     $description = get_string('defaulttgbghvropacity_desc', 'format_topcoll');
     $default = '1.0';

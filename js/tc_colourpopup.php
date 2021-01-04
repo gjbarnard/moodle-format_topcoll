@@ -75,13 +75,13 @@ class MoodleQuickForm_tccolourpopup extends HTML_QuickForm_text implements templ
             if ($value[0] == '#') {
                 $colour = substr($value, 1);
             } else if ($value[0] == '-') {
-                $colour = 'ffffff';
+                $colour = $this->getAttribute('defaultcolour');
             } else {
                 $colour = $value;
             }
         } else {
             $value = '-';
-            $colour = 'ffffff';
+            $colour = $this->getAttribute('defaultcolour');
         }
         $content = "<input size='3' name='" . $this->getName() . "' value='" . $value . "'id='{$id}' type='text' " .
             $this->_getAttrString($this->_attributes) . " >";

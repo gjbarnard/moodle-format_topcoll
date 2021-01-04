@@ -68,6 +68,11 @@ class format_topcoll extends format_base {
     public function get_settings() {
         if (empty($this->settings) == true) {
             $this->settings = $this->get_format_options();
+            foreach($this->settings as $settingname => $settingvalue) {
+                if ((!empty($settingvalue)) && ($settingvalue[0] == '-')) {
+                    $this->settings[$settingname] = get_config('format_topcoll', 'default'.$settingname);
+                }
+            }
         }
         return $this->settings;
     }
@@ -407,19 +412,19 @@ class format_topcoll extends format_base {
         if ($courseformatoptions === false) {
             /* Note: Because 'admin_setting_configcolourpicker' in 'settings.php' needs to use a prefixing '#'
                      this needs to be stripped off here if it's there for the format's specific colour picker. */
-            $defaulttgfgcolour = get_config('format_topcoll', 'defaulttgfgcolour');
+            $defaulttgfgcolour = get_config('format_topcoll', 'defaulttoggleforegroundcolour');
             if ($defaulttgfgcolour[0] == '#') {
                 $defaulttgfgcolour = substr($defaulttgfgcolour, 1);
             }
-            $defaulttgfghvrcolour = get_config('format_topcoll', 'defaulttgfghvrcolour');
+            $defaulttgfghvrcolour = get_config('format_topcoll', 'defaulttoggleforegroundhovercolour');
             if ($defaulttgfghvrcolour[0] == '#') {
                 $defaulttgfghvrcolour = substr($defaulttgfghvrcolour, 1);
             }
-            $defaulttgbgcolour = get_config('format_topcoll', 'defaulttgbgcolour');
+            $defaulttgbgcolour = get_config('format_topcoll', 'defaulttogglebackgroundcolour');
             if ($defaulttgbgcolour[0] == '#') {
                 $defaulttgbgcolour = substr($defaulttgbgcolour, 1);
             }
-            $defaulttgbghvrcolour = get_config('format_topcoll', 'defaulttgbghvrcolour');
+            $defaulttgbghvrcolour = get_config('format_topcoll', 'defaulttogglebackgroundhovercolour');
             if ($defaulttgbghvrcolour[0] == '#') {
                 $defaulttgbghvrcolour = substr($defaulttgbghvrcolour, 1);
             }
@@ -493,34 +498,34 @@ class format_topcoll extends format_base {
                 ),
                 'toggleforegroundcolour' => array(
                     'default' => $defaulttgfgcolour,
-                    'type' => PARAM_ALPHANUM,
+                    'type' => PARAM_ALPHANUMEXT,
                 ),
                 'toggleforegroundopacity' => array(
-                    'default' => get_config('format_topcoll', 'defaulttgfgopacity'),
+                    'default' => get_config('format_topcoll', 'defaulttoggleforegroundopacity'),
                     'type' => PARAM_RAW,
                 ),
                 'toggleforegroundhovercolour' => array(
                     'default' => $defaulttgfghvrcolour,
-                    'type' => PARAM_ALPHANUM,
+                    'type' => PARAM_ALPHANUMEXT,
                 ),
                 'toggleforegroundhoveropacity' => array(
-                    'default' => get_config('format_topcoll', 'defaulttgbghvropacity'),
+                    'default' => get_config('format_topcoll', 'defaulttoggleforegroundhoveropacity'),
                     'type' => PARAM_RAW,
                 ),
                 'togglebackgroundcolour' => array(
                     'default' => $defaulttgbgcolour,
-                    'type' => PARAM_ALPHANUM,
+                    'type' => PARAM_ALPHANUMEXT,
                 ),
                 'togglebackgroundopacity' => array(
-                    'default' => get_config('format_topcoll', 'defaulttgbgopacity'),
+                    'default' => get_config('format_topcoll', 'defaulttogglebackgroundopacity'),
                     'type' => PARAM_RAW,
                 ),
                 'togglebackgroundhovercolour' => array(
                     'default' => $defaulttgbghvrcolour,
-                    'type' => PARAM_ALPHANUM,
+                    'type' => PARAM_ALPHANUMEXT,
                 ),
                 'togglebackgroundhoveropacity' => array(
-                    'default' => get_config('format_topcoll', 'defaulttgbghvropacity'),
+                    'default' => get_config('format_topcoll', 'defaulttogglebackgroundhoveropacity'),
                     'type' => PARAM_RAW,
                 ),
                 'showsectionsummary' => array(
@@ -541,19 +546,19 @@ class format_topcoll extends format_base {
         if ($foreditform && !isset($courseformatoptions['displayinstructions']['label'])) {
             /* Note: Because 'admin_setting_configcolourpicker' in 'settings.php' needs to use a prefixing '#'
                      this needs to be stripped off here if it's there for the format's specific colour picker. */
-            $defaulttgfgcolour = get_config('format_topcoll', 'defaulttgfgcolour');
+            $defaulttgfgcolour = get_config('format_topcoll', 'defaulttoggleforegroundcolour');
             if ($defaulttgfgcolour[0] == '#') {
                 $defaulttgfgcolour = substr($defaulttgfgcolour, 1);
             }
-            $defaulttgfghvrcolour = get_config('format_topcoll', 'defaulttgfghvrcolour');
+            $defaulttgfghvrcolour = get_config('format_topcoll', 'defaulttoggleforegroundhovercolour');
             if ($defaulttgfghvrcolour[0] == '#') {
                 $defaulttgfghvrcolour = substr($defaulttgfghvrcolour, 1);
             }
-            $defaulttgbgcolour = get_config('format_topcoll', 'defaulttgbgcolour');
+            $defaulttgbgcolour = get_config('format_topcoll', 'defaulttogglebackgroundcolour');
             if ($defaulttgbgcolour[0] == '#') {
                 $defaulttgbgcolour = substr($defaulttgbgcolour, 1);
             }
-            $defaulttgbghvrcolour = get_config('format_topcoll', 'defaulttgbghvrcolour');
+            $defaulttgbghvrcolour = get_config('format_topcoll', 'defaulttogglebackgroundhovercolour');
             if ($defaulttgbghvrcolour[0] == '#') {
                 $defaulttgbghvrcolour = substr($defaulttgbghvrcolour, 1);
             }
@@ -812,6 +817,7 @@ class format_topcoll extends format_base {
 
             if (has_capability('format/topcoll:changecolour', $context)) {
                 $opacityvalues = array(
+                    '-' => new lang_string('default'),
                     '0.0' => '0.0',
                     '0.1' => '0.1',
                     '0.2' => '0.2',
@@ -830,7 +836,10 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => array(
-                        array('value' => $defaulttgfgcolour)
+                        array(
+                            'defaultcolour' => $defaulttgfgcolour,
+                            'value' => $defaulttgfgcolour
+                        )
                     )
                 );
                 $courseformatoptionsedit['toggleforegroundopacity'] = array(
@@ -846,7 +855,10 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => array(
-                        array('value' => $defaulttgfghvrcolour)
+                        array(
+                            'defaultcolour' => $defaulttgfghvrcolour,
+                            'value' => $defaulttgfghvrcolour
+                        )
                     )
                 );
                 $courseformatoptionsedit['toggleforegroundhoveropacity'] = array(
@@ -862,7 +874,10 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => array(
-                        array('value' => $defaulttgbgcolour)
+                        array(
+                            'defaultcolour' => $defaulttgbgcolour,
+                            'value' => $defaulttgbgcolour
+                        )
                     )
                 );
                 $courseformatoptionsedit['togglebackgroundopacity'] = array(
@@ -878,7 +893,10 @@ class format_topcoll extends format_base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => array(
-                        array('value' => $defaulttgbghvrcolour)
+                        array(
+                            'defaultcolour' => $defaulttgbghvrcolour,
+                            'value' => $defaulttgbghvrcolour
+                        )
                     )
                 );
                 $courseformatoptionsedit['togglebackgroundhoveropacity'] = array(
@@ -892,19 +910,19 @@ class format_topcoll extends format_base {
                 $courseformatoptionsedit['toggleforegroundcolour'] = array(
                     'label' => $defaulttgfgcolour, 'element_type' => 'hidden');
                 $courseformatoptionsedit['toggleforegroundopacity'] = array(
-                    'label' => get_config('format_topcoll', 'defaulttgfgopacity'), 'element_type' => 'hidden');
+                    'label' => get_config('format_topcoll', 'defaulttoggleforegroundopacity'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['toggleforegroundhovercolour'] = array(
                     'label' => $defaulttgfghvrcolour, 'element_type' => 'hidden');
                 $courseformatoptionsedit['toggleforegroundhoveropacity'] = array(
-                    'label' => get_config('format_topcoll', 'defaulttgfghvropacity'), 'element_type' => 'hidden');
+                    'label' => get_config('format_topcoll', 'defaulttoggleforegroundhoveropacity'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['togglebackgroundcolour'] = array(
                     'label' => $defaulttgbgcolour, 'element_type' => 'hidden');
                 $courseformatoptionsedit['togglebackgroundopacity'] = array(
-                    'label' => get_config('format_topcoll', 'defaulttgbgopacity'), 'element_type' => 'hidden');
+                    'label' => get_config('format_topcoll', 'defaulttogglebackgroundopacity'), 'element_type' => 'hidden');
                 $courseformatoptionsedit['togglebackgroundhovercolour'] = array(
                     'label' => $defaulttgbghvrcolour, 'element_type' => 'hidden');
                 $courseformatoptionsedit['togglebackgroundhoveropacity'] = array(
-                    'label' => get_config('format_topcoll', 'defaulttgbghvropacity'), 'element_type' => 'hidden');
+                    'label' => get_config('format_topcoll', 'defaulttogglebackgroundhoveropacity'), 'element_type' => 'hidden');
             }
             $readme = new moodle_url('/course/format/topcoll/Readme.md');
             $readme = html_writer::link($readme, 'Readme.md', array('target' => '_blank'));
@@ -1399,14 +1417,14 @@ class format_topcoll extends format_base {
             $updatetogglealignment = true;
         }
         if ($colour && has_capability('format/topcoll:changecolour', $context) && $resetallifall) {
-            $updatedata['toggleforegroundcolour'] = get_config('format_topcoll', 'defaulttgfgcolour');
-            $updatedata['toggleforegroundopacity'] = get_config('format_topcoll', 'defaulttgfgopacity');
-            $updatedata['toggleforegroundhovercolour'] = get_config('format_topcoll', 'defaulttgfghvrcolour');
-            $updatedata['toggleforegroundhoveropacity'] = get_config('format_topcoll', 'defaulttgfghvropacity');
-            $updatedata['togglebackgroundcolour'] = get_config('format_topcoll', 'defaulttgbgcolour');
-            $updatedata['togglebackgroundopacity'] = get_config('format_topcoll', 'defaulttgbgopacity');
-            $updatedata['togglebackgroundhovercolour'] = get_config('format_topcoll', 'defaulttgbghvrcolour');
-            $updatedata['togglebackgroundhoveropacity'] = get_config('format_topcoll', 'defaulttgbghvropacity');
+            $updatedata['toggleforegroundcolour'] = get_config('format_topcoll', 'defaulttoggleforegroundcolour');
+            $updatedata['toggleforegroundopacity'] = get_config('format_topcoll', 'defaulttoggleforegroundopacity');
+            $updatedata['toggleforegroundhovercolour'] = get_config('format_topcoll', 'defaulttoggleforegroundhovercolour');
+            $updatedata['toggleforegroundhoveropacity'] = get_config('format_topcoll', 'defaulttoggleforegroundhoveropacity');
+            $updatedata['togglebackgroundcolour'] = get_config('format_topcoll', 'defaulttogglebackgroundcolour');
+            $updatedata['togglebackgroundopacity'] = get_config('format_topcoll', 'defaulttogglebackgroundopacity');
+            $updatedata['togglebackgroundhovercolour'] = get_config('format_topcoll', 'defaulttogglebackgroundhovercolour');
+            $updatedata['togglebackgroundhoveropacity'] = get_config('format_topcoll', 'defaulttogglebackgroundhoveropacity');
             $updatecolour = true;
         }
         if ($toggleiconset && has_capability('format/topcoll:changetoggleiconset', $context) && $resetallifall) {
