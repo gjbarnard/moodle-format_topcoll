@@ -66,9 +66,9 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
             // Create table.
             $dbman->create_table($table);
         }
-        // Moodle 2.3 uses signed integers.
-        // Changing sign of field id on table format_topcoll_settings to signed - mysql only,
-        // see 'upgrade_mysql_fix_unsigned_columns()' in '/lib/db/upgradelib.php'.
+        /* Moodle 2.3 uses signed integers.
+           Changing sign of field id on table format_topcoll_settings to signed - mysql only,
+           see 'upgrade_mysql_fix_unsigned_columns()' in '/lib/db/upgradelib.php'. */
         if ($DB->get_dbfamily() == 'mysql') {
             $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null);
 
@@ -118,16 +118,16 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
             $dbman->add_field($table, $field);
         }
 
-        // New field layoutcolumns on table format_topcoll_settings.  This is not the same place as install.xml
-        // because of altering previous field issue but will work.
+        /* New field layoutcolumns on table format_topcoll_settings.  This is not the same place as install.xml
+           because of altering previous field issue but will work. */
         $field = new xmldb_field('layoutcolumns', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '1', 'tgbghvrcolour');
         // Conditionally launch add field layoutcolumns.
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
 
-        // Drop table format_topcoll_cookie_cnsnt if it exists - this may not work, please check db to see that
-        // the table has really gone.
+        /* Drop table format_topcoll_cookie_cnsnt if it exists - this may not work, please check db to see that
+          the table has really gone. */
         $table = new xmldb_table('format_topcoll_cookie_cnsnt');
 
         // Drop the table...
@@ -146,12 +146,12 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
                 // Check that the course still exists - CONTRIB-4065...
                 if ($DB->record_exists('course', array('id' => $record->courseid))) {
                     $courseformat = course_get_format($record->courseid);  // In '/course/format/lib.php'.
-                    // Only update if the current format is 'topcoll' as we must have an instance of 'format_topcoll' (in 'lib.php')
-                    // returned by the above.  Thanks to Marina Glancy for this :).
-                    // If there are entries that existed for courses that were originally topcoll, then they will be lost.  However
-                    // the code copes with this through the employment of defaults and I dont think the underlying
-                    // code desires entries in the course_format_settings table for courses of a format that belong
-                    // to another format.
+                    /* Only update if the current format is 'topcoll' as we must have an instance of 'format_topcoll' (in 'lib.php')
+                       returned by the above.  Thanks to Marina Glancy for this :).
+                       If there are entries that existed for courses that were originally topcoll, then they will be lost.  However
+                       the code copes with this through the employment of defaults and I dont think the underlying
+                       code desires entries in the course_format_settings table for courses of a format that belong
+                       to another format. */
                     if ($courseformat->get_format() == 'topcoll') {
                         $courseformat->restore_topcoll_setting($record->courseid, $record->layoutelement, $record->layoutstructure,
                                                                $record->layoutcolumns, $record->tgfgcolour, $record->tgbgcolour,
@@ -166,12 +166,41 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
 
     if ($oldversion < 2017110301) {
 
-        // During upgrade to Moodle 3.3 it could happen that general section (section 0) became 'invisible'.
-        // It should always be visible.
+        /* During upgrade to Moodle 3.3 it could happen that general section (section 0) became 'invisible'.
+           It should always be visible. */
         $DB->execute("UPDATE {course_sections} SET visible=1 WHERE visible=0 AND section=0 AND course IN
         (SELECT id FROM {course} WHERE format=?)", ['topcoll']);
 
         upgrade_plugin_savepoint(true, 2017110301, 'format', 'topcoll');
+    }
+
+    if ($oldversion < 2020110902) {
+        // Change in default names.
+        $value = get_config('format_topcoll', 'defaulttgfgcolour');
+        set_config('defaulttoggleforegroundcolour', $value, 'format_topcoll');
+
+        $value = get_config('format_topcoll', 'defaulttgfgopacity');
+        set_config('defaulttoggleforegroundopacity', $value, 'format_topcoll');
+
+        $value = get_config('format_topcoll', 'defaulttgfghvrcolour');
+        set_config('defaulttoggleforegroundhovercolour', $value, 'format_topcoll');
+
+        $value = get_config('format_topcoll', 'defaulttgfghvropacity');
+        set_config('defaulttoggleforegroundhoveropacity', $value, 'format_topcoll');
+
+        $value = get_config('format_topcoll', 'defaulttgbgcolour');
+        set_config('defaulttogglebackgroundcolour', $value, 'format_topcoll');
+
+        $value = get_config('format_topcoll', 'defaulttgbgopacity');
+        set_config('defaulttogglebackgroundopacity', $value, 'format_topcoll');
+
+        $value = get_config('format_topcoll', 'defaulttgbghvrcolour');
+        set_config('defaulttogglebackgroundhovercolour', $value, 'format_topcoll');
+
+        $value = get_config('format_topcoll', 'defaulttgbghvropacity');
+        set_config('defaulttogglebackgroundhoveropacity', $value, 'format_topcoll');
+
+        upgrade_plugin_savepoint(true, 2020110902, 'format', 'topcoll');
     }
 
     return $result;
