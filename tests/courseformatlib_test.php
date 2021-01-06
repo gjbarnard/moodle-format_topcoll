@@ -129,6 +129,7 @@ class format_topcoll_courseformatlib_testcase extends advanced_testcase {
     public function test_showadditionalmoddata_default_yes() {
         $this->setAdminUser();
 
+        set_config('defaultshowadditionalmoddata', 2, 'format_topcoll');
         set_config('coursesectionactivityfurtherinformationchoice', 2, 'format_topcoll');
         set_config('coursesectionactivityfurtherinformationdata', 2, 'format_topcoll');
 
@@ -146,8 +147,8 @@ class format_topcoll_courseformatlib_testcase extends advanced_testcase {
     public function test_showadditionalmoddata_reset() {
         $this->setAdminUser();
 
-        set_config('coursesectionactivityfurtherinformationlesson', 2, 'format_topcoll');
         set_config('defaultshowadditionalmoddata', 1, 'format_topcoll');
+        set_config('coursesectionactivityfurtherinformationlesson', 2, 'format_topcoll');
 
         $testdata = new stdClass;
         $testdata->resetalllayout = true;
