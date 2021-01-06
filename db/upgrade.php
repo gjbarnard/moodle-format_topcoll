@@ -181,7 +181,7 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
 
         $value = get_config('format_topcoll', 'defaulttgfgopacity');
         set_config('defaulttoggleforegroundopacity', $value, 'format_topcoll');
-    
+
         $value = get_config('format_topcoll', 'defaulttgfghvrcolour');
         set_config('defaulttoggleforegroundhovercolour', $value, 'format_topcoll');
 
