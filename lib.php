@@ -70,7 +70,7 @@ class format_topcoll extends format_base {
             $this->settings = $this->get_format_options();
             foreach ($this->settings as $settingname => $settingvalue) {
                 if (isset($settingvalue)) {
-                    if (($settingvalue[0] == '-') || ($settingvalue <= 0)) {
+                    if (($settingvalue == '-') || ($settingvalue <= 0)) {
                         // Default value indicator is a hypen or a number less or equal to 0.
                         $this->settings[$settingname] = get_config('format_topcoll', 'default'.$settingname);
                     }
@@ -1001,7 +1001,7 @@ class format_topcoll extends format_base {
      * @return array Updated value array with the added default entry.
      */
     private function generate_default_entry($settingname, $defaultindex, $values) {
-        $defaultvalue =  get_config('format_topcoll', 'default'.$settingname);
+        $defaultvalue = get_config('format_topcoll', 'default'.$settingname);
         $defarray = array($defaultindex => new lang_string('default', 'format_topcoll', $values[$defaultvalue]));
 
         return array_merge($defarray, $values);
