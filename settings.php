@@ -184,9 +184,25 @@ if ($ADMIN->fulltree) {
     // square       => Square icon set.
     // sunmoon      => Sun / Moon icon set.
     // switch       => Switch icon set.
+    $iconseticons = array(
+        'arrow' => $OUTPUT->pix_icon('arrow_right', get_string('arrow', 'format_topcoll'), 'format_topcoll'),
+        'bulb' => $OUTPUT->pix_icon('bulb_off', get_string('bulb', 'format_topcoll'), 'format_topcoll'),
+        'cloud' => $OUTPUT->pix_icon('cloud_off', get_string('cloud', 'format_topcoll'), 'format_topcoll'),
+        'eye' => $OUTPUT->pix_icon('eye_show', get_string('eye', 'format_topcoll'), 'format_topcoll'),
+        'folder' => $OUTPUT->pix_icon('folder_closed', get_string('folder', 'format_topcoll'), 'format_topcoll'),
+        'groundsignal' => $OUTPUT->pix_icon('ground_signal_off', get_string('groundsignal', 'format_topcoll'), 'format_topcoll'),
+        'led' => $OUTPUT->pix_icon('led_on', get_string('led', 'format_topcoll'), 'format_topcoll'),
+        'point' => $OUTPUT->pix_icon('point_right', get_string('point', 'format_topcoll'), 'format_topcoll'),
+        'power' => $OUTPUT->pix_icon('toggle_plus', get_string('power', 'format_topcoll'), 'format_topcoll'),
+        'radio' => $OUTPUT->pix_icon('radio_on', get_string('radio', 'format_topcoll'), 'format_topcoll'),
+        'smiley' => $OUTPUT->pix_icon('smiley_on', get_string('smiley', 'format_topcoll'), 'format_topcoll'),
+        'square' => $OUTPUT->pix_icon('square_on', get_string('square', 'format_topcoll'), 'format_topcoll'),
+        'sunmoon' => $OUTPUT->pix_icon('sunmoon_on', get_string('sunmoon', 'format_topcoll'), 'format_topcoll'),
+        'switch' => $OUTPUT->pix_icon('switch_on', get_string('switch', 'format_topcoll'), 'format_topcoll')
+    );
     $name = 'format_topcoll/defaulttoggleiconset';
     $title = get_string('defaulttoggleiconset', 'format_topcoll');
-    $description = get_string('defaulttoggleiconset_desc', 'format_topcoll');
+    $description = get_string('defaulttoggleiconset_desc', 'format_topcoll', $iconseticons);
     $default = 'arrow';
     $choices = array(
         'arrow' => new lang_string('arrow', 'format_topcoll'), // Arrow icon set.
