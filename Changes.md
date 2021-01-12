@@ -1,6 +1,6 @@
 ﻿Version Information
 ===================
-Version 3.10.0.2 - TBD
+Version 3.10.0.2 - 12/01/21
   1. Make engagement information optional - #80 and #91 - thanks to Nina Herrmann (https://github.com/NinaHerrmann) for the enhancement.
   2. All course settings now have an option to track the value of the global default as set by the administrator.  Thus, when they change,
      then the course changes without any user interaction on the course.  The reset course functionality is still there and will
