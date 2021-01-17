@@ -202,8 +202,6 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
     }
 
     public function test_section_header() {
-        global $CFG;
-
         $this->init();
         $section = $this->courseformat->get_section(1);
         $section->toggle = false;
@@ -231,11 +229,9 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
     }
 
     public function test_stealth_section_header() {
-        global $CFG;
-
         $this->init();
-        $theclass = self::call_method($this->outputus, 'stealth_section_header',
-            array(1));
+        $section = $this->courseformat->get_section(1);
+        $theclass = self::call_method($this->outputus, 'stealth_section_header', array(1));
         $thevalue = '<li id="section-1" class="section main clearfix orphaned hidden col-sm-12 col-md-12 col-lg-12" role="region" ';
         $thevalue .= 'aria-label="Section 1">';
         $thevalue .= '<div class="left side"></div>';
@@ -272,6 +268,8 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         }
 
         $this->init();
+        $this->outputus->set_user_preference(null, 0, 1);  // As is done in format.php.
+
         self::call_method($this->outputus, 'print_multiple_section_page',
             array($this->course, null, null, null, null, null));
         $theoutput = '<h2 class="accesshide">Section</h2><ul class="ctopics bsnewgrid">';
@@ -312,6 +310,8 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         }
 
         $this->init(1, 1);
+        $this->outputus->set_user_preference(null, 0, 1);  // As is done in format.php.
+
         self::call_method($this->outputus, 'print_multiple_section_page',
             array($this->course, null, null, null, null, null));
         $theoutput = '<h2 class="accesshide">Section</h2><ul class="ctopics bsnewgrid">';
@@ -345,7 +345,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $this->expectOutputString($theoutput);
     }
 
-    public function test_print_multiple_section_page_no_sections_horizontal() {
+    public function test_print_multiple_section_page_no_sections() {
         global $CFG;
         $activityicon = 'alt=" " role="presentation" ';
         if ($CFG->version >= 2018120303.06) {
@@ -353,6 +353,8 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         }
 
         $this->init(0);
+        $this->outputus->set_user_preference(null, 0, 1);  // As is done in format.php.
+
         self::call_method($this->outputus, 'print_multiple_section_page',
             array($this->course, null, null, null, null, null));
         $theoutput = '<h2 class="accesshide">Section</h2>';
@@ -367,33 +369,6 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" '.$activityicon.'/>';
         $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a></div></div>';
         $theoutput .= '</div></div></li></ul></div>';
-        $theoutput .= '<div class="right side"></div>';
-        $theoutput .= '</li>';
-        $theoutput .= '</ul>';
-        $this->expectOutputString($theoutput);
-    }
-
-    public function test_print_multiple_section_page_no_sections_vertical() {
-        global $CFG;
-        $activityicon = 'alt=" " role="presentation" ';
-        if ($CFG->version >= 2018120303.06) {
-            $activityicon = 'alt="" role="presentation" aria-hidden="true" ';
-        }
-
-        $this->init(0, 1);
-        self::call_method($this->outputus, 'print_multiple_section_page',
-            array($this->course, null, null, null, null, null));
-        $theoutput = '<h2 class="accesshide">Section</h2>';
-        $theoutput .= '<ul class="ctopics bsnewgrid">';
-        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" aria-label="General">';
-        $theoutput .= '<div class="left side"></div>';
-        $theoutput .= '<div class="content">';
-        $theoutput .= '<div class="section_availability"></div><div class="summary"></div><ul class="section img-text">';
-        $theoutput .= '<li class="activity forum modtype_forum " id="module-'.$this->cmid.'"><div><div class="mod-indent-outer">';
-        $theoutput .= '<div class="mod-indent"></div><div><div class="activityinstance">';
-        $theoutput .= '<a class="" onclick="" href="https://www.example.com/moodle/mod/forum/view.php?id='.$this->cmid.'">';
-        $theoutput .= '<img src="https://www.example.com/moodle/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" '.$activityicon.'/>';
-        $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a></div></div></div></div></li></ul></div>';
         $theoutput .= '<div class="right side"></div>';
         $theoutput .= '</li>';
         $theoutput .= '</ul>';
