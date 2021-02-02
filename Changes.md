@@ -1,13 +1,18 @@
 ﻿Version Information
 ===================
-Version 3.10.0.2 - 12/01/21
+Version 3.10.0.3 - 02/02/2021
+-----------------------------
+
+Version 3.10.0.2 - 12/01/2021
+-----------------------------
   1. Make engagement information optional - #80 and #91 - thanks to Nina Herrmann (https://github.com/NinaHerrmann) for the enhancement.
   2. All course settings now have an option to track the value of the global default as set by the administrator.  Thus, when they change,
      then the course changes without any user interaction on the course.  The reset course functionality is still there and will
      set the value of the setting to the this 'new' default value.  The default colour value is '-' and the colour picker box will
      show the colour that has been set as the default.  All other settings will state what the default currently is.
 
-Version 3.10.0.1 - 10/11/20
+Version 3.10.0.1 - 10/11/2020
+-----------------------------
 Note: Functionally the same as 3.9.1.0.
   1. Fix 'Tests fail on PHP7.4' - #77.
   2. Colour fixes for Adaptable theme version 3.0.0.
@@ -23,16 +28,20 @@ Note: Functionally the same as 3.9.1.0.
  12. Make show information alert colors accessible - #88 - thanks to https://github.com/haietza for the colours.
 
 Version 3.9.0.4 - 31/07/2020
+----------------------------
   1. Add 'Duplicate section' functionality from 'onetopic' format, thanks to David Herney Bernal for the code - #72.
   2. Apply MDL-68330 - #74.
 
-Version 3.9.0.3 - 24/7/2020
+Version 3.9.0.3 - 24/07/2020
+----------------------------
   1. Fix title.
 
-Version 3.9.0.2 - 21/7/2020
+Version 3.9.0.2 - 21/07/2020
+----------------------------
   1. Fix logic in restore of backup file for 'numsections' - #73.
 
-Version 3.9.0.1 - 19/7/2020
+Version 3.9.0.1 - 19/07/2020
+----------------------------
   1. Apply MDL-65539.
   2. Apply MDL-68231.
   3. Apply MDL-68235.
@@ -40,20 +49,24 @@ Version 3.9.0.1 - 19/7/2020
   5. Fix issue where 'numsections' is set to '0' on restore of backup file that does not have it set.
 
 Version 3.8.1.1 - 29/06/2020
+----------------------------
   1. Added 'Course page further information' functionality from Adaptable theme.
 
 Version 3.8.1.0 - 31/03/2020
+----------------------------
   1. Fix 'Section edit link is moved on top of previous sections edit link when deleting a section' - CONTRIB-7957.
   2. Fix 'Multiple columns changes to one column for students when last section is set to hidden' - CONTRIB-8008.
   3. Fix current section bar overlap.
 
 Version 3.8.0.1
+---------------
   1. Fix Collapsed topics format zoom issue - CONTRIB-7893.
   2. Adjust position of 'view only' icon.
   3. More accessible open all / close all - #67.
   4. Moodle 3.8 version based on V3.7.1.1.
 
 Version 3.7.1.0
+---------------
   1. Add missing Moodle define.
   2. Fix "Collapsed Topic Content/EditMenu Overlap" - https://moodle.org/mod/forum/discuss.php?d=388969.
   3. Fix error with analytic - get_section_dates function - thanks to https://github.com/tuanngocnguyen for the patch - #65.
@@ -61,9 +74,11 @@ Version 3.7.1.0
      which makes the tab order wrong.
 
 Version 3.7.0.1
+---------------
   1. Beta version for Moodle 3.7 based on 3.6.0.3.
 
 Version 3.6.0.3
+---------------
   1. Apply MDL-64819 - #61.
   2. Fix phpunit tests for MDL-64492 - thanks to Rossco Hellmans for the patch - #59.
   3. Added SVG version of one section icon - thanks to Luca Bösch for the patch - #60.
@@ -77,6 +92,7 @@ Version 3.6.0.3
      'layout' area with associated capability for non-admins.
 
 Version 3.6.0.2
+---------------
   1. Fix invalid HTML in case of zero section elements - thanks to Mario Wehr for raising this - #47.
   2. Fix: PHP Unit test failure (due to MDL-62680) - thanks to Anupama Dharmajan for the patch - #52.
   3. Fix: Two strange input fields remain in teacher view when all capabilities are forbidden - thanks to Tobias Reischmann for the patch - #54.
@@ -85,9 +101,11 @@ Version 3.6.0.2
   6. New: Based on '5', add key operation of toggles.
 
 Version 3.6.0.1
+---------------
   1. Beta version for Moodle 3.6.
 
 Version 3.5.0.3
+---------------
   1. Fix CONTRIB-7434:
         With reference to 'global_start_keyboard_drag' and 'find_element_text' in /lib/yui/src/dragdrop/js/dragdrop.js
         and 'initializer' of /course/yui/src/dragdrop/js/resource.js this is down to the 'droptargets' list not containing
@@ -100,29 +118,35 @@ Version 3.5.0.3
      Joshua Ebarvia - https://github.com/jebarviabb - for the patch.
 
 Version 3.5.0.2
+---------------
   1. Tidy up one section icon.
   2. Fix CONTRIB-7393.
   3. Treat themes using Boost as a parent the same as Boost - thanks to Tony Butler.
 
 Version 3.5.0.1
+---------------
   1. M3.5 version based on V3.4.0.2.
   2. Put back 'numsections'.
 
 Version 3.4.0.2
+---------------
   1. Fix colour popup form element not rendering correctly in Boost theme.
   2. Apply MDL-60241 course: General section always visible.
   3. Support Privacy API.
   4. Fix #40.
 
 Version 3.4.0.1
+---------------
   1. First beta version for M3.4.
 
 Version 3.3.1.1
+---------------
   1. Revert MDL-55074 by applying MDL-57412 - #30.
   2. Fix CONTRIB-7056 - Edit menu cut off for some activities when using collapsed topics and boost.
   3. Apply MDL-35628 - thanks to Skylar Kelty for the patch.
 
 Version 3.3.1.0
+---------------
   1. Fix missing reset course settings.
   2. Add 'numsections' coping restore code from Topics format.
   3. Fix toggle all cursor.
@@ -134,6 +158,7 @@ Version 3.3.1.0
   9. Fix Boost theme :target CSS conflict.
 
 Version 3.3.0.2
+---------------
   1. Make the 'readme' course setting only display and not store in the database, thus regenerate and not broken in the
      course backup.
   2. Fix not being able to tab to colour settings.
@@ -141,41 +166,50 @@ Version 3.3.0.2
   4. Apply MDL-55074 - #30.
 
 Version 3.3.0.1
+---------------
   1. Apply MDL-58637.
   2. pix_url to pix_icon.
   3. Fix section move name not changing.
   4. Apply MDL-57769.
 
 Version 3.2.1.0
+---------------
   1. Remove old 'format_topcoll_delete_course' function and replace with '\core\event\course_content_deleted' event.
   2. Add Boost theme specific style sheet - not the best of solutions but only one at the moment I can think of.
 
 Version 3.2.0.1
+---------------
   1. Detect 'Boost' theme as different grid system and no way core would put in code for a contributed plugin.
   2. Update Travis CI.
   3. Update tests for M3.2 and 'boost' as the new default theme.  Note: Need to write 'Boost' specific tests.
 
 Version 3.1.1.3
+---------------
   1. Improve and fix responsive column layouts.
   2. Cursor style in M3.1 when not editing - #25.
 
 Version 3.1.1.2
+---------------
   1. Fix toggle operating when editing the section name inline.
   2. Fix the width of the input box for section name inline editing.
 
 Version 3.1.1.1
+---------------
   1. Fix inoperable toggle on iPhone's / iPad's.
   2. Removed IE8 support.
 
 Version 3.1.1
+-------------
   1. First stable version for Moodle 3.1.
 
 Version 3.1.0.1
+---------------
   1. Alpha version for Moodle 3.1.
   2. Refactor to use spans instead of links for the toggle for MDL-51802 as cannot have a link in a link.
   3. Implement MDL-51802.
 
 Version 3.0.2.1
+---------------
   1. Put back word-break on section-title.
   2. Change edit summary to edit section on cog icon to be consistent.
   3. Fix editing side width.
@@ -185,6 +219,7 @@ Version 3.0.2.1
   7. TravisCI fixes.
 
 Version 3.0.2
+-------------
   1. Code checker tidy up.
   2. ARIA button role: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_button_role but
      still need to think about keyboard control.
@@ -194,31 +229,37 @@ Version 3.0.2
      module.js until CONTRIB-5862 / https://github.com/moodlerooms/moodle-plugin-ci/issues/6 resolved.
 
 Version 3.0.1
+-------------
   1. Fixed #22, Orphaned sections are not responsive.
   2. Stable version.
   3. Start of PHPUnit tests.
 
 Version 3.0.0.3
+---------------
   1. Fixed #18, Collapsed Topics Edit menu and MDL-42634-28, ref: https://github.com/gjb2048/moodle-format_topcoll/issues/18
   2. Fixed slight issue with heading colour conflict and themes.
   3. Fixed #19, Drag and drop handle does not show when editing in RTL.
   4. Apply MDL-10405.
 
 Version 3.0.0.2
+---------------
   1. Added responsive theme support, now a new 'Format responsive' setting in Site Administration -> Plugins ->
      Course Formats -> Collapsed Topics where you can turn on the old responsive behaviour that the format
      provided if you don't have a responsive theme.
 
 Version 3.0.0.1
+---------------
   1. First 'beta' version for M3.0.
   2. Apply MDL-48947, MDL-51250 and MDL-51610.
 
 Version 2.9.1.5
+---------------
   1. Fixed 'Strict standards warning shown when using collapsed topics format' - CONTRIB-5974.
   2. Fixed iconset issue when editing the course settings.
   3. Fixed hidden content margins.
 
 Version 2.9.1.4
+---------------
   1. Fixed display of sections when 'Hidden sections' is set to 'Hidden sections are shown in collapsed form' and the
      'Structure' is one of 'Current topic first' or 'Current week first'.
   2. Language files tidy up.
@@ -232,47 +273,58 @@ Version 2.9.1.4
      toggle peristence is off' to 'Initial toggle state' for clarity.
 
 Version 2.9.1.3
+---------------
   1. Removed MyMobile theme support as theme has passed away.
   2. Fix CONTRIB-5817.
   3. Update readme.
   4. Fix 'Edit quiz page displays oddly' - https://moodle.org/mod/forum/discuss.php?d=317476.
 
-Version 2.9.1.2.
+Version 2.9.1.2
+---------------
   1. Fixed coding fault when restoring a course from backup file.
 
-Version 2.9.1.1.
+Version 2.9.1.1
+---------------
   1. Fixed broken default for defaulttoggleiconsize - thanks to Davo Smith - issue #16.
 
-Version 2.9.1.
+Version 2.9.1
+-------------
   1. First stable version for Moodle 2.9.
   
-Version 2.9.0.2.
+Version 2.9.0.2
+---------------
   1. Added the capability to delete a section.
   2. Tidy up column padding after testing with Shoehorn.  TODO: Decide if column padding is needed now.
   3. Removed out of date development test code.
   4. Removed out of date IE7 styles.
 
-Version 2.9.0.1.
+Version 2.9.0.1
+---------------
   1. First 'release candidate' version for Moodle 2.9.
   2. Note: Need to seriously think about using AMD and transitioning to using jQuery instead of YUI as AJAX is possible in jQuery,
            but almost certainly not in the first instance as YUI is still supported in core.  Modularisation is do-able in AMD
            with parameters required: https://docs.moodle.org/dev/Javascript_Modules.
 
 Version 2.8.2.3
+---------------
   1. Fixed logic flaw with section parameters on course URL's when using single page display.
 
 Version 2.8.2.2
+---------------
   1. Added print media styles.
   2. Version information to no longer have the date as will work better.
 
 27th January 2015 Version 2.8.2.1
+---------------------------------
   1. Refix issue #4 - No block drag and drop icon when blockeditingmenu is false - activity editing menu no longer shows.
 
 23rd January 2015 Version 2.8.2
+---------------------------------
   1. New 'Do not show date' feature gratefully funded by 'GAC Corporate Academy, GAC HQ, Dubai, UAE (http://www.gacacademy.com)'.
   2. Fix issue #14 - No block drag and drop icon when blockeditingmenu is false.
 
 11th December 2014 Version 2.8.1.1
+----------------------------------
   1. New 'Show section summary when collapsed' feature gratefully funded by 'Te Rito Maioha Early Childhood New Zealand - https://ecnz.ac.nz'.
   2. Fix CONTRIB-5472.
   3. Integrated 'Use core required_param for toggle parameters.': https://github.com/gjb2048/moodle-format_topcoll/pull/12
@@ -281,12 +333,15 @@ Version 2.8.2.2
   4. Improved HTTP protocol handling in 'settopcollpref.php'.
 
 16th November 2014 Version 2.8.1
+--------------------------------
   1. Stable version for Moodle 2.8.
 
 10th November 2014 Version 2.8.0.1 - Release Candidate
+00----------------------------------------------------
   1. Release candidate for Moodle 2.8 - NOT for production servers.
 
 20th September 2014 Version 2.7.1.5
+-----------------------------------
   1. Fixed issue where a debug message was being written to the PHP error log.
   2. When toggle persistence is off then the state of the toggles on page load will depend on the default user preference setting.
   3. Added the ability to set the size of the toggle icon site wide as: Small = 16px, Medium = 24px and Large = 32px.
