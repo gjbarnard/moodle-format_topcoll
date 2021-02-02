@@ -70,7 +70,9 @@ class format_topcoll extends format_base {
             $this->settings = $this->get_format_options();
             foreach ($this->settings as $settingname => $settingvalue) {
                 if (isset($settingvalue)) {
-                    if (($settingvalue[0] === '-') || ($settingvalue === 0)) {
+                    $settingvtype = gettype($settingvalue);
+                    if ((($settingvtype == 'string') && ($settingvalue === '-')) || 
+                        (($settingvtype == 'integer') && ($settingvalue === 0))) {
                         // Default value indicator is a hyphen or a number equal to 0.
                         $this->settings[$settingname] = get_config('format_topcoll', 'default'.$settingname);
                     }
