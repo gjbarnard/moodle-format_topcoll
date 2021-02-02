@@ -2,6 +2,7 @@
 ===================
 Version 3.10.0.3 - 02/02/2021
 -----------------------------
+  1. Fix 'course settings do not override defaults' - ref: https://moodle.org/mod/forum/discuss.php?d=417589.
 
 Version 3.10.0.2 - 12/01/2021
 -----------------------------
