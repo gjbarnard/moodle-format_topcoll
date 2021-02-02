@@ -1,6 +1,10 @@
 ﻿Version Information
 ===================
-Version 3.8.1.2 - 23/01/21
+Version 3.8.1.3 - 02/02/2021
+----------------------------
+
+Version 3.8.1.2 - 23/01/2021
+----------------------------
   1. Fix issue where 'numsections' is set to '0' on restore of backup file that does not have it set.
   2. Fix logic in restore of backup file for 'numsections' - #73.
   3. Colour fixes for Adaptable theme version 2.3.1.
@@ -21,20 +25,24 @@ Version 3.8.1.2 - 23/01/21
      show the colour that has been set as the default.  All other settings will state what the default currently is.
 
 Version 3.8.1.1 - 29/06/2020
+----------------------------
   1. Added 'Course page further information' functionality from Adaptable theme.
 
 Version 3.8.1.0 - 31/03/2020
+----------------------------
   1. Fix 'Section edit link is moved on top of previous sections edit link when deleting a section' - CONTRIB-7957.
   2. Fix 'Multiple columns changes to one column for students when last section is set to hidden' - CONTRIB-8008.
   3. Fix current section bar overlap.
 
 Version 3.8.0.1
+----------------------------
   1. Fix Collapsed topics format zoom issue - CONTRIB-7893.
   2. Adjust position of 'view only' icon.
   3. More accessible open all / close all - #67.
   4. Moodle 3.8 version based on V3.7.1.1.
 
 Version 3.7.1.0
+---------------
   1. Add missing Moodle define.
   2. Fix "Collapsed Topic Content/EditMenu Overlap" - https://moodle.org/mod/forum/discuss.php?d=388969.
   3. Fix error with analytic - get_section_dates function - thanks to https://github.com/tuanngocnguyen for the patch - #65.
@@ -42,9 +50,11 @@ Version 3.7.1.0
      which makes the tab order wrong.
 
 Version 3.7.0.1
+---------------
   1. Beta version for Moodle 3.7 based on 3.6.0.3.
 
 Version 3.6.0.3
+---------------
   1. Apply MDL-64819 - #61.
   2. Fix phpunit tests for MDL-64492 - thanks to Rossco Hellmans for the patch - #59.
   3. Added SVG version of one section icon - thanks to Luca Bösch for the patch - #60.
@@ -58,6 +68,7 @@ Version 3.6.0.3
      'layout' area with associated capability for non-admins.
 
 Version 3.6.0.2
+---------------
   1. Fix invalid HTML in case of zero section elements - thanks to Mario Wehr for raising this - #47.
   2. Fix: PHP Unit test failure (due to MDL-62680) - thanks to Anupama Dharmajan for the patch - #52.
   3. Fix: Two strange input fields remain in teacher view when all capabilities are forbidden - thanks to Tobias Reischmann for the patch - #54.
@@ -66,6 +77,7 @@ Version 3.6.0.2
   6. New: Based on '5', add key operation of toggles.
 
 Version 3.6.0.1
+---------------
   1. Beta version for Moodle 3.6.
 
 Version 3.5.0.3
