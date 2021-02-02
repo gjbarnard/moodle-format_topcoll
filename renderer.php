@@ -41,7 +41,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
     protected $tccolumnpadding = 0; // Default padding in pixels of the column(s).
     protected $mobiletheme = false; // As not using a mobile theme we can react to the number of columns setting.
     protected $tablettheme = false; // As not using a tablet theme we can react to the number of columns setting.
-    protected $courseformat = null; // Our course format object as defined in lib.php;
+    protected $courseformat = null; // Our course format object as defined in lib.php.
     protected $tcsettings; // Settings for the format - array.
     protected $defaulttogglepersistence; // Default toggle persistence.
     protected $defaultuserpreference; // Default user preference when none set - bool - true all open, false all closed.
