@@ -388,6 +388,7 @@ $string['feedbackavailable'] = 'Feedback available';
 $string['notanswered'] = 'Not answered';
 $string['notattempted'] = 'Not attempted';
 $string['notcontributed'] = 'Not contributed';
+$string['notopen'] = 'Not open';
 $string['notsubmitted'] = 'Not submitted';
 $string['overdue'] = 'Overdue';
 $string['reopened'] = 'Reopened';
