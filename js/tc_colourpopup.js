@@ -31,7 +31,7 @@
  *
  */
 
- M.util.init_tccolour_popup = function(Y, id, previewconf) {
+M.util.init_tccolour_popup = function(Y, id, previewconf) {
     Y.use('node', 'event-mouseenter', function(){
         /**
          * The colour popup object
@@ -60,12 +60,12 @@
                 this.box = this.input.ancestor().one('.admin_colourpicker');
                 this.image = Y.Node.create('<img alt="" class="colourdialogue" />');
                 this.image.setAttribute('src', M.util.image_url('i/colourpicker', 'moodle'));
+                const initvalue = '#' + this.input.getAttribute('initvalue');
                 this.preview = Y.Node.create('<div class="previewcolour"></div>');
-                this.preview.setStyle('width', this.height / 2).setStyle('height', this.height / 2).setStyle('backgroundColor', this.input.get('value'));
+                this.preview.setStyle('width', this.height / 2).setStyle('height', this.height / 2).setStyle('backgroundColor', initvalue);
                 this.current = Y.Node.create('<div class="currentcolour"></div>');
-                this.current.setStyle('width', this.height / 2).setStyle('height', this.height / 2 - 1).setStyle('backgroundColor', this.input.get('value'));
+                this.current.setStyle('width', this.height / 2).setStyle('height', this.height / 2 - 1).setStyle('backgroundColor', initvalue);
                 this.box.setContent('').append(this.image).append(this.preview).append(this.current);
-                //this.box.setContent('');
 
                 if (typeof(previewconf) === 'object' && previewconf !== null) {
                     Y.one('#' + id + '_preview').on('click', function(e){
@@ -78,19 +78,19 @@
                         }
                     }, this);
                 }
-                this.swatch.on('click',this.popup,this);
+                this.swatch.on('click',this.popup, this);
                 this.input.on('blur', this.setColour, this);
                 this.eventClick = this.image.on('click', this.pickColour, this);
                 this.eventMouseEnter = Y.on('mouseenter', this.startFollow, this.image, this);
             },
-            popup: function(e){
+            popup: function(e) {
                 this.box.ancestor().setStyle('display', 'block');
             },
-            showColours : function(e){
+            showColours : function(e) {
                 this.eventFocus.detach();
                 this.box.setContent('').append(this.image).append(this.preview).append(this.current);
             },
-            setColour : function(e){
+            setColour : function(e) {
                 var colour = this.input.get('value');
                 this.swatch.setStyle('backgroundColor', '#' + colour);
             },
@@ -99,7 +99,7 @@
                 this.eventMouseLeave = Y.on('mouseleave', this.endFollow, this.image, this);
                 this.eventMouseMove = this.image.on('mousemove', function(e){
                     var colour = this.determineColour(e);
-                    //this.swatch.setStyle('backgroundColor', colour);
+                    //this.swatch.setStyle('backgroundColor', '#' + colour);
                     this.preview.setStyle('backgroundColor', '#' + colour);
                 }, this);
             },

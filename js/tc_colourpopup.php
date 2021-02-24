@@ -83,7 +83,7 @@ class MoodleQuickForm_tccolourpopup extends HTML_QuickForm_text implements templ
             $value = '-';
             $colour = $this->getAttribute('defaultcolour');
         }
-        $content = "<input size='5' name='" . $this->getName() . "' value='" . $value . "'id='{$id}' type='text' " .
+        $content = "<input size='5' name='" . $this->getName() . "' value='" . $value . "' initvalue='".$colour."' id='{$id}' type='text' " .
             $this->_getAttrString($this->_attributes) . " >";
         $content .= html_writer::tag('span', '&nbsp;', array(
             'id' => 'colpicked_'.$id,
