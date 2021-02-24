@@ -647,14 +647,58 @@ class activity {
             /* Assignment submissions can either be against the user's id or a group they are in.
                Make a simple list of the groups the user is in. */
             $usergroups = array();
-            foreach ($USER->groupmember as $grouparray) {
-                foreach ($grouparray as $group) {
-                    $usergroups[] = $group;
+error_log('GM1: '.print_r($USER->groupmember, true));
+
+/*
+    $sql = "SELECT g.id, g.courseid
+              FROM {groups} g, {groups_members} gm
+             WHERE gm.groupid=g.id AND gm.userid=?";
+
+    // This is a special hack to speedup calendar display.
+    $user->groupmember = array();
+    if (!isguestuser($user)) {
+        if ($groups = $DB->get_records_sql($sql, array($user->id))) {
+            foreach ($groups as $group) {
+                if (!array_key_exists($group->courseid, $user->groupmember)) {
+                    $user->groupmember[$group->courseid] = array();
                 }
+                $user->groupmember[$group->courseid][$group->id] = $group->id;
             }
+        }
+    }
+*/
+
+//if (empty($USER->groupmember)) {
+    $sql = "SELECT g.id, g.courseid
+              FROM {groups} g, {groups_members} gm
+             WHERE gm.groupid=g.id AND gm.userid=? AND g.courseid=?";
+
+    // This is a special hack to speedup calendar display.
+    $USER->groupmember = array();
+    if (!isguestuser($USER)) {
+        if ($groups = $DB->get_records_sql($sql, array($USER->id, $courseid))) {
+            foreach ($groups as $group) {
+                if (!array_key_exists($group->courseid, $USER->groupmember)) {
+                    $USER->groupmember[$group->courseid] = array();
+                }
+                $USER->groupmember[$group->courseid][$group->id] = $group->id;
+            }
+        }
+    }
+//}
+
+            foreach ($USER->groupmember[$courseid] as $group) {
+                //foreach ($grouparray as $group) {
+                    $usergroups[] = $group;
+                //}
+            }
+
+error_log('GM2-1: '.print_r($USER->groupmember, true));
+error_log('GM2-2: '.print_r($usergroups, true));
 
             $theresults = array();
             foreach ($results as $r) {
+error_log('GM3: '.print_r($r, true));
                 if (!empty($r->userid)) { // User id of 0 means that there should be a groupid.
                     if ($r->userid == $USER->id) { // This record is for us.
                         $theresults[$r->assignment] = $r;
@@ -668,6 +712,8 @@ class activity {
         } else {
             $theresults = $results;
         }
+
+error_log('GM4: '.print_r($theresults, true));
 
         $submissions[$courseid.'_'.$mod->modname] = $theresults;
 
