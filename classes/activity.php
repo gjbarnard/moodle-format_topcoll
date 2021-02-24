@@ -644,67 +644,34 @@ class activity {
         }
 
         if ($mod->modname === 'assign') {
-            /* Assignment submissions can either be against the user's id or a group they are in.
-               Make a simple list of the groups the user is in. */
-            $usergroups = array();
-error_log('GM1: '.print_r($USER->groupmember, true));
+            // Assignment submissions can either be against the user's id or a group they are in.
+            if (empty($USER->groupmember)) {
+                if (!isguestuser($USER)) {
+                    // Adapted from get_complete_user_data() in moodlelib.php.
+                    $sql = "SELECT g.id, g.courseid
+                        FROM {groups} g, {groups_members} gm
+                        WHERE gm.groupid=g.id AND gm.userid=? AND g.courseid=?";
 
-/*
-    $sql = "SELECT g.id, g.courseid
-              FROM {groups} g, {groups_members} gm
-             WHERE gm.groupid=g.id AND gm.userid=?";
-
-    // This is a special hack to speedup calendar display.
-    $user->groupmember = array();
-    if (!isguestuser($user)) {
-        if ($groups = $DB->get_records_sql($sql, array($user->id))) {
-            foreach ($groups as $group) {
-                if (!array_key_exists($group->courseid, $user->groupmember)) {
-                    $user->groupmember[$group->courseid] = array();
+                    $USER->groupmember = array();
+                    if ($groups = $DB->get_records_sql($sql, array($USER->id, $courseid))) {
+                        $USER->groupmember[$courseid] = array();
+                        foreach ($groups as $group) {
+                            $USER->groupmember[$group->courseid][$group->id] = $group->id;
+                        }
+                    }
+                } else {
+                    $USER->groupmember = array($courseid => array());
                 }
-                $user->groupmember[$group->courseid][$group->id] = $group->id;
             }
-        }
-    }
-*/
-
-//if (empty($USER->groupmember)) {
-    $sql = "SELECT g.id, g.courseid
-              FROM {groups} g, {groups_members} gm
-             WHERE gm.groupid=g.id AND gm.userid=? AND g.courseid=?";
-
-    // This is a special hack to speedup calendar display.
-    $USER->groupmember = array();
-    if (!isguestuser($USER)) {
-        if ($groups = $DB->get_records_sql($sql, array($USER->id, $courseid))) {
-            foreach ($groups as $group) {
-                if (!array_key_exists($group->courseid, $USER->groupmember)) {
-                    $USER->groupmember[$group->courseid] = array();
-                }
-                $USER->groupmember[$group->courseid][$group->id] = $group->id;
-            }
-        }
-    }
-//}
-
-            foreach ($USER->groupmember[$courseid] as $group) {
-                //foreach ($grouparray as $group) {
-                    $usergroups[] = $group;
-                //}
-            }
-
-error_log('GM2-1: '.print_r($USER->groupmember, true));
-error_log('GM2-2: '.print_r($usergroups, true));
 
             $theresults = array();
             foreach ($results as $r) {
-error_log('GM3: '.print_r($r, true));
                 if (!empty($r->userid)) { // User id of 0 means that there should be a groupid.
                     if ($r->userid == $USER->id) { // This record is for us.
                         $theresults[$r->assignment] = $r;
                     }
                 } else if (!empty($r->groupid)) {
-                    if (in_array($r->groupid, $usergroups)) { // This record is in one of our groups.
+                    if (in_array($r->groupid, $USER->groupmember[$courseid])) { // This record is in one of our groups.
                         $theresults[$r->assignment] = $r;
                     }
                 }
@@ -712,8 +679,6 @@ error_log('GM3: '.print_r($r, true));
         } else {
             $theresults = $results;
         }
-
-error_log('GM4: '.print_r($theresults, true));
 
         $submissions[$courseid.'_'.$mod->modname] = $theresults;
 
