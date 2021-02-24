@@ -59,12 +59,12 @@ class activity_meta {
 
     // Strings.
     /**
-     * @var string $submittedstr - string to use when submitted
+     * @var string $submittedstr - string to use when submitted.
      */
     public $submittedstr;
 
     /**
-     * @var string $notsubmittedstr - string to use when not submitted.
+     * @var string $notsubmittedstr - string to use when not submitted
      */
     public $notsubmittedstr;
 
@@ -88,6 +88,11 @@ class activity_meta {
      */
     public $expiredstr;
 
+    /**
+     * @var string $notopenstr - string for not open status.
+     */
+    public $notopenstr;
+
     // General meta data.
     /**
      * @var int $timeopen - unix time stamp for time open.
@@ -105,62 +110,73 @@ class activity_meta {
     public $extension;
 
     /**
-     * @var bool $isteacher - true if meta data is intended for teacher
+     * @var bool $isteacher - true if meta data is intended for teacher.
      */
     public $isteacher = false;
-
     /**
-     * @var bool $submissionnotrequired - true if a submission is not required
+     * @var bool $submissionnotrequired - true if a submission is not required.
      */
     public $submissionnotrequired = false;
 
     // Student meta data.
     /**
-     * @var bool $submitted - true if submission has been made
+     * @var bool $submitted - true if submission has been made.
      */
     public $submitted = false; // Consider collapsing this variable + draft variable into one 'status' variable?
 
     /**
-     * @var bool $draft - true if activity submission is in draft status
+     * @var bool $draft - true if activity submission is in draft status.
      */
     public $draft = false;
 
     /**
-     * @var bool $reopened - true if reopened
+     * @var bool $reopened - true if reopened.
      */
     public $reopened = false;
 
     /**
-     * @var bool $expired - true if expired
+     * @var bool $expired - true if expired.
      */
     public $expired = false;
 
     /**
-     * @var int $timesubmitted - unix time stamp for time submitted
+     * @var bool $notopen - true if not open.
+     */
+    public $notopen = false;
+
+    /**
+     * @var bool $notattempted - true if not attempted.
+     */
+    public $notattempted = false;
+
+    /**
+     * @var int $timesubmitted - unix time stamp for time submitted.
      */
     public $timesubmitted;
 
     /**
-     * @var bool $grade - has the submission been graded
+     * @var bool $grade - has the submission been graded.
      */
     public $grade = false;
 
     /**
-     * @var bool $overdue - is the submission overdue
+     * @var bool $overdue - is the submission overdue.
      */
     public $overdue = false;
 
     // Teacher meta data.
     /**
-     * @var int $numsubmissions - number of submissions
+     * @var int $numsubmissions - number of submissions.
      */
     public $numsubmissions = 0;
+
     /**
-     * @var int $numrequiregrading - number of submissions requiring grading
+     * @var int $numrequiregrading - number of submissions requiring grading.
      */
     public $numrequiregrading = 0;
+
     /**
-     * @var int $numparticipants - number of participants
+     * @var int $numparticipants - number of participants.
      */
     public $numparticipants = 0;
 }
