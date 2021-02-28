@@ -220,10 +220,10 @@ class activity {
 
             if ($graderow) {
                 $gradeitem = \grade_item::fetch(array(
-                        'itemtype' => 'mod',
-                        'itemmodule' => $mod->modname,
-                        'iteminstance' => $mod->instance,
-                        'outcomeid' => null
+                    'itemtype' => 'mod',
+                    'itemmodule' => $mod->modname,
+                    'iteminstance' => $mod->instance,
+                    'outcomeid' => null
                 ));
 
                 $grade = new \grade_grade(array('itemid' => $gradeitem->id, 'userid' => $USER->id));
@@ -264,15 +264,16 @@ class activity {
            Note, under normal circumstances we only run this once but with PHP unit tests, assignments are being
            created one after the other and so this needs to be run each time during a PHP unit test. */
         if (empty($submissionsenabled) || PHPUNIT_TEST) {
-            $sql = "SELECT a.id, count(1) AS submissionsenabled
-                      FROM {assign} a
-                      JOIN {assign_plugin_config} ac ON ac.assignment = a.id
-                     WHERE a.course = ?
-                       AND ac.name='enabled'
-                       AND ac.value = '1'
-                       AND ac.subtype='assignsubmission'
-                       AND plugin!='comments'
-                  GROUP BY a.id;";
+            $sql = "
+                SELECT a.id, count(1) AS submissionsenabled
+                    FROM {assign} a
+                    JOIN {assign_plugin_config} ac ON ac.assignment = a.id
+                    WHERE a.course = ?
+                    AND ac.name='enabled'
+                    AND ac.value = '1'
+                    AND ac.subtype='assignsubmission'
+                    AND plugin!='comments'
+                    GROUP BY a.id;";
             $submissionsenabled = $DB->get_records_sql($sql, array($courseid));
         }
 
@@ -390,14 +391,14 @@ class activity {
 
             // Get the number of submissions for all $maintable activities in this course.
             $sql = "-- Snap sql
-            SELECT m.id, COUNT(DISTINCT sb.userid) as totalsubmitted
-              FROM {".$maintable."} m
-              JOIN {".$submittable."} sb ON m.id = sb.$mainkey
-              WHERE m.course = :courseid
-              AND sb.userid NOT IN ($graderids)
-              $extraselect
-              GROUP BY m.id";
-              $modtotalsbyid[$maintable][$courseid] = $DB->get_records_sql($sql, $params);
+                SELECT m.id, COUNT(DISTINCT sb.userid) as totalsubmitted
+                    FROM {".$maintable."} m
+                    JOIN {".$submittable."} sb ON m.id = sb.$mainkey
+                    WHERE m.course = :courseid
+                    AND sb.userid NOT IN ($graderids)
+                    $extraselect
+                    GROUP BY m.id";
+            $modtotalsbyid[$maintable][$courseid] = $DB->get_records_sql($sql, $params);
         }
         $totalsbyid = $modtotalsbyid[$maintable][$courseid];
 
@@ -457,8 +458,8 @@ class activity {
 
             // Get the number of contributions for this data activity.
             $sql = '
-             SELECT d.id, count(dataid) as total FROM {data_records} r, {data} d
-                WHERE r.dataid = d.id AND r.dataid = :dataid GROUP BY d.id';
+                SELECT d.id, count(dataid) as total FROM {data_records} r, {data} d
+                    WHERE r.dataid = d.id AND r.dataid = :dataid GROUP BY d.id';
 
             $modtotalsbyid['data'][$modid] = $DB->get_records_sql($sql, $params);
         }
@@ -536,20 +537,18 @@ class activity {
         if (!isset($totalsbyquizid)) {
             // Results are not cached.
             $sql = "-- Snap sql
-            SELECT q.id, count(DISTINCT qa.userid) as total
-            FROM {quiz} q
+                SELECT q.id, count(DISTINCT qa.userid) as total
+                    FROM {quiz} q
 
-            -- Get ALL ungraded attempts for this quiz
+                    -- Get ALL ungraded attempts for this quiz
+                    JOIN {quiz_attempts} qa ON qa.quiz = q.id
+                    AND qa.sumgrades IS NULL
 
-            JOIN {quiz_attempts} qa ON qa.quiz = q.id
-            AND qa.sumgrades IS NULL
-
-            -- Exclude those people who can grade quizzes
-
-            WHERE qa.userid NOT IN ($graderids)
-            AND qa.state = 'finished'
-            AND q.course = :courseid
-            GROUP BY q.id";
+                    -- Exclude those people who can grade quizzes
+                    WHERE qa.userid NOT IN ($graderids)
+                    AND qa.state = 'finished'
+                    AND q.course = :courseid
+                    GROUP BY q.id";
             $totalsbyquizid = $DB->get_records_sql($sql, $params);
         }
 
@@ -651,9 +650,10 @@ class activity {
             if (empty($USER->groupmember)) {
                 if (!isguestuser($USER)) {
                     // Adapted from get_complete_user_data() in moodlelib.php.
-                    $sql = "SELECT g.id, g.courseid
-                        FROM {groups} g, {groups_members} gm
-                        WHERE gm.groupid=g.id AND gm.userid=? AND g.courseid=?";
+                    $sql = "
+                        SELECT g.id, g.courseid
+                            FROM {groups} g, {groups_members} gm
+                            WHERE gm.groupid=g.id AND gm.userid=? AND g.courseid=?";
 
                     $USER->groupmember = array();
                     if ($groups = $DB->get_records_sql($sql, array($USER->id, $courseid))) {
@@ -710,10 +710,10 @@ class activity {
             $timeopenfld = $mod->modname === 'quiz' ? 'timeopen' : ($mod->modname === 'lesson' ? 'available' : $timeopenfld);
             $timeclosefld = $mod->modname === 'quiz' ? 'timeclose' : ($mod->modname === 'lesson' ? 'deadline' : $timeclosefld);
             $sql = "-- Snap sql
-            SELECT
-            module.id,
-            module.$timeopenfld AS timeopen,
-            module.$timeclosefld AS timeclose";
+                SELECT
+                    module.id,
+                    module.$timeopenfld AS timeopen,
+                    module.$timeclosefld AS timeclose";
             if ($mod->modname === 'assign') {
                 $sql .= ",
                     auf.extensionduedate AS extension
@@ -785,8 +785,8 @@ class activity {
                 if ($mod->modname === 'assign') {
                     $params[] = $USER->id;
                     $sql .= "
-                      LEFT JOIN {assign_user_flags} auf
-                             ON module.id = auf.assignment
+                        LEFT JOIN {assign_user_flags} auf
+                            ON module.id = auf.assignment
                             AND auf.userid = ?
                      ";
                 }
@@ -827,33 +827,32 @@ class activity {
         }
 
         $sql = "-- Snap sql
-        SELECT m.id AS instanceid, gg.*
+            SELECT m.id AS instanceid, gg.*
+                FROM {".$mod->modname."} m
 
-            FROM {".$mod->modname."} m
+                JOIN {grade_items} gi
+                ON m.id = gi.iteminstance
+                AND gi.itemtype = 'mod'
+                AND gi.itemmodule = :modname
+                AND gi.courseid = :courseid1
+                AND gi.outcomeid IS NULL
 
-            JOIN {grade_items} gi
-              ON m.id = gi.iteminstance
-             AND gi.itemtype = 'mod'
-             AND gi.itemmodule = :modname
-             AND gi.courseid = :courseid1
-             AND gi.outcomeid IS NULL
+                JOIN {grade_grades} gg
+                ON gi.id = gg.itemid
 
-            JOIN {grade_grades} gg
-              ON gi.id = gg.itemid
-
-           WHERE m.course = :courseid2
-             AND gg.userid = :userid
-             AND (
-                 gg.rawgrade IS NOT NULL
-                 OR gg.finalgrade IS NOT NULL
-                 OR gg.feedback IS NOT NULL
-             )
-             ";
+                WHERE m.course = :courseid2
+                AND gg.userid = :userid
+                AND (
+                    gg.rawgrade IS NOT NULL
+                    OR gg.finalgrade IS NOT NULL
+                    OR gg.feedback IS NOT NULL
+                )
+            ";
         $params = array(
-                'modname' => $mod->modname,
-                'courseid1' => $courseid,
-                'courseid2' => $courseid,
-                'userid' => $USER->id
+            'modname' => $mod->modname,
+            'courseid1' => $courseid,
+            'courseid2' => $courseid,
+            'userid' => $USER->id
         );
         $grades[$courseid.'_'.$mod->modname] = $DB->get_records_sql($sql, $params);
 
