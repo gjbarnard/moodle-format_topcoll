@@ -57,6 +57,10 @@
     position: relative;
 }
 
+.format-topcoll.path-course-view .completionprogress {
+    z-index: 1;
+}
+
 .course-content ul.ctopics.bsnewgrid li.section.main,
 .course-content ul.ctopics.bsnewgrid li.tcsection {
     margin: 0;
@@ -869,7 +873,7 @@ body.jsenabled #toggle-all {
 }
 
 .tccolourpopupsel {
-    position:absolute;
+    position: absolute;
     z-index: 500;
 }
 
