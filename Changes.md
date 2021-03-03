@@ -4,6 +4,7 @@ Version 3.8.1.4 - TBD
 ----------------------------
   1. Improve colour picker to show the initial value in the current / preview colour boxes.
   2. Port of Adaptable fix 'Activity meta information not showing when student first accesses page' - https://moodle.org/mod/forum/discuss.php?d=417731.
+  3. Fix completion progress tooltip not working - https://moodle.org/mod/forum/discuss.php?d=419034.
 
 Version 3.8.1.3 - 02/02/2021
 ----------------------------
