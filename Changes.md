@@ -1,5 +1,8 @@
 ﻿Version Information
 ===================
+Version 3.9.1.3 - TBD
+----------------------------
+
 Version 3.9.1.2 - 02/02/2021
 ----------------------------
   1. Fix 'course settings do not override defaults' - ref: https://moodle.org/mod/forum/discuss.php?d=417589.
