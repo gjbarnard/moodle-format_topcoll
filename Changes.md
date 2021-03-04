@@ -1,6 +1,6 @@
 ﻿Version Information
 ===================
-Version 3.8.1.4 - TBD
+Version 3.8.1.4 - 04/03/2021
 ----------------------------
   1. Improve colour picker to show the initial value in the current / preview colour boxes.
   2. Port of Adaptable fix 'Activity meta information not showing when student first accesses page' - https://moodle.org/mod/forum/discuss.php?d=417731.
