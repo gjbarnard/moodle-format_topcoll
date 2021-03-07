@@ -1006,7 +1006,7 @@ class format_topcoll extends format_base {
         $defaultvalue = get_config('format_topcoll', 'default'.$settingname);
         $defarray = array($defaultindex => new lang_string('default', 'format_topcoll', $values[$defaultvalue]));
 
-        return array_merge($defarray, $values);
+        return array_replace($defarray, $values);
     }
 
     /**
