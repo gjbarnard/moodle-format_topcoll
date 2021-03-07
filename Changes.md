@@ -1,5 +1,9 @@
 ﻿Version Information
 ===================
+Version 3.9.1.4 - 07/03/2021
+----------------------------
+  1. Fix intended setting values are changed.
+
 Version 3.9.1.3 - 04/03/2021
 ----------------------------
   1. Improve colour picker to show the initial value in the current / preview colour boxes.
