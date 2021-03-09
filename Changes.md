@@ -2,6 +2,7 @@
 ===================
 Version 3.10.1.2 - TBD
 ----------------------
+  1. Fix 'PHP Notice:  Trying to access array offset on value of type null' when accessing a single section page on PHP 7.4.
 
 Version 3.10.1.1 - 07/03/2021
 -----------------------------
