@@ -1,5 +1,8 @@
 ﻿Version Information
 ===================
+Version 3.10.1.2 - TBD
+----------------------
+
 Version 3.10.1.1 - 07/03/2021
 -----------------------------
   1. Fix intended setting values are changed.
