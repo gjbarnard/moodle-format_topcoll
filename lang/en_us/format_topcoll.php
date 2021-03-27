@@ -48,8 +48,8 @@ $string['settoggleforegroundcolour_help'] = 'Sets the color of the text on the t
 $string['settoggleforegroundhovercolour_help'] = 'Sets the color of the text on the toggle when the mouse moves over it.';
 $string['settogglebackgroundcolour_help'] = 'Sets the background color of the toggle.';
 $string['settogglebackgroundhovercolour_help'] = 'Sets the background color of the toggle when the mouse moves over it.';
-$string['resetcolour_help'] = 'Resets the colors and opacities to the default values so it will be the same as a course the first time it is in the Collapsed Topics format.';
-$string['resetallcolour_help'] = 'Resets the colors and opacities to the default values for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resetcolour_help'] = 'Resets the colors and opacities to follow the site default value.';
+$string['resetallcolour_help'] = 'Resets the colors and opacities to follow the site default value.';
 
 // Toggle alignment - CONTRIB-4098.
 $string['center'] = 'Center';

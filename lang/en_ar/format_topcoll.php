@@ -96,16 +96,16 @@ $string['maincoursepage'] = 'Ye main course page';
 $string['setlayoutelements_help'] = 'How much information about thee toggles / sections you wish to be displayed.';
 $string['setlayoutstructure_help'] = "Avast ye landlubbers, this be thee layout structure of thee course.  Ye choose between:<br />'Treasure chest' - where each section is presented as thy treasure chest in section number order.<br />'Sailing week' - where each section is presented as thy week in ascending week order.<br />'Current sailing week first' - which is the same as weeks but thee current week is shown at thee top and preceding weeks in descending order are displayed below except in editing mode where thee structure is thy same as 'Weeks'.<br />'Current treasure chest first' - which is thee same as 'Treasure chest' except that thee current treasure chest is shown at thee top if it has been set.<br />'Sailing Day' - where each section is presented as a day in thy ascending day order from thee start date of thee course.";
 $string['setlayout_help'] = 'Contains thee settings to do with thee layout of the format within thy course.';
-$string['resetlayout_help'] = 'Resets thee layout to thee default so it will be the same as a course the first time it is in thy Collapsed Topics format';
-$string['resetalllayout_help'] = 'Resets the layout to the default values for all courses so it will be the same as a course the first time it is in the Collapsed Topics format.';
+$string['resetlayout_help'] = 'Resets thee layout to thee default to follow thee site default value.';
+$string['resetalllayout_help'] = 'Resets the layout to follow thee site default value for all thy courses.';
 // Moodle Tracker CONTRIB-3529.
 $string['setcolour_help'] = 'Contains thee settings to do with thy colour of the format within the course.';
 $string['settoggleforegroundcolour_help'] = 'Sets thee colour of thy text on the toggle.';
 $string['settoggleforegroundhovercolour_help'] = 'Sets thee colour of thy text on thy toggle when thee mouse scuttles over it.';
 $string['settogglebackgroundcolour_help'] = 'Sets thee background of thy toggle.';
 $string['settogglebackgroundhovercolour_help'] = 'Sets thee background of thy toggle when thee mouse scuttles over it.';
-$string['resetcolour_help'] = 'Resets thee colours to thee default values so it will be thee same as a course thy first time it is in thee Collapsed Topics format';
-$string['resetallcolour_help'] = 'Resets thee colours to the default values for all courses so it will be thy same as a course the first time it is in thee Collapsed Topics format.';
+$string['resetcolour_help'] = 'Resets thee colours to follow thee site default value';
+$string['resetallcolour_help'] = 'Resets thee colours to follow thee site default value for all thy courses.';
 // Columns enhancement.
 $string['setlayoutcolumns_help'] = 'How many columns to use.';
 
@@ -117,8 +117,8 @@ $string['center'] = 'Midships';
 $string['right'] = 'Starboard';
 $string['resettogglealignment'] = 'Thee toggle alignment';
 $string['resetalltogglealignment'] = 'Thee toggle alignments';
-$string['resettogglealignment_help'] = 'Resets thee toggle alignment to thy default values so thy will be thy same as a course thee first time it is in thee Collapsed Topics format.';
-$string['resetalltogglealignment_help'] = 'Resets thee toggle alignment to thy default values for all courses so it will be thy same as a course thee first time it is in thee Collapsed Topics format.';
+$string['resettogglealignment_help'] = 'Resets thee toggle alignment to follow thee site default value.';
+$string['resetalltogglealignment_help'] = 'Resets thee toggle alignment to follow thee site default value for all thy courses.';
 
 // Icon position - CONTRIB-4470.
 $string['settoggleiconposition'] = 'Icon position';
@@ -145,8 +145,8 @@ $string['sunmoon'] = 'Sun / Moon';
 $string['switch'] = 'Switch thy flag';
 $string['resettoggleiconset'] = 'Thee toggle icon set';
 $string['resetalltoggleiconset'] = 'Thee toggle icon sets';
-$string['resettoggleiconset_help'] = 'Resets thee toggle icon set and thy toggle all hover to thy default values so thy will be thee same as a course thee first time it is in thy Collapsed Topics format.';
-$string['resetalltoggleiconset_help'] = 'Resets thee toggle icon set and thy toggle all hover to thy default values for all courses so it will be thy same as a course thee first time it is in thy Collapsed Topics format.';
+$string['resettoggleiconset_help'] = 'Resets thee toggle icon set and thy toggle all hover to follow thee site default value.';
+$string['resetalltoggleiconset_help'] = 'Resets thee toggle icon set and thy toggle all hover to follow thee site default value for all thy courses.';
 
 // Site Administration -> Plugins -> Course formats -> Collapsed Topics or Manage course formats - Settings.
 $string['off'] = 'Off';
@@ -205,8 +205,8 @@ $string['defaultdisplayinstructions'] = 'Display orders to crew';
 $string['defaultdisplayinstructions_desc'] = "Display orders to crew informing them how to use thee toggles.  Can bee aye or nay.";
 $string['resetdisplayinstructions'] = 'Display orders';
 $string['resetalldisplayinstructions'] = 'Display orders';
-$string['resetdisplayinstructions_help'] = 'Resets thy display orders to thee default value so it will be thy same as a course thee first time it is in thy Collapsed Topics format.';
-$string['resetalldisplayinstructions_help'] = 'Resets thy display orders to thee default value for all courses so it will be thee same as a course thee first time it is in thy Collapsed Topics format.';
+$string['resetdisplayinstructions_help'] = 'Resets thy display orders to follow thee site default value.';
+$string['resetalldisplayinstructions_help'] = 'Resets thy display orders to follow thee site default value for all thy courses.';
 
 // Toggle icon size.
 $string['defaulttoggleiconsize'] = 'Toggle icon size';
