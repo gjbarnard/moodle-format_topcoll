@@ -1,8 +1,8 @@
 John Joubert - 
 GitHub: https://github.com/John-Joubert
 
-The purpose of this branch "blocks_optional" is to allow the blocks display to be optional.
---> This branch "blocks_optional" is a sub-branch of MOODLE_39. 
+The purpose of this branch "blocks_optional_MOODLE_39" is to allow the blocks display to be optional.
+--> This branch "blocks_optional_MOODLE_39" is a sub-branch of MOODLE_39. 
 
 
 Code changes:
