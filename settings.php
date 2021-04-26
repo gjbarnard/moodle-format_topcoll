@@ -47,6 +47,17 @@ if ($ADMIN->fulltree) {
         2 => new lang_string('yes')   // Yes.
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+    
+    /* Toggle instructions - 1 = no, 2 = yes. */
+    $name = 'format_topcoll/defaultdisplayblocks';
+    $title = get_string('defaultdisplayblocks', 'format_topcoll');
+    $description = get_string('defaultdisplayblocks_desc', 'format_topcoll');
+    $default = 2;
+    $choices = array(
+        2 => new lang_string('yes'),// Yes.
+        1 => new lang_string('no')  // No.
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     /* Layout configuration.
       Here you can see what numbers in the array represent what layout for setting the default value below.

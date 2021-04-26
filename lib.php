@@ -341,10 +341,19 @@ class format_topcoll extends format_base {
      *     each of values is an array of block names (for left and right side columns)
      */
     public function get_default_blocks() {
-        return array(
-            BLOCK_POS_LEFT => array(),
-            BLOCK_POS_RIGHT => array('search_forums', 'news_items', 'calendar_upcoming', 'recent_activity')
-        );
+        $use_def_blocks = get_config('format_topcoll', 'defaultdisplayblocks');
+	if ($use_def_blocks == 1) /* 1 = No, 2 = Yes (default)*/ {
+            return array( 
+	        BLOCK_POS_LEFT => array(), 
+                BLOCK_POS_RIGHT => array() 
+	    );
+	}
+	else { /* if $use_def_blocks is not 1, then we turn on the four blocks, since it is intended as the default */
+            return array( 
+                BLOCK_POS_LEFT => array(),
+		BLOCK_POS_RIGHT => array('search_forums', 'news_items', 'calendar_upcoming', 'recent_activity') 
+	    );
+        }
     }
 
     public function section_format_options($foreditform = false) {
