@@ -48,7 +48,7 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
     
-    /* Toggle instructions - 1 = no, 2 = yes. */
+    /* Toggle display four blocks - 1 = no, 2 = yes. */
     $name = 'format_topcoll/defaultdisplayblocks';
     $title = get_string('defaultdisplayblocks', 'format_topcoll');
     $description = get_string('defaultdisplayblocks_desc', 'format_topcoll');
