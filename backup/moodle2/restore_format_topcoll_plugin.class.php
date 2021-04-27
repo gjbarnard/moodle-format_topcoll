@@ -49,16 +49,6 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
      * @return bool Need to restore numsections.
      */
     protected function need_restore_numsections() {
-        $backupinfo = $this->step->get_task()->get_info();
-        $backuprelease = $backupinfo->backup_release;
-        $prethreethree = version_compare($backuprelease, '3.3', 'lt');
-        if ($prethreethree) {
-            // Pre version 3.3 so, yes!
-            return true;
-        }
-        /* Post 3.3 may or may not have numsections in the backup depending on the version.
-           of Collapsed Topics used.  So use the existance of 'numsections' in the course.xml
-           part of the backup to determine this. */
         $data = $this->connectionpoint->get_data();
         return (isset($data['tags']['numsections']));
     }
@@ -148,14 +138,12 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
 
         global $DB;
         if (!$this->need_restore_numsections()) {
-            /* Backup file was made in Moodle 3.3 or later and does not contain 'numsections',
-               so we don't need to process 'numsections' but we do need to set it! */
+            /* Backup file does not contain 'numsections' so we need to set it from
+               the number of sections we can determine the course has.  The 'default'
+               might be wrong, so there could be an entry in the db already with this
+               wrong value. */
             $courseid = $this->task->get_courseid();
-
-            if (!($course = $DB->get_record('course', array('id' => $courseid)))) {
-                print_error('invalidcourseid', 'error');
-            } // From /course/view.php.
-            $courseformat = course_get_format($course);
+            $courseformat = course_get_format($courseid);
 
             $maxsection = $DB->get_field_sql('SELECT max(section) FROM {course_sections} WHERE course = ?', [$courseid]);
 
