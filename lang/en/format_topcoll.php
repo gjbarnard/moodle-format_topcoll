@@ -438,4 +438,3 @@ $string['readme_desc'] = 'Please click on \'{$a->url}\' for lots more informatio
 // Toggle Display Blocks
 $string['defaultdisplayblocks'] = 'Display the four blocks that come with this format plugin';
 $string['defaultdisplayblocks_desc'] = "Display the four blocks that come with this format plugin in the course. Yes or No.";
-
