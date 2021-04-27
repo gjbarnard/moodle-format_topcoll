@@ -434,3 +434,8 @@ $string['privacy:request:preference:toggle'] = 'The course id "{$a->name}" has t
 // Readme.
 $string['readme_title'] = 'Collapsed Topics read-me';
 $string['readme_desc'] = 'Please click on \'{$a->url}\' for lots more information about Collapsed Topics.';
+
+// Toggle Display Blocks
+$string['defaultdisplayblocks'] = 'Display the four blocks that come with this format plugin';
+$string['defaultdisplayblocks_desc'] = "Display the four blocks that come with this format plugin in the course. Yes or No.";
+

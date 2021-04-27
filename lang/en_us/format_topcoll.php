@@ -67,3 +67,6 @@ $string['defaulttgbghvrcolour_desc'] = "Toggle background hover color in hexidec
 // Capabilities.
 $string['topcoll:changecolour'] = 'Change or reset the color';
 
+// Toggle Display Blocks
+$string['defaultdisplayblocks'] = 'Display the four blocks that come with this format plugin';
+$string['defaultdisplayblocks_desc'] = "Display the four blocks that come with this format plugin in the course. Yes or No.";
