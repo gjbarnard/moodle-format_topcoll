@@ -57,7 +57,7 @@ class toolbox {
      * @param string $hex
      * @return array
      */
-    static private function hex2rgb($hex) {
+    private static function hex2rgb($hex) {
         // From: http://bavotasan.com/2011/convert-hex-color-to-rgb-using-php/.
         $hex = str_replace("#", "", $hex);
 
@@ -81,7 +81,7 @@ class toolbox {
      * @param string $alpha
      * @return string
      */
-    static public function hex2rgba($hex, $alpha) {
+    public static function hex2rgba($hex, $alpha) {
         $rgba = self::hex2rgb($hex);
         $rgba[] = $alpha;
         return 'rgba('.implode(", ", $rgba).')'; // Returns the rgba values separated by commas.
