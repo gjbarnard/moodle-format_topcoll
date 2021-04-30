@@ -48,6 +48,26 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
+    /* Toggle display block choices */
+    $name = 'format_topcoll/defaultdisplayblocks';
+    $title = get_string('defaultdisplayblocks', 'format_topcoll');
+    $description = get_string('defaultdisplayblocks_desc', 'format_topcoll');
+    $default = array('0,1,2,3');
+    $choices = array('search_forums','news_items','calendar_upcoming','recent_activity');
+    $settings->add(new admin_setting_configmultiselect($name, $title, $description, $default, $choices));
+    
+    /*  Toggle blocks location. */
+    /*  1 = right, 2 = left -  */
+    $name = 'format_topcoll/defaultdisplayblocksloc';
+    $title = get_string('defaultdisplayblocksloc', 'format_topcoll');
+    $description = get_string('defaultdisplayblocksloc_desc', 'format_topcoll');
+    $default = 1;
+    $choices = array(
+        1 => new lang_string('right', 'format_topcoll'),   // Right.
+        2 => new lang_string('left', 'format_topcoll'),    // Left.
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
     /* Layout configuration.
       Here you can see what numbers in the array represent what layout for setting the default value below.
       1 => Toggle word, toggle section x and section number - default.

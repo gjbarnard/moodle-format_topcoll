@@ -339,12 +339,49 @@ class format_topcoll extends format_base {
      *
      * @return array of default blocks, must contain two keys BLOCK_POS_LEFT and BLOCK_POS_RIGHT
      *     each of values is an array of block names (for left and right side columns)
+     *
+     * First we check defaultdisplayblocks to see which of the four default blocks should be displayed,
+     * then build an array of strings that will hold the list of blocks to be displayed.
+     *
      */
     public function get_default_blocks() {
-        return array(
-            BLOCK_POS_LEFT => array(),
-            BLOCK_POS_RIGHT => array('search_forums', 'news_items', 'calendar_upcoming', 'recent_activity')
-        );
+        $blocklist=array();
+        $use_def_blocks = explode (",",get_config('format_topcoll', 'defaultdisplayblocks'));
+        foreach($use_def_blocks as $blockindex)
+        {
+            switch ($blockindex)
+            {
+                case '0':
+                    array_push($blocklist,'search_forums');
+                    break;
+                case '1':
+                    array_push($blocklist,'news_items');
+                    break;
+                case '2':
+                    array_push($blocklist,'calendar_upcoming'); 
+                    break;
+                case '3':
+                    array_push($blocklist,'recent_activity');
+                    break;
+                default:
+            }
+        }
+        /* Figure out which side it goes on, and put it there */
+        $def_blocks_loc = get_config('format_topcoll','defaultdisplayblocksloc');
+        if($def_blocks_loc == 1) /* Right Side */
+        {
+            return array( 
+                BLOCK_POS_LEFT => array(),
+                BLOCK_POS_RIGHT => $blocklist 
+            );
+        }
+        else                     /* Left Side  */
+        {
+            return array( 
+                BLOCK_POS_LEFT => $blocklist,
+                BLOCK_POS_RIGHT => array()
+            );
+        } 
     }
 
     public function section_format_options($foreditform = false) {
