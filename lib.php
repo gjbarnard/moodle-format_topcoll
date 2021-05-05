@@ -366,22 +366,18 @@ class format_topcoll extends format_base {
                 default:
             }
         }
+
         /* Figure out which side it goes on, and put it there */
-        $def_blocks_loc = get_config('format_topcoll','defaultdisplayblocksloc');
-        if($def_blocks_loc == 1) /* Right Side */
-        {
-            return array( 
-                BLOCK_POS_LEFT => array(),
-                BLOCK_POS_RIGHT => $blocklist 
-            );
+        $bpl = array(); $bpr = array();
+        if (get_config('format_topcoll','defaultdisplayblocksloc') == 1) {
+            $bpr = $blocklist;
+        } else {
+            $bpl = $blocklist;
         }
-        else                     /* Left Side  */
-        {
-            return array( 
-                BLOCK_POS_LEFT => $blocklist,
-                BLOCK_POS_RIGHT => array()
-            );
-        } 
+        return array(
+            BLOCK_POS_LEFT => $bpl,
+            BLOCK_POS_RIGHT => $bpr
+        );
     }
 
     public function section_format_options($foreditform = false) {
