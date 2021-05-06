@@ -56,8 +56,7 @@ if ($ADMIN->fulltree) {
     $choices = array('search_forums','news_items','calendar_upcoming','recent_activity');
     $settings->add(new admin_setting_configmultiselect($name, $title, $description, $default, $choices));
     
-    /*  Toggle blocks location. */
-    /*  1 = right, 2 = left -  */
+    /*  Toggle blocks location. 1 = right, 2 = left */
     $name = 'format_topcoll/defaultdisplayblocksloc';
     $title = get_string('defaultdisplayblocksloc', 'format_topcoll');
     $description = get_string('defaultdisplayblocksloc_desc', 'format_topcoll');

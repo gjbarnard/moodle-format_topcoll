@@ -345,38 +345,28 @@ class format_topcoll extends format_base {
      *
      */
     public function get_default_blocks() {
-        $blocklist=array();
+        
+        // Build the array of strings of the list of blocks to be populated
         $use_def_blocks = explode (",",get_config('format_topcoll', 'defaultdisplayblocks'));
-        foreach($use_def_blocks as $blockindex)
-        {
-            switch ($blockindex)
-            {
-                case '0':
-                    array_push($blocklist,'search_forums');
-                    break;
-                case '1':
-                    array_push($blocklist,'news_items');
-                    break;
-                case '2':
-                    array_push($blocklist,'calendar_upcoming'); 
-                    break;
-                case '3':
-                    array_push($blocklist,'recent_activity');
-                    break;
-                default:
-            }
+        $blocklist_arr=array(0=>"search_forums", 1=>"news_items", 2=>"calendar_upcoming", 3=>"recent_activity");
+        $blocklist=array();
+        foreach($use_def_blocks as $blockindex) {
+            array_push($blocklist,$blocklist_arr[$blockindex]);
         }
 
-        /* Figure out which side it goes on, and put it there */
-        $bpl = array(); $bpr = array();
+        // Assign the location side for the blocks. defaultdisplayblocksloc: 1=right, 2=left
         if (get_config('format_topcoll','defaultdisplayblocksloc') == 1) {
             $bpr = $blocklist;
+            $bpl = array(); 
         } else {
+            $bpr = array();
             $bpl = $blocklist;
         }
+
+        // return our block list on the correct side
         return array(
-            BLOCK_POS_LEFT => $bpl,
-            BLOCK_POS_RIGHT => $bpr
+            BLOCK_POS_RIGHT => $bpr,
+            BLOCK_POS_LEFT  => $bpl
         );
     }
 
