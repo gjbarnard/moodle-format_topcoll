@@ -345,16 +345,10 @@ class format_topcoll extends format_base {
      *
      */
     public function get_default_blocks() {
-        
-        // Build the array of strings of the list of blocks to be populated
-        $use_def_blocks = explode (",",get_config('format_topcoll', 'defaultdisplayblocks'));
-        $blocklist_arr=array(0=>"search_forums", 1=>"news_items", 2=>"calendar_upcoming", 3=>"recent_activity");
-        $blocklist=array();
-        foreach($use_def_blocks as $blockindex) {
-            array_push($blocklist,$blocklist_arr[$blockindex]);
-        }
 
         // Assign the location side for the blocks. defaultdisplayblocksloc: 1=right, 2=left
+        // Then put the string list of blocks on the side location 
+        $blocklist=explode(',',get_config('format_topcoll','defaultdisplayblocks'));
         if (get_config('format_topcoll','defaultdisplayblocksloc') == 1) {
             $bpr = $blocklist;
             $bpl = array(); 

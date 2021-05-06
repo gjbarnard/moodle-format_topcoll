@@ -52,8 +52,9 @@ if ($ADMIN->fulltree) {
     $name = 'format_topcoll/defaultdisplayblocks';
     $title = get_string('defaultdisplayblocks', 'format_topcoll');
     $description = get_string('defaultdisplayblocks_desc', 'format_topcoll');
-    $default = array('0,1,2,3');
-    $choices = array('search_forums','news_items','calendar_upcoming','recent_activity');
+    $default = array('search_forums','news_items','calendar_upcoming','recent_activity');
+    $choices = array('search_forums'=>'Search forums','news_items'=>'Latest announcements',
+                     'calendar_upcoming'=>'Upcoming events','recent_activity'=>'Recent activity');
     $settings->add(new admin_setting_configmultiselect($name, $title, $description, $default, $choices));
     
     /*  Toggle blocks location. 1 = right, 2 = left */
