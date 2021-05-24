@@ -57,13 +57,12 @@ if ($ADMIN->fulltree) {
     foreach ($choices as $key=>$blockname) {
         $choices[$key]=get_string('pluginname', 'block_' . $key);
     }
-    // See if our default blocks are in the list of available blocks that we just created,
-    // and if so - add each of them to the $default array for use.
+    // See if our desired default blocks '$default_search_list' are in the list of available 
+    // blocks '$choices' created above, and if so - add each of them to the '$default' array for use.
     $default=array();
     $default_search_list = array('search_forums', 'news_items', 'calendar_upcoming', 'recent_activity');
     foreach ($default_search_list as $defaultblk) {
         if (array_key_exists($defaultblk, $choices)) {
-           // array_push($default, get_string('pluginname', 'block_' . $defaultblk));
            array_push($default, $defaultblk);
         }
     }
