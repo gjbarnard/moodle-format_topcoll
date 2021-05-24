@@ -52,11 +52,23 @@ if ($ADMIN->fulltree) {
     $name = 'format_topcoll/defaultdisplayblocks';
     $title = get_string('defaultdisplayblocks', 'format_topcoll');
     $description = get_string('defaultdisplayblocks_desc', 'format_topcoll');
-    $default = array('search_forums','news_items','calendar_upcoming','recent_activity');
-    $choices = array('search_forums'=>'Search forums','news_items'=>'Latest announcements',
-                     'calendar_upcoming'=>'Upcoming events','recent_activity'=>'Recent activity');
+    $choices = core_plugin_manager::instance()->get_enabled_plugins('block');
+    // Change the value of the array to have the real string defined in the language file
+    foreach ($choices as $key=>$blockname) {
+        $choices[$key]=get_string('pluginname', 'block_' . $key);
+    }
+    // See if our default blocks are in the list of available blocks that we just created,
+    // and if so - add each of them to the $default array for use.
+    $default=array();
+    $default_search_list = array('search_forums', 'news_items', 'calendar_upcoming', 'recent_activity');
+    foreach ($default_search_list as $defaultblk) {
+        if (array_key_exists($defaultblk, $choices)) {
+           // array_push($default, get_string('pluginname', 'block_' . $defaultblk));
+           array_push($default, $defaultblk);
+        }
+    }
     $settings->add(new admin_setting_configmultiselect($name, $title, $description, $default, $choices));
-    
+
     /*  Toggle blocks location. 1 = right, 2 = left */
     $name = 'format_topcoll/defaultdisplayblocksloc';
     $title = get_string('defaultdisplayblocksloc', 'format_topcoll');

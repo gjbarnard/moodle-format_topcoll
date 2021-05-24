@@ -347,17 +347,17 @@ class format_topcoll extends format_base {
     public function get_default_blocks() {
 
         // Assign the location side for the blocks. defaultdisplayblocksloc: 1=right, 2=left
-        // Then put the string list of blocks on the side location 
-        $blocklist=explode(',',get_config('format_topcoll','defaultdisplayblocks'));
-        if (get_config('format_topcoll','defaultdisplayblocksloc') == 1) {
+        // Then put the string list of blocks on the side location.
+        $blocklist = explode(',' , get_config('format_topcoll' , 'defaultdisplayblocks'));
+        if (get_config('format_topcoll' , 'defaultdisplayblocksloc') == 1) {
             $bpr = $blocklist;
-            $bpl = array(); 
+            $bpl = array();
         } else {
             $bpr = array();
             $bpl = $blocklist;
         }
 
-        // return our block list on the correct side
+        // Return our block list on the correct side.
         return array(
             BLOCK_POS_RIGHT => $bpr,
             BLOCK_POS_LEFT  => $bpl
