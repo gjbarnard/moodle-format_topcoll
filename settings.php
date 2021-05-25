@@ -53,17 +53,17 @@ if ($ADMIN->fulltree) {
     $title = get_string('defaultdisplayblocks', 'format_topcoll');
     $description = get_string('defaultdisplayblocks_desc', 'format_topcoll');
     $choices = core_plugin_manager::instance()->get_enabled_plugins('block');
-    // Change the value of the array to have the real string defined in the language file
-    foreach ($choices as $key=>$blockname) {
-        $choices[$key]=get_string('pluginname', 'block_' . $key);
+    // Change the value of the array to have the real string defined in the language file.
+    foreach ($choices as $key => $blockname) {
+        $choices[$key] = get_string('pluginname', 'block_' . $key);
     }
-    // See if our desired default blocks '$default_search_list' are in the list of available 
+    // See if our desired default blocks '$default_search_list' are in the list of available
     // blocks '$choices' created above, and if so - add each of them to the '$default' array for use.
-    $default=array();
-    $default_search_list = array('search_forums', 'news_items', 'calendar_upcoming', 'recent_activity');
-    foreach ($default_search_list as $defaultblk) {
+    $default = array();
+    $defaultsearchlist = array('search_forums', 'news_items', 'calendar_upcoming', 'recent_activity');
+    foreach ($defaultsearchlist as $defaultblk) {
         if (array_key_exists($defaultblk, $choices)) {
-           array_push($default, $defaultblk);
+            array_push($default, $defaultblk);
         }
     }
     $settings->add(new admin_setting_configmultiselect($name, $title, $description, $default, $choices));
