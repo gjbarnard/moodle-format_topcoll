@@ -339,11 +339,28 @@ class format_topcoll extends format_base {
      *
      * @return array of default blocks, must contain two keys BLOCK_POS_LEFT and BLOCK_POS_RIGHT
      *     each of values is an array of block names (for left and right side columns)
+     *
+     * First we check defaultdisplayblocks to see which of the four default blocks should be displayed,
+     * then build an array of strings that will hold the list of blocks to be displayed.
+     *
      */
     public function get_default_blocks() {
+
+        // Assign the location side for the blocks. defaultdisplayblocksloc: 1=right, 2=left
+        // Then put the string list of blocks on the side location.
+        $blocklist = explode(',' , get_config('format_topcoll' , 'defaultdisplayblocks'));
+        if (get_config('format_topcoll' , 'defaultdisplayblocksloc') == 1) {
+            $bpr = $blocklist;
+            $bpl = array();
+        } else {
+            $bpr = array();
+            $bpl = $blocklist;
+        }
+
+        // Return our block list on the correct side.
         return array(
-            BLOCK_POS_LEFT => array(),
-            BLOCK_POS_RIGHT => array('search_forums', 'news_items', 'calendar_upcoming', 'recent_activity')
+            BLOCK_POS_RIGHT => $bpr,
+            BLOCK_POS_LEFT  => $bpl
         );
     }
 

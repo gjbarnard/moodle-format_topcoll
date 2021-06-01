@@ -48,6 +48,37 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
+    /* Toggle display block choices */
+    $name = 'format_topcoll/defaultdisplayblocks';
+    $title = get_string('defaultdisplayblocks', 'format_topcoll');
+    $description = get_string('defaultdisplayblocks_desc', 'format_topcoll');
+    $choices = core_plugin_manager::instance()->get_enabled_plugins('block');
+    // Change the value of the array to have the real string defined in the language file.
+    foreach ($choices as $key => $blockname) {
+        $choices[$key] = get_string('pluginname', 'block_' . $key);
+    }
+    // See if our desired default blocks '$default_search_list' are in the list of available
+    // blocks '$choices' created above, and if so - add each of them to the '$default' array for use.
+    $default = array();
+    $defaultsearchlist = array('search_forums', 'news_items', 'calendar_upcoming', 'recent_activity');
+    foreach ($defaultsearchlist as $defaultblk) {
+        if (array_key_exists($defaultblk, $choices)) {
+            array_push($default, $defaultblk);
+        }
+    }
+    $settings->add(new admin_setting_configmultiselect($name, $title, $description, $default, $choices));
+
+    /*  Toggle blocks location. 1 = right, 2 = left */
+    $name = 'format_topcoll/defaultdisplayblocksloc';
+    $title = get_string('defaultdisplayblocksloc', 'format_topcoll');
+    $description = get_string('defaultdisplayblocksloc_desc', 'format_topcoll');
+    $default = 1;
+    $choices = array(
+        1 => new lang_string('right', 'format_topcoll'),   // Right.
+        2 => new lang_string('left', 'format_topcoll'),    // Left.
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
     /* Layout configuration.
       Here you can see what numbers in the array represent what layout for setting the default value below.
       1 => Toggle word, toggle section x and section number - default.
