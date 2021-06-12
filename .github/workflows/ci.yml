@@ -76,12 +76,13 @@ jobs:
         if: ${{ always() }}
         run: moodle-plugin-ci phpmd
 
-      - name: Moodle Code Checker
-        if: ${{ always() }}
-        run: moodle-plugin-ci codechecker --max-warnings 0
-        env:
-          IGNORE_PATHS: 'js'
-          IGNORE_NAMES: 'tc_colourpopup.php,tc_colourpopup.js'
+# Disabled until https://github.com/moodlehq/moodle-plugin-ci/issues/104 resolved, run manually.
+#      - name: Moodle Code Checker
+#        if: ${{ always() }}
+#        run: moodle-plugin-ci codechecker --max-warnings 0
+#        env:
+#          IGNORE_PATHS: 'js'
+#          IGNORE_NAMES: 'tc_colourpopup.php,tc_colourpopup.js'
 
 #      - name: Moodle PHPDoc Checker
 #        if: ${{ always() }}
