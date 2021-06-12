@@ -150,6 +150,7 @@ class format_topcoll_course_renderer extends \core_course_renderer {
         if ($this->page->user_is_editing()) { // Don't display the activity meta when editing so that drag and drop is not broken.
             return parent::course_section_cm($course, $completioninfo, $mod, $sectionreturn, $displayoptions);
         }
+        global $USER;
 
         $output = '';
         /* We return empty string (because course module will not be displayed at all)
@@ -208,10 +209,23 @@ class format_topcoll_course_renderer extends \core_course_renderer {
             $output .= $contentpart;
         }
 
-        $modicons = $this->course_section_cm_completion($course, $completioninfo, $mod, $displayoptions);
+        // Fetch completion details.
+        $showcompletionconditions = $course->showcompletionconditions == COMPLETION_SHOW_CONDITIONS;
+        $completiondetails = \core_completion\cm_completion_details::get_instance($mod, $USER->id, $showcompletionconditions);
+        $ismanualcompletion = $completiondetails->has_completion() && !$completiondetails->is_automatic();
 
-        if (!empty($modicons)) {
-            $output .= html_writer::span($modicons, 'actions');
+        // Fetch activity dates.
+        $activitydates = [];
+        if ($course->showactivitydates) {
+            $activitydates = \core\activity_dates::get_dates_for_module($mod, $USER->id);
+        }
+
+        /* Show the activity information if:
+           - The course's showcompletionconditions setting is enabled; or
+           - The activity tracks completion manually; or
+           - There are activity dates to be shown. */
+        if ($showcompletionconditions || $ismanualcompletion || $activitydates) {
+            $output .= $this->output->activity_information($mod, $completiondetails, $activitydates);
         }
 
         // Show availability info (if module is not available).
