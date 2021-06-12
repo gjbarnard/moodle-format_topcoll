@@ -1,6 +1,6 @@
 ﻿Version Information
 ===================
-Version 3.10.1.2 - TBD
+Version 3.11.0.1 - TBD
 ----------------------
   1. Fix 'PHP Notice:  Trying to access array offset on value of type null' when accessing a single section page on PHP 7.4.
   2. Reset language improvements in line with global default tracking as implemented in 3.10.0.2.

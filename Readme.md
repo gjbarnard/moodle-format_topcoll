@@ -9,28 +9,26 @@ from the documentation on http://docs.moodle.org/39/en/Collapsed_Topics_course_f
 are unable to help / not sure what to do, then please go to https://moodle.org/mod/forum/view.php?id=47.  If you like the format,
 then please do spread the word to other educators.  The main page for the format is https://moodle.org/plugins/format_topcoll.
 
-[![Build Status](https://travis-ci.org/gjb2048/moodle-format_topcoll.svg?branch=master)](https://travis-ci.org/gjb2048/moodle-format_topcoll)
-
 Required version of Moodle
 ==========================
-This version works with Moodle 3.10 version 2020110900.00 (Build: 20201109) and above within the 3.10 branch until the
+This version works with Moodle 3.11 version 2021051700.00 (Build: 20210517) and above within the 3.11 branch until the
 next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in 'Installing Moodle' on
-'docs.moodle.org/310/en/Installing_Moodle'
+'docs.moodle.org/311/en/Installing_Moodle'
 
 Downloads and documentation
 ===========================
 The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
-with 'Select Moodle version:' set at 'Moodle 3.10'.
+with 'Select Moodle version:' set at 'Moodle 3.11'.
 
-The secondary source is a tagged version with the v3.10 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
+The secondary source is a tagged version with the v3.11 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
 
 If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/ - consider that
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
-Documented on http://docs.moodle.org/310/en/Collapsed_Topics_course_format
+Documented on http://docs.moodle.org/311/en/Collapsed_Topics_course_format
 
 Bespoke changes
 ===============

@@ -9,10 +9,10 @@ jobs:
  allow_failures:
  fast_finish: true
  include:
- - php: 7.2
+ - php: 7.3
    env: DB=mysqli
    services: mysql
- - php: 7.2
+ - php: 7.3
    env: DB=pgsql
    services: postgresql
    addons:
@@ -27,7 +27,7 @@ jobs:
       postgresql: 9.6
 env:
  global:
-  - MOODLE_BRANCH=MOODLE_310_STABLE
+  - MOODLE_BRANCH=MOODLE_311_STABLE
   - IGNORE_NAMES=tc_colourpopup.php,tc_colourpopup.js
 
 before_install:
