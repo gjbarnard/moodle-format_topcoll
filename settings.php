@@ -48,18 +48,49 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
+    /* Toggle display block choices */
+    $name = 'format_topcoll/defaultdisplayblocks';
+    $title = get_string('defaultdisplayblocks', 'format_topcoll');
+    $description = get_string('defaultdisplayblocks_desc', 'format_topcoll');
+    $choices = core_plugin_manager::instance()->get_enabled_plugins('block');
+    // Change the value of the array to have the real string defined in the language file.
+    foreach ($choices as $key => $blockname) {
+        $choices[$key] = get_string('pluginname', 'block_' . $key);
+    }
+    /* See if our desired default blocks '$defaultsearchlist' are in the list of available
+       blocks '$choices' created above, and if so - add each of them to the '$default' array for use. */
+    $default = array();
+    $defaultsearchlist = array('search_forums', 'news_items', 'calendar_upcoming', 'recent_activity');
+    foreach ($defaultsearchlist as $defaultblk) {
+        if (array_key_exists($defaultblk, $choices)) {
+            array_push($default, $defaultblk);
+        }
+    }
+    $settings->add(new admin_setting_configmultiselect($name, $title, $description, $default, $choices));
+
+    // Toggle blocks location. 1 = pre, 2 = post.
+    $name = 'format_topcoll/defaultdisplayblocksloc';
+    $title = get_string('defaultdisplayblocksloc', 'format_topcoll');
+    $description = get_string('defaultdisplayblocksloc_desc', 'format_topcoll');
+    $default = 1;
+    $choices = array(
+        1 => new lang_string('sidepre', 'format_topcoll'),   // Pre.
+        2 => new lang_string('sidepost', 'format_topcoll'),  // Post.
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
     /* Layout configuration.
-      Here you can see what numbers in the array represent what layout for setting the default value below.
-      1 => Toggle word, toggle section x and section number - default.
-      2 => Toggle word and section number.
-      3 => Toggle word and toggle section x.
-      4 => Toggle word.
-      5 => Toggle section x and section number.
-      6 => Section number.
-      7 => No additions.
-      8 => Toggle section x.
-      Default layout to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time
-      after installing this functionality introduced in CONTRIB-3378. */
+       Here you can see what numbers in the array represent what layout for setting the default value below.
+       1 => Toggle word, toggle section x and section number - default.
+       2 => Toggle word and section number.
+       3 => Toggle word and toggle section x.
+       4 => Toggle word.
+       5 => Toggle section x and section number.
+       6 => Section number.
+       7 => No additions.
+       8 => Toggle section x.
+       Default layout to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time
+       after installing this functionality introduced in CONTRIB-3378. */
     $name = 'format_topcoll/defaultlayoutelement';
     $title = get_string('defaultlayoutelement', 'format_topcoll');
     $description = get_string('defaultlayoutelement_descpositive', 'format_topcoll');
@@ -77,14 +108,14 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     /* Structure configuration.
-      Here so you can see what numbers in the array represent what structure for setting the default value below.
-      1 => Topic.
-      2 => Week.
-      3 => Latest Week First.
-      4 => Current Topic First.
-      5 => Day.
-      Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time
-      after installing this functionality introduced in CONTRIB-3378. */
+       Here so you can see what numbers in the array represent what structure for setting the default value below.
+       1 => Topic.
+       2 => Week.
+       3 => Latest Week First.
+       4 => Current Topic First.
+       5 => Day.
+       Default structure to use - used when a new Collapsed Topics course is created or an old one is accessed for the first time
+       after installing this functionality introduced in CONTRIB-3378. */
     $name = 'format_topcoll/defaultlayoutstructure';
     $title = get_string('defaultlayoutstructure', 'format_topcoll');
     $description = get_string('defaultlayoutstructure_desc', 'format_topcoll');
@@ -169,21 +200,21 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
-    // Toggle icon set.
-    // arrow        => Arrow icon set.
-    // bulb         => Bulb icon set.
-    // cloud        => Cloud icon set.
-    // eye          => Eye icon set.
-    // folder       => Folder icon set.
-    // groundsignal => Ground signal set.
-    // led          => LED icon set.
-    // point        => Point icon set.
-    // power        => Power icon set.
-    // radio        => Radio icon set.
-    // smiley       => Smiley icon set.
-    // square       => Square icon set.
-    // sunmoon      => Sun / Moon icon set.
-    // switch       => Switch icon set.
+    /* Toggle icon set.
+       arrow        => Arrow icon set.
+       bulb         => Bulb icon set.
+       cloud        => Cloud icon set.
+       eye          => Eye icon set.
+       folder       => Folder icon set.
+       groundsignal => Ground signal set.
+       led          => LED icon set.
+       point        => Point icon set.
+       power        => Power icon set.
+       radio        => Radio icon set.
+       smiley       => Smiley icon set.
+       square       => Square icon set.
+       sunmoon      => Sun / Moon icon set.
+       switch       => Switch icon set. */
     $iconseticons = array(
         'arrow' => $OUTPUT->pix_icon('arrow_right', get_string('arrow', 'format_topcoll'), 'format_topcoll'),
         'bulb' => $OUTPUT->pix_icon('bulb_off', get_string('bulb', 'format_topcoll'), 'format_topcoll'),
@@ -233,9 +264,9 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
-    // Toggle all icon hovers.
-    // 1 => No.
-    // 2 => Yes.
+    /* Toggle all icon hovers.
+       1 => No.
+       2 => Yes. */
     $name = 'format_topcoll/defaulttoggleallhover';
     $title = get_string('defaulttoggleallhover', 'format_topcoll');
     $description = get_string('defaulttoggleallhover_desc', 'format_topcoll');
@@ -320,9 +351,9 @@ if ($ADMIN->fulltree) {
     $default = '1.0';
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $opacityvalues));
 
-    // Show the section summary when collapsed.
-    // 1 => No.
-    // 2 => Yes.
+    /* Show the section summary when collapsed.
+       1 => No.
+       2 => Yes. */
     $name = 'format_topcoll/defaultshowsectionsummary';
     $title = get_string('defaultshowsectionsummary', 'format_topcoll');
     $description = get_string('defaultshowsectionsummary_desc', 'format_topcoll');
@@ -351,9 +382,9 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
-    // Toggle preference for the first time a user accesses a course.
-    // 0 => All closed.
-    // 1 => All open.
+    /* Toggle preference for the first time a user accesses a course.
+       0 => All closed.
+       1 => All open. */
     $name = 'format_topcoll/defaultuserpreference';
     $title = get_string('defaultuserpreference', 'format_topcoll');
     $description = get_string('defaultuserpreference_desc', 'format_topcoll');
@@ -458,9 +489,9 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
-    // Show the section summary when collapsed.
-    // 1 => No.
-    // 2 => Yes.
+    /* Show the section summary when collapsed.
+       1 => No.
+       2 => Yes. */
     $name = 'format_topcoll/defaultshowsectionsummary';
     $title = get_string('defaultshowsectionsummary', 'format_topcoll');
     $description = get_string('defaultshowsectionsummary_desc', 'format_topcoll');
