@@ -5,6 +5,7 @@ Version 3.10.1.2 - TBD
   1. Fix 'PHP Notice:  Trying to access array offset on value of type null' when accessing a single section page on PHP 7.4.
   2. Reset language improvements in line with global default tracking as implemented in 3.10.0.2.
   3. Improved backup restore with numsections.
+  4. Added 'Toggle blocks location' functionality, thanks to John Joubert (https://github.com/John-Joubert) for the patch - #100.
 
 Version 3.10.1.1 - 07/03/2021
 -----------------------------
