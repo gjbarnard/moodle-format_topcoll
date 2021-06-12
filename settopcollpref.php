@@ -32,9 +32,8 @@ define('AJAX_SCRIPT', true);
 require_once(__DIR__ . '/../../../config.php');
 
 // Check access.
-if (!confirm_sesskey()) {
-    print_error('invalidsesskey');
-}
+require_login();
+require_sesskey();
 
 // Get the name of the preference to update, and check that it is allowed.
 $name = required_param('pref', PARAM_RAW);
