@@ -221,7 +221,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $onsectionpage = true;
         $theclass = self::call_method($this->outputus, 'section_header',
             array($section, $this->course, $onsectionpage));
-        $thevalue = '<li id="section-1" class="section main clearfix col-sm-12 col-md-12 col-lg-12" role="region" ';
+        $thevalue = '<li id="section-1" class="section main clearfix" role="region" ';
         $thevalue .= 'aria-labelledby="sectionid-'.$section->id.'-title" data-sectionid="1">';
         $thevalue .= '<div class="left side"></div>';
         $thevalue .= '<div class="content">';
