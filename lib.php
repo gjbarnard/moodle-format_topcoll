@@ -684,8 +684,8 @@ class format_topcoll extends format_base {
                     'layoutcolumnorientation',
                     0,
                     array(
-                        1 => new lang_string('no'),
-                        2 => new lang_string('yes')
+                        1 => new lang_string('columnvertical', 'format_topcoll'),
+                        2 => new lang_string('columnhorizontal', 'format_topcoll')
                     )
                 );
                 $courseformatoptionsedit['layoutcolumnorientation'] = array(
