@@ -464,7 +464,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
         if (empty($this->tcsettings)) {
             $this->tcsettings = $this->courseformat->get_settings();
         }
-        if ((!$this->formatresponsive) && ($section->section != 0) &&
+        if ((!$onsectionpage) && (!$this->formatresponsive) && ($section->section != 0) &&
             ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
             $sectionstyle .= ' ' . $this->get_column_class($this->tcsettings['layoutcolumns']);
         }
