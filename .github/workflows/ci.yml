@@ -58,9 +58,6 @@ jobs:
         env:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
-          IGNORE_PATHS: 'js'
-          IGNORE_NAMES: 'tc_colourpopup.php,tc_colourpopup.js'
-          CODECHECKER_IGNORE_PATHS: 'js'
           CODECHECKER_IGNORE_NAMES: 'tc_colourpopup.php,tc_colourpopup.js'
 
       - name: PHP Lint
@@ -79,7 +76,8 @@ jobs:
 
       - name: Moodle Code Checker
         if: ${{ always() }}
-        run: moodle-plugin-ci codechecker --max-warnings 0
+        run: moodle-plugin-ci codechecker
+#        run: moodle-plugin-ci codechecker --max-warnings 0
 
 #      - name: Moodle PHPDoc Checker
 #        if: ${{ always() }}
