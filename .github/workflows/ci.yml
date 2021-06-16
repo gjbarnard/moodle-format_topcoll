@@ -52,15 +52,16 @@ jobs:
           echo $(cd ci/vendor/bin; pwd) >> $GITHUB_PATH
           sudo locale-gen en_AU.UTF-8
           echo "NVM_DIR=$HOME/.nvm" >> $GITHUB_ENV
-        env:
-          IGNORE_PATHS: 'js'
-          IGNORE_NAMES: 'tc_colourpopup.php,tc_colourpopup.js'
       - name: Install moodle-plugin-ci
         run: |
           moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
         env:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
+          IGNORE_PATHS: 'js'
+          IGNORE_NAMES: 'tc_colourpopup.php,tc_colourpopup.js'
+          CODECHECKER_IGNORE_PATHS: 'js'
+          CODECHECKER_IGNORE_NAMES: 'tc_colourpopup.php,tc_colourpopup.js'
 
       - name: PHP Lint
         if: ${{ always() }}
@@ -76,13 +77,9 @@ jobs:
         if: ${{ always() }}
         run: moodle-plugin-ci phpmd
 
-# Disable again - https://github.com/moodlehq/moodle-plugin-ci/issues/104 / 107.
-#      - name: Moodle Code Checker
-#        if: ${{ always() }}
-#        run: moodle-plugin-ci codechecker --max-warnings 0
-#        env:
-#          CODECHECKER_IGNORE_PATHS: 'js'
-#          CODECHECKER_IGNORE_NAMES: 'tc_colourpopup.php,tc_colourpopup.js'
+      - name: Moodle Code Checker
+        if: ${{ always() }}
+        run: moodle-plugin-ci codechecker --max-warnings 0
 
 #      - name: Moodle PHPDoc Checker
 #        if: ${{ always() }}
