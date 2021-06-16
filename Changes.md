@@ -7,6 +7,7 @@ Version 3.11.0.1 - TBD
   3. Improved backup restore with numsections.
   4. Added 'Toggle blocks location' functionality, thanks to John Joubert (https://github.com/John-Joubert) for the patch - #100.
   5. Fix 'Deprecation warning for 3.11' - #99.
+  6. Fix 'Section content is in a column when using horizontal columns on a single section page'.
 
 Version 3.10.1.1 - 07/03/2021
 -----------------------------
