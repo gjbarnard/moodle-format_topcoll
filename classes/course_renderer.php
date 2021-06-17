@@ -366,14 +366,23 @@ class format_topcoll_course_renderer extends \core_course_renderer {
             // Teacher - useful teacher meta data.
             $engagementmeta = array();
 
-            // Below, !== false means we get 0 out of x submissions.
-            if (!$meta->submissionnotrequired && $meta->numparticipants !== false) {
-                $engagementmeta[] = get_string('xofy'.$meta->submitstrkey, 'format_topcoll',
-                    (object) array(
-                        'completed' => $meta->numsubmissions,
-                        'participants' => $meta->numparticipants
-                    )
-                );
+            if (!$meta->submissionnotrequired) {
+                /* Below, != 0 means we would get x out of 0 submissions, so at least show something as
+                   the module could now be hidden, but there is still useful information. */
+                if ($meta->numparticipants != 0) {
+                    $engagementmeta[] = get_string('xofy'.$meta->submitstrkey, 'format_topcoll',
+                        (object) array(
+                            'completed' => $meta->numsubmissions,
+                            'participants' => $meta->numparticipants
+                        )
+                    );
+                } else {
+                    $engagementmeta[] = get_string('x'.$meta->submitstrkey, 'format_topcoll',
+                        (object) array(
+                            'completed' => $meta->numsubmissions
+                        )
+                    );
+                }
             }
 
             if ($meta->numrequiregrading) {
@@ -383,10 +392,10 @@ class format_topcoll_course_renderer extends \core_course_renderer {
                 $engagementstr = implode(', ', $engagementmeta);
 
                 $params = array(
-                        'action' => 'grading',
-                        'id' => $mod->id,
-                        'tsort' => 'timesubmitted',
-                        'filter' => 'require_grading'
+                    'action' => 'grading',
+                    'id' => $mod->id,
+                    'tsort' => 'timesubmitted',
+                    'filter' => 'require_grading'
                 );
                 $url = new moodle_url("/mod/{$mod->modname}/view.php", $params);
 
