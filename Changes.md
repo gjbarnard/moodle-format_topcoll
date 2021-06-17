@@ -8,6 +8,7 @@ Version 3.10.1.2 - TBD
   4. Added 'Toggle blocks location' functionality, thanks to John Joubert (https://github.com/John-Joubert) for the patch - #100.
   5. Fix 'Section content is in a column when using horizontal columns on a single section page'.
   6. Fix 'Column orientation combo box strings'.
+  7. Improve activity meta from information gained on #101.
 
 Version 3.10.1.1 - 07/03/2021
 -----------------------------
