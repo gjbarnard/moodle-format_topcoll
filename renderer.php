@@ -788,6 +788,11 @@ class format_topcoll_renderer extends format_section_renderer_base {
                 format_string($course->fullname));
         }
 
+        echo html_writer::start_tag('a', array('href' => new moodle_url('/course/view.php', array('id' => $course->id))));
+        $maincoursepage = get_string('maincoursepage', 'format_topcoll');
+        echo $this->output->pix_icon('t/less', $maincoursepage).$maincoursepage;
+        echo html_writer::end_tag('a');
+
         // Copy activity clipboard.
         echo $this->course_activity_clipboard($course, $displaysection);
         $thissection = $modinfo->get_section_info(0);

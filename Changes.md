@@ -10,6 +10,7 @@ Version 3.10.1.2 - TBD
   6. Fix 'Column orientation combo box strings'.
   7. Improve activity meta from information gained on #101.
   8. No longer need 'config.php' because of #100.
+  9. New 'Accessible back to main course link' - #66.
 
 Version 3.10.1.1 - 07/03/2021
 -----------------------------
