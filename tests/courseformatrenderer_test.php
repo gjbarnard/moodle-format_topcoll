@@ -287,11 +287,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '<img src="'.$CFG->wwwroot.'/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" ';
         $theoutput .= 'alt="" role="presentation" aria-hidden="true" />';
         $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a></div></div></div></div></li></ul>';
-        $theoutput .= '<div class="mdl-right"><div class="section-modchooser">';
-        $theoutput .= '<button class="section-modchooser-link btn btn-link" data-action="open-chooser" data-sectionid="0" data-sectionreturnid="0">';
-        $theoutput .= '<i class="icon fa fa-plus fa-fw " aria-hidden="true"  ></i>';
-        $theoutput .= '<span class="section-modchooser-text">Add an activity or resource</span></button>';
-        $theoutput .= '</div></div></div><div class="right side"></div></li></ul><ul class="ctopics topics bsnewgrid row">';
+        $theoutput .= '</div><div class="right side"></div></li></ul><ul class="ctopics topics bsnewgrid row">';
         $theoutput .= '<li id="section-1" class="section main clearfix col-sm-12 col-md-12 col-lg-12" role="region" ';
         $theoutput .= 'aria-labelledby="sectionid-'.$section1->id.'-title" data-sectionid="1" data-sectionreturnid="0">';
         $theoutput .= '<div class="left side"><span class="cps_centre">1</span></div><div class="content">';
@@ -299,10 +295,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-expanded="false">';
         $theoutput .= '<h3 id="sectionid-'.$section1->id.'-title" class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>';
         $theoutput .= '<div class="section_availability"></div></span></div><div class="sectionbody toggledsection" id="toggledsection-1">';
-        $theoutput .= '<ul class="section img-text"></ul><div class="mdl-right"><div class="section-modchooser">';
-        $theoutput .= '<button class="section-modchooser-link btn btn-link" data-action="open-chooser" data-sectionid="1" data-sectionreturnid="0">';
-        $theoutput .= '<i class="icon fa fa-plus fa-fw " aria-hidden="true"  ></i>';
-        $theoutput .= '<span class="section-modchooser-text">Add an activity or resource</span></button></div></div></div></div>';
+        $theoutput .= '<ul class="section img-text"></ul></div></div>';
         $theoutput .= '<div class="right side"><a title="View only &#039;Topic 1&#039;" class="cps_centre" ';
         $theoutput .= 'href="'.$CFG->wwwroot.'/course/view.php?id='.$this->course->id.'&amp;section=1">Topic<br />1</a></div></li></ul>';
 
@@ -331,11 +324,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= 'class="iconlarge activityicon" alt="" role="presentation" aria-hidden="true" />';
         $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a>';
         $theoutput .= '</div></div></div></div></li></ul>';
-        $theoutput .= '<div class="mdl-right"><div class="section-modchooser">';
-        $theoutput .= '<button class="section-modchooser-link btn btn-link" data-action="open-chooser" data-sectionid="0" data-sectionreturnid="0">';
-        $theoutput .= '<i class="icon fa fa-plus fa-fw " aria-hidden="true"  ></i>';
-        $theoutput .= '<span class="section-modchooser-text">Add an activity or resource</span></button>';
-        $theoutput .= '</div></div></div><div class="right side"></div></li></ul><div class="row">';
+        $theoutput .= '</div><div class="right side"></div></li></ul><div class="row">';
         $theoutput .= '<ul class="ctopics topics bsnewgrid col-sm-12 col-md-12 col-lg-12">';
         $theoutput .= '<li id="section-1" class="section main clearfix" role="region" ';
         $theoutput .= 'aria-labelledby="sectionid-'.$section1->id.'-title" data-sectionid="1" data-sectionreturnid="0">';
@@ -344,11 +333,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-expanded="false">';
         $theoutput .= '<h3 id="sectionid-'.$section1->id.'-title" class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>';
         $theoutput .= '<div class="section_availability"></div></span></div><div class="sectionbody toggledsection" id="toggledsection-1">';
-        $theoutput .= '<ul class="section img-text"></ul><div class="mdl-right">';
-        $theoutput .= '<div class="section-modchooser">';
-        $theoutput .= '<button class="section-modchooser-link btn btn-link" data-action="open-chooser" data-sectionid="1" data-sectionreturnid="0">';
-        $theoutput .= '<i class="icon fa fa-plus fa-fw " aria-hidden="true"  ></i><span class="section-modchooser-text">Add an activity or resource</span></button>';
-        $theoutput .= '</div></div></div></div><div class="right side"><a title="View only &#039;Topic 1&#039;" class="cps_centre" ';
+        $theoutput .= '<ul class="section img-text"></ul></div></div><div class="right side"><a title="View only &#039;Topic 1&#039;" class="cps_centre" ';
         $theoutput .= 'href="'.$CFG->wwwroot.'/course/view.php?id='.$this->course->id.'&amp;section=1">Topic<br />1</a></div></li></ul></div>';
 
         $this->expectOutputString($theoutput);
@@ -379,12 +364,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= 'alt="" role="presentation" aria-hidden="true" />';
         $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a>';
         $theoutput .= '</div></div></div></div></li></ul>';
-        $theoutput .= '<div class="mdl-right">';
-        $theoutput .= '<div class="section-modchooser">';
-        $theoutput .= '<button class="section-modchooser-link btn btn-link" data-action="open-chooser" data-sectionid="0" data-sectionreturnid="0">';
-        $theoutput .= '<i class="icon fa fa-plus fa-fw " aria-hidden="true"  ></i>';
-        $theoutput .= '<span class="section-modchooser-text">Add an activity or resource</span></button>';
-        $theoutput .= '</div></div></div><div class="right side"></div></li></ul>';
+        $theoutput .= '</div><div class="right side"></div></li></ul>';
 
         $this->expectOutputString($theoutput);
     }
