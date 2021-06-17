@@ -9,6 +9,7 @@ Version 3.9.1.5 - TBR
   5. Fix 'Section content is in a column when using horizontal columns on a single section page'.
   6. Fix 'Column orientation combo box strings'.
   7. Improve activity meta from information gained on #101.
+  8. No longer need 'config.php' because of #100.
 
 Version 3.9.1.4 - 07/03/2021
 ----------------------------
