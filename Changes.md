@@ -12,6 +12,7 @@ Version 3.11.0.1 - TBD
   8. Improve activity meta from information gained on #101.
   9. No longer need 'config.php' because of #100.
  10. New 'Accessible back to main course link' - #66.
+ 11. Apply MDL-71634.
 
 Version 3.10.1.1 - 07/03/2021
 -----------------------------
