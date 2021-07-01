@@ -794,71 +794,17 @@ body.jsenabled #toggle-all {
 
 /* Activity further information styling */
 .format-topcoll .ct-activity-meta-container {
-    margin: 0 10px 0 30px;
     padding: 5px 0 0 0;
 }
 
-.format-topcoll .ct-activity-due-date {
-    background-color: #555;
-    border-radius: 0.5em;
-    color: #fff;
-    font-size: 0.9em;
-    font-weight: 500;
-    line-height: 3em;
-    margin: 0 10px 0 0;
-    padding: 7px;
-    white-space: nowrap;
-}
-
-.format-topcoll .ct-activity-due-date a {
-    color: #fff;
- }
-
 .format-topcoll .ct-activity-mod-feedback {
     padding: 5px 0;
-}
-
-.format-topcoll .ct-activity-mod-feedback .icon {
-    font-size: 1.1em;
-}
-
-.format-topcoll .ct-activity-action {
-    margin: 0 7px;
 }
 
 .format-topcoll .ct-activity-action i {
     margin-right: 0.35rem;
 }
 
-.format-topcoll .ct-activity-date-submitted {
-    background-color: #d4edda;
-}
-
-.format-topcoll .ct-activity-date-submitted a {
-    color: #155724;
-}
-
-.format-topcoll .ct-activity-date-nearly-due {
-    background-color: #FFF3CD;
-}
-
-.format-topcoll .ct-activity-date-nearly-due a {
-    color: #856404;
-}
-
-.format-topcoll .ct-activity-date-overdue {
-    background-color: #f8d7da;
-}
-
-.format-topcoll .ct-activity-date-overdue a {
-    color: #721c24;
-}
-
-.format-topcoll .ct-activity-date-overdue .text-warning {
-    color: #721C24 !important;
-}
-
-.format-topcoll .ct-activity-due-date .icon,
 .format-topcoll .ct-activity-mod-engagement .icon,
 .format-topcoll .ct-activity-mod-feedback .icon {
     font-size: 1.1em;

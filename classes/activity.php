@@ -91,59 +91,25 @@ class activity {
      * Return standard meta data for module
      *
      * @param cm_info $mod
-     * @param string $timeopenfld
-     * @param string $timeclosefld
-     * @param string $keyfield
-     * @param string $submissiontable
-     * @param string $submittedonfld
      * @param string $submitstrkey
      * @param bool $isgradeable
-     * @param string $submitselect - sql to further filter submission row select statement - e.g. st.status='finished'
      * @param bool $submissionnotrequired
+     *
      * @return activity_meta
      */
-    protected static function std_meta(cm_info $mod,
-            $timeopenfld,
-            $timeclosefld,
-            $keyfield,
-            $submissiontable,
-            $submittedonfld,
+    protected static function std_meta(
+            cm_info $mod,
             $submitstrkey,
             $isgradeable = false,
-            $submitselect = '',
             $submissionnotrequired = false
             ) {
-        global $USER;
 
         $courseid = $mod->course;
-
-        // Create meta data object.  Use set_default for when is_set(true) so that only changed metas are valid.
-        $meta = new activity_meta();
-
-        // If module is not visible to the user then don't bother getting meta data.
-        if (!$mod->uservisible) {
-            return $meta;
-        }
-
-        $meta->set_default('submissionnotrequired', $submissionnotrequired);
-        $meta->set_default('submitstrkey', $submitstrkey);
-        $meta->set_default('submittedstr', get_string($submitstrkey, 'format_topcoll'));
-        $meta->set_default('notsubmittedstr', get_string('not'.$submitstrkey, 'format_topcoll'));
-        $meta->set_default('draftstr', get_string('draft', 'format_topcoll'));
-        $meta->set_default('reopenedstr', get_string('reopened', 'format_topcoll'));
-        $meta->set_default('expiredstr', get_string('expired', 'format_topcoll'));
-        $meta->set_default('notopenstr', get_string('notopen', 'format_topcoll'));
-
-        $activitydates = self::instance_activity_dates($courseid, $mod, $timeopenfld, $timeclosefld);
-        $meta->timeopen = $activitydates->timeopen;
-        $meta->timeclose = $activitydates->timeclose;
-        if (isset($activitydates->extension)) {
-            $meta->extension = $activitydates->extension;
-        }
-
         // If role has specific "teacher" capabilities.
         if (has_capability('mod/assign:grade', $mod->context)) {
+            $meta = new activity_meta();
             $meta->isteacher = true;
+            $meta->set_default('submitstrkey', $submitstrkey);
 
             if ($mod->modname === 'assign') {
                 list(
@@ -152,7 +118,6 @@ class activity {
                     'ungraded' => $meta->numrequiregrading,
                 ) = self::assign_nums($courseid, $mod);
             } else {
-                // Teacher - useful teacher meta data.
                 $methodnsubmissions = $mod->modname.'_num_submissions';
                 $methodnumgraded = $mod->modname.'_num_submissions_ungraded';
                 $methodparticipants = $mod->modname.'_num_participants';
@@ -172,53 +137,10 @@ class activity {
                     $meta->numparticipants = self::course_participant_count($courseid, $mod);
                 }
             }
-
-        } else {
-            // Student - useful student meta data - only display if activity is available.
-            if (empty($activitydates->timeopen) || $activitydates->timeopen <= time()) {  // TODO User time needed???
-
-                $submissionrow = self::get_submission_row($courseid, $mod, $submissiontable, $keyfield, $submitselect);
-
-                if (!empty($submissionrow)) {
-                    if ($mod->modname === 'assign' && !empty($submissionrow->status)) {
-                        switch ($submissionrow->status) {
-                            case ASSIGN_SUBMISSION_STATUS_DRAFT:
-                                $meta->draft = true;
-                                break;
-
-                            case ASSIGN_SUBMISSION_STATUS_REOPENED:
-                                $meta->reopened = true;
-                                break;
-
-                            case ASSIGN_SUBMISSION_STATUS_SUBMITTED:
-                                $meta->submitted = true;
-                                break;
-                        }
-                    } else {
-                        $meta->submitted = true;
-                        $meta->timesubmitted = !empty($submissionrow->$submittedonfld) ? $submissionrow->$submittedonfld : null;
-                    }
-                    // If submitted on field uses modified field then fall back to timecreated if modified is 0.
-                    if (empty($meta->timesubmitted) && $submittedonfld = 'timemodified') {
-                        if (isset($submissionrow->timemodified)) {
-                            $meta->timesubmitted = $submissionrow->timemodified;
-                        } else {
-                            $meta->timesubmitted = $submissionrow->timecreated;
-                        }
-                    }
-                } else if ($mod->modname === 'assign') {
-                    $meta->notattempted = true;
-                }
-            } else {
-                $meta->notopen = true;
-            }
-
-            $graderow = false;
-            if ($isgradeable) {
-                $graderow = self::grade_row($courseid, $mod);
-            }
-
+        } else if ($isgradeable) {
+            $graderow = self::grade_row($courseid, $mod);
             if ($graderow) {
+                global $USER;
                 $gradeitem = \grade_item::fetch(array(
                     'itemtype' => 'mod',
                     'itemmodule' => $mod->modname,
@@ -226,23 +148,16 @@ class activity {
                     'outcomeid' => null
                 ));
 
-                $grade = new \grade_grade(array('itemid' => $gradeitem->id, 'userid' => $USER->id));
-
                 $coursecontext = \context_course::instance($courseid);
-                $canviewhiddengrade = has_capability('moodle/grade:viewhidden', $coursecontext);
-
-                if (!$grade->is_hidden() || $canviewhiddengrade) {
+                if (has_capability('moodle/grade:viewhidden', $coursecontext)) {
                     $meta->grade = true;
+                } else {
+                    $grade = new \grade_grade(array('itemid' => $gradeitem->id, 'userid' => $USER->id));
+                    if (!$grade->is_hidden()) {
+                        $meta->grade = true;
+                    }
                 }
             }
-        }
-
-        if (!empty($meta->timeclose)) {
-            // Submission required?
-            $subreqd = empty($meta->submissionnotrequired);
-
-            // Overdue?
-            $meta->overdue = $subreqd && empty($meta->submitted) && (time() > $meta->timeclose);
         }
 
         return $meta;
@@ -286,19 +201,7 @@ class activity {
             $submissionnotrequired = false;
         }
 
-        $meta = self::std_meta($modinst, 'allowsubmissionsfromdate', 'duedate', 'assignment', 'submission',
-            'timemodified', 'submitted', true, $submitselect, $submissionnotrequired);
-
-        if (!empty($meta)) {
-            // Check assignment due date in user and group overrides.
-            $context = \context_module::instance($modinst->id);
-            $assign = new \assign($context, $modinst, $courseid);
-            $assign->update_effective_access($USER->id);
-            $submissionstatus = $assign->get_assign_submission_status_renderable($USER, false);
-            if (!empty($submissionstatus->duedate) && $submissionstatus->duedate != $meta->timeclose) {
-                $meta->timeclose = $submissionstatus->duedate;
-            }
-        }
+        $meta = self::std_meta($modinst, 'submitted', true, $submissionnotrequired);
 
         return ($meta);
     }
@@ -310,7 +213,7 @@ class activity {
      * @return string
      */
     protected static function choice_meta(cm_info $modinst) {
-        return  self::std_meta($modinst, 'timeopen', 'timeclose', 'choiceid', 'answers', 'timeseen', 'answered');
+        return  self::std_meta($modinst, 'answered');
     }
 
     /**
@@ -320,7 +223,7 @@ class activity {
      * @return string
      */
     protected static function data_meta(cm_info $modinst) {
-        return self::std_meta($modinst, 'timeavailablefrom', 'timeavailableto', 'dataid', 'records', 'timemodified', 'contributed');
+        return self::std_meta($modinst, 'contributed');
     }
 
     /**
@@ -330,7 +233,7 @@ class activity {
      * @return string
      */
     protected static function feedback_meta(cm_info $modinst) {
-        return self::std_meta($modinst, 'timeopen', 'timeclose', 'feedback', 'completed', 'timemodified', 'submitted');
+        return self::std_meta($modinst, 'submitted');
     }
 
     /**
@@ -340,8 +243,7 @@ class activity {
      * @return string
      */
     protected static function lesson_meta(cm_info $modinst) {
-        $meta = self::std_meta($modinst, 'available', 'deadline', 'lessonid', 'timer', 'lessontime', 'attempted', true);
-        // TO BE DELETED: $meta->submissionnotrequired = true; ..........
+        $meta = self::std_meta($modinst, 'attempted', true);
         return $meta;
     }
 
@@ -352,8 +254,7 @@ class activity {
      * @return string
      */
     protected static function quiz_meta(cm_info $modinst) {
-        return self::std_meta($modinst, 'timeopen', 'timeclose', 'quiz',
-            'attempts', 'timemodified', 'attempted', true, 'AND st.state=\'finished\'');
+        return self::std_meta($modinst, 'attempted', true);
     }
 
     // The lesson_ungraded function has been removed as it was very tricky to implement.
@@ -560,251 +461,6 @@ class activity {
         }
 
         return 0;
-    }
-
-    /**
-     * Get activity submission row.
-     *
-     * This method gets all of the possible submission rows for the user for the given module type
-     * and then caches them so that there is only one database read for the user per module type
-     * regardless of the number on the course.
-     *
-     * @param int $courseid
-     * @param cm_info $mod
-     * @param string $submissiontable
-     * @param string $modfield
-     * @param string $extraselect
-     *
-     * @return mixed
-     */
-    protected static function get_submission_row($courseid, $mod, $submissiontable, $modfield, $extraselect='') {
-        global $DB, $USER;
-
-        // Note: Caches all submissions to minimise database transactions.
-        static $submissions = array();
-
-        // Pull from cache?
-        if (!PHPUNIT_TEST) {
-            if (isset($submissions[$courseid.'_'.$mod->modname])) {
-                if (isset($submissions[$courseid.'_'.$mod->modname][$mod->instance])) {
-                    return $submissions[$courseid.'_'.$mod->modname][$mod->instance];
-                } else {
-                    return false;
-                }
-            }
-        }
-
-        $submissiontable = $mod->modname.'_'.$submissiontable;
-
-        if ($mod->modname === 'assign') {
-            $params = [$courseid];
-            $sql = "-- Snap sql
-                SELECT a.id, st.*
-                    FROM {".$submissiontable."} st
-
-                    JOIN {".$mod->modname."} a
-                    ON a.id = st.$modfield
-
-                    WHERE a.course = ?
-                    AND st.latest = 1 $extraselect
-                    ORDER BY $modfield DESC, st.id DESC";
-        } else {
-            // Less effecient general purpose for other module types.
-            $params = [$USER->id, $courseid, $USER->id];
-            $sql = "-- Snap sql
-                SELECT a.id AS instanceid, st.*
-                    FROM {".$submissiontable."} st
-
-                    JOIN {".$mod->modname."} a
-                    ON a.id = st.$modfield
-
-                    -- Get only the most recent submission.
-                    JOIN (SELECT $modfield AS modid, MAX(id) AS maxattempt
-                    FROM {".$submissiontable."}
-                    WHERE userid = ?
-                    GROUP BY $modfield) AS smx
-                    ON smx.modid = st.$modfield
-                    AND smx.maxattempt = st.id
-
-                    WHERE a.course = ?
-                    AND st.userid = ? $extraselect
-                    ORDER BY $modfield DESC, st.id DESC";
-        }
-
-        /* Not every activity has a status field...
-           Add one if it is missing so code assuming there is a status property doesn't explode. */
-        $results = $DB->get_records_sql($sql, $params);
-        if (!$results) {
-            unset($submissions[$courseid.'_'.$mod->modname]);
-            return false;
-        }
-
-        foreach ($results as $r) {
-            if (!isset($r->status)) {
-                $r->status = null;
-            }
-        }
-
-        if ($mod->modname === 'assign') {
-            // Assignment submissions can either be against the user's id or a group they are in.
-            if (empty($USER->groupmember)) {
-                if (!isguestuser($USER)) {
-                    // Adapted from get_complete_user_data() in moodlelib.php.
-                    $sql = "
-                        SELECT g.id, g.courseid
-                            FROM {groups} g, {groups_members} gm
-                            WHERE gm.groupid=g.id AND gm.userid=? AND g.courseid=?";
-
-                    $USER->groupmember = array();
-                    if ($groups = $DB->get_records_sql($sql, array($USER->id, $courseid))) {
-                        $USER->groupmember[$courseid] = array();
-                        foreach ($groups as $group) {
-                            $USER->groupmember[$group->courseid][$group->id] = $group->id;
-                        }
-                    }
-                } else {
-                    $USER->groupmember = array($courseid => array());
-                }
-            }
-
-            $theresults = array();
-            foreach ($results as $r) {
-                if (!empty($r->userid)) { // User id of 0 means that there should be a groupid.
-                    if ($r->userid == $USER->id) { // This record is for us.
-                        $theresults[$r->assignment] = $r;
-                    }
-                } else if (!empty($r->groupid)) {
-                    if (in_array($r->groupid, $USER->groupmember[$courseid])) { // This record is in one of our groups.
-                        $theresults[$r->assignment] = $r;
-                    }
-                }
-            }
-        } else {
-            $theresults = $results;
-        }
-
-        $submissions[$courseid.'_'.$mod->modname] = $theresults;
-
-        if (isset($submissions[$courseid.'_'.$mod->modname][$mod->instance])) {
-            return $submissions[$courseid.'_'.$mod->modname][$mod->instance];
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Get the activity dates for a specific module instance.
-     *
-     * @param int $courseid
-     * @param cm_info $mod
-     * @param string $timeopenfld
-     * @param string $timeclosefld
-     *
-     * @return bool|stdClass
-     */
-    protected static function instance_activity_dates($courseid, $mod, $timeopenfld = '', $timeclosefld = '') {
-        global $DB, $USER;
-        // Note: Caches all moduledates to minimise database transactions.
-        static $moddates = array();
-        if (!isset($moddates[$courseid . '_' . $mod->modname][$mod->instance]) || PHPUNIT_TEST) {
-            $timeopenfld = $mod->modname === 'quiz' ? 'timeopen' : ($mod->modname === 'lesson' ? 'available' : $timeopenfld);
-            $timeclosefld = $mod->modname === 'quiz' ? 'timeclose' : ($mod->modname === 'lesson' ? 'deadline' : $timeclosefld);
-            $sql = "-- Snap sql
-                SELECT
-                    module.id,
-                    module.$timeopenfld AS timeopen,
-                    module.$timeclosefld AS timeclose";
-            if ($mod->modname === 'assign') {
-                $sql .= ",
-                    auf.extensionduedate AS extension
-                ";
-            }
-            if ($mod->modname === 'quiz' || $mod->modname === 'lesson') {
-                $id = $mod->modname === 'quiz' ? $mod->modname : 'lessonid';
-                $groups = groups_get_user_groups($courseid);
-                $groupbysql = '';
-                $params = array();
-                if ($groups[0]) {
-                    list ($groupsql, $params) = $DB->get_in_or_equal($groups[0]);
-                    if ($DB->get_dbfamily() === 'mysql') {
-                        $sql .= ",
-                        CASE
-                        WHEN ovrd1.$timeopenfld IS NULL
-                        THEN MIN(ovrd2.$timeopenfld)
-                        ELSE ovrd1.$timeopenfld
-                        END AS timeopenover,
-                        CASE
-                        WHEN ovrd1.$timeclosefld IS NULL
-                        THEN MAX(ovrd2.$timeclosefld)
-                        ELSE ovrd1.$timeclosefld
-                        END AS timecloseover
-                        FROM {" . $mod->modname . "} module";
-                    } else {
-                        $sql .= ",
-                        MIN (
-                        CASE
-                        WHEN ovrd1.$timeopenfld IS NULL
-                        THEN ovrd2.$timeopenfld
-                        ELSE ovrd1.$timeopenfld
-                        END
-                        ) AS timeopenover,
-                        MAX (
-                        CASE
-                        WHEN ovrd1.$timeclosefld IS NULL
-                        THEN ovrd2.$timeclosefld
-                        ELSE ovrd1.$timeclosefld
-                        END
-                        ) AS timecloseover
-                        FROM {" . $mod->modname . "} module";
-                    }
-                    array_unshift($params, $USER->id); // Add userid to start of params.
-                    $sql .= "
-                        LEFT JOIN {" . $mod->modname . "_overrides} ovrd1
-                        ON module.id=ovrd1.$id
-                        AND ovrd1.userid = ?
-                        LEFT JOIN {" . $mod->modname . "_overrides} ovrd2
-                        ON module.id=ovrd2.$id
-                        AND ovrd2.groupid $groupsql";
-                    $groupbysql = "
-                    GROUP BY module.id, module.$timeopenfld, module.$timeclosefld";
-
-                } else {
-                    $params[] = $USER->id;
-                    $sql .= ", ovrd1.$timeopenfld AS timeopenover, ovrd1.$timeclosefld AS timecloseover
-                    FROM {" . $mod->modname . "} module
-                             LEFT JOIN {" . $mod->modname . "_overrides} ovrd1
-                             ON module.id=ovrd1.$id AND ovrd1.userid = ?";
-                }
-                $sql .= " WHERE module.course = ?";
-                $sql .= $groupbysql;
-                $params[] = $courseid;
-                $result = $DB->get_records_sql($sql, $params);
-            } else {
-                $params = [];
-                $sql .= "  FROM {" . $mod->modname . "} module";
-                if ($mod->modname === 'assign') {
-                    $params[] = $USER->id;
-                    $sql .= "
-                        LEFT JOIN {assign_user_flags} auf
-                            ON module.id = auf.assignment
-                            AND auf.userid = ?
-                     ";
-                }
-                $params[] = $courseid;
-                $sql .= " WHERE module.course = ?";
-                $result = $DB->get_records_sql($sql, $params);
-            }
-            $moddates[$courseid . '_' . $mod->modname] = $result;
-        }
-        $modinst = $moddates[$courseid.'_'.$mod->modname][$mod->instance];
-        if (!empty($modinst->timecloseover)) {
-            $modinst->timeclose = $modinst->timecloseover;
-            if ($modinst->timeopenover) {
-                $modinst->timeopen = $modinst->timeopenover;
-            }
-        }
-        return $modinst;
-
     }
 
     /**
