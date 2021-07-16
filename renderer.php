@@ -1334,11 +1334,7 @@ class format_topcoll_renderer extends format_section_renderer_base {
     }
 
     protected function get_row_class() {
-        if ($this->bsnewgrid) {
-            return 'row';
-        } else {
-            return 'row-fluid';
-        }
+        return 'row';
     }
 
     protected function get_column_class($columns) {
