@@ -34,7 +34,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
-
     'format/topcoll:changelayout' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_COURSE,
