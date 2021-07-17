@@ -15,8 +15,8 @@ jobs:
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
-      mariadb:
-        image: mariadb:10
+      mysql:
+        image: mysql:8.0
         env:
           MYSQL_USER: 'root'
           MYSQL_ALLOW_EMPTY_PASSWORD: "true"
@@ -29,7 +29,7 @@ jobs:
       matrix:
         php: ['7.3', '7.4']
         moodle-branch: ['MOODLE_311_STABLE']
-        database: [pgsql, mariadb]
+        database: [pgsql, mysql]
 
     steps:
       - name: Check out repository code
