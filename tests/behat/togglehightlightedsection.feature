@@ -19,7 +19,7 @@ Feature: Toggle highlighted section
       | defaultuserpreference | 0     | format_topcoll |
 
   Scenario: Highlighted section open when loading the page
-    When I am on the "CollTop" Course page logged in as "dennis"
+    When I am on the "CollTop" "Course" page logged in as "dennis"
     And I turn editing mode on
     And I turn section "2" highlighting on
     And I turn editing mode off
@@ -34,7 +34,7 @@ Feature: Toggle highlighted section
     And "#toggledsection-3" "css_element" should not be visible
 
   Scenario: Highlighted section open when reloading the page
-    When I am on the "CollTop" Course page logged in as "dennis"
+    When I am on the "CollTop" "Course" page logged in as "dennis"
     And I turn editing mode on
     And I turn section "2" highlighting on
     And I turn editing mode off
