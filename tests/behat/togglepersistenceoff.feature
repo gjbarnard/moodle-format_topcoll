@@ -19,7 +19,7 @@ Feature: Toggle persistance off
     Given the following config values are set as admin:
       | config                   | value | plugin         |
       | defaulttogglepersistence | 0     | format_topcoll |
-    When I am on the "CollTop" "Course" page logged in as "dennis"
+    When I am on the CollTop Course page logged in as dennis
     And I click on "Section 1 - Toggle" "text"
     And I click on "Section 2 - Toggle" "text"
     And I click on "CT" "link"
@@ -30,7 +30,7 @@ Feature: Toggle persistance off
     Given the following config values are set as admin:
       | config                   | value | plugin         |
       | defaulttogglepersistence | 1     | format_topcoll |
-    When I am on the "CollTop" "Course" page logged in as "dennis"
+    When I am on the CollTop Course page logged in as dennis
     And I click on "Section 1 - Toggle" "text"
     And I click on "Section 2 - Toggle" "text"
     And I click on "CT" "link"
