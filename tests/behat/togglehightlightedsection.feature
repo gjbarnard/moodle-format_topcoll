@@ -17,13 +17,12 @@ Feature: Toggle highlighted section
     And the following config values are set as admin:
       | config                | value | plugin         |
       | defaultuserpreference | 0     | format_topcoll |
-    And I log in as "dennis"
-    And I am on "CollTop" course homepage
-    And I turn editing mode on
-    And I turn section "2" highlighting on
-    And I turn editing mode off
+    And I am on the "CollTop" Course page logged in as "dennis"
 
   Scenario: Highlighted section open when loading the page
+    When I turn editing mode on
+    And I turn section "2" highlighting on
+    And I turn editing mode off
     Then "#toggledsection-1" "css_element" should not be visible
     And "#toggledsection-2" "css_element" should be visible
     And "#toggledsection-3" "css_element" should not be visible
@@ -35,6 +34,9 @@ Feature: Toggle highlighted section
     And "#toggledsection-3" "css_element" should not be visible
 
   Scenario: Highlighted section open when reloading the page
+    When I turn editing mode on
+    And I turn section "2" highlighting on
+    And I turn editing mode off
     And I click on "CT" "link"
     Then "#toggledsection-1" "css_element" should not be visible
     And "#toggledsection-2" "css_element" should be visible
