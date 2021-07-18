@@ -17,7 +17,7 @@ Feature: Toggle highlighted section
     And the following config values are set as admin:
       | config                | value | plugin         |
       | defaultuserpreference | 0     | format_topcoll |
-    And I am on the CT Course page logged in as dennis
+    And I am on the "CT" "Course" page logged in as "dennis"
 
   Scenario: Highlighted section open when loading the page
     When I turn editing mode on
