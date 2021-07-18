@@ -17,8 +17,7 @@ Feature: Toggle
     And the following config values are set as admin:
       | config                | value | plugin         |
       | defaultuserpreference | 0     | format_topcoll |
-    And I log in as "dennis"
-    And I am on "CollTop" course homepage
+    And I am on the "CT" "Course" page logged in as "dennis"
 
   Scenario: Open a toggle
     When I click on "Section 1 - Toggle" "text"
