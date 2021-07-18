@@ -17,32 +17,36 @@ Feature: Toggle
     And the following config values are set as admin:
       | config                | value | plugin         |
       | defaultuserpreference | 0     | format_topcoll |
-    And I am on the "CollTop" Course page logged in as "dennis"
 
   Scenario: Open a toggle
-    When I click on "Section 1 - Toggle" "text"
+    When I am on the "CollTop" Course page logged in as "dennis"
+    And I click on "Section 1 - Toggle" "text"
     Then "#toggledsection-1" "css_element" should be visible
     And "#toggledsection-2" "css_element" should not be visible
 
   Scenario: Close a toggle
-    When I click on "Open all" "text"
+    When I am on the "CollTop" Course page logged in as "dennis"
+    And I click on "Open all" "text"
     And I click on "Section 1 - Toggle" "text"
     Then "#toggledsection-1" "css_element" should not be visible
     And "#toggledsection-2" "css_element" should be visible
 
   Scenario: Open all toggles
-    When I click on "Open all" "text"
+    When I am on the "CollTop" Course page logged in as "dennis"
+    And I click on "Open all" "text"
     Then "#toggledsection-1" "css_element" should be visible
     And "#toggledsection-2" "css_element" should be visible
 
   Scenario: Close all toggles
-    When I click on "Open all" "text"
+    When I am on the "CollTop" Course page logged in as "dennis"
+    And I click on "Open all" "text"
     And I click on "Close all" "text"
     Then "#toggledsection-1" "css_element" should not be visible
     And "#toggledsection-2" "css_element" should not be visible
 
   Scenario: Toggle open after reloading the page
-    When I click on "Section 1 - Toggle" "text"
+    When I am on the "CollTop" Course page logged in as "dennis"
+    And I click on "Section 1 - Toggle" "text"
     And I click on "CT" "link"
     Then "#toggledsection-1" "css_element" should be visible
     And "#toggledsection-2" "css_element" should not be visible

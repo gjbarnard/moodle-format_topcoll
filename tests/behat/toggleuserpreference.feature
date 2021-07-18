@@ -14,12 +14,12 @@ Feature: Toggle user preference
     And the following "course enrolments" exist:
       | user     | course | role    |
       | dennis   | CT     | student |
-    And I am on the "CollTop" Course page logged in as "dennis"
 
   Scenario: Toggle closed on loading the page
     Given the following config values are set as admin:
       | config                | value | plugin         |
       | defaultuserpreference | 0     | format_topcoll |
+    When I am on the "CollTop" Course page logged in as "dennis"
     Then "#toggledsection-1" "css_element" should not be visible
     And "#toggledsection-2" "css_element" should not be visible
 
@@ -27,5 +27,6 @@ Feature: Toggle user preference
     Given the following config values are set as admin:
       | config                | value | plugin         |
       | defaultuserpreference | 1     | format_topcoll |
+    When I am on the "CollTop" Course page logged in as "dennis"
     Then "#toggledsection-1" "css_element" should be visible
     And "#toggledsection-2" "css_element" should be visible

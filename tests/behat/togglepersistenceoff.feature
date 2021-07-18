@@ -14,13 +14,13 @@ Feature: Toggle persistance off
     And the following "course enrolments" exist:
       | user     | course | role    |
       | dennis   | CT     | student |
-    And I am on the "CollTop" Course page logged in as "dennis"
 
   Scenario: Toggle closed after reloading the page when they were open
     Given the following config values are set as admin:
       | config                   | value | plugin         |
       | defaulttogglepersistence | 0     | format_topcoll |
-    When I click on "Section 1 - Toggle" "text"
+    When I am on the "CollTop" Course page logged in as "dennis"
+    And I click on "Section 1 - Toggle" "text"
     And I click on "Section 2 - Toggle" "text"
     And I click on "CT" "link"
     Then "#toggledsection-1" "css_element" should not be visible
@@ -30,7 +30,8 @@ Feature: Toggle persistance off
     Given the following config values are set as admin:
       | config                   | value | plugin         |
       | defaulttogglepersistence | 1     | format_topcoll |
-    When I click on "Section 1 - Toggle" "text"
+    When I am on the "CollTop" Course page logged in as "dennis"
+    And I click on "Section 1 - Toggle" "text"
     And I click on "Section 2 - Toggle" "text"
     And I click on "CT" "link"
     Then "#toggledsection-1" "css_element" should be visible
