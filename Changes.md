@@ -2,6 +2,7 @@
 ===================
 Version 3.10.1.3 - TBR
 -----------------------------
+  1. Add 'aria-controls' (https://www.w3.org/TR/wai-aria-practices/examples/disclosure/disclosure-faq.html) - CONTRIB-8637.
 
 Version 3.10.1.2 - 02/07/2021
 -----------------------------

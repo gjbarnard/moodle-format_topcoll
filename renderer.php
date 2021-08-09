@@ -518,7 +518,12 @@ class format_topcoll_renderer extends format_section_renderer_base {
             }
             $toggleclass .= ' the_toggle ' . $this->tctoggleiconsize;
             $o .= html_writer::start_tag('span',
-                array('class' => $toggleclass, 'role' => 'button', 'aria-expanded' => $ariaexpanded)
+                array(
+                    'class' => $toggleclass,
+                    'role' => 'button',
+                    'aria-expanded' => $ariaexpanded,
+                    'aria-controls' => 'toggledsection-'.$section->section
+                )
             );
 
             if (empty($this->tcsettings)) {

@@ -213,7 +213,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $thevalue .= 'aria-labelledby="sectionid-'.$section->id.'-title" data-sectionid="1">';
         $thevalue .= '<div class="left side"><span class="cps_centre">1</span></div>';
         $thevalue .= '<div class="content"><div class="sectionhead toggle toggle-arrow" id="toggle-1" tabindex="0">';
-        $thevalue .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-expanded="false">';
+        $thevalue .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-expanded="false" aria-controls="toggledsection-1">';
         $thevalue .= '<h3 id="sectionid-'.$section->id.'-title" class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>';
         $thevalue .= '<div class="section_availability"></div></span></div>';
         $thevalue .= '<div class="sectionbody toggledsection" id="toggledsection-1">';
@@ -298,7 +298,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= 'aria-labelledby="sectionid-'.$section1->id.'-title" data-sectionid="1" data-sectionreturnid="0">';
         $theoutput .= '<div class="left side"><span class="cps_centre">1</span></div>';
         $theoutput .= '<div class="content"><div class="sectionhead toggle toggle-arrow" id="toggle-1" tabindex="0">';
-        $theoutput .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-expanded="false">';
+        $theoutput .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-expanded="false" aria-controls="toggledsection-1">';
         $theoutput .= '<h3 id="sectionid-'.$section1->id.'-title" class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>';
         $theoutput .= '<div class="section_availability"></div></span></div>';
         $theoutput .= '<div class="sectionbody toggledsection" id="toggledsection-1"><ul class="section img-text">';
@@ -346,7 +346,7 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
         $theoutput .= 'aria-labelledby="sectionid-'.$section1->id.'-title" data-sectionid="1" data-sectionreturnid="0">';
         $theoutput .= '<div class="left side"><span class="cps_centre">1</span></div>';
         $theoutput .= '<div class="content"><div class="sectionhead toggle toggle-arrow" id="toggle-1" tabindex="0">';
-        $theoutput .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-expanded="false">';
+        $theoutput .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-expanded="false" aria-controls="toggledsection-1">';
         $theoutput .= '<h3 id="sectionid-'.$section1->id.'-title" class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>';
         $theoutput .= '<div class="section_availability"></div></span></div>';
         $theoutput .= '<div class="sectionbody toggledsection" id="toggledsection-1"><ul class="section img-text">';
