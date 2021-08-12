@@ -528,6 +528,11 @@ class activity {
      * @return int
      */
     protected static function course_participant_count($courseid, $mod) {
+        /* Note:
+           This could probably be improved with caches that was invalidated
+           when certain events happened, like enrolments or modules changing.
+           Then additionally generate on a cron job too - but generate here
+           to avoid 'data being generated' notice scenario. */
         static $modulecount = array();  // 3D array on course id then module id.
         static $studentroles = null;
         if (empty($studentroles)) {
