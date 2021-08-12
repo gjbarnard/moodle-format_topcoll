@@ -55,13 +55,11 @@ defined('MOODLE_INTERNAL') || die();
  */
 class activity_meta {
 
-    use null_object;
-
     // Strings.
     /**
      * @var string $submitstrkey - language string key.
      */
-    public $submitstrkey;
+    public $submitstrkey = '';
 
     // Teacher meta data.
     /**

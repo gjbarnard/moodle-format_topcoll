@@ -76,12 +76,11 @@ class activity {
         $methodname = $mod->modname . '_meta';
         if (method_exists('format_topcoll\\activity', $methodname)) {
             $meta = call_user_func('format_topcoll\\activity::' . $methodname, $mod);
+            if ((!empty($meta->timeclose)) && ($meta->timeclose < time())) {
+                $meta->expired = true;
+            }
         } else {
-            $meta = new activity_meta(); // Return empty activity meta.
-        }
-
-        if ((!empty($meta->timeclose)) && ($meta->timeclose < time())) {
-            $meta->expired = true;
+            $meta = null; // Return empty activity meta.
         }
 
         return $meta;
@@ -105,11 +104,12 @@ class activity {
             ) {
 
         $courseid = $mod->course;
+        $meta = null;
         // If role has specific "teacher" capabilities.
         if (has_capability('mod/assign:grade', $mod->context)) {
             $meta = new activity_meta();
             $meta->isteacher = true;
-            $meta->set_default('submitstrkey', $submitstrkey);
+            $meta->submitstrkey = $submitstrkey;
 
             if ($mod->modname === 'assign') {
                 list(
@@ -150,10 +150,12 @@ class activity {
 
                 $coursecontext = \context_course::instance($courseid);
                 if (has_capability('moodle/grade:viewhidden', $coursecontext)) {
+                    $meta = new activity_meta();
                     $meta->grade = true;
                 } else {
                     $grade = new \grade_grade(array('itemid' => $gradeitem->id, 'userid' => $USER->id));
                     if (!$grade->is_hidden()) {
+                        $meta = new activity_meta();
                         $meta->grade = true;
                     }
                 }
