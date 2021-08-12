@@ -88,8 +88,6 @@ if (!empty($displaysection)) {
 
     $renderer->set_user_preference($userpreference, $defaultuserpreference, $defaulttogglepersistence);
 
-    echo $renderer->course_styles();
-
     $renderer->print_multiple_section_page($course, null, null, null, null);
 }
 
