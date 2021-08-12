@@ -348,7 +348,7 @@ class renderer extends \format_section_renderer_base {
     protected function section_edit_control_menu($controls, $course, $section) {
         $o = "";
         if (!empty($controls)) {
-            $menu = new action_menu();
+            $menu = new \action_menu();
             $menu->set_menu_trigger(get_string('edit'));
             $menu->attributes['class'] .= ' section-actions';
             foreach ($controls as $value) {
@@ -357,9 +357,9 @@ class renderer extends \format_section_renderer_base {
                 $name = empty($value['name']) ? '' : $value['name'];
                 $attr = empty($value['attr']) ? array() : $value['attr'];
                 $class = empty($value['pixattr']['class']) ? '' : $value['pixattr']['class'];
-                $al = new action_menu_link_secondary(
+                $al = new \action_menu_link_secondary(
                     new moodle_url($url),
-                    new pix_icon($icon, '', null, array('class' => "smallicon " . $class)),
+                    new \pix_icon($icon, '', null, array('class' => "smallicon " . $class)),
                     $name,
                     $attr
                 );
@@ -371,10 +371,10 @@ class renderer extends \format_section_renderer_base {
                 $duplicatestr = get_string('duplicate', 'format_topcoll');
                 $duplicateurl = new moodle_url('/course/format/topcoll/duplicate.php',
                     array('courseid' => $course->id, 'sectionno' => $section->section, 'sesskey' => sesskey()));
-                $link = new action_link($duplicateurl, ' '.$duplicatestr, null,
+                $link = new \action_link($duplicateurl, ' '.$duplicatestr, null,
                     array('class' => 'menu-action', 'role' => 'menuitem'),
-                    new pix_icon('t/copy', $duplicatestr));
-                $link->add_action(new confirm_action(get_string('duplicateconfirm', 'format_topcoll'), null,
+                    new \pix_icon('t/copy', $duplicatestr));
+                $link->add_action(new \confirm_action(get_string('duplicateconfirm', 'format_topcoll'), null,
                     $duplicatestr));
                 $menu->add_secondary_action($link);
             }
