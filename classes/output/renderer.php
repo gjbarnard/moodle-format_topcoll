@@ -30,12 +30,18 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
  */
+
+namespace format_topcoll\output;
+
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/course/format/renderer.php');
-require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
+use context_course;
+use html_writer;
+use moodle_url;
 
-class format_topcoll_renderer extends format_section_renderer_base {
+require_once($CFG->dirroot . '/course/format/renderer.php');
+
+class renderer extends \format_section_renderer_base {
 
     protected $tccolumnwidth = 100; // Default width in percent of the column(s).
     protected $tccolumnpadding = 0; // Default padding in pixels of the column(s).
@@ -60,15 +66,15 @@ class format_topcoll_renderer extends format_section_renderer_base {
      * @param moodle_page $page.
      * @param string $target one of rendering target constants.
      */
-    public function __construct(moodle_page $page, $target) {
+    public function __construct(\moodle_page $page, $target) {
         parent::__construct($page, $target);
         $this->courserenderer = $this->page->get_renderer('format_topcoll', 'course');
-        $this->togglelib = new \format_topcoll\togglelib;
+        $this->togglelib = new \format_topcoll\togglelib();
         $this->courseformat = course_get_format($page->course); // Needed for collapsed topics settings retrieval.
 
         /* Since format_topcoll_renderer::section_edit_control_items() only displays the 'Set current section' control when editing
-          mode is on we need to be sure that the link 'Turn editing mode on' is available for a user who does not have any
-          other managing capability. */
+           mode is on we need to be sure that the link 'Turn editing mode on' is available for a user who does not have any
+           other managing capability. */
         $page->set_other_editing_capability('moodle/course:setcurrentsection');
 
         $this->userisediting = $page->user_is_editing();
@@ -290,19 +296,23 @@ class format_topcoll_renderer extends format_section_renderer_base {
             if ($course->marker == $section->section) {  // Show the "light globe" on/off.
                 $url->param('marker', 0);
                 $highlightoff = get_string('highlightoff');
-                $controls['highlight'] = array('url' => $url, "icon" => 'i/marked',
-                                               'name' => $highlightoff,
-                                               'pixattr' => array('class' => ''),
-                                               'attr' => array('class' => 'editing_highlight',
-                                               'data-action' => 'removemarker'));
+                $controls['highlight'] = array(
+                    'url' => $url, "icon" => 'i/marked',
+                    'name' => $highlightoff,
+                    'pixattr' => array('class' => ''),
+                    'attr' => array('class' => 'editing_highlight',
+                    'data-action' => 'removemarker')
+                );
             } else {
                 $url->param('marker', $section->section);
                 $highlight = get_string('highlight');
-                $controls['highlight'] = array('url' => $url, "icon" => 'i/marker',
-                                               'name' => $highlight,
-                                               'pixattr' => array('class' => ''),
-                                               'attr' => array('class' => 'editing_highlight',
-                                               'data-action' => 'setmarker'));
+                $controls['highlight'] = array(
+                    'url' => $url, "icon" => 'i/marker',
+                    'name' => $highlight,
+                    'pixattr' => array('class' => ''),
+                    'attr' => array('class' => 'editing_highlight',
+                    'data-action' => 'setmarker')
+                );
             }
         }
 
@@ -311,8 +321,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
         // If the edit key exists, we are going to insert our controls after it.
         if (array_key_exists("edit", $parentcontrols)) {
             $merged = array();
-            // We can't use splice because we are using associative arrays.
-            // Step through the array and merge the arrays.
+            /* We can't use splice because we are using associative arrays.
+               Step through the array and merge the arrays. */
             foreach ($parentcontrols as $key => $action) {
                 $merged[$key] = $action;
                 if ($key == "edit") {
@@ -1197,8 +1207,8 @@ class format_topcoll_renderer extends format_section_renderer_base {
             ((!$this->userisediting) && ($this->tcsettings['onesection'] == 2)),
             $shownonetoggle,
             $this->userisediting));
-        // Make sure the database has the correct state of the toggles if changed by the code.
-        // This ensures that a no-change page reload is correct.
+        /* Make sure the database has the correct state of the toggles if changed by the code.
+           This ensures that a no-change page reload is correct. */
         set_user_preference('topcoll_toggle_'.$course->id, $toggles);
     }
 
