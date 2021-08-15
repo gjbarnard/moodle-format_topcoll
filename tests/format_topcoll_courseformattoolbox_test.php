@@ -30,7 +30,7 @@ defined('MOODLE_INTERNAL') || die();
  * Toolbox unit tests for the Collapsed Topics course format.
  * @group format_topcoll
  */
-class format_topcoll_courseformattoolbox_testcase extends advanced_testcase {
+class format_topcoll_courseformattoolbox_test extends advanced_testcase {
 
     protected function setUp(): void {
         $this->resetAfterTest(true);

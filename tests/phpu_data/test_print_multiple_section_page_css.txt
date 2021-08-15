@@ -1,0 +1,55 @@
+<style type="text/css" media="screen">
+    /* <![CDATA[ */
+
+    /* -- Toggle -- */
+    .course-content ul.ctopics li.section .content .toggle,
+    .course-content ul.ctopics li.section .content.sectionhidden {
+        background-color: rgba(226, 226, 242, 1.0);
+    }
+    /* -- Toggle text -- */
+    .course-content ul.ctopics li.section .content .toggle span,
+    .course-content ul.ctopics li.section .content.sectionhidden {
+        color: rgba(0, 0, 0, 1.0);
+        text-align: center;
+    }
+    /* Toggle icon position. */
+    .course-content ul.ctopics li.section .content .toggle span,
+    #toggle-all .content h4 span {
+        background-position: left center;
+    }
+    /* -- What happens when a toggle is hovered over -- */
+    .course-content ul.ctopics li.section .content .toggle span:hover,
+    .course-content ul.ctopics li.section .content.sectionhidden .toggle span:hover,
+    .course-content ul.ctopics li.section .content .toggle span:focus,
+    .course-content ul.ctopics li.section .content.sectionhidden .toggle span:focus {
+        color: rgba(136, 136, 136, 1.0);
+    }
+    .course-content ul.ctopics li.section .content div.toggle:hover,
+    .course-content ul.ctopics li.section .content div.toggle:focus {
+        background-color: rgba(238, 238, 255, 1.0);
+    }
+    .course-content ul.ctopics li.section.main .content,
+    .course-content ul.ctopics li.tcsection .content {
+        margin: 0 28px;
+    }
+    .course-content ul.ctopics li.section.main .side,
+    .course-content ul.ctopics li.tcsection .side {
+        width: 28px;
+    }
+    .course-content ul.ctopics li.section .content .toggle, .course-content ul.ctopics li.section .content.sectionhidden {
+        -moz-border-top-left-radius: 0.7em;
+        -webkit-border-top-left-radius: 0.7em;
+        border-top-left-radius: 0.7em;
+        -moz-border-top-right-radius: 0.7em;
+        -webkit-border-top-right-radius: 0.7em;
+        border-top-right-radius: 0.7em;
+        -moz-border-bottom-right-radius: 0.7em;
+        -webkit-border-bottom-right-radius: 0.7em;
+        border-bottom-right-radius: 0.7em;
+        -moz-border-bottom-left-radius: 0.7em;
+        -webkit-border-bottom-left-radius: 0.7em;
+        border-bottom-left-radius: 0.7em;
+    }
+
+    /* ]]> */
+</style>

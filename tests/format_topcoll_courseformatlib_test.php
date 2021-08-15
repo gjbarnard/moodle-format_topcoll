@@ -30,7 +30,7 @@ defined('MOODLE_INTERNAL') || die();
  * Library unit tests for the Collapsed Topics course format.
  * @group format_topcoll
  */
-class format_topcoll_courseformatlib_testcase extends advanced_testcase {
+class format_topcoll_courseformatlib_test extends advanced_testcase {
 
     protected $course;
     protected $courseformat;
