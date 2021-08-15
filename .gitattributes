@@ -6,6 +6,8 @@
 *.php text
 *.js text
 *.css text
+*.txt text
+*.mustache text
 
 # Denote all files that are truly binary and should not be modified.
 *.png binary

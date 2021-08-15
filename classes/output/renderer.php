@@ -70,7 +70,7 @@ class renderer extends \format_section_renderer_base {
         parent::__construct($page, $target);
         $this->courserenderer = $this->page->get_renderer('format_topcoll', 'course');
         $this->togglelib = new \format_topcoll\togglelib();
-        $this->courseformat = course_get_format($page->course); // Needed for collapsed topics settings retrieval.
+        $this->courseformat = \course_get_format($page->course); // Needed for collapsed topics settings retrieval.
 
         /* Since format_topcoll_renderer::section_edit_control_items() only displays the 'Set current section' control when editing
            mode is on we need to be sure that the link 'Turn editing mode on' is available for a user who does not have any
