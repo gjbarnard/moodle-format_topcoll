@@ -30,7 +30,7 @@ defined('MOODLE_INTERNAL') || die();
  * Renderer unit tests for the Collapsed Topics course format.
  * @group format_topcoll
  */
-class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
+class format_topcoll_courseformatrenderer_test extends advanced_testcase {
 
     protected $outputus;
     protected $course;
@@ -278,7 +278,9 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
         self::call_method($this->outputus, 'print_multiple_section_page',
             array($this->course, null, null, null, null, null));
-        $theoutput = '<h2 class="accesshide">Section</h2><ul class="ctopics bsnewgrid">';
+
+        $theoutput = file_get_contents($CFG->dirroot.'/course/format/topcoll/tests/phpu_data/test_print_multiple_section_page_css.txt');
+        $theoutput .= '<h2 class="accesshide">Section</h2><ul class="ctopics bsnewgrid">';
         $theoutput .= '<li id="section-0" class="section main clearfix" role="region" ';
         $theoutput .= 'aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="0" data-sectionreturnid="0">';
         $theoutput .= '<div class="left side"></div>';
@@ -325,7 +327,9 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
         self::call_method($this->outputus, 'print_multiple_section_page',
             array($this->course, null, null, null, null, null));
-        $theoutput = '<h2 class="accesshide">Section</h2><ul class="ctopics bsnewgrid">';
+
+        $theoutput = file_get_contents($CFG->dirroot.'/course/format/topcoll/tests/phpu_data/test_print_multiple_section_page_css.txt');
+        $theoutput .= '<h2 class="accesshide">Section</h2><ul class="ctopics bsnewgrid">';
         $theoutput .= '<li id="section-0" class="section main clearfix" role="region" ';
         $theoutput .= 'aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="0" data-sectionreturnid="0">';
         $theoutput .= '<div class="left side"></div>';
@@ -372,7 +376,9 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
         self::call_method($this->outputus, 'print_multiple_section_page',
             array($this->course, null, null, null, null, null));
-        $theoutput = '<h2 class="accesshide">Section</h2>';
+
+        $theoutput = file_get_contents($CFG->dirroot.'/course/format/topcoll/tests/phpu_data/test_print_multiple_section_page_css.txt');
+        $theoutput .= '<h2 class="accesshide">Section</h2>';
         $theoutput .= '<ul class="ctopics bsnewgrid">';
         $theoutput .= '<li id="section-0" class="section main clearfix" role="region" ';
         $theoutput .= 'aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="0" data-sectionreturnid="0">';

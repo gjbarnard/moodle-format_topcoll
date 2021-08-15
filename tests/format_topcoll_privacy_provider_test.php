@@ -35,7 +35,7 @@ use \format_topcoll\privacy\provider;
  * Privacy unit tests for the Collapsed Topics course format.
  * @group format_topcoll
  */
-class format_topcoll_privacy_testcase extends \core_privacy\tests\provider_testcase {
+class format_topcoll_privacy_test extends \core_privacy\tests\provider_testcase {
 
     protected $outputus;
     protected $course;
