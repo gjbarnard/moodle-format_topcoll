@@ -39,7 +39,8 @@ use context_course;
 use html_writer;
 use moodle_url;
 
-require_once($CFG->dirroot . '/course/format/renderer.php');
+require_once($CFG->dirroot.'/course/format/renderer.php'); // For format_section_renderer_base.
+require_once($CFG->dirroot.'/course/format/lib.php'); // For course_get_format.
 
 class renderer extends \format_section_renderer_base {
 
@@ -70,7 +71,7 @@ class renderer extends \format_section_renderer_base {
         parent::__construct($page, $target);
         $this->courserenderer = $this->page->get_renderer('format_topcoll', 'course');
         $this->togglelib = new \format_topcoll\togglelib();
-        $this->courseformat = \course_get_format($page->course); // Needed for collapsed topics settings retrieval.
+        $this->courseformat = course_get_format($page->course); // Needed for collapsed topics settings retrieval.
 
         /* Since format_topcoll_renderer::section_edit_control_items() only displays the 'Set current section' control when editing
            mode is on we need to be sure that the link 'Turn editing mode on' is available for a user who does not have any
@@ -520,7 +521,11 @@ class renderer extends \format_section_renderer_base {
                 $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
             }
         }
-        $o .= html_writer::start_tag('div', array('class' => 'content'));
+        $contentattr = array('class' => 'content');
+        if ($section->section != 0) {
+            $contentattr['aria-live'] = 'polite';
+        }
+        $o .= html_writer::start_tag('div', $contentattr);
 
         if (($onsectionpage == false) && ($section->section != 0)) {
             $o .= html_writer::start_tag('div',
@@ -929,18 +934,8 @@ class renderer extends \format_section_renderer_base {
         $coursenumsections = $this->courseformat->get_last_section_number();
         if ($coursenumsections > 0) {
             $sectiondisplayarray = array();
-            if ($coursenumsections > 1) {
-                if ($this->tcsettings['toggleallenabled'] == 2) {
-                    if (($this->userisediting) || ($this->tcsettings['onesection'] == 1)) {
-                        // Collapsed Topics all toggles.
-                        echo $this->toggle_all();
-                    }
-                }
-                if ($this->tcsettings['displayinstructions'] == 2) {
-                    // Collapsed Topics instructions.
-                    echo $this->display_instructions();
-                }
-            }
+            $sectionoutput = '';
+            $toggledsections = array();
             $currentsectionfirst = false;
             if (($this->tcsettings['layoutstructure'] == 4) && (!$this->userisediting)) {
                 $currentsectionfirst = true;
@@ -1013,11 +1008,11 @@ class renderer extends \format_section_renderer_base {
                 $this->courseformat->update_topcoll_columns_setting($this->tcsettings['layoutcolumns']);
             }
 
-            echo $this->end_section_list();
+            $sectionoutput .= $this->end_section_list();
             if ((!$this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 1)) { // Vertical columns.
-                echo html_writer::start_tag('div', array('class' => $this->get_row_class()));
+                $sectionoutput .= html_writer::start_tag('div', array('class' => $this->get_row_class()));
             }
-            echo $this->start_toggle_section_list();
+            $sectionoutput .= $this->start_toggle_section_list();
 
             $loopsection = 1;
             $breaking = false; // Once the first section is shown we can decide if we break on another column.
@@ -1124,9 +1119,9 @@ class renderer extends \format_section_renderer_base {
                 $shownsectioncount++;
 
                 if (!empty($thissection->ishidden)) {
-                    echo $this->section_hidden($thissection);
+                    $sectionoutput .= $this->section_hidden($thissection);
                 } else if (!empty($thissection->issummary)) {
-                    echo $this->section_summary($thissection, $course, null);
+                    $sectionoutput .= $this->section_summary($thissection, $course, null);
                 } else if (!empty($thissection->isshown)) {
                     if ((!$this->userisediting) && ($this->tcsettings['onesection'] == 2)) {
                         if ($thissection->toggle) {
@@ -1143,13 +1138,14 @@ class renderer extends \format_section_renderer_base {
                             }
                         }
                     }
-                    echo $this->section_header($thissection, $course, false, 0);
+                    $sectionoutput .= $this->section_header($thissection, $course, false, 0);
                     if ($thissection->uservisible) {
-                        echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
-                        echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0);
+                        $sectionoutput .= $this->courserenderer->course_section_cm_list($course, $thissection, 0);
+                        $sectionoutput .= $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0);
                     }
-                    echo html_writer::end_tag('div');
-                    echo $this->topcoll_section_footer($thissection, $course, false, 0);
+                    $sectionoutput .= html_writer::end_tag('div');
+                    $sectionoutput .= $this->topcoll_section_footer($thissection, $course, false, 0);
+                    $toggledsections[] = $thissection->section;
                 }
 
                 // Only check for breaking up the structure with rows if more than one column and when we output all of the sections.
@@ -1165,8 +1161,8 @@ class renderer extends \format_section_renderer_base {
 
                             if (($breaking == true) && ($shownsectioncount >= $breakpoint) &&
                                 ($columncount < $this->tcsettings['layoutcolumns'])) {
-                                echo $this->end_section_list();
-                                echo $this->start_toggle_section_list();
+                                $sectionoutput .= $this->end_section_list();
+                                $sectionoutput .= $this->start_toggle_section_list();
                                 $columncount++;
                                 // Next breakpoint is...
                                 $breakpoint += $numshownsections / $this->tcsettings['layoutcolumns'];
@@ -1179,8 +1175,8 @@ class renderer extends \format_section_renderer_base {
                             }
 
                             if (($breaking == true) && ($shownsectioncount >= $breakpoint)) {
-                                echo $this->end_section_list();
-                                echo $this->start_toggle_section_list();
+                                $sectionoutput .= $this->end_section_list();
+                                $sectionoutput .= $this->start_toggle_section_list();
                                 // Next breakpoint is...
                                 $breakpoint += $this->tcsettings['layoutcolumns'];
                             }
@@ -1190,6 +1186,19 @@ class renderer extends \format_section_renderer_base {
 
                 unset($sections[$thissection->section]);
             }
+            if ($coursenumsections > 1) {
+                if ($this->tcsettings['toggleallenabled'] == 2) {
+                    if (($this->userisediting) || ($this->tcsettings['onesection'] == 1)) {
+                        // Collapsed Topics all toggles.
+                        echo $this->toggle_all($toggledsections);
+                    }
+                }
+                if ($this->tcsettings['displayinstructions'] == 2) {
+                    // Collapsed Topics instructions.
+                    echo $this->display_instructions();
+                }
+            }
+            echo $sectionoutput;
         }
 
         $changenumsections = '';
@@ -1234,9 +1243,11 @@ class renderer extends \format_section_renderer_base {
 
     /**
      * Displays the toggle all functionality.
+     * @param array $toggledsections Array of section id's that are toggled.
+     *
      * @return string HTML to output.
      */
-    protected function toggle_all() {
+    protected function toggle_all($toggledsections) {
         $o = html_writer::start_tag('li', array('class' => 'tcsection main clearfix', 'id' => 'toggle-all'));
 
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
@@ -1250,16 +1261,31 @@ class renderer extends \format_section_renderer_base {
         }
         $o .= html_writer::start_tag('div', array('class' => 'sectionbody' . $iconsetclass));
         $o .= html_writer::start_tag('h4', null);
+        $ariacontrolselements = array();
+        foreach ($toggledsections as $toggledsection) {
+            $ariacontrolselements[] = 'toggledsection-'.$toggledsection;
+        }
+        $ariacontrols = implode(' ', $ariacontrolselements);
         $sct = $this->courseformat->get_structure_collection_type();
         $o .= html_writer::tag('span', get_string('topcollopened', 'format_topcoll'),
-            array('class' => 'on ' . $this->tctoggleiconsize, 'id' => 'toggles-all-opened',
-            'role' => 'button', 'tabindex' => '0',
-            'title' => get_string('sctopenall', 'format_topcoll', $sct))
+            array(
+                'class' => 'on '.$this->tctoggleiconsize,
+                'id' => 'toggles-all-opened',
+                'role' => 'button',
+                'tabindex' => '0',
+                'title' => get_string('sctopenall', 'format_topcoll', $sct),
+                'aria-controls' => $ariacontrols
+            )
         );
         $o .= html_writer::tag('span', get_string('topcollclosed', 'format_topcoll'),
-            array('class' => 'off ' . $this->tctoggleiconsize, 'id' => 'toggles-all-closed',
-            'role' => 'button', 'tabindex' => '0',
-            'title' => get_string('sctcloseall', 'format_topcoll', $sct))
+            array(
+                'class' => 'off '.$this->tctoggleiconsize,
+                'id' => 'toggles-all-closed',
+                'role' => 'button',
+                'tabindex' => '0',
+                'title' => get_string('sctcloseall', 'format_topcoll', $sct),
+                'aria-controls' => $ariacontrols
+            )
         );
         $o .= html_writer::end_tag('h4');
         $o .= html_writer::end_tag('div');
