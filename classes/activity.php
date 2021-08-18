@@ -548,7 +548,7 @@ class activity {
 
         $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
         $modulecountcourse = $modulecountcache->get($courseid);
-        error_log(print_r($modulecountcourse, true));
+        error_log('MCC: '.print_r($modulecountcourse, true));
         if (empty($modulecountcourse)) {
             error_log('CT mcc '.$courseid);
             $modulecountcourse = array();
@@ -606,7 +606,110 @@ class activity {
      * Invalidates the activity student roles cache.
      */
     public static function invalidatestudentrolescache() {
+        $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
+        $modulecountcache->purge();
+    }
+
+    /**
+     * Invalidates the activity module count cache.
+     */
+    public static function invalidatemodulecountcache() {
         $studentrolescache = \cache::make('format_topcoll', 'activitystudentrolescache');
         $studentrolescache->purge();
+    }
+
+    /* TODO:
+       Improve these methods such that they only regenerate the actual data they need to change.
+       But will need to take into account if activiy as been enabled for a given course and so on.
+       Therefore, actually quite a challenge to implement!  The perceived parameters and lock helper
+       method are already in place.
+    */
+
+    /**
+     * A user has been enrolled.
+     *
+     * @param int $userid User id.
+     * @param int $courseid Course id.
+     */
+    public static function userenrolmentcreated($userid, $courseid) {
+        self::clearcoursemodulecount($courseid);
+    }
+
+    /**
+     * A user enrolment has been updated.
+     *
+     * @param int $userid User id.
+     * @param int $courseid Course id.
+     */
+    public static function userenrolmentupdated($userid, $courseid) {
+        self::clearcoursemodulecount($courseid);
+    }
+
+    /**
+     * A user has been unenrolled.
+     *
+     * @param int $userid User id.
+     * @param int $courseid Course id.
+     */
+    public static function userenrolmentdeleted($userid, $courseid) {
+        self::clearcoursemodulecount($courseid);
+    }
+
+    /**
+     * A module has been created.
+     *
+     * @param int $modid Module id.
+     * @param int $courseid Course id.
+     */
+    public static function modulecreated($modid, $courseid) {
+        self::clearcoursemodulecount($courseid);
+    }
+
+    /**
+     * A module has been updated.
+     *
+     * @param int $modid Module id.
+     * @param int $courseid Course id.
+     */
+    public static function moduleupdated($modid, $courseid) {
+        self::clearcoursemodulecount($courseid);
+    }
+
+    /**
+     * A module has been deleted.
+     *
+     * @param int $modid Module id.
+     * @param int $courseid Course id.
+     */
+    public static function moduledeleted($modid, $courseid) {
+        self::clearcoursemodulecount($courseid);
+    }
+
+    /**
+     * Clear the module count cache on the given course.
+     *
+     * @param int $courseid Course id.
+     */
+    private static function clearcoursemodulecount($courseid) {
+        $lock = self::lockmodulecountcache($courseid);
+        $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
+        $modulecountcache->set($courseid, null);
+        $lock->release();
+    }
+
+    /**
+     * Get a lock for the module count cache on the given course.
+     *
+     * @param int $courseid Course id.
+     *
+     * @return object The lock to release when complete.
+     */
+    private static function lockmodulecountcache($courseid) {
+        $lockfactory = \core\lock\lock_config::get_lock_factory('format_topcoll');
+        if ($lock = $lockfactory->get_lock('courseid'.$courseid, 5)) {
+            return $lock;
+        }
+        throw new \moodle_exception('cannotgetmodulecountcachelock', 'format_topcoll', '',
+            get_string('cannotgetmodulecountcachelock', 'format_topcoll', $courseid));
     }
 }

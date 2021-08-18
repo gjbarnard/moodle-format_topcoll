@@ -405,6 +405,7 @@ $string['coursesectionactivityfurtherinformationdatadesc'] = 'Show data informat
 
 $string['activitystudentrolescache'] = 'Caches the student roles';
 $string['activitymodulecountcache'] = 'Caches the number of students who can access a given module on a given course';
+$string['cannotgetmodulecountcachelock'] = 'Cannot get module count cache lock for course id {$a}.';
 
 // Duplicate section.
 $string['creatingsection'] = 'Creating new section';

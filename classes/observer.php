@@ -57,8 +57,10 @@ class format_topcoll_observer {
      */
     public static function role_allow_view_updated() {
         /* Subsitute for a 'role created' event that does not exist in core!
-           But this seems to happen when a role is created. */
+           But this seems to happen when a role is created.  See 'create_role'
+           in lib/accesslib.php. */
         \format_topcoll\activity::invalidatestudentrolescache();
+        \format_topcoll\activity::invalidatemodulecountcache();
     }
 
     /**
@@ -66,6 +68,7 @@ class format_topcoll_observer {
      */
     public static function role_updated() {
         \format_topcoll\activity::invalidatestudentrolescache();
+        \format_topcoll\activity::invalidatemodulecountcache();
     }
 
     /**
@@ -73,5 +76,60 @@ class format_topcoll_observer {
      */
     public static function role_deleted() {
         \format_topcoll\activity::invalidatestudentrolescache();
+        \format_topcoll\activity::invalidatemodulecountcache();
+    }
+
+    /**
+     * Observer for the user_enrolment_created event.
+     *
+     * @param \core\event\user_enrolment_created $event
+     */
+    public static function user_enrolment_created(\core\event\user_enrolment_created $event) {
+        \format_topcoll\activity::userenrolmentcreated($event->relateduserid, $event->courseid);
+    }
+
+    /**
+     * Observer for the user_enrolment_updated event.
+     *
+     * @param \core\event\user_enrolment_updated $event
+     */
+    public static function user_enrolment_updated(\core\event\user_enrolment_updated $event) {
+        \format_topcoll\activity::userenrolmentupdated($event->relateduserid, $event->courseid);
+    }
+
+    /**
+     * Observer for the user_enrolment_deleted event.
+     *
+     * @param \core\event\user_enrolment_deleted $event
+     */
+    public static function user_enrolment_deleted(\core\event\user_enrolment_deleted $event) {
+        \format_topcoll\activity::userenrolmentdeleted($event->relateduserid, $event->courseid);
+    }
+
+    /**
+     * Observer for the course_module_created event.
+     *
+     * @param \core\event\course_module_created $event
+     */
+    public static function course_module_created(\core\event\course_module_created $event) {
+        \format_topcoll\activity::modulecreated($event->objectid, $event->courseid);
+    }
+
+    /**
+     * Observer for the course_module_updated event.
+     *
+     * @param \core\event\course_module_updated $event
+     */
+    public static function course_module_updated(\core\event\course_module_updated $event) {
+        \format_topcoll\activity::moduleupdated($event->objectid, $event->courseid);
+    }
+
+    /**
+     * Observer for the course_module_deleted event.
+     *
+     * @param \core\event\course_module_deleted $event
+     */
+    public static function course_module_deleted(\core\event\course_module_deleted $event) {
+        \format_topcoll\activity::moduledeleted($event->objectid, $event->courseid);
     }
 }

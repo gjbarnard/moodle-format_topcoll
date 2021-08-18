@@ -53,5 +53,28 @@ $observers = array(
         'eventname'   => '\core\event\role_deleted',
         'callback'    => 'format_topcoll_observer::role_deleted',
     ),
-
+    array(
+        'eventname'   => '\core\event\user_enrolment_created',
+        'callback'    => 'format_topcoll_observer::user_enrolment_created',
+    ),
+    array(
+        'eventname'   => '\core\event\user_enrolment_updated',
+        'callback'    => 'format_topcoll_observer::user_enrolment_updated',
+    ),
+    array(
+        'eventname'   => '\core\event\user_enrolment_deleted',
+        'callback'    => 'format_topcoll_observer::user_enrolment_deleted',
+    ),
+    array(
+        'eventname'   => '\core\event\course_module_created',
+        'callback'    => 'format_topcoll_observer::course_module_created',
+    ),
+    array(
+        'eventname'   => '\core\event\course_module_updated',
+        'callback'    => 'format_topcoll_observer::course_module_updated',
+    ),
+    array(
+        'eventname'   => '\core\event\course_module_deleted',
+        'callback'    => 'format_topcoll_observer::course_module_deleted',
+    )
 );
