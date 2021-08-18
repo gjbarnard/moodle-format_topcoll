@@ -421,6 +421,10 @@ $string['coursesectionactivityfurtherinformationlessondesc'] = 'Show lesson info
 $string['coursesectionactivityfurtherinformationdata'] = 'Show database information';
 $string['coursesectionactivityfurtherinformationdatadesc'] = 'Show data information, such as submission status.  For teachers / admins, show number of submissions.';
 
+$string['activitystudentrolescache'] = 'Caches the student roles';
+$string['activitymodulecountcache'] = 'Caches the number of students who can access a given module on a given course';
+$string['cannotgetmodulecountcachelock'] = 'Cannot get module count cache lock for course id {$a}.';
+
 // Duplicate section.
 $string['creatingsection'] = 'Creating new section';
 $string['duplicate'] = 'Duplicate';

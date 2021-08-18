@@ -863,6 +863,8 @@ class activity {
         }
     }
 
+    // Participant count code.
+
     /**
      * Get total participant count for specific courseid and module.
      *
@@ -872,29 +874,28 @@ class activity {
      * @return int
      */
     protected static function course_participant_count($courseid, $mod) {
-        /* Note:
-           This could probably be improved with caches that was invalidated
-           when certain events happened, like enrolments or modules changing.
-           Then additionally generate on a cron job too - but generate here
-           to avoid 'data being generated' notice scenario. */
-        static $modulecount = array();  // 3D array on course id then module id.
-        static $studentroles = null;
+        $studentrolescache = \cache::make('format_topcoll', 'activitystudentrolescache');
+        $studentroles = $studentrolescache->get('roles');
+
         if (empty($studentroles)) {
             $studentarch = get_archetype_roles('student');
             $studentroles = array();
             foreach ($studentarch as $role) {
                 $studentroles[] = $role->shortname;
             }
+            $studentrolescache->set('roles', $studentroles);
         }
 
-        if (!isset($modulecount[$courseid])) {
-            $modulecount[$courseid] = array();
+        $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
+        $modulecountcourse = $modulecountcache->get($courseid);
+        if (empty($modulecountcourse)) {
+            $modulecountcourse = array();
 
             // Initialise to zero in case of no enrolled students on the course.
             $modinfo = get_fast_modinfo($courseid, -1);
             $cms = $modinfo->get_cms(); // Array of cm_info objects.
             foreach ($cms as $themod) {
-                $modulecount[$courseid][$themod->id] = 0;
+                $modulecountcourse[$themod->id] = 0;
             }
 
             $context = \context_course::instance($courseid);
@@ -928,13 +929,125 @@ class activity {
                         || ((!empty($usermod->availableinfo)) && ($usermod->url))) {
                         // From course_section_cm_name_title().
                         if ($usermod->uservisible) {
-                            $modulecount[$courseid][$usermod->id]++;
+                            $modulecountcourse[$usermod->id]++;
                         }
                     }
                 }
             }
+            $modulecountcache->set($courseid, $modulecountcourse);
         }
 
-        return $modulecount[$courseid][$mod->id];
+        return $modulecountcourse[$mod->id];
+    }
+
+    /**
+     * Invalidates the activity student roles cache.
+     */
+    public static function invalidatestudentrolescache() {
+        $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
+        $modulecountcache->purge();
+    }
+
+    /**
+     * Invalidates the activity module count cache.
+     */
+    public static function invalidatemodulecountcache() {
+        $studentrolescache = \cache::make('format_topcoll', 'activitystudentrolescache');
+        $studentrolescache->purge();
+    }
+
+    /* TODO:
+       Improve these methods such that they only regenerate the actual data they need to change.
+       But will need to take into account if activiy as been enabled for a given course and so on.
+       Therefore, actually quite a challenge to implement!  The perceived parameters and lock helper
+       method are already in place.
+    */
+
+    /**
+     * A user has been enrolled.
+     *
+     * @param int $userid User id.
+     * @param int $courseid Course id.
+     */
+    public static function userenrolmentcreated($userid, $courseid) {
+        self::clearcoursemodulecount($courseid);
+    }
+
+    /**
+     * A user enrolment has been updated.
+     *
+     * @param int $userid User id.
+     * @param int $courseid Course id.
+     */
+    public static function userenrolmentupdated($userid, $courseid) {
+        self::clearcoursemodulecount($courseid);
+    }
+
+    /**
+     * A user has been unenrolled.
+     *
+     * @param int $userid User id.
+     * @param int $courseid Course id.
+     */
+    public static function userenrolmentdeleted($userid, $courseid) {
+        self::clearcoursemodulecount($courseid);
+    }
+
+    /**
+     * A module has been created.
+     *
+     * @param int $modid Module id.
+     * @param int $courseid Course id.
+     */
+    public static function modulecreated($modid, $courseid) {
+        self::clearcoursemodulecount($courseid);
+    }
+
+    /**
+     * A module has been updated.
+     *
+     * @param int $modid Module id.
+     * @param int $courseid Course id.
+     */
+    public static function moduleupdated($modid, $courseid) {
+        self::clearcoursemodulecount($courseid);
+    }
+
+    /**
+     * A module has been deleted.
+     *
+     * @param int $modid Module id.
+     * @param int $courseid Course id.
+     */
+    public static function moduledeleted($modid, $courseid) {
+        self::clearcoursemodulecount($courseid);
+    }
+
+    /**
+     * Clear the module count cache on the given course.
+     *
+     * @param int $courseid Course id.
+     */
+    private static function clearcoursemodulecount($courseid) {
+        $lock = self::lockmodulecountcache($courseid);
+        $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
+        $modulecountcache->set($courseid, null);
+        $lock->release();
+    }
+
+    /**
+     * Get a lock for the module count cache on the given course.
+     *
+     * @param int $courseid Course id.
+     *
+     * @return object The lock to release when complete.
+     */
+    private static function lockmodulecountcache($courseid) {
+        $lockfactory = \core\lock\lock_config::get_lock_factory('format_topcoll');
+        if ($lock = $lockfactory->get_lock('courseid'.$courseid, 5)) {
+            return $lock;
+        }
+        throw new \moodle_exception('cannotgetmodulecountcachelock', 'format_topcoll', '',
+            get_string('cannotgetmodulecountcachelock', 'format_topcoll', $courseid));
     }
 }
