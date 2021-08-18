@@ -536,7 +536,6 @@ class activity {
         $studentroles = $studentrolescache->get('roles');
 
         if (empty($studentroles)) {
-            error_log('CT src');
             $studentarch = get_archetype_roles('student');
             $studentroles = array();
             foreach ($studentarch as $role) {
@@ -544,13 +543,10 @@ class activity {
             }
             $studentrolescache->set('roles', $studentroles);
         }
-        error_log(print_r($studentroles, true));
 
         $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
         $modulecountcourse = $modulecountcache->get($courseid);
-        error_log('MCC: '.print_r($modulecountcourse, true));
         if (empty($modulecountcourse)) {
-            error_log('CT mcc '.$courseid);
             $modulecountcourse = array();
 
             // Initialise to zero in case of no enrolled students on the course.
