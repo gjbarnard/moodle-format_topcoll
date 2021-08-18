@@ -521,6 +521,8 @@ class activity {
         }
     }
 
+    // Participant count code.
+
     /**
      * Get total participant count for specific courseid and module.
      *
@@ -530,29 +532,32 @@ class activity {
      * @return int
      */
     protected static function course_participant_count($courseid, $mod) {
-        /* Note:
-           This could probably be improved with caches that was invalidated
-           when certain events happened, like enrolments or modules changing.
-           Then additionally generate on a cron job too - but generate here
-           to avoid 'data being generated' notice scenario. */
-        static $modulecount = array();  // 3D array on course id then module id.
-        static $studentroles = null;
+        $studentrolescache = \cache::make('format_topcoll', 'activitystudentrolescache');
+        $studentroles = $studentrolescache->get('roles');
+
         if (empty($studentroles)) {
+            error_log('CT src');
             $studentarch = get_archetype_roles('student');
             $studentroles = array();
             foreach ($studentarch as $role) {
                 $studentroles[] = $role->shortname;
             }
+            $studentrolescache->set('roles', $studentroles);
         }
+        error_log(print_r($studentroles, true));
 
-        if (!isset($modulecount[$courseid])) {
-            $modulecount[$courseid] = array();
+        $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
+        $modulecountcourse = $modulecountcache->get($courseid);
+        error_log(print_r($modulecountcourse, true));
+        if (empty($modulecountcourse)) {
+            error_log('CT mcc '.$courseid);
+            $modulecountcourse = array();
 
             // Initialise to zero in case of no enrolled students on the course.
             $modinfo = get_fast_modinfo($courseid, -1);
             $cms = $modinfo->get_cms(); // Array of cm_info objects.
             foreach ($cms as $themod) {
-                $modulecount[$courseid][$themod->id] = 0;
+                $modulecountcourse[$themod->id] = 0;
             }
 
             $context = \context_course::instance($courseid);
@@ -586,13 +591,22 @@ class activity {
                         || ((!empty($usermod->availableinfo)) && ($usermod->url))) {
                         // From course_section_cm_name_title().
                         if ($usermod->uservisible) {
-                            $modulecount[$courseid][$usermod->id]++;
+                            $modulecountcourse[$usermod->id]++;
                         }
                     }
                 }
             }
+            $modulecountcache->set($courseid, $modulecountcourse);
         }
 
-        return $modulecount[$courseid][$mod->id];
+        return $modulecountcourse[$mod->id];
+    }
+
+    /**
+     * Invalidates the activity student roles cache.
+     */
+    public static function invalidatestudentrolescache() {
+        $studentrolescache = \cache::make('format_topcoll', 'activitystudentrolescache');
+        $studentrolescache->purge();
     }
 }

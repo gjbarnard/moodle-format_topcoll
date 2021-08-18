@@ -40,7 +40,7 @@ defined('MOODLE_INTERNAL') || die();
 class format_topcoll_observer {
 
     /**
-     * Observer for the event course_content_deleted.
+     * Observer for the course_content_deleted event.
      *
      * Deletes the user preference entries for the given course upon course deletion.
      * CONTRIB-3520.
@@ -50,5 +50,28 @@ class format_topcoll_observer {
     public static function course_content_deleted(\core\event\course_content_deleted $event) {
         global $DB;
         $DB->delete_records("user_preferences", array("name" => 'topcoll_toggle_'.$event->objectid)); // This is the $courseid.
+    }
+
+    /**
+     * Observer for the role_allow_view_updated event.
+     */
+    public static function role_allow_view_updated() {
+        /* Subsitute for a 'role created' event that does not exist in core!
+           But this seems to happen when a role is created. */
+        \format_topcoll\activity::invalidatestudentrolescache();
+    }
+
+    /**
+     * Observer for the role_updated event.
+     */
+    public static function role_updated() {
+        \format_topcoll\activity::invalidatestudentrolescache();
+    }
+
+    /**
+     * Observer for the role_deleted event.
+     */
+    public static function role_deleted() {
+        \format_topcoll\activity::invalidatestudentrolescache();
     }
 }

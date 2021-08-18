@@ -23,35 +23,32 @@
  * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
  *
  * @package    format_topcoll
- * @category   event
+ * @category   cache
  * @version    See the value of '$plugin->version' in version.php.
- * @copyright  &copy; 2017-onwards G J Barnard based upon work done by Marina Glancy.
+ * @copyright  &copy; 2021-onwards G J Barnard.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
  */
 
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die;
 
-// List of observers.
-$observers = array(
-
-    array(
-        'eventname'   => '\core\event\course_content_deleted',
-        'callback'    => 'format_topcoll_observer::course_content_deleted',
+$definitions = array(
+    // Caches student roles.
+    'activitystudentrolescache' => array(
+        'mode' => cache_store::MODE_APPLICATION,
+        'simplekeys' => true,
+        'simpledata' => true,
+        'staticacceleration' => true,
+        'staticaccelerationsize' => 2
     ),
-    array(
-        'eventname'   => '\core\event\role_allow_view_updated',
-        'callback'    => 'format_topcoll_observer::role_allow_view_updated',
-    ),
-    array(
-        'eventname'   => '\core\event\role_updated',
-        'callback'    => 'format_topcoll_observer::role_updated',
-    ),
-    array(
-        'eventname'   => '\core\event\role_deleted',
-        'callback'    => 'format_topcoll_observer::role_deleted',
-    ),
+    // Caches the number of 'students' who can access a given module on a given course.
+    'activitymodulecountcache' => array(
+        'mode' => cache_store::MODE_APPLICATION,
+        'simplekeys' => true,
+        'simpledata' => true,
+        'staticacceleration' => true
+    )
 
 );
