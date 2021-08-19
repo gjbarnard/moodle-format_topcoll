@@ -1375,6 +1375,11 @@ class format_topcoll extends format_base {
             $changes = true;
         }
 
+        if ($changes) {
+            // Invalidate the settings.
+            $this->settings = null;
+        }
+
         return $changes;
     }
 
