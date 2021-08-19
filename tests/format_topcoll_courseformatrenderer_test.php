@@ -295,7 +295,6 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $theoutput .= '<ul class="ctopics topics bsnewgrid row">';
         $theoutput .= '<li id="section-1" class="section main clearfix col-sm-12 col-md-12 col-lg-12" role="region" ';
         $theoutput .= 'aria-labelledby="sectionid-'.$section1->id.'-title" data-sectionid="1" data-sectionreturnid="0">';
-        $theoutput .= '<div class="left side"><span class="cps_centre">1</span></div>';
         $theoutput .= '<div class="left side"><span class="cps_centre">1</span></div><div class="content" aria-live="polite">';
         $theoutput .= '<div class="sectionhead toggle toggle-arrow" id="toggle-1" tabindex="0">';
         $theoutput .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-expanded="false" aria-controls="toggledsection-1">';
@@ -377,7 +376,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $theoutput .= '<div class="content">';
         $theoutput .= '<h3 id="sectionid-'.$section0->id.'-title" class="accesshide">General</h3>';
         $theoutput .= '<div class="section_availability"></div><div class="summary"></div>';
-        $theoutput .= '<ul class="section img-text"><li class="activity forum modtype_forum  " id="module-'.$this->cmid.'"><div>';
+        $theoutput .= '<ul class="section img-text"><li class="activity forum modtype_forum " id="module-'.$this->cmid.'"><div>';
         $theoutput .= '<div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance">';
         $theoutput .= '<a class="aalink" onclick="" href="'.$CFG->wwwroot.'/mod/forum/view.php?id='.$this->cmid.'">';
         $theoutput .= '<img src="'.$CFG->wwwroot.'/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" ';
