@@ -61,6 +61,7 @@ class format_topcoll_observer {
            in lib/accesslib.php. */
         \format_topcoll\activity::invalidatestudentrolescache();
         \format_topcoll\activity::invalidatemodulecountcache();
+        \format_topcoll\activity::invalidatestudentscache();
     }
 
     /**
@@ -69,6 +70,7 @@ class format_topcoll_observer {
     public static function role_updated() {
         \format_topcoll\activity::invalidatestudentrolescache();
         \format_topcoll\activity::invalidatemodulecountcache();
+        \format_topcoll\activity::invalidatestudentscache();
     }
 
     /**
@@ -77,6 +79,7 @@ class format_topcoll_observer {
     public static function role_deleted() {
         \format_topcoll\activity::invalidatestudentrolescache();
         \format_topcoll\activity::invalidatemodulecountcache();
+        \format_topcoll\activity::invalidatestudentscache();
     }
 
     /**
