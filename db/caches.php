@@ -49,6 +49,12 @@ $definitions = array(
         'simplekeys' => true,
         'simpledata' => true,
         'staticacceleration' => true
+    ),
+    // Caches the ids of the 'students' on a given course.
+    'activitystudentscache' => array(
+        'mode' => cache_store::MODE_APPLICATION,
+        'simplekeys' => true,
+        'simpledata' => true,
+        'staticacceleration' => true
     )
-
 );

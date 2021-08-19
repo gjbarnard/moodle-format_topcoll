@@ -51,6 +51,7 @@ defined('MOODLE_INTERNAL') || die();
 use \cm_info;
 
 require_once($CFG->dirroot.'/mod/assign/locallib.php');
+require_once($CFG->dirroot.'/course/format/lib.php'); // For course_get_format.
 
 /**
  * Activity functions.
@@ -871,7 +872,7 @@ class activity {
      * @param int $courseid
      * @param cm_info $mod
      *
-     * @return int
+     * @return int Number of participants (students) on the module.
      */
     protected static function course_participant_count($courseid, $mod) {
         $studentrolescache = \cache::make('format_topcoll', 'activitystudentrolescache');
@@ -889,19 +890,15 @@ class activity {
         $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
         $modulecountcourse = $modulecountcache->get($courseid);
         if (empty($modulecountcourse)) {
-            $modulecountcourse = array();
-
-            // Initialise to zero in case of no enrolled students on the course.
-            $modinfo = get_fast_modinfo($courseid, -1);
-            $cms = $modinfo->get_cms(); // Array of cm_info objects.
-            foreach ($cms as $themod) {
-                $modulecountcourse[$themod->id] = 0;
-            }
+            // Initialise to zero in case of no enrolled students on the course - done in calulatecoursemodules().
 
             $context = \context_course::instance($courseid);
             $users = get_enrolled_users($context, '', 0, 'u.id', null, 0, 0, true);
             $users = array_keys($users);
             $alluserroles = get_users_roles($context, $users, false);
+
+            $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+            $students = array();
 
             foreach ($users as $userid) {
                 $usershortnames = array();
@@ -919,21 +916,12 @@ class activity {
                 if (!$isstudent) {
                     // Don't go any further.
                     continue;
-                }
-
-                $modinfo = get_fast_modinfo($courseid, $userid);
-                $cms = $modinfo->get_cms(); // Array of cm_info objects for the user on the course.
-                foreach ($cms as $usermod) {
-                    // From course_section_cm() in M3.8 - is_visible_on_course_page for M3.9+.
-                    if (((method_exists($usermod, 'is_visible_on_course_page')) && ($usermod->is_visible_on_course_page()))
-                        || ((!empty($usermod->availableinfo)) && ($usermod->url))) {
-                        // From course_section_cm_name_title().
-                        if ($usermod->uservisible) {
-                            $modulecountcourse[$usermod->id]++;
-                        }
-                    }
+                } else {
+                    $students[] = $userid;
                 }
             }
+            $studentscache->set($courseid, $students);
+            $modulecountcourse = self::calulatecoursemodules($courseid, $students);
             $modulecountcache->set($courseid, $modulecountcourse);
         }
 
@@ -956,11 +944,17 @@ class activity {
         $studentrolescache->purge();
     }
 
+    /**
+     * Invalidates the activity students cache.
+     */
+    public static function invalidatestudentscache() {
+        $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+        $studentscache->purge();
+    }
+
     /* TODO:
-       Improve these methods such that they only regenerate the actual data they need to change.
-       But will need to take into account if activiy as been enabled for a given course and so on.
-       Therefore, actually quite a challenge to implement!  The perceived parameters and lock helper
-       method are already in place.
+       Improve and refine these methods even further along the idea of 'regenerate the actual data
+       they need to change'.
     */
 
     /**
@@ -970,7 +964,9 @@ class activity {
      * @param int $courseid Course id.
      */
     public static function userenrolmentcreated($userid, $courseid) {
-        self::clearcoursemodulecount($courseid);
+        if (self::activitymetaused($courseid)) {
+            self::clearcoursemodulecount($courseid);
+        }
     }
 
     /**
@@ -980,7 +976,9 @@ class activity {
      * @param int $courseid Course id.
      */
     public static function userenrolmentupdated($userid, $courseid) {
-        self::clearcoursemodulecount($courseid);
+        if (self::activitymetaused($courseid)) {
+            self::clearcoursemodulecount($courseid);
+        }
     }
 
     /**
@@ -990,7 +988,9 @@ class activity {
      * @param int $courseid Course id.
      */
     public static function userenrolmentdeleted($userid, $courseid) {
-        self::clearcoursemodulecount($courseid);
+        if (self::activitymetaused($courseid)) {
+            self::clearcoursemodulecount($courseid);
+        }
     }
 
     /**
@@ -1000,7 +1000,7 @@ class activity {
      * @param int $courseid Course id.
      */
     public static function modulecreated($modid, $courseid) {
-        self::clearcoursemodulecount($courseid);
+        self::modulechanged($modid, $courseid);
     }
 
     /**
@@ -1010,7 +1010,29 @@ class activity {
      * @param int $courseid Course id.
      */
     public static function moduleupdated($modid, $courseid) {
-        self::clearcoursemodulecount($courseid);
+        self::modulechanged($modid, $courseid);
+    }
+
+    /**
+     * A module has changed.
+     *
+     * @param int $modid Module id.
+     * @param int $courseid Course id.
+     */
+    private static function modulechanged($modid, $courseid) {
+        if (self::activitymetaused($courseid)) {
+            $lock = self::lockmodulecountcache($courseid);
+            $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
+            $modulecountcourse = $modulecountcache->get($courseid);
+            if (!empty($modulecountcourse)) {
+                $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+                $students = $studentscache->get($courseid);
+                $updated = self::calulatecoursemodules($courseid, $students, $modid);
+                $modulecountcourse[$modid] = $updated[$modid];
+                $modulecountcache->set($courseid, $modulecountcourse);
+            }
+            $lock->release();
+        }
     }
 
     /**
@@ -1020,7 +1042,17 @@ class activity {
      * @param int $courseid Course id.
      */
     public static function moduledeleted($modid, $courseid) {
-        self::clearcoursemodulecount($courseid);
+        if (self::activitymetaused($courseid)) {
+            $lock = self::lockmodulecountcache($courseid);
+            $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
+            $modulecountcourse = $modulecountcache->get($courseid);
+            if (!empty($modulecountcourse)) {
+                unset($modulecountcourse[$modid]);
+                $modulecountcache->set($courseid, $modulecountcourse);
+            }
+
+            $lock->release();
+        }
     }
 
     /**
@@ -1033,6 +1065,48 @@ class activity {
         $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
         $modulecountcache->set($courseid, null);
         $lock->release();
+    }
+
+    /**
+     * Clear the module count cache on the given course.
+     *
+     * @param int $courseid Course id.
+     * @param array $students Array of student id's on the course.
+     * @param int $modid Calculate specific module id or null if calculate all.
+     *
+     * @return int Number of participants (students) on the modules requested on the course.
+     */
+    private static function calulatecoursemodules($courseid, $students, $modid = null) {
+        $modulecount = array(); // Mod id indexed.
+        if (is_null($modid)) {
+            // Initialise to zero in case of no enrolled students on the course.
+            $modinfo = get_fast_modinfo($courseid, -1);
+            $cms = $modinfo->get_cms(); // Array of cm_info objects.
+            foreach ($cms as $themod) {
+                $modulecount[$themod->id] = 0;
+            }
+        } else {
+            $modulecount[$modid] = 0;
+        }
+        foreach ($students as $userid) {
+            $modinfo = get_fast_modinfo($courseid, $userid);
+            $cms = $modinfo->get_cms(); // Array of cm_info objects for the user on the course.
+            foreach ($cms as $usermod) {
+                if ((!is_null($modid)) && ($modid != $usermod->id)) {
+                    continue;
+                }
+                // From course_section_cm() in M3.8 - is_visible_on_course_page for M3.9+.
+                if (((method_exists($usermod, 'is_visible_on_course_page')) && ($usermod->is_visible_on_course_page()))
+                    || ((!empty($usermod->availableinfo)) && ($usermod->url))) {
+                    // From course_section_cm_name_title().
+                    if ($usermod->uservisible) {
+                        $modulecount[$usermod->id]++;
+                    }
+                }
+            }
+        }
+
+        return $modulecount;
     }
 
     /**
@@ -1049,5 +1123,21 @@ class activity {
         }
         throw new \moodle_exception('cannotgetmodulecountcachelock', 'format_topcoll', '',
             get_string('cannotgetmodulecountcachelock', 'format_topcoll', $courseid));
+    }
+
+    /**
+     * State if the course has activity meta enabled.
+     *
+     * @param int $courseid Course id.
+     *
+     * @return boolean True or False.
+     */
+    private static function activitymetaused($courseid) {
+        $courseformat = course_get_format($courseid);
+        $tcsettings = $courseformat->get_settings();
+        if ((!empty($tcsettings['showadditionalmoddata'])) && ($tcsettings['showadditionalmoddata'] == 2)) {
+            return true; // Could in theory test the module but then this method wouldn't work for user events.
+        }
+        return false;
     }
 }
