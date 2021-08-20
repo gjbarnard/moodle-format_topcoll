@@ -51,7 +51,6 @@ defined('MOODLE_INTERNAL') || die();
 use \cm_info;
 
 require_once($CFG->dirroot.'/mod/assign/locallib.php');
-require_once($CFG->dirroot.'/course/format/lib.php'); // For course_get_format.
 
 /**
  * Activity functions.
@@ -963,8 +962,8 @@ class activity {
      * @param int $userid User id.
      * @param int $courseid Course id.
      */
-    public static function userenrolmentcreated($userid, $courseid) {
-        if (self::activitymetaused($courseid)) {
+    public static function userenrolmentcreated($userid, $courseid, $courseformat) {
+        if (self::activitymetaused($courseformat)) {
             self::clearcoursemodulecount($courseid);
         }
     }
@@ -975,8 +974,8 @@ class activity {
      * @param int $userid User id.
      * @param int $courseid Course id.
      */
-    public static function userenrolmentupdated($userid, $courseid) {
-        if (self::activitymetaused($courseid)) {
+    public static function userenrolmentupdated($userid, $courseid, $courseformat) {
+        if (self::activitymetaused($courseformat)) {
             self::clearcoursemodulecount($courseid);
         }
     }
@@ -987,8 +986,8 @@ class activity {
      * @param int $userid User id.
      * @param int $courseid Course id.
      */
-    public static function userenrolmentdeleted($userid, $courseid) {
-        if (self::activitymetaused($courseid)) {
+    public static function userenrolmentdeleted($userid, $courseid, $courseformat) {
+        if (self::activitymetaused($courseformat)) {
             self::clearcoursemodulecount($courseid);
         }
     }
@@ -999,8 +998,8 @@ class activity {
      * @param int $modid Module id.
      * @param int $courseid Course id.
      */
-    public static function modulecreated($modid, $courseid) {
-        self::modulechanged($modid, $courseid);
+    public static function modulecreated($modid, $courseid, $courseformat) {
+        self::modulechanged($modid, $courseid, $courseformat);
     }
 
     /**
@@ -1009,8 +1008,8 @@ class activity {
      * @param int $modid Module id.
      * @param int $courseid Course id.
      */
-    public static function moduleupdated($modid, $courseid) {
-        self::modulechanged($modid, $courseid);
+    public static function moduleupdated($modid, $courseid, $courseformat) {
+        self::modulechanged($modid, $courseid, $courseformat);
     }
 
     /**
@@ -1019,8 +1018,8 @@ class activity {
      * @param int $modid Module id.
      * @param int $courseid Course id.
      */
-    private static function modulechanged($modid, $courseid) {
-        if (self::activitymetaused($courseid)) {
+    private static function modulechanged($modid, $courseid, $courseformat) {
+        if (self::activitymetaused($courseformat)) {
             $lock = self::lockmodulecountcache($courseid);
             $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
             $modulecountcourse = $modulecountcache->get($courseid);
@@ -1041,8 +1040,8 @@ class activity {
      * @param int $modid Module id.
      * @param int $courseid Course id.
      */
-    public static function moduledeleted($modid, $courseid) {
-        if (self::activitymetaused($courseid)) {
+    public static function moduledeleted($modid, $courseid, $courseformat) {
+        if (self::activitymetaused($courseformat)) {
             $lock = self::lockmodulecountcache($courseid);
             $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
             $modulecountcourse = $modulecountcache->get($courseid);
@@ -1132,8 +1131,7 @@ class activity {
      *
      * @return boolean True or False.
      */
-    private static function activitymetaused($courseid) {
-        $courseformat = course_get_format($courseid);
+    private static function activitymetaused($courseformat) {
         $tcsettings = $courseformat->get_settings();
         if ((!empty($tcsettings['showadditionalmoddata'])) && ($tcsettings['showadditionalmoddata'] == 2)) {
             return true; // Could in theory test the module but then this method wouldn't work for user events.
