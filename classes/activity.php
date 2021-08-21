@@ -430,16 +430,17 @@ class activity {
         $userids = implode(',', $students);
 
         $params['forumid'] = $mod->instance;
-error_log(print_r($params, true));
+error_log('forum_num_submissions:'.print_r($params, true));
         $sql = "SELECT count(f.id) as total
                     FROM {forum_grades} f
 
                     WHERE f.userid IN ($userids)
                     AND f.forum = :forumid";
         $studentcount = $DB->get_records_sql($sql, $params);
-        error_log(print_r($studentcount, true));
+        error_log('forum_num_submissions2:'.print_r($studentcount, true));
+        error_log('forum_num_submissions3:'.print_r(implode('',array_keys($studentcount)), true));
         if (!empty($studentcount)) {
-            return $studentcount->total;
+            return implode('',array_keys($studentcount));
         }
         return 0;
     }
@@ -502,8 +503,9 @@ error_log('forum_num_submissions_ungraded:'.print_r($moddiscussions, true));
                         AND fp.discussion IN ($discussionids)";
             $studentspostedcount = $DB->get_records_sql($sql, $params);
             error_log('forum_num_submissions_ungraded2: '.print_r($studentspostedcount, true));
+            error_log('forum_num_submissions_ungraded3: '.print_r(implode('',array_keys($studentspostedcount)), true));
             if (!empty($studentspostedcount)) {
-                return $studentspostedcount->total;
+                return implode('',array_keys($studentspostedcount));
             }
         }
 
