@@ -237,9 +237,7 @@ class format_topcoll_course_renderer extends \core_course_renderer {
         if ((!empty($tcsettings['showadditionalmoddata'])) && ($tcsettings['showadditionalmoddata'] == 2)) {
             $settingname = 'coursesectionactivityfurtherinformation'.$mod->modname;
             $setting = get_config('format_topcoll', $settingname);
-            //if ((!empty($setting)) && ($setting == 2)) {
-            // TODO: Have a forum setting!  This is for development!!!
-            if (true) {
+            if ((!empty($setting)) && ($setting == 2)) {
                 $cmmetaoutput = $this->course_section_cm_get_meta($mod);
                 if (!empty($cmmetaoutput)) {
                     $output .= html_writer::start_tag('div', array('class' => 'ct-activity-meta-container'));

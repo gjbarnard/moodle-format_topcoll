@@ -558,6 +558,16 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
+    $name = 'format_topcoll/coursesectionactivityfurtherinformationforum';
+    $title = get_string('coursesectionactivityfurtherinformationforum', 'format_topcoll');
+    $description = get_string('coursesectionactivityfurtherinformationforumdesc', 'format_topcoll');
+    $default = 2;
+    $choices = array(
+        1 => new lang_string('no'),
+        2 => new lang_string('yes')
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
     $name = 'format_topcoll/coursesectionactivityfurtherinformationlesson';
     $title = get_string('coursesectionactivityfurtherinformationlesson', 'format_topcoll');
     $description = get_string('coursesectionactivityfurtherinformationlessondesc', 'format_topcoll');
