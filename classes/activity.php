@@ -125,25 +125,11 @@ class activity {
             return $meta;
         }
 
-        $meta->set_default('submissionnotrequired', $submissionnotrequired);
-        $meta->set_default('submitstrkey', $submitstrkey);
-        $meta->set_default('submittedstr', get_string($submitstrkey, 'format_topcoll'));
-        $meta->set_default('notsubmittedstr', get_string('not'.$submitstrkey, 'format_topcoll'));
-        $meta->set_default('draftstr', get_string('draft', 'format_topcoll'));
-        $meta->set_default('reopenedstr', get_string('reopened', 'format_topcoll'));
-        $meta->set_default('expiredstr', get_string('expired', 'format_topcoll'));
-        $meta->set_default('notopenstr', get_string('notopen', 'format_topcoll'));
-
-        $activitydates = self::instance_activity_dates($courseid, $mod, $timeopenfld, $timeclosefld);
-        $meta->timeopen = $activitydates->timeopen;
-        $meta->timeclose = $activitydates->timeclose;
-        if (isset($activitydates->extension)) {
-            $meta->extension = $activitydates->extension;
-        }
-
         // If role has specific "teacher" capabilities.
-        if (has_capability('mod/assign:grade', $mod->context)) {
+        if ((has_capability('mod/assign:grade', $mod->context)) ||
+            (has_capability('mod/forum:grade', $mod->context))) {
             $meta->isteacher = true;
+            $meta->submitstrkey = $submitstrkey;
 
             if ($mod->modname === 'assign') {
                 list(
@@ -154,95 +140,124 @@ class activity {
             } else {
                 // Teacher - useful teacher meta data.
                 $methodnsubmissions = $mod->modname.'_num_submissions';
-                $methodnumgraded = $mod->modname.'_num_submissions_ungraded';
+                $methodnumungraded = $mod->modname.'_num_submissions_ungraded';
                 $methodparticipants = $mod->modname.'_num_participants';
 
-                if (method_exists('format_topcoll\\activity', $methodnsubmissions)) {
-                    $meta->numsubmissions = call_user_func('format_topcoll\\activity::'.
-                        $methodnsubmissions, $courseid, $mod);
-                }
-                if (method_exists('format_topcoll\\activity', $methodnumgraded)) {
-                    $meta->numrequiregrading = call_user_func('format_topcoll\\activity::'.
-                        $methodnumgraded, $courseid, $mod);
-                }
+                // Do this before the rest so that the caches are populated for use.
                 if (method_exists('format_topcoll\\activity', $methodparticipants)) {
+                    /* Note: This bypasses the cache code, so if for example the 'students' are
+                             needed then do not implement it for the given module. */
                     $meta->numparticipants = call_user_func('format_topcoll\\activity::'.
                         $methodparticipants, $courseid, $mod);
                 } else {
                     $meta->numparticipants = self::course_participant_count($courseid, $mod);
                 }
+                if (!empty($meta->numparticipants)) {
+                    // Only need to bother if there are participants!
+                    if (method_exists('format_topcoll\\activity', $methodnsubmissions)) {
+                        $meta->numsubmissions = call_user_func('format_topcoll\\activity::'.
+                            $methodnsubmissions, $courseid, $mod);
+                    }
+                    if (method_exists('format_topcoll\\activity', $methodnumungraded)) {
+                        $meta->numrequiregrading = call_user_func('format_topcoll\\activity::'.
+                            $methodnumungraded, $courseid, $mod);
+                    }
+                    if ($mod->modname === 'forum') {
+                        /* Forum has number of students who have 'posted' in 'numsubmissions'
+                           and the number of students who's posts have been graded in 'numrequiregrading',
+                           so we need to adjust things. */
+                        $meta->numrequiregrading = $meta->numsubmissions - $meta->numrequiregrading;
+                    }
+                }
             }
 
         } else {
             // Student - useful student meta data - only display if activity is available.
-            if (empty($activitydates->timeopen) || $activitydates->timeopen <= time()) {  // TODO User time needed???
+            if ($mod->modname !== 'forum') {
+                $meta->set_default('submissionnotrequired', $submissionnotrequired);
+                $meta->set_default('submitstrkey', $submitstrkey);
+                $meta->set_default('submittedstr', get_string($submitstrkey, 'format_topcoll'));
+                $meta->set_default('notsubmittedstr', get_string('not'.$submitstrkey, 'format_topcoll'));
+                $meta->set_default('draftstr', get_string('draft', 'format_topcoll'));
+                $meta->set_default('reopenedstr', get_string('reopened', 'format_topcoll'));
+                $meta->set_default('expiredstr', get_string('expired', 'format_topcoll'));
+                $meta->set_default('notopenstr', get_string('notopen', 'format_topcoll'));
 
-                $submissionrow = self::get_submission_row($courseid, $mod, $submissiontable, $keyfield, $submitselect);
+                $activitydates = self::instance_activity_dates($courseid, $mod, $timeopenfld, $timeclosefld);
+                $meta->timeopen = $activitydates->timeopen;
+                $meta->timeclose = $activitydates->timeclose;
+                if (isset($activitydates->extension)) {
+                    $meta->extension = $activitydates->extension;
+                }
 
-                if (!empty($submissionrow)) {
-                    if ($mod->modname === 'assign' && !empty($submissionrow->status)) {
-                        switch ($submissionrow->status) {
-                            case ASSIGN_SUBMISSION_STATUS_DRAFT:
-                                $meta->draft = true;
-                                break;
+                if (empty($activitydates->timeopen) || $activitydates->timeopen <= time()) {  // TODO User time needed???
+                    $submissionrow = self::get_submission_row($courseid, $mod, $submissiontable, $keyfield, $submitselect);
 
-                            case ASSIGN_SUBMISSION_STATUS_REOPENED:
-                                $meta->reopened = true;
-                                break;
+                    if (!empty($submissionrow)) {
+                        if ($mod->modname === 'assign' && !empty($submissionrow->status)) {
+                            switch ($submissionrow->status) {
+                                case ASSIGN_SUBMISSION_STATUS_DRAFT:
+                                    $meta->draft = true;
+                                    break;
 
-                            case ASSIGN_SUBMISSION_STATUS_SUBMITTED:
-                                $meta->submitted = true;
-                                break;
-                        }
-                    } else {
-                        $meta->submitted = true;
-                        $meta->timesubmitted = !empty($submissionrow->$submittedonfld) ? $submissionrow->$submittedonfld : null;
-                    }
-                    // If submitted on field uses modified field then fall back to timecreated if modified is 0.
-                    if (empty($meta->timesubmitted) && $submittedonfld = 'timemodified') {
-                        if (isset($submissionrow->timemodified)) {
-                            $meta->timesubmitted = $submissionrow->timemodified;
+                                case ASSIGN_SUBMISSION_STATUS_REOPENED:
+                                    $meta->reopened = true;
+                                    break;
+
+                                case ASSIGN_SUBMISSION_STATUS_SUBMITTED:
+                                    $meta->submitted = true;
+                                    break;
+                            }
                         } else {
-                            $meta->timesubmitted = $submissionrow->timecreated;
+                            $meta->submitted = true;
+                            $meta->timesubmitted = !empty($submissionrow->$submittedonfld) ? $submissionrow->$submittedonfld : null;
                         }
+                        // If submitted on field uses modified field then fall back to timecreated if modified is 0.
+                        if (empty($meta->timesubmitted) && $submittedonfld = 'timemodified') {
+                            if (isset($submissionrow->timemodified)) {
+                                $meta->timesubmitted = $submissionrow->timemodified;
+                            } else {
+                                $meta->timesubmitted = $submissionrow->timecreated;
+                            }
+                        }
+                    } else if ($mod->modname === 'assign') {
+                        $meta->notattempted = true;
                     }
-                } else if ($mod->modname === 'assign') {
-                    $meta->notattempted = true;
+                } else {
+                    $meta->notopen = true;
                 }
-            } else {
-                $meta->notopen = true;
-            }
 
-            $graderow = false;
-            if ($isgradeable) {
-                $graderow = self::grade_row($courseid, $mod);
-            }
+                $graderow = false;
+                if ($isgradeable) {
+                    $graderow = self::grade_row($courseid, $mod);
+                }
 
-            if ($graderow) {
-                $gradeitem = \grade_item::fetch(array(
-                    'itemtype' => 'mod',
-                    'itemmodule' => $mod->modname,
-                    'iteminstance' => $mod->instance,
-                    'outcomeid' => null
-                ));
+                if ($graderow) {
+                    $gradeitem = \grade_item::fetch(array(
+                        'itemtype' => 'mod',
+                        'itemmodule' => $mod->modname,
+                        'iteminstance' => $mod->instance,
+                        'outcomeid' => null
+                    ));
 
-                $grade = new \grade_grade(array('itemid' => $gradeitem->id, 'userid' => $USER->id));
+                    $grade = new \grade_grade(array('itemid' => $gradeitem->id, 'userid' => $USER->id));
 
-                $coursecontext = \context_course::instance($courseid);
-                $canviewhiddengrade = has_capability('moodle/grade:viewhidden', $coursecontext);
+                    $coursecontext = \context_course::instance($courseid);
+                    $canviewhiddengrade = has_capability('moodle/grade:viewhidden', $coursecontext);
 
-                if (!$grade->is_hidden() || $canviewhiddengrade) {
-                    $meta->grade = true;
+                    if (!$grade->is_hidden() || $canviewhiddengrade) {
+                        $meta->grade = true;
+                    }
+                }
+
+                if (!empty($meta->timeclose)) {
+                    // Submission required?
+                    $subreqd = empty($meta->submissionnotrequired);
+
+                    // Overdue?
+                    $meta->overdue = $subreqd && empty($meta->submitted) && (time() > $meta->timeclose);
                 }
             }
-        }
-
-        if (!empty($meta->timeclose)) {
-            // Submission required?
-            $subreqd = empty($meta->submissionnotrequired);
-
-            // Overdue?
-            $meta->overdue = $subreqd && empty($meta->submitted) && (time() > $meta->timeclose);
         }
 
         return $meta;
@@ -331,6 +346,28 @@ class activity {
      */
     protected static function feedback_meta(cm_info $modinst) {
         return self::std_meta($modinst, 'timeopen', 'timeclose', 'feedback', 'completed', 'timemodified', 'submitted');
+    }
+
+    /**
+     * Get forum module meta data
+     *
+     * @param cm_info $modinst - module instance
+     * @return string
+     */
+    protected static function forum_meta(cm_info $modinst) {
+        global $DB;
+
+        $params['forumid'] = $modinst->instance;
+        $sql = "SELECT f.id, f.scale, f.grade_forum
+                    FROM {forum} f
+                    WHERE f.id = :forumid";
+        $forumscale = $DB->get_records_sql($sql, $params);
+        if ((!empty($forumscale[$modinst->instance])) &&
+            ($forumscale[$modinst->instance]->scale > 0) &&
+            ($forumscale[$modinst->instance]->grade_forum != 0)) {
+            return self::std_meta($modinst, '', '', '', '', '', 'posted');
+        }
+        return null; // Whole forum grading off for this forum.
     }
 
     /**
@@ -496,6 +533,40 @@ class activity {
     }
 
     /**
+     * Get number of students who have 'posted', then combined with knowing the number
+     * submitted 'graded' then can deduce the 'ungraded'.
+     *
+     * @param int $courseid
+     * @param cm_info $mod
+     * @return int
+     */
+    protected static function forum_num_submissions($courseid, $mod) {
+        global $DB;
+
+        /* Get the 'discussions' id's for the forum id then see which students have
+           'posted' in / started them and thus should be graded if they have not
+           been. */
+        $params['forumid'] = $mod->instance;
+        $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+        $students = $studentscache->get($courseid);
+
+        $userids = implode(',', $students);
+
+        $sql = "SELECT count(DISTINCT fp.userid) as total
+                    FROM {forum_posts} fp, {forum_discussions} fd
+                    WHERE fd.forum = :forumid
+                    AND fp.userid IN ($userids)
+                    AND fp.discussion = fd.id";
+        $studentspostedcount = $DB->get_records_sql($sql, $params);
+
+        if (!empty($studentspostedcount)) {
+            return implode('', array_keys($studentspostedcount));
+        }
+
+        return 0;
+    }
+
+    /**
      * Get number of submissions for lesson activity.
      *
      * @param int $courseid
@@ -504,6 +575,38 @@ class activity {
      */
     protected static function lesson_num_submissions($courseid, $mod) {
         return self::std_num_submissions($courseid, $mod, 'lesson', 'lessonid', 'lesson_timer');
+    }
+
+    /**
+     * Get number of submissions 'graded' for forum activity when whole forum grading.
+     *
+     * @param int $courseid
+     * @param cm_info $mod
+     * @return int
+     */
+    protected static function forum_num_submissions_ungraded($courseid, $mod) {
+        global $DB;
+
+        $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+        $students = $studentscache->get($courseid);
+        $userids = implode(',', $students);
+
+        $params['forumid'] = $mod->instance;
+        /* Note: As soon as a student is graded then it appears that 'grade' changes to
+                 a value, so this could be '0', thus be all 'Not set's when using a
+                 scale.  Does not seem to be a way to solve this!  But then a student
+                 could get nothing and 'saving' is an act of accessment. */
+        $sql = "SELECT count(f.id) as total
+                    FROM {forum_grades} f
+                    WHERE f.userid IN ($userids)
+                    AND f.grade IS NOT NULL
+                    AND f.forum = :forumid";
+        $studentcount = $DB->get_records_sql($sql, $params);
+
+        if (!empty($studentcount)) {
+            return implode('', array_keys($studentcount));
+        }
+        return 0;
     }
 
     /**
