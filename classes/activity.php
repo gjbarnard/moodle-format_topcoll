@@ -456,16 +456,16 @@ class activity {
             $students = $studentscache->get($courseid);
             $userids = implode(',', $students);
             $discussionids = implode(',', array_keys($moddiscussions));
-    
+
             $sql = "SELECT count(DISTINCT fp.userid) as total
                         FROM {forum_posts} fp
-    
+
                         WHERE fp.userid IN ($userids)
                         AND fp.discussion IN ($discussionids)";
             $studentspostedcount = $DB->get_records_sql($sql, $params);
 
             if (!empty($studentspostedcount)) {
-                return implode('',array_keys($studentspostedcount));
+                return implode('', array_keys($studentspostedcount));
             }
         }
 
@@ -522,7 +522,7 @@ class activity {
         $studentcount = $DB->get_records_sql($sql, $params);
 
         if (!empty($studentcount)) {
-            return implode('',array_keys($studentcount));
+            return implode('', array_keys($studentcount));
         }
         return 0;
     }
