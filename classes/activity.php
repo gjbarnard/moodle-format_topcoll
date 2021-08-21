@@ -140,6 +140,12 @@ class activity {
                     $meta->numrequiregrading = call_user_func('format_topcoll\\activity::'.
                         $methodnumungraded, $courseid, $mod);
                 }
+                if ($mod->modname === 'forum') {
+                    /* Forum has number of students who have 'posted' in 'numsubmissions'
+                       and the number of students who's posts have been graded in 'numrequiregrading',
+                       so we need to adjust things. */
+                    $meta->numrequiregrading = $meta->numsubmissions - $meta->numrequiregrading;
+                }
             }
         } else if ($isgradeable) {
             $graderow = self::grade_row($courseid, $mod);
@@ -249,8 +255,16 @@ class activity {
      * @return string
      */
     protected static function forum_meta(cm_info $modinst) {
-        if (true) {
-            return self::std_meta($modinst, 'submitted');
+        global $DB;
+
+        $params['forumid'] = $modinst->instance;
+        $sql = "SELECT f.id, f.scale
+                    FROM {forum} f
+                    WHERE f.id = :forumid";
+        $forumscale = $DB->get_records_sql($sql, $params);
+
+        if ((!empty($forumscale[$modinst->instance])) && ($forumscale[$modinst->instance]->scale != 0) ) {
+            return self::std_meta($modinst, 'contributed');
         }
         return null; // Whole forum grading off for this forum.
     }
@@ -416,7 +430,8 @@ class activity {
     }
 
     /**
-     * Get number of submissions 'graded' for forum activity when whole forum grading.
+     * Get number of students who have 'posted', then combined with knowing the number
+     * submitted 'graded' then can deduce the 'ungraded'.
      *
      * @param int $courseid
      * @param cm_info $mod
@@ -425,23 +440,37 @@ class activity {
     protected static function forum_num_submissions($courseid, $mod) {
         global $DB;
 
-        $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
-        $students = $studentscache->get($courseid);
-        $userids = implode(',', $students);
+        /* Get the 'discussions' id's for the forum id then see which students have
+           'posted' in / started them and thus should be graded if they have not
+           been. */
 
         $params['forumid'] = $mod->instance;
-error_log('forum_num_submissions:'.print_r($params, true));
-        $sql = "SELECT count(f.id) as total
-                    FROM {forum_grades} f
+        $sql = "SELECT fd.id
+                    FROM {forum_discussions} fd
+                    WHERE fd.forum = :forumid";
+        $moddiscussions = $DB->get_records_sql($sql, $params);
+error_log('forum_num_submissions:'.print_r($moddiscussions, true));
 
-                    WHERE f.userid IN ($userids)
-                    AND f.forum = :forumid";
-        $studentcount = $DB->get_records_sql($sql, $params);
-        error_log('forum_num_submissions2:'.print_r($studentcount, true));
-        error_log('forum_num_submissions3:'.print_r(implode('',array_keys($studentcount)), true));
-        if (!empty($studentcount)) {
-            return implode('',array_keys($studentcount));
+        if (!empty($moddiscussions)) {
+            // Now use that with the 'posts' table.
+            $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+            $students = $studentscache->get($courseid);
+            $userids = implode(',', $students);
+            $discussionids = implode(',', array_keys($moddiscussions));
+    
+            $sql = "SELECT count(DISTINCT fp.userid) as total
+                        FROM {forum_posts} fp
+    
+                        WHERE fp.userid IN ($userids)
+                        AND fp.discussion IN ($discussionids)";
+            $studentspostedcount = $DB->get_records_sql($sql, $params);
+            error_log('forum_num_submissions2: '.print_r($studentspostedcount, true));
+            error_log('forum_num_submissions3: '.print_r(implode('',array_keys($studentspostedcount)), true));
+            if (!empty($studentspostedcount)) {
+                return implode('',array_keys($studentspostedcount));
+            }
         }
+
         return 0;
     }
 
@@ -468,8 +497,7 @@ error_log('forum_num_submissions:'.print_r($params, true));
     }
 
     /**
-     * Get number of students who have 'posted', then combined with knowing the number
-     * submitted 'graded' then can deduce the 'ungraded'.
+     * Get number of submissions 'graded' for forum activity when whole forum grading.
      *
      * @param int $courseid
      * @param cm_info $mod
@@ -478,37 +506,23 @@ error_log('forum_num_submissions:'.print_r($params, true));
     protected static function forum_num_submissions_ungraded($courseid, $mod) {
         global $DB;
 
-        /* Get the 'discussions' id's for the forum id then see which students have
-           'posted' in / started them and thus should be graded if they have not
-           been. */
+        $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+        $students = $studentscache->get($courseid);
+        $userids = implode(',', $students);
 
         $params['forumid'] = $mod->instance;
-        $sql = "SELECT fd.id
-                    FROM {forum_discussions} fd
-                    WHERE fd.forum = :forumid";
-        $moddiscussions = $DB->get_records_sql($sql, $params);
-error_log('forum_num_submissions_ungraded:'.print_r($moddiscussions, true));
+error_log('forum_num_submissions_ungraded:'.print_r($params, true));
+        $sql = "SELECT count(f.id) as total
+                    FROM {forum_grades} f
 
-        if (!empty($moddiscussions)) {
-            // Now use that with the 'posts' table.
-            $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
-            $students = $studentscache->get($courseid);
-            $userids = implode(',', $students);
-            $discussionids = implode(',', array_keys($moddiscussions));
-    
-            $sql = "SELECT count(DISTINCT fp.userid) as total
-                        FROM {forum_posts} fp
-    
-                        WHERE fp.userid IN ($userids)
-                        AND fp.discussion IN ($discussionids)";
-            $studentspostedcount = $DB->get_records_sql($sql, $params);
-            error_log('forum_num_submissions_ungraded2: '.print_r($studentspostedcount, true));
-            error_log('forum_num_submissions_ungraded3: '.print_r(implode('',array_keys($studentspostedcount)), true));
-            if (!empty($studentspostedcount)) {
-                return implode('',array_keys($studentspostedcount));
-            }
+                    WHERE f.userid IN ($userids)
+                    AND f.forum = :forumid";
+        $studentcount = $DB->get_records_sql($sql, $params);
+        error_log('forum_num_submissions_ungraded2:'.print_r($studentcount, true));
+        error_log('forum_num_submissions_ungraded3:'.print_r(implode('',array_keys($studentcount)), true));
+        if (!empty($studentcount)) {
+            return implode('',array_keys($studentcount));
         }
-
         return 0;
     }
 
