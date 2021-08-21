@@ -106,7 +106,8 @@ class activity {
         $courseid = $mod->course;
         $meta = null;
         // If role has specific "teacher" capabilities.
-        if (has_capability('mod/assign:grade', $mod->context)) {
+        if ((has_capability('mod/assign:grade', $mod->context)) ||
+            (has_capability('mod/forum:grade', $mod->context))) {
             $meta = new activity_meta();
             $meta->isteacher = true;
             $meta->submitstrkey = $submitstrkey;
@@ -119,22 +120,31 @@ class activity {
                 ) = self::assign_nums($courseid, $mod);
             } else {
                 $methodnsubmissions = $mod->modname.'_num_submissions';
-                $methodnumgraded = $mod->modname.'_num_submissions_ungraded';
+                $methodnumungraded = $mod->modname.'_num_submissions_ungraded';
                 $methodparticipants = $mod->modname.'_num_participants';
 
-                if (method_exists('format_topcoll\\activity', $methodnsubmissions)) {
-                    $meta->numsubmissions = call_user_func('format_topcoll\\activity::'.
-                        $methodnsubmissions, $courseid, $mod);
-                }
-                if (method_exists('format_topcoll\\activity', $methodnumgraded)) {
-                    $meta->numrequiregrading = call_user_func('format_topcoll\\activity::'.
-                        $methodnumgraded, $courseid, $mod);
-                }
+                // Do this before the rest so that the caches are populated for use.
                 if (method_exists('format_topcoll\\activity', $methodparticipants)) {
+                    /* Note: This bypasses the cache code, so if for example the 'students' are
+                             needed then do not implement it for the given module. */
                     $meta->numparticipants = call_user_func('format_topcoll\\activity::'.
                         $methodparticipants, $courseid, $mod);
                 } else {
                     $meta->numparticipants = self::course_participant_count($courseid, $mod);
+                }
+                if (method_exists('format_topcoll\\activity', $methodnsubmissions)) {
+                    $meta->numsubmissions = call_user_func('format_topcoll\\activity::'.
+                        $methodnsubmissions, $courseid, $mod);
+                }
+                if (method_exists('format_topcoll\\activity', $methodnumungraded)) {
+                    $meta->numrequiregrading = call_user_func('format_topcoll\\activity::'.
+                        $methodnumungraded, $courseid, $mod);
+                }
+                if ($mod->modname === 'forum') {
+                    /* Forum has number of students who have 'posted' in 'numsubmissions'
+                       and the number of students who's posts have been graded in 'numrequiregrading',
+                       so we need to adjust things. */
+                    $meta->numrequiregrading = $meta->numsubmissions - $meta->numrequiregrading;
                 }
             }
         } else if ($isgradeable) {
@@ -236,6 +246,28 @@ class activity {
      */
     protected static function feedback_meta(cm_info $modinst) {
         return self::std_meta($modinst, 'submitted');
+    }
+
+    /**
+     * Get forum module meta data
+     *
+     * @param cm_info $modinst - module instance
+     * @return string
+     */
+    protected static function forum_meta(cm_info $modinst) {
+        global $DB;
+
+        $params['forumid'] = $modinst->instance;
+        $sql = "SELECT f.id, f.scale, f.grade_forum
+                    FROM {forum} f
+                    WHERE f.id = :forumid";
+        $forumscale = $DB->get_records_sql($sql, $params);
+        if ((!empty($forumscale[$modinst->instance])) &&
+            ($forumscale[$modinst->instance]->scale > 0) &&
+            ($forumscale[$modinst->instance]->grade_forum != 0)) {
+            return self::std_meta($modinst, 'posted');
+        }
+        return null; // Whole forum grading off for this forum.
     }
 
     /**
@@ -399,6 +431,39 @@ class activity {
     }
 
     /**
+     * Get number of students who have 'posted', then combined with knowing the number
+     * submitted 'graded' then can deduce the 'ungraded'.
+     *
+     * @param int $courseid
+     * @param cm_info $mod
+     * @return int
+     */
+    protected static function forum_num_submissions($courseid, $mod) {
+        global $DB;
+
+        /* Get the 'discussions' id's for the forum id then see which students have
+           'posted' in / started them and thus should be graded if they have not
+           been. */
+        $params['forumid'] = $mod->instance;
+        $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+        $students = $studentscache->get($courseid);
+        $userids = implode(',', $students);
+
+        $sql = "SELECT count(DISTINCT fp.userid) as total
+                FROM {forum_posts} fp, {forum_discussions} fd
+                WHERE fd.forum = :forumid
+                AND fp.userid IN ($userids)
+                AND fp.discussion = fd.id";
+        $studentspostedcount = $DB->get_records_sql($sql, $params);
+
+        if (!empty($studentspostedcount)) {
+            return implode('', array_keys($studentspostedcount));
+        }
+
+        return 0;
+    }
+
+    /**
      * Get number of submissions for lesson activity.
      *
      * @param int $courseid
@@ -418,6 +483,39 @@ class activity {
      */
     protected static function quiz_num_submissions($courseid, $mod) {
         return self::std_num_submissions($courseid, $mod, 'quiz', 'quiz', 'quiz_attempts');
+    }
+
+    /**
+     * Get number of submissions 'graded' for forum activity when whole forum grading.
+     *
+     * @param int $courseid
+     * @param cm_info $mod
+     * @return int
+     */
+    protected static function forum_num_submissions_ungraded($courseid, $mod) {
+        global $DB;
+
+        $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+        $students = $studentscache->get($courseid);
+        $userids = implode(',', $students);
+
+        $params['forumid'] = $mod->instance;
+        /* Note: As soon as a student is graded then it appears that 'grade' changes to
+                 a value, so this could be '0', thus be all 'Not set's when using a
+                 scale.  Does not seem to be a way to solve this!  But then a student
+                 could get nothing and 'saving' is an act of accessment. */
+        $sql = "SELECT count(f.id) as total
+                    FROM {forum_grades} f
+
+                    WHERE f.userid IN ($userids)
+                    AND f.grade IS NOT NULL
+                    AND f.forum = :forumid";
+        $studentcount = $DB->get_records_sql($sql, $params);
+
+        if (!empty($studentcount)) {
+            return implode('', array_keys($studentcount));
+        }
+        return 0;
     }
 
     /**
