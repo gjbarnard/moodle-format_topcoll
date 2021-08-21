@@ -512,10 +512,15 @@ error_log('forum_num_submissions:'.print_r($moddiscussions, true));
 
         $params['forumid'] = $mod->instance;
 error_log('forum_num_submissions_ungraded:'.print_r($params, true));
+        /* Note: As soon as a student is graded then it appears that 'grade' changes to
+                 a value, so this could be '0', thus be all 'Not set's when using a
+                 scale.  Does not seem to be a way to solve this!  But then a student
+                 could get nothing and 'saving' is an act of accessment. */
         $sql = "SELECT count(f.id) as total
                     FROM {forum_grades} f
 
                     WHERE f.userid IN ($userids)
+                    AND f.grade IS NOT NULL
                     AND f.forum = :forumid";
         $studentcount = $DB->get_records_sql($sql, $params);
         error_log('forum_num_submissions_ungraded2:'.print_r($studentcount, true));
