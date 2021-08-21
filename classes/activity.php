@@ -449,7 +449,6 @@ class activity {
                     FROM {forum_discussions} fd
                     WHERE fd.forum = :forumid";
         $moddiscussions = $DB->get_records_sql($sql, $params);
-error_log('forum_num_submissions:'.print_r($moddiscussions, true));
 
         if (!empty($moddiscussions)) {
             // Now use that with the 'posts' table.
@@ -464,8 +463,7 @@ error_log('forum_num_submissions:'.print_r($moddiscussions, true));
                         WHERE fp.userid IN ($userids)
                         AND fp.discussion IN ($discussionids)";
             $studentspostedcount = $DB->get_records_sql($sql, $params);
-            error_log('forum_num_submissions2: '.print_r($studentspostedcount, true));
-            error_log('forum_num_submissions3: '.print_r(implode('',array_keys($studentspostedcount)), true));
+
             if (!empty($studentspostedcount)) {
                 return implode('',array_keys($studentspostedcount));
             }
@@ -511,7 +509,6 @@ error_log('forum_num_submissions:'.print_r($moddiscussions, true));
         $userids = implode(',', $students);
 
         $params['forumid'] = $mod->instance;
-error_log('forum_num_submissions_ungraded:'.print_r($params, true));
         /* Note: As soon as a student is graded then it appears that 'grade' changes to
                  a value, so this could be '0', thus be all 'Not set's when using a
                  scale.  Does not seem to be a way to solve this!  But then a student
@@ -523,8 +520,7 @@ error_log('forum_num_submissions_ungraded:'.print_r($params, true));
                     AND f.grade IS NOT NULL
                     AND f.forum = :forumid";
         $studentcount = $DB->get_records_sql($sql, $params);
-        error_log('forum_num_submissions_ungraded2:'.print_r($studentcount, true));
-        error_log('forum_num_submissions_ungraded3:'.print_r(implode('',array_keys($studentcount)), true));
+
         if (!empty($studentcount)) {
             return implode('',array_keys($studentcount));
         }
