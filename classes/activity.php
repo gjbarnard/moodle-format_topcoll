@@ -443,30 +443,20 @@ class activity {
         /* Get the 'discussions' id's for the forum id then see which students have
            'posted' in / started them and thus should be graded if they have not
            been. */
-
         $params['forumid'] = $mod->instance;
-        $sql = "SELECT fd.id
-                    FROM {forum_discussions} fd
-                    WHERE fd.forum = :forumid";
-        $moddiscussions = $DB->get_records_sql($sql, $params);
+        $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+        $students = $studentscache->get($courseid);
+        $userids = implode(',', $students);
 
-        if (!empty($moddiscussions)) {
-            // Now use that with the 'posts' table.
-            $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
-            $students = $studentscache->get($courseid);
-            $userids = implode(',', $students);
-            $discussionids = implode(',', array_keys($moddiscussions));
+        $sql = "SELECT count(DISTINCT fp.userid) as total 
+                FROM {forum_posts} fp, {forum_discussions} fd
+                WHERE fd.forum = :forumid
+                AND fp.userid IN ($userids)
+                AND fp.discussion = fd.id";
+        $studentspostedcount = $DB->get_records_sql($sql, $params);
 
-            $sql = "SELECT count(DISTINCT fp.userid) as total
-                        FROM {forum_posts} fp
-
-                        WHERE fp.userid IN ($userids)
-                        AND fp.discussion IN ($discussionids)";
-            $studentspostedcount = $DB->get_records_sql($sql, $params);
-
-            if (!empty($studentspostedcount)) {
-                return implode('', array_keys($studentspostedcount));
-            }
+        if (!empty($studentspostedcount)) {
+            return implode('', array_keys($studentspostedcount));
         }
 
         return 0;
