@@ -448,7 +448,7 @@ class activity {
         $students = $studentscache->get($courseid);
         $userids = implode(',', $students);
 
-        $sql = "SELECT count(DISTINCT fp.userid) as total 
+        $sql = "SELECT count(DISTINCT fp.userid) as total
                 FROM {forum_posts} fp, {forum_discussions} fd
                 WHERE fd.forum = :forumid
                 AND fp.userid IN ($userids)
