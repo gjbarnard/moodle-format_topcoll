@@ -1,5 +1,9 @@
 ﻿Version Information
 ===================
+
+Version 3.11.0.3 - TBR
+-----------------------------
+
 Version 3.11.0.2 - 20/08/2021
 -----------------------------
   1. Add 'aria-controls' (https://www.w3.org/TR/wai-aria-practices/examples/disclosure/disclosure-faq.html) - CONTRIB-8637.
