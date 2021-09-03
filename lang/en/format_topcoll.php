@@ -382,10 +382,12 @@ $string['feedbackavailable'] = 'Feedback available';
 $string['xofyanswered'] = '{$a->completed} of {$a->participants} answered';
 $string['xofyattempted'] = '{$a->completed} of {$a->participants} attempted';
 $string['xofycontributed'] = '{$a->completed} of {$a->participants} contributed';
+$string['xofyposted'] = '{$a->completed} of {$a->participants} posted';
 $string['xofysubmitted'] = '{$a->completed} of {$a->participants} submitted';
 $string['xanswered'] = '{$a->completed} answered';
 $string['xattempted'] = '{$a->completed} attempted';
 $string['xcontributed'] = '{$a->completed} contributed';
+$string['xposted'] = '{$a->completed} posted';
 $string['xsubmitted'] = '{$a->completed} submitted';
 $string['xungraded'] = '{$a} ungraded';
 
