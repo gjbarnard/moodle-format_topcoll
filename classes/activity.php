@@ -258,12 +258,13 @@ class activity {
         global $DB;
 
         $params['forumid'] = $modinst->instance;
-        $sql = "SELECT f.id, f.scale
+        $sql = "SELECT f.id, f.scale, f.grade_forum
                     FROM {forum} f
                     WHERE f.id = :forumid";
         $forumscale = $DB->get_records_sql($sql, $params);
-
-        if ((!empty($forumscale[$modinst->instance])) && ($forumscale[$modinst->instance]->scale != 0) ) {
+        if ((!empty($forumscale[$modinst->instance])) &&
+            ($forumscale[$modinst->instance]->scale > 0) &&
+            ($forumscale[$modinst->instance]->grade_forum > 0)) {
             return self::std_meta($modinst, 'posted');
         }
         return null; // Whole forum grading off for this forum.
