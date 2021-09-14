@@ -264,7 +264,7 @@ class activity {
         $forumscale = $DB->get_records_sql($sql, $params);
         if ((!empty($forumscale[$modinst->instance])) &&
             ($forumscale[$modinst->instance]->scale > 0) &&
-            ($forumscale[$modinst->instance]->grade_forum > 0)) {
+            ($forumscale[$modinst->instance]->grade_forum != 0)) {
             return self::std_meta($modinst, 'posted');
         }
         return null; // Whole forum grading off for this forum.
