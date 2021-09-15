@@ -132,19 +132,22 @@ class activity {
                 } else {
                     $meta->numparticipants = self::course_participant_count($courseid, $mod);
                 }
-                if (method_exists('format_topcoll\\activity', $methodnsubmissions)) {
-                    $meta->numsubmissions = call_user_func('format_topcoll\\activity::'.
-                        $methodnsubmissions, $courseid, $mod);
-                }
-                if (method_exists('format_topcoll\\activity', $methodnumungraded)) {
-                    $meta->numrequiregrading = call_user_func('format_topcoll\\activity::'.
-                        $methodnumungraded, $courseid, $mod);
-                }
-                if ($mod->modname === 'forum') {
-                    /* Forum has number of students who have 'posted' in 'numsubmissions'
-                       and the number of students who's posts have been graded in 'numrequiregrading',
-                       so we need to adjust things. */
-                    $meta->numrequiregrading = $meta->numsubmissions - $meta->numrequiregrading;
+                if (!empty($meta->numparticipants)) {
+                    // Only need to bother if there are participants!
+                    if (method_exists('format_topcoll\\activity', $methodnsubmissions)) {
+                        $meta->numsubmissions = call_user_func('format_topcoll\\activity::'.
+                            $methodnsubmissions, $courseid, $mod);
+                    }
+                    if (method_exists('format_topcoll\\activity', $methodnumungraded)) {
+                        $meta->numrequiregrading = call_user_func('format_topcoll\\activity::'.
+                            $methodnumungraded, $courseid, $mod);
+                    }
+                    if ($mod->modname === 'forum') {
+                        /* Forum has number of students who have 'posted' in 'numsubmissions'
+                           and the number of students who's posts have been graded in 'numrequiregrading',
+                           so we need to adjust things. */
+                        $meta->numrequiregrading = $meta->numsubmissions - $meta->numrequiregrading;
+                    }
                 }
             }
         } else if ($isgradeable) {
