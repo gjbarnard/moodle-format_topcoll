@@ -6,6 +6,7 @@ Version 3.9.1.6 - TBR
   2. Add caching to activity meta information in the hope of improving performance.
   3. Add 'aria-live=polite' to the section content and 'aria-controls' to the open / close all buttons - CONTRIB-8637.
   4. Add support for Forums in "Course page further information" - #105.
+  5. Fix 'Collapsed topics rollover settings aren't accessible' - #111.
 
 Version 3.9.1.5 - 02/07/2021
 ----------------------------
