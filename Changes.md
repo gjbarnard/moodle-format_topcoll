@@ -1,6 +1,6 @@
 ﻿Version Information
 ===================
-Version 3.9.1.6 - TBR
+Version 3.9.1.6 - 30/09/2021
 ----------------------------
   1. Add 'aria-controls' (https://www.w3.org/TR/wai-aria-practices/examples/disclosure/disclosure-faq.html) - CONTRIB-8637.
   2. Add caching to activity meta information in the hope of improving performance.
