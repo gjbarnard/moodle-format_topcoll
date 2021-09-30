@@ -1,7 +1,7 @@
 ﻿Version Information
 ===================
 
-Version 3.11.0.3 - TBR
+Version 3.11.0.3 - 30/09/2021
 -----------------------------
   1. Add support for Forums in "Course page further information" - #105.
   2. Fix 'Collapsed topics rollover settings aren't accessible' - #111.
