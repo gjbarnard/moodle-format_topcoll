@@ -391,21 +391,6 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         );
         $thevalue = self::call_method($this->outputus, 'render_from_template', array('format_topcoll/toggleall', $toggleallcontext));
 
-
-        /*$thevalue = '<li class="tcsection main clearfix" id="toggle-all">';
-        $thevalue .= '<div class="left side"><img class="icon spacer" ';
-        $thevalue .= 'width="1" height="1" alt="" aria-hidden="true" src="'.$CFG->wwwroot.'/theme/image.php/_s/boost/core/1/spacer" />';
-        $thevalue .= '</div>';
-        $thevalue .= '<div class="content">';
-        $thevalue .= '<div class="sectionbody toggle-all-content toggle-arrow toggle-arrow-hover">';
-        $thevalue .= '<h4 class="on tc-medium" id="toggles-all-opened" role="button" tabindex="0" ';
-        $thevalue .= 'title="Open all topics" aria-controls="toggledsection-1">Open all</h4>';
-        $thevalue .= '<h4 class="off tc-medium" id="toggles-all-closed" role="button" tabindex="0" ';
-        $thevalue .= 'title="Close all topics" aria-controls="toggledsection-1">Close all</h4>';
-        $thevalue .= '</div></div>';
-        $thevalue .= '<div class="right side"><img class="icon spacer" width="1" height="1" alt="" aria-hidden="true" src="';
-        $thevalue .= $CFG->wwwroot.'/theme/image.php/_s/boost/core/1/spacer" /></div>';
-        $thevalue .= '</li>';*/
         $this->assertEquals($thevalue, $theclass);
     }
 
@@ -414,16 +399,12 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
 
         $this->init();
         $theclass = self::call_method($this->outputus, 'display_instructions', array());
-        $thevalue = '<li class="tcsection main clearfix" id="topcoll-display-instructions"><div class="left side">';
-        $thevalue .= '<img class="icon spacer" width="1" height="1" alt="" aria-hidden="true" src="';
-        $thevalue .= $CFG->wwwroot.'/theme/image.php/_s/boost/core/1/spacer" /></div>';
-        $thevalue .= '<div class="content">';
-        $thevalue .= '<div class="sectionbody"><p class="topcoll-display-instructions">Instructions: Clicking on the section ';
-        $thevalue .= 'name will show / hide the section.</p></div></div>';
-        $thevalue .= '<div class="right side">';
-        $thevalue .= '<img class="icon spacer" width="1" height="1" alt="" aria-hidden="true" src="';
-        $thevalue .= $CFG->wwwroot.'/theme/image.php/_s/boost/core/1/spacer" /></div>';
-        $thevalue .= '</li>';
+
+        $displayinstructionscontext = array(
+            'rtl' => false,
+            'spacer' => '<img class="icon spacer" width="1" height="1" alt="" aria-hidden="true" src="'.$CFG->wwwroot.'/theme/image.php/_s/boost/core/1/spacer" />',
+        );
+        $thevalue = self::call_method($this->outputus, 'render_from_template', array('format_topcoll/displayinstructions', $displayinstructionscontext));
 
         $this->assertEquals($thevalue, $theclass);
     }
