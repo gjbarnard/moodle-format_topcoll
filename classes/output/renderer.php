@@ -59,7 +59,6 @@ class renderer extends \format_section_renderer_base {
     protected $tctoggleiconsize;
     protected $formatresponsive;
     protected $rtl = false;
-    protected $bsnewgrid = false;
 
     /**
      * Constructor method, calls the parent constructor - MDL-21097.
@@ -84,14 +83,6 @@ class renderer extends \format_section_renderer_base {
 
         $this->rtl = right_to_left();
 
-        if (strcmp($page->theme->name, 'boost') === 0) {
-            $this->bsnewgrid = true;
-        } else if (!empty($page->theme->parents)) {
-            if (in_array('boost', $page->theme->parents) === true) {
-                $this->bsnewgrid = true;
-            }
-        }
-
         // Portable.
         $devicetype = \core_useragent::get_device_type(); // In /lib/classes/useragent.php.
         if ($devicetype == "mobile") {
@@ -109,11 +100,7 @@ class renderer extends \format_section_renderer_base {
      * @return string HTML to output.
      */
     protected function start_section_list() {
-        if ($this->bsnewgrid) {
-            return html_writer::start_tag('ul', array('class' => 'ctopics bsnewgrid'));
-        } else {
-            return html_writer::start_tag('ul', array('class' => 'ctopics'));
-        }
+        return html_writer::start_tag('ul', array('class' => 'ctopics'));
     }
 
     /**
@@ -122,9 +109,6 @@ class renderer extends \format_section_renderer_base {
      */
     protected function start_toggle_section_list() {
         $classes = 'ctopics topics';
-        if ($this->bsnewgrid) {
-            $classes .= ' bsnewgrid';
-        }
         $attributes = array();
         if (($this->mobiletheme === true) || ($this->tablettheme === true)) {
             $classes .= ' ctportable';
@@ -1439,23 +1423,15 @@ class renderer extends \format_section_renderer_base {
     }
 
     protected function get_row_class() {
-        if ($this->bsnewgrid) {
-            return 'row';
-        } else {
-            return 'row-fluid';
-        }
+        return 'row';
     }
 
     protected function get_column_class($columns) {
-        if ($this->bsnewgrid) {
-            $colclasses = array(
-                1 => 'col-sm-12 col-md-12 col-lg-12',
-                2 => 'col-sm-6 col-md-6 col-lg-6',
-                3 => 'col-md-4 col-lg-4',
-                4 => 'col-lg-3');
-        } else {
-            $colclasses = array(1 => 'span12', 2 => 'span6', 3 => 'span4', 4 => 'span3');
-        }
+        static $colclasses = array(
+            1 => 'col-sm-12',
+            2 => 'col-sm-6',
+            3 => 'col-md-4',
+            4 => 'col-lg-3');
 
         return $colclasses[$columns];
     }

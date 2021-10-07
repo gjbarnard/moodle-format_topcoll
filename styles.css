@@ -48,7 +48,7 @@
 .course-content ul.ctopics li.tcsection {
     border-bottom: 0;
     list-style: none;
-    margin: 4px 1px 1px 1px;
+    margin: 0;
     padding: 0;
 }
 .course-content ul.ctopics li.section.main,
@@ -59,11 +59,6 @@
 
 .format-topcoll.path-course-view .completionprogress {
     z-index: 1;
-}
-
-.course-content ul.ctopics.bsnewgrid li.section.main,
-.course-content ul.ctopics.bsnewgrid li.tcsection {
-    margin: 0;
 }
 
 /* Fix for ordered and unordered list in course topic summary & course weekly summary - from theme/base/style/core.css
