@@ -96,6 +96,28 @@ class renderer extends \format_section_renderer_base {
     }
 
     /**
+     * Generate the section title, wraps it in a link to the section page if page is to be displayed on a separate page
+     *
+     * @param stdClass $section The course_section entry from DB
+     * @param stdClass $course The course entry from DB
+     * @return string HTML to output.
+     */
+    public function section_title($section, $course) {
+        return $this->render($this->courseformat->inplace_editable_render_section_name($section));
+    }
+
+    /**
+     * Generate the section title to be displayed on the section page, without a link
+     *
+     * @param stdClass $section The course_section entry from DB
+     * @param stdClass $course The course entry from DB
+     * @return string HTML to output.
+     */
+    public function section_title_without_link($section, $course) {
+        return $this->render($this->courseformat->inplace_editable_render_section_name($section, false));
+    }
+
+    /**
      * Generate the starting container html for a list of sections.
      * @return string HTML to output.
      */
@@ -239,28 +261,6 @@ class renderer extends \format_section_renderer_base {
             }
         }
         return $o;
-    }
-
-    /**
-     * Generate the section title, wraps it in a link to the section page if page is to be displayed on a separate page
-     *
-     * @param stdClass $section The course_section entry from DB
-     * @param stdClass $course The course entry from DB
-     * @return string HTML to output.
-     */
-    public function section_title($section, $course) {
-        return $this->render($this->courseformat->inplace_editable_render_section_name($section));
-    }
-
-    /**
-     * Generate the section title to be displayed on the section page, without a link
-     *
-     * @param stdClass $section The course_section entry from DB
-     * @param stdClass $course The course entry from DB
-     * @return string HTML to output.
-     */
-    public function section_title_without_link($section, $course) {
-        return $this->render($this->courseformat->inplace_editable_render_section_name($section, false));
     }
 
     /**
@@ -670,7 +670,6 @@ class renderer extends \format_section_renderer_base {
     protected function stealth_section_header($sectionno) {
         $o = '';
         $sectionstyle = '';
-        $course = $this->courseformat->get_course();
         // Horizontal column layout.
         if ((!$this->formatresponsive) && ($sectionno != 0) && ($this->tcsettings['layoutcolumnorientation'] == 2)) {
             $sectionstyle .= ' ' . $this->get_column_class($this->tcsettings['layoutcolumns']);
@@ -688,6 +687,7 @@ class renderer extends \format_section_renderer_base {
         }
         $o .= html_writer::start_tag('li', $liattributes);
         if ($this->rtl) {
+            $course = $this->courseformat->get_course();
             $rightcontent = $this->section_right_content($section, $course, false);
             $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
         } else {
@@ -1280,26 +1280,15 @@ class renderer extends \format_section_renderer_base {
      * @return string HTML to output.
      */
     protected function display_instructions() {
-        $o = html_writer::start_tag('li',
-            array('class' => 'tcsection main clearfix', 'id' => 'topcoll-display-instructions'));
-
-        if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
-            $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
-        }
-
-        $o .= html_writer::start_tag('div', array('class' => 'content'));
-        $o .= html_writer::start_tag('div', array('class' => 'sectionbody'));
-        $o .= html_writer::tag('p', get_string('instructions', 'format_topcoll'),
-            array('class' => 'topcoll-display-instructions')
+        $displayinstructionscontext = array(
+            'rtl' => $this->rtl
         );
-        $o .= html_writer::end_tag('div');
-        $o .= html_writer::end_tag('div');
-        if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
-            $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
-        }
-        $o .= html_writer::end_tag('li');
 
-        return $o;
+        if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
+            $displayinstructionscontext['spacer'] = $this->output->spacer();
+        }
+
+        return $this->render_from_template('format_topcoll/displayinstructions', $displayinstructionscontext);
     }
 
     /**
