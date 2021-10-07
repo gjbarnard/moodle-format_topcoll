@@ -205,7 +205,7 @@ the 'toggle all' functionality.  For example:
         background-image: url([[pix:format_topcoll|arrow_right]]);
     }
 
-    #toggle-all .content .toggle-arrow h4 span.off {
+    #toggle-all .content .toggle-arrow .toggle-all.off {
         background-image: url([[pix:format_topcoll|arrow_down]]); 
     }
 

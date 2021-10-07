@@ -1225,54 +1225,27 @@ class renderer extends \format_section_renderer_base {
      * @return string HTML to output.
      */
     protected function toggle_all($toggledsections) {
-        $o = html_writer::start_tag('li', array('class' => 'tcsection main clearfix', 'id' => 'toggle-all'));
+        $sct = $this->courseformat->get_structure_collection_type();
+        $toggleallcontext = array(
+            'iconset' => $this->tcsettings['toggleiconset'],
+            'rtl' => $this->rtl,
+            'sctcloseall' => get_string('sctcloseall', 'format_topcoll', $sct),
+            'sctopenall' => get_string('sctopenall', 'format_topcoll', $sct),
+            'toggleallhover' => ($this->tcsettings['toggleallhover'] == 2),
+            'tctoggleiconsize' => $this->tctoggleiconsize
+        );
 
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
-            $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'left side'));
+            $toggleallcontext['spacer'] = $this->output->spacer();
         }
 
-        $o .= html_writer::start_tag('div', array('class' => 'content'));
-        $iconsetclass = ' toggle-' . $this->tcsettings['toggleiconset'];
-        if ($this->tcsettings['toggleallhover'] == 2) {
-            $iconsetclass .= '-hover' . $iconsetclass;
-        }
-        $o .= html_writer::start_tag('div', array('class' => 'sectionbody' . $iconsetclass));
-        $o .= html_writer::start_tag('h4', null);
         $ariacontrolselements = array();
         foreach ($toggledsections as $toggledsection) {
             $ariacontrolselements[] = 'toggledsection-'.$toggledsection;
         }
-        $ariacontrols = implode(' ', $ariacontrolselements);
-        $sct = $this->courseformat->get_structure_collection_type();
-        $o .= html_writer::tag('span', get_string('topcollopened', 'format_topcoll'),
-            array(
-                'class' => 'on '.$this->tctoggleiconsize,
-                'id' => 'toggles-all-opened',
-                'role' => 'button',
-                'tabindex' => '0',
-                'title' => get_string('sctopenall', 'format_topcoll', $sct),
-                'aria-controls' => $ariacontrols
-            )
-        );
-        $o .= html_writer::tag('span', get_string('topcollclosed', 'format_topcoll'),
-            array(
-                'class' => 'off '.$this->tctoggleiconsize,
-                'id' => 'toggles-all-closed',
-                'role' => 'button',
-                'tabindex' => '0',
-                'title' => get_string('sctcloseall', 'format_topcoll', $sct),
-                'aria-controls' => $ariacontrols
-            )
-        );
-        $o .= html_writer::end_tag('h4');
-        $o .= html_writer::end_tag('div');
-        $o .= html_writer::end_tag('div');
-        if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
-            $o .= html_writer::tag('div', $this->output->spacer(), array('class' => 'right side'));
-        }
-        $o .= html_writer::end_tag('li');
+        $toggleallcontext['ariacontrols'] = implode(' ', $ariacontrolselements);
 
-        return $o;
+        return $this->render_from_template('format_topcoll/toggleall', $toggleallcontext);
     }
 
     /**

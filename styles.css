@@ -99,16 +99,16 @@
 }
 
 /* Toggle icon size */
-#toggle-all .content .sectionbody h4 span.tc-small,
+#toggle-all .content .sectionbody .toggle-all.tc-small,
 .course-content ul.ctopics li.section .content .toggle span.tc-small {
     background-size: 16px 16px;
 }
 
-#toggle-all .content .sectionbody h4 span.tc-medium,
+#toggle-all .content .sectionbody .toggle-all.tc-medium,
 .course-content ul.ctopics li.section .content .toggle span.tc-medium {
     background-size: 24px 24px;
 }
-#toggle-all .content .sectionbody h4 span.tc-large,
+#toggle-all .content .sectionbody .toggle-all.tc-large,
 .course-content ul.ctopics li.section .content .toggle span.tc-large {
     background-size: 32px 32px;
 }
@@ -160,7 +160,8 @@
 }
 
 /* Icon set common. */
-.course-content ul.ctopics li.section .content .toggle span.the_toggle, #toggle-all .content h4 span {
+.course-content ul.ctopics li.section .content .toggle span.the_toggle,
+#toggle-all .content .toggle-all {
     background-color: transparent;
     background-repeat: no-repeat;
     margin: 0 4px;
@@ -171,22 +172,22 @@
 .course-content ul.ctopics li.section .content .toggle-arrow span.toggle_closed,
 .course-content ul.ctopics li.section .content .toggle-arrow span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow span.toggle_open, /* JavaScript enabled */
-#toggle-all .content .toggle-arrow h4 span.off {
+#toggle-all .content .toggle-arrow .toggle-all.off {
     background-image: url([[pix:format_topcoll|arrow_down]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow span.toggle_closed, /* JavaScript enabled */
-#toggle-all .content .toggle-arrow h4 span.on,
+#toggle-all .content .toggle-arrow .toggle-all.on,
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="arrow"],
 body#page-course-edit select#id_toggleiconset option[value="arrow"] {
     background-image: url([[pix:format_topcoll|arrow_right]]);
 }
 
-#toggle-all .content .toggle-arrow-hover h4 span.off:hover {
+#toggle-all .content .toggle-arrow-hover .toggle-all.off:hover {
     background-image: url([[pix:format_topcoll|arrow_right_glow]]);
 }
 
-#toggle-all .content .toggle-arrow-hover h4 span.on:hover {
+#toggle-all .content .toggle-arrow-hover .toggle-all.on:hover {
     background-image: url([[pix:format_topcoll|arrow_down_glow]]);
 }
 
@@ -194,22 +195,22 @@ body#page-course-edit select#id_toggleiconset option[value="arrow"] {
 .course-content ul.ctopics li.section .content .toggle-bulb span.toggle_closed,
 .course-content ul.ctopics li.section .content .toggle-bulb span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-bulb span.toggle_open, /* JavaScript enabled */
-#toggle-all .content .toggle-bulb h4 span.off {
+#toggle-all .content .toggle-bulb .toggle-all.off {
     background-image: url([[pix:format_topcoll|bulb_on]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-bulb span.toggle_closed, /* JavaScript enabled */
-#toggle-all .content .toggle-bulb h4 span.on,
+#toggle-all .content .toggle-bulb .toggle-all.on,
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="bulb"],
 body#page-course-edit select#id_toggleiconset option[value="bulb"] {
     background-image: url([[pix:format_topcoll|bulb_off]]);
 }
 
-#toggle-all .content .toggle-bulb-hover h4 span.off:hover {
+#toggle-all .content .toggle-bulb-hover .toggle-all.off:hover {
     background-image: url([[pix:format_topcoll|bulb_off_glow]]);
 }
 
-#toggle-all .content .toggle-bulb-hover h4 span.on:hover {
+#toggle-all .content .toggle-bulb-hover .toggle-all.on:hover {
     background-image: url([[pix:format_topcoll|bulb_on_glow]]);
 }
 
@@ -217,22 +218,22 @@ body#page-course-edit select#id_toggleiconset option[value="bulb"] {
 .course-content ul.ctopics li.section .content .toggle-cloud span.toggle_closed,
 .course-content ul.ctopics li.section .content .toggle-cloud span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-cloud span.toggle_open, /* JavaScript enabled */
-#toggle-all .content .toggle-cloud h4 span.off {
+#toggle-all .content .toggle-cloud .toggle-all.off {
     background-image: url([[pix:format_topcoll|cloud_on]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-cloud span.toggle_closed, /* JavaScript enabled */
-#toggle-all .content .toggle-cloud h4 span.on,
+#toggle-all .content .toggle-cloud .toggle-all.on,
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="cloud"],
 body#page-course-edit select#id_toggleiconset option[value="cloud"] {
     background-image: url([[pix:format_topcoll|cloud_off]]);
 }
 
-#toggle-all .content .toggle-cloud-hover h4 span.off:hover {
+#toggle-all .content .toggle-cloud-hover .toggle-all.off:hover {
     background-image: url([[pix:format_topcoll|cloud_off_glow]]);
 }
 
-#toggle-all .content .toggle-cloud-hover h4 span.on:hover {
+#toggle-all .content .toggle-cloud-hover .toggle-all.on:hover {
     background-image: url([[pix:format_topcoll|cloud_on_glow]]);
 }
 
@@ -240,22 +241,22 @@ body#page-course-edit select#id_toggleiconset option[value="cloud"] {
 .course-content ul.ctopics li.section .content .toggle-eye span.toggle_closed,
 .course-content ul.ctopics li.section .content .toggle-eye span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-eye span.toggle_open, /* JavaScript enabled */
-#toggle-all .content .toggle-eye h4 span.off {
+#toggle-all .content .toggle-eye .toggle-all.off {
     background-image: url([[pix:format_topcoll|eye_show]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-eye span.toggle_closed, /* JavaScript enabled */
-#toggle-all .content .toggle-eye h4 span.on,
+#toggle-all .content .toggle-eye .toggle-all.on,
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="eye"],
 body#page-course-edit select#id_toggleiconset option[value="eye"] {
     background-image: url([[pix:format_topcoll|eye_hide]]);
 }
 
-#toggle-all .content .toggle-eye-hover h4 span.off:hover {
+#toggle-all .content .toggle-eye-hover .toggle-all.off:hover {
     background-image: url([[pix:format_topcoll|eye_hide_glow]]);
 }
 
-#toggle-all .content .toggle-eye-hover h4 span.on:hover {
+#toggle-all .content .toggle-eye-hover .toggle-all.on:hover {
     background-image: url([[pix:format_topcoll|eye_show_glow]]);
 }
 
@@ -263,22 +264,22 @@ body#page-course-edit select#id_toggleiconset option[value="eye"] {
 .course-content ul.ctopics li.section .content .toggle-folder span.toggle_closed,
 .course-content ul.ctopics li.section .content .toggle-folder span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-folder span.toggle_open, /* JavaScript enabled */
-#toggle-all .content .toggle-folder h4 span.off {
+#toggle-all .content .toggle-folder .toggle-all.off {
     background-image: url([[pix:format_topcoll|folder_open]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-folder span.toggle_closed, /* JavaScript enabled */
-#toggle-all .content .toggle-folder h4 span.on,
+#toggle-all .content .toggle-folder .toggle-all.on,
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="folder"],
 body#page-course-edit select#id_toggleiconset option[value="folder"] {
     background-image: url([[pix:format_topcoll|folder_closed]]);
 }
 
-#toggle-all .content .toggle-folder-hover h4 span.off:hover {
+#toggle-all .content .toggle-folder-hover .toggle-all.off:hover {
     background-image: url([[pix:format_topcoll|folder_closed_glow]]);
 }
 
-#toggle-all .content .toggle-folder-hover h4 span.on:hover {
+#toggle-all .content .toggle-folder-hover .toggle-all.on:hover {
     background-image: url([[pix:format_topcoll|folder_open_glow]]);
 }
 
@@ -286,14 +287,14 @@ body#page-course-edit select#id_toggleiconset option[value="folder"] {
 .course-content ul.ctopics li.section .content .toggle-groundsignal span.toggle_closed,
 .course-content ul.ctopics li.section .content .toggle-ground-signal span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-groundsignal span.toggle_open, /* JavaScript enabled */
-#toggle-all .content .toggle-groundsignal h4 span.off,
-#toggle-all .content .toggle-groundsignal-hover h4 span.on:hover {
+#toggle-all .content .toggle-groundsignal .toggle-all.off,
+#toggle-all .content .toggle-groundsignal-hover .toggle-all.on:hover {
     background-image: url([[pix:format_topcoll|ground_signal_on]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-groundsignal span.toggle_closed, /* JavaScript enabled */
-#toggle-all .content .toggle-groundsignal-hover h4 span.off:hover,
-#toggle-all .content .toggle-groundsignal h4 span.on,
+#toggle-all .content .toggle-groundsignal-hover .toggle-all.off:hover,
+#toggle-all .content .toggle-groundsignal .toggle-all.on,
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="groundsignal"],
 body#page-course-edit select#id_toggleiconset option[value="groundsignal"] {
     background-image: url([[pix:format_topcoll|ground_signal_off]]);
@@ -303,22 +304,22 @@ body#page-course-edit select#id_toggleiconset option[value="groundsignal"] {
 .course-content ul.ctopics li.section .content .toggle-led span.toggle_closed,
 .course-content ul.ctopics li.section .content .toggle-led span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-led span.toggle_open, /* JavaScript enabled */
-#toggle-all .content .toggle-led h4 span.off {
+#toggle-all .content .toggle-led .toggle-all.off {
     background-image: url([[pix:format_topcoll|led_on]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-led span.toggle_closed, /* JavaScript enabled */
-#toggle-all .content .toggle-led h4 span.on,
+#toggle-all .content .toggle-led .toggle-all.on,
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="led"],
 body#page-course-edit select#id_toggleiconset option[value="led"] {
     background-image: url([[pix:format_topcoll|led_off]]);
 }
 
-#toggle-all .content .toggle-led-hover h4 span.off:hover {
+#toggle-all .content .toggle-led-hover .toggle-all.off:hover {
     background-image: url([[pix:format_topcoll|led_off_glow]]);
 }
 
-#toggle-all .content .toggle-led-hover h4 span.on:hover {
+#toggle-all .content .toggle-led-hover .toggle-all.on:hover {
     background-image: url([[pix:format_topcoll|led_on_glow]]);
 }
 
@@ -326,22 +327,22 @@ body#page-course-edit select#id_toggleiconset option[value="led"] {
 .course-content ul.ctopics li.section .content .toggle-point span.toggle_closed,
 .course-content ul.ctopics li.section .content .toggle-point span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-point span.toggle_open, /* JavaScript enabled */
-#toggle-all .content .toggle-point h4 span.off {
+#toggle-all .content .toggle-point .toggle-all.off {
     background-image: url([[pix:format_topcoll|point_down]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-point span.toggle_closed, /* JavaScript enabled */
-#toggle-all .content .toggle-point h4 span.on,
+#toggle-all .content .toggle-point .toggle-all.on,
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="point"],
 body#page-course-edit select#id_toggleiconset option[value="point"] {
     background-image: url([[pix:format_topcoll|point_right]]);
 }
 
-#toggle-all .content .toggle-point-hover h4 span.off:hover {
+#toggle-all .content .toggle-point-hover .toggle-all.off:hover {
     background-image: url([[pix:format_topcoll|point_right_glow]]);
 }
 
-#toggle-all .content .toggle-point-hover h4 span.on:hover {
+#toggle-all .content .toggle-point-hover .toggle-all.on:hover {
     background-image: url([[pix:format_topcoll|point_down_glow]]);
 }
 
@@ -349,22 +350,22 @@ body#page-course-edit select#id_toggleiconset option[value="point"] {
 .course-content ul.ctopics li.section .content .toggle-power span.toggle_closed,
 .course-content ul.ctopics li.section .content .toggle-power span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-power span.toggle_open, /* JavaScript enabled */
-#toggle-all .content .toggle-power h4 span.off {
+#toggle-all .content .toggle-power .toggle-all.off {
     background-image: url([[pix:format_topcoll|toggle_plus]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-power span.toggle_closed, /* JavaScript enabled */
-#toggle-all .content .toggle-power h4 span.on,
+#toggle-all .content .toggle-power .toggle-all.on,
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="power"],
 body#page-course-edit select#id_toggleiconset option[value="power"] {
     background-image: url([[pix:format_topcoll|toggle_minus]]);
 }
 
-#toggle-all .content .toggle-power-hover h4 span.off:hover {
+#toggle-all .content .toggle-power-hover .toggle-all.off:hover {
     background-image: url([[pix:format_topcoll|toggle_minus_glow]]);
 }
 
-#toggle-all .content .toggle-power-hover h4 span.on:hover {
+#toggle-all .content .toggle-power-hover .toggle-all.on:hover {
     background-image: url([[pix:format_topcoll|toggle_plus_glow]]);
 }
 
@@ -372,22 +373,22 @@ body#page-course-edit select#id_toggleiconset option[value="power"] {
 .course-content ul.ctopics li.section .content .toggle-radio span.toggle_closed,
 .course-content ul.ctopics li.section .content .toggle-radio span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-radio span.toggle_open, /* JavaScript enabled */
-#toggle-all .content .toggle-radio h4 span.off {
+#toggle-all .content .toggle-radio .toggle-all.off {
     background-image: url([[pix:format_topcoll|radio_on]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-radio span.toggle_closed, /* JavaScript enabled */
-#toggle-all .content .toggle-radio h4 span.on,
+#toggle-all .content .toggle-radio .toggle-all.on,
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="radio"],
 body#page-course-edit select#id_toggleiconset option[value="radio"] {
     background-image: url([[pix:format_topcoll|radio_off]]);
 }
 
-#toggle-all .content .toggle-radio-hover h4 span.off:hover {
+#toggle-all .content .toggle-radio-hover .toggle-all.off:hover {
     background-image: url([[pix:format_topcoll|radio_off_glow]]);
 }
 
-#toggle-all .content .toggle-radio-hover h4 span.on:hover {
+#toggle-all .content .toggle-radio-hover .toggle-all.on:hover {
     background-image: url([[pix:format_topcoll|radio_on_glow]]);
 }
 
@@ -395,22 +396,22 @@ body#page-course-edit select#id_toggleiconset option[value="radio"] {
 .course-content ul.ctopics li.section .content .toggle-smiley span.toggle_closed,
 .course-content ul.ctopics li.section .content .toggle-smiley span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-smiley span.toggle_open, /* JavaScript enabled */
-#toggle-all .content .toggle-smiley h4 span.off {
+#toggle-all .content .toggle-smiley .toggle-all.off {
     background-image: url([[pix:format_topcoll|smiley_on]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-smiley span.toggle_closed , /* JavaScript enabled */
-#toggle-all .content .toggle-smiley h4 span.on,
+#toggle-all .content .toggle-smiley .toggle-all.on,
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="smiley"],
 body#page-course-edit select#id_toggleiconset option[value="smiley"] {
     background-image: url([[pix:format_topcoll|smiley_off]]);
 }
 
-#toggle-all .content .toggle-smiley-hover h4 span.off:hover {
+#toggle-all .content .toggle-smiley-hover .toggle-all.off:hover {
     background-image: url([[pix:format_topcoll|smiley_off_glow]]);
 }
 
-#toggle-all .content .toggle-smiley-hover h4 span.on:hover {
+#toggle-all .content .toggle-smiley-hover .toggle-all.on:hover {
     background-image: url([[pix:format_topcoll|smiley_on_glow]]);
 }
 
@@ -418,22 +419,22 @@ body#page-course-edit select#id_toggleiconset option[value="smiley"] {
 .course-content ul.ctopics li.section .content .toggle-square span.toggle_closed,
 .course-content ul.ctopics li.section .content .toggle-square span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-square span.toggle_open, /* JavaScript enabled */
-#toggle-all .content .toggle-square h4 span.off {
+#toggle-all .content .toggle-square .toggle-all.off {
     background-image: url([[pix:format_topcoll|square_on]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-square span.toggle_closed, /* JavaScript enabled */
-#toggle-all .content .toggle-square h4 span.on,
+#toggle-all .content .toggle-square .toggle-all.on,
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="square"],
 body#page-course-edit select#id_toggleiconset option[value="square"] {
     background-image: url([[pix:format_topcoll|square_off]]);
 }
 
-#toggle-all .content .toggle-square-hover h4 span.off:hover {
+#toggle-all .content .toggle-square-hover .toggle-all.off:hover {
     background-image: url([[pix:format_topcoll|square_off_glow]]);
 }
 
-#toggle-all .content .toggle-square-hover h4 span.on:hover {
+#toggle-all .content .toggle-square-hover .toggle-all.on:hover {
     background-image: url([[pix:format_topcoll|square_on_glow]]);
 }
 
@@ -441,22 +442,22 @@ body#page-course-edit select#id_toggleiconset option[value="square"] {
 .course-content ul.ctopics li.section .content .toggle-sunmoon span.toggle_closed,
 .course-content ul.ctopics li.section .content .toggle-sunmoon span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-sunmoon span.toggle_open, /* JavaScript enabled */
-#toggle-all .content .toggle-sunmoon h4 span.off {
+#toggle-all .content .toggle-sunmoon .toggle-all.off {
     background-image: url([[pix:format_topcoll|sunmoon_on]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-sunmoon span.toggle_closed, /* JavaScript enabled */
-#toggle-all .content .toggle-sunmoon h4 span.on,
+#toggle-all .content .toggle-sunmoon .toggle-all.on,
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="sunmoon"],
 body#page-course-edit select#id_toggleiconset option[value="sunmoon"] {
     background-image: url([[pix:format_topcoll|sunmoon_off]]);
 }
 
-#toggle-all .content .toggle-sunmoon-hover h4 span.off:hover {
+#toggle-all .content .toggle-sunmoon-hover .toggle-all.off:hover {
     background-image: url([[pix:format_topcoll|sunmoon_off_glow]]);
 }
 
-#toggle-all .content .toggle-sunmoon-hover h4 span.on:hover {
+#toggle-all .content .toggle-sunmoon-hover .toggle-all.on:hover {
     background-image: url([[pix:format_topcoll|sunmoon_on_glow]]);
 }
 
@@ -464,22 +465,22 @@ body#page-course-edit select#id_toggleiconset option[value="sunmoon"] {
 .course-content ul.ctopics li.section .content .toggle-switch span.toggle_closed,
 .course-content ul.ctopics li.section .content .toggle-switch span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-switch span.toggle_open, /* JavaScript enabled */
-#toggle-all .content .toggle-switch h4 span.off {
+#toggle-all .content .toggle-switch .toggle-all.off {
     background-image: url([[pix:format_topcoll|switch_on]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-switch span.toggle_closed, /* JavaScript enabled */
-#toggle-all .content .toggle-switch h4 span.on,
+#toggle-all .content .toggle-switch .toggle-all.on,
 body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="switch"],
 body#page-course-edit select#id_toggleiconset option[value="switch"] {
     background-image: url([[pix:format_topcoll|switch_off]]);
 }
 
-#toggle-all .content .toggle-switch-hover h4 span.off:hover {
+#toggle-all .content .toggle-switch-hover .toggle-all.off:hover {
     background-image: url([[pix:format_topcoll|switch_off_glow]]);
 }
 
-#toggle-all .content .toggle-switch-hover h4 span.on:hover {
+#toggle-all .content .toggle-switch-hover .toggle-all.on:hover {
     background-image: url([[pix:format_topcoll|switch_on_glow]]);
 }
 
@@ -695,7 +696,8 @@ body.jsenabled .toggledsection.sectionopen {
     display: none; /* Hide when JavaScript not enabled. */
 }
 
-body.jsenabled #toggle-all, body.jsenabled #topcoll-display-instructions {
+body.jsenabled #toggle-all,
+body.jsenabled #topcoll-display-instructions {
     display: block;
 }
 
@@ -703,40 +705,41 @@ body.jsenabled #toggle-all {
     background: none repeat scroll 0 0 transparent;
 }
 
-#toggle-all .content .sectionbody h4 {
+#toggle-all .content .sectionbody.toggle-all-content {
     display: block;
     margin-bottom: 0;
     padding: 6px 0;
 }
 
-#toggle-all .content .sectionbody h4 span {
+#toggle-all .content .sectionbody .toggle-all {
     cursor: pointer;
+    display: inline;
     padding-bottom: 7px;
     padding-top: 7px;
     text-decoration: none;
     width: 35px;
 }
 
-#toggle-all .content .sectionbody h4 span.tc-small {
+#toggle-all .content .sectionbody .toggle-all.tc-small {
     padding-left: 18px; /* The 18px allows the arrow to be with the text next to it. */
     padding-right: 18px;
 }
 
-#toggle-all .content .sectionbody h4 span.tc-medium {
+#toggle-all .content .sectionbody .toggle-all.tc-medium {
     padding-left: 26px; /* The 26px allows the arrow to be with the text next to it. */
     padding-right: 26px;
 }
 
-#toggle-all .content .sectionbody h4 span.tc-large {
+#toggle-all .content .sectionbody .toggle-all.tc-large {
     padding-left: 34px; /* The 34px allows the arrow to be with the text next to it. */
     padding-right: 34px;
 }
 
-#toggle-all .content .sectionbody h4, #toggle-all .content .sectionbody h4 span {
+#toggle-all .content .sectionbody .toggle-all {
     text-align: left;
 }
 
-.dir-rtl #toggle-all .content .sectionbody h4, .dir-rtl #toggle-all .content .sectionbody h4 span {
+.dir-rtl #toggle-all .content .sectionbody .toggle-all {
     text-align: right;
 }
 
