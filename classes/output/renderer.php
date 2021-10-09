@@ -662,6 +662,28 @@ class renderer extends \format_section_renderer_base {
     }
 
     /**
+     * Generate the section.
+     *
+     * @param stdClass $section The course_section entry from DB.
+     * @param stdClass $course The course entry from DB.
+     * @param bool $onsectionpage true if being printed on a section page.
+     * @param int $sectionreturn The section to return to after an action.
+     * @param array $displayoptions The display options.
+     *
+     * @return string HTML to output.
+     */
+    protected function topcoll_section($section, $course, $onsectionpage, $sectionreturn = null, $displayoptions = array()) {
+        $o = $this->section_header($section, $course, $onsectionpage, $sectionreturn);
+        if ($section->uservisible) {
+            $o .= $this->courserenderer->course_section_cm_list($course, $section, $sectionreturn, $displayoptions);
+            $o .= $this->courserenderer->course_section_add_cm_control($course, $section->section, $sectionreturn);
+        }
+        $o .= $this->topcoll_section_footer($section, $course, $onsectionpage, $sectionreturn);
+
+        return $o;
+    }
+
+    /**
      * Generate the header html of a stealth section.
      *
      * @param int $sectionno The section number in the coruse which is being dsiplayed.
@@ -813,12 +835,7 @@ class renderer extends \format_section_renderer_base {
         $thissection = $modinfo->get_section_info(0);
         if ($thissection->summary or !empty($modinfo->sections[0]) or $this->page->user_is_editing()) {
             echo $this->start_section_list();
-            echo $this->section_header($thissection, $course, true, $displaysection);
-            if ($thissection->uservisible) {
-                echo $this->courserenderer->course_section_cm_list($course, $thissection, $displaysection, array('sr' => $displaysection));
-                echo $this->courserenderer->course_section_add_cm_control($course, 0, $displaysection);
-            }
-            echo $this->topcoll_section_footer($thissection, $course, true, $displaysection);
+            echo $this->topcoll_section($thissection, $course, true, $displaysection, array('sr' => $displaysection));
             echo $this->end_section_list();
         }
 
@@ -847,11 +864,7 @@ class renderer extends \format_section_renderer_base {
 
         // Now the list of sections.
         echo $this->start_section_list();
-
-        echo $this->section_header($thissection, $course, true, $displaysection);
-        echo $this->courserenderer->course_section_cm_list($course, $thissection, $displaysection, array('sr' => $displaysection));
-        echo $this->courserenderer->course_section_add_cm_control($course, $displaysection, $displaysection);
-        echo $this->topcoll_section_footer($thissection, $course, true, $displaysection);
+        echo $this->topcoll_section($thissection, $course, true, $displaysection, array('sr' => $displaysection));
         echo $this->end_section_list();
 
         // Display section bottom navigation.
@@ -903,12 +916,7 @@ class renderer extends \format_section_renderer_base {
         $thissection = $sections[0];
         unset($sections[0]);
         if ($thissection->summary or ! empty($modinfo->sections[0]) or $this->userisediting) {
-            echo $this->section_header($thissection, $course, false, 0);
-            if ($thissection->uservisible) {
-                echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
-                echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0);
-            }
-            echo $this->topcoll_section_footer($thissection, $course, false, 0);
+            echo $this->topcoll_section($thissection, $course, false, 0);
         }
 
         $shownonetoggle = false;
@@ -1119,12 +1127,7 @@ class renderer extends \format_section_renderer_base {
                             }
                         }
                     }
-                    $sectionoutput .= $this->section_header($thissection, $course, false, 0);
-                    if ($thissection->uservisible) {
-                        $sectionoutput .= $this->courserenderer->course_section_cm_list($course, $thissection, 0);
-                        $sectionoutput .= $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0);
-                    }
-                    $sectionoutput .= $this->topcoll_section_footer($thissection, $course, false, 0);
+                    $sectionoutput .= $this->topcoll_section($thissection, $course, false, 0);
                     $toggledsections[] = $thissection->section;
                 }
 
