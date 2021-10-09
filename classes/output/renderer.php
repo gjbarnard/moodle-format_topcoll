@@ -138,20 +138,20 @@ class renderer extends \format_section_renderer_base {
         if ($this->formatresponsive) {
             $style = '';
             if ($this->tcsettings['layoutcolumnorientation'] == 1) { // Vertical columns.
-                $style .= 'width:' . $this->tccolumnwidth . '%;';
+                $style .= 'width:'.$this->tccolumnwidth.'%;';
             } else {
                 $style .= 'width: 100%;';  // Horizontal columns.
             }
             if ($this->mobiletheme === false) {
                 $classes .= ' ctlayout';
             }
-            $style .= ' padding-left: ' . $this->tccolumnpadding . 'px; padding-right: ' . $this->tccolumnpadding . 'px;';
+            $style .= ' padding-left: '.$this->tccolumnpadding.'px; padding-right: '.$this->tccolumnpadding.'px;';
             $attributes['style'] = $style;
         } else {
             if ($this->tcsettings['layoutcolumnorientation'] == 1) { // Vertical columns.
-                $classes .= ' ' . $this->get_column_class($this->tcsettings['layoutcolumns']);
+                $classes .= ' '.$this->get_column_class($this->tcsettings['layoutcolumns']);
             } else {
-                $classes .= ' ' . $this->get_row_class();
+                $classes .= ' '.$this->get_row_class();
             }
         }
         $attributes['class'] = $classes;
@@ -814,8 +814,10 @@ class renderer extends \format_section_renderer_base {
         if ($thissection->summary or !empty($modinfo->sections[0]) or $this->page->user_is_editing()) {
             echo $this->start_section_list();
             echo $this->section_header($thissection, $course, true, $displaysection);
-            echo $this->courserenderer->course_section_cm_list($course, $thissection, $displaysection, array('sr' => $displaysection));
-            echo $this->courserenderer->course_section_add_cm_control($course, 0, $displaysection);
+            if ($thissection->uservisible) {
+                echo $this->courserenderer->course_section_cm_list($course, $thissection, $displaysection, array('sr' => $displaysection));
+                echo $this->courserenderer->course_section_add_cm_control($course, 0, $displaysection);
+            }
             echo $this->topcoll_section_footer($thissection, $course, true, $displaysection);
             echo $this->end_section_list();
         }
@@ -902,8 +904,10 @@ class renderer extends \format_section_renderer_base {
         unset($sections[0]);
         if ($thissection->summary or ! empty($modinfo->sections[0]) or $this->userisediting) {
             echo $this->section_header($thissection, $course, false, 0);
-            echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
-            echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0);
+            if ($thissection->uservisible) {
+                echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
+                echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0);
+            }
             echo $this->topcoll_section_footer($thissection, $course, false, 0);
         }
 
@@ -1120,7 +1124,6 @@ class renderer extends \format_section_renderer_base {
                         $sectionoutput .= $this->courserenderer->course_section_cm_list($course, $thissection, 0);
                         $sectionoutput .= $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0);
                     }
-                    $sectionoutput .= html_writer::end_tag('div');
                     $sectionoutput .= $this->topcoll_section_footer($thissection, $course, false, 0);
                     $toggledsections[] = $thissection->section;
                 }
