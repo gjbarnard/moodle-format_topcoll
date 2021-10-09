@@ -296,7 +296,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $theoutput .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-expanded="false" aria-controls="toggledsection-1">';
         $theoutput .= '<h3 id="sectionid-'.$section1->id.'-title" class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>';
         $theoutput .= '<div class="section_availability"></div></span></div><div class="sectionbody toggledsection" id="toggledsection-1">';
-        $theoutput .= '<ul class="section img-text"></ul></div></div>';
+        $theoutput .= '<ul class="section img-text"></ul></div>';
         $theoutput .= '<div class="right side"><a title="View only &#039;Topic 1&#039;" class="cps_centre" ';
         $theoutput .= 'href="'.$CFG->wwwroot.'/course/view.php?id='.$this->course->id.'&amp;section=1">Topic<br />1</a></div></li></ul>';
 
@@ -336,7 +336,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $theoutput .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-expanded="false" aria-controls="toggledsection-1">';
         $theoutput .= '<h3 id="sectionid-'.$section1->id.'-title" class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>';
         $theoutput .= '<div class="section_availability"></div></span></div><div class="sectionbody toggledsection" id="toggledsection-1">';
-        $theoutput .= '<ul class="section img-text"></ul></div></div><div class="right side"><a title="View only &#039;Topic 1&#039;" class="cps_centre" ';
+        $theoutput .= '<ul class="section img-text"></ul></div><div class="right side"><a title="View only &#039;Topic 1&#039;" class="cps_centre" ';
         $theoutput .= 'href="'.$CFG->wwwroot.'/course/view.php?id='.$this->course->id.'&amp;section=1">Topic<br />1</a></div></li></ul></div>';
 
         $this->expectOutputString($theoutput);
