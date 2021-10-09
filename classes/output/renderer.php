@@ -748,59 +748,31 @@ class renderer extends \format_section_renderer_base {
      * @return string HTML to output.
      */
     protected function section_hidden($section, $courseorid = null) {
-        $o = '';
-        $course = $this->courseformat->get_course();
-        $sectionstyle = 'section main clearfix hidden';
-        if ((!$this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
-            $sectionstyle .= ' ' . $this->get_column_class($this->tcsettings['layoutcolumns']);
-        }
-        $liattributes = array(
-            'id' => 'section-'.$section->section,
-            'class' => $sectionstyle,
-            'role' => 'region',
-            'aria-labelledby' => "sectionid-{$section->id}-title",
-            'data-sectionid' => $section->section
+        $sectionhiddencontext = array(
+            'rtl' => $this->rtl,
+            'sectionavailability' => $this->section_availability($section),
+            'sectionno' => $section->section,
+            'sectionid' => $section->id
         );
-        if (($this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
-            $liattributes['style'] = 'width: ' . $this->tccolumnwidth . '%;';
+        $course = $this->courseformat->get_course();
+
+        if ((!$this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
+            $sectionhiddencontext['horizontalclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
+            $sectionhiddencontext['horizontalwidth'] = $this->tccolumnwidth;
         }
-
-        $o .= html_writer::start_tag('li', $liattributes);
-        if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
-
-            if ($this->rtl) {
-                // Swap content.
-                $rightcontent = $this->section_right_content($section, $course, false);
-                $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
-            } else {
-                $leftcontent = $this->section_left_content($section, $course, false);
-                $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
-            }
-        }
-
-        $o .= html_writer::start_tag('div', array('class' => 'content sectionhidden'));
 
         $title = $this->section_title_without_link($section, $course);
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
-            $o .= $this->output->heading($title, 3, 'section-title', "sectionid-{$section->id}-title");
+            $sectionhiddencontext['nomtore'] = true;
+            $sectionhiddencontext['rtl'] = $this->rtl;
+            $sectionhiddencontext['leftcontent'] = $this->section_left_content($section, $course, false);
+            $sectionhiddencontext['rightcontent'] = $this->section_right_content($section, $course, false, true);
+            $sectionhiddencontext['heading'] = $this->output->heading($title, 3, 'section-title', "sectionid-{$section->id}-title");
         } else {
-            // Moodle H3's look bad on mobile / tablet with CT so use plain.
-            $o .= html_writer::tag('h3', $title, array('id' => "sectionid-{$section->id}-title"));
+            $sectionhiddencontext['title'] = $title;
         }
-        $o .= $this->section_availability($section);
-        $o .= html_writer::end_tag('div');
-        if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
-            if ($this->rtl) {
-                // Swap content.
-                $leftcontent = $this->section_left_content($section, $course, false);
-                $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
-            } else {
-                $rightcontent = $this->section_right_content($section, $course, false, true);
-                $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
-            }
-        }
-        $o .= html_writer::end_tag('li');
-        return $o;
+
+        return $this->render_from_template('format_topcoll/sectionhidden', $sectionhiddencontext);
     }
 
     /**

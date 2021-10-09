@@ -57,7 +57,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
      * Set protected and private attributes for the purpose of testing.
      *
      * @param stdClass $obj The object.
-     * @param string $name Name of the method.
+     * @param string $name Name of the attribute.
      * @param any $value Value to set.
      */
     protected static function set_property($obj, $name, $value) {
@@ -69,10 +69,10 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
     }
 
     /**
-     * Get protected and private methods for the purpose of testing.
+     * Get protected and private attributes for the purpose of testing.
      *
      * @param stdClass $obj The object.
-     * @param string $name Name of the method.
+     * @param string $name Name of the attribute.
      */
     protected static function get_property($obj, $name) {
         // Ref: http://stackoverflow.com/questions/18558183/phpunit-mockbuilder-set-mock-object-internal-property ish.
@@ -251,17 +251,23 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
 
         $theclass = self::call_method($this->outputus, 'section_hidden',
             array($section, null));
-        $thevalue = '<li id="section-1" class="section main clearfix hidden col-sm-12" role="region" ';
-        $thevalue .= 'aria-labelledby="sectionid-'.$section->id.'-title" data-sectionid="1">';
-        $thevalue .= '<div class="left side"><span class="cps_centre">1</span></div>';
-        $thevalue .= '<div class="content sectionhidden"><h3 id="sectionid-'.$section->id.'-title" class="section-title">Section 1</h3>';
-        $thevalue .= '<div class="section_availability"><div class="availabilityinfo ishidden">'.PHP_EOL;
-        $thevalue .= '    <span class="badge badge-info">Not available</span>'.PHP_EOL;
-        $thevalue .= '</div></div></div>';
-        $thevalue .= '<div class="right side"></div>';
-        $thevalue .= '</li>';
 
+        $sectionhiddencontext = array(
+            'heading' => '<h3 id="sectionid-'.$section->id.'-title" class="section-title">Section 1</h3>',
+            'horizontalclass' => 'col-sm-12',
+            'horizontalwidth' => '100',
+            'leftcontent' => '<span class="cps_centre">1</span>',
+            'nomtore' => true,
+            'rightcontent' => '',
+            'rtl' => false,
+            'sectionid' => $section->id,
+            'sectionno' => '1'
+        );
+        $sectionhiddencontext['sectionavailability'] = self::call_method($this->outputus, 'section_availability', array($section));
+
+        $thevalue = self::call_method($this->outputus, 'render_from_template', array('format_topcoll/sectionhidden', $sectionhiddencontext));
         $this->assertEquals($thevalue, $theclass);
+
     }
 
     public function test_print_multiple_section_page_horizontal() {
