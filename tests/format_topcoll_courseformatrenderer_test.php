@@ -33,6 +33,7 @@ defined('MOODLE_INTERNAL') || die();
 class format_topcoll_courseformatrenderer_test extends advanced_testcase {
 
     protected $outputus;
+    protected $ouroutput;
     protected $course;
     protected $courseformat;
     protected $cmid;
@@ -109,8 +110,8 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $this->courseformat = course_get_format($this->course);
         self::set_property($this->outputus, 'courseformat', $this->courseformat);
         $target = self::get_property($this->outputus, 'target');
-        $ouroutput = $PAGE->get_renderer('core', null, $target);
-        self::set_property($this->outputus, 'output', $ouroutput);
+        $this->ouroutput = $PAGE->get_renderer('core', null, $target);
+        self::set_property($this->outputus, 'output', $this->ouroutput);
         $tcsettings = $this->courseformat->get_settings();
         $tcsettings['layoutcolumnorientation'] = $layoutcolumnorientation;
         $tcsettings['toggleallenabled'] = $toggleallenabled;
@@ -239,18 +240,6 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $this->assertEquals($thevalue, $theclass);
     }
 
-    public function test_stealth_section_header() {
-        $this->init();
-        $section = $this->courseformat->get_section(1);
-        $theclass = self::call_method($this->outputus, 'stealth_section_header', array(1));
-        $thevalue = '<li id="section-1" class="section main clearfix orphaned hidden col-sm-12" role="region" ';
-        $thevalue .= 'aria-labelledby="sectionid-'.$section->id.'-title" data-sectionid="1">';
-        $thevalue .= '<div class="left side"></div>';
-        $thevalue .= '<div class="content"><h3 id="sectionid-'.$section->id.'-title" class="sectionname">Orphaned activities (section 1)</h3>';
-
-        $this->assertEquals($thevalue, $theclass);
-    }
-
     public function test_section_hidden() {
         global $CFG;
         $this->init();
@@ -276,6 +265,31 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $thevalue = self::call_method($this->outputus, 'render_from_template', array('format_topcoll/sectionhidden', $sectionhiddencontext));
         $this->assertEquals($thevalue, $theclass);
 
+    }
+
+    public function test_stealth_section() {
+        global $CFG, $PAGE;
+        $this->init();
+        $section = $this->courseformat->get_section(1);
+
+        $theclass = self::call_method($this->outputus, 'stealth_section',
+            array($section, $this->course));
+
+        $courserenderer = $PAGE->get_renderer('format_topcoll', 'course');
+        $stealthsectioncontext = array(
+            'cscml' => $courserenderer->course_section_cm_list($this->course, $section->section, 0),
+            'heading' => $this->ouroutput->heading(get_string('orphanedactivitiesinsectionno', '', $section->section),
+                3, 'sectionname', "sectionid-{$section->id}-title"),
+            'horizontalclass' => 'col-sm-12',
+            'horizontalwidth' => '100',
+            'rightcontent' => self::call_method($this->outputus, 'section_right_content', array($section, $this->course, false)),
+            'rtl' => false,
+            'sectionid' => $section->id,
+            'sectionno' => $section->section
+        );
+
+        $thevalue = self::call_method($this->outputus, 'render_from_template', array('format_topcoll/stealthsection', $stealthsectioncontext));
+        $this->assertEquals($thevalue, $theclass);
     }
 
     public function test_print_multiple_section_page_horizontal() {

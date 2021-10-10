@@ -15,51 +15,45 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template format_topcoll/sectionsummary
+    @template format_topcoll/stealthsection
 
-    Collapsed Topics section summary template.
+    Collapsed Topics stealth section template.
 
     Context variables required for this template:
-    * formatsummarytext - The format summary text.
+    * cscml = Course section course module list.
     * heading - The heading.
     * horizontalclass - Additional classes used when the format has a horizontal layout.
     * horizontalwidth - Horizontal layout width.
+    * rightcontent - Right column content.
     * rtl - Right to left?
-    * sectionactivitysummary - Section activity summary.
-    * sectionavailability - Section availability.
+    * sectionid - Section id.
     * sectionno - Section number.
-    * title - The title.
 
     Example context (json):
     {
-        "formatsummarytext": '<div class="no-overflow"><p dir="ltr" style="text-align: left;">Section 1 summary</p></div>',
-        "heading": '<h3 class="section-title"><a href="https://moodle.local/course/view.php?id=24#section-1" class="">Section 1</a></h3>',
+        "cscml": "",
+        "heading": '<h3 id="sectionid-124-title" class="section-title">Section 1</h3>',
         "horizontalclass": "col-lg-3",
         "horizontalwidth": "100",
+        "rightcontent": "",
         "rtl": false,
-        "sectionactivitysummary": '',
-        "sectionavailability": '<div class="section_availability"></div>',
-        "sectionno": "1",
-        "title": "The section"
+        "sectionid": "124",
+        "sectionno": "1"
     }
 }}
-<li id="section-{{sectionno}}" class="section main section-summary clearfix{{#classattrextra}} {{classattrextra}}{{/classattrextra}}{{#horizontalclass}} {{horizontalclass}}{{/horizontalclass}}"{{#horizontalwidth}} style="width: {{horizontalwidth}}%;"{{/horizontalwidth}} role="region" aria-label="{{title}}" data-sectionid="{{sectionno}}">
+<li id="section-{{sectionno}}" class="section main clearfix orphaned hidden{{#horizontalclass}} {{horizontalclass}}{{/horizontalclass}}"{{#horizontalwidth}} style="width: {{horizontalwidth}}%;"{{/horizontalwidth}} role="region" aria-labeled-by="sectionid-{{sectionid}}-title" data-sectionid="{{sectionno}}">
 {{^rtl}}
     <div class="left side"></div>
 {{/rtl}}
 {{#rtl}}
-    <div class="right side"></div>
+    <div class="right side">{{{rightcontent}}}</div>
 {{/rtl}}
     <div class="content">
         {{{heading}}}
-        <div class="summarytext">
-            {{{formatsummarytext}}}
-        </div>
-        {{{sectionactivitysummary}}}
-        {{{sectionavailability}}}
+        {{{cscml}}}
     </div>
 {{^rtl}}
-    <div class="right side"></div>
+    <div class="right side">{{{rightcontent}}}</div>
 {{/rtl}}
 {{#rtl}}
     <div class="left side"></div>

@@ -671,60 +671,29 @@ class renderer extends \format_section_renderer_base {
     }
 
     /**
-     * Generate the header html of a stealth section.
+     * Generate the stealth section.
      *
-     * @param int $sectionno The section number in the coruse which is being dsiplayed.
+     * @param stdClass $section The course_section entry from DB.
+     * @param stdClass $course The course entry from DB.
      * @return string HTML to output.
      */
-    protected function stealth_section_header($sectionno) {
-        $o = '';
-        $sectionstyle = '';
-        // Horizontal column layout.
-        if ((!$this->formatresponsive) && ($sectionno != 0) && ($this->tcsettings['layoutcolumnorientation'] == 2)) {
-            $sectionstyle .= ' ' . $this->get_column_class($this->tcsettings['layoutcolumns']);
-        }
-        $section = $this->courseformat->get_section($sectionno);
-        $liattributes = array(
-            'id' => 'section-' . $sectionno,
-            'class' => 'section main clearfix orphaned hidden' . $sectionstyle,
-            'role' => 'region',
-            'aria-labelledby' => "sectionid-{$section->id}-title",
-            'data-sectionid' => $sectionno
+    protected function stealth_section($section, $course) {
+        $stealthsectioncontext = array(
+            'cscml' => $this->courserenderer->course_section_cm_list($course, $section->section, 0),
+            'heading' => $this->output->heading(get_string('orphanedactivitiesinsectionno', '', $section->section),
+                3, 'sectionname', "sectionid-{$section->id}-title"),
+            'rightcontent' => $this->section_right_content($section, $course, false),
+            'rtl' => $this->rtl,
+            'sectionid' => $section->id,
+            'sectionno' => $section->section
         );
-        if (($this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
-            $liattributes['style'] = 'width: ' . $this->tccolumnwidth . '%;';
-        }
-        $o .= html_writer::start_tag('li', $liattributes);
-        if ($this->rtl) {
-            $course = $this->courseformat->get_course();
-            $rightcontent = $this->section_right_content($section, $course, false);
-            $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
-        } else {
-            $o .= html_writer::tag('div', '', array('class' => 'left side'));
-        }
-        $o .= html_writer::start_tag('div', array('class' => 'content'));
-        $o .= $this->output->heading(get_string('orphanedactivitiesinsectionno', '', $sectionno), 3, 'sectionname', "sectionid-{$section->id}-title");
-        return $o;
-    }
 
-    /**
-     * Generate the footer html of a stealth section.
-     *
-     * @param int $sectionno The section number in the coruse which is being dsiplayed.
-     * @return string HTML to output.
-     */
-    protected function topcoll_stealth_section_footer($sectionno) {
-        $o = html_writer::end_tag('div');
-        if ($this->rtl) {
-            $o .= html_writer::tag('div', '', array('class' => 'left side'));
-        } else {
-            $course = $this->courseformat->get_course();
-            $section = $this->courseformat->get_section($sectionno);
-            $rightcontent = $this->section_right_content($section, $course, false);
-            $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
+        if ((!$this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
+            $stealthsectioncontext['horizontalclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
+            $stealthsectioncontext['horizontalwidth'] = $this->tccolumnwidth;
         }
-        $o .= html_writer::end_tag('li');
-        return $o;
+
+        return $this->render_from_template('format_topcoll/stealthsection', $stealthsectioncontext);
     }
 
     /**
@@ -1144,18 +1113,16 @@ class renderer extends \format_section_renderer_base {
 
         $changenumsections = '';
         if ($this->userisediting and has_capability('moodle/course:update', $context)) {
+            $changenumsections = $this->change_number_sections($course, 0);
             // Print stealth sections if present.
-            foreach ($modinfo->get_section_info_all() as $section => $thissection) {
-                if ($section <= $coursenumsections or empty($modinfo->sections[$section])) {
+            foreach ($modinfo->get_section_info_all() as $thissection) {
+                $sectionno = $thissection->section;
+                if ($sectionno <= $coursenumsections or empty($modinfo->sections[$sectionno])) {
                     // This is not stealth section or it is empty.
                     continue;
                 }
-                echo $this->stealth_section_header($section);
-                echo $this->courserenderer->course_section_cm_list($course, $thissection->section, 0);
-                echo $this->topcoll_stealth_section_footer($section);
+                echo $this->stealth_section($thissection, $course);
             }
-
-            $changenumsections = $this->change_number_sections($course, 0);
         }
         echo $this->end_section_list();
         if ($coursenumsections > 0) {
