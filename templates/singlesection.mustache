@@ -1,0 +1,94 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template format_topcoll/singlesection
+
+    Collapsed Topics single section template.
+
+    Context variables required for this template:
+    * activityclipboard = Activity clipboard.
+    * horizontalclass - Additional classes used when the format has a horizontal layout.
+    * horizontalwidth - Horizontal layout width.
+    * maincoursepageicon- Main course page icon.
+    * maincoursepagestr - Main course page string.
+    * maincoursepageurl - Main course page url.
+    * sectionnavlinksnext - Next navigation links.
+    * sectionnavlinksprevious - Previous navigation links.
+    * sectionnavselection - Jump to menu.
+    * sectiontitle - Section title.
+    * sectionzero - Section 0.
+    * thissection - The actual section.
+
+    Example context (json):
+    {
+        "activityclipboard": "",
+        "horizontalclass": "col-lg-3",
+        "horizontalwidth": "100",
+        "maincoursepageicon": '<i class="icon fa fa-caret-up fa-fw " title="Main course page" aria-label="Main course page"></i>',
+        "maincoursepagestr": "Main course page",
+        "maincoursepageurl": 'https://moodle.localhost/course/view.php?id=14',
+        "sectionnavlinksnext": '<a href="https://moodle.localhost/course/view.php?id=14&section=3">Section 3<span class="rarrow">►</span></a>',
+        "sectionnavlinksprevious": '<a href="https://moodle.localhost/course/view.php?id=14&section=1"><span class="larrow">◄</span>Section 1</a>',
+        "sectionnavselection":
+            '<div class="jumpmenu">
+                <form method="post" action="https://moodle.localhost/course/jumpto.php" class="form-inline" id="sectionmenu">
+                    <input type="hidden" name="sesskey" value="sessionkey">
+                    <select class="custom-select jumpmenu" name="jump" data-init-value="">
+                        <option value="" selected="">Jump to...</option>
+                        <option value="/course/view.php?id=14">Main course page</option>
+                        <option value="/course/view.php?id=14&amp;section=1">Section 1</option>
+                        <option value="/course/view.php?id=14&amp;section=3">Section 3</option>
+                        <option value="/course/view.php?id=14&amp;section=4">Section 4</option>
+                        <option value="/course/view.php?id=14&amp;section=5">Section 5</option>
+                        <option value="/course/view.php?id=14&amp;section=6">Section 6</option>
+                        <option value="/course/view.php?id=14&amp;section=7">Section 7</option>
+                        <option value="/course/view.php?id=14&amp;section=8">Section 8</option>
+                        <option value="/course/view.php?id=14&amp;section=9">Section 9</option>
+                        <option value="/course/view.php?id=14&amp;section=10">Section 10</option>
+                    </select>
+                    <noscript>
+                        <input type="submit" class="btn btn-secondary ml-1" value="Go">
+                    </noscript>
+                </form>
+            </div>',
+        "sectiontitle": '<h3 class="sectionname">Section 2</h3>',
+        "sectionzero": 'Section zero markup',
+        "thissection": 'Section two markup'
+    }
+}}
+<a href="{{{maincoursepageurl}}}">{{{maincoursepageicon}}}{{maincoursepagestr}}</a>
+{{{activityclipboard}}}
+{{#sectionzero}}
+<ul class="ctopics">
+    {{{sectionzero}}}
+</ul>
+{{/sectionzero}}
+<div class="single-section">
+    <div class="section-navigation navigationtitle">
+        <span class="mdl-left">{{{sectionnavlinksprevious}}}</span>
+        <span class="mdl-right">{{{sectionnavlinksnext}}}</span>
+        {{{sectiontitle}}}
+    </div>
+    <ul class="ctopics">
+        {{{thissection}}}
+    </ul>
+    <div class="section-navigation mdl-bottom">
+        <span class="mdl-left">{{{sectionnavlinksprevious}}}</span>
+        <span class="mdl-right">{{{sectionnavlinksnext}}}</span>
+        <div class="mdl-align">{{{sectionnavselection}}}</div>
+    </div>
+</div>

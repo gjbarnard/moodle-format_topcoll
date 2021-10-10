@@ -752,60 +752,40 @@ class renderer extends \format_section_renderer_base {
                 format_string($course->fullname));
         }
 
-        echo html_writer::start_tag('a', array('href' => new moodle_url('/course/view.php', array('id' => $course->id))));
         $maincoursepage = get_string('maincoursepage', 'format_topcoll');
-        echo $this->output->pix_icon('t/less', $maincoursepage).$maincoursepage;
-        echo html_writer::end_tag('a');
+        // The requested section page.
+        $thissection = $modinfo->get_section_info($displaysection);
 
-        // Copy activity clipboard.
-        echo $this->course_activity_clipboard($course, $displaysection);
-        $thissection = $modinfo->get_section_info(0);
-        if ($thissection->summary or !empty($modinfo->sections[0]) or $this->page->user_is_editing()) {
-            echo $this->start_section_list();
-            echo $this->topcoll_section($thissection, $course, true, $displaysection, array('sr' => $displaysection));
-            echo $this->end_section_list();
+        $singlesectioncontext = array(
+            'activityclipboard' => $this->course_activity_clipboard($course, $displaysection),
+            'maincoursepageicon' => $this->output->pix_icon('t/less', $maincoursepage),
+            'maincoursepagestr' => $maincoursepage,
+            'maincoursepageurl' => new moodle_url('/course/view.php', array('id' => $course->id)),
+            'sectionnavselection' => $this->section_nav_selection($course, null, $displaysection),
+            'thissection' => $this->topcoll_section($thissection, $course, true, $displaysection, array('sr' => $displaysection))
+        );
+
+        $sectionzero = $modinfo->get_section_info(0);
+        if ($sectionzero->summary or !empty($modinfo->sections[0]) or $this->page->user_is_editing()) {
+            $singlesectioncontext['sectionzero'] = $this->topcoll_section($sectionzero, $course, true, $displaysection, array('sr' => $displaysection));
         }
-
-        // Start single-section div.
-        echo html_writer::start_tag('div', array('class' => 'single-section'));
 
         // The requested section page.
         $thissection = $modinfo->get_section_info($displaysection);
 
         // Title with section navigation links.
         $sectionnavlinks = $this->get_nav_links($course, $modinfo->get_section_info_all(), $displaysection);
-        $sectiontitle = '';
-        $sectiontitle .= html_writer::start_tag('div', array('class' => 'section-navigation navigationtitle'));
-        $sectiontitle .= html_writer::tag('span', $sectionnavlinks['previous'], array('class' => 'mdl-left'));
-        $sectiontitle .= html_writer::tag('span', $sectionnavlinks['next'], array('class' => 'mdl-right'));
+        $singlesectioncontext['sectionnavlinksprevious'] = $sectionnavlinks['previous'];
+        $singlesectioncontext['sectionnavlinksnext'] = $sectionnavlinks['next'];
         // Title attributes.
         $classes = 'sectionname';
         if (!$thissection->visible) {
             $classes .= ' dimmed_text';
         }
-        $sectionname = html_writer::tag('span', $this->section_title_without_link($thissection, $course));
-        $sectiontitle .= $this->output->heading($sectionname, 3, $classes);
+        $sectionname = $this->section_title_without_link($thissection, $course);
+        $singlesectioncontext['sectiontitle'] = $this->output->heading($sectionname, 3, $classes);
 
-        $sectiontitle .= html_writer::end_tag('div');
-        echo $sectiontitle;
-
-        // Now the list of sections.
-        echo $this->start_section_list();
-        echo $this->topcoll_section($thissection, $course, true, $displaysection, array('sr' => $displaysection));
-        echo $this->end_section_list();
-
-        // Display section bottom navigation.
-        $sectionbottomnav = '';
-        $sectionbottomnav .= html_writer::start_tag('div', array('class' => 'section-navigation mdl-bottom'));
-        $sectionbottomnav .= html_writer::tag('span', $sectionnavlinks['previous'], array('class' => 'mdl-left'));
-        $sectionbottomnav .= html_writer::tag('span', $sectionnavlinks['next'], array('class' => 'mdl-right'));
-        $sectionbottomnav .= html_writer::tag('div', $this->section_nav_selection($course, $sections, $displaysection),
-            array('class' => 'mdl-align'));
-        $sectionbottomnav .= html_writer::end_tag('div');
-        echo $sectionbottomnav;
-
-        // Close single-section div.
-        echo html_writer::end_tag('div');
+        echo $this->render_from_template('format_topcoll/singlesection', $singlesectioncontext);
     }
 
     /**

@@ -292,6 +292,39 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $this->assertEquals($thevalue, $theclass);
     }
 
+    /* Jump menu breaks this, not sure how to fix....
+    public function test_print_single_section_page() {
+        $this->init();
+        self::call_method($this->outputus, 'print_single_section_page',
+            array($this->course, null, null, null, null, 1));
+
+        $modinfo = get_fast_modinfo($this->course);
+        $course = $this->courseformat->get_course();
+        $maincoursepage = get_string('maincoursepage', 'format_topcoll');
+        $displaysection = 1;
+        $sectionzero = $modinfo->get_section_info(0);
+        $thissection = $modinfo->get_section_info($displaysection);
+
+        $singlesectioncontext = array(
+            'activityclipboard' => self::call_method($this->outputus, 'course_activity_clipboard', array($course, $displaysection)),
+            'maincoursepageicon' => $this->ouroutput->pix_icon('t/less', $maincoursepage),
+            'maincoursepagestr' =>  $maincoursepage,
+            'maincoursepageurl' => new moodle_url('/course/view.php', array('id' => $course->id)),
+            'sectionnavselection' => self::call_method($this->outputus, 'section_nav_selection', array($course, null, $displaysection)),
+            'sectiontitle' => '<h3 class="sectionname">Section 1</h3>',
+            'sectionzero' => self::call_method($this->outputus, 'topcoll_section', array($sectionzero, $course, true, $displaysection, array('sr' => $displaysection))),
+            'thissection' => self::call_method($this->outputus, 'topcoll_section', array($thissection, $course, true, $displaysection, array('sr' => $displaysection)))
+        );
+        $sectionnavlinks = self::call_method($this->outputus, 'get_nav_links', array($this->course, $modinfo->get_section_info_all(), $displaysection));
+        $singlesectioncontext['sectionnavlinksprevious'] = $sectionnavlinks['previous'];
+        $singlesectioncontext['sectionnavlinksnext'] = $sectionnavlinks['next'];
+
+        $theoutput = self::call_method($this->outputus, 'render_from_template', array('format_topcoll/singlesection', $singlesectioncontext));
+
+        $this->expectOutputString($theoutput);
+    }
+    */
+
     public function test_print_multiple_section_page_horizontal() {
         global $CFG;
 
