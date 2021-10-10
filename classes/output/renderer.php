@@ -391,52 +391,39 @@ class renderer extends \format_section_renderer_base {
      * @return string HTML to output.
      */
     protected function section_summary($section, $course, $mods) {
-        $classattr = 'section main section-summary clearfix';
-        $linkclasses = '';
+        $title = $this->courseformat->get_topcoll_section_name($course, $section, false);
+        $sectionsummarycontext = array(
+            'formatsummarytext' => $this->format_summary_text($section),
+            'rtl' => $this->rtl,
+            'sectionactivitysummary' => $this->section_activity_summary($section, $course, null),
+            'sectionavailability' => $this->section_availability($section),
+            'sectionno' => $section->section,
+            'title' => $title
+        );
 
+        $classattrextra = '';
+        $linkclasses = '';
         // If section is hidden then display grey section link.
         if (!$section->visible) {
-            $classattr .= ' hidden';
-            $linkclasses .= ' dimmed_text';
+            $classattrextra = ' hidden';
+            $linkclasses .= 'dimmed_text';
         } else if ($this->courseformat->is_section_current($section)) {
-            $classattr .= ' current';
+            $classattrextra = ' current';
         }
+        $sectionsummarycontext['classattrextra'] = $classattrextra;
 
-        $o = '';
-        $title = $this->courseformat->get_topcoll_section_name($course, $section, false);
-        $liattributes = array(
-            'id' => 'section-'.$section->section,
-            'class' => $classattr,
-            'role' => 'region',
-            'aria-label' => $title,
-            'data-sectionid' => $section->section
-        );
-        if (($this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
-            $liattributes['style'] = 'width: ' . $this->tccolumnwidth . '%;';
+        if ((!$this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
+            $sectionsummarycontext['horizontalclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
+            $sectionsummarycontext['horizontalwidth'] = $this->tccolumnwidth;
         }
-        $o .= html_writer::start_tag('li', $liattributes);
-
-        $o .= html_writer::tag('div', '', array('class' => 'left side'));
-        $o .= html_writer::start_tag('div', array('class' => 'content'));
 
         if ($section->uservisible) {
             $title = html_writer::tag('a', $title,
                 array('href' => course_get_url($course, $section->section), 'class' => $linkclasses));
         }
-        $o .= $this->output->heading($title, 3, 'section-title');
+        $sectionsummarycontext['heading'] = $this->output->heading($title, 3, 'section-title');
 
-        $o .= html_writer::start_tag('div', array('class' => 'summarytext'));
-        $o .= $this->format_summary_text($section);
-        $o .= html_writer::end_tag('div');
-        $o .= $this->section_activity_summary($section, $course, null);
-
-        $o .= $this->section_availability($section);
-
-        $o .= html_writer::end_tag('div');
-        $o .= html_writer::tag('div', '', array('class' => 'right side'));
-        $o .= html_writer::end_tag('li');
-
-        return $o;
+        return $this->render_from_template('format_topcoll/sectionsummary', $sectionsummarycontext);
     }
 
     /**
@@ -749,7 +736,6 @@ class renderer extends \format_section_renderer_base {
      */
     protected function section_hidden($section, $courseorid = null) {
         $sectionhiddencontext = array(
-            'rtl' => $this->rtl,
             'sectionavailability' => $this->section_availability($section),
             'sectionno' => $section->section,
             'sectionid' => $section->id

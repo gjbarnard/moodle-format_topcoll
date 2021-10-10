@@ -189,14 +189,22 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $section = $this->courseformat->get_section(1);
         $theclass = self::call_method($this->outputus, 'section_summary',
             array($section, $this->course, null));
-        $thevalue = '<li id="section-1" class="section main section-summary clearfix" role="region" aria-label="';
-        $thevalue .= 'Section 1" data-sectionid="1"><div class="left side"></div>';
-        $thevalue .= '<div class="content">';
-        $thevalue .= '<h3 class="section-title"><a href="'.$CFG->wwwroot.'/course/view.php?id=';
-        $thevalue .= $this->course->id.'#section-1" class="">Section 1</a></h3><div class="summarytext"></div>';
-        $thevalue .= '<div class="section_availability"></div></div>';
-        $thevalue .= '<div class="right side"></div>';
-        $thevalue .= '</li>';
+
+        $sectionsummarycontext = array(
+            'heading' => '<h3 class="section-title"><a href="'.$CFG->wwwroot.'/course/view.php?id='.
+                $this->course->id.'#section-1" class="">Section 1</a></h3>',
+            'horizontalclass' => 'col-sm-12',
+            'horizontalwidth' => '100',
+            'rtl' => false,
+            'sectionavailability' => '<div class="section_availability"></div>',
+            'sectionno' => '1',
+            'title' => 'Section 1'
+        );
+        $sectionsummarycontext['formatsummarytext'] = self::call_method($this->outputus, 'format_summary_text', array($section));
+        $sectionsummarycontext['sectionactivitysummary'] = self::call_method($this->outputus, 'section_activity_summary', array($section, $this->course, null));
+        $sectionsummarycontext['sectionavailability'] = self::call_method($this->outputus, 'section_availability', array($section));
+
+        $thevalue = self::call_method($this->outputus, 'render_from_template', array('format_topcoll/sectionsummary', $sectionsummarycontext));
 
         $this->assertEquals($thevalue, $theclass);
     }
