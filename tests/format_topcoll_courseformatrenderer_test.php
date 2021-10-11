@@ -332,34 +332,17 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $this->outputus->set_user_preference(null, 0, 1);
         $section0 = $this->courseformat->get_section(0);
         $section1 = $this->courseformat->get_section(1);
+        $section1->toggle = false;
 
         self::call_method($this->outputus, 'print_multiple_section_page',
             array($this->course, null, null, null, null, null));
 
         $theoutput = file_get_contents($CFG->dirroot.'/course/format/topcoll/tests/phpu_data/test_print_multiple_section_page_css.txt');
         $theoutput .= '<h2 class="accesshide">Section</h2><ul class="ctopics">';
-        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" ';
-        $theoutput .= 'aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="0" data-sectionreturnid="0">';
-        $theoutput .= '<div class="left side"></div>';
-        $theoutput .= '<div class="content"><h3 id="sectionid-'.$section0->id.'-title" class="accesshide">General</h3>';
-        $theoutput .= '<div class="section_availability"></div><div class="summary"></div><ul class="section img-text">';
-        $theoutput .= '<li class="activity forum modtype_forum  " id="module-'.$this->cmid.'"><div><div class="mod-indent-outer">';
-        $theoutput .= '<div class="mod-indent"></div><div><div class="activityinstance">';
-        $theoutput .= '<a class="aalink" onclick="" href="'.$CFG->wwwroot.'/mod/forum/view.php?id='.$this->cmid.'">';
-        $theoutput .= '<img src="'.$CFG->wwwroot.'/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" ';
-        $theoutput .= 'alt="" role="presentation" aria-hidden="true" />';
-        $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a></div></div></div></div></li></ul>';
-        $theoutput .= '</div><div class="right side"></div></li></ul><ul class="ctopics topics row">';
-        $theoutput .= '<li id="section-1" class="section main clearfix col-sm-12" role="region" ';
-        $theoutput .= 'aria-labelledby="sectionid-'.$section1->id.'-title" data-sectionid="1" data-sectionreturnid="0">';
-        $theoutput .= '<div class="left side"><span class="cps_centre">1</span></div><div class="content" aria-live="polite">';
-        $theoutput .= '<div class="sectionhead toggle toggle-arrow" id="toggle-1" tabindex="0">';
-        $theoutput .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-expanded="false" aria-controls="toggledsection-1">';
-        $theoutput .= '<h3 id="sectionid-'.$section1->id.'-title" class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>';
-        $theoutput .= '<div class="section_availability"></div></span></div><div class="sectionbody toggledsection" id="toggledsection-1">';
-        $theoutput .= '<ul class="section img-text"></ul></div>';
-        $theoutput .= '<div class="right side"><a title="View only &#039;Topic 1&#039;" class="cps_centre" ';
-        $theoutput .= 'href="'.$CFG->wwwroot.'/course/view.php?id='.$this->course->id.'&amp;section=1">Topic<br />1</a></div></li></ul>';
+        $theoutput .= self::call_method($this->outputus, 'topcoll_section', array($section0, $this->course, false, 0));
+        $theoutput .= '</ul><ul class="ctopics topics row">';
+        $theoutput .= self::call_method($this->outputus, 'topcoll_section', array($section1, $this->course, false, 0));
+        $theoutput .= '</ul>';
 
         $this->expectOutputString($theoutput);
     }
@@ -368,37 +351,21 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         global $CFG;
 
         $this->init(1, 1);
-        $this->outputus->set_user_preference(null, 0, 1);
+        $this->outputus->set_user_preference('Z', 0, 1);
         $section0 = $this->courseformat->get_section(0);
         $section1 = $this->courseformat->get_section(1);
+        $section1->toggle = true;
 
         self::call_method($this->outputus, 'print_multiple_section_page',
             array($this->course, null, null, null, null, null));
 
         $theoutput = file_get_contents($CFG->dirroot.'/course/format/topcoll/tests/phpu_data/test_print_multiple_section_page_css.txt');
         $theoutput .= '<h2 class="accesshide">Section</h2><ul class="ctopics">';
-        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" ';
-        $theoutput .= 'aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="0" data-sectionreturnid="0">';
-        $theoutput .= '<div class="left side"></div><div class="content"><h3 id="sectionid-'.$section0->id.'-title" class="accesshide">General</h3>';
-        $theoutput .= '<div class="section_availability"></div><div class="summary"></div>';
-        $theoutput .= '<ul class="section img-text"><li class="activity forum modtype_forum  " id="module-'.$this->cmid.'"><div>';
-        $theoutput .= '<div class="mod-indent-outer"><div class="mod-indent"></div><div>';
-        $theoutput .= '<div class="activityinstance"><a class="aalink" onclick="" href="'.$CFG->wwwroot.'/mod/forum/view.php?id='.$this->cmid.'">';
-        $theoutput .= '<img src="'.$CFG->wwwroot.'/theme/image.php/_s/boost/forum/1/icon" ';
-        $theoutput .= 'class="iconlarge activityicon" alt="" role="presentation" aria-hidden="true" />';
-        $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a>';
-        $theoutput .= '</div></div></div></div></li></ul>';
-        $theoutput .= '</div><div class="right side"></div></li></ul><div class="row">';
+        $theoutput .= self::call_method($this->outputus, 'topcoll_section', array($section0, $this->course, false, 0));
+        $theoutput .= '</ul><div class="row">';
         $theoutput .= '<ul class="ctopics topics col-sm-12">';
-        $theoutput .= '<li id="section-1" class="section main clearfix" role="region" ';
-        $theoutput .= 'aria-labelledby="sectionid-'.$section1->id.'-title" data-sectionid="1" data-sectionreturnid="0">';
-        $theoutput .= '<div class="left side"><span class="cps_centre">1</span></div>';
-        $theoutput .= '<div class="content" aria-live="polite"><div class="sectionhead toggle toggle-arrow" id="toggle-1" tabindex="0">';
-        $theoutput .= '<span class="toggle_closed the_toggle tc-medium" role="button" aria-expanded="false" aria-controls="toggledsection-1">';
-        $theoutput .= '<h3 id="sectionid-'.$section1->id.'-title" class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>';
-        $theoutput .= '<div class="section_availability"></div></span></div><div class="sectionbody toggledsection" id="toggledsection-1">';
-        $theoutput .= '<ul class="section img-text"></ul></div><div class="right side"><a title="View only &#039;Topic 1&#039;" class="cps_centre" ';
-        $theoutput .= 'href="'.$CFG->wwwroot.'/course/view.php?id='.$this->course->id.'&amp;section=1">Topic<br />1</a></div></li></ul></div>';
+        $theoutput .= self::call_method($this->outputus, 'topcoll_section', array($section1, $this->course, false, 0));
+        $theoutput .= '</ul></div>';
 
         $this->expectOutputString($theoutput);
     }
@@ -416,20 +383,8 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $theoutput = file_get_contents($CFG->dirroot.'/course/format/topcoll/tests/phpu_data/test_print_multiple_section_page_css.txt');
         $theoutput .= '<h2 class="accesshide">Section</h2>';
         $theoutput .= '<ul class="ctopics">';
-        $theoutput .= '<li id="section-0" class="section main clearfix" role="region" ';
-        $theoutput .= 'aria-labelledby="sectionid-'.$section0->id.'-title" data-sectionid="0" data-sectionreturnid="0">';
-        $theoutput .= '<div class="left side"></div>';
-        $theoutput .= '<div class="content">';
-        $theoutput .= '<h3 id="sectionid-'.$section0->id.'-title" class="accesshide">General</h3>';
-        $theoutput .= '<div class="section_availability"></div><div class="summary"></div>';
-        $theoutput .= '<ul class="section img-text"><li class="activity forum modtype_forum  " id="module-'.$this->cmid.'"><div>';
-        $theoutput .= '<div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance">';
-        $theoutput .= '<a class="aalink" onclick="" href="'.$CFG->wwwroot.'/mod/forum/view.php?id='.$this->cmid.'">';
-        $theoutput .= '<img src="'.$CFG->wwwroot.'/theme/image.php/_s/boost/forum/1/icon" class="iconlarge activityicon" ';
-        $theoutput .= 'alt="" role="presentation" aria-hidden="true" />';
-        $theoutput .= '<span class="instancename">Announcements<span class="accesshide " > Forum</span></span></a>';
-        $theoutput .= '</div></div></div></div></li></ul>';
-        $theoutput .= '</div><div class="right side"></div></li></ul>';
+        $theoutput .= self::call_method($this->outputus, 'topcoll_section', array($section0, $this->course, false, 0));
+        $theoutput .= '</ul>';
 
         $this->expectOutputString($theoutput);
     }

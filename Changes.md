@@ -10,6 +10,7 @@ Version 3.11.0.4 - TBR
   5. Refactor - add section summary template.
   6. Refactor - add stealth section template.
   7. Refactor - add single section template.
+  8. Refactor - add section template.
 
 Version 3.11.0.3 - 30/09/2021
 -----------------------------
