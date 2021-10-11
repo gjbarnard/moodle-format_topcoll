@@ -210,15 +210,50 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $this->assertEquals($thevalue, $theclass);
     }
 
-    public function test_section_header() {
-        $this->init();
-        $section = $this->courseformat->get_section(1);
-        $section->toggle = false;
+    public function test_topcoll_section() {
+        global $PAGE;
 
-        $onsectionpage = false;
-        $theclass = self::call_method($this->outputus, 'section_header',
-            array($section, $this->course, $onsectionpage));
-        $thevalue = '<li id="section-1" class="section main clearfix col-sm-12" role="region" ';
+        $this->init();
+        $this->outputus->set_user_preference('Z', 0, 1);
+        self::set_property($this->outputus, 'formatresponsive', false);
+        $section1 = $this->courseformat->get_section(1);
+        $section1->section = 1;
+        $section1->toggle = true;
+
+        $onsectionpage = true;
+        $sectionreturn = null;
+        $theclass = self::call_method($this->outputus, 'topcoll_section',
+            array($section1, $this->course, !$onsectionpage));
+
+        $courserenderer = $PAGE->get_renderer('format_topcoll', 'course');
+        $sectioncontext = array(
+            'contentaria' => true,
+            'cscml' => $courserenderer->course_section_cm_list($this->course, $section1->section, $sectionreturn).
+                $courserenderer->course_section_add_cm_control($this->course, $section1->section, $sectionreturn),
+            'leftcontent' => self::call_method($this->outputus, 'section_left_content', array($section1, $this->course, !$onsectionpage)),
+            'heading' => '<h3 id="sectionid-'.$section1->id.'-title" class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>',
+            'horizontalclass' => 'col-sm-12',
+            'nomtore' => true,
+            'rightcontent' => self::call_method($this->outputus, 'section_right_content', array($section1, $this->course, !$onsectionpage)),
+            'rtl' => false,
+            'sectionavailability' => '<div class="section_availability"></div>',
+            'sectionid' => $section1->id,
+            'sectionno' => $section1->section,
+            'sectionpage' => !$onsectionpage,
+            'sectionreturn' => $sectionreturn,
+            'sectionsummary' =>  self::call_method($this->outputus, 'section_summary',
+                array($section1, $this->course, null)),
+            'sectionsummarywhencollapsed' => false,
+            'toggleiconset' => 'arrow',
+            'toggleiconsize' => 'tc-medium',
+            'toggleopen' => $section1->toggle,
+            'usereditingtitle' => $this->courseformat->get_topcoll_section_name($this->course, $section1, false)
+        );
+        $thevalue = self::call_method($this->outputus, 'render_from_template', array('format_topcoll/section', $sectioncontext));
+error_log('E: '.$thevalue.PHP_EOL.'A: '.$theclass);
+        $this->assertEquals($thevalue, $theclass);
+
+        /*$thevalue = '<li id="section-1" class="section main clearfix col-sm-12" role="region" ';
         $thevalue .= 'aria-labelledby="sectionid-'.$section->id.'-title" data-sectionid="1">';
         $thevalue .= '<div class="left side"><span class="cps_centre">1</span></div>';
         $thevalue .= '<div class="content" aria-live="polite"><div class="sectionhead toggle toggle-arrow" id="toggle-1" tabindex="0">';
@@ -237,7 +272,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $thevalue .= '<h3 id="sectionid-'.$section->id.'-title" class="accesshide">Section 1</h3>';
         $thevalue .= '<div class="section_availability"></div><div class="summary"></div>';
 
-        $this->assertEquals($thevalue, $theclass);
+        $this->assertEquals($thevalue, $theclass);*/
     }
 
     public function test_section_hidden() {

@@ -73,7 +73,7 @@
 }}
 
 
-<li id="section-{{sectionno}}" class="section main clearfix{{#sectionstyle}} {{sectionstyle}}{{/sectionstyle}}{{#horizontalclass}} {{horizontalclass}}{{/horizontalclass}}"{{#horizontalwidth}} style="width: {{horizontalwidth}}%;"{{/horizontalwidth}} role="region" aria-labeled-by="sectionid-{{sectionid}}-title" data-sectionid="{{sectionno}}"{{#sectionreturn}} data-sectionreturnid="{{sectionreturn}}{{/sectionreturn}}">
+<li id="section-{{sectionno}}" class="section main clearfix{{#sectionstyle}} {{sectionstyle}}{{/sectionstyle}}{{#horizontalclass}} {{horizontalclass}}{{/horizontalclass}}"{{#horizontalwidth}} style="width: {{horizontalwidth}}%;"{{/horizontalwidth}} role="region" aria-labeled-by="sectionid-{{sectionid}}-title" data-sectionid="{{sectionno}}"{{#sectionreturn}} data-sectionreturnid="{{sectionreturn}}"{{/sectionreturn}}>
 {{#nomtore}}
     {{^rtl}}
     <div class="left side">{{{leftcontent}}}</div>
@@ -91,14 +91,15 @@
             </span>
         </div>
         {{#sectionsummarywhencollapsed}}
-            {{{sectionsummary}}}
+        {{{sectionsummary}}}
         {{/sectionsummarywhencollapsed}}
         <div id="toggledsection-{{sectionno}}" class="sectionbody toggledsection{{#toggleopen}} sectionopen{{/toggleopen}}">
             {{^sectionsummarywhencollapsed}}
-                {{{sectionsummary}}}
+            {{{sectionsummary}}}
             {{/sectionsummarywhencollapsed}}
             {{#usereditingtitle}}<span class="hidden" aria-hidden="true">{{usereditingtitle}}</span>{{/usereditingtitle}}
             {{#usereditingurl}}<a href="{{usereditingurl}}" title="{{#str}}editsection, format_topcoll{{/str}}">{{{usereditingicon}}}</a>{{/usereditingurl}}
+            {{{cscml}}}
         </div>
         {{/sectionpage}}
         {{#sectionpage}}
@@ -108,8 +109,8 @@
                 {{{summary}}}
                 {{#usereditingurl}}<a href="{{usereditingurl}}" title="{{#str}}editsection, format_topcoll{{/str}}">{{{usereditingicon}}}</a>{{/usereditingurl}}
             </div>
+            {{{cscml}}}
         {{/sectionpage}}
-        {{{cscml}}}
     </div>
 {{#nomtore}}
     {{^rtl}}

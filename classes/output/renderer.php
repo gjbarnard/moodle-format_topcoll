@@ -412,9 +412,12 @@ class renderer extends \format_section_renderer_base {
         }
         $sectionsummarycontext['classattrextra'] = $classattrextra;
 
-        if ((!$this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
-            $sectionsummarycontext['horizontalclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
-            $sectionsummarycontext['horizontalwidth'] = $this->tccolumnwidth;
+        if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
+            if ($this->formatresponsive) {
+                $sectionsummarycontext['horizontalwidth'] = $this->tccolumnwidth;
+            } else {
+                $sectioncsectionsummarycontextontext['horizontalclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
+            }
         }
 
         if ($section->uservisible) {
@@ -474,12 +477,12 @@ class renderer extends \format_section_renderer_base {
             $this->tcsettings = $this->courseformat->get_settings();
         }
 
-        if ((!$onsectionpage) && (!$this->formatresponsive) && ($section->section != 0) &&
-            ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
-            $sectioncontext['horizontalclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
-        }
-        if (($this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
-            $sectioncontext['horizontalwidth'] = $this->tccolumnwidth;
+        if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
+            if ($this->formatresponsive) {
+                $sectioncontext['horizontalwidth'] = $this->tccolumnwidth;
+            } else if ((!$onsectionpage) && ($section->section != 0)) {
+                $sectioncontext['horizontalclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
+            }
         }
 
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
@@ -577,9 +580,12 @@ class renderer extends \format_section_renderer_base {
             'sectionno' => $section->section
         );
 
-        if ((!$this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
-            $stealthsectioncontext['horizontalclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
-            $stealthsectioncontext['horizontalwidth'] = $this->tccolumnwidth;
+        if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
+            if ($this->formatresponsive) {
+                $stealthsectioncontext['horizontalwidth'] = $this->tccolumnwidth;
+            } else {
+                $stealthsectioncontext['horizontalclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
+            }
         }
 
         return $this->render_from_template('format_topcoll/stealthsection', $stealthsectioncontext);
@@ -600,9 +606,12 @@ class renderer extends \format_section_renderer_base {
         );
         $course = $this->courseformat->get_course();
 
-        if ((!$this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
-            $sectionhiddencontext['horizontalclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
-            $sectionhiddencontext['horizontalwidth'] = $this->tccolumnwidth;
+        if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
+            if ($this->formatresponsive) {
+                $sectionhiddencontext['horizontalwidth'] = $this->tccolumnwidth;
+            } else {
+                $sectionhiddencontext['horizontalclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
+            }
         }
 
         $title = $this->section_title_without_link($section, $course);
