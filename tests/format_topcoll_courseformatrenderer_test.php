@@ -187,6 +187,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         global $CFG;
 
         $this->init();
+        self::set_property($this->outputus, 'formatresponsive', true);
         $section = $this->courseformat->get_section(1);
         $theclass = self::call_method($this->outputus, 'section_summary',
             array($section, $this->course, null));
@@ -194,7 +195,6 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $sectionsummarycontext = array(
             'heading' => '<h3 class="section-title"><a href="'.$CFG->wwwroot.'/course/view.php?id='.
                 $this->course->id.'#section-1" class="">Section 1</a></h3>',
-            'horizontalclass' => 'col-sm-12',
             'horizontalwidth' => '100',
             'rtl' => false,
             'sectionavailability' => '<div class="section_availability"></div>',
@@ -241,16 +241,13 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
             'sectionno' => $section1->section,
             'sectionpage' => !$onsectionpage,
             'sectionreturn' => $sectionreturn,
-            'sectionsummary' =>  self::call_method($this->outputus, 'section_summary',
-                array($section1, $this->course, null)),
+            'sectionsummary' =>  self::call_method($this->outputus, 'section_summary_container', array($section1)),
             'sectionsummarywhencollapsed' => false,
             'toggleiconset' => 'arrow',
             'toggleiconsize' => 'tc-medium',
-            'toggleopen' => $section1->toggle,
-            'usereditingtitle' => $this->courseformat->get_topcoll_section_name($this->course, $section1, false)
+            'toggleopen' => $section1->toggle
         );
         $thevalue = self::call_method($this->outputus, 'render_from_template', array('format_topcoll/section', $sectioncontext));
-error_log('E: '.$thevalue.PHP_EOL.'A: '.$theclass);
         $this->assertEquals($thevalue, $theclass);
 
         /*$thevalue = '<li id="section-1" class="section main clearfix col-sm-12" role="region" ';
@@ -287,7 +284,6 @@ error_log('E: '.$thevalue.PHP_EOL.'A: '.$theclass);
         $sectionhiddencontext = array(
             'heading' => '<h3 id="sectionid-'.$section->id.'-title" class="section-title">Section 1</h3>',
             'horizontalclass' => 'col-sm-12',
-            'horizontalwidth' => '100',
             'leftcontent' => '<span class="cps_centre">1</span>',
             'nomtore' => true,
             'rightcontent' => '',
@@ -316,7 +312,6 @@ error_log('E: '.$thevalue.PHP_EOL.'A: '.$theclass);
             'heading' => $this->ouroutput->heading(get_string('orphanedactivitiesinsectionno', '', $section->section),
                 3, 'sectionname', "sectionid-{$section->id}-title"),
             'horizontalclass' => 'col-sm-12',
-            'horizontalwidth' => '100',
             'rightcontent' => self::call_method($this->outputus, 'section_right_content', array($section, $this->course, false)),
             'rtl' => false,
             'sectionid' => $section->id,
