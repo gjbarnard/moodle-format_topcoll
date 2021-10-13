@@ -270,9 +270,8 @@ class format_topcoll_course_renderer extends \core_course_renderer {
      * @return string
      */
     protected function course_section_cm_get_meta(cm_info $mod) {
-        global $COURSE;
-
-        if (is_guest(context_course::instance($COURSE->id))) {
+        $courseid = $mod->course;
+        if (is_guest(context_course::instance($courseid))) {
             return '';
         }
 
@@ -334,7 +333,7 @@ class format_topcoll_course_renderer extends \core_course_renderer {
         } else {
             // Feedback meta.
             if (!empty($meta->grade)) {
-                   $url = new \moodle_url('/grade/report/user/index.php', ['id' => $COURSE->id]);
+                   $url = new \moodle_url('/grade/report/user/index.php', ['id' => $courseid]);
                 if (in_array($mod->modname, ['quiz', 'assign'])) {
                     $url = new \moodle_url('/mod/'.$mod->modname.'/view.php?id='.$mod->id);
                 }

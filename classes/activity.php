@@ -648,37 +648,50 @@ class activity {
         $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
         $modulecountcourse = $modulecountcache->get($courseid);
         if (empty($modulecountcourse)) {
-            // Initialise to zero in case of no enrolled students on the course - done in calulatecoursemodules().
-
-            $context = \context_course::instance($courseid);
-            $users = get_enrolled_users($context, '', 0, 'u.id', null, 0, 0, true);
-            $users = array_keys($users);
-            $alluserroles = get_users_roles($context, $users, false);
 
             $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
-            $students = array();
+            $students = $studentscache->get($courseid);
 
-            foreach ($users as $userid) {
-                $usershortnames = array();
-                foreach ($alluserroles[$userid] as $userrole) {
-                    $usershortnames[] = $userrole->shortname;
-                }
-                $isstudent = false;
-                foreach ($studentroles as $studentrole) {
-                    if (in_array($studentrole, $usershortnames)) {
-                        // User is in a role that is based on a student archetype on the course.
-                        $isstudent = true;
-                        break;
+            if (empty($students)) {
+                $students = array();
+                $context = \context_course::instance($courseid);
+                $users = get_enrolled_users($context, '', 0, 'u.id', null, 0, 0, true);
+                $users = array_keys($users);
+                $alluserroles = get_users_roles($context, $users, false);
+
+                foreach ($users as $userid) {
+                    $usershortnames = array();
+                    foreach ($alluserroles[$userid] as $userrole) {
+                        $usershortnames[] = $userrole->shortname;
+                    }
+                    $isstudent = false;
+                    foreach ($studentroles as $studentrole) {
+                        if (in_array($studentrole, $usershortnames)) {
+                            // User is in a role that is based on a student archetype on the course.
+                            $isstudent = true;
+                            break;
+                        }
+                    }
+                    if (!$isstudent) {
+                        // Don't go any further.
+                        continue;
+                    } else {
+                        $students[] = $userid;
                     }
                 }
-                if (!$isstudent) {
-                    // Don't go any further.
-                    continue;
+
+                if (empty($students)) {
+                    $studentscache->set($courseid, 'nostudents');
                 } else {
-                    $students[] = $userid;
+                    $studentscache->set($courseid, $students);
                 }
             }
-            $studentscache->set($courseid, $students);
+
+            if (!is_array($students)) {
+                // Set to 'nostudents', set to an empty array so that 'calulatecoursemodules' can cope.
+                $students = array();
+            }
+
             $modulecountcourse = self::calulatecoursemodules($courseid, $students);
             $modulecountcache->set($courseid, $modulecountcourse);
         }
