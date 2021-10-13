@@ -854,8 +854,8 @@ class activity {
                     continue;
                 }
                 // From course_section_cm() in M3.8 - is_visible_on_course_page for M3.9+.
-                if (((method_exists($usermod, 'is_visible_on_course_page')) && ($usermod->is_visible_on_course_page()))
-                    || ((!empty($usermod->availableinfo)) && ($usermod->url))) {
+                if (($usermod->is_visible_on_course_page())
+                    || (!empty($usermod->availableinfo) && ($usermod->url))) {
                     // From course_section_cm_name_title().
                     if ($usermod->uservisible) {
                         $modulecount[$usermod->id]++;
