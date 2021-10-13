@@ -121,6 +121,31 @@ $string['showadditionalmoddata'] = 'Show additional information for: {$a} in the
 $string['showadditionalmoddata_help'] = 'Allow all users to see the activity deadline and users with grading permission to see the number of submissions on the course page for activities.';
 $string['defaultshowadditionalmoddata'] = 'Default course \'Show additional information\' if not already set';
 $string['defaultshowadditionalmoddatadesc'] = 'If an activity is set at site level (below) to show additional information then this setting states the default state of the course specific instance of it.';
+$string['resetactivitymeta'] = 'Additional module information';
+$string['resetallactivitymeta'] = 'All additional module information';
+$string['resetactivitymeta_help'] = 'Resets the additional module information to follow the site default value.';
+$string['resetallactivitymeta_help'] = 'Resets all the additional module information to follow the site default value.';
+
+$string['coursesectionactivityfurtherinformation'] = 'Course page further information';
+$string['coursesectionactivityfurtherinformationassign'] = 'Show assignment information';
+$string['coursesectionactivityfurtherinformationassigndesc'] = 'Show assignment information.  For teachers / admins, show number of submissions.';
+$string['coursesectionactivityfurtherinformationquiz'] = 'Show quiz information';
+$string['coursesectionactivityfurtherinformationquizdesc'] = 'Show quiz information.  For teachers / admins, show number of submissions.';
+$string['coursesectionactivityfurtherinformationchoice'] = 'Show choice information';
+$string['coursesectionactivityfurtherinformationchoicedesc'] = 'Show choice information.  For teachers / admins, show number of submissions.';
+$string['coursesectionactivityfurtherinformationfeedback'] = 'Show feedback information';
+$string['coursesectionactivityfurtherinformationfeedbackdesc'] = 'Show feedback information.  For teachers / admins, show number of submissions.';
+$string['coursesectionactivityfurtherinformationforum'] = 'Show forum information';
+$string['coursesectionactivityfurtherinformationforumdesc'] = 'Show forum information.  For teachers / admins, show number of contributions when whole forum grading is on.';
+$string['coursesectionactivityfurtherinformationlesson'] = 'Show lesson information';
+$string['coursesectionactivityfurtherinformationlessondesc'] = 'Show lesson information.  For teachers / admins, show number of submissions.';
+$string['coursesectionactivityfurtherinformationdata'] = 'Show database information';
+$string['coursesectionactivityfurtherinformationdatadesc'] = 'Show data information.  For teachers / admins, show number of submissions.';
+
+$string['cachedef_activitystudentrolescache'] = 'Caches the student roles.';
+$string['cachedef_activitymodulecountcache'] = 'Caches the number of students who can access a given module on a given course.';
+$string['cachedef_activitystudentscache'] = 'Caches the ids of the students on a given course.';
+$string['cannotgetmodulecountcachelock'] = 'Cannot get module count cache lock for course id {$a}.';
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529.
 $string['setcolour'] = 'Colour';
@@ -177,7 +202,7 @@ $string['right'] = 'Right';
 $string['resettogglealignment'] = 'Toggle alignment';
 $string['resetalltogglealignment'] = 'Toggle alignments';
 $string['resettogglealignment_help'] = 'Resets the toggle alignment to follow the site default value.';
-$string['resetalltogglealignment_help'] = 'Resets the toggle alignment to follow the site default value.';
+$string['resetalltogglealignment_help'] = 'Resets all the toggle alignment to follow the site default value.';
 
 // Icon position - CONTRIB-4470.
 $string['settoggleiconposition'] = 'Icon position';
@@ -365,6 +390,7 @@ $string['topcoll:changelayout'] = 'Change or reset the layout';
 $string['topcoll:changecolour'] = 'Change or reset the colour';
 $string['topcoll:changetogglealignment'] = 'Change or reset the toggle alignment';
 $string['topcoll:changetoggleiconset'] = 'Change or reset the toggle icon set';
+$string['topcoll:changeactivitymeta'] = 'Change or reset the activity meta';
 
 // Instructions.
 $string['instructions'] = 'Instructions: Clicking on the section name will show / hide the section.';
@@ -390,27 +416,6 @@ $string['xcontributed'] = '{$a->completed} contributed';
 $string['xposted'] = '{$a->completed} posted';
 $string['xsubmitted'] = '{$a->completed} submitted';
 $string['xungraded'] = '{$a} ungraded';
-
-$string['coursesectionactivityfurtherinformation'] = 'Course page further information';
-$string['coursesectionactivityfurtherinformationassign'] = 'Show assignment information';
-$string['coursesectionactivityfurtherinformationassigndesc'] = 'Show assignment information.  For teachers / admins, show number of submissions.';
-$string['coursesectionactivityfurtherinformationquiz'] = 'Show quiz information';
-$string['coursesectionactivityfurtherinformationquizdesc'] = 'Show quiz information.  For teachers / admins, show number of submissions.';
-$string['coursesectionactivityfurtherinformationchoice'] = 'Show choice information';
-$string['coursesectionactivityfurtherinformationchoicedesc'] = 'Show choice information.  For teachers / admins, show number of submissions.';
-$string['coursesectionactivityfurtherinformationfeedback'] = 'Show feedback information';
-$string['coursesectionactivityfurtherinformationfeedbackdesc'] = 'Show feedback information.  For teachers / admins, show number of submissions.';
-$string['coursesectionactivityfurtherinformationforum'] = 'Show forum information';
-$string['coursesectionactivityfurtherinformationforumdesc'] = 'Show forum information.  For teachers / admins, show number of contributions when whole forum grading is on.';
-$string['coursesectionactivityfurtherinformationlesson'] = 'Show lesson information';
-$string['coursesectionactivityfurtherinformationlessondesc'] = 'Show lesson information.  For teachers / admins, show number of submissions.';
-$string['coursesectionactivityfurtherinformationdata'] = 'Show database information';
-$string['coursesectionactivityfurtherinformationdatadesc'] = 'Show data information.  For teachers / admins, show number of submissions.';
-
-$string['cachedef_activitystudentrolescache'] = 'Caches the student roles.';
-$string['cachedef_activitymodulecountcache'] = 'Caches the number of students who can access a given module on a given course.';
-$string['cachedef_activitystudentscache'] = 'Caches the ids of the students on a given course.';
-$string['cannotgetmodulecountcachelock'] = 'Cannot get module count cache lock for course id {$a}.';
 
 // Duplicate section.
 $string['creatingsection'] = 'Creating new section';

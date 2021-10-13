@@ -11,6 +11,9 @@ Version 3.11.0.4 - TBR
   6. Refactor - add stealth section template.
   7. Refactor - add single section template.
   8. Refactor - add section template.
+  9. Separate out 'Activity information' as a separate reset, new capability 'changeactivitymeta' and fix the
+     'forum' module in the list of enabled plugins so that it can be enabled and the others disabled and 'showadditionalmoddata'
+     still take effect.
 
 Version 3.11.0.3 - 30/09/2021
 -----------------------------
