@@ -1040,7 +1040,7 @@ class format_topcoll extends format_base {
     public function create_edit_form_elements(&$mform, $forsection = false) {
         global $CFG, $OUTPUT, $USER;
         MoodleQuickForm::registerElementType(
-            'tccolourpopup', 
+            'tccolourpopup',
             "$CFG->dirroot/course/format/topcoll/js/tc_colourpopup.php",
             'MoodleQuickForm_tccolourpopup');
 
@@ -1501,7 +1501,7 @@ class format_topcoll extends format_base {
             $updatedata['toggleallhover'] = 0;
             $updatetoggleiconset = true;
         }
-error_log(print_r($updatedata, true));
+
         foreach ($records as $record) {
             if ($currentcourseid != $record->courseid) {
                 $currentcourseid = $record->courseid; // Only do once per course.
