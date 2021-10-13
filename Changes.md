@@ -14,6 +14,7 @@ Version 3.11.0.4 - TBR
   9. Separate out 'Activity information' as a separate reset, new capability 'changeactivitymeta' and fix the
      'forum' module in the list of enabled plugins so that it can be enabled and the others disabled and 'showadditionalmoddata'
      still take effect.
+ 10. Remove redundant BS2.3.2 support on reset section of course settings.
 
 Version 3.11.0.3 - 30/09/2021
 -----------------------------

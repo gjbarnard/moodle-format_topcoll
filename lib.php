@@ -1038,17 +1038,19 @@ class format_topcoll extends format_base {
      * @return array array of references to the added form elements
      */
     public function create_edit_form_elements(&$mform, $forsection = false) {
-        global $CFG, $OUTPUT, $PAGE, $USER;
-        MoodleQuickForm::registerElementType('tccolourpopup', "$CFG->dirroot/course/format/topcoll/js/tc_colourpopup.php",
-                                             'MoodleQuickForm_tccolourpopup');
+        global $CFG, $OUTPUT, $USER;
+        MoodleQuickForm::registerElementType(
+            'tccolourpopup', 
+            "$CFG->dirroot/course/format/topcoll/js/tc_colourpopup.php",
+            'MoodleQuickForm_tccolourpopup');
 
         $elements = parent::create_edit_form_elements($mform, $forsection);
 
-        // Increase the number of sections combo box values if the user has increased the number of sections
-        // using the icon on the course page beyond course 'maxsections' or course 'maxsections' has been
-        // reduced below the number of sections already set for the course on the site administration course
-        // defaults page.  This is so that the number of sections is not reduced leaving unintended orphaned
-        // activities / resources.
+        /* Increase the number of sections combo box values if the user has increased the number of sections
+           using the icon on the course page beyond course 'maxsections' or course 'maxsections' has been
+           reduced below the number of sections already set for the course on the site administration course
+           defaults page.  This is so that the number of sections is not reduced leaving unintended orphaned
+           activities / resources. */
         if (!$forsection) {
             $maxsections = get_config('moodlecourse', 'maxsections');
             $numsections = $mform->getElementValue('numsections');
@@ -1073,84 +1075,39 @@ class format_topcoll extends format_base {
         $elements[] = $mform->addElement('header', 'ctreset', get_string('ctreset', 'format_topcoll'));
         $mform->addHelpButton('ctreset', 'ctreset', 'format_topcoll', '', true);
 
-        $bsfour = false;
-        if (strcmp($PAGE->theme->name, 'boost') === 0) {
-            $bsfour = true;
-        } else if (!empty($PAGE->theme->parents)) {
-            if (in_array('boost', $PAGE->theme->parents) === true) {
-                $bsfour = true;
-            }
-        } else if (strcmp($PAGE->theme->name, 'foundation') === 0) {
-            $bsfour = true;
-        }
-
         $resetelements = array();
-        if ($bsfour) {
-            $checkboxname = get_string('resetdisplayinstructions', 'format_topcoll');
-            $resetelements[] = & $mform->createElement('checkbox', 'resetdisplayinstructions', '', $checkboxname);
-            $resetelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetdisplayinstructions', 'format_topcoll'));
-        } else {
-            $checkboxname = get_string('resetdisplayinstructions', 'format_topcoll').
-                $OUTPUT->help_icon('resetdisplayinstructions', 'format_topcoll');
-            $resetelements[] =& $mform->createElement('checkbox', 'resetdisplayinstructions', '', $checkboxname);
-        }
+        $checkboxname = get_string('resetdisplayinstructions', 'format_topcoll');
+        $resetelements[] = & $mform->createElement('checkbox', 'resetdisplayinstructions', '', $checkboxname);
+        $resetelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetdisplayinstructions', 'format_topcoll'));
 
         if ($changelayout) {
-            if ($bsfour) {
-                $checkboxname = get_string('resetlayout', 'format_topcoll');
-                $resetelements[] = & $mform->createElement('checkbox', 'resetlayout', '', $checkboxname);
-                $resetelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetlayout', 'format_topcoll'));
-            } else {
-                $checkboxname = get_string('resetlayout', 'format_topcoll').$OUTPUT->help_icon('resetlayout', 'format_topcoll');
-                $resetelements[] =& $mform->createElement('checkbox', 'resetlayout', '', $checkboxname);
-            }
+            $checkboxname = get_string('resetlayout', 'format_topcoll');
+            $resetelements[] = & $mform->createElement('checkbox', 'resetlayout', '', $checkboxname);
+            $resetelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetlayout', 'format_topcoll'));
         }
 
         if ($changecolour) {
-            if ($bsfour) {
-                $checkboxname = get_string('resetcolour', 'format_topcoll');
-                $resetelements[] = & $mform->createElement('checkbox', 'resetcolour', '', $checkboxname);
-                $resetelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetcolour', 'format_topcoll'));
-            } else {
-                $checkboxname = get_string('resetcolour', 'format_topcoll').$OUTPUT->help_icon('resetcolour', 'format_topcoll');
-                $resetelements[] =& $mform->createElement('checkbox', 'resetcolour', '', $checkboxname);
-            }
+            $checkboxname = get_string('resetcolour', 'format_topcoll');
+            $resetelements[] = & $mform->createElement('checkbox', 'resetcolour', '', $checkboxname);
+            $resetelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetcolour', 'format_topcoll'));
         }
 
         if ($changetogglealignment) {
-            if ($bsfour) {
-                $checkboxname = get_string('resettogglealignment', 'format_topcoll');
-                $resetelements[] = & $mform->createElement('checkbox', 'resettogglealignment', '', $checkboxname);
-                $resetelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resettogglealignment', 'format_topcoll'));
-            } else {
-                $checkboxname = get_string('resettogglealignment', 'format_topcoll').
-                    $OUTPUT->help_icon('resettogglealignment', 'format_topcoll');
-                $resetelements[] =& $mform->createElement('checkbox', 'resettogglealignment', '', $checkboxname);
-            }
+            $checkboxname = get_string('resettogglealignment', 'format_topcoll');
+            $resetelements[] = & $mform->createElement('checkbox', 'resettogglealignment', '', $checkboxname);
+            $resetelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resettogglealignment', 'format_topcoll'));
         }
 
         if ($changetoggleiconset) {
-            if ($bsfour) {
-                $checkboxname = get_string('resettoggleiconset', 'format_topcoll');
-                $resetelements[] = & $mform->createElement('checkbox', 'resettoggleiconset', '', $checkboxname);
-                $resetelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resettoggleiconset', 'format_topcoll'));
-            } else {
-                $checkboxname = get_string('resettoggleiconset', 'format_topcoll').
-                    $OUTPUT->help_icon('resettoggleiconset', 'format_topcoll');
-                $resetelements[] =& $mform->createElement('checkbox', 'resettoggleiconset', '', $checkboxname);
-            }
+            $checkboxname = get_string('resettoggleiconset', 'format_topcoll');
+            $resetelements[] = & $mform->createElement('checkbox', 'resettoggleiconset', '', $checkboxname);
+            $resetelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resettoggleiconset', 'format_topcoll'));
         }
 
         if ($changeactivitymeta) {
-            if ($bsfour) {
-                $checkboxname = get_string('resetactivitymeta', 'format_topcoll');
-                $resetelements[] = & $mform->createElement('checkbox', 'resetactivitymeta', '', $checkboxname);
-                $resetelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetactivitymeta', 'format_topcoll'));
-            } else {
-                $checkboxname = get_string('resetactivitymeta', 'format_topcoll').
-                    $OUTPUT->help_icon('resetactivitymeta', 'format_topcoll');
-                $resetelements[] =& $mform->createElement('checkbox', 'resetactivitymeta', '', $checkboxname);
-            }
+            $checkboxname = get_string('resetactivitymeta', 'format_topcoll');
+            $resetelements[] = & $mform->createElement('checkbox', 'resetactivitymeta', '', $checkboxname);
+            $resetelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetactivitymeta', 'format_topcoll'));
         }
 
         $elements[] = $mform->addGroup($resetelements, 'resetgroup', get_string('resetgrp', 'format_topcoll'), null, false);
@@ -1158,55 +1115,30 @@ class format_topcoll extends format_base {
         if ($resetall) {
             $resetallelements = array();
 
-            if ($bsfour) {
-                $checkboxname = get_string('resetalldisplayinstructions', 'format_topcoll');
-                $resetallelements[] = & $mform->createElement('checkbox', 'resetalldisplayinstructions', '', $checkboxname);
-                $resetallelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetalldisplayinstructions', 'format_topcoll'));
+            $checkboxname = get_string('resetalldisplayinstructions', 'format_topcoll');
+            $resetallelements[] = & $mform->createElement('checkbox', 'resetalldisplayinstructions', '', $checkboxname);
+            $resetallelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetalldisplayinstructions', 'format_topcoll'));
 
-                $checkboxname = get_string('resetalllayout', 'format_topcoll');
-                $resetallelements[] = & $mform->createElement('checkbox', 'resetalllayout', '', $checkboxname);
-                $resetallelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetalllayout', 'format_topcoll'));
+            $checkboxname = get_string('resetalllayout', 'format_topcoll');
+            $resetallelements[] = & $mform->createElement('checkbox', 'resetalllayout', '', $checkboxname);
+            $resetallelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetalllayout', 'format_topcoll'));
 
-                $checkboxname = get_string('resetallcolour', 'format_topcoll');
-                $resetallelements[] = & $mform->createElement('checkbox', 'resetallcolour', '', $checkboxname);
-                $resetallelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetallcolour', 'format_topcoll'));
+            $checkboxname = get_string('resetallcolour', 'format_topcoll');
+            $resetallelements[] = & $mform->createElement('checkbox', 'resetallcolour', '', $checkboxname);
+            $resetallelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetallcolour', 'format_topcoll'));
 
-                $checkboxname = get_string('resetalltogglealignment', 'format_topcoll');
-                $resetallelements[] = & $mform->createElement('checkbox', 'resetalltogglealignment', '', $checkboxname);
-                $resetallelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetalltogglealignment', 'format_topcoll'));
+            $checkboxname = get_string('resetalltogglealignment', 'format_topcoll');
+            $resetallelements[] = & $mform->createElement('checkbox', 'resetalltogglealignment', '', $checkboxname);
+            $resetallelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetalltogglealignment', 'format_topcoll'));
 
-                $checkboxname = get_string('resetalltoggleiconset', 'format_topcoll');
-                $resetallelements[] = & $mform->createElement('checkbox', 'resetalltoggleiconset', '', $checkboxname);
-                $resetallelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetalltoggleiconset', 'format_topcoll'));
+            $checkboxname = get_string('resetalltoggleiconset', 'format_topcoll');
+            $resetallelements[] = & $mform->createElement('checkbox', 'resetalltoggleiconset', '', $checkboxname);
+            $resetallelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetalltoggleiconset', 'format_topcoll'));
 
-                $checkboxname = get_string('resetallactivitymeta', 'format_topcoll');
-                $resetallelements[] = & $mform->createElement('checkbox', 'resetallactivitymeta', '', $checkboxname);
-                $resetallelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetallactivitymeta', 'format_topcoll'));
-            } else {
-                $checkboxname = get_string('resetalldisplayinstructions', 'format_topcoll').
-                    $OUTPUT->help_icon('resetalldisplayinstructions', 'format_topcoll');
-                $resetallelements[] =& $mform->createElement('checkbox', 'resetalldisplayinstructions', '', $checkboxname);
+            $checkboxname = get_string('resetallactivitymeta', 'format_topcoll');
+            $resetallelements[] = & $mform->createElement('checkbox', 'resetallactivitymeta', '', $checkboxname);
+            $resetallelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetallactivitymeta', 'format_topcoll'));
 
-                $checkboxname = get_string('resetalllayout', 'format_topcoll').
-                    $OUTPUT->help_icon('resetalllayout', 'format_topcoll');
-                $resetallelements[] =& $mform->createElement('checkbox', 'resetalllayout', '', $checkboxname);
-
-                $checkboxname = get_string('resetallcolour', 'format_topcoll').
-                    $OUTPUT->help_icon('resetallcolour', 'format_topcoll');
-                $resetallelements[] =& $mform->createElement('checkbox', 'resetallcolour', '', $checkboxname);
-
-                $checkboxname = get_string('resetalltogglealignment', 'format_topcoll').
-                    $OUTPUT->help_icon('resetalltogglealignment', 'format_topcoll');
-                $resetallelements[] =& $mform->createElement('checkbox', 'resetalltogglealignment', '', $checkboxname);
-
-                $checkboxname = get_string('resetalltoggleiconset', 'format_topcoll').
-                    $OUTPUT->help_icon('resetalltoggleiconset', 'format_topcoll');
-                $resetallelements[] =& $mform->createElement('checkbox', 'resetalltoggleiconset', '', $checkboxname);
-
-                $checkboxname = get_string('resetallactivitymeta', 'format_topcoll').
-                    $OUTPUT->help_icon('resetallactivitymeta', 'format_topcoll');
-                $resetallelements[] =& $mform->createElement('checkbox', 'resetallactivitymeta', '', $checkboxname);
-            }
             $elements[] = $mform->addGroup($resetallelements, 'resetallgroup',
                 get_string('resetallgrp', 'format_topcoll'), null, false);
         }
