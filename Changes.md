@@ -7,6 +7,10 @@ Version 3.10.1.3 - 30/09/2021
   3. Add 'aria-live=polite' to the section content and 'aria-controls' to the open / close all buttons - CONTRIB-8637.
   4. Add support for Forums in "Course page further information" - #105.
   5. Fix 'Collapsed topics rollover settings aren't accessible' - #111.
+  6. Add 'enableadditionalmoddata' setting to turn on / off additional information at a site level.  Default is 'off'!
+  7. Separate out 'Activity information' as a separate reset, new capability 'changeactivitymeta' and fix the
+     'forum' module in the list of enabled plugins so that it can be enabled and the others disabled and 'showadditionalmoddata'
+     still take effect.
 
 Version 3.10.1.2 - 02/07/2021
 -----------------------------
