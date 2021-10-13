@@ -121,17 +121,9 @@ class activity {
             } else {
                 $methodnsubmissions = $mod->modname.'_num_submissions';
                 $methodnumungraded = $mod->modname.'_num_submissions_ungraded';
-                $methodparticipants = $mod->modname.'_num_participants';
 
                 // Do this before the rest so that the caches are populated for use.
-                if (method_exists('format_topcoll\\activity', $methodparticipants)) {
-                    /* Note: This bypasses the cache code, so if for example the 'students' are
-                             needed then do not implement it for the given module. */
-                    $meta->numparticipants = call_user_func('format_topcoll\\activity::'.
-                        $methodparticipants, $courseid, $mod);
-                } else {
-                    $meta->numparticipants = self::course_participant_count($courseid, $mod);
-                }
+                $meta->numparticipants = self::course_participant_count($courseid, $mod);
                 if (!empty($meta->numparticipants)) {
                     // Only need to bother if there are participants!
                     if (method_exists('format_topcoll\\activity', $methodnsubmissions)) {
