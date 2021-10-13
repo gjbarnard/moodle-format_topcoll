@@ -124,6 +124,10 @@ $string['showadditionalmoddata'] = 'Show additional information for: {$a} in the
 $string['showadditionalmoddata_help'] = 'Allow all users to see the activity deadline and users with grading permission to see the number of submissions on the course page for activities.';
 $string['defaultshowadditionalmoddata'] = 'Default course \'Show additional information\'';
 $string['defaultshowadditionalmoddatadesc'] = 'If an activity is set at site level (below) to show additional information then this setting states the default state of the course specific instance of it.';
+$string['resetactivitymeta'] = 'Additional module information';
+$string['resetallactivitymeta'] = 'All additional module information';
+$string['resetactivitymeta_help'] = 'Resets the additional module information to follow the site default value.';
+$string['resetallactivitymeta_help'] = 'Resets all the additional module information to follow the site default value.';
 
 $string['courseadditionalmoddatamaxstudents'] = 'Set the maximum number of students on a course that \'Show additional information\' will apply to';
 $string['courseadditionalmoddatamaxstudentsdesc'] = 'Additional information can take time to calculate, especially on large courses, so here you can set the maximum number of students that a couse can have for the functionality to show on that course.  Above that value, the \'Additional information\' will NOT be calculated or show regardless of the course settings!  A value of \'0\' means \'unlimited\'.';
