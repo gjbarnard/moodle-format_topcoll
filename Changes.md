@@ -17,6 +17,7 @@ Version 3.11.0.4 - TBR
  10. Remove redundant BS2.3.2 support on reset section of course settings.
  11. Calculate the students in 'activitystudentscache' only once per course.
  12. Refactor - add section course module meta template.
+ 13. Refactor - add section course module template.
 
 Version 3.11.0.3 - 30/09/2021
 -----------------------------

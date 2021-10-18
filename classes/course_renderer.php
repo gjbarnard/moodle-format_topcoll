@@ -150,63 +150,37 @@ class format_topcoll_course_renderer extends \core_course_renderer {
         if ($this->page->user_is_editing()) { // Don't display the activity meta when editing so that drag and drop is not broken.
             return parent::course_section_cm($course, $completioninfo, $mod, $sectionreturn, $displayoptions);
         }
-        global $USER;
 
-        $output = '';
-        /* We return empty string (because course module will not be displayed at all)
-           if:
+        /* We return empty string (because course module will not be displayed at all) if:
            1) The activity is not visible to users
-           and
+              and
            2) The 'availableinfo' is empty, i.e. the activity was
               hidden in a way that leaves no info, such as using the
               eye icon. */
         if (!$mod->is_visible_on_course_page()) {
-            return $output;
+            return '';
         }
 
-        $indentclasses = 'mod-indent';
+        global $USER;
+        $sectioncmcontext = array(
+            'availability' => $this->course_section_cm_availability($mod, $displayoptions),
+            'contentpart' => $this->course_section_cm_text($mod, $displayoptions),
+            'hasurl' => (empty($mod->url))
+        );
+
+        $sectioncmcontext['indent'] = 'mod-indent';
         if (!empty($mod->indent)) {
-            $indentclasses .= ' mod-indent-'.$mod->indent;
+            $sectioncmcontext['indent'] .= ' mod-indent-'.$mod->indent;
             if ($mod->indent > 15) {
-                $indentclasses .= ' mod-indent-huge';
+                $sectioncmcontext['indent'] .= ' mod-indent-huge';
             }
         }
 
-        $output .= html_writer::start_tag('div');
-
-        $output .= html_writer::start_tag('div', array('class' => 'mod-indent-outer'));
-
-        // This div is used to indent the content.
-        $output .= html_writer::div('', $indentclasses);
-
-        // Start a wrapper for the actual content to keep the indentation consistent.
-        $output .= html_writer::start_tag('div');
-
         // Display the link to the module (or do nothing if module has no url).
         $cmname = $this->course_section_cm_name($mod, $displayoptions);
-
         if (!empty($cmname)) {
-            // Start the div for the activity title, excluding the edit icons.
-            $output .= html_writer::start_tag('div', array('class' => 'activityinstance'));
-            $output .= $cmname;
-
-            // Module can put text after the link (e.g. forum unread).
-            $output .= $mod->afterlink;
-
-            // Closing the tag which contains everything but edit icons. Content part of the module should not be part of this.
-            $output .= html_writer::end_tag('div');
-        }
-
-        /* If there is content but NO link (eg label), then display the
-           content here (BEFORE any icons). In this case cons must be
-           displayed after the content so that it makes more sense visually
-           and for accessibility reasons, e.g. if you have a one-line label
-           it should work similarly (at least in terms of ordering) to an
-           activity. */
-        $contentpart = $this->course_section_cm_text($mod, $displayoptions);
-        $url = $mod->url;
-        if (empty($url)) {
-            $output .= $contentpart;
+            $sectioncmcontext['cmname'] = $cmname;
+            $sectioncmcontext['cmnameafterlink'] = $mod->afterlink;
         }
 
         // Fetch completion details.
@@ -225,11 +199,8 @@ class format_topcoll_course_renderer extends \core_course_renderer {
            - The activity tracks completion manually; or
            - There are activity dates to be shown. */
         if ($showcompletionconditions || $ismanualcompletion || $activitydates) {
-            $output .= $this->output->activity_information($mod, $completiondetails, $activitydates);
+            $sectioncmcontext['activityinformation'] = $this->output->activity_information($mod, $completiondetails, $activitydates);
         }
-
-        // Show availability info (if module is not available).
-        $output .= $this->course_section_cm_availability($mod, $displayoptions);
 
         // Get further information.
         $courseformat = course_get_format($course);
@@ -238,29 +209,11 @@ class format_topcoll_course_renderer extends \core_course_renderer {
             $settingname = 'coursesectionactivityfurtherinformation'.$mod->modname;
             $setting = get_config('format_topcoll', $settingname);
             if ((!empty($setting)) && ($setting == 2)) {
-                $cmmetaoutput = $this->course_section_cm_get_meta($mod);
-                if (!empty($cmmetaoutput)) {
-                    $output .= html_writer::start_tag('div', array('class' => 'ct-activity-meta-container'));
-                    $output .= $cmmetaoutput;
-                    $output .= html_writer::end_tag('div');
-                }
+                $sectioncmcontext['cmmeta'] = $this->course_section_cm_get_meta($mod);
             }
         }
 
-        /* If there is content AND a link, then display the content here
-           (AFTER any icons). Otherwise it was displayed before. */
-        if (!empty($url)) {
-            $output .= $contentpart;
-        }
-
-        $output .= html_writer::end_tag('div');
-
-        // End of indentation div.
-        $output .= html_writer::end_tag('div');
-
-        $output .= html_writer::end_tag('div');
-
-        return $output;
+        return $this->output->render_from_template('format_topcoll/sectioncm', $sectioncmcontext);
     }
 
     /**
