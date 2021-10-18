@@ -266,8 +266,8 @@ class format_topcoll_course_renderer extends \core_course_renderer {
     /**
      * Get the module meta data for a specific module.
      *
-     * @param cm_info $mod
-     * @return string
+     * @param cm_info $mod The module.
+     * @return string The markup.
      */
     protected function course_section_cm_get_meta(cm_info $mod) {
         $courseid = $mod->course;
@@ -315,34 +315,38 @@ class format_topcoll_course_renderer extends \core_course_renderer {
                 $engagementmeta[] = get_string('xungraded', 'format_topcoll', $meta->numrequiregrading);
             }
             if (!empty($engagementmeta)) {
-                $engagementstr = implode(', ', $engagementmeta);
-
                 $params = array(
                     'action' => 'grading',
                     'id' => $mod->id,
                     'tsort' => 'timesubmitted',
                     'filter' => 'require_grading'
                 );
-                $url = new moodle_url("/mod/{$mod->modname}/view.php", $params);
 
-                $icon = $this->output->pix_icon('docs', get_string('info'));
-                $content .= html_writer::start_tag('div', array('class' => 'ct-activity-mod-engagement'));
-                $content .= html_writer::link($url, $icon.$engagementstr, array('class' => 'ct-activity-action'));
-                $content .= html_writer::end_tag('div');
+                $sectioncmmetacontext = array(
+                    'linkclass' => 'ct-activity-action',
+                    'linkicon' => $this->output->pix_icon('docs', get_string('info')),
+                    'linktext' => implode(', ', $engagementmeta),
+                    'linkurl' => new moodle_url("/mod/{$mod->modname}/view.php", $params),
+                    'type' => 'engagement'
+                );
+                $content = $this->output->render_from_template('format_topcoll/sectioncmmeta', $sectioncmmetacontext);
             }
         } else {
             // Feedback meta.
             if (!empty($meta->grade)) {
-                   $url = new \moodle_url('/grade/report/user/index.php', ['id' => $courseid]);
                 if (in_array($mod->modname, ['quiz', 'assign'])) {
                     $url = new \moodle_url('/mod/'.$mod->modname.'/view.php?id='.$mod->id);
+                } else {
+                    $url = new \moodle_url('/grade/report/user/index.php', ['id' => $courseid]);
                 }
-                $content .= html_writer::start_tag('span', array('class' => 'ct-activity-mod-feedback'));
 
-                $feedbackavailable = $this->output->pix_icon('t/message', get_string('feedback')) .
-                    get_string('feedbackavailable', 'format_topcoll');
-                $content .= html_writer::link($url, $feedbackavailable);
-                $content .= html_writer::end_tag('span');
+                $sectioncmmetacontext = array(
+                    'linkicon' => $this->output->pix_icon('t/message', get_string('feedback')),
+                    'linktext' => get_string('feedbackavailable', 'format_topcoll'),
+                    'linkurl' => $url,
+                    'type' => 'feedback'
+                );
+                $content = $this->output->render_from_template('format_topcoll/sectioncmmeta', $sectioncmmetacontext);
             }
         }
 

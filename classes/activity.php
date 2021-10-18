@@ -144,20 +144,22 @@ class activity {
             }
         } else if ($isgradeable) {
             $graderow = self::grade_row($courseid, $mod);
-            if ($graderow) {
-                global $USER;
-                $gradeitem = \grade_item::fetch(array(
-                    'itemtype' => 'mod',
-                    'itemmodule' => $mod->modname,
-                    'iteminstance' => $mod->instance,
-                    'outcomeid' => null
-                ));
 
+            if ($graderow) {
                 $coursecontext = \context_course::instance($courseid);
                 if (has_capability('moodle/grade:viewhidden', $coursecontext)) {
                     $meta = new activity_meta();
                     $meta->grade = true;
                 } else {
+                    global $USER;
+
+                    $gradeitem = \grade_item::fetch(array(
+                        'itemtype' => 'mod',
+                        'itemmodule' => $mod->modname,
+                        'iteminstance' => $mod->instance,
+                        'outcomeid' => null
+                    ));
+
                     $grade = new \grade_grade(array('itemid' => $gradeitem->id, 'userid' => $USER->id));
                     if (!$grade->is_hidden()) {
                         $meta = new activity_meta();
