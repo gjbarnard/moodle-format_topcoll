@@ -126,6 +126,14 @@ $string['resetallactivitymeta'] = 'All additional module information';
 $string['resetactivitymeta_help'] = 'Resets the additional module information to follow the site default value.';
 $string['resetallactivitymeta_help'] = 'Resets all the additional module information to follow the site default value.';
 
+$string['courseadditionalmoddatamaxstudents'] = 'Set the maximum number of students on a course that \'Show additional information\' will apply to';
+$string['courseadditionalmoddatamaxstudentsdesc'] = 'Additional information can take time to calculate, especially on large courses, so here you can set the maximum number of students that a couse can have for the functionality to show on that course.  Above that value, the \'Additional information\' will NOT be calculated or show regardless of the course settings!  A value of \'0\' means \'unlimited\'.';
+
+$string['courseadditionalmoddatastudentsinfo'] = 'Additional information status:';
+$string['courseadditionalmoddatastudentsinfounlimited'] = 'Additional information will show for the enabled activities for {$a} students.';
+$string['courseadditionalmoddatastudentsinfolimitedshow'] = 'Additional information will show for the enabled activities for {$a->students} students as the number does not exceed the maximum \'{$a->maxstudents}\' set by the administrator on the Collapsed Topics course format setting \'courseadditionalmoddatamaxstudents\'.';
+$string['courseadditionalmoddatastudentsinfolimitednoshow'] = 'Additional information will NOT show for the enabled activities for {$a->students} students as the number exceededs the maximum \'{$a->maxstudents}\' set by the administrator on the Collapsed Topics course format setting \'courseadditionalmoddatamaxstudents\'.';
+
 $string['coursesectionactivityfurtherinformation'] = 'Course page further information';
 $string['coursesectionactivityfurtherinformationassign'] = 'Show assignment information';
 $string['coursesectionactivityfurtherinformationassigndesc'] = 'Show assignment information.  For teachers / admins, show number of submissions.';

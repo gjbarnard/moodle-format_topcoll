@@ -18,6 +18,12 @@ Version 3.11.0.4 - TBR
  11. Calculate the students in 'activitystudentscache' only once per course.
  12. Refactor - add section course module meta template.
  13. Refactor - add section course module template.
+ 14. Added 'courseadditionalmoddatamaxstudents' setting to restrict, if desired, the display of the activity information on a
+     a course of the number of students on that course exceeds it.  When 'showadditionalmoddata' is enabled on a course, then
+     additional information about the status of this is shown underneath the setting on the course settings page.  This is so
+     that large courses can be automatically prevented from showing the information as the calculations would take an
+     unacceptable amount of time to compute.  It is up to the administrator to set the figure based upon benchmarking / testing
+     of the performance characteristics of the server.  The default is '0', which means 'unlimited' number of students.
 
 Version 3.11.0.3 - 30/09/2021
 -----------------------------

@@ -617,9 +617,8 @@ class activity {
     }
 
     // Participant count code.
-
     /**
-     * Get total participant count for specific courseid and module.
+     * Get total participant count for a specific courseid and module.
      *
      * @param int $courseid The course id.
      * @param cm_info $mod The module.
@@ -627,6 +626,30 @@ class activity {
      * @return int Number of participants (students) on the module.
      */
     protected static function course_participant_count($courseid, $mod) {
+        $students = self::course_get_students($courseid);
+        if (is_array($students)) {
+            // We have students!
+            $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
+            $modulecountcourse = $modulecountcache->get($courseid);
+            if (empty($modulecountcourse)) {
+                $modulecountcourse = self::calulatecoursemodules($courseid, $students);
+                $modulecountcache->set($courseid, $modulecountcourse);
+            }
+
+            return $modulecountcourse[$mod->id];
+        }
+
+        return 0;
+    }
+
+    /**
+     * Get students for a specific courseid.
+     *
+     * @param int $courseid The course id.
+     *
+     * @return array / string 0 or more student id's in an array or 'nostudents' string.
+     */
+    public static function course_get_students($courseid) {
         $studentrolescache = \cache::make('format_topcoll', 'activitystudentrolescache');
         $studentroles = $studentrolescache->get('roles');
 
@@ -676,19 +699,38 @@ class activity {
             }
         }
 
-        if (is_array($students)) {
-            // We have students!
-            $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
-            $modulecountcourse = $modulecountcache->get($courseid);
-            if (empty($modulecountcourse)) {
-                $modulecountcourse = self::calulatecoursemodules($courseid, $students);
-                $modulecountcache->set($courseid, $modulecountcourse);
-            }
+        return $students;
+    }
 
-            return $modulecountcourse[$mod->id];
+    /**
+     * States if the format setting for the maximum number of students has not been
+     * exceeded for the specific courseid.
+     *
+     * @param int $courseid The course id.
+     * @param boolean $extrainfo Return extra information.
+     *
+     * @return boolean true = it has not, false = it has /
+     *         if $extrainfo then array (boolean, nostudents, maxstudents);
+     */
+    public static function maxstudentsnotexceeded($courseid, $extrainfo = false) {
+        $notexceeded = true;
+        $maxstudents = get_config('format_topcoll', 'courseadditionalmoddatamaxstudents');
+        $studentcount = 0;
+        if (($maxstudents != 0) || ($extrainfo)) {
+            $students = self::course_get_students($courseid);
+            if (is_array($students)) {
+                $studentcount = count($students);
+                if ($maxstudents < $studentcount) {
+                    $notexceeded = false;
+                }
+            }
         }
 
-        return 0;
+        if ($extrainfo) {
+            return array('notexceeded' => $notexceeded, 'nostudents' => $studentcount, 'maxstudents' => $maxstudents);
+        }
+
+        return $notexceeded;
     }
 
     /**

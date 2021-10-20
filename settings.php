@@ -518,6 +518,12 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
+    $name = 'format_topcoll/courseadditionalmoddatamaxstudents';
+    $title = get_string('courseadditionalmoddatamaxstudents', 'format_topcoll');
+    $description = get_string('courseadditionalmoddatamaxstudentsdesc', 'format_topcoll');
+    $default = 0;
+    $settings->add(new admin_setting_configtext($name, $title, $description, $default, PARAM_INT));
+
     $name = 'format_topcoll/coursesectionactivityfurtherinformationassign';
     $title = get_string('coursesectionactivityfurtherinformationassign', 'format_topcoll');
     $description = get_string('coursesectionactivityfurtherinformationassigndesc', 'format_topcoll');

@@ -432,10 +432,10 @@ class format_topcoll extends format_base {
                 }
             }
         }
+        $courseid = $this->get_courseid();
         if ($courseformatoptions === false) {
             $courseconfig = get_config('moodlecourse');
 
-            $courseid = $this->get_courseid();
             if ($courseid == 1) { // New course.
                 $defaultnumsections = $courseconfig->numsections;
             } else { // Existing course that may not have 'numsections' - see get_last_section().
@@ -812,6 +812,27 @@ class format_topcoll extends format_base {
                         'element_type' => 'select',
                         'element_attributes' => array($showadditionalmoddatavalues)
                     );
+
+                    $tcsettings = $this->get_settings();
+                    if ((!empty($tcsettings['showadditionalmoddata'])) && ($tcsettings['showadditionalmoddata'] == 2)) {
+                        $maxstudentsinfo = \format_topcoll\activity::maxstudentsnotexceeded($courseid, true);
+                        if ($maxstudentsinfo['maxstudents'] == 0) {
+                            $activityinfostring = get_string('courseadditionalmoddatastudentsinfounlimited', 'format_topcoll',
+                                $maxstudentsinfo['nostudents']);
+                        } else if (!$maxstudentsinfo['notexceeded']) {
+                            $activityinfostring = get_string('courseadditionalmoddatastudentsinfolimitednoshow', 'format_topcoll',
+                                array('students' => $maxstudentsinfo['nostudents'], 'maxstudents' => $maxstudentsinfo['maxstudents']));
+                        } else {
+                            $activityinfostring = get_string('courseadditionalmoddatastudentsinfolimitedshow', 'format_topcoll',
+                                array('students' => $maxstudentsinfo['nostudents'], 'maxstudents' => $maxstudentsinfo['maxstudents']));
+                        }
+
+                        $courseformatoptionsedit['courseadditionalmoddatastudentsinfo'] = array(
+                            'label' => get_string('courseadditionalmoddatastudentsinfo', 'format_topcoll'),
+                            'element_type' => 'static',
+                            'element_attributes' => array($activityinfostring)
+                        );
+                    }
                 } else {
                     $courseformatoptionsedit['showadditionalmoddata'] = array(
                         'label' => 0, 'element_type' => 'hidden');
