@@ -82,4 +82,12 @@ trait format_renderer_migration_toolbox {
         $cmlistclass = $this->courseformat->get_output_classname('content\\section\\cmlist');
         return $this->render(new $cmlistclass($this->courseformat, $section));
     }
+
+    protected function section_nav_selection($course, $sections, $displaysection) {
+        $sectionnavigationclass = $this->courseformat->get_output_classname('content\\sectionnavigation');
+        $sectionnavigation = new $sectionnavigationclass($this->courseformat, $displaysection);
+        $sectionselectorclass = $this->courseformat->get_output_classname('content\\sectionselector');
+        $sectionselector = new $sectionselectorclass($this->courseformat, $sectionnavigation);
+        return $this->render($sectionselector);
+    }
 }

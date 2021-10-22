@@ -191,9 +191,13 @@ class renderer extends section_renderer {
         $o = '';
 
         if ($section->section != 0) {
-            $controls = $this->section_edit_control_items($course, $section, $onsectionpage);
-            if (!empty($controls)) {
-                $o .= $this->section_edit_control_menu($controls, $course, $section);
+            //$controls = $this->section_edit_control_items($course, $section, $onsectionpage);
+            //if (!empty($controls)) {
+            if ($this->userisediting) {
+                //$o .= $this->section_edit_control_menu($controls, $course, $section);
+                $widgetclass = $this->courseformat->get_output_classname('content\\section\\controlmenu');
+                $widget = new $widgetclass($this->courseformat, $section);
+                $o .= $this->render($widget);
             } else if ((!$onsectionpage) && (!$sectionishidden)) {
                 if (empty($this->tcsettings)) {
                     $this->tcsettings = $this->courseformat->get_settings();
@@ -261,125 +265,6 @@ class renderer extends section_renderer {
                     break;
             }
         }
-        return $o;
-    }
-
-    /**
-     * Generate the edit controls of a section.
-     *
-     * @param stdClass $course The course entry from DB.
-     * @param stdClass $section The course_section entry from DB.
-     * @param bool $onsectionpage true if being printed on a section page.
-     * @return array of links with edit controls.
-     */
-    protected function section_edit_control_items($course, $section, $onsectionpage = false) {
-
-        if (!$this->userisediting) {
-            return array();
-        }
-
-        $coursecontext = context_course::instance($course->id);
-        $sectionreturn = $onsectionpage ? $section->section : null;
-
-        $url = course_get_url($course, $sectionreturn);
-        $url->param('sesskey', sesskey());
-
-        if (empty($this->tcsettings)) {
-            $this->tcsettings = $this->courseformat->get_settings();
-        }
-        $controls = array();
-        if ((($this->tcsettings['layoutstructure'] == 1) || ($this->tcsettings['layoutstructure'] == 4)) &&
-                $section->section && has_capability('moodle/course:setcurrentsection', $coursecontext)) {
-            if ($course->marker == $section->section) {  // Show the "light globe" on/off.
-                $url->param('marker', 0);
-                $highlightoff = get_string('highlightoff');
-                $controls['highlight'] = array(
-                    'url' => $url, "icon" => 'i/marked',
-                    'name' => $highlightoff,
-                    'pixattr' => array('class' => ''),
-                    'attr' => array('class' => 'editing_highlight',
-                    'data-action' => 'removemarker')
-                );
-            } else {
-                $url->param('marker', $section->section);
-                $highlight = get_string('highlight');
-                $controls['highlight'] = array(
-                    'url' => $url, "icon" => 'i/marker',
-                    'name' => $highlight,
-                    'pixattr' => array('class' => ''),
-                    'attr' => array('class' => 'editing_highlight',
-                    'data-action' => 'setmarker')
-                );
-            }
-        }
-
-        $parentcontrols = parent::section_edit_control_items($course, $section, $onsectionpage);
-
-        // If the edit key exists, we are going to insert our controls after it.
-        if (array_key_exists("edit", $parentcontrols)) {
-            $merged = array();
-            /* We can't use splice because we are using associative arrays.
-               Step through the array and merge the arrays. */
-            foreach ($parentcontrols as $key => $action) {
-                $merged[$key] = $action;
-                if ($key == "edit") {
-                    // If we have come to the edit key, merge these controls here.
-                    $merged = array_merge($merged, $controls);
-                }
-            }
-
-            return $merged;
-        } else {
-            return array_merge($controls, $parentcontrols);
-        }
-    }
-
-    /**
-     * Generate the edit control action menu
-     *
-     * @param array $controls The edit control items from section_edit_control_items
-     * @param stdClass $course The course entry from DB
-     * @param stdClass $section The course_section entry from DB
-     * @return string HTML to output.
-     */
-    protected function section_edit_control_menu($controls, $course, $section) {
-        $o = "";
-        if (!empty($controls)) {
-            $menu = new \action_menu();
-            $menu->set_menu_trigger(get_string('edit'));
-            $menu->attributes['class'] .= ' section-actions';
-            foreach ($controls as $value) {
-                $url = empty($value['url']) ? '' : $value['url'];
-                $icon = empty($value['icon']) ? '' : $value['icon'];
-                $name = empty($value['name']) ? '' : $value['name'];
-                $attr = empty($value['attr']) ? array() : $value['attr'];
-                $class = empty($value['pixattr']['class']) ? '' : $value['pixattr']['class'];
-                $al = new \action_menu_link_secondary(
-                    new moodle_url($url),
-                    new \pix_icon($icon, '', null, array('class' => "smallicon " . $class)),
-                    $name,
-                    $attr
-                );
-                $menu->add($al);
-            }
-
-            $coursecontext = context_course::instance($course->id);
-            if (has_capability('moodle/course:manageactivities', $coursecontext)) {
-                $duplicatestr = get_string('duplicate', 'format_topcoll');
-                $duplicateurl = new moodle_url('/course/format/topcoll/duplicate.php',
-                    array('courseid' => $course->id, 'sectionno' => $section->section, 'sesskey' => sesskey()));
-                $link = new \action_link($duplicateurl, ' '.$duplicatestr, null,
-                    array('class' => 'menu-action', 'role' => 'menuitem'),
-                    new \pix_icon('t/copy', $duplicatestr));
-                $link->add_action(new \confirm_action(get_string('duplicateconfirm', 'format_topcoll'), null,
-                    $duplicatestr));
-                $menu->add_secondary_action($link);
-            }
-
-            $o .= html_writer::div($this->render($menu), 'section_action_menu',
-                array('data-sectionid' => $section->id));
-        }
-
         return $o;
     }
 
@@ -673,9 +558,9 @@ class renderer extends section_renderer {
         $thissection = $modinfo->get_section_info($displaysection);
 
         // Title with section navigation links.
-        $sectionnavlinks = $this->get_nav_links($course, $modinfo->get_section_info_all(), $displaysection);
-        $singlesectioncontext['sectionnavlinksprevious'] = $sectionnavlinks['previous'];
-        $singlesectioncontext['sectionnavlinksnext'] = $sectionnavlinks['next'];
+        //$sectionnavlinks = $this->get_nav_links($course, $modinfo->get_section_info_all(), $displaysection);
+        //$singlesectioncontext['sectionnavlinksprevious'] = $sectionnavlinks['previous'];
+        //$singlesectioncontext['sectionnavlinksnext'] = $sectionnavlinks['next'];
         // Title attributes.
         $classes = 'sectionname';
         if (!$thissection->visible) {

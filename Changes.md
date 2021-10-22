@@ -1,6 +1,10 @@
 ﻿Version Information
 ===================
 
+Version 4.0.0.1 - TBR
+-----------------------------
+  1. Refactor - Moodle 4.0 version to cope with course format API changes.
+
 Version 3.11.0.4 - TBR
 -----------------------------
   1. Refactor - remove redundant 'bsnewgrid' functionality that supported the transition from BootStrap 2.3.2.
