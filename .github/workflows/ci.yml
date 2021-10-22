@@ -29,28 +29,28 @@ jobs:
       matrix:
         include:
           - php: 7.3
-            moodle-branch: 'MOODLE_311_STABLE'
+            moodle-branch: 'master'
             database: pgsql
           - php: 7.3
-            moodle-branch: 'MOODLE_311_STABLE'
+            moodle-branch: 'master'
             database: mariadb
           - php: 7.4
-            moodle-branch: 'MOODLE_311_STABLE'
+            moodle-branch: 'master'
             database: pgsql
           - php: 7.4
-            moodle-branch: 'MOODLE_311_STABLE'
+            moodle-branch: 'master'
             database: mariadb
           - php: 8.0
             # The following line is only needed if you're going to run php8 jobs and your
             # plugin needs xmlrpc services.
             extensions: xmlrpc-beta
-            moodle-branch: MOODLE_311_STABLE
+            moodle-branch: master
             database: pgsql
           - php: 8.0
             # The following line is only needed if you're going to run php8 jobs and your
             # plugin needs xmlrpc services.
             extensions: xmlrpc-beta
-            moodle-branch: MOODLE_311_STABLE
+            moodle-branch: master
             database: mariadb
 
     steps:
