@@ -102,9 +102,26 @@ trait format_renderer_migration_toolbox {
 
     protected function section_nav_selection($course, $sections, $displaysection) {
         $sectionnavigationclass = $this->courseformat->get_output_classname('content\\sectionnavigation');
-        $sectionnavigation = new $sectionnavigationclass($this->courseformat, $displaysection);
+        $sectionnavigation = new $sectionnavigationclass($this->courseformat, $this->courseformat->get_section_number());
         $sectionselectorclass = $this->courseformat->get_output_classname('content\\sectionselector');
         $sectionselector = new $sectionselectorclass($this->courseformat, $sectionnavigation);
         return $this->render($sectionselector);
+    }
+
+    /**
+     * Returns controls in the bottom of the page to increase/decrease number of sections
+     *
+     * @deprecated since 4.0 MDL-72656 - use core_course output components instead.
+     *
+     * @param stdClass $course
+     * @param int|null $sectionreturn
+     */
+    protected function change_number_sections($course, $sectionreturn = null) {
+        if ($sectionreturn) {
+            $this->courseformat->set_section_number($sectionreturn);
+        }
+        $outputclass = $this->courseformat->get_output_classname('content\\addsection');
+        $widget = new $outputclass($this->courseformat);
+        return $this->render($widget);
     }
 }
