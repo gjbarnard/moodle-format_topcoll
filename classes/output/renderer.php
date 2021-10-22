@@ -191,10 +191,7 @@ class renderer extends section_renderer {
         $o = '';
 
         if ($section->section != 0) {
-            //$controls = $this->section_edit_control_items($course, $section, $onsectionpage);
-            //if (!empty($controls)) {
             if ($this->userisediting) {
-                //$o .= $this->section_edit_control_menu($controls, $course, $section);
                 $widgetclass = $this->courseformat->get_output_classname('content\\section\\controlmenu');
                 $widget = new $widgetclass($this->courseformat, $section);
                 $o .= $this->render($widget);
@@ -441,7 +438,6 @@ class renderer extends section_renderer {
         }
 
         if ($section->uservisible) {
-            //$sectioncontext['cscml'] = $this->courserenderer->course_section_cm_list($course, $section, $sectionreturn, $displayoptions);
             $sectioncontext['cscml'] = $this->course_section_cmlist($section);
             $sectioncontext['cscml'] .= $this->courserenderer->course_section_add_cm_control($course, $section->section, $sectionreturn);
         }
@@ -545,6 +541,7 @@ class renderer extends section_renderer {
             'maincoursepageicon' => $this->output->pix_icon('t/less', $maincoursepage),
             'maincoursepagestr' => $maincoursepage,
             'maincoursepageurl' => new moodle_url('/course/view.php', array('id' => $course->id)),
+            // Title with section navigation links and jump to menu.
             'sectionnavselection' => $this->section_nav_selection($course, null, $displaysection),
             'thissection' => $this->topcoll_section($thissection, $course, true, $displaysection, array('sr' => $displaysection))
         );
@@ -557,10 +554,6 @@ class renderer extends section_renderer {
         // The requested section page.
         $thissection = $modinfo->get_section_info($displaysection);
 
-        // Title with section navigation links.
-        //$sectionnavlinks = $this->get_nav_links($course, $modinfo->get_section_info_all(), $displaysection);
-        //$singlesectioncontext['sectionnavlinksprevious'] = $sectionnavlinks['previous'];
-        //$singlesectioncontext['sectionnavlinksnext'] = $sectionnavlinks['next'];
         // Title attributes.
         $classes = 'sectionname';
         if (!$thissection->visible) {
