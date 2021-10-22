@@ -34,7 +34,7 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/course/format/lib.php'); // For format_base.
 
-class format_topcoll extends format_base {
+class format_topcoll extends core_courseformat\base {
     // Used to determine the type of view URL to generate - parameter or anchor.
     private $coursedisplay = COURSE_DISPLAY_SINGLEPAGE;
     private $settings;
