@@ -36,13 +36,14 @@ namespace format_topcoll\output;
 defined('MOODLE_INTERNAL') || die();
 
 use context_course;
+use core_courseformat\output\section_renderer;
 use html_writer;
 use moodle_url;
 
-require_once($CFG->dirroot.'/course/format/renderer.php'); // For format_section_renderer_base.
 require_once($CFG->dirroot.'/course/format/lib.php'); // For course_get_format.
 
-class renderer extends \format_section_renderer_base {
+class renderer extends section_renderer {
+    use format_renderer_migration_toolbox;
 
     protected $tccolumnwidth = 100; // Default width in percent of the column(s).
     protected $tccolumnpadding = 0; // Default padding in pixels of the column(s).
@@ -555,7 +556,8 @@ class renderer extends \format_section_renderer_base {
         }
 
         if ($section->uservisible) {
-            $sectioncontext['cscml'] = $this->courserenderer->course_section_cm_list($course, $section, $sectionreturn, $displayoptions);
+            //$sectioncontext['cscml'] = $this->courserenderer->course_section_cm_list($course, $section, $sectionreturn, $displayoptions);
+            $sectioncontext['cscml'] = $this->course_section_cmlist($section);
             $sectioncontext['cscml'] .= $this->courserenderer->course_section_add_cm_control($course, $section->section, $sectionreturn);
         }
 
@@ -571,7 +573,7 @@ class renderer extends \format_section_renderer_base {
      */
     protected function stealth_section($section, $course) {
         $stealthsectioncontext = array(
-            'cscml' => $this->courserenderer->course_section_cm_list($course, $section->section, 0),
+            'cscml' => $this->course_section_cmlist($section),
             'heading' => $this->output->heading(get_string('orphanedactivitiesinsectionno', '', $section->section),
                 3, 'sectionname', "sectionid-{$section->id}-title"),
             'rightcontent' => $this->section_right_content($section, $course, false),
@@ -654,7 +656,6 @@ class renderer extends \format_section_renderer_base {
         $thissection = $modinfo->get_section_info($displaysection);
 
         $singlesectioncontext = array(
-            'activityclipboard' => $this->course_activity_clipboard($course, $displaysection),
             'maincoursepageicon' => $this->output->pix_icon('t/less', $maincoursepage),
             'maincoursepagestr' => $maincoursepage,
             'maincoursepageurl' => new moodle_url('/course/view.php', array('id' => $course->id)),
@@ -704,9 +705,6 @@ class renderer extends \format_section_renderer_base {
 
         $context = context_course::instance($course->id);
         echo $this->output->heading($this->page_title(), 2, 'accesshide');
-
-        // Copy activity clipboard..
-        echo $this->course_activity_clipboard($course, 0);
 
         // Now the list of sections..
         if ($this->formatresponsive) {
