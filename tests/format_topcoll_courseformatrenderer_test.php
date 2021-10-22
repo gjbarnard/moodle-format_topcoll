@@ -267,7 +267,6 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
     }
 
     public function test_section_hidden() {
-        global $CFG;
         $this->init();
         $section = $this->courseformat->get_section(1);
         $section->visible = false;

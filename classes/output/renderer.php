@@ -416,7 +416,7 @@ class renderer extends \format_section_renderer_base {
             if ($this->formatresponsive) {
                 $sectionsummarycontext['horizontalwidth'] = $this->tccolumnwidth;
             } else {
-                $sectioncsectionsummarycontextontext['horizontalclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
+                $sectionsummarycontext['horizontalclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
             }
         }
 
@@ -1103,7 +1103,7 @@ class renderer extends \format_section_renderer_base {
                 break;
             default:
                 $coursestylescontext['toggleiconposition'] = 'left';
-        };
+        }
         $coursestylescontext['toggleforegroundhovercolour'] = \format_topcoll\toolbox::hex2rgba(
             $this->tcsettings['toggleforegroundhovercolour'], $this->tcsettings['toggleforegroundhoveropacity']);
         $coursestylescontext['togglebackgroundhovercolour'] = \format_topcoll\toolbox::hex2rgba(
