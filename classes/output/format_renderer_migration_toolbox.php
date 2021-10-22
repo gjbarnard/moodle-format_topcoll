@@ -38,9 +38,26 @@ namespace format_topcoll\output;
 
 defined('MOODLE_INTERNAL') || die();
 
-use html_writer;
-
 trait format_renderer_migration_toolbox {
+
+    /**
+     * Generate a summary of the activities in a section
+     *
+     * @deprecated since 4.0 MDL-72656 - use core_course output components instead.
+     *
+     * This element is now a section_format output component and it is displayed using
+     * mustache templates instead of a renderer method.
+     *
+     * @param stdClass $section The course_section entry from DB
+     * @param stdClass $course the course record from DB
+     * @param array    $mods (argument not used)
+     * @return string HTML to output.
+     */
+    protected function section_activity_summary($section, $course, $mods) {
+        $widgetclass = $this->courseformat->get_output_classname('content\\section\\cmsummary');
+        $widget = new $widgetclass($this->courseformat, $section);
+        $this->render($widget);
+    }
 
     /**
      * Displays availability information for the section (hidden, not available unless, etc.)
@@ -57,7 +74,7 @@ trait format_renderer_migration_toolbox {
         // TODO: Update to a template!
         $widgetclass = $this->courseformat->get_output_classname('content\\section\\availability');
         $widget = new $widgetclass($this->courseformat, $section);
-        return html_writer::div($this->render($widget), 'section_availability');
+        return $this->render($widget);
     }
 
     /**
@@ -77,7 +94,7 @@ trait format_renderer_migration_toolbox {
         $summary = new $summaryclass($this->courseformat, $section);
         return $summary->format_summary_text();
     }
-    
+
     protected function course_section_cmlist($section) {
         $cmlistclass = $this->courseformat->get_output_classname('content\\section\\cmlist');
         return $this->render(new $cmlistclass($this->courseformat, $section));
