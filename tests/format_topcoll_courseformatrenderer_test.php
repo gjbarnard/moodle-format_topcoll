@@ -301,7 +301,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
 
         $courserenderer = $PAGE->get_renderer('format_topcoll', 'course');
         $stealthsectioncontext = array(
-            'cscml' => $courserenderer->course_section_cm_list($this->course, $section->section, 0),
+            'cscml' => $courserenderer->course_section_cmlist($section->section),
             'heading' => $this->ouroutput->heading(get_string('orphanedactivitiesinsectionno', '', $section->section),
                 3, 'sectionname', "sectionid-{$section->id}-title"),
             'horizontalclass' => 'col-sm-12',
