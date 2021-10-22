@@ -228,7 +228,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $courserenderer = $PAGE->get_renderer('format_topcoll', 'course');
         $sectioncontext = array(
             'contentaria' => true,
-            'cscml' => self::call_method($this->outputus, 'course_section_cmlist', array($section1->section)).
+            'cscml' => self::call_method($this->outputus, 'course_section_cmlist', array($section1)).
                 $courserenderer->course_section_add_cm_control($this->course, $section1->section, $sectionreturn),
             'leftcontent' => self::call_method($this->outputus, 'section_left_content', array($section1, $this->course, $onsectionpage)),
             'heading' => '<h3 id="sectionid-'.$section1->id.'-title" class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>',
@@ -300,7 +300,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
             array($section, $this->course));
 
         $stealthsectioncontext = array(
-            'cscml' => self::call_method($this->outputus, 'course_section_cmlist', array($section->section)),
+            'cscml' => self::call_method($this->outputus, 'course_section_cmlist', array($section)),
             'heading' => $this->ouroutput->heading(get_string('orphanedactivitiesinsectionno', '', $section->section),
                 3, 'sectionname', "sectionid-{$section->id}-title"),
             'horizontalclass' => 'col-sm-12',
