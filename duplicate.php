@@ -48,7 +48,6 @@ $courseformat = course_get_format($course);
 $course = $courseformat->get_course();
 $modinfo = get_fast_modinfo($course);
 $sectioninfo = $modinfo->get_section_info($sectionno);
-$context = context_course::instance($course->id);
 $numnewsection = null;
 
 $PAGE->set_pagelayout('course');

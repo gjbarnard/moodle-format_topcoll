@@ -629,9 +629,9 @@ class renderer extends \format_section_renderer_base {
     }
 
     /**
-     * Output the html for a single section page .
+     * Output the html for a single section page.
      *
-     * @param stdClass $course The course entry from DB
+     * @param stdClass $course The course from the format_topcoll class.
      * @param array $sections (argument not used)
      * @param array $mods (argument not used)
      * @param array $modnames (argument not used)
@@ -640,7 +640,6 @@ class renderer extends \format_section_renderer_base {
      */
     public function print_single_section_page($course, $sections, $mods, $modnames, $modnamesused, $displaysection) {
         $modinfo = get_fast_modinfo($course);
-        $course = $this->courseformat->get_course();
 
         // Can we view the section in question?
         if (!($sectioninfo = $modinfo->get_section_info($displaysection)) || !$sectioninfo->uservisible) {
@@ -689,7 +688,7 @@ class renderer extends \format_section_renderer_base {
     /**
      * Output the html for a multiple section page
      *
-     * @param stdClass $course The course entry from DB
+     * @param stdClass $course The course from the format_topcoll class.
      * @param array $sections (argument not used)
      * @param array $mods (argument not used)
      * @param array $modnames (argument not used)
@@ -699,7 +698,6 @@ class renderer extends \format_section_renderer_base {
         echo $this->course_styles();
 
         $modinfo = get_fast_modinfo($course);
-        $course = $this->courseformat->get_course();
         if (empty($this->tcsettings)) {
             $this->tcsettings = $this->courseformat->get_settings();
         }
