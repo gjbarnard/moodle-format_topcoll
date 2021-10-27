@@ -74,7 +74,7 @@ $renderer = $PAGE->get_renderer('format_topcoll');
 
 if (!empty($displaysection)) {
     $courseformat->set_section_number($displaysection);
-    $renderer->print_single_section_page($course, null, null, null, null, $displaysection);
+    $renderer->single_section_page($course, $displaysection);
 } else {
     $defaulttogglepersistence = clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT);
 
@@ -89,7 +89,7 @@ if (!empty($displaysection)) {
 
     $renderer->set_user_preference($userpreference, $defaultuserpreference, $defaulttogglepersistence);
 
-    $renderer->print_multiple_section_page($course, null, null, null, null);
+    $renderer->multiple_section_page($course);
 }
 
 // Include course format js module.

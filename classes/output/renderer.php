@@ -515,13 +515,9 @@ class renderer extends section_renderer {
      * Output the html for a single section page.
      *
      * @param stdClass $course The course from the format_topcoll class.
-     * @param array $sections (argument not used)
-     * @param array $mods (argument not used)
-     * @param array $modnames (argument not used)
-     * @param array $modnamesused (argument not used)
-     * @param int $displaysection The section number in the course which is being displayed
+     * @param int $displaysection The section number in the course which is being displayed.
      */
-    public function print_single_section_page($course, $sections, $mods, $modnames, $modnamesused, $displaysection) {
+    public function single_section_page($course, $displaysection) {
         $modinfo = get_fast_modinfo($course);
 
         // Can we view the section in question?
@@ -565,15 +561,11 @@ class renderer extends section_renderer {
     }
 
     /**
-     * Output the html for a multiple section page
+     * Output the html for a multiple section page.
      *
      * @param stdClass $course The course from the format_topcoll class.
-     * @param array $sections (argument not used)
-     * @param array $mods (argument not used)
-     * @param array $modnames (argument not used)
-     * @param array $modnamesused (argument not used)
      */
-    public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
+    public function multiple_section_page($course) {
         echo $this->course_styles();
 
         $modinfo = get_fast_modinfo($course);
