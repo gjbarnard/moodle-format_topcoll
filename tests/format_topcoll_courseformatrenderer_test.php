@@ -236,7 +236,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
             'nomtore' => true,
             'rightcontent' => self::call_method($this->outputus, 'section_right_content', array($section1, $this->course, $onsectionpage)),
             'rtl' => false,
-            'sectionavailability' => '<div class="section_availability"></div>',
+            'sectionavailability' => self::call_method($this->outputus, 'section_availability', array($section1)),
             'sectionid' => $section1->id,
             'sectionno' => $section1->section,
             'sectionpage' => $onsectionpage,
@@ -315,10 +315,9 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
     }
 
     /* Jump menu breaks this, not sure how to fix....
-    public function test_print_single_section_page() {
+    public function test_single_section_page() {
         $this->init();
-        self::call_method($this->outputus, 'print_single_section_page',
-            array($this->course, null, null, null, null, 1));
+        self::call_method($this->outputus, 'single_section_page', array($this->course, 1));
 
         $modinfo = get_fast_modinfo($this->course);
         $course = $this->courseformat->get_course();
@@ -347,7 +346,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
     }
     */
 
-    public function test_print_multiple_section_page_horizontal() {
+    public function test_multiple_section_page_horizontal() {
         global $CFG;
 
         $this->init();
@@ -356,10 +355,9 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $section1 = $this->courseformat->get_section(1);
         $section1->toggle = false;
 
-        self::call_method($this->outputus, 'print_multiple_section_page',
-            array($this->course, null, null, null, null, null));
+        self::call_method($this->outputus, 'multiple_section_page', array($this->course));
 
-        $theoutput = file_get_contents($CFG->dirroot.'/course/format/topcoll/tests/phpu_data/test_print_multiple_section_page_css.txt');
+        $theoutput = file_get_contents($CFG->dirroot.'/course/format/topcoll/tests/phpu_data/test_multiple_section_page_css.txt');
         $theoutput .= '<h2 class="accesshide">Section</h2><ul class="ctopics">';
         $theoutput .= self::call_method($this->outputus, 'topcoll_section', array($section0, $this->course, false, 0));
         $theoutput .= '</ul><ul class="ctopics topics row">';
@@ -369,7 +367,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $this->expectOutputString($theoutput);
     }
 
-    public function test_print_multiple_section_page_vertical() {
+    public function test_multiple_section_page_vertical() {
         global $CFG;
 
         $this->init(1, 1);
@@ -378,10 +376,9 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $section1 = $this->courseformat->get_section(1);
         $section1->toggle = true;
 
-        self::call_method($this->outputus, 'print_multiple_section_page',
-            array($this->course, null, null, null, null, null));
+        self::call_method($this->outputus, 'multiple_section_page', array($this->course));
 
-        $theoutput = file_get_contents($CFG->dirroot.'/course/format/topcoll/tests/phpu_data/test_print_multiple_section_page_css.txt');
+        $theoutput = file_get_contents($CFG->dirroot.'/course/format/topcoll/tests/phpu_data/test_multiple_section_page_css.txt');
         $theoutput .= '<h2 class="accesshide">Section</h2><ul class="ctopics">';
         $theoutput .= self::call_method($this->outputus, 'topcoll_section', array($section0, $this->course, false, 0));
         $theoutput .= '</ul><div class="row">';
@@ -392,17 +389,16 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $this->expectOutputString($theoutput);
     }
 
-    public function test_print_multiple_section_page_no_sections() {
+    public function test_multiple_section_page_no_sections() {
         global $CFG;
 
         $this->init(0);
         $this->outputus->set_user_preference(null, 0, 1);
         $section0 = $this->courseformat->get_section(0);
 
-        self::call_method($this->outputus, 'print_multiple_section_page',
-            array($this->course, null, null, null, null, null));
+        self::call_method($this->outputus, 'multiple_section_page', array($this->course));
 
-        $theoutput = file_get_contents($CFG->dirroot.'/course/format/topcoll/tests/phpu_data/test_print_multiple_section_page_css.txt');
+        $theoutput = file_get_contents($CFG->dirroot.'/course/format/topcoll/tests/phpu_data/test_multiple_section_page_css.txt');
         $theoutput .= '<h2 class="accesshide">Section</h2>';
         $theoutput .= '<ul class="ctopics">';
         $theoutput .= self::call_method($this->outputus, 'topcoll_section', array($section0, $this->course, false, 0));

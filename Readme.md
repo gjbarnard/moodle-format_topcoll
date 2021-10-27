@@ -5,7 +5,7 @@ Topic based course format with an individual 'toggle' for each topic except 0.
 If you find an issue with the format, please see the 'Reporting Issues' section below or contact your Moodle administrator.
 
 This file contains general information about the format.  If you're reading this as an educator then you can learn about the format
-from the documentation on http://docs.moodle.org/40/en/Collapsed_Topics_course_format.  If you get stuck and your Moodle support
+from the documentation on http://docs.moodle.org/400/en/Collapsed_Topics_course_format.  If you get stuck and your Moodle support
 are unable to help / not sure what to do, then please go to https://moodle.org/mod/forum/view.php?id=47.  If you like the format,
 then please do spread the word to other educators.  The main page for the format is https://moodle.org/plugins/format_topcoll.
 
@@ -28,7 +28,7 @@ If you download from the development area - https://github.com/gjb2048/moodle-fo
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
-Documented on http://docs.moodle.org/40/en/Collapsed_Topics_course_format
+Documented on http://docs.moodle.org/400/en/Collapsed_Topics_course_format
 
 Bespoke changes
 ===============
