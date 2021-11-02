@@ -1,6 +1,9 @@
 ﻿Version Information
 ===================
 
+Version 3.11.0.5 - TBR
+-----------------------------
+
 Version 3.11.0.4 - 01/11/2021
 -----------------------------
   1. Refactor - remove redundant 'bsnewgrid' functionality that supported the transition from BootStrap 2.3.2.
