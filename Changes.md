@@ -3,6 +3,7 @@
 
 Version 3.11.0.5 - TBR
 -----------------------------
+  1. Fix 'Error in urls for additional information' - #116.
 
 Version 3.11.0.4 - 01/11/2021
 -----------------------------
