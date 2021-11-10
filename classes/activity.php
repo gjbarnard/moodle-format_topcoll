@@ -363,7 +363,7 @@ class activity {
      * @return string
      */
     protected static function lesson_meta(cm_info $modinst) {
-        $meta = self::std_meta($modinst, 'attempted', true);
+        $meta = self::std_meta($modinst, '', '', '', '', '', 'attempted', true);
         return $meta;
     }
 
