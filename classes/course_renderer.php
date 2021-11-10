@@ -203,15 +203,16 @@ class format_topcoll_course_renderer extends \core_course_renderer {
         }
 
         // Get further information.
-        $courseformat = course_get_format($course);
-        $tcsettings = $courseformat->get_settings();
-        if ((!empty($tcsettings['showadditionalmoddata'])) && ($tcsettings['showadditionalmoddata'] == 2)) {
-            $courseid = $mod->course;
-            if (\format_topcoll\activity::maxstudentsnotexceeded($courseid)) {
-                $settingname = 'coursesectionactivityfurtherinformation'.$mod->modname;
-                $setting = get_config('format_topcoll', $settingname);
-                if ((!empty($setting)) && ($setting == 2)) {
-                    $sectioncmcontext['cmmeta'] = $this->course_section_cm_get_meta($mod);
+        if (\format_topcoll\activity::activitymetaenabled()) {
+            $courseformat = course_get_format($course);
+            if (\format_topcoll\activity::activitymetaused($courseformat)) {
+                $courseid = $mod->course;
+                if (\format_topcoll\activity::maxstudentsnotexceeded($courseid)) {
+                    $settingname = 'coursesectionactivityfurtherinformation'.$mod->modname;
+                    $setting = get_config('format_topcoll', $settingname);
+                    if ((!empty($setting)) && ($setting == 2)) {
+                        $sectioncmcontext['cmmeta'] = $this->course_section_cm_get_meta($mod);
+                    }
                 }
             }
         }

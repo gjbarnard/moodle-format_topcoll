@@ -508,10 +508,10 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_heading($name, $heading, '');
     $settings->add($setting);
 
-    $name = 'format_topcoll/defaultshowadditionalmoddata';
-    $title = get_string('defaultshowadditionalmoddata', 'format_topcoll');
-    $description = get_string('defaultshowadditionalmoddatadesc', 'format_topcoll');
-    $default = 2;
+    $name = 'format_topcoll/enableadditionalmoddata';
+    $title = get_string('enableadditionalmoddata', 'format_topcoll');
+    $description = get_string('enableadditionalmoddatadesc', 'format_topcoll');
+    $default = 1;
     $choices = array(
         1 => new lang_string('no'),
         2 => new lang_string('yes')
@@ -523,6 +523,16 @@ if ($ADMIN->fulltree) {
     $description = get_string('courseadditionalmoddatamaxstudentsdesc', 'format_topcoll');
     $default = 0;
     $settings->add(new admin_setting_configtext($name, $title, $description, $default, PARAM_INT));
+
+    $name = 'format_topcoll/defaultshowadditionalmoddata';
+    $title = get_string('defaultshowadditionalmoddata', 'format_topcoll');
+    $description = get_string('defaultshowadditionalmoddatadesc', 'format_topcoll');
+    $default = 2;
+    $choices = array(
+        1 => new lang_string('no'),
+        2 => new lang_string('yes')
+    );
+    $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     $name = 'format_topcoll/coursesectionactivityfurtherinformationassign';
     $title = get_string('coursesectionactivityfurtherinformationassign', 'format_topcoll');

@@ -769,7 +769,7 @@ class activity {
      * @param int $courseid Course id.
      */
     public static function userenrolmentcreated($userid, $courseid, $courseformat) {
-        if (self::activitymetaused($courseformat)) {
+        if (self::activitymetaenabled() && self::activitymetaused($courseformat)) {
             self::clearcoursemodulecount($courseid);
         }
     }
@@ -781,7 +781,7 @@ class activity {
      * @param int $courseid Course id.
      */
     public static function userenrolmentupdated($userid, $courseid, $courseformat) {
-        if (self::activitymetaused($courseformat)) {
+        if (self::activitymetaenabled() && self::activitymetaused($courseformat)) {
             self::clearcoursemodulecount($courseid);
         }
     }
@@ -793,7 +793,7 @@ class activity {
      * @param int $courseid Course id.
      */
     public static function userenrolmentdeleted($userid, $courseid, $courseformat) {
-        if (self::activitymetaused($courseformat)) {
+        if (self::activitymetaenabled() && self::activitymetaused($courseformat)) {
             self::clearcoursemodulecount($courseid);
         }
     }
@@ -825,7 +825,7 @@ class activity {
      * @param int $courseid Course id.
      */
     private static function modulechanged($modid, $courseid, $courseformat) {
-        if (self::activitymetaused($courseformat)) {
+        if (self::activitymetaenabled() && self::activitymetaused($courseformat)) {
             $lock = self::lockmodulecountcache($courseid);
             $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
             $students = $studentscache->get($courseid);
@@ -849,7 +849,7 @@ class activity {
      * @param int $courseid Course id.
      */
     public static function moduledeleted($modid, $courseid, $courseformat) {
-        if (self::activitymetaused($courseformat)) {
+        if (self::activitymetaenabled() && self::activitymetaused($courseformat)) {
             $lock = self::lockmodulecountcache($courseid);
             $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
             $modulecountcourse = $modulecountcache->get($courseid);
@@ -935,13 +935,22 @@ class activity {
     }
 
     /**
-     * State if the course has activity meta enabled.
-     *
-     * @param int $courseid Course id.
+     * State if the site has activity meta enabled.
      *
      * @return boolean True or False.
      */
-    private static function activitymetaused($courseformat) {
+    public static function activitymetaenabled() {
+        return (get_config('format_topcoll', 'enableadditionalmoddata') == 2);
+    }
+
+    /**
+     * State if the course has activity meta enabled.
+     *
+     * @param int $courseformat Course format for the course.
+     *
+     * @return boolean True or False.
+     */
+    public static function activitymetaused($courseformat) {
         $tcsettings = $courseformat->get_settings();
         if ((!empty($tcsettings['showadditionalmoddata'])) && ($tcsettings['showadditionalmoddata'] == 2)) {
             return true; // Could in theory test the module but then this method wouldn't work for user events.

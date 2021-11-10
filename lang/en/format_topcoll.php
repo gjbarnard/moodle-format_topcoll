@@ -116,10 +116,13 @@ $string['layoutstructuretopics'] = 'topics';
 $string['layoutstructureweeks'] = 'weeks';
 $string['layoutstructuredays'] = 'days';
 
-// Coursesetting - Show addtional data for modules
+// Coursesetting - Show addtional data for modules.
+$string['enableadditionalmoddata'] = 'Enable additional information';
+$string['enableadditionalmoddatadesc'] = 'This is a \'Site level\' switch to turn the activity information on or off.  It needs to be \'on\' for the related settings that operate at a course level to take effect.  As this functionality can be computationally expensive, then it is strongly suggested that you undertake full testing before using on a production system.';
+
 $string['showadditionalmoddata'] = 'Show additional information for: {$a} in the course';
 $string['showadditionalmoddata_help'] = 'Allow all users to see the activity deadline and users with grading permission to see the number of submissions on the course page for activities.';
-$string['defaultshowadditionalmoddata'] = 'Default course \'Show additional information\' if not already set';
+$string['defaultshowadditionalmoddata'] = 'Default course \'Show additional information\'';
 $string['defaultshowadditionalmoddatadesc'] = 'If an activity is set at site level (below) to show additional information then this setting states the default state of the course specific instance of it.';
 $string['resetactivitymeta'] = 'Additional module information';
 $string['resetallactivitymeta'] = 'All additional module information';
@@ -136,19 +139,19 @@ $string['courseadditionalmoddatastudentsinfolimitednoshow'] = 'Additional inform
 
 $string['coursesectionactivityfurtherinformation'] = 'Course page further information';
 $string['coursesectionactivityfurtherinformationassign'] = 'Show assignment information';
-$string['coursesectionactivityfurtherinformationassigndesc'] = 'Show assignment information.  For teachers / admins, show number of submissions.';
+$string['coursesectionactivityfurtherinformationassigndesc'] = 'Allow assignment information to be selected to be shown on a course.  For teachers / admins, show number of submissions.';
 $string['coursesectionactivityfurtherinformationquiz'] = 'Show quiz information';
-$string['coursesectionactivityfurtherinformationquizdesc'] = 'Show quiz information.  For teachers / admins, show number of submissions.';
+$string['coursesectionactivityfurtherinformationquizdesc'] = 'Allow quiz information to be selected to be shown on a course.  For teachers / admins, show number of submissions.';
 $string['coursesectionactivityfurtherinformationchoice'] = 'Show choice information';
-$string['coursesectionactivityfurtherinformationchoicedesc'] = 'Show choice information.  For teachers / admins, show number of submissions.';
+$string['coursesectionactivityfurtherinformationchoicedesc'] = 'Allow choice information to be selected to be shown on a course.  For teachers / admins, show number of submissions.';
 $string['coursesectionactivityfurtherinformationfeedback'] = 'Show feedback information';
-$string['coursesectionactivityfurtherinformationfeedbackdesc'] = 'Show feedback information.  For teachers / admins, show number of submissions.';
+$string['coursesectionactivityfurtherinformationfeedbackdesc'] = 'Allow feedback information to be selected to be shown on a course.  For teachers / admins, show number of submissions.';
 $string['coursesectionactivityfurtherinformationforum'] = 'Show forum information';
-$string['coursesectionactivityfurtherinformationforumdesc'] = 'Show forum information.  For teachers / admins, show number of contributions when whole forum grading is on.';
+$string['coursesectionactivityfurtherinformationforumdesc'] = 'Allow forum information to be selected to be shown on a course.  For teachers / admins, show number of contributions when whole forum grading is on.';
 $string['coursesectionactivityfurtherinformationlesson'] = 'Show lesson information';
-$string['coursesectionactivityfurtherinformationlessondesc'] = 'Show lesson information.  For teachers / admins, show number of submissions.';
+$string['coursesectionactivityfurtherinformationlessondesc'] = 'Allow lesson information to be selected to be shown on a course.  For teachers / admins, show number of submissions.';
 $string['coursesectionactivityfurtherinformationdata'] = 'Show database information';
-$string['coursesectionactivityfurtherinformationdatadesc'] = 'Show data information.  For teachers / admins, show number of submissions.';
+$string['coursesectionactivityfurtherinformationdatadesc'] = 'Allow data information to be selected to be shown on a course.  For teachers / admins, show number of submissions.';
 
 $string['cachedef_activitystudentrolescache'] = 'Caches the student roles.';
 $string['cachedef_activitymodulecountcache'] = 'Caches the number of students who can access a given module on a given course.';
