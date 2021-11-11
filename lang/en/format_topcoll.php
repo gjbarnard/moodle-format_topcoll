@@ -448,7 +448,7 @@ $string['readme_desc'] = 'Please click on \'{$a->url}\' for lots more informatio
 
 // Toggle Display Blocks.
 $string['defaultdisplayblocks'] = 'Blocks to display';
-$string['defaultdisplayblocks_desc'] = "Choose the blocks to display in the course.  Use the 'Ctrl' key in combination with the mouse to select more than one or none.";
+$string['defaultdisplayblocks_desc'] = "Choose the blocks to display in the course when it is first created and this format is selected.  Use the 'Ctrl' key in combination with the mouse to select more than one or none.  Note: This setting will only apply at actual course creation and no other time, i.e. changing to Collapsed Topics from another format.";
 $string['defaultdisplayblocksloc'] = 'Block location for display';
 $string['defaultdisplayblocksloc_desc'] = "Choose the location for the blocks chosen above to display, pre or post side.";
 $string['sidepost'] = 'Post';

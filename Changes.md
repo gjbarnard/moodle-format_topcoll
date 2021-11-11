@@ -5,6 +5,7 @@ Version 3.11.0.5 - TBR
 -----------------------------
   1. Fix 'Error in urls for additional information' - #116.
   2. Add 'enableadditionalmoddata' setting to turn on / off additional information at a site level.  Default is 'off'!
+  3. Improve documentation for Toggle blocks location' functionality - https://moodle.org/mod/forum/discuss.php?d=428924 and #100.
 
 Version 3.11.0.4 - 01/11/2021
 -----------------------------
