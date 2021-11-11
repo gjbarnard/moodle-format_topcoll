@@ -92,16 +92,14 @@ class activity {
      * @param cm_info $mod
      * @param string $submitstrkey
      * @param bool $isgradeable
-     * @param bool $submissionnotrequired
      *
      * @return activity_meta
      */
     protected static function std_meta(
             cm_info $mod,
             $submitstrkey,
-            $isgradeable = false,
-            $submissionnotrequired = false
-            ) {
+            $isgradeable = false
+        ) {
 
         $courseid = $mod->course;
         $meta = null;
@@ -179,40 +177,7 @@ class activity {
      * @return activity_meta
      */
     protected static function assign_meta(cm_info $modinst) {
-        global $DB, $USER;
-        static $submissionsenabled;
-
-        $courseid = $modinst->course;
-
-        /* Get count of enabled submission plugins grouped by assignment id.
-           Note, under normal circumstances we only run this once but with PHP unit tests, assignments are being
-           created one after the other and so this needs to be run each time during a PHP unit test. */
-        if (empty($submissionsenabled) || PHPUNIT_TEST) {
-            $sql = "
-                SELECT a.id, count(1) AS submissionsenabled
-                    FROM {assign} a
-                    JOIN {assign_plugin_config} ac ON ac.assignment = a.id
-                    WHERE a.course = ?
-                    AND ac.name='enabled'
-                    AND ac.value = '1'
-                    AND ac.subtype='assignsubmission'
-                    AND plugin!='comments'
-                    GROUP BY a.id;";
-            $submissionsenabled = $DB->get_records_sql($sql, array($courseid));
-        }
-
-        $submitselect = '';
-
-        // If there aren't any submission plugins enabled for this module, then submissions are not required.
-        if (empty($submissionsenabled[$modinst->instance])) {
-            $submissionnotrequired = true;
-        } else {
-            $submissionnotrequired = false;
-        }
-
-        $meta = self::std_meta($modinst, 'submitted', true, $submissionnotrequired);
-
-        return ($meta);
+        return self::std_meta($modinst, 'submitted', true);
     }
 
     /**
@@ -274,8 +239,7 @@ class activity {
      * @return string
      */
     protected static function lesson_meta(cm_info $modinst) {
-        $meta = self::std_meta($modinst, 'attempted', true);
-        return $meta;
+        return self::std_meta($modinst, 'attempted', true);
     }
 
     /**
@@ -525,7 +489,7 @@ class activity {
     protected static function quiz_num_submissions_ungraded($courseid, $mod) {
         global $DB;
 
-        static $totalsbyquizid;
+        static $totalsbyquizid = null;
 
         $coursecontext = \context_course::instance($courseid);
         // Get people who are typically not students (people who can view grader report) so that we can exclude them!
@@ -667,8 +631,8 @@ class activity {
         if (empty($students)) {
             $students = array();
             $context = \context_course::instance($courseid);
-            $users = get_enrolled_users($context, '', 0, 'u.id', null, 0, 0, true);
-            $users = array_keys($users);
+            $enrolledusers = get_enrolled_users($context, '', 0, 'u.id', null, 0, 0, true);
+            $users = array_keys($enrolledusers);
             $alluserroles = get_users_roles($context, $users, false);
 
             foreach ($users as $userid) {
