@@ -257,7 +257,7 @@ class activity {
      */
     protected static function assign_meta(cm_info $modinst) {
         global $DB, $USER;
-        static $submissionsenabled;
+        static $submissionsenabled = null;
 
         $courseid = $modinst->course;
 
@@ -616,7 +616,7 @@ class activity {
     protected static function quiz_num_submissions_ungraded($courseid, $mod) {
         global $DB;
 
-        static $totalsbyquizid;
+        static $totalsbyquizid = null;
 
         $coursecontext = \context_course::instance($courseid);
         // Get people who are typically not students (people who can view grader report) so that we can exclude them!
@@ -1003,8 +1003,8 @@ class activity {
         if (empty($students)) {
             $students = array();
             $context = \context_course::instance($courseid);
-            $users = get_enrolled_users($context, '', 0, 'u.id', null, 0, 0, true);
-            $users = array_keys($users);
+            $enrolledusers = get_enrolled_users($context, '', 0, 'u.id', null, 0, 0, true);
+            $users = array_keys($enrolledusers);
             $alluserroles = get_users_roles($context, $users, false);
 
             foreach ($users as $userid) {
