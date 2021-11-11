@@ -1,5 +1,10 @@
 ﻿Version Information
 ===================
+
+Version 3.9.1.7 - TBR
+-----------------------------
+  1. Improve documentation for Toggle blocks location' functionality - https://moodle.org/mod/forum/discuss.php?d=428924 and #100.
+
 Version 3.9.1.6 - 30/09/2021
 ----------------------------
   1. Add 'aria-controls' (https://www.w3.org/TR/wai-aria-practices/examples/disclosure/disclosure-faq.html) - CONTRIB-8637.
