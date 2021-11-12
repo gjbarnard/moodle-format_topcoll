@@ -156,7 +156,8 @@ $string['coursesectionactivityfurtherinformationdatadesc'] = 'Allow data informa
 $string['cachedef_activitystudentrolescache'] = 'Caches the student roles.';
 $string['cachedef_activitymodulecountcache'] = 'Caches the number of students who can access a given module on a given course.';
 $string['cachedef_activitystudentscache'] = 'Caches the ids of the students on a given course.';
-$string['cannotgetmodulecountcachelock'] = 'Cannot get module count cache lock for course id {$a}.';
+$string['cachedef_activityusercreatedcache'] = 'Caches the ids of the new users on a given course.';
+$string['cannotgetactivitycacheslock'] = 'Cannot get activity caches lock for course id {$a}.';
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529.
 $string['setcolour'] = 'Colour';
