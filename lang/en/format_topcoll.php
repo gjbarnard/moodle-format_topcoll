@@ -118,7 +118,7 @@ $string['layoutstructuredays'] = 'days';
 
 // Coursesetting - Show addtional data for modules.
 $string['enableadditionalmoddata'] = 'Enable additional information';
-$string['enableadditionalmoddatadesc'] = 'This is a \'Site level\' switch to turn the activity information on or off.  It needs to be \'on\' for the related settings that operate at a course level to take effect.  As this functionality can be computationally expensive, then it is strongly suggested that you undertake full testing before using on a production system.';
+$string['enableadditionalmoddatadesc'] = 'This is a \'Site level\' switch to turn the activity information on or off.  It needs to be \'on\' for the related settings that operate at a course level to take effect.  As this functionality can be computationally expensive, then it is strongly suggested that you undertake full testing before using on a production system.  Note: Purges the cache caches when changed.';
 
 $string['showadditionalmoddata'] = 'Show additional information for: {$a} in the course';
 $string['showadditionalmoddata_help'] = 'Allow all users to see the activity deadline and users with grading permission to see the number of submissions on the course page for activities.';
@@ -130,7 +130,7 @@ $string['resetactivitymeta_help'] = 'Resets the additional module information to
 $string['resetallactivitymeta_help'] = 'Resets all the additional module information to follow the site default value.';
 
 $string['courseadditionalmoddatamaxstudents'] = 'Set the maximum number of students on a course that \'Show additional information\' will apply to';
-$string['courseadditionalmoddatamaxstudentsdesc'] = 'Additional information can take time to calculate, especially on large courses, so here you can set the maximum number of students that a couse can have for the functionality to show on that course.  Above that value, the \'Additional information\' will NOT be calculated or show regardless of the course settings!  A value of \'0\' means \'unlimited\'.';
+$string['courseadditionalmoddatamaxstudentsdesc'] = 'Additional information can take time to calculate, especially on large courses, so here you can set the maximum number of students that a couse can have for the functionality to show on that course.  Above that value, the \'Additional information\' will NOT be calculated or show regardless of the course settings!  A value of \'0\' means \'unlimited\'.  Note: Purges the cache caches when changed.';
 
 $string['courseadditionalmoddatastudentsinfo'] = 'Additional information status:';
 $string['courseadditionalmoddatastudentsinfounlimited'] = 'Additional information will show for the enabled activities for {$a} students.';
