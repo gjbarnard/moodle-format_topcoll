@@ -3,7 +3,9 @@
 
 Version 3.9.1.7 - TBR
 -----------------------------
-  1. Improve documentation for Toggle blocks location' functionality - https://moodle.org/mod/forum/discuss.php?d=428924 and #100.
+  1. Add 'enableadditionalmoddata' setting to turn on / off additional information at a site level.  Default is 'off'!
+  2. Improve documentation for Toggle blocks location' functionality - https://moodle.org/mod/forum/discuss.php?d=428924 and #100.
+  3. Improve user enrolment event handling to be more efficient for activity information - #114.
 
 Version 3.9.1.6 - 30/09/2021
 ----------------------------
