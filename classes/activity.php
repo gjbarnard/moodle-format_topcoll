@@ -601,7 +601,7 @@ class activity {
             $studentroles = $studentrolescache->get('roles');
             $context = \context_course::instance($courseid);
             $alluserroles = get_users_roles($context, $createdusers, false);
-            
+
             foreach ($createdusers as $userid) {
                 $usershortnames = array();
                 foreach ($alluserroles[$userid] as $userrole) {
@@ -622,11 +622,11 @@ class activity {
                     $newstudents[$userid] = $userid;
                 }
             }
-            
+
             $usercreatedcache->set($courseid, null);
-            
+
             if (is_array($students)) {
-                foreach($newstudents as $newstudent) {
+                foreach ($newstudents as $newstudent) {
                     if (!array_key_exists($newstudent, $students)) {
                         $students[$newstudent] = $newstudent;
                     }
@@ -835,58 +835,6 @@ class activity {
             }
             $createdusers[] = $userid;
             $usercreatedcache->set($courseid, $createdusers);
-
-            /*$studentrolescache = \cache::make('format_topcoll', 'activitystudentrolescache');
-
-            $studentroles = $studentrolescache->get('roles');
-            if (!empty($studentroles)) {
-                $context = \context_course::instance($courseid);
-                $alluserroles = get_users_roles($context, array($userid), false);
-
-                $usershortnames = array();
-                foreach ($alluserroles[$userid] as $userrole) {
-                    $usershortnames[] = $userrole->shortname;
-                }
-
-                $isstudent = false;
-                foreach ($studentroles as $studentrole) {
-                    if (in_array($studentrole, $usershortnames)) {
-                        // User is in a role that is based on a student archetype on the course.
-                        $isstudent = true;
-                        break;
-                    }
-                }
-                if ($isstudent) {
-                    $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
-                    $students = $studentscache->get($courseid);
-                    if (empty($students)) {
-                        $students = array();   
-                    }
-                    $students[$userid] = $userid;
-                    $studentscache->set($courseid, $students);
-                    
-                    $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
-                    $modulecountcourse = $modulecountcache->get($courseid);
-                    if (empty($modulecountcourse)) {
-                        $modulecountcourse = self::calulatecoursemodules($courseid, $students);
-                    } else {
-                        $modinfo = get_fast_modinfo($courseid, $userid);
-                        $cms = $modinfo->get_cms(); // Array of cm_info objects for the user on the course.
-                        foreach ($cms as $usermod) {
-                            // From course_section_cm() in M3.8 - is_visible_on_course_page for M3.9+.
-                            if (($usermod->is_visible_on_course_page()) || (!empty($usermod->availableinfo) && ($usermod->url))) {
-                                // From course_section_cm_name_title().
-                                if ($usermod->uservisible) {
-                                    $modulecountcourse[$usermod->id][0]++;
-                                    $modulecountcourse[$usermod->id][1][] = $userid;
-                                }
-                            }
-                        }
-                    }
-                    $modulecountcache->set($courseid, $modulecountcourse);
-                }
-            } // Else leave to the other code as nothing has been calculated yet.
-            */
         } else if ($type == -1) {
             // Deleted.
             $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
