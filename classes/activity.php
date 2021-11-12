@@ -591,7 +591,7 @@ class activity {
      */
     protected static function course_participant_count($courseid, $mod) {
         $students = self::course_get_students($courseid);
-        
+
         // New users?
         $usercreatedcache = \cache::make('format_topcoll', 'activityusercreatedcache');
         $createdusers = $usercreatedcache->get($courseid);
