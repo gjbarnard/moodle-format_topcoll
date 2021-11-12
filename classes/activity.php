@@ -595,8 +595,11 @@ class activity {
         // New users?
         $usercreatedcache = \cache::make('format_topcoll', 'activityusercreatedcache');
         $createdusers = $usercreatedcache->get($courseid);
+        $lock = null;
         $newstudents = array();
         if (!empty($createdusers)) {
+            $lock = self::lockcaches($courseid);
+
             $studentrolescache = \cache::make('format_topcoll', 'activitystudentrolescache');
             $studentroles = $studentrolescache->get('roles');
             $context = \context_course::instance($courseid);
@@ -653,7 +656,15 @@ class activity {
                 $modulecountcache->set($courseid, $modulecountcourse);
             }
 
+            if (!is_null($lock)) {
+                $lock->release();
+            }
+
             return $modulecountcourse[$mod->id][0];
+        }
+
+        if (!is_null($lock)) {
+            $lock->release();
         }
 
         return 0;
