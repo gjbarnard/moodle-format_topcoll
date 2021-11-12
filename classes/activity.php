@@ -122,6 +122,7 @@ class activity {
 
                 // Do this before the rest so that the caches are populated for use.
                 $meta->numparticipants = self::course_participant_count($courseid, $mod);
+error_log('$meta->numparticipants '.$meta->numparticipants);
                 if (!empty($meta->numparticipants)) {
                     // Only need to bother if there are participants!
                     if (method_exists('format_topcoll\\activity', $methodnsubmissions)) {
@@ -619,6 +620,7 @@ class activity {
 
         if (empty($studentroles)) {
             $studentarch = get_archetype_roles('student');
+error_log('$studentarch '.print_r($studentarch, true));
             $studentroles = array();
             foreach ($studentarch as $role) {
                 $studentroles[] = $role->shortname;
@@ -662,6 +664,8 @@ class activity {
                 $studentscache->set($courseid, $students);
             }
         }
+
+error_log('1 -> '.print_r($students, true));
 
         return $students;
     }
@@ -771,29 +775,31 @@ class activity {
      */
     private static function userenrolmentchanged($userid, $courseid, $type) {
         $lock = self::lockcaches($courseid);
-        $studentrolescache = \cache::make('format_topcoll', 'activitystudentrolescache');
+        if ($type == 1) {
+            // Created.
+            $studentrolescache = \cache::make('format_topcoll', 'activitystudentrolescache');
 
-        $studentroles = $studentrolescache->get('roles');
-        if (!empty($studentroles)) {
-            $context = \context_course::instance($courseid);
-            $alluserroles = get_users_roles($context, $userid, false);
-
-            $usershortnames = array();
-            foreach ($alluserroles[$userid] as $userrole) {
-                $usershortnames[] = $userrole->shortname;
-            }
-            
-            $isstudent = false;
-            foreach ($studentroles as $studentrole) {
-                if (in_array($studentrole, $usershortnames)) {
-                    // User is in a role that is based on a student archetype on the course.
-                    $isstudent = true;
-                    break;
+            $studentroles = $studentrolescache->get('roles');
+            if (!empty($studentroles)) {
+                $context = \context_course::instance($courseid);
+                $alluserroles = get_users_roles($context, array($userid), false);
+                error_log('$alluserroles -> '.print_r($alluserroles, true));
+                $usershortnames = array();
+                foreach ($alluserroles[$userid] as $userrole) {
+                    $usershortnames[] = $userrole->shortname;
                 }
-            }
-            if ($isstudent) {
-                if ($type == 1) {
-                    // Created.
+                error_log(print_r($usershortnames, true));
+
+                $isstudent = false;
+                foreach ($studentroles as $studentrole) {
+                    if (in_array($studentrole, $usershortnames)) {
+                        // User is in a role that is based on a student archetype on the course.
+                        $isstudent = true;
+                        break;
+                    }
+                }
+                if ($isstudent) {
+                    error_log("Student!");
                     $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
                     $students = $studentscache->get($courseid);
                     if (empty($students)) {
@@ -821,15 +827,16 @@ class activity {
                         }
                     }
                     $modulecountcache->set($courseid, $modulecountcourse);
-                } else if ($type == -1) {
-                    // Deleted.
-                    $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
-                    $students = $studentscache->get($courseid);
-                    if (!empty($students)) {
-                        unset($students[$userid]);
-                        $studentscache->set($courseid, $students);
-                    }
-                    
+                }
+            } // Else leave to the other code as nothing has been calculated yet.
+        } else if ($type == -1) {
+            // Deleted.
+            $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+            $students = $studentscache->get($courseid);
+            if (!empty($students)) {
+                if (array_key_exists($userid, $students)) {
+                    unset($students[$userid]);
+                    $studentscache->set($courseid, $students);
                     $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
                     $modulecountcourse = $modulecountcache->get($courseid);
                     if (empty($modulecountcourse)) {
@@ -848,8 +855,8 @@ class activity {
                         $modulecountcache->set($courseid, $modulecountcourse);
                     }
                 }
-            }
-        } // Else leave to the other code as nothing has been calculated yet.
+            } // Else no students no problem.
+        }
         $lock->release();
     }
 
@@ -893,6 +900,8 @@ class activity {
                     $modulecountcache->set($courseid, $modulecountcourse);
                 }
             }
+error_log('2 -> '.print_r($students, true));
+
             $lock->release();
         }
     }
