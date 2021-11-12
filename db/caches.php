@@ -56,5 +56,12 @@ $definitions = array(
         'simplekeys' => true,
         'simpledata' => true,
         'staticacceleration' => true
+    ),
+    // Caches the ids of the new users on a given course.
+    'activityusercreatedcache' => array(
+        'mode' => cache_store::MODE_APPLICATION,
+        'simplekeys' => true,
+        'simpledata' => true,
+        'staticacceleration' => true
     )
 );

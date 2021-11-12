@@ -631,8 +631,12 @@ class activity {
                         $students[$newstudent] = $newstudent;
                     }
                 }
+                $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+                $studentscache->set($courseid, $students);
             } else if (!empty($newstudents)) {
                 $students = $newstudents;
+                $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+                $studentscache->set($courseid, $students);
             }
         }
 
