@@ -122,7 +122,6 @@ class activity {
 
                 // Do this before the rest so that the caches are populated for use.
                 $meta->numparticipants = self::course_participant_count($courseid, $mod);
-error_log('$meta->numparticipants '.$meta->numparticipants);
                 if (!empty($meta->numparticipants)) {
                     // Only need to bother if there are participants!
                     if (method_exists('format_topcoll\\activity', $methodnsubmissions)) {
@@ -592,12 +591,61 @@ error_log('$meta->numparticipants '.$meta->numparticipants);
      */
     protected static function course_participant_count($courseid, $mod) {
         $students = self::course_get_students($courseid);
+        
+        // New users?
+        $usercreatedcache = \cache::make('format_topcoll', 'activityusercreatedcache');
+        $createdusers = $usercreatedcache->get($courseid);
+        $newstudents = array();
+        if (!empty($createdusers)) {
+            $studentrolescache = \cache::make('format_topcoll', 'activitystudentrolescache');
+            $studentroles = $studentrolescache->get('roles');
+            $context = \context_course::instance($courseid);
+            $alluserroles = get_users_roles($context, $createdusers, false);
+            
+            foreach ($createdusers as $userid) {
+                $usershortnames = array();
+                foreach ($alluserroles[$userid] as $userrole) {
+                    $usershortnames[] = $userrole->shortname;
+                }
+                $isstudent = false;
+                foreach ($studentroles as $studentrole) {
+                    if (in_array($studentrole, $usershortnames)) {
+                        // User is in a role that is based on a student archetype on the course.
+                        $isstudent = true;
+                        break;
+                    }
+                }
+                if (!$isstudent) {
+                    // Don't go any further.
+                    continue;
+                } else {
+                    $newstudents[$userid] = $userid;
+                }
+            }
+            
+            $usercreatedcache->set($courseid, null);
+            
+            if (is_array($students)) {
+                foreach($newstudents as $newstudent) {
+                    if (!array_key_exists($newstudent, $students)) {
+                        $students[$newstudent] = $newstudent;
+                    }
+                }
+            } else if (!empty($newstudents)) {
+                $students = $newstudents;
+            }
+        }
+
         if (is_array($students)) {
             // We have students!
             $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
             $modulecountcourse = $modulecountcache->get($courseid);
             if (empty($modulecountcourse)) {
                 $modulecountcourse = self::calulatecoursemodules($courseid, $students);
+                $modulecountcache->set($courseid, $modulecountcourse);
+            } else if (!empty($newstudents)) {
+                // Update.
+                $modulecountcourse = self::calulatecoursemodules($courseid, $newstudents, null, $modulecountcourse);
                 $modulecountcache->set($courseid, $modulecountcourse);
             }
 
@@ -620,7 +668,6 @@ error_log('$meta->numparticipants '.$meta->numparticipants);
 
         if (empty($studentroles)) {
             $studentarch = get_archetype_roles('student');
-error_log('$studentarch '.print_r($studentarch, true));
             $studentroles = array();
             foreach ($studentarch as $role) {
                 $studentroles[] = $role->shortname;
@@ -664,8 +711,6 @@ error_log('$studentarch '.print_r($studentarch, true));
                 $studentscache->set($courseid, $students);
             }
         }
-
-error_log('1 -> '.print_r($students, true));
 
         return $students;
     }
@@ -777,18 +822,27 @@ error_log('1 -> '.print_r($students, true));
         $lock = self::lockcaches($courseid);
         if ($type == 1) {
             // Created.
-            $studentrolescache = \cache::make('format_topcoll', 'activitystudentrolescache');
+            /* Note: At the time of the event, the DB has not been updated to know that the given user has been assigned a role
+                     of 'student' - role_assignments table with data relating to that contained in the event itself. */
+            $usercreatedcache = \cache::make('format_topcoll', 'activityusercreatedcache');
+            $createdusers = $usercreatedcache->get($courseid);
+            if (empty($createdusers)) {
+                $createdusers = array();
+            }
+            $createdusers[] = $userid;
+            $usercreatedcache->set($courseid, $createdusers);
+
+            /*$studentrolescache = \cache::make('format_topcoll', 'activitystudentrolescache');
 
             $studentroles = $studentrolescache->get('roles');
             if (!empty($studentroles)) {
                 $context = \context_course::instance($courseid);
                 $alluserroles = get_users_roles($context, array($userid), false);
-                error_log('$alluserroles -> '.print_r($alluserroles, true));
+
                 $usershortnames = array();
                 foreach ($alluserroles[$userid] as $userrole) {
                     $usershortnames[] = $userrole->shortname;
                 }
-                error_log(print_r($usershortnames, true));
 
                 $isstudent = false;
                 foreach ($studentroles as $studentrole) {
@@ -799,7 +853,6 @@ error_log('1 -> '.print_r($students, true));
                     }
                 }
                 if ($isstudent) {
-                    error_log("Student!");
                     $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
                     $students = $studentscache->get($courseid);
                     if (empty($students)) {
@@ -829,6 +882,7 @@ error_log('1 -> '.print_r($students, true));
                     $modulecountcache->set($courseid, $modulecountcourse);
                 }
             } // Else leave to the other code as nothing has been calculated yet.
+            */
         } else if ($type == -1) {
             // Deleted.
             $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
@@ -900,8 +954,6 @@ error_log('1 -> '.print_r($students, true));
                     $modulecountcache->set($courseid, $modulecountcourse);
                 }
             }
-error_log('2 -> '.print_r($students, true));
-
             $lock->release();
         }
     }
@@ -946,20 +998,22 @@ error_log('2 -> '.print_r($students, true));
      * @param int $courseid Course id.
      * @param array $students Array of student id's on the course.
      * @param int $modid Calculate specific module id or null if calculate all.
+     * @param array $modulecount Existing module count if any.
      *
      * @return int Number of participants (students) on the modules requested on the course.
      */
-    private static function calulatecoursemodules($courseid, $students, $modid = null) {
-        $modulecount = array(); // Mod id indexed.
-        if (is_null($modid)) {
-            // Initialise to zero in case of no enrolled students on the course.
-            $modinfo = get_fast_modinfo($courseid, -1);
-            $cms = $modinfo->get_cms(); // Array of cm_info objects.
-            foreach ($cms as $themod) {
-                $modulecount[$themod->id] = array(0, array());
+    private static function calulatecoursemodules($courseid, $students, $modid = null, $modulecount = null) {
+        if (is_null($modulecount)) {
+            if (is_null($modid)) {
+                // Initialise to zero in case of no enrolled students on the course.
+                $modinfo = get_fast_modinfo($courseid, -1);
+                $cms = $modinfo->get_cms(); // Array of cm_info objects.
+                foreach ($cms as $themod) {
+                    $modulecount[$themod->id] = array(0, array());
+                }
+            } else {
+                $modulecount[$modid] = array(0, array());
             }
-        } else {
-            $modulecount[$modid] = array(0, array());
         }
         foreach ($students as $userid) {
             $modinfo = get_fast_modinfo($courseid, $userid);

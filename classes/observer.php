@@ -97,7 +97,6 @@ class format_topcoll_observer {
      */
     public static function user_enrolment_created(\core\event\user_enrolment_created $event) {
         if ($courseformat = self::istopcoll($event->courseid)) {
-            error_log(print_r($event, true));
             \format_topcoll\activity::userenrolmentcreated($event->relateduserid, $event->courseid, $courseformat);
         }
     }
