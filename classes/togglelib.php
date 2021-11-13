@@ -256,7 +256,7 @@ class togglelib {
      * @return mixed
      * @throws coding_exception
      */
-    static public function required_topcoll_param($parname) {
+    public static function required_topcoll_param($parname) {
         if (empty($parname)) {
             throw new coding_exception('required_topcoll_param() requires $parname to be specified');
         }
@@ -272,7 +272,7 @@ class togglelib {
      * @return mixed
      * @throws coding_exception
      */
-    static public function clean_topcoll_param($param) {
+    public static function clean_topcoll_param($param) {
         if (is_array($param)) {
             throw new coding_exception('clean_topcoll_param() can not process arrays.');
         } else if (is_object($param)) {
