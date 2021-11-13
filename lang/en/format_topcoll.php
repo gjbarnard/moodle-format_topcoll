@@ -401,6 +401,7 @@ $string['topcoll:changelayout'] = 'Change or reset the layout';
 $string['topcoll:changecolour'] = 'Change or reset the colour';
 $string['topcoll:changetogglealignment'] = 'Change or reset the toggle alignment';
 $string['topcoll:changetoggleiconset'] = 'Change or reset the toggle icon set';
+$string['topcoll:changeactivitymeta'] = 'Change or reset the activity meta';
 
 // Instructions.
 $string['instructions'] = 'Instructions: Clicking on the section name will show / hide the section.';
