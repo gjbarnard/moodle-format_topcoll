@@ -932,4 +932,59 @@ class activity {
 
         return $modulecount[$courseid][$mod->id];
     }
+
+    /**
+     * States if the format setting for the maximum number of students has not been
+     * exceeded for the specific courseid.
+     *
+     * @param int $courseid The course id.
+     * @param boolean $extrainfo Return extra information.
+     *
+     * @return boolean true = it has not, false = it has /
+     *         if $extrainfo then array (boolean, nostudents, maxstudents);
+     */
+    public static function maxstudentsnotexceeded($courseid, $extrainfo = false) {
+        $notexceeded = true;
+        $maxstudents = get_config('format_topcoll', 'courseadditionalmoddatamaxstudents');
+        $studentcount = 0;
+        if (($maxstudents != 0) || ($extrainfo)) {
+            $students = self::course_get_students($courseid);
+            if (is_array($students)) {
+                $studentcount = count($students);
+                if ($maxstudents < $studentcount) {
+                    $notexceeded = false;
+                }
+            }
+        }
+
+        if ($extrainfo) {
+            return array('notexceeded' => $notexceeded, 'nostudents' => $studentcount, 'maxstudents' => $maxstudents);
+        }
+
+        return $notexceeded;
+    }
+
+    /**
+     * State if the site has activity meta enabled.
+     *
+     * @return boolean True or False.
+     */
+    public static function activitymetaenabled() {
+        return (get_config('format_topcoll', 'enableadditionalmoddata') == 2);
+    }
+
+    /**
+     * State if the course has activity meta enabled.
+     *
+     * @param int $courseformat Course format for the course.
+     *
+     * @return boolean True or False.
+     */
+    public static function activitymetaused($courseformat) {
+        $tcsettings = $courseformat->get_settings();
+        if ((!empty($tcsettings['showadditionalmoddata'])) && ($tcsettings['showadditionalmoddata'] == 2)) {
+            return true; // Could in theory test the module but then this method wouldn't work for user events.
+        }
+        return false;
+    }
 }

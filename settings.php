@@ -477,6 +477,24 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_heading($name, $heading, '');
     $settings->add($setting);
 
+    $name = 'format_topcoll/enableadditionalmoddata';
+    $title = get_string('enableadditionalmoddata', 'format_topcoll');
+    $description = get_string('enableadditionalmoddatadesc', 'format_topcoll');
+    $default = 1;
+    $choices = array(
+        1 => new lang_string('no'),
+        2 => new lang_string('yes')
+    );
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $settings->add($setting);
+
+    $name = 'format_topcoll/courseadditionalmoddatamaxstudents';
+    $title = get_string('courseadditionalmoddatamaxstudents', 'format_topcoll');
+    $description = get_string('courseadditionalmoddatamaxstudentsdesc', 'format_topcoll');
+    $default = 0;
+    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_INT);
+    $settings->add($setting);
+
     $name = 'format_topcoll/defaultshowadditionalmoddata';
     $title = get_string('defaultshowadditionalmoddata', 'format_topcoll');
     $description = get_string('defaultshowadditionalmoddatadesc', 'format_topcoll');
