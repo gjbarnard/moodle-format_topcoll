@@ -1,6 +1,6 @@
 ﻿Version Information
 ===================
-Version 3.8.1.6 - TBR
+Version 3.8.1.6 - 15/11/2021
 ----------------------------
   1. Add 'enableadditionalmoddata' setting to turn on / off additional information at a site level.  Default is 'off'!
   2. Separate out 'Activity information' as a separate reset, new capability 'changeactivitymeta' and fix the
