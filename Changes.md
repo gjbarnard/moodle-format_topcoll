@@ -1,11 +1,20 @@
 ﻿Version Information
 ===================
 
-Version 3.9.1.7 - TBR
+Version 3.9.1.7 - 15/11/2021
 -----------------------------
   1. Add 'enableadditionalmoddata' setting to turn on / off additional information at a site level.  Default is 'off'!
   2. Improve documentation for Toggle blocks location' functionality - https://moodle.org/mod/forum/discuss.php?d=428924 and #100.
   3. Improve user enrolment event handling to be more efficient for activity information - #114.
+  4. Separate out 'Activity information' as a separate reset, new capability 'changeactivitymeta' and fix the
+     'forum' module in the list of enabled plugins so that it can be enabled and the others disabled and 'showadditionalmoddata'
+     still take effect.
+  5. Added 'courseadditionalmoddatamaxstudents' setting to restrict, if desired, the display of the activity information on a
+     a course of the number of students on that course exceeds it.  When 'showadditionalmoddata' is enabled on a course, then
+     additional information about the status of this is shown underneath the setting on the course settings page.  This is so
+     that large courses can be automatically prevented from showing the information as the calculations would take an
+     unacceptable amount of time to compute.  It is up to the administrator to set the figure based upon benchmarking / testing
+     of the performance characteristics of the server.  The default is '0', which means 'unlimited' number of students.
 
 Version 3.9.1.6 - 30/09/2021
 ----------------------------
@@ -14,10 +23,6 @@ Version 3.9.1.6 - 30/09/2021
   3. Add 'aria-live=polite' to the section content and 'aria-controls' to the open / close all buttons - CONTRIB-8637.
   4. Add support for Forums in "Course page further information" - #105.
   5. Fix 'Collapsed topics rollover settings aren't accessible' - #111.
-  6. Add 'enableadditionalmoddata' setting to turn on / off additional information at a site level.  Default is 'off'!
-  7. Separate out 'Activity information' as a separate reset, new capability 'changeactivitymeta' and fix the
-     'forum' module in the list of enabled plugins so that it can be enabled and the others disabled and 'showadditionalmoddata'
-     still take effect.
 
 Version 3.9.1.5 - 02/07/2021
 ----------------------------
