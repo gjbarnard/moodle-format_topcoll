@@ -363,7 +363,7 @@ class activity {
      * @return string
      */
     protected static function lesson_meta(cm_info $modinst) {
-        return self::std_meta($modinst, '', '', '', '', '', 'attempted', true);
+        return self::std_meta($modinst, 'available', 'deadline', 'lessonid', 'timer', 'lessontime', 'attempted', true);
     }
 
     /**
