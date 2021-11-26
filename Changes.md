@@ -1,6 +1,9 @@
 ﻿Version Information
 ===================
 
+Version 3.9.1.8 - TBR
+-----------------------------
+
 Version 3.9.1.7 - 15/11/2021
 -----------------------------
   1. Add 'enableadditionalmoddata' setting to turn on / off additional information at a site level.  Default is 'off'!
