@@ -667,9 +667,6 @@ class renderer extends \format_section_renderer_base {
             $singlesectioncontext['sectionzero'] = $this->topcoll_section($sectionzero, $course, true, $displaysection, array('sr' => $displaysection));
         }
 
-        // The requested section page.
-        $thissection = $modinfo->get_section_info($displaysection);
-
         // Title with section navigation links.
         $sectionnavlinks = $this->get_nav_links($course, $modinfo->get_section_info_all(), $displaysection);
         $singlesectioncontext['sectionnavlinksprevious'] = $sectionnavlinks['previous'];
