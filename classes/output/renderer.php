@@ -546,9 +546,6 @@ class renderer extends section_renderer {
             $singlesectioncontext['sectionzero'] = $this->topcoll_section($sectionzero, $course, true, $displaysection, array('sr' => $displaysection));
         }
 
-        // The requested section page.
-        $thissection = $modinfo->get_section_info($displaysection);
-
         // Title attributes.
         $classes = 'sectionname';
         if (!$thissection->visible) {
