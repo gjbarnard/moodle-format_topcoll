@@ -40,10 +40,9 @@
         "maincoursepageicon": '<i class="icon fa fa-caret-up fa-fw " title="Main course page" aria-label="Main course page"></i>',
         "maincoursepagestr": "Main course page",
         "maincoursepageurl": 'https://moodle.localhost/course/view.php?id=14',
-        "sectionnavlinksnext": '<a href="https://moodle.localhost/course/view.php?id=14&section=3">Section 3<span class="rarrow">►</span></a>',
-        "sectionnavlinksprevious": '<a href="https://moodle.localhost/course/view.php?id=14&section=1"><span class="larrow">◄</span>Section 1</a>',
         "sectionnavselection":
-            '<div class="jumpmenu">
+            '<div class="prevsection"><a href="https://moodle.localhost/course/view.php?id=14&section=1"><span class="larrow">◄</span>Section 1</a></div>
+             <div class="jumpmenu">
                 <form method="post" action="https://moodle.localhost/course/jumpto.php" class="form-inline" id="sectionmenu">
                     <input type="hidden" name="sesskey" value="sessionkey">
                     <select class="custom-select jumpmenu" name="jump" data-init-value="">
@@ -63,7 +62,8 @@
                         <input type="submit" class="btn btn-secondary ml-1" value="Go">
                     </noscript>
                 </form>
-            </div>',
+            </div>
+            <div class="nextsection"><a href="https://moodle.localhost/course/view.php?id=14&section=3">Section 3<span class="rarrow">►</span></a></div>',
         "sectiontitle": '<h3 class="sectionname">Section 2</h3>',
         "sectionzero": 'Section zero markup',
         "thissection": 'Section two markup'
@@ -85,8 +85,6 @@
         {{{thissection}}}
     </ul>
     <div class="section-navigation mdl-bottom">
-        <span class="mdl-left">{{{sectionnavlinksprevious}}}</span>
-        <span class="mdl-right">{{{sectionnavlinksnext}}}</span>
         <div class="mdl-align">{{{sectionnavselection}}}</div>
     </div>
 </div>
