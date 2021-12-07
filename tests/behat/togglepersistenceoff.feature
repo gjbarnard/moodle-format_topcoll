@@ -22,7 +22,7 @@ Feature: Toggle persistance off
     When I am on the "CT" "Course" page logged in as "dennis"
     And I click on "Section 1 - Toggle" "text"
     And I click on "Section 2 - Toggle" "text"
-    And I click on "CT" "link"
+    And I reload the page
     Then "#toggledsection-1" "css_element" should not be visible
     And "#toggledsection-2" "css_element" should not be visible
 
@@ -33,6 +33,6 @@ Feature: Toggle persistance off
     When I am on the "CT" "Course" page logged in as "dennis"
     And I click on "Section 1 - Toggle" "text"
     And I click on "Section 2 - Toggle" "text"
-    And I click on "CT" "link"
+    And I reload the page
     Then "#toggledsection-1" "css_element" should be visible
     And "#toggledsection-2" "css_element" should be visible

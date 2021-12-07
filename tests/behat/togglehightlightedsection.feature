@@ -36,13 +36,13 @@ Feature: Toggle highlighted section
     When I turn editing mode on
     And I turn section "2" highlighting on
     And I turn editing mode off
-    And I click on "CT" "link"
+    And I reload the page
     Then "#toggledsection-1" "css_element" should not be visible
     And "#toggledsection-2" "css_element" should be visible
     And "#toggledsection-3" "css_element" should not be visible
     And I log out
     And I am on the CT Course page logged in as daisy
-    And I click on "CT" "link"
+    And I reload the page
     And "#toggledsection-1" "css_element" should not be visible
     And "#toggledsection-2" "css_element" should be visible
     And "#toggledsection-3" "css_element" should not be visible
