@@ -328,7 +328,7 @@ class renderer extends section_renderer {
     /**
      * Generate the section.
      *
-     * @param stdClass $section The course_section entry from DB.
+     * @param section_info $section The section.
      * @param stdClass $course The course entry from DB.
      * @param bool $onsectionpage true if being printed on a section page.
      * @param int $sectionreturn The section to return to after an action.
@@ -521,7 +521,7 @@ class renderer extends section_renderer {
         $modinfo = get_fast_modinfo($course);
 
         // Can we view the section in question?
-        if (!($sectioninfo = $modinfo->get_section_info($displaysection)) || !$sectioninfo->uservisible) {
+        if (!($thissection = $modinfo->get_section_info($displaysection)) || !$sectioninfo->uservisible) {
             /* This section doesn't exist or is not available for the user.
                We actually already check this in course/view.php but just in case exit from this function as well. */
             print_error('unknowncoursesection', 'error', course_get_url($course),
@@ -529,8 +529,6 @@ class renderer extends section_renderer {
         }
 
         $maincoursepage = get_string('maincoursepage', 'format_topcoll');
-        // The requested section page.
-        $thissection = $modinfo->get_section_info($displaysection);
 
         $singlesectioncontext = array(
             'maincoursepageicon' => $this->output->pix_icon('t/less', $maincoursepage),
