@@ -521,11 +521,16 @@ class renderer extends section_renderer {
         $modinfo = get_fast_modinfo($course);
 
         // Can we view the section in question?
-        if (!($thissection = $modinfo->get_section_info($displaysection)) || !$sectioninfo->uservisible) {
+        if (!($thissection = $modinfo->get_section_info($displaysection))) {
             /* This section doesn't exist or is not available for the user.
                We actually already check this in course/view.php but just in case exit from this function as well. */
             print_error('unknowncoursesection', 'error', course_get_url($course),
                 format_string($course->fullname));
+        }
+
+        if (!$thissection->uservisible) {
+            // Can't view this section.
+            return;
         }
 
         $maincoursepage = get_string('maincoursepage', 'format_topcoll');

@@ -107,10 +107,8 @@ trait format_renderer_migration_toolbox {
     }
 
     protected function section_nav_selection($course, $sections, $displaysection) {
-        $sectionnavigationclass = $this->courseformat->get_output_classname('content\\sectionnavigation');
-        $sectionnavigation = new $sectionnavigationclass($this->courseformat, $this->courseformat->get_section_number());
         $sectionselectorclass = $this->courseformat->get_output_classname('content\\sectionselector');
-        $sectionselector = new $sectionselectorclass($this->courseformat, $sectionnavigation);
+        $sectionselector = new $sectionselectorclass($this->courseformat);
         return $this->render($sectionselector);
     }
 
