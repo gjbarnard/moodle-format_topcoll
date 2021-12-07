@@ -20,7 +20,6 @@
     Collapsed Topics single section template.
 
     Context variables required for this template:
-    * activityclipboard = Activity clipboard.
     * horizontalclass - Additional classes used when the format has a horizontal layout.
     * horizontalwidth - Horizontal layout width.
     * maincoursepageicon- Main course page icon.
@@ -40,6 +39,7 @@
         "maincoursepageicon": '<i class="icon fa fa-caret-up fa-fw " title="Main course page" aria-label="Main course page"></i>',
         "maincoursepagestr": "Main course page",
         "maincoursepageurl": 'https://moodle.localhost/course/view.php?id=14',
+        "sectionnavlinks": 'TBC',
         "sectionnavselection":
             '<div class="prevsection"><a href="https://moodle.localhost/course/view.php?id=14&section=1"><span class="larrow">◄</span>Section 1</a></div>
              <div class="jumpmenu">
@@ -76,11 +76,12 @@
 </ul>
 {{/sectionzero}}
 <div class="single-section">
+    {{{sectionnavlinks}}}
     <div class="section-navigation navigationtitle">
         <span class="mdl-left">{{{sectionnavlinksprevious}}}</span>
         <span class="mdl-right">{{{sectionnavlinksnext}}}</span>
-        {{{sectiontitle}}}
     </div>
+    {{{sectiontitle}}}
     <ul class="ctopics">
         {{{thissection}}}
     </ul>

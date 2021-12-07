@@ -536,6 +536,7 @@ class renderer extends section_renderer {
             'maincoursepageicon' => $this->output->pix_icon('t/less', $maincoursepage),
             'maincoursepagestr' => $maincoursepage,
             'maincoursepageurl' => new moodle_url('/course/view.php', array('id' => $course->id)),
+            'sectionnavlinks' => $this->section_nav_links(),
             // Title with section navigation links and jump to menu.
             'sectionnavselection' => $this->section_nav_selection($course, null, $displaysection),
             'thissection' => $this->topcoll_section($thissection, $course, true, $displaysection, array('sr' => $displaysection))

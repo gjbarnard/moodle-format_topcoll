@@ -100,6 +100,12 @@ trait format_renderer_migration_toolbox {
         return $this->render(new $cmlistclass($this->courseformat, $section));
     }
 
+    protected function section_nav_links() {
+        $sectionnavigationclass = $this->courseformat->get_output_classname('content\\sectionnavigation');
+        $sectionnavigation = new $sectionnavigationclass($this->courseformat, $this->courseformat->get_section_number());
+        return $this->render($sectionnavigation);
+    }
+
     protected function section_nav_selection($course, $sections, $displaysection) {
         $sectionnavigationclass = $this->courseformat->get_output_classname('content\\sectionnavigation');
         $sectionnavigation = new $sectionnavigationclass($this->courseformat, $this->courseformat->get_section_number());
