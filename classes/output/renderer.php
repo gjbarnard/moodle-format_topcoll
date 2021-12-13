@@ -371,7 +371,7 @@ class renderer extends section_renderer {
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
             $sectioncontext['nomtore'] = true;
             $sectioncontext['leftcontent'] = $this->section_left_content($section, $course, $onsectionpage);
-            $sectioncontext['rightcontent'] = '';
+            /*$sectioncontext['rightcontent'] = '';
             if (($section->section != 0) && $this->userisediting && has_capability('moodle/course:update', $context)) {
                 $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
                 $sectioncontext['rightcontent'] .= html_writer::link(
@@ -379,8 +379,8 @@ class renderer extends section_renderer {
                     $this->output->pix_icon('t/edit', get_string('edit')),
                         array('title' => get_string('editsection', 'format_topcoll'), 'class' => 'tceditsection')
                 );
-            }
-            $sectioncontext['rightcontent'] .= $this->section_right_content($section, $course, $onsectionpage);
+            }*/
+            $sectioncontext['rightcontent'] = $this->section_right_content($section, $course, $onsectionpage);
         }
         if ($section->section != 0) {
             $sectioncontext['contentaria'] = true;
