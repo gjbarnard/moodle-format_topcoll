@@ -69,7 +69,6 @@ class renderer extends section_renderer {
      */
     public function __construct(\moodle_page $page, $target) {
         parent::__construct($page, $target);
-        $this->courserenderer = $this->page->get_renderer('format_topcoll', 'course');
         $this->togglelib = new \format_topcoll\togglelib();
         $this->courseformat = course_get_format($page->course); // Needed for collapsed topics settings retrieval.
 
@@ -439,7 +438,7 @@ class renderer extends section_renderer {
 
         if ($section->uservisible) {
             $sectioncontext['cscml'] = $this->course_section_cmlist($section);
-            $sectioncontext['cscml'] .= $this->courserenderer->course_section_add_cm_control($course, $section->section, $sectionreturn);
+            $sectioncontext['cscml'] .= $this->course_section_add_cm_control($course, $section->section, $sectionreturn);
         }
 
         return $this->render_from_template('format_topcoll/section', $sectioncontext);
