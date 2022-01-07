@@ -439,7 +439,7 @@ class format_topcoll extends core_courseformat\base {
                     }
                 }
             }
-        
+
             if ($courseid == 1) { // New course.
                 $defaultnumsections = $courseconfig->numsections;
             } else { // Existing course that may not have 'numsections' - see get_last_section().
