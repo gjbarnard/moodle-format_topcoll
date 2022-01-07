@@ -5,7 +5,7 @@ Version 4.0.0.1 - TBR
 -----------------------------
   1. Refactor - Moodle 4.0 version to cope with course format API changes.
 
-Version 3.11.0.5 - TBR
+Version 3.11.0.5 - 15/11/21
 -----------------------------
   1. Fix 'Error in urls for additional information' - #116.
   2. Add 'enableadditionalmoddata' setting to turn on / off additional information at a site level.  Default is 'off'!
