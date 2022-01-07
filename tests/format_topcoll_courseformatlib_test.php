@@ -39,6 +39,8 @@ class format_topcoll_courseformatlib_test extends advanced_testcase {
         $this->resetAfterTest(true);
 
         set_config('theme', 'boost');
+        set_config('enableadditionalmoddata', 2, 'format_topcoll');
+
         // Ref: https://docs.moodle.org/dev/Writing_PHPUnit_tests.
         $this->course = $this->getDataGenerator()->create_course(array(
             'format' => 'topcoll',

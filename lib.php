@@ -411,33 +411,35 @@ class format_topcoll extends core_courseformat\base {
         static $courseformatoptions = false;
         $courseconfig = null;
         $enabledplugins = array();
-        if (\format_topcoll\activity::activitymetaenabled()) {
-            $engagementactivities = array('assign', 'quiz', 'choice', 'feedback', 'forum', 'lesson', 'data');
-            foreach ($engagementactivities as $plugintype) {
-                if (get_config('format_topcoll', 'coursesectionactivityfurtherinformation'.$plugintype) == 2) {
-                    switch ($plugintype) {
-                        case 'assign':
-                            array_push($enabledplugins, 'assignments');
-                            break;
-                        case 'quiz':
-                            array_push($enabledplugins, 'quizzes');
-                            break;
-                        case 'data':
-                            array_push($enabledplugins, 'databases');
-                            break;
-                        case 'choice' || 'feedback' || 'forum' || 'lesson':
-                            array_push($enabledplugins, $plugintype . 's');
-                            break;
-                        default:
-                            coding_exception('Try to process invalid plugin', 'Check the plugintypes that are supported by format_topcoll');
-                    }
-                }
-            }
-        }
+
         $courseid = $this->get_courseid();
         if ($courseformatoptions === false) {
             $courseconfig = get_config('moodlecourse');
 
+            if (\format_topcoll\activity::activitymetaenabled()) {
+                $engagementactivities = array('assign', 'quiz', 'choice', 'feedback', 'forum', 'lesson', 'data');
+                foreach ($engagementactivities as $plugintype) {
+                    if (get_config('format_topcoll', 'coursesectionactivityfurtherinformation'.$plugintype) == 2) {
+                        switch ($plugintype) {
+                            case 'assign':
+                                array_push($enabledplugins, 'assignments');
+                                break;
+                            case 'quiz':
+                                array_push($enabledplugins, 'quizzes');
+                                break;
+                            case 'data':
+                                array_push($enabledplugins, 'databases');
+                                break;
+                            case 'choice' || 'feedback' || 'forum' || 'lesson':
+                                array_push($enabledplugins, $plugintype . 's');
+                                break;
+                            default:
+                                coding_exception('Try to process invalid plugin', 'Check the plugintypes that are supported by format_topcoll');
+                        }
+                    }
+                }
+            }
+        
             if ($courseid == 1) { // New course.
                 $defaultnumsections = $courseconfig->numsections;
             } else { // Existing course that may not have 'numsections' - see get_last_section().
