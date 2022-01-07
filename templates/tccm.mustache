@@ -15,7 +15,7 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template core_courseformat/local/content/cm
+    @template format_topcoll/tccm
 
     Displays a course module instance inside a course section.
 
@@ -112,5 +112,9 @@
             {{> core_courseformat/local/content/cm/availability }}
         {{/modavailability}}
     </div>
-    <span>{{meecmy}}</span>
+    {{#cmmeta}}
+    <div class="ct-activity-meta-container">
+        {{{cmmeta}}}
+    </div>
+    {{/cmmeta}}
 </div>
