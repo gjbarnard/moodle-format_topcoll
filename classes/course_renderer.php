@@ -165,7 +165,7 @@ class format_topcoll_course_renderer extends \core_course_renderer {
         $sectioncmcontext = array(
             'availability' => $this->course_section_cm_availability($mod, $displayoptions),
             'contentpart' => $this->course_section_cm_text($mod, $displayoptions),
-            'hasurl' => (empty($mod->url))
+            'hasurl' => (!empty($mod->url))
         );
 
         $sectioncmcontext['indent'] = 'mod-indent';

@@ -97,7 +97,12 @@ trait format_renderer_migration_toolbox {
 
     protected function course_section_cmlist($section) {
         $cmlistclass = $this->courseformat->get_output_classname('content\\section\\cmlist');
-        return $this->render(new $cmlistclass($this->courseformat, $section));
+        return $this->render_cmlist(new $cmlistclass($this->courseformat, $section));
+    }
+
+    protected function render_cmlist(\renderable $widget) {
+        $data = $widget->export_for_template($this);
+        return $this->render_from_template('format_topcoll/tccmlist', $data);
     }
 
     protected function section_nav_links() {
