@@ -796,51 +796,49 @@ class format_topcoll extends core_courseformat\base {
                     'label' => 0, 'element_type' => 'hidden');
             }
 
-            if (!empty($enabledplugins)) {
-                if (has_capability('format/topcoll:changeactivitymeta', $context)) {
-                    $showadditionalmoddatavalues = $this->generate_default_entry(
-                        'showadditionalmoddata',
-                        0,
-                        array(
-                            1 => new lang_string('no'),
-                            2 => new lang_string('yes')
-                        )
-                    );
-                    $stringenabled = implode(', ', $enabledplugins);
-                    $portion = strrchr($stringenabled, ',');
-                    $stringenabled = str_replace($portion, (" and" . substr($portion, 1)), $stringenabled);
-                    $courseformatoptionsedit['showadditionalmoddata'] = array(
-                        'label' => new lang_string('showadditionalmoddata', 'format_topcoll', $stringenabled),
-                        'help' => 'showadditionalmoddata',
-                        'help_component' => 'format_topcoll',
-                        'element_type' => 'select',
-                        'element_attributes' => array($showadditionalmoddatavalues)
-                    );
+            if ((!empty($enabledplugins)) && (has_capability('format/topcoll:changeactivitymeta', $context))) {
+                $showadditionalmoddatavalues = $this->generate_default_entry(
+                    'showadditionalmoddata',
+                    0,
+                    array(
+                        1 => new lang_string('no'),
+                        2 => new lang_string('yes')
+                    )
+                );
+                $stringenabled = implode(', ', $enabledplugins);
+                $portion = strrchr($stringenabled, ',');
+                $stringenabled = str_replace($portion, (" and" . substr($portion, 1)), $stringenabled);
+                $courseformatoptionsedit['showadditionalmoddata'] = array(
+                    'label' => new lang_string('showadditionalmoddata', 'format_topcoll', $stringenabled),
+                    'help' => 'showadditionalmoddata',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => array($showadditionalmoddatavalues)
+                );
 
-                    $tcsettings = $this->get_settings();
-                    if ((!empty($tcsettings['showadditionalmoddata'])) && ($tcsettings['showadditionalmoddata'] == 2)) {
-                        $maxstudentsinfo = \format_topcoll\activity::maxstudentsnotexceeded($courseid, true);
-                        if ($maxstudentsinfo['maxstudents'] == 0) {
-                            $activityinfostring = get_string('courseadditionalmoddatastudentsinfounlimited', 'format_topcoll',
-                                $maxstudentsinfo['nostudents']);
-                        } else if (!$maxstudentsinfo['notexceeded']) {
-                            $activityinfostring = get_string('courseadditionalmoddatastudentsinfolimitednoshow', 'format_topcoll',
-                                array('students' => $maxstudentsinfo['nostudents'], 'maxstudents' => $maxstudentsinfo['maxstudents']));
-                        } else {
-                            $activityinfostring = get_string('courseadditionalmoddatastudentsinfolimitedshow', 'format_topcoll',
-                                array('students' => $maxstudentsinfo['nostudents'], 'maxstudents' => $maxstudentsinfo['maxstudents']));
-                        }
-
-                        $courseformatoptionsedit['courseadditionalmoddatastudentsinfo'] = array(
-                            'label' => get_string('courseadditionalmoddatastudentsinfo', 'format_topcoll'),
-                            'element_type' => 'static',
-                            'element_attributes' => array($activityinfostring)
-                        );
+                $tcsettings = $this->get_settings();
+                if ((!empty($tcsettings['showadditionalmoddata'])) && ($tcsettings['showadditionalmoddata'] == 2)) {
+                    $maxstudentsinfo = \format_topcoll\activity::maxstudentsnotexceeded($courseid, true);
+                    if ($maxstudentsinfo['maxstudents'] == 0) {
+                        $activityinfostring = get_string('courseadditionalmoddatastudentsinfounlimited', 'format_topcoll',
+                            $maxstudentsinfo['nostudents']);
+                    } else if (!$maxstudentsinfo['notexceeded']) {
+                        $activityinfostring = get_string('courseadditionalmoddatastudentsinfolimitednoshow', 'format_topcoll',
+                            array('students' => $maxstudentsinfo['nostudents'], 'maxstudents' => $maxstudentsinfo['maxstudents']));
+                    } else {
+                        $activityinfostring = get_string('courseadditionalmoddatastudentsinfolimitedshow', 'format_topcoll',
+                            array('students' => $maxstudentsinfo['nostudents'], 'maxstudents' => $maxstudentsinfo['maxstudents']));
                     }
-                } else {
-                    $courseformatoptionsedit['showadditionalmoddata'] = array(
-                        'label' => 0, 'element_type' => 'hidden');
+
+                    $courseformatoptionsedit['courseadditionalmoddatastudentsinfo'] = array(
+                        'label' => get_string('courseadditionalmoddatastudentsinfo', 'format_topcoll'),
+                        'element_type' => 'static',
+                        'element_attributes' => array($activityinfostring)
+                    );
                 }
+            } else {
+                $courseformatoptionsedit['showadditionalmoddata'] = array(
+                    'label' => 0, 'element_type' => 'hidden');
             }
 
             if (has_capability('format/topcoll:changetogglealignment', $context)) {
