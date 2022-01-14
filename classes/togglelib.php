@@ -32,8 +32,6 @@
  */
 namespace format_topcoll;
 
-defined('MOODLE_INTERNAL') || die;
-
 class togglelib {
 
     // Digits used = ":;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy";
