@@ -33,8 +33,6 @@
 
 namespace format_topcoll\output;
 
-defined('MOODLE_INTERNAL') || die();
-
 use context_course;
 use html_writer;
 use moodle_url;
