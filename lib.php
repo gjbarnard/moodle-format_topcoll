@@ -91,6 +91,14 @@ class format_topcoll extends core_courseformat\base {
         return true;
     }
 
+    public function uses_course_index() {
+        return true;
+    }
+
+    public function uses_indentation(): bool {
+        return true;
+    }
+
     /**
      * Gets the name for the provided section.
      *

@@ -438,7 +438,9 @@ class renderer extends section_renderer {
 
         if ($section->uservisible) {
             $sectioncontext['cscml'] = $this->course_section_cmlist($section);
-            $sectioncontext['cscml'] .= $this->course_section_add_cm_control($course, $section->section, $sectionreturn);
+            if ($this->courseformat->show_editor()) {
+                $sectioncontext['cscml'] .= $this->course_section_add_cm_control($course, $section->section, $sectionreturn);
+            }
         }
 
         return $this->render_from_template('format_topcoll/section', $sectioncontext);
@@ -468,6 +470,11 @@ class renderer extends section_renderer {
             } else {
                 $stealthsectioncontext['horizontalclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
             }
+        }
+
+        if ($this->courseformat->show_editor()) {
+            $stealthsectioncontext['cmcontrols'] =
+                $this->courserenderer->course_section_add_cm_control($course, $section->section, $section->section);
         }
 
         return $this->render_from_template('format_topcoll/stealthsection', $stealthsectioncontext);
@@ -798,7 +805,7 @@ class renderer extends section_renderer {
                             }
                         }
                     }
-                    $sectionoutput .= $this->topcoll_section($thissection, $course, false, 0);
+                    $sectionoutput .= $this->topcoll_section($thissection, $course, false, $thissection->section);
                     $toggledsections[] = $thissection->section;
                 }
 
