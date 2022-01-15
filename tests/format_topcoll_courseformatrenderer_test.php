@@ -359,7 +359,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $theoutput .= '<h2 class="accesshide">Section</h2><ul class="ctopics">';
         $theoutput .= self::call_method($this->outputus, 'topcoll_section', array($section0, $this->course, false, 0));
         $theoutput .= '</ul><ul class="ctopics topics row">';
-        $theoutput .= self::call_method($this->outputus, 'topcoll_section', array($section1, $this->course, false, 0));
+        $theoutput .= self::call_method($this->outputus, 'topcoll_section', array($section1, $this->course, false, 1));
         $theoutput .= '</ul>';
 
         $this->expectOutputString($theoutput);
@@ -381,7 +381,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $theoutput .= self::call_method($this->outputus, 'topcoll_section', array($section0, $this->course, false, 0));
         $theoutput .= '</ul><div class="row">';
         $theoutput .= '<ul class="ctopics topics col-sm-12">';
-        $theoutput .= self::call_method($this->outputus, 'topcoll_section', array($section1, $this->course, false, 0));
+        $theoutput .= self::call_method($this->outputus, 'topcoll_section', array($section1, $this->course, false, 1));
         $theoutput .= '</ul></div>';
 
         $this->expectOutputString($theoutput);
