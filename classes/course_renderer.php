@@ -31,8 +31,6 @@
  *
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 class format_topcoll_course_renderer extends \core_course_renderer {
 
     /**
