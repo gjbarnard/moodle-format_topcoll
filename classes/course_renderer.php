@@ -165,7 +165,7 @@ class format_topcoll_course_renderer extends \core_course_renderer {
         $sectioncmcontext = array(
             'availability' => $this->course_section_cm_availability($mod, $displayoptions),
             'contentpart' => $this->course_section_cm_text($mod, $displayoptions),
-            'hasurl' => (empty($mod->url))
+            'hasurl' => (!empty($mod->url))
         );
 
         $sectioncmcontext['indent'] = 'mod-indent';
@@ -283,7 +283,7 @@ class format_topcoll_course_renderer extends \core_course_renderer {
                     'linkclass' => 'ct-activity-action',
                     'linkicon' => $this->output->pix_icon('docs', get_string('info')),
                     'linktext' => implode(', ', $engagementmeta),
-                    'linkurl' => new moodle_url("/mod/{$mod->modname}/view.php", $params),
+                    'linkurl' => new \moodle_url("/mod/{$mod->modname}/view.php", $params),
                     'type' => 'engagement'
                 );
                 $content = $this->output->render_from_template('format_topcoll/sectioncmmeta', $sectioncmmetacontext);
