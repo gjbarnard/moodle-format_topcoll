@@ -33,8 +33,6 @@
 
 namespace format_topcoll;
 
-defined('MOODLE_INTERNAL') || die;
-
 class toolbox {
 
     protected static $instance;

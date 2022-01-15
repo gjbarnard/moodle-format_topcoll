@@ -45,8 +45,6 @@
 
 namespace format_topcoll;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Activity meta data.
  *
