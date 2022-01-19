@@ -346,9 +346,12 @@ class format_topcoll extends format_base {
      */
     public function get_default_blocks() {
 
-        // Assign the location side for the blocks. defaultdisplayblocksloc: 1=pre, 2=post
-        // Then put the string list of blocks on the side location.
+        /* Assign the location side for the blocks. defaultdisplayblocksloc: 1=pre, 2=post
+           Then put the string list of blocks on the side location. */
         $blocklist = explode(',' , get_config('format_topcoll' , 'defaultdisplayblocks'));
+        if (empty($blocklist[0])) {
+            return array();
+        }
         if (get_config('format_topcoll' , 'defaultdisplayblocksloc') == 2) {
             $bpr = $blocklist;
             $bpl = array();

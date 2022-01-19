@@ -3,6 +3,7 @@
 
 Version 3.11.0.6 - TBR
 -----------------------------
+  1. Fix 'Error during course creation if defaultdisplayblocks is empty' - CONTRIB-8824.
 
 Version 3.11.0.5 - 15/11/21
 -----------------------------
