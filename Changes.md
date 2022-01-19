@@ -1,6 +1,9 @@
 ﻿Version Information
 ===================
 
+Version 3.9.1.9 - TBR
+-----------------------------
+
 Version 3.9.1.8 - 28/11/2021
 -----------------------------
   1. Fix 'Lesson activity causes DB error' - https://moodle.org/mod/forum/discuss.php?d=429093#p1727967.
