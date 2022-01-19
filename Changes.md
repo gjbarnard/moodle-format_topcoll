@@ -4,6 +4,7 @@
 Version 3.11.0.6 - TBR
 -----------------------------
   1. Fix 'Error during course creation if defaultdisplayblocks is empty' - CONTRIB-8824.
+  2. Fix 'Mark as done completion box displaying above label activity in Collapsed topics when editing is turned off' - CONTRIB-8818.
 
 Version 3.11.0.5 - 15/11/21
 -----------------------------
