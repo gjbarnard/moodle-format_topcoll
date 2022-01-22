@@ -237,7 +237,7 @@ if ($ADMIN->fulltree) {
     $name = 'format_topcoll/defaulttoggleiconset';
     $title = get_string('defaulttoggleiconset', 'format_topcoll');
     $description = get_string('defaulttoggleiconset_desc', 'format_topcoll', $iconseticons);
-    $default = 'arrow';
+    $default = 'tif';
     $choices = array(
         'arrow' => new lang_string('arrow', 'format_topcoll'), // Arrow icon set.
         'bulb' => new lang_string('bulb', 'format_topcoll'), // Bulb icon set.
@@ -321,7 +321,7 @@ if ($ADMIN->fulltree) {
     $name = 'format_topcoll/defaulttoggleforegroundcolour';
     $title = get_string('defaulttgfgcolour', 'format_topcoll');
     $description = get_string('defaulttgfgcolour_desc', 'format_topcoll');
-    $default = '#000000';
+    $default = '#eeeeee';
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
 
@@ -336,7 +336,7 @@ if ($ADMIN->fulltree) {
     $name = 'format_topcoll/defaulttoggleforegroundhovercolour';
     $title = get_string('defaulttgfghvrcolour', 'format_topcoll');
     $description = get_string('defaulttgfghvrcolour_desc', 'format_topcoll');
-    $default = '#888888';
+    $default = '#ffffff';
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
 
@@ -351,7 +351,7 @@ if ($ADMIN->fulltree) {
     $name = 'format_topcoll/defaulttogglebackgroundcolour';
     $title = get_string('defaulttgbgcolour', 'format_topcoll');
     $description = get_string('defaulttgbgcolour_desc', 'format_topcoll');
-    $default = '#e2e2f2';
+    $default = '#1177d1';
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
 
@@ -366,7 +366,7 @@ if ($ADMIN->fulltree) {
     $name = 'format_topcoll/defaulttogglebackgroundhovercolour';
     $title = get_string('defaulttgbghvrcolour', 'format_topcoll');
     $description = get_string('defaulttgbghvrcolour_desc', 'format_topcoll');
-    $default = '#eeeeff';
+    $default = '#1482E2';
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $settings->add($setting);
 
@@ -437,7 +437,7 @@ if ($ADMIN->fulltree) {
     $name = 'format_topcoll/defaulttoggleborderradiustl';
     $title = get_string('defaulttoggleborderradiustl', 'format_topcoll');
     $description = get_string('defaulttoggleborderradiustl_desc', 'format_topcoll');
-    $default = '0.7';
+    $default = '0.0';
     $choices = array(
         '0.0' => new lang_string('em0_0', 'format_topcoll'),
         '0.1' => new lang_string('em0_1', 'format_topcoll'),
@@ -487,21 +487,21 @@ if ($ADMIN->fulltree) {
     $name = 'format_topcoll/defaulttoggleborderradiustr';
     $title = get_string('defaulttoggleborderradiustr', 'format_topcoll');
     $description = get_string('defaulttoggleborderradiustr_desc', 'format_topcoll');
-    $default = '0.7';
+    $default = '1.2';
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     // Toggle border radius bottom right.
     $name = 'format_topcoll/defaulttoggleborderradiusbr';
     $title = get_string('defaulttoggleborderradiusbr', 'format_topcoll');
     $description = get_string('defaulttoggleborderradiusbr_desc', 'format_topcoll');
-    $default = '0.7';
+    $default = '0.4';
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     // Toggle border radius bottom left.
     $name = 'format_topcoll/defaulttoggleborderradiusbl';
     $title = get_string('defaulttoggleborderradiusbl', 'format_topcoll');
     $description = get_string('defaulttoggleborderradiusbl_desc', 'format_topcoll');
-    $default = '0.7';
+    $default = '0.2';
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     /* Format responsive.  Turn on to support a non responsive theme theme. */
@@ -531,7 +531,8 @@ if ($ADMIN->fulltree) {
     // Course Activity Further Information section heading.
     $name = 'format_topcoll/coursesectionactivityfurtherinformation';
     $heading = get_string('coursesectionactivityfurtherinformation', 'format_topcoll');
-    $setting = new admin_setting_heading($name, $heading, '');
+    $description = get_string('coursesectionactivityfurtherinformation_desc', 'format_topcoll');
+    $setting = new admin_setting_heading($name, $heading, $description);
     $settings->add($setting);
 
     $name = 'format_topcoll/enableadditionalmoddata';

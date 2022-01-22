@@ -138,6 +138,7 @@ $string['courseadditionalmoddatastudentsinfolimitedshow'] = 'Additional informat
 $string['courseadditionalmoddatastudentsinfolimitednoshow'] = 'Additional information will NOT show for the enabled activities for {$a->students} students as the number exceededs the maximum \'{$a->maxstudents}\' set by the administrator on the Collapsed Topics course format setting \'courseadditionalmoddatamaxstudents\'.';
 
 $string['coursesectionactivityfurtherinformation'] = 'Course page further information';
+$string['coursesectionactivityfurtherinformation_desc'] = 'Site level course page further information settings';
 $string['coursesectionactivityfurtherinformationassign'] = 'Show assignment information';
 $string['coursesectionactivityfurtherinformationassigndesc'] = 'Allow assignment information to be selected to be shown on a course.  For teachers / admins, show number of submissions.';
 $string['coursesectionactivityfurtherinformationquiz'] = 'Show quiz information';
@@ -261,9 +262,9 @@ $string['defaultonesectioniconfont_desc'] = 'State the icon font class to use fo
 
 // Site Administration -> Plugins -> Course formats -> Collapsed Topics.
 $string['defaultheadingsub'] = 'Defaults';
-$string['defaultheadingsubdesc'] = 'Default settings';
+$string['defaultheadingsubdesc'] = 'Default settings that can be overridden at the course level';
 $string['configurationheadingsub'] = 'Configuration';
-$string['configurationheadingsubdesc'] = 'Configuration settings';
+$string['configurationheadingsubdesc'] = 'Site level configuration settings';
 
 $string['off'] = 'Off';
 $string['on'] = 'On';
