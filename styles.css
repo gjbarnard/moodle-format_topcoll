@@ -73,7 +73,7 @@
     list-style: decimal outside none;
 }
 
-.course-content ul.ctopics li.section.main .content,
+.course-content ul.ctopics li.section.main > .content,
 .course-content ul.ctopics li.tcsection .content {
     /* Default for non tablets / mobiles.  If the language file has 'topcollsidewidth' for the current language, then will be set in format.php. */
     margin: 0 40px;
@@ -553,7 +553,7 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
 }
 
 /* Layout */
-.course-content ul.ctopics #section-0 .content{
+.course-content ul.ctopics #section-0 > .content{
     padding: 10px;
 }
 

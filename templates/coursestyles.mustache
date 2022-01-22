@@ -83,8 +83,8 @@
     .course-content ul.ctopics li.section .content .toggle:focus {
         background-color: {{togglebackgroundhovercolour}};
     }
-    .course-content ul.ctopics li.section.main .content,
-    .course-content ul.ctopics li.tcsection .content {
+    .course-content ul.ctopics li.section.main > .content,
+    .course-content ul.ctopics li.tcsection > .content {
         margin: 0 {{topcollsidewidthval}};
     }
     {{#topcollsidewidthvalicons}}
@@ -102,18 +102,11 @@
         display: inline-block !important; /* Only using '!important' because of Bootstrap 3. */
     }
     {{/hulhc}}
-    .course-content ul.ctopics li.section .content .toggle, .course-content ul.ctopics li.section .content.sectionhidden {
-        -moz-border-top-left-radius: {{tcborderradiustl}}em;
-        -webkit-border-top-left-radius: {{tcborderradiustl}}em;
+    .course-content ul.ctopics li.section .content .toggle,
+    .course-content ul.ctopics li.section .content.sectionhidden {
         border-top-left-radius: {{tcborderradiustl}}em;
-        -moz-border-top-right-radius: {{tcborderradiustr}}em;
-        -webkit-border-top-right-radius: {{tcborderradiustr}}em;
         border-top-right-radius: {{tcborderradiustr}}em;
-        -moz-border-bottom-right-radius: {{tcborderradiusbr}}em;
-        -webkit-border-bottom-right-radius: {{tcborderradiusbr}}em;
         border-bottom-right-radius: {{tcborderradiusbr}}em;
-        -moz-border-bottom-left-radius: {{tcborderradiusbl}}em;
-        -webkit-border-bottom-left-radius: {{tcborderradiusbl}}em;
         border-bottom-left-radius: {{tcborderradiusbl}}em;
     }
 
