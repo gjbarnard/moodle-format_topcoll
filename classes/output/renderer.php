@@ -80,7 +80,7 @@ class renderer extends section_renderer {
 
         $this->userisediting = $page->user_is_editing();
         $this->tconesectioniconfont = get_config('format_topcoll', 'defaultonesectioniconfont');
-        $this->tctoggleiconsize = clean_param(get_config('format_topcoll', 'defaulttoggleiconsize'), PARAM_TEXT);
+        $this->tctoggleiconsize = get_config('format_topcoll', 'defaulttoggleiconsize');
         $this->formatresponsive = get_config('format_topcoll', 'formatresponsive');
 
         $this->rtl = right_to_left();
