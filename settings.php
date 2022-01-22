@@ -282,6 +282,14 @@ if ($ADMIN->fulltree) {
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
+    /* One section icon font */
+    $name = 'format_topcoll/defaultonesectioniconfont';
+    $title = get_string('defaultonesectioniconfont', 'format_topcoll');
+    $description = get_string('defaultonesectioniconfont_desc', 'format_topcoll');
+    $default = 'fa fa-dot-circle-o';
+    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_TEXT);
+    $settings->add($setting);
+
     /* Toggle all icon hovers.
        1 => No.
        2 => Yes. */

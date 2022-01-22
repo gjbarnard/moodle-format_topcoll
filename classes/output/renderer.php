@@ -57,6 +57,7 @@ class renderer extends section_renderer {
     protected $currentsection = false; // If not false then will be the current section number.
     protected $isoldtogglepreference = false;
     protected $userisediting = false;
+    protected $tconesectioniconfont;
     protected $tctoggleiconsize;
     protected $formatresponsive;
     protected $rtl = false;
@@ -78,6 +79,7 @@ class renderer extends section_renderer {
         $page->set_other_editing_capability('moodle/course:setcurrentsection');
 
         $this->userisediting = $page->user_is_editing();
+        $this->tconesectioniconfont = get_config('format_topcoll', 'defaultonesectioniconfont');
         $this->tctoggleiconsize = clean_param(get_config('format_topcoll', 'defaulttoggleiconsize'), PARAM_TEXT);
         $this->formatresponsive = get_config('format_topcoll', 'formatresponsive');
 
@@ -221,7 +223,7 @@ class renderer extends section_renderer {
                             break;
                         default:
                             $o .= html_writer::link($url,
-                                $this->output->pix_icon('one_section', $title, 'format_topcoll'),
+                                $this->one_section_icon($title),
                                 array('title' => $title, 'class' => 'cps_centre'));
                             break;
                     }
@@ -230,6 +232,24 @@ class renderer extends section_renderer {
         }
 
         return $o;
+    }
+
+    /**
+     * Generate the one section icon.
+     *
+     * @param string $title The title.
+     * @return string HTML to output.
+     */
+    protected function one_section_icon($title) {
+        if (empty($this->tconesectioniconfont)) {
+            return $this->output->pix_icon('one_section', $title, 'format_topcoll');
+        } else {
+            $osicontext = array(
+                'osifc' => $this->tconesectioniconfont,
+                'osift' => $title
+            );
+            return $this->render_from_template('format_topcoll/onesectioniconfont', $osicontext);
+        }
     }
 
     /**

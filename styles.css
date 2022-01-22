@@ -727,6 +727,12 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
     margin: 6px auto;
 }
 
+/* -- One section icon font -- */
+.tcosif {
+    font-size: 22px;
+    margin-top: 2px;
+}
+
 /* -- Hiding / Showing the sections -- */
 body.jsenabled .toggledsection {
     display: none; /* If JavaScript is enabled then this css will apply and the section will be hidden. */

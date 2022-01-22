@@ -256,6 +256,8 @@ $string['onesection'] = 'One section';
 $string['onesection_help'] = 'States if only one section should be open at any given time.  Note: Ignored when editing to allow activities and resources to be moved around the sections.';
 $string['defaultonesection'] = 'One section';
 $string['defaultonesection_desc'] = "States if only one section should be open at any given time.  Note: Ignored when editing to allow activities and resources to be moved around the sections.";
+$string['defaultonesectioniconfont'] = 'One section icon font';
+$string['defaultonesectioniconfont_desc'] = 'State the icon font class to use for the one section link icon, i.e. see the FontAwesome icon classes.  If empty, then default icon \'one_section\' in the format\'s \'pix\' folder will be used.';
 
 // Site Administration -> Plugins -> Course formats -> Collapsed Topics.
 $string['defaultheadingsub'] = 'Defaults';
