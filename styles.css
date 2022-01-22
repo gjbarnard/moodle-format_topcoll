@@ -497,6 +497,56 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
     background-position: 220px 45%; /* Pirate strings are longer. */
 }
 
+/* Toggle icon font */
+.toggle.tif,
+.toggle-all-content.tif .toggle-all {
+    position: relative;
+}
+
+.toggle.tif .tif-container,
+.toggle-all-content.tif .toggle-all .tif-container {
+    bottom: 0;
+    display: flex;
+    position: absolute;
+    top: 0;
+}
+
+.toggle.tif .tif-container.tif-left,
+.toggle-all-content.tif .toggle-all .tif-container.tif-left {
+    left: 4px;
+}
+
+.toggle.tif .tif-container.tif-right,
+.toggle-all-content.tif .toggle-all .tif-container.tif-right {
+    right: 4px;
+}
+
+.toggle.tif .tif-container .tife,
+.toggle-all-content.tif .toggle-all .tif-container .tife {
+    margin: auto;
+}
+
+.the_toggle.toggle_closed .tif-container .tifo,
+.the_toggle.toggle_open .tif-container .tifc,
+.toggle-all-content.tif #toggles-all-closed:not(:hover) .tif-container .tifc,
+.toggle-all-content.tif #toggles-all-closed:hover .tif-container .tifo,
+.toggle-all-content.tif #toggles-all-opened:not(:hover) .tif-container .tifo,
+.toggle-all-content.tif #toggles-all-opened:hover .tif-container .tifc {
+    display: none;
+}
+
+.tc-small .tife {
+    font-size: 0.8em;
+}
+
+.tc-medium .tife {
+    font-size: 1.2em;
+}
+
+.tc-large .tife {
+    font-size: 1.8em;
+}
+
 /* Display instructions */
 .topcoll-display-instructions {
     margin: 0;
@@ -692,7 +742,8 @@ body.jsenabled .toggledsection.sectionopen {
 }
 
 /* Toggle all */
-#toggle-all, #topcoll-display-instructions {
+#toggle-all,
+#topcoll-display-instructions {
     display: none; /* Hide when JavaScript not enabled. */
 }
 
@@ -705,6 +756,10 @@ body.jsenabled #toggle-all {
     background: none repeat scroll 0 0 transparent;
 }
 
+#toggle-all h4 {
+    margin-bottom: 0;
+}
+
 #toggle-all .content .sectionbody.toggle-all-content {
     display: block;
     margin-bottom: 0;
@@ -713,11 +768,15 @@ body.jsenabled #toggle-all {
 
 #toggle-all .content .sectionbody .toggle-all {
     cursor: pointer;
-    display: inline;
+    display: inline-block;
     padding-bottom: 7px;
     padding-top: 7px;
+    text-align: left;
     text-decoration: none;
-    width: 35px;
+}
+
+.dir-rtl #toggle-all .content .sectionbody .toggle-all {
+    text-align: right;
 }
 
 #toggle-all .content .sectionbody .toggle-all.tc-small {
@@ -733,14 +792,6 @@ body.jsenabled #toggle-all {
 #toggle-all .content .sectionbody .toggle-all.tc-large {
     padding-left: 34px; /* The 34px allows the arrow to be with the text next to it. */
     padding-right: 34px;
-}
-
-#toggle-all .content .sectionbody .toggle-all {
-    text-align: left;
-}
-
-.dir-rtl #toggle-all .content .sectionbody .toggle-all {
-    text-align: right;
 }
 
 .cttoggle {

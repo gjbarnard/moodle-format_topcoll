@@ -21,24 +21,26 @@
 
     Context variables required for this template:
     * ariacontrols - Aria controls references.
-    * iconset - Icons set used.
     * rtl - Right to left?
     * sctcloseall - Close all string.
     * sctopenalall - Close all string.
     * spacer - Spacer markup.
-    * toggleallhover - Change the toggle all icon on hover.
     * tctoggleiconsize - Toggle icon size.
+    * tif - Toggle icon font markup.
+    * toggleallhover - Change the toggle all icon on hover.
+    * toggleiconset - Icons set used.
 
     Example context (json):
     {
         "ariacontrols": "toggledsection-1 toggledsection-2",
-        "iconset": "point",
         "rtl": false,
         "sctcloseall": "Close all",
         "sctopenall": "Open all",
         "spacer": "",
+        "tctoggleiconsize": "medium",
+        "tif": "",
         "toggleallhover": true,
-        "tctoggleiconsize": "medium"
+        "toggleiconset": "point"
     }
 }}
 <li id="toggle-all" class="tcsection main clearfix">
@@ -46,13 +48,13 @@
     <div class="{{^rtl}}left{{/rtl}}{{#rtl}}right{{/rtl}} side">{{{spacer}}}</div>
     {{/spacer}}
     <div class="content">
-        <div class="sectionbody toggle-all-content toggle-{{iconset}} {{#toggleallhover}}toggle-{{iconset}}-hover{{/toggleallhover}}">
-            <h4 id="toggles-all-opened" class="toggle-all on {{tctoggleiconsize}}" role="button" title="{{sctopenall}}" tabindex="0" aria-controls="{{ariacontrols}}">
-                {{#str}}topcollopened, format_topcoll{{/str}}
-            </h4>
-            <h4 id="toggles-all-closed" class="toggle-all off {{tctoggleiconsize}}" role="button" title="{{sctcloseall}}" tabindex="0" aria-controls="{{ariacontrols}}">
-                {{#str}}topcollclosed, format_topcoll{{/str}}
-            </h4>
+        <div class="sectionbody toggle-all-content {{^tif}}toggle-{{toggleiconset}} {{#toggleallhover}}toggle-{{iconset}}-hover{{/toggleallhover}}{{/tif}}{{#tif}}tif{{/tif}}">
+            <span id="toggles-all-opened" class="toggle-all on {{tctoggleiconsize}}" role="button" title="{{sctopenall}}" tabindex="0" aria-controls="{{ariacontrols}}">
+                <h4>{{#str}}topcollopened, format_topcoll{{/str}}</h4>{{#tif}}{{{tif}}}{{/tif}}
+            </span>
+            <span id="toggles-all-closed" class="toggle-all off {{tctoggleiconsize}}" role="button" title="{{sctcloseall}}" tabindex="0" aria-controls="{{ariacontrols}}">
+                <h4>{{#str}}topcollclosed, format_topcoll{{/str}}</h4>{{#tif}}{{{tif}}}{{/tif}}
+            </span>
         </div>
     </div>
     {{#spacer}}

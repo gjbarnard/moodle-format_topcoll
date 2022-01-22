@@ -37,6 +37,7 @@
     * sectionstyle - Section style.
     * sectionsummary - Section summary.
     * sectionsummarywhencollapsed - Show the section summary when collapsed.
+    * tif - Toggle icon font markup.
     * toggleiconset - Toggle icon set.
     * toggleiconsize - Toggle icon size.
     * toggleopen - Toggle is open.
@@ -63,6 +64,7 @@
         "sectionstyle": "",
         "sectionsummary": "",
         "sectionsummarywhencollapsed": false,
+        "tif": "",
         "toggleiconset": "arrow",
         "toggleiconsize": "tc-medium",
         "toggleopen": true,
@@ -84,9 +86,9 @@
 {{/nomtore}}
     <div class="content"{{#contentaria}} aria-live="polite"{{/contentaria}}>
         {{^sectionpage}}
-        <div id="toggle-{{sectionno}}" class="sectionhead toggle toggle-{{toggleiconset}}" tabindex="0">
+        <div id="toggle-{{sectionno}}" class="sectionhead toggle {{^tif}}toggle-{{toggleiconset}}{{/tif}}{{#tif}}tif{{/tif}}" tabindex="0">
             <span class="the_toggle {{#toggleopen}}toggle_open{{/toggleopen}}{{^toggleopen}}toggle_closed{{/toggleopen}} {{toggleiconsize}}" role="button" aria-expanded="{{#toggleopen}}true{{/toggleopen}}{{^toggleopen}}false{{/toggleopen}}" aria-controls="{{sectionno}}">
-                {{{heading}}}
+                {{{heading}}}{{#tif}}{{{tif}}}{{/tif}}
                 {{{sectionavailability}}}
             </span>
         </div>

@@ -388,7 +388,7 @@ class renderer extends section_renderer {
 
         if (($onsectionpage == false) && ($section->section != 0)) {
             $sectioncontext['sectionpage'] = false;
-            $sectioncontext['toggleiconset'] = $this->tcsettings['toggleiconset'];
+            $this->toggle_icon_set($sectioncontext);
             $sectioncontext['toggleiconsize'] = $this->tctoggleiconsize;
 
             if ((!($section->toggle === null)) && ($section->toggle == true)) {
@@ -444,6 +444,25 @@ class renderer extends section_renderer {
         }
 
         return $this->render_from_template('format_topcoll/section', $sectioncontext);
+    }
+
+    protected function toggle_icon_set(&$sectioncontext) {
+        if (true) {
+            $tifcontext = array(
+                "tifcc" => "fa fa-bus",
+                "tifoc" => "fa fa-train"
+            );
+            switch ($this->tcsettings['toggleiconposition']) {
+                case 2:
+                    $tifcontext['tifp'] = 'right';
+                    break;
+                default:
+                    $tifcontext['tifp'] = 'left';
+            }
+            $sectioncontext['tif'] = $this->render_from_template('format_topcoll/tif', $tifcontext);
+        } else {
+            $sectioncontext['toggleiconset'] = $this->tcsettings['toggleiconset'];
+        }
     }
 
     /**
@@ -909,13 +928,13 @@ class renderer extends section_renderer {
     protected function toggle_all($toggledsections) {
         $sct = $this->courseformat->get_structure_collection_type();
         $toggleallcontext = array(
-            'iconset' => $this->tcsettings['toggleiconset'],
             'rtl' => $this->rtl,
             'sctcloseall' => get_string('sctcloseall', 'format_topcoll', $sct),
             'sctopenall' => get_string('sctopenall', 'format_topcoll', $sct),
             'toggleallhover' => ($this->tcsettings['toggleallhover'] == 2),
             'tctoggleiconsize' => $this->tctoggleiconsize
         );
+        $this->toggle_icon_set($toggleallcontext);
 
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
             $toggleallcontext['spacer'] = $this->output->spacer();
