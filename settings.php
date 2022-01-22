@@ -214,7 +214,9 @@ if ($ADMIN->fulltree) {
        smiley       => Smiley icon set.
        square       => Square icon set.
        sunmoon      => Sun / Moon icon set.
-       switch       => Switch icon set. */
+       switch       => Switch icon set.
+       tif          => Icon font.
+    */
     $iconseticons = array(
         'arrow' => $OUTPUT->pix_icon('arrow_right', get_string('arrow', 'format_topcoll'), 'format_topcoll'),
         'bulb' => $OUTPUT->pix_icon('bulb_off', get_string('bulb', 'format_topcoll'), 'format_topcoll'),
@@ -229,7 +231,8 @@ if ($ADMIN->fulltree) {
         'smiley' => $OUTPUT->pix_icon('smiley_on', get_string('smiley', 'format_topcoll'), 'format_topcoll'),
         'square' => $OUTPUT->pix_icon('square_on', get_string('square', 'format_topcoll'), 'format_topcoll'),
         'sunmoon' => $OUTPUT->pix_icon('sunmoon_on', get_string('sunmoon', 'format_topcoll'), 'format_topcoll'),
-        'switch' => $OUTPUT->pix_icon('switch_on', get_string('switch', 'format_topcoll'), 'format_topcoll')
+        'switch' => $OUTPUT->pix_icon('switch_on', get_string('switch', 'format_topcoll'), 'format_topcoll'),
+        'tif' => $OUTPUT->pix_icon('icon', get_string('tif', 'format_topcoll'), 'format_topcoll')
     );
     $name = 'format_topcoll/defaulttoggleiconset';
     $title = get_string('defaulttoggleiconset', 'format_topcoll');
@@ -249,9 +252,24 @@ if ($ADMIN->fulltree) {
         'smiley' => new lang_string('smiley', 'format_topcoll'), // Smiley icon set.
         'square' => new lang_string('square', 'format_topcoll'), // Square icon set.
         'sunmoon' => new lang_string('sunmoon', 'format_topcoll'), // Sun / Moon icon set.
-        'switch' => new lang_string('switch', 'format_topcoll') // Switch icon set.
+        'switch' => new lang_string('switch', 'format_topcoll'), // Switch icon set.
+        'tif' => new lang_string('tif', 'format_topcoll') // Toggle icon font.
     );
     $settings->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
+    $name = 'format_topcoll/defaulttoggleiconfontclosed';
+    $title = get_string('defaulttoggleiconfontclosed', 'format_topcoll');
+    $description = get_string('defaulttoggleiconfontclosed_desc', 'format_topcoll');
+    $default = 'fa fa-chevron-circle-right';
+    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_TEXT);
+    $settings->add($setting);
+
+    $name = 'format_topcoll/defaulttoggleiconfontopen';
+    $title = get_string('defaulttoggleiconfontopen', 'format_topcoll');
+    $description = get_string('defaulttoggleiconfontopen_desc', 'format_topcoll');
+    $default = 'fa fa-chevron-circle-down';
+    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_TEXT);
+    $settings->add($setting);
 
     /* One section - 1 = no, 2 = yes. */
     $name = 'format_topcoll/defaultonesection';

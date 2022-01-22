@@ -461,91 +461,99 @@ class format_topcoll extends core_courseformat\base {
             $courseformatoptions = array(
                 'numsections' => array(
                     'default' => $defaultnumsections,
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'hiddensections' => array(
                     'default' => $courseconfig->hiddensections,
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'displayinstructions' => array(
                     'default' => 0,
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'layoutelement' => array(
                     'default' => 0,
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'layoutstructure' => array(
                     'default' => 0,
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'layoutcolumns' => array(
                     'default' => 0,
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'layoutcolumnorientation' => array(
                     'default' => 0,
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'toggleallenabled' => array(
                     'default' => 0,
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'viewsinglesectionenabled' => array(
                     'default' => 0,
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'togglealignment' => array(
                     'default' => 0,
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'toggleiconposition' => array(
                     'default' => 0,
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'toggleiconset' => array(
                     'default' => '-',
-                    'type' => PARAM_ALPHAEXT,
+                    'type' => PARAM_ALPHAEXT
+                ),
+                'toggleiconfontclosed' => array(
+                    'default' => '-',
+                    'type' => PARAM_TEXT
+                ),
+                'toggleiconfontopen' => array(
+                    'default' => '-',
+                    'type' => PARAM_TEXT
                 ),
                 'onesection' => array(
                     'default' => 0,
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'toggleallhover' => array(
                     'default' => 0,
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'toggleforegroundcolour' => array(
                     'default' => '-',
-                    'type' => PARAM_ALPHANUMEXT,
+                    'type' => PARAM_ALPHANUMEXT
                 ),
                 'toggleforegroundopacity' => array(
                     'default' => '-',
-                    'type' => PARAM_RAW,
+                    'type' => PARAM_RAW
                 ),
                 'toggleforegroundhovercolour' => array(
                     'default' => '-',
-                    'type' => PARAM_ALPHANUMEXT,
+                    'type' => PARAM_ALPHANUMEXT
                 ),
                 'toggleforegroundhoveropacity' => array(
                     'default' => '-',
-                    'type' => PARAM_RAW,
+                    'type' => PARAM_RAW
                 ),
                 'togglebackgroundcolour' => array(
                     'default' => '-',
-                    'type' => PARAM_ALPHANUMEXT,
+                    'type' => PARAM_ALPHANUMEXT
                 ),
                 'togglebackgroundopacity' => array(
                     'default' => '-',
-                    'type' => PARAM_RAW,
+                    'type' => PARAM_RAW
                 ),
                 'togglebackgroundhovercolour' => array(
                     'default' => '-',
-                    'type' => PARAM_ALPHANUMEXT,
+                    'type' => PARAM_ALPHANUMEXT
                 ),
                 'togglebackgroundhoveropacity' => array(
                     'default' => '-',
-                    'type' => PARAM_RAW,
+                    'type' => PARAM_RAW
                 ),
                 'showsectionsummary' => array(
                     'default' => 0,
@@ -891,7 +899,8 @@ class format_topcoll extends core_courseformat\base {
                         'smiley' => new lang_string('smiley', 'format_topcoll'),             // Smiley icon set.
                         'square' => new lang_string('square', 'format_topcoll'),             // Square icon set.
                         'sunmoon' => new lang_string('sunmoon', 'format_topcoll'),           // Sun / Moon icon set.
-                        'switch' => new lang_string('switch', 'format_topcoll')              // Switch icon set.
+                        'switch' => new lang_string('switch', 'format_topcoll'),             // Switch icon set.
+                        'tif' => new lang_string('tif', 'format_topcoll')                    // Toggle icon font.
                     )
                 );
                 $courseformatoptionsedit['toggleiconset'] = array(
@@ -900,6 +909,18 @@ class format_topcoll extends core_courseformat\base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => array($toggleiconsetvalues)
+                );
+                $courseformatoptionsedit['toggleiconfontclosed'] = array(
+                    'label' => new lang_string('settoggleiconfontclosed', 'format_topcoll'),
+                    'help' => 'settoggleiconfontclosed',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'text'
+                );
+                $courseformatoptionsedit['toggleiconfontopen'] = array(
+                    'label' => new lang_string('settoggleiconfontopen', 'format_topcoll'),
+                    'help' => 'settoggleiconfontopen',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'text'
                 );
                 $toggleallhovervalues = $this->generate_default_entry(
                     'toggleallhover',
@@ -918,6 +939,10 @@ class format_topcoll extends core_courseformat\base {
                 );
             } else {
                 $courseformatoptionsedit['toggleiconset'] = array(
+                    'label' => '-', 'element_type' => 'hidden');
+                $courseformatoptionsedit['toggleiconfontclosed'] = array(
+                    'label' => '-', 'element_type' => 'hidden');
+                $courseformatoptionsedit['toggleiconfontopen'] = array(
                     'label' => '-', 'element_type' => 'hidden');
                 $courseformatoptionsedit['toggleallhover'] = array(
                     'label' => 0, 'element_type' => 'hidden');
@@ -1533,6 +1558,8 @@ class format_topcoll extends core_courseformat\base {
         }
         if ($toggleiconset && has_capability('format/topcoll:changetoggleiconset', $context) && $resetallifall) {
             $updatedata['toggleiconset'] = '-';
+            $updatedata['toggleiconfontclosed'] = '-';
+            $updatedata['toggleiconfontopen'] = '-';
             $updatedata['toggleallhover'] = 0;
             $updatetoggleiconset = true;
         }
@@ -1593,6 +1620,8 @@ class format_topcoll extends core_courseformat\base {
             $data['toggleallhover'] = 0;
             $data['toggleiconposition'] = 0;
             $data['toggleiconset'] = '-';
+            $data['toggleiconfontclosed'] = '-';
+            $data['toggleiconfontopen'] = '-';
             $data['showadditionalmoddata'] = 0;
         }
         $this->update_course_format_options($data);

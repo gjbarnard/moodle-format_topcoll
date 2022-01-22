@@ -446,11 +446,16 @@ class renderer extends section_renderer {
         return $this->render_from_template('format_topcoll/section', $sectioncontext);
     }
 
+    /**
+     * Calculate the icon to use.
+     *
+     * @param array $sectioncontext The section context for the template.
+     */
     protected function toggle_icon_set(&$sectioncontext) {
-        if (true) {
+        if ($this->tcsettings['toggleiconset'] == 'tif') {
             $tifcontext = array(
-                "tifcc" => "fa fa-bus",
-                "tifoc" => "fa fa-train"
+                "tifcc" => $this->tcsettings['toggleiconfontclosed'],
+                "tifoc" => $this->tcsettings['toggleiconfontopen']
             );
             switch ($this->tcsettings['toggleiconposition']) {
                 case 2:
@@ -989,12 +994,14 @@ class renderer extends section_renderer {
             default:
                 $coursestylescontext['togglealignment'] = 'center';
         }
-        switch ($this->tcsettings['toggleiconposition']) {
-            case 2:
-                $coursestylescontext['toggleiconposition'] = 'right';
-                break;
-            default:
-                $coursestylescontext['toggleiconposition'] = 'left';
+        if ($this->tcsettings['toggleiconset'] != 'tif') {
+            switch ($this->tcsettings['toggleiconposition']) {
+                case 2:
+                    $coursestylescontext['toggleiconposition'] = 'right';
+                    break;
+                default:
+                    $coursestylescontext['toggleiconposition'] = 'left';
+            }
         }
         $coursestylescontext['toggleforegroundhovercolour'] = \format_topcoll\toolbox::hex2rgba(
             $this->tcsettings['toggleforegroundhovercolour'], $this->tcsettings['toggleforegroundhoveropacity']);

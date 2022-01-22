@@ -225,6 +225,10 @@ $string['defaulttoggleiconposition_desc'] = 'States if the icon should be on the
 // Icon set enhancement.
 $string['settoggleiconset'] = 'Icon set';
 $string['settoggleiconset_help'] = 'Sets the icon set of the toggle.';
+$string['settoggleiconfontclosed'] = 'Closed toggle icon font';
+$string['settoggleiconfontclosed_help'] = 'When \'toggleiconset\' is set to \'Icon font\', this states the default CSS classes to use for the closed icon, i.e. see the FontAwesome icon classes.  If set to \'-\' then the default is used.';
+$string['settoggleiconfontopen'] = 'Open toggle icon font';
+$string['settoggleiconfontopen_help'] = 'When \'toggleiconset\' is set to \'Icon font\', this states the default CSS classes to use for the open icon, i.e. see the FontAwesome icon classes.  If set to \'-\' then the default is used.';
 $string['settoggleallhover'] = 'Toggle all icon hover';
 $string['settoggleallhover_help'] = 'Sets if the toggle all icons will change when the mouse moves over them.';
 $string['arrow'] = 'Arrow';
@@ -241,6 +245,7 @@ $string['smiley'] = 'Smiley';
 $string['square'] = 'Square';
 $string['sunmoon'] = 'Sun / Moon';
 $string['switch'] = 'Switch';
+$string['tif'] = 'Icon font';
 $string['resettoggleiconset'] = 'Toggle icon set';
 $string['resetalltoggleiconset'] = 'Toggle icon sets';
 $string['resettoggleiconset_help'] = 'Resets the toggle icon set and toggle all hover to follow the site default value.';
@@ -294,7 +299,13 @@ $string['defaulttogglealignment'] = 'Toggle text alignment';
 $string['defaulttogglealignment_desc'] = "'Left', 'Centre' or 'Right'.";
 
 $string['defaulttoggleiconset'] = 'Toggle icon set';
-$string['defaulttoggleiconset_desc'] = '<table><tbody><tr><td>Arrow</td><td>{$a->arrow}</td></tr><tr><td>Bulb</td><td>{$a->bulb}</td></tr><tr><td>Cloud</td><td>{$a->cloud}</td></tr><tr><td>Eye</td><td>{$a->eye}</td></tr><tr><td>Folder</td><td>{$a->folder}</td></tr><tr><td>Ground Signal</td><td>{$a->groundsignal}</td></tr><tr><td>Light Emitting Diode</td><td>{$a->led}</td></tr><tr><td>Point</td><td>{$a->point}</td></tr><tr><td>Power</td><td>{$a->power}</td></tr><tr><td>Radio</td><td>{$a->radio}</td></tr><tr><td>Smiley</td><td>{$a->smiley}</td></tr><tr><td>Square</td><td>{$a->square}</td></tr><tr><td>Sun / Moon</td><td>{$a->sunmoon}</td></tr><tr><td>Switch</td><td>{$a->switch}</td></tr></tbody></table>';
+$string['defaulttoggleiconset_desc'] = '<table><tbody><tr><td>Arrow</td><td>{$a->arrow}</td></tr><tr><td>Bulb</td><td>{$a->bulb}</td></tr><tr><td>Cloud</td><td>{$a->cloud}</td></tr><tr><td>Eye</td><td>{$a->eye}</td></tr><tr><td>Folder</td><td>{$a->folder}</td></tr><tr><td>Ground Signal</td><td>{$a->groundsignal}</td></tr><tr><td>Light Emitting Diode</td><td>{$a->led}</td></tr><tr><td>Point</td><td>{$a->point}</td></tr><tr><td>Power</td><td>{$a->power}</td></tr><tr><td>Radio</td><td>{$a->radio}</td></tr><tr><td>Smiley</td><td>{$a->smiley}</td></tr><tr><td>Square</td><td>{$a->square}</td></tr><tr><td>Sun / Moon</td><td>{$a->sunmoon}</td></tr><tr><td>Switch</td><td>{$a->switch}</td></tr><tr><td>Icon font</td><td>{$a->tif}</td></tr></tbody></table>';
+
+$string['defaulttoggleiconfontclosed'] = 'Closed toggle icon font';
+$string['defaulttoggleiconfontclosed_desc'] = 'When \'defaulttoggleiconset\' is set to \'Icon font\', this states the default CSS classes to use for the closed icon, i.e. see the FontAwesome icon classes.';
+
+$string['defaulttoggleiconfontopen'] = 'Open toggle icon font';
+$string['defaulttoggleiconfontopen_desc'] = 'When \'defaulttoggleiconset\' is set to \'Icon font\', this states the default CSS classes to use for the open icon, i.e. see the FontAwesome icon classes.';
 
 $string['defaulttoggleallhover'] = 'Toggle all icon hovers';
 $string['defaulttoggleallhover_desc'] = "'No' or 'Yes'.";
@@ -328,7 +339,7 @@ $string['defaulttgbghvropacity_desc'] = "Toggle background on hover opacity betw
 
 // Toggle icon size.
 $string['defaulttoggleiconsize'] = 'Toggle icon size';
-$string['defaulttoggleiconsize_desc'] = "Icon size: Small = 16px, Medium = 24px and Large = 32px.";
+$string['defaulttoggleiconsize_desc'] = "Icon size: Small = 16px, Medium = 24px and Large = 32px, or Icon font: Small = 0.8em, Medium = 1.2em and Large = 1.8em.";
 $string['small'] = 'Small';
 $string['medium'] = 'Medium';
 $string['large'] = 'Large';

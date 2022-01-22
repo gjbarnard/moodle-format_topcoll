@@ -65,11 +65,13 @@
         color: {{toggleforegroundcolour}};
         text-align: {{togglealignment}};
     }
+    {{#toggleiconposition}}
     /* Toggle icon position. */
     .course-content ul.ctopics li.section .content .toggle .the_toggle,
     #toggle-all .content .toggle-all {
         background-position: {{toggleiconposition}} center;
     }
+    {{/toggleiconposition}}
     /* -- What happens when a toggle is hovered over -- */
     .course-content ul.ctopics li.section .content .toggle:hover .the_toggle,
     .course-content ul.ctopics li.section .content.sectionhidden .toggle:hover .the_toggle,
