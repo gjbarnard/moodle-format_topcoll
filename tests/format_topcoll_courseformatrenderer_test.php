@@ -413,7 +413,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
 
         $toggleallcontext = array(
             'ariacontrols' => 'toggledsection-1',
-            'iconset' => 'arrow',
+            'toggleiconset' => 'arrow',
             'rtl' => false,
             'sctcloseall' => 'Close all topics',
             'sctopenall' => 'Open all topics',
