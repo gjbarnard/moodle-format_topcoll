@@ -115,6 +115,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $tcsettings['layoutcolumnorientation'] = $layoutcolumnorientation;
         $tcsettings['toggleallenabled'] = $toggleallenabled;
         $tcsettings['viewsinglesectionenabled'] = $viewsinglesectionenabled;
+        $tcsettings['toggleiconset'] = 'arrow';
         self::set_property($this->outputus, 'tcsettings', $tcsettings);
     }
 
