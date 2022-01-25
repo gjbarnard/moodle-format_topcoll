@@ -453,10 +453,6 @@ $string['progresscounter'] = 'Duplicating activities ({$a->current}/{$a->size})'
 $string['progressfull'] = 'Duplicating topic';
 $string['rebuildcoursecache'] = 'Rebuild course cache';
 
-// Privacy.
-$string['privacy:metadata:preference:toggle'] = 'The state of the toggles on a course.';
-$string['privacy:request:preference:toggle'] = 'The course id "{$a->name}" has the value "{$a->value}" which represents "{$a->decoded}" for the state of the toggles.';
-
 // Readme.
 $string['readme_title'] = 'Collapsed Topics read-me';
 $string['readme_desc'] = 'Please click on \'{$a->url}\' for lots more information about Collapsed Topics.';
@@ -468,3 +464,20 @@ $string['defaultdisplayblocksloc'] = 'Block location for display';
 $string['defaultdisplayblocksloc_desc'] = "Choose the location for the blocks chosen above to display, pre or post side.";
 $string['sidepost'] = 'Post';
 $string['sidepre'] = 'Pre';
+
+// Information.
+$string['information'] = 'Information';
+$string['informationsettings'] = 'Information settings';
+$string['informationsettingsdesc'] = 'Collapsed Topics format information';
+$string['settings'] = 'Settings';
+$string['settingssettings'] = 'Settings settings';
+$string['settingssettingsdesc'] = 'Collapsed Topics format settings';
+$string['versioninfo'] = 'Release {$a->release}, version {$a->version} on Moodle {$a->moodle}';
+$string['versionalpha'] = 'Alpha version - Almost certainly contains bugs.  This is a development version for developers \'only\'!  Don\'t even think of installing on a production server!';
+$string['versionbeta'] = 'Beta version - Likely to contain bugs.  Ready for testing by administrators on a test server only.';
+$string['versionrc'] = 'Release candidate version - May contain bugs.  Check completely on a test server before considering on a production server.';
+$string['versionstable'] = 'Stable version - Could contain bugs.  Check on a test server before installing on your production server.';
+
+// Privacy.
+$string['privacy:metadata:preference:toggle'] = 'The state of the toggles on a course.';
+$string['privacy:request:preference:toggle'] = 'The course id "{$a->name}" has the value "{$a->value}" which represents "{$a->decoded}" for the state of the toggles.';
