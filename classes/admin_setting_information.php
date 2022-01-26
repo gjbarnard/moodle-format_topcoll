@@ -112,9 +112,7 @@ class admin_setting_information extends \admin_setting {
                 'version' => $plugininfo->version
             )
         );
-//error_log(print_r(\core_plugin_manager::instance()->get_plugin_info('format_topcoll'), true)); 
-//error_log(print_r($plugininfo->pluginman->pluginsinfo, true)); 
-error_log(print_r($formats, true)); 
+
         if (!empty($plugininfo->maturity)) {
             switch ($plugininfo->maturity) {
                 case MATURITY_ALPHA:

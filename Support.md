@@ -1,6 +1,19 @@
 The Collapsed Topics format story
 =================================
+The concept of 'Collapsed Topics' arose from a need to segment a multi-unit course I was teaching, whereby a student would only
+need to look at the material for a given unit at any given time.  So instead of the administrative complications of meta
+courses, and as there was no group or cohort functionality in Moodle at the time, I thought that given my experience I could
+potentially write some code as a plugin that would solve the problem and that of the 'Scroll of Death' that my students were
+currently experiencing.  I then read in .Net Magazine (now no longer being published) issue 186, March 2009, an article entitled
+'Collapsed Tables' by Craig Grannell (of Snub Communications) and thought that was the way to address the issue, so I contacted him
+and received permission to reuse the idea.  And so in Moodle 1.9 I set to work creating the first version of 'Collapsed Topics' using
+'cookies' to store the state of the toggles, as I'd as yet at the time not learned how to use a server based solution.  Having
+completed the first version, I backported it to Moodle 1.8.  Then the complexities of the EU Cookie Law assisted the momentum
+towards a server side solution that didn't use 'Cookies', and since then with the 'GDPR' regulations the format does now implement the
+'[Privacy API](https://docs.moodle.org/dev/Privacy_API)' as the toggle states pertain to an identifiable user.
 
+There has now been a version of the format for every major version of Moodle ever since the first, gradually being improved and
+enhanced over the years in addition to coping with the API changes.
 
 If you'd like to sponsor, get support or fund improvements, then please do get in touch via:
 
@@ -15,12 +28,12 @@ Emerogork: Central Connecticut State University, USA
 
 Open source software
 ====================
-As the Grid format is licensed under the [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html) License it comes with NO support,
+Collapsed Topics is licensed under the [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html) License it comes with NO support,
 please see 'COPYING.txt'. If you would like support from me then I'm happy to provide it for a fee (please see my contact details
 below).  Otherwise, the Moodle '[Courses and course formats](https://moodle.org/mod/forum/view.php?id=47)' forum is an excellent place
 to ask questions.
 
-The Grid format can be obtained from:
+Collapsed Topics can be obtained from:
 
 * [Moodle.org](https://moodle.org/plugins/view.php?plugin=format_topcoll).
 * [GitHub](https://github.com/gjb2048/moodle-format_topcoll/releases).
@@ -31,7 +44,7 @@ FAQ - [GPL FAQ](https://www.gnu.org/licenses/gpl-faq.html) - is a good place to 
 If you reuse any of the code then I kindly ask that you make reference to the format.
 
 If you make improvements or bug fixes then I would appreciate if you would send them back to me by forking from
-[GitHub](https://github.com/gjb2048/moodle-format_topcoll/) and doing a 'Pull Request' so that the rest of the Moodle community
+[GitHub](https://github.com/gjb2048/moodle-format_topcoll) and doing a 'Pull Request' so that the rest of the Moodle community
 benefits.
 
 Required version of Moodle
