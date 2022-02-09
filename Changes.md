@@ -7,6 +7,7 @@ Version 4.0.0.1 - TBR
   2. Fix 'Error during course creation if defaultdisplayblocks is empty' - CONTRIB-8824.
   3. Add the ability to specify icon font classes for the close and open toggle icons.
   4. Add the ability to specify icon font classes for the one section link.
+  5. Implications of MDL-73679.
 
 Version 3.11.0.5 - 15/11/21
 -----------------------------
