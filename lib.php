@@ -63,7 +63,7 @@ class format_topcoll extends core_courseformat\base {
 
     /**
      * Returns the format's settings and gets them if they do not exist.
-     * @return type The settings as an array.
+     * @return array The settings as an array.
      */
     public function get_settings() {
         if (empty($this->settings) == true) {
