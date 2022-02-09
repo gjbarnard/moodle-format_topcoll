@@ -435,6 +435,13 @@ class renderer extends section_renderer {
             if ($this->userisediting) {
                 // CONTRIB-7434.
                 $sectioncontext['usereditingtitle'] = $this->courseformat->get_topcoll_section_name($course, $section, false);
+
+                if (has_capability('moodle/course:update', $context) &&
+                    has_capability('moodle/course:movesections', $context)) {
+                    $addsectionclass = $this->courseformat->get_output_classname('content\\addsection');
+                    $addsection = new $addsectionclass($this->courseformat, $section->section);
+                    $sectioncontext['addsection'] = $addsection->export_for_template($this);
+                }
             }
         } else {
             $sectioncontext['sectionpage'] = true;

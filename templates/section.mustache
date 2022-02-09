@@ -102,6 +102,9 @@
             {{#usereditingtitle}}<span class="hidden" aria-hidden="true">{{usereditingtitle}}</span>{{/usereditingtitle}}
             {{#usereditingurl}}<a href="{{{usereditingurl}}}" title="{{#str}}editsection, format_topcoll{{/str}}">{{{usereditingicon}}}</a>{{/usereditingurl}}
             {{{cscml}}}
+            {{#addsection}}
+                {{> core_courseformat/local/content/addsection}}
+            {{/addsection}}
         </div>
         {{/sectionpage}}
         {{#sectionpage}}
