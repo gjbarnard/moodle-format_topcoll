@@ -728,7 +728,8 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
 }
 
 /* -- One section icon font -- */
-.tcosif {
+.course-content ul.ctopics li.section .right .cps_centre .tcosif,
+.dir-rtl .course-content ul.ctopics li.section .left .cps_centre .tcosif{
     font-size: 22px;
     margin-top: 2px;
 }
