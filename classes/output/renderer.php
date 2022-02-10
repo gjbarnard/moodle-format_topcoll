@@ -351,11 +351,10 @@ class renderer extends section_renderer {
      * @param stdClass $course The course entry from DB.
      * @param bool $onsectionpage true if being printed on a section page.
      * @param int $sectionreturn The section to return to after an action.
-     * @param array $displayoptions The display options.
      *
      * @return string HTML to output.
      */
-    protected function topcoll_section($section, $course, $onsectionpage, $sectionreturn = null, $displayoptions = array()) {
+    protected function topcoll_section($section, $course, $onsectionpage, $sectionreturn = null) {
         $context = context_course::instance($course->id);
 
         $sectioncontext = array(
@@ -390,15 +389,6 @@ class renderer extends section_renderer {
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
             $sectioncontext['nomtore'] = true;
             $sectioncontext['leftcontent'] = $this->section_left_content($section, $course, $onsectionpage);
-            /*$sectioncontext['rightcontent'] = '';
-            if (($section->section != 0) && $this->userisediting && has_capability('moodle/course:update', $context)) {
-                $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
-                $sectioncontext['rightcontent'] .= html_writer::link(
-                    $url,
-                    $this->output->pix_icon('t/edit', get_string('edit')),
-                        array('title' => get_string('editsection', 'format_topcoll'), 'class' => 'tceditsection')
-                );
-            }*/
             $sectioncontext['rightcontent'] = $this->section_right_content($section, $course, $onsectionpage);
         }
         if ($section->section != 0) {
@@ -592,12 +582,12 @@ class renderer extends section_renderer {
             'sectionnavlinks' => $this->section_nav_links(),
             // Title with section navigation links and jump to menu.
             'sectionnavselection' => $this->section_nav_selection($course, null, $displaysection),
-            'thissection' => $this->topcoll_section($thissection, $course, true, $displaysection, array('sr' => $displaysection))
+            'thissection' => $this->topcoll_section($thissection, $course, true, $displaysection)
         );
 
         $sectionzero = $modinfo->get_section_info(0);
         if ($sectionzero->summary or !empty($modinfo->sections[0]) or $this->page->user_is_editing()) {
-            $singlesectioncontext['sectionzero'] = $this->topcoll_section($sectionzero, $course, true, $displaysection, array('sr' => $displaysection));
+            $singlesectioncontext['sectionzero'] = $this->topcoll_section($sectionzero, $course, true, $displaysection);
         }
 
         // Title attributes.
@@ -638,7 +628,7 @@ class renderer extends section_renderer {
         $thissection = $sections[0];
         unset($sections[0]);
         if ($thissection->summary or ! empty($modinfo->sections[0]) or $this->userisediting) {
-            echo $this->topcoll_section($thissection, $course, false, 0);
+            echo $this->topcoll_section($thissection, $course, false);
         }
 
         $shownonetoggle = false;
@@ -849,7 +839,7 @@ class renderer extends section_renderer {
                             }
                         }
                     }
-                    $sectionoutput .= $this->topcoll_section($thissection, $course, false, $thissection->section);
+                    $sectionoutput .= $this->topcoll_section($thissection, $course, false);
                     $toggledsections[] = $thissection->section;
                 }
 
