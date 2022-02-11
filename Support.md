@@ -60,13 +60,13 @@ Before reporting an issue, please ensure that you are running the current versio
 is essential that you are operating the required version of Moodle as stated above, this is because the format relies on core functionality
 that is out of its control.
 
-If you think you've discovered a genuine bug with the theme then please look at the Moodle Course and course formats forum first to see if it
+If you think you've discovered a genuine bug with the format then please look at the Moodle Course and course formats forum first to see if it
 has already been repoted.  Secondly, look at [GitHub](https://github.com/gjb2048/moodle-format_topcoll/issues), and thirdly [Moodle Tracker](https://tracker.moodle.org/issues/?jql=project+%3D+CONTRIB+AND+component+%3D+%22Course+format%3A+Topcoll%22).
 
-I operate a policy that I will fix all genuine issues in 'my' (not other developers of the theme) code, when fully described and
+I operate a policy that I will fix all genuine issues in 'my' (not other developers of the format) code, when fully described and
 replicatable.
 
-It is essential that you provide as much information as possible, the critical information being the contents of the theme's
+It is essential that you provide as much information as possible, the critical information being the contents of the format's
 version.php file / or the top of the 'Information' settings tab.  Other version information such as specific Moodle version,
 theme name and version also helps.  A screen shot can be really useful in visualising the issue along with any files you
 consider to be relevant.
