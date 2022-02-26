@@ -52,7 +52,7 @@ Required version of Moodle
 This version works with Moodle 4.0dev+ version 2021102200.00 (Build: 20211022) and above within the master branch until the
 next release.
 
-Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/40/en/Installing_Moodle)'.
+Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/400/en/Installing_Moodle)'.
 
 Reporting issues
 ================
