@@ -659,9 +659,7 @@ class renderer extends section_renderer {
                 $numsections = 0;
                 while ($loopsection <= $coursenumsections) {
                     $nextweekdate = $weekdate - ($weekofseconds);
-                    if ((($thissection->uservisible ||
-                            ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo))) &&
-                            ($nextweekdate <= $timenow)) == true) {
+                    if (($this->courseformat->is_section_visible($thissection)) && ($nextweekdate <= $timenow)) {
                         $numsections++; // Section not shown so do not count in columns calculation.
                     }
                     $weekdate = $nextweekdate;
@@ -727,12 +725,9 @@ class renderer extends section_renderer {
                 /* Show the section if the user is permitted to access it, OR if it's not available
                    but there is some available info text which explains the reason & should display. */
                 if (($this->tcsettings['layoutstructure'] != 3) || ($this->userisediting)) {
-                    $showsection = $thissection->uservisible ||
-                        ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo));
+                    $showsection = ($this->courseformat->is_section_visible($thissection));
                 } else {
-                    $showsection = ($thissection->uservisible ||
-                        ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo))) &&
-                        ($nextweekdate <= $timenow);
+                    $showsection = (($this->courseformat->is_section_visible($thissection)) && ($nextweekdate <= $timenow));
                 }
                 if (($currentsectionfirst == true) && ($showsection == true)) {
                     // Show the section if we were meant to and it is the current section:....
