@@ -124,7 +124,7 @@ class renderer extends section_renderer {
      * @return string HTML to output.
      */
     protected function start_section_list() {
-        return html_writer::start_tag('ul', array('class' => 'ctopics'));
+        return html_writer::start_tag('ul', array('class' => 'ctopics', 'data-for' => 'course_sectionlist'));
     }
 
     /**
@@ -616,6 +616,8 @@ class renderer extends section_renderer {
 
         $context = context_course::instance($course->id);
         echo $this->output->heading($this->page_title(), 2, 'accesshide');
+
+        // TODO: {{{completionhelp}}}
 
         // Now the list of sections..
         if ($this->formatresponsive) {
