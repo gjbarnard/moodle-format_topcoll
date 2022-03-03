@@ -597,7 +597,7 @@ class renderer extends section_renderer {
         }
         $sectionname = $this->section_title_without_link($thissection, $course);
         $singlesectioncontext['sectiontitle'] = $this->output->heading($sectionname, 3, $classes);
-        
+
         return $this->render_from_template('format_topcoll/singlesection', $singlesectioncontext);
     }
 

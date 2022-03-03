@@ -62,6 +62,15 @@ class format_topcoll extends core_courseformat\base {
     }
 
     /**
+     * Get the course display value for the current course.
+     *
+     * @return int The current value (COURSE_DISPLAY_MULTIPAGE or COURSE_DISPLAY_SINGLEPAGE).
+     */
+    public function get_course_display(): int {
+        return $this->coursedisplay;
+    }
+
+    /**
      * Returns the format's settings and gets them if they do not exist.
      * @return array The settings as an array.
      */
@@ -449,7 +458,7 @@ class format_topcoll extends core_courseformat\base {
                     'type' => PARAM_INT
                 ),
                 'hiddensections' => array(
-                    'default' => $courseconfig->hiddensections,
+                    'default' => $courseconfig->hiddensections ?? 0,
                     'type' => PARAM_INT
                 ),
                 'displayinstructions' => array(
