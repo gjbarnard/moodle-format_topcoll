@@ -124,7 +124,7 @@ class renderer extends section_renderer {
      * @return string HTML to output.
      */
     protected function start_section_list() {
-        return html_writer::start_tag('ul', array('class' => 'ctopics', 'data-for' => 'course_sectionlist'));
+        return html_writer::start_tag('ul', array('class' => 'ctopics'));
     }
 
     /**
@@ -598,7 +598,13 @@ class renderer extends section_renderer {
         $sectionname = $this->section_title_without_link($thissection, $course);
         $singlesectioncontext['sectiontitle'] = $this->output->heading($sectionname, 3, $classes);
 
-        echo $this->render_from_template('format_topcoll/singlesection', $singlesectioncontext);
+        $contentcontext = array(
+            'content' => $this->render_from_template('format_topcoll/singlesection', $singlesectioncontext),
+            'sectionreturn' => $displaysection,
+            'title' => $this->page_title()
+        );
+        
+        echo $this->render_from_template('format_topcoll/content', $contentcontext);
     }
 
     /**
@@ -607,7 +613,7 @@ class renderer extends section_renderer {
      * @param stdClass $course The course from the format_topcoll class.
      */
     public function multiple_section_page($course) {
-        echo $this->course_styles();
+        $content = $this->course_styles();
 
         $modinfo = get_fast_modinfo($course);
         if (empty($this->tcsettings)) {
@@ -615,22 +621,19 @@ class renderer extends section_renderer {
         }
 
         $context = context_course::instance($course->id);
-        echo $this->output->heading($this->page_title(), 2, 'accesshide');
-
-        // TODO: {{{completionhelp}}}
 
         // Now the list of sections..
         if ($this->formatresponsive) {
             $this->tccolumnwidth = 100; // Reset to default.
         }
-        echo $this->start_section_list();
+        $content .= $this->start_section_list();
 
         $sections = $modinfo->get_section_info_all();
         // General section if non-empty.
         $thissection = $sections[0];
         unset($sections[0]);
         if ($thissection->summary or ! empty($modinfo->sections[0]) or $this->userisediting) {
-            echo $this->topcoll_section($thissection, $course, false);
+            $content .= $this->topcoll_section($thissection, $course, false);
         }
 
         $shownonetoggle = false;
@@ -713,6 +716,7 @@ class renderer extends section_renderer {
             if ((!$this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 1)) { // Vertical columns.
                 $sectionoutput .= html_writer::start_tag('div', array('class' => $this->get_row_class()));
             }
+
             $sectionoutput .= $this->start_toggle_section_list();
 
             $loopsection = 1;
@@ -878,19 +882,20 @@ class renderer extends section_renderer {
 
                 unset($sections[$thissection->section]);
             }
+
             if ($coursenumsections > 1) {
                 if ($this->tcsettings['toggleallenabled'] == 2) {
                     if (($this->userisediting) || ($this->tcsettings['onesection'] == 1)) {
                         // Collapsed Topics all toggles.
-                        echo $this->toggle_all($toggledsections);
+                        $content .= $this->toggle_all($toggledsections);
                     }
                 }
                 if ($this->tcsettings['displayinstructions'] == 2) {
                     // Collapsed Topics instructions.
-                    echo $this->display_instructions();
+                    $content .= $this->display_instructions();
                 }
             }
-            echo $sectionoutput;
+            $content .= $sectionoutput;
         }
 
         $changenumsections = '';
@@ -903,17 +908,17 @@ class renderer extends section_renderer {
                     // This is not stealth section or it is empty.
                     continue;
                 }
-                echo $this->stealth_section($thissection, $course);
+                $content .= $this->stealth_section($thissection, $course);
             }
         }
-        echo $this->end_section_list();
+        $content .= $this->end_section_list();
         if ($coursenumsections > 0) {
             if ((!$this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 1)) { // Vertical columns.
-                echo html_writer::end_tag('div');
+                $content .= html_writer::end_tag('div');
             }
         }
 
-        echo $changenumsections;
+        $content .= $changenumsections;
 
         // Now initialise the JavaScript.
         $toggles = $this->togglelib->get_toggles();
@@ -929,6 +934,13 @@ class renderer extends section_renderer {
         /* Make sure the database has the correct state of the toggles if changed by the code.
            This ensures that a no-change page reload is correct. */
         set_user_preference('topcoll_toggle_'.$course->id, $toggles);
+
+        $contentcontext = array(
+            'content' => $content,
+            'title' => $this->page_title()
+        );
+        
+        echo $this->render_from_template('format_topcoll/content', $contentcontext);
     }
 
     /**
