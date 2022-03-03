@@ -47,12 +47,6 @@ class cm extends cm_base {
     public function export_for_template(\renderer_base $output): \stdClass {
         $data = parent::export_for_template($output);
 
-        try {
-            throw new \Exception();
-        } catch(\Exception $e) {
-            error_log('cm export_for_template - '.$e->getTraceAsString());
-        }
-
         // Get further information.
         if (\format_topcoll\activity::activitymetaenabled()) {
             $courseformat = $this->format;

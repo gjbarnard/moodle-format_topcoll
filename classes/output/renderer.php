@@ -597,14 +597,8 @@ class renderer extends section_renderer {
         }
         $sectionname = $this->section_title_without_link($thissection, $course);
         $singlesectioncontext['sectiontitle'] = $this->output->heading($sectionname, 3, $classes);
-
-        $contentcontext = array(
-            'content' => $this->render_from_template('format_topcoll/singlesection', $singlesectioncontext),
-            'sectionreturn' => $displaysection,
-            'title' => $this->page_title()
-        );
         
-        echo $this->render_from_template('format_topcoll/content', $contentcontext);
+        return $this->render_from_template('format_topcoll/singlesection', $singlesectioncontext);
     }
 
     /**
@@ -935,12 +929,7 @@ class renderer extends section_renderer {
            This ensures that a no-change page reload is correct. */
         set_user_preference('topcoll_toggle_'.$course->id, $toggles);
 
-        $contentcontext = array(
-            'content' => $content,
-            'title' => $this->page_title()
-        );
-        
-        echo $this->render_from_template('format_topcoll/content', $contentcontext);
+        return $content;
     }
 
     /**

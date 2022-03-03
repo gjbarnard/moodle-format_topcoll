@@ -73,9 +73,14 @@ course_create_sections_if_missing($course, range(0, $courseformatoptions['numsec
 
 $renderer = $PAGE->get_renderer('format_topcoll');
 
+$content = '';
+$contentcontext = array(
+    'title' => $courseformat->page_title()
+);
 if (!empty($displaysection)) {
     $courseformat->set_section_number($displaysection);
-    $renderer->single_section_page($course, $displaysection);
+    $content = $renderer->single_section_page($course, $displaysection);
+    $contentcontext['sectionreturn'] = $displaysection;
 } else {
     $defaulttogglepersistence = clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT);
 
@@ -90,8 +95,12 @@ if (!empty($displaysection)) {
 
     $renderer->set_user_preference($userpreference, $defaultuserpreference, $defaulttogglepersistence);
 
-    $renderer->multiple_section_page($course);
+    $content = $renderer->multiple_section_page($course);
 }
+
+$contentcontext['content'] = $content;
+
+echo $renderer->render_from_template('format_topcoll/content', $contentcontext);
 
 // Include course format js module.
 $PAGE->requires->js('/course/format/topcoll/format.js');
