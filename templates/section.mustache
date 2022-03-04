@@ -85,7 +85,7 @@
     <div class="content"{{#contentaria}} aria-live="polite"{{/contentaria}}>
         {{^sectionpage}}
         <div id="toggle-{{sectionno}}" class="sectionhead toggle toggle-{{toggleiconset}}" tabindex="0">
-            <span class="the_toggle {{#toggleopen}}toggle_open{{/toggleopen}}{{^toggleopen}}toggle_closed{{/toggleopen}} {{toggleiconsize}}" role="button" aria-expanded="{{#toggleopen}}true{{/toggleopen}}{{^toggleopen}}false{{/toggleopen}}" aria-controls="{{sectionno}}">
+            <span class="the_toggle {{#toggleopen}}toggle_open{{/toggleopen}}{{^toggleopen}}toggle_closed{{/toggleopen}} {{toggleiconsize}}" role="button" aria-expanded="{{#toggleopen}}true{{/toggleopen}}{{^toggleopen}}false{{/toggleopen}}" aria-controls="toggledsection-{{sectionno}}">
                 {{{heading}}}
                 {{{sectionavailability}}}
             </span>
