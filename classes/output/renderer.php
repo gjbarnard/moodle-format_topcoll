@@ -326,7 +326,7 @@ class renderer extends section_renderer {
             $title = html_writer::tag('a', $title,
                 array('href' => course_get_url($course, $section->section), 'class' => $linkclasses));
         }
-        $sectionsummarycontext['heading'] = $this->output->heading($title, 3, 'section-title');
+        $sectionsummarycontext['heading'] = $this->section_heading($section, $title, 'section-title');
 
         return $this->render_from_template('format_topcoll/sectionsummary', $sectionsummarycontext);
     }
@@ -412,13 +412,7 @@ class renderer extends section_renderer {
             } else {
                 $title = $this->courseformat->get_topcoll_section_name($course, $section, true);
             }
-            if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
-                $sectioncontext['heading'] = $this->output->heading($title, 3, 'sectionname', "sectionid-{$section->id}-title");
-            } else {
-                // Moodle H3's look bad on mobile / tablet with CT so use plain.
-                $sectioncontext['heading'] = html_writer::tag('h3', $title, array('id' => "sectionid-{$section->id}-title"));
-            }
-
+            $sectioncontext['heading'] = $this->section_heading($section, $title, 'sectionname');
             $sectioncontext['sectionsummary'] = $this->section_summary_container($section);
             $sectioncontext['sectionsummarywhencollapsed'] = ($this->tcsettings['showsectionsummary'] == 2);
 
@@ -438,7 +432,7 @@ class renderer extends section_renderer {
                 $headingclass = 'accesshide';
                 $title = $this->section_title_without_link($section, $course);
             }
-            $sectioncontext['heading'] = $this->output->heading($title, 3, $headingclass, "sectionid-{$section->id}-title");
+            $sectioncontext['heading'] = $this->section_heading($section, $title, $headingclass);
             $sectioncontext['summary'] = $this->format_summary_text($section);
         }
         if ($this->userisediting && has_capability('moodle/course:update', $context)) {
@@ -454,6 +448,19 @@ class renderer extends section_renderer {
         }
 
         return $this->render_from_template('format_topcoll/section', $sectioncontext);
+    }
+
+    protected function section_heading($section, $title, $classes = '') {
+        $attributes =  array(
+            'data-for' => 'section_title',
+            'data-number' => $section->section,
+            'id' => "sectionid-{$section->id}-title"
+        );
+        if (!empty($classes)) {
+            $attributes['class'] = $classes;
+        }
+
+        return html_writer::tag('h3', $title, $attributes);
     }
 
     /**
@@ -490,8 +497,8 @@ class renderer extends section_renderer {
     protected function stealth_section($section, $course) {
         $stealthsectioncontext = array(
             'cscml' => $this->course_section_cmlist($section),
-            'heading' => $this->output->heading(get_string('orphanedactivitiesinsectionno', '', $section->section),
-                3, 'sectionname', "sectionid-{$section->id}-title"),
+            'heading' => $this->section_heading($section, get_string('orphanedactivitiesinsectionno', '', $section->section),
+                'sectionname'),
             'rightcontent' => $this->section_right_content($section, $course, false),
             'rtl' => $this->rtl,
             'sectionid' => $section->id,
@@ -543,7 +550,7 @@ class renderer extends section_renderer {
             $sectionhiddencontext['rtl'] = $this->rtl;
             $sectionhiddencontext['leftcontent'] = $this->section_left_content($section, $course, false);
             $sectionhiddencontext['rightcontent'] = $this->section_right_content($section, $course, false, true);
-            $sectionhiddencontext['heading'] = $this->output->heading($title, 3, 'section-title', "sectionid-{$section->id}-title");
+            $sectionhiddencontext['heading'] = $this->section_heading($section, $title, 'section-title');
         } else {
             $sectionhiddencontext['title'] = $title;
         }
@@ -596,7 +603,7 @@ class renderer extends section_renderer {
             $classes .= ' dimmed_text';
         }
         $sectionname = $this->section_title_without_link($thissection, $course);
-        $singlesectioncontext['sectiontitle'] = $this->output->heading($sectionname, 3, $classes);
+        $singlesectioncontext['sectiontitle'] = $this->section_heading($thissection, $sectionname, $classes);
 
         return $this->render_from_template('format_topcoll/singlesection', $singlesectioncontext);
     }
