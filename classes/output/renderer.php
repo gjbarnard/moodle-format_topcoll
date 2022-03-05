@@ -451,7 +451,7 @@ class renderer extends section_renderer {
     }
 
     protected function section_heading($section, $title, $classes = '') {
-        $attributes =  array(
+        $attributes = array(
             'data-for' => 'section_title',
             'data-number' => $section->section,
             'id' => "sectionid-{$section->id}-title"
@@ -498,7 +498,7 @@ class renderer extends section_renderer {
         $stealthsectioncontext = array(
             'cscml' => $this->course_section_cmlist($section),
             'heading' => $this->section_heading($section, get_string('orphanedactivitiesinsectionno', '', $section->section),
-                'sectionname'),
+                'section-title'),
             'rightcontent' => $this->section_right_content($section, $course, false),
             'rtl' => $this->rtl,
             'sectionid' => $section->id,

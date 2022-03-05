@@ -193,8 +193,8 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
             array($section, $this->course, null));
 
         $sectionsummarycontext = array(
-            'heading' => '<h3 class="section-title"><a href="'.$CFG->wwwroot.'/course/view.php?id='.
-                $this->course->id.'#section-1" class="">Section 1</a></h3>',
+            'heading' => '<h3 data-for="section_title" data-number="1" id="sectionid-'.$section->id.'-title" class="section-title">'.
+                '<a href="'.$CFG->wwwroot.'/course/view.php?id='.$this->course->id.'#section-1" class="">Section 1</a></h3>',
             'horizontalwidth' => '100',
             'rtl' => false,
             'sectionavailability' => '<div class="section_availability"></div>',
@@ -230,7 +230,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
             'cscml' => self::call_method($this->outputus, 'course_section_cmlist', array($section1)).
                 self::call_method($this->outputus, 'course_section_add_cm_control', array($this->course, $section1->section, $sectionreturn)),
             'leftcontent' => self::call_method($this->outputus, 'section_left_content', array($section1, $this->course, $onsectionpage)),
-            'heading' => '<h3 id="sectionid-'.$section1->id.'-title" class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>',
+            'heading' => '<h3 data-for="section_title" data-number="1" id="sectionid-'.$section1->id.'-title" class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>',
             'horizontalclass' => 'col-sm-12',
             'nomtore' => true,
             'rightcontent' => self::call_method($this->outputus, 'section_right_content', array($section1, $this->course, $onsectionpage)),
@@ -257,7 +257,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $sectioncontext['leftcontent'] = self::call_method($this->outputus, 'section_left_content', array($section1, $this->course, $onsectionpage));
         $sectioncontext['rightcontent'] = self::call_method($this->outputus, 'section_right_content', array($section1, $this->course, $onsectionpage));
         $sectioncontext['sectionpage'] = $onsectionpage;
-        $sectioncontext['heading'] = '<h3 id="sectionid-'.$section1->id.'-title" class="accesshide">Section 1</h3>';
+        $sectioncontext['heading'] = '<h3 data-for="section_title" data-number="1" id="sectionid-'.$section1->id.'-title" class="accesshide">Section 1</h3>';
         $sectioncontext['horizontalclass'] = '';
         $sectioncontext['horizontalwidth'] = '100';
 
@@ -274,7 +274,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
             array($section, null));
 
         $sectionhiddencontext = array(
-            'heading' => '<h3 id="sectionid-'.$section->id.'-title" class="section-title">Section 1</h3>',
+            'heading' => '<h3 data-for="section_title" data-number="1" id="sectionid-'.$section->id.'-title" class="section-title">Section 1</h3>',
             'horizontalclass' => 'col-sm-12',
             'leftcontent' => '<span class="cps_centre">1</span>',
             'nomtore' => true,
@@ -300,8 +300,8 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
 
         $stealthsectioncontext = array(
             'cscml' => self::call_method($this->outputus, 'course_section_cmlist', array($section)),
-            'heading' => $this->ouroutput->heading(get_string('orphanedactivitiesinsectionno', '', $section->section),
-                3, 'sectionname', "sectionid-{$section->id}-title"),
+            'heading' => '<h3 data-for="section_title" data-number="1" id="sectionid-'.$section->id.'-title" class="section-title">'.
+                get_string('orphanedactivitiesinsectionno', '', $section->section).'</h3>',
             'horizontalclass' => 'col-sm-12',
             'rightcontent' => self::call_method($this->outputus, 'section_right_content', array($section, $this->course, false)),
             'rtl' => false,

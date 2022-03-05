@@ -40,6 +40,8 @@ $string['topcollopened'] = 'Open all';
 $string['topcollclosed'] = 'Close all';
 $string['sctopenall'] = 'Open all {$a}';
 $string['sctcloseall'] = 'Close all {$a}';
+$string['toggleclose'] = 'Close';
+$string['toggleopen'] = 'Open';
 
 $string['settoggleallenabled'] = 'Toggle all enabled';
 $string['settoggleallenabled_help'] = 'Toggle all functionality enabled.';
