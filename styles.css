@@ -44,6 +44,10 @@
     display: block;
 }
 
+.format-topcoll #region-main {
+    overflow-x: inherit;
+}
+
 .course-content ul.ctopics li.section.main,
 .course-content ul.ctopics li.tcsection {
     border-bottom: 0;

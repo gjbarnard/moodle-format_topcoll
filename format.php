@@ -79,23 +79,10 @@ $contentcontext = array(
 );
 if (!empty($displaysection)) {
     $courseformat->set_section_number($displaysection);
-    $content = $renderer->single_section_page($course, $displaysection);
+    $content = $renderer->single_section_page($displaysection);
     $contentcontext['sectionreturn'] = $displaysection;
 } else {
-    $defaulttogglepersistence = clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT);
-
-    if ($defaulttogglepersistence == 1) {
-        user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_RAW);
-        $userpreference = get_user_preferences('topcoll_toggle_' . $course->id);
-    } else {
-        $userpreference = null;
-    }
-
-    $defaultuserpreference = clean_param(get_config('format_topcoll', 'defaultuserpreference'), PARAM_INT);
-
-    $renderer->set_user_preference($userpreference, $defaultuserpreference, $defaulttogglepersistence);
-
-    $content = $renderer->multiple_section_page($course);
+    $content = $renderer->multiple_section_page();
 }
 
 $contentcontext['content'] = $content;

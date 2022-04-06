@@ -230,7 +230,8 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
             'cscml' => self::call_method($this->outputus, 'course_section_cmlist', array($section1)).
                 self::call_method($this->outputus, 'course_section_add_cm_control', array($this->course, $section1->section, $sectionreturn)),
             'leftcontent' => self::call_method($this->outputus, 'section_left_content', array($section1, $this->course, $onsectionpage)),
-            'heading' => '<h3 data-for="section_title" data-number="1" id="sectionid-'.$section1->id.'-title" class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>',
+            'heading' => '<h3 data-for="section_title" data-number="1" id="sectionid-'.$section1->id.'-title" class="sectionname">'.
+                'Section 1<div class="cttoggle"> - Toggle</div></h3>',
             'horizontalclass' => 'col-sm-12',
             'nomtore' => true,
             'rightcontent' => self::call_method($this->outputus, 'section_right_content', array($section1, $this->course, $onsectionpage)),

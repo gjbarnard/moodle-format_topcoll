@@ -36,9 +36,11 @@ namespace format_topcoll\output;
 defined('MOODLE_INTERNAL') || die();
 
 use context_course;
+use core_courseformat\base as course_format;
 use core_courseformat\output\section_renderer;
 use html_writer;
 use moodle_url;
+use section_info;
 
 require_once($CFG->dirroot.'/course/format/lib.php'); // For course_get_format.
 
@@ -50,6 +52,7 @@ class renderer extends section_renderer {
     protected $mobiletheme = false; // As not using a mobile theme we can react to the number of columns setting.
     protected $tablettheme = false; // As not using a tablet theme we can react to the number of columns setting.
     protected $courseformat = null; // Our course format object as defined in lib.php.
+    protected $course = null; // Our course object.
     protected $tcsettings; // Settings for the format - array.
     protected $defaulttogglepersistence; // Default toggle persistence.
     protected $defaultuserpreference; // Default user preference when none set - bool - true all open, false all closed.
@@ -72,6 +75,7 @@ class renderer extends section_renderer {
         parent::__construct($page, $target);
         $this->togglelib = new \format_topcoll\togglelib();
         $this->courseformat = course_get_format($page->course); // Needed for collapsed topics settings retrieval.
+        $this->course = $this->courseformat->get_course();
 
         /* Since format_topcoll_renderer::section_edit_control_items() only displays the 'Set current section' control when editing
            mode is on we need to be sure that the link 'Turn editing mode on' is available for a user who does not have any
@@ -120,11 +124,39 @@ class renderer extends section_renderer {
     }
 
     /**
+     * Get the updated rendered version of a section.
+     *
+     * This method will only be used when the course editor requires to get an updated cm item HTML
+     * to perform partial page refresh. It will be used for supporting the course editor webservices.
+     *
+     * By default, the template used for update a section is the same as when it renders initially,
+     * but format plugins are free to override this method to provide extra effects or so.
+     *
+     * @param course_format $format the course format
+     * @param section_info $section the section info
+     * @return string the rendered element
+     */
+    public function course_section_updated(
+        course_format $format,
+        section_info $section
+    ): string {
+        if ($section->section == 0) {
+            return '';
+        }
+        $this->set_user_preferences();
+
+        $section->toggle = true;
+        $output = $this->topcoll_section($section, $format->get_course(), false);
+
+        return $output;
+    }
+
+    /**
      * Generate the starting container html for a list of sections.
      * @return string HTML to output.
      */
     protected function start_section_list() {
-        return html_writer::start_tag('ul', array('class' => 'ctopics'));
+        return html_writer::start_tag('ul', array('class' => 'ctopics'/*, 'data-for' => 'course_sectionlist'*/));
     }
 
     /**
@@ -157,6 +189,7 @@ class renderer extends section_renderer {
             }
         }
         $attributes['class'] = $classes;
+        //$attributes['data-for'] = "course_sectionlist";
 
         return html_writer::start_tag('ul', $attributes);
     }
@@ -564,7 +597,8 @@ class renderer extends section_renderer {
      * @param stdClass $course The course from the format_topcoll class.
      * @param int $displaysection The section number in the course which is being displayed.
      */
-    public function single_section_page($course, $displaysection) {
+    public function single_section_page($displaysection) {
+        $course = $this->course;
         $modinfo = get_fast_modinfo($course);
 
         // Can we view the section in question?
@@ -613,7 +647,9 @@ class renderer extends section_renderer {
      *
      * @param stdClass $course The course from the format_topcoll class.
      */
-    public function multiple_section_page($course) {
+    public function multiple_section_page() {
+        $course = $this->course;
+        $this->set_user_preferences();
         $content = $this->course_styles();
 
         $modinfo = get_fast_modinfo($course);
@@ -1053,7 +1089,19 @@ class renderer extends section_renderer {
         return $this->render_from_template('format_topcoll/coursestyles', $coursestylescontext);
     }
 
-    public function set_user_preference($userpreference, $defaultuserpreference, $defaulttogglepersistence) {
+    protected function set_user_preferences() {
+        $course = $this->course;
+        $defaulttogglepersistence = clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT);
+
+        if ($defaulttogglepersistence == 1) {
+            user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_RAW);
+            $userpreference = get_user_preferences('topcoll_toggle_' . $course->id);
+        } else {
+            $userpreference = null;
+        }
+
+        $defaultuserpreference = clean_param(get_config('format_topcoll', 'defaultuserpreference'), PARAM_INT);
+
         $this->defaultuserpreference = $defaultuserpreference;
         $this->defaulttogglepersistence = $defaulttogglepersistence;
         $coursenumsections = $this->courseformat->get_last_section_number();
