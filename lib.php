@@ -97,7 +97,7 @@ class format_topcoll extends core_courseformat\base {
      * @return bool Returns true
      */
     public function uses_sections() {
-        return false;
+        return true;
     }
 
     public function uses_course_index() {

@@ -1103,6 +1103,10 @@ class renderer extends section_renderer {
 
         $defaultuserpreference = clean_param(get_config('format_topcoll', 'defaultuserpreference'), PARAM_INT);
 
+        $this->set_user_preference($userpreference, $defaultuserpreference, $defaulttogglepersistence);
+    }
+
+    protected function set_user_preference($userpreference, $defaultuserpreference, $defaulttogglepersistence) {
         $this->defaultuserpreference = $defaultuserpreference;
         $this->defaulttogglepersistence = $defaulttogglepersistence;
         $coursenumsections = $this->courseformat->get_last_section_number();
@@ -1154,6 +1158,12 @@ class renderer extends section_renderer {
             }
             $this->togglelib->set_toggles($userpreference);
         }
+    }
+
+    public function test() {
+        $o = $this->togglelib->get_toggles();
+        $this->togglelib->set_toggle_state(1, true);
+        return $o.' - '.$this->togglelib->get_toggles();
     }
 
     protected function get_row_class() {
