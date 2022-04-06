@@ -189,7 +189,7 @@ class renderer extends section_renderer {
             }
         }
         $attributes['class'] = $classes;
-        //$attributes['data-for'] = "course_sectionlist";
+        $attributes['data-for'] = "course_togglesectionlist";
 
         return html_writer::start_tag('ul', $attributes);
     }
@@ -398,12 +398,13 @@ class renderer extends section_renderer {
         );
 
         if ($section->section != 0) {
+            $sectioncontext['sectionstyle'] = 'togglesection';
             // Only in the non-general sections.
             if (!$section->visible) {
-                $sectioncontext['sectionstyle'] = 'hidden';
+                $sectioncontext['sectionstyle'] .= ' hidden';
             }
             if ($section->section == $this->currentsection) {
-                $sectioncontext['sectionstyle'] = 'current';
+                $sectioncontext['sectionstyle'] .= ' current';
             }
         }
 
@@ -894,8 +895,8 @@ class renderer extends section_renderer {
 
                             if (($breaking == true) && ($shownsectioncount >= $breakpoint) &&
                                 ($columncount < $this->tcsettings['layoutcolumns'])) {
-                                $sectionoutput .= $this->end_section_list();
-                                $sectionoutput .= $this->start_toggle_section_list();
+                                //$sectionoutput .= $this->end_section_list();
+                                //$sectionoutput .= $this->start_toggle_section_list();
                                 $columncount++;
                                 // Next breakpoint is...
                                 $breakpoint += $numshownsections / $this->tcsettings['layoutcolumns'];
@@ -908,8 +909,8 @@ class renderer extends section_renderer {
                             }
 
                             if (($breaking == true) && ($shownsectioncount >= $breakpoint)) {
-                                $sectionoutput .= $this->end_section_list();
-                                $sectionoutput .= $this->start_toggle_section_list();
+                                //$sectionoutput .= $this->end_section_list();
+                                //$sectionoutput .= $this->start_toggle_section_list();
                                 // Next breakpoint is...
                                 $breakpoint += $this->tcsettings['layoutcolumns'];
                             }
