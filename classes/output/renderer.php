@@ -68,8 +68,8 @@ class renderer extends section_renderer {
     /**
      * Constructor method, calls the parent constructor - MDL-21097.
      *
-     * @param moodle_page $page.
-     * @param string $target one of rendering target constants.
+     * @param moodle_page $page The page.
+     * @param string $target One of rendering target constants.
      */
     public function __construct(\moodle_page $page, $target) {
         parent::__construct($page, $target);
@@ -145,7 +145,7 @@ class renderer extends section_renderer {
         }
         $this->set_user_preferences();
 
-        $section->toggle = true;
+        $section->toggle = true;  // TODO.
         $output = $this->topcoll_section($section, $format->get_course(), false);
 
         return $output;
@@ -189,7 +189,6 @@ class renderer extends section_renderer {
             }
         }
         $attributes['class'] = $classes;
-        //$attributes['data-for'] = "course_sectionlist";
 
         return html_writer::start_tag('ul', $attributes);
     }
@@ -1090,20 +1089,16 @@ class renderer extends section_renderer {
     }
 
     protected function set_user_preferences() {
-        $course = $this->course;
-        $defaulttogglepersistence = clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT);
+        $this->defaultuserpreference = clean_param(get_config('format_topcoll', 'defaultuserpreference'), PARAM_INT);
+        $this->defaulttogglepersistence = clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT);
 
-        if ($defaulttogglepersistence == 1) {
-            user_preference_allow_ajax_update('topcoll_toggle_' . $course->id, PARAM_RAW);
-            $userpreference = get_user_preferences('topcoll_toggle_' . $course->id);
+        if ($this->defaulttogglepersistence == 1) {
+            user_preference_allow_ajax_update('topcoll_toggle_' . $this->course->id, PARAM_RAW);
+            $userpreference = get_user_preferences('topcoll_toggle_' . $this->course->id);
         } else {
             $userpreference = null;
         }
 
-        $defaultuserpreference = clean_param(get_config('format_topcoll', 'defaultuserpreference'), PARAM_INT);
-
-        $this->defaultuserpreference = $defaultuserpreference;
-        $this->defaulttogglepersistence = $defaulttogglepersistence;
         $coursenumsections = $this->courseformat->get_last_section_number();
         if ($userpreference != null) {
             $this->isoldtogglepreference = $this->togglelib->is_old_preference($userpreference);

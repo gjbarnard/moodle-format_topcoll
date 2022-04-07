@@ -97,7 +97,7 @@ class format_topcoll extends core_courseformat\base {
      * @return bool Returns true
      */
     public function uses_sections() {
-        return false;
+        return true;
     }
 
     public function uses_course_index() {
@@ -106,6 +106,22 @@ class format_topcoll extends core_courseformat\base {
 
     public function uses_indentation(): bool {
         return true;
+    }
+
+    /**
+     * Indicates whether the course format supports the creation of a news forum.
+     *
+     * @return bool
+     */
+    public function supports_news() {
+        return true;
+    }
+
+    /**
+     * This format is compatible with the React updates.
+     */
+    public function supports_components() {
+        return false;  // I.e. Allows section drag and drop to work!  Off until I can work out how to make it work!
     }
 
     /**
@@ -1694,22 +1710,6 @@ class format_topcoll extends core_courseformat\base {
             $editlabel = new lang_string('newsectionname', 'format_topcoll', $title);
         }
         return parent::inplace_editable_render_section_name($section, $linkifneeded, $editable, $edithint, $editlabel);
-    }
-
-    /**
-     * Indicates whether the course format supports the creation of a news forum.
-     *
-     * @return bool
-     */
-    public function supports_news() {
-        return true;
-    }
-
-    /**
-     * This format is compatible with the React updates.
-     */
-    public function supports_components() {
-        return false;  // I.e. Allows section drag and drop to work!  Off until I can work out how to make it work!
     }
 
     /**

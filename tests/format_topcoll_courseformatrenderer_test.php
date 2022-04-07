@@ -106,6 +106,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
             course_delete_section($this->course, 1, true);  // Have only section zero.
         }
 
+        self::set_property($this->outputus, 'course', $this->course);
         $this->courseformat = course_get_format($this->course);
         self::set_property($this->outputus, 'courseformat', $this->courseformat);
         $target = self::get_property($this->outputus, 'target');
@@ -214,7 +215,9 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         global $PAGE;
 
         $this->init();
-        $this->outputus->set_user_preference('Z', 0, 1);
+        set_user_preference('topcoll_toggle_'.$this->course->id, 'Z');
+        set_config('defaultuserpreference', 0, 'format_topcoll');
+        set_config('defaulttogglepersistence', 1, 'format_topcoll');
         self::set_property($this->outputus, 'formatresponsive', false);
         $section1 = $this->courseformat->get_section(1);
         $section1->section = 1;
@@ -350,12 +353,14 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         global $CFG;
 
         $this->init();
-        $this->outputus->set_user_preference(null, 0, 1);
+        set_user_preference('topcoll_toggle_'.$this->course->id, null);
+        set_config('defaultuserpreference', 0, 'format_topcoll');
+        set_config('defaulttogglepersistence', 1, 'format_topcoll');
         $section0 = $this->courseformat->get_section(0);
         $section1 = $this->courseformat->get_section(1);
         $section1->toggle = false;
 
-        $thevalue = self::call_method($this->outputus, 'multiple_section_page', array($this->course));
+        $thevalue = self::call_method($this->outputus, 'multiple_section_page', array());
 
         $theoutput = file_get_contents($CFG->dirroot.'/course/format/topcoll/tests/phpu_data/test_multiple_section_page_css.txt');
         $theoutput .= '<ul class="ctopics">';
@@ -371,12 +376,15 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         global $CFG;
 
         $this->init(1, 1);
-        $this->outputus->set_user_preference('Z', 0, 1);
+        set_user_preference('topcoll_toggle_'.$this->course->id, 'Z');
+        set_config('defaultuserpreference', 0, 'format_topcoll');
+        set_config('defaulttogglepersistence', 1, 'format_topcoll');
+
         $section0 = $this->courseformat->get_section(0);
         $section1 = $this->courseformat->get_section(1);
         $section1->toggle = true;
 
-        $thevalue = self::call_method($this->outputus, 'multiple_section_page', array($this->course));
+        $thevalue = self::call_method($this->outputus, 'multiple_section_page', array());
 
         $theoutput = file_get_contents($CFG->dirroot.'/course/format/topcoll/tests/phpu_data/test_multiple_section_page_css.txt');
         $theoutput .= '<ul class="ctopics">';
@@ -393,10 +401,12 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         global $CFG;
 
         $this->init(0);
-        $this->outputus->set_user_preference(null, 0, 1);
+        set_user_preference('topcoll_toggle_'.$this->course->id, null);
+        set_config('defaultuserpreference', 0, 'format_topcoll');
+        set_config('defaulttogglepersistence', 1, 'format_topcoll');
         $section0 = $this->courseformat->get_section(0);
 
-        $thevalue = self::call_method($this->outputus, 'multiple_section_page', array($this->course));
+        $thevalue = self::call_method($this->outputus, 'multiple_section_page', array());
 
         $theoutput = file_get_contents($CFG->dirroot.'/course/format/topcoll/tests/phpu_data/test_multiple_section_page_css.txt');
         $theoutput .= '<ul class="ctopics">';
