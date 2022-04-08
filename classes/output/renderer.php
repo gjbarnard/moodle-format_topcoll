@@ -359,11 +359,13 @@ class renderer extends section_renderer {
         }
         $sectionsummarycontext['classattrextra'] = $classattrextra;
 
-        if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
+        if ($this->tcsettings['layoutcolumnorientation'] == 3) { // Dynamic column layout.
+            $sectionsummarycontext['columnclass'] = $this->get_column_class('D');
+        } else if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
             if ($this->formatresponsive) {
-                $sectionsummarycontext['horizontalwidth'] = $this->tccolumnwidth;
+                $sectionsummarycontext['columnwidth'] = $this->tccolumnwidth;
             } else {
-                $sectionsummarycontext['horizontalclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
+                $sectionsummarycontext['colummnclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
             }
         }
 
@@ -554,11 +556,13 @@ class renderer extends section_renderer {
             'sectionno' => $section->section
         );
 
-        if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
+        if ($this->tcsettings['layoutcolumnorientation'] == 3) { // Dynamic column layout.
+            $stealthsectioncontext['columnclass'] = $this->get_column_class('D');
+        } else if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
             if ($this->formatresponsive) {
-                $stealthsectioncontext['horizontalwidth'] = $this->tccolumnwidth;
+                $stealthsectioncontext['columnwidth'] = $this->tccolumnwidth;
             } else {
-                $stealthsectioncontext['horizontalclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
+                $stealthsectioncontext['columnclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
             }
         }
 
@@ -585,11 +589,13 @@ class renderer extends section_renderer {
         );
         $course = $this->courseformat->get_course();
 
-        if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
+        if ($this->tcsettings['layoutcolumnorientation'] == 3) { // Dynamic column layout.
+            $sectionhiddencontext['columnclass'] = $this->get_column_class('D');
+        } else if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
             if ($this->formatresponsive) {
-                $sectionhiddencontext['horizontalwidth'] = $this->tccolumnwidth;
+                $sectionhiddencontext['columnwidth'] = $this->tccolumnwidth;
             } else {
-                $sectionhiddencontext['horizontalclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
+                $sectionhiddencontext['columnclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
             }
         }
 

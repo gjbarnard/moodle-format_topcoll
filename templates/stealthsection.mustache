@@ -20,10 +20,10 @@
     Collapsed Topics stealth section template.
 
     Context variables required for this template:
+    * columnclass - Additional classes used when the format has a column layout.
+    * columnwidth - Column layout width.
     * cscml - Course section course module list.
     * heading - The heading.
-    * horizontalclass - Additional classes used when the format has a horizontal layout.
-    * horizontalwidth - Horizontal layout width.
     * rightcontent - Right column content.
     * rtl - Right to left?
     * sectionid - Section id.
@@ -31,18 +31,18 @@
 
     Example context (json):
     {
+        "columnclass": "col-lg-3",
+        "columnwidth": "",
         "cmcontrols": "[Add an activity or resource]",
         "cscml": "",
         "heading": '<h3 id="sectionid-124-title" class="section-title">Section 1</h3>',
-        "horizontalclass": "col-lg-3",
-        "horizontalwidth": "100",
         "rightcontent": "",
         "rtl": false,
         "sectionid": "124",
         "sectionno": "1"
     }
 }}
-<li id="section-{{sectionno}}" class="section main course-section clearfix orphaned hidden{{#horizontalclass}} {{horizontalclass}}{{/horizontalclass}}"{{#horizontalwidth}} style="width: {{horizontalwidth}}%;"{{/horizontalwidth}} role="region" aria-labeled-by="sectionid-{{sectionid}}-title" data-sectionid="{{sectionno}}" data-for="section">
+<li id="section-{{sectionno}}" class="section main course-section clearfix orphaned hidden{{#columnclass}} {{columnclass}}{{/columnclass}}"{{#columnwidth}} style="width: {{columnwidth}}%;"{{/columnwidth}} role="region" aria-labeled-by="sectionid-{{sectionid}}-title" data-sectionid="{{sectionno}}" data-for="section">
 {{^rtl}}
     <div class="left side"></div>
 {{/rtl}}

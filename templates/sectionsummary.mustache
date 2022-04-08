@@ -20,10 +20,10 @@
     Collapsed Topics section summary template.
 
     Context variables required for this template:
+    * columnclass - Additional classes used when the format has a column layout.
+    * columnwidth - Column layout width.
     * formatsummarytext - The format summary text.
     * heading - The heading.
-    * horizontalclass - Additional classes used when the format has a horizontal layout.
-    * horizontalwidth - Horizontal layout width.
     * rtl - Right to left?
     * sectionactivitysummary - Section activity summary.
     * sectionavailability - Section availability.
@@ -32,10 +32,10 @@
 
     Example context (json):
     {
+        "columnclass": "col-lg-3",
+        "columnwidth": "",
         "formatsummarytext": '<div class="no-overflow"><p dir="ltr" style="text-align: left;">Section 1 summary</p></div>',
         "heading": '<h3 class="section-title"><a href="https://moodle.local/course/view.php?id=24#section-1" class="">Section 1</a></h3>',
-        "horizontalclass": "col-lg-3",
-        "horizontalwidth": "100",
         "rtl": false,
         "sectionactivitysummary": '',
         "sectionavailability": '<div class="section_availability"></div>',
@@ -43,7 +43,7 @@
         "title": "The section"
     }
 }}
-<li id="section-{{sectionno}}" class="section main course-section section-summary clearfix{{#classattrextra}} {{classattrextra}}{{/classattrextra}}{{#horizontalclass}} {{horizontalclass}}{{/horizontalclass}}"{{#horizontalwidth}} style="width: {{horizontalwidth}}%;"{{/horizontalwidth}} role="region" aria-label="{{title}}" data-sectionid="{{sectionno}}" data-for="section">
+<li id="section-{{sectionno}}" class="section main course-section section-summary clearfix{{#classattrextra}} {{classattrextra}}{{/classattrextra}}{{#columnclass}} {{columnclass}}{{/columnclass}}"{{#columnwidth}} style="width: {{columnwidth}}%;"{{/columnwidth}} role="region" aria-label="{{title}}" data-sectionid="{{sectionno}}" data-for="section">
 {{^rtl}}
     <div class="left side"></div>
 {{/rtl}}
