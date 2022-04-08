@@ -121,7 +121,7 @@ class format_topcoll extends core_courseformat\base {
      * This format is compatible with the React updates.
      */
     public function supports_components() {
-        return false;  // I.e. Allows section drag and drop to work!  Off until I can work out how to make it work!
+        return true;  // I.e. Allows section drag and drop to work!  Off until I can work out how to make it work!
     }
 
     /**

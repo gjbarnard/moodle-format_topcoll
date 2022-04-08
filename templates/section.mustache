@@ -44,6 +44,7 @@
     * usereditingicon - User editing icon.
     * usereditingtitle - User editing title.
     * usereditingurl - User editing URL.
+    * userisediting - User is editing.
 
     Example context (json):
     {
@@ -70,12 +71,13 @@
         "toggleopen": true,
         "usereditingicon": "",
         "usereditingtitle": "",
-        "usereditingurl": ""
+        "usereditingurl": "",
+        "userisediting": false
     }
 }}
 
 
-<li id="section-{{sectionno}}" class="section course-section main clearfix{{#sectionstyle}} {{sectionstyle}}{{/sectionstyle}}{{#horizontalclass}} {{horizontalclass}}{{/horizontalclass}}"{{#horizontalwidth}} style="width: {{horizontalwidth}}%;"{{/horizontalwidth}} role="region" aria-labeled-by="sectionid-{{sectionid}}-title" data-sectionid="{{sectionno}}"{{#sectionreturn}} data-sectionreturnid="{{sectionreturn}}"{{/sectionreturn}} data-for="section" data-id="{{sectionid}}" data-number="{{sectionno}}">
+<li id="section-{{sectionno}}" class="section course-section main clearfix{{#sectionstyle}} {{sectionstyle}}{{/sectionstyle}}{{#horizontalclass}} {{horizontalclass}}{{/horizontalclass}}"{{#horizontalwidth}} style="width: {{horizontalwidth}}%;"{{/horizontalwidth}} role="region" aria-labeled-by="sectionid-{{sectionid}}-title"{{#userisediting}} data-sectionid="{{sectionno}}"{{#sectionreturn}} data-sectionreturnid="{{sectionreturn}}"{{/sectionreturn}} data-for="section" data-id="{{sectionid}}" data-number="{{sectionno}}{{/userisediting}}">
 {{#nomtore}}
     {{^rtl}}
     <div class="left side">{{{leftcontent}}}</div>

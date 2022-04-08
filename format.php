@@ -75,7 +75,8 @@ $renderer = $PAGE->get_renderer('format_topcoll');
 
 $content = '';
 $contentcontext = array(
-    'title' => $courseformat->page_title()
+    'title' => $courseformat->page_title(),
+    'userisediting' => $PAGE->user_is_editing()
 );
 if (!empty($displaysection)) {
     $courseformat->set_section_number($displaysection);

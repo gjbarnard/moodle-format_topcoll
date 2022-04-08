@@ -23,21 +23,18 @@
     {
         "title": "Course title example",
         "sectionreturn": 1,
-        "uniqid": ""
+        "uniqid": "",
+        "userisediting": false
     }
 }}
 <div id="{{uniqid}}-course-format">
     <h2 class="accesshide">{{{title}}}</h2>
-    {{^sectionreturn}}
-    <div data-for="course_sectionlist">
-    {{/sectionreturn}}
     {{{content}}}
-    {{^sectionreturn}}
-    </div>
-    {{/sectionreturn}}
 </div>
-{{#js}}
-require(['core_courseformat/local/content'], function(component) {
-    component.init('{{uniqid}}-course-format', {}, {{sectionreturn}});
-});
-{{/js}}
+{{#userisediting}}
+    {{#js}}
+        require(['format_topcoll/content'], function(component) {
+            component.init('{{uniqid}}-course-format', {}, {{sectionreturn}});
+        });
+    {{/js}}
+{{/userisediting}}

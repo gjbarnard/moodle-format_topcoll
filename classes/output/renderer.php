@@ -126,6 +126,8 @@ class renderer extends section_renderer {
     /**
      * Get the updated rendered version of a section.
      *
+     * NOTE: Left here, but I'm currently not sure if used - Shows how could happen as CT does not have 'Section' class.
+     *
      * This method will only be used when the course editor requires to get an updated cm item HTML
      * to perform partial page refresh. It will be used for supporting the course editor webservices.
      *
@@ -156,7 +158,7 @@ class renderer extends section_renderer {
      * @return string HTML to output.
      */
     protected function start_section_list() {
-        return html_writer::start_tag('ul', array('class' => 'ctopics'/*, 'data-for' => 'course_sectionlist'*/));
+        return html_writer::start_tag('ul', array('class' => 'ctopics'));
     }
 
     /**
@@ -169,26 +171,31 @@ class renderer extends section_renderer {
         if (($this->mobiletheme === true) || ($this->tablettheme === true)) {
             $classes .= ' ctportable';
         }
-        if ($this->formatresponsive) {
-            $style = '';
-            if ($this->tcsettings['layoutcolumnorientation'] == 1) { // Vertical columns.
-                $style .= 'width:'.$this->tccolumnwidth.'%;';
+        if (!$this->userisediting) {
+            if ($this->formatresponsive) {
+                $style = '';
+                if ($this->tcsettings['layoutcolumnorientation'] == 1) { // Vertical columns.
+                    $style .= 'width:'.$this->tccolumnwidth.'%;';
+                } else {
+                    $style .= 'width: 100%;';  // Horizontal columns.
+                }
+                if ($this->mobiletheme === false) {
+                    $classes .= ' ctlayout';
+                }
+                $style .= ' padding-left: '.$this->tccolumnpadding.'px; padding-right: '.$this->tccolumnpadding.'px;';
+                $attributes['style'] = $style;
             } else {
-                $style .= 'width: 100%;';  // Horizontal columns.
-            }
-            if ($this->mobiletheme === false) {
-                $classes .= ' ctlayout';
-            }
-            $style .= ' padding-left: '.$this->tccolumnpadding.'px; padding-right: '.$this->tccolumnpadding.'px;';
-            $attributes['style'] = $style;
-        } else {
-            if ($this->tcsettings['layoutcolumnorientation'] == 1) { // Vertical columns.
-                $classes .= ' '.$this->get_column_class($this->tcsettings['layoutcolumns']);
-            } else {
-                $classes .= ' '.$this->get_row_class();
+                if ($this->tcsettings['layoutcolumnorientation'] == 1) { // Vertical columns.
+                    $classes .= ' '.$this->get_column_class($this->tcsettings['layoutcolumns']);
+                } else {
+                    $classes .= ' '.$this->get_row_class();
+                }
             }
         }
         $attributes['class'] = $classes;
+        if ($this->userisediting) {
+            $attributes['data-for'] = 'course_sectionlist';
+        }
 
         return html_writer::start_tag('ul', $attributes);
     }
@@ -309,7 +316,11 @@ class renderer extends section_renderer {
                 case 2:
                 case 5:
                 case 6:
-                    $o .= html_writer::tag('span', $section->section, array('class' => 'cps_centre'));
+                    $attr = array('class' => 'cps_centre');
+                    if ($this->userisediting) {
+                        $attr['id'] = 'tcnoid-'.$section->id;
+                    }
+                    $o .= html_writer::tag('span', $section->section, $attr);
                     break;
             }
         }
@@ -393,15 +404,15 @@ class renderer extends section_renderer {
             'rtl' => $this->rtl,
             'sectionid' => $section->id,
             'sectionno' => $section->section,
-            'sectionreturn' => $sectionreturn
+            'sectionreturn' => $sectionreturn,
+            'userisediting' => $this->userisediting
         );
 
         if ($section->section != 0) {
             // Only in the non-general sections.
             if (!$section->visible) {
                 $sectioncontext['sectionstyle'] = 'hidden';
-            }
-            if ($section->section == $this->currentsection) {
+            } else if ($section->section == $this->currentsection) {
                 $sectioncontext['sectionstyle'] = 'current';
             }
         }
@@ -410,7 +421,7 @@ class renderer extends section_renderer {
             $this->tcsettings = $this->courseformat->get_settings();
         }
 
-        if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
+        if ((!$this->userisediting) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
             if ($this->formatresponsive) {
                 $sectioncontext['horizontalwidth'] = $this->tccolumnwidth;
             } else if ((!$onsectionpage) && ($section->section != 0)) {
@@ -844,7 +855,7 @@ class renderer extends section_renderer {
                 }
             }
 
-            $canbreak = ($this->tcsettings['layoutcolumns'] > 1);
+            $canbreak = ((!$this->userisediting) && ($this->tcsettings['layoutcolumns'] > 1));
             $columncount = 1;
             $breakpoint = 0;
             $shownsectioncount = 0;
