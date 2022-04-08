@@ -11,6 +11,8 @@ Version 4.0.0.1 - TBR
   6. Implications of MDL-73683.
   7. Implications of MDL-73679.
 
+Important!  This version does NOT have drag and drop editing.  This is a known and complex issue, please do not report it as a bug.
+
 Note: Content -> Section -> Section Content -> CMList -> CMItem -> CM -> Activity.  CT Wraps at CMList level.
 
 Version 3.11.0.5 - 15/11/21
