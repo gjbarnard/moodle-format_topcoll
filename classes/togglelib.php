@@ -164,7 +164,7 @@ class togglelib {
     }
 
     /**
-     * Tells us the position of the bit within the digit for the given toggle number and digit postion in the toggles state.
+     * Tells us the position of the bit within the digit for the given toggle number and digit position in the toggles state.
      * int $togglenum - Toggle number.
      * int $togglecharpos - Digit character position.
      * returns int - Digit flag.
