@@ -259,7 +259,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
             array($section1, $this->course, $onsectionpage));
 
         $sectioncontext['columnclass'] = '';
-        $sectioncontext['columnwidth'] = '100';
+        $sectioncontext['columnwidth'] = '';
         $sectioncontext['leftcontent'] = self::call_method($this->outputus, 'section_left_content', array($section1, $this->course, $onsectionpage));
         $sectioncontext['rightcontent'] = self::call_method($this->outputus, 'section_right_content', array($section1, $this->course, $onsectionpage));
         $sectioncontext['sectionpage'] = $onsectionpage;
