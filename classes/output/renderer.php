@@ -425,13 +425,13 @@ class renderer extends section_renderer {
             $this->tcsettings = $this->courseformat->get_settings();
         }
 
-        if ($section->section != 0) {
+        if (($section->section != 0) && (!$onsectionpage)) {
             if ($this->tcsettings['layoutcolumnorientation'] == 3) { // Dynamic column layout.
                 $sectioncontext['columnclass'] = $this->get_column_class('D');
             } else if ((!$this->userisediting) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
                 if ($this->formatresponsive) {
                     $sectioncontext['columnwidth'] = $this->tccolumnwidth;
-                } else if (!$onsectionpage) {
+                } else {
                     $sectioncontext['columnclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
                 }
             }
