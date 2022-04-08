@@ -171,7 +171,9 @@ class renderer extends section_renderer {
         if (($this->mobiletheme === true) || ($this->tablettheme === true)) {
             $classes .= ' ctportable';
         }
-        if (!$this->userisediting) {
+        if ($this->tcsettings['layoutcolumnorientation'] == 3) { // Dynamic columns.
+            $classes .= ' '.$this->get_row_class();
+        } else if (!$this->userisediting) {
             if ($this->formatresponsive) {
                 $style = '';
                 if ($this->tcsettings['layoutcolumnorientation'] == 1) { // Vertical columns.
@@ -421,11 +423,15 @@ class renderer extends section_renderer {
             $this->tcsettings = $this->courseformat->get_settings();
         }
 
-        if ((!$this->userisediting) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
-            if ($this->formatresponsive) {
-                $sectioncontext['horizontalwidth'] = $this->tccolumnwidth;
-            } else if ((!$onsectionpage) && ($section->section != 0)) {
-                $sectioncontext['horizontalclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
+        if ($section->section != 0) {
+            if ($this->tcsettings['layoutcolumnorientation'] == 3) { // Dynamic column layout.
+                $sectioncontext['columnclass'] = $this->get_column_class('D');
+            } else if ((!$this->userisediting) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
+                if ($this->formatresponsive) {
+                    $sectioncontext['columnwidth'] = $this->tccolumnwidth;
+                } else if (!$onsectionpage) {
+                    $sectioncontext['columnclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
+                }
             }
         }
 
@@ -855,7 +861,11 @@ class renderer extends section_renderer {
                 }
             }
 
-            $canbreak = ((!$this->userisediting) && ($this->tcsettings['layoutcolumns'] > 1));
+            $canbreak = (
+                (!$this->userisediting) &&
+                ($this->tcsettings['layoutcolumns'] > 1) &&
+                ($this->tcsettings['layoutcolumnorientation'] != 3) // Dynamic columns
+            );
             $columncount = 1;
             $breakpoint = 0;
             $shownsectioncount = 0;
@@ -1170,7 +1180,8 @@ class renderer extends section_renderer {
             1 => 'col-sm-12',
             2 => 'col-sm-6',
             3 => 'col-md-4',
-            4 => 'col-lg-3');
+            4 => 'col-lg-3',
+            'D' => 'col-sm-12 col-md-12 col-lg-12 col-xl-6');
 
         return $colclasses[$columns];
     }

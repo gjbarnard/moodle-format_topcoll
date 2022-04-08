@@ -10,6 +10,7 @@ Version 4.0.0.1 - TBR
   5. Implications of MDL-73679.
   6. Implications of MDL-73683.
   7. Implications of MDL-73679.
+  8. Add 'Dynamic' option to 'Column orientation' setting.
 
 **Important!**
 To support drag and drop editing, the sections will be shown in order in one column regardless of the number of columns setting.

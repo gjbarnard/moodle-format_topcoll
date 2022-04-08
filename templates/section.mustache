@@ -20,11 +20,11 @@
     Collapsed Topics section template.
 
     Context variables required for this template:
+    * columnclass - Additional classes used when the format has a column layout.
+    * columnwidth - Column layout width.
     * contentaria - Add ARIA attribute to section.
     * cscml - Course section course module list.
     * heading - The heading.
-    * horizontalclass - Additional classes used when the format has a horizontal layout.
-    * horizontalwidth - Horizontal layout width.
     * leftcontent - Right column content.
     * nomtore - No mobile / tablet or editing.
     * rightcontent - Right column content.
@@ -48,11 +48,11 @@
 
     Example context (json):
     {
+        "columnclass": "col-lg-3",
+        "columnwidth": "100",
         "contentaria": true,
         "cscml": "",
         "heading": '<h3 id="sectionid-124-title" class="section-title">Section 1</h3>',
-        "horizontalclass": "col-lg-3",
-        "horizontalwidth": "100",
         "leftcontent": "",
         "nomtore": true,
         "rightcontent": "",
@@ -77,7 +77,7 @@
 }}
 
 
-<li id="section-{{sectionno}}" class="section course-section main clearfix{{#sectionstyle}} {{sectionstyle}}{{/sectionstyle}}{{#horizontalclass}} {{horizontalclass}}{{/horizontalclass}}"{{#horizontalwidth}} style="width: {{horizontalwidth}}%;"{{/horizontalwidth}} role="region" aria-labeled-by="sectionid-{{sectionid}}-title"{{#userisediting}} data-sectionid="{{sectionno}}"{{#sectionreturn}} data-sectionreturnid="{{sectionreturn}}"{{/sectionreturn}} data-for="section" data-id="{{sectionid}}" data-number="{{sectionno}}{{/userisediting}}">
+<li id="section-{{sectionno}}" class="section course-section main clearfix{{#sectionstyle}} {{sectionstyle}}{{/sectionstyle}}{{#columnclass}} {{columnclass}}{{/columnclass}}"{{#columnwidth}} style="width: {{columnwidth}}%;"{{/columnwidth}} role="region" aria-labeled-by="sectionid-{{sectionid}}-title"{{#userisediting}} data-sectionid="{{sectionno}}"{{#sectionreturn}} data-sectionreturnid="{{sectionreturn}}"{{/sectionreturn}} data-for="section" data-id="{{sectionid}}" data-number="{{sectionno}}{{/userisediting}}">
 {{#nomtore}}
     {{^rtl}}
     <div class="left side">{{{leftcontent}}}</div>

@@ -151,6 +151,18 @@ if ($ADMIN->fulltree) {
     );
     $page->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
+    // Default column orientation - 1 = vertical and 2 = horizontal.
+    $name = 'format_topcoll/defaultlayoutcolumnorientation';
+    $title = get_string('defaultlayoutcolumnorientation', 'format_topcoll');
+    $description = get_string('defaultlayoutcolumnorientation_desc', 'format_topcoll');
+    $default = 3;
+    $choices = array(
+        3 => new lang_string('columndynamic', 'format_topcoll'),
+        2 => new lang_string('columnhorizontal', 'format_topcoll'),
+        1 => new lang_string('columnvertical', 'format_topcoll')
+    );
+    $page->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
     // Default number of columns between 1 and 4.
     $name = 'format_topcoll/defaultlayoutcolumns';
     $title = get_string('defaultlayoutcolumns', 'format_topcoll');
@@ -161,17 +173,6 @@ if ($ADMIN->fulltree) {
         2 => new lang_string('two', 'format_topcoll'), // Two.
         3 => new lang_string('three', 'format_topcoll'), // Three.
         4 => new lang_string('four', 'format_topcoll')   // Four.
-    );
-    $page->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
-
-    // Default column orientation - 1 = vertical and 2 = horizontal.
-    $name = 'format_topcoll/defaultlayoutcolumnorientation';
-    $title = get_string('defaultlayoutcolumnorientation', 'format_topcoll');
-    $description = get_string('defaultlayoutcolumnorientation_desc', 'format_topcoll');
-    $default = 2;
-    $choices = array(
-        1 => new lang_string('columnvertical', 'format_topcoll'),
-        2 => new lang_string('columnhorizontal', 'format_topcoll') // Default.
     );
     $page->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 

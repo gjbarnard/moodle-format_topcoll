@@ -174,13 +174,16 @@ $string['resetallcolour'] = 'Colours';
 
 // Columns enhancement.
 $string['setlayoutcolumns'] = 'Columns';
+$string['setlayoutcolumns_help'] = 'How many columns to use.';
 $string['one'] = 'One';
 $string['two'] = 'Two';
 $string['three'] = 'Three';
 $string['four'] = 'Four';
 $string['setlayoutcolumnorientation'] = 'Column orientation';
-$string['columnvertical'] = 'Vertical';
+$string['setlayoutcolumnorientation_help'] = 'Dynamic - Number sections per \'row\' adjust to window size, \'Column\' setting not currently used.<br>Horizontal - Sections go left to right.<br>Vertical - Sections go top to bottom.';
+$string['columndynamic'] = 'Dynamic';
 $string['columnhorizontal'] = 'Horizontal';
+$string['columnvertical'] = 'Vertical';
 
 // MDL-34917 - implemented in M2.5 but needs to be here to support M2.4- versions.
 $string['maincoursepage'] = 'Main course page';
@@ -200,8 +203,6 @@ $string['settogglebackgroundhovercolour_help'] = 'Sets the background colour of 
 $string['resetcolour_help'] = 'Resets the colours and opacities to follow the site default value.';
 $string['resetallcolour_help'] = 'Resets the colours and opacities to follow the site default value.';
 // Columns enhancement.
-$string['setlayoutcolumns_help'] = 'How many columns to use.';
-$string['setlayoutcolumnorientation_help'] = 'Vertical - Sections go top to bottom.<br />Horizontal - Sections go left to right.';
 
 // Moodle 2.4 Course format refactoring - MDL-35218.
 $string['numbersections'] = 'Number of sections';
@@ -286,7 +287,7 @@ $string['defaultlayoutcolumns'] = 'Number of columns';
 $string['defaultlayoutcolumns_desc'] = "Number of columns between one and four.";
 
 $string['defaultlayoutcolumnorientation'] = 'Column orientation';
-$string['defaultlayoutcolumnorientation_desc'] = "The default column orientation: Vertical or Horizontal.";
+$string['defaultlayoutcolumnorientation_desc'] = 'The default column orientation: Dynamic - Number sections per \'row\' adjust to window size, \'Column\' setting not currently used.<br>Horizontal - Sections go left to right.<br>Vertical - Sections go top to bottom.';
 
 $string['defaulttgfgcolour'] = 'Toggle foreground colour';
 $string['defaulttgfgcolour_desc'] = "Toggle foreground colour in hexidecimal RGB.";

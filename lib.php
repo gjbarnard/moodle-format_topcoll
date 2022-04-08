@@ -489,11 +489,11 @@ class format_topcoll extends core_courseformat\base {
                     'default' => 0,
                     'type' => PARAM_INT
                 ),
-                'layoutcolumns' => array(
+                'layoutcolumnorientation' => array(
                     'default' => 0,
                     'type' => PARAM_INT
                 ),
-                'layoutcolumnorientation' => array(
+                'layoutcolumns' => array(
                     'default' => 0,
                     'type' => PARAM_INT
                 ),
@@ -697,6 +697,22 @@ class format_topcoll extends core_courseformat\base {
                     'element_type' => 'select',
                     'element_attributes' => array($layoutstructurevalues)
                 );
+                $layoutcolumnorientationvalues = $this->generate_default_entry(
+                    'layoutcolumnorientation',
+                    0,
+                    array(
+                        3 => new lang_string('columndynamic', 'format_topcoll'),
+                        2 => new lang_string('columnhorizontal', 'format_topcoll'),
+                        1 => new lang_string('columnvertical', 'format_topcoll')
+                    )
+                );
+                $courseformatoptionsedit['layoutcolumnorientation'] = array(
+                    'label' => new lang_string('setlayoutcolumnorientation', 'format_topcoll'),
+                    'help' => 'setlayoutcolumnorientation',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => array($layoutcolumnorientationvalues)
+                );
                 $layoutcolumnsvalues = $this->generate_default_entry(
                     'layoutcolumns',
                     0,
@@ -713,21 +729,6 @@ class format_topcoll extends core_courseformat\base {
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => array($layoutcolumnsvalues)
-                );
-                $layoutcolumnorientationvalues = $this->generate_default_entry(
-                    'layoutcolumnorientation',
-                    0,
-                    array(
-                        1 => new lang_string('columnvertical', 'format_topcoll'),
-                        2 => new lang_string('columnhorizontal', 'format_topcoll')
-                    )
-                );
-                $courseformatoptionsedit['layoutcolumnorientation'] = array(
-                    'label' => new lang_string('setlayoutcolumnorientation', 'format_topcoll'),
-                    'help' => 'setlayoutcolumnorientation',
-                    'help_component' => 'format_topcoll',
-                    'element_type' => 'select',
-                    'element_attributes' => array($layoutcolumnorientationvalues)
                 );
                 $toggleallenabledvalues = $this->generate_default_entry(
                     'toggleallenabled',
