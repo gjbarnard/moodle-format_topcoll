@@ -852,6 +852,26 @@ body.jsenabled #toggle-all {
     width: auto;
 }
 
+element.style {
+}
+.activity-item:not(.activityinline) {
+    border: none;
+}
+.editing .activity-item {
+    cursor: move;
+}
+
+/* Activity padding */
+.format-topcoll .ctopics.topics .activity-item:not(.activityinline) {
+    padding: 1rem 0;
+}
+
+@media (min-width: 768px) {
+    .format-topcoll .ctopics.topics .activity-item:not(.activityinline) {
+        padding: 0.5rem 0;
+    }
+}
+
 /* Activity further information styling */
 .format-topcoll .ct-activity-meta-container {
     padding: 5px 0 0 0;

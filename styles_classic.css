@@ -8,7 +8,7 @@
  *
  * @package    format_topcoll
  * @version    See the value of '$plugin->version' in version.php.
- * @copyright  &copy; 2017-onwards G J Barnard in respect to modifications of standard topics format.
+ * @copyright  &copy; 2022-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
@@ -26,28 +26,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-ul.ctopics .content .summary ul,
-ul.ctopics .content .section ul {
-    margin: 0 0 10px 10px;
-}
-
-ul.ctopics :target::before {
-    height: auto;
-    margin-top: 0;
-    pointer-events: none;
-    width: 0;
-}
-
-.course-content ul.ctopics .current::before {
-    height: auto;
-    left: 0;
-    margin-top: 0;
-}
-
-.format-topcoll.path-course-view.editing #region-main > .card-block {
-    overflow-x: visible;
-}
 
 /* Activity padding */
 .format-topcoll .ctopics.topics .activity-item:not(.activityinline) {
