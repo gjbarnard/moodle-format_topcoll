@@ -11,7 +11,9 @@ Version 4.0.0.1 - TBR
   6. Implications of MDL-73683.
   7. Implications of MDL-73679.
 
-Important!  This version does NOT have drag and drop editing.  This is a known and complex issue, please do not report it as a bug.
+**Important!**
+To support drag and drop editing, the sections will be shown in order in one column regardless of the number of columns setting.
+This is because of the complexities of the functionality, please do not report it as a bug.
 
 Note: Content -> Section -> Section Content -> CMList -> CMItem -> CM -> Activity.  CT Wraps at CMList level.
 

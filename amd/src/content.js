@@ -14,17 +14,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Course index main component.
+ * Collapsed Topics Course index main component.
  *
- * @module     core_courseformat/local/content
- * @class      core_courseformat/local/content
+ * @module     format_topcoll/content
+ * @class      format_topcoll/content
+ * @copyright  2022 G J Barnard based upon work done by:
  * @copyright  2020 Ferran Recio <ferran@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 import Component from 'core_courseformat/local/content';
 import {getCurrentCourseEditor} from 'core_courseformat/courseeditor';
-import Log from "core/log";
 
 export default class TopcollComponent extends Component {
 
@@ -35,10 +35,6 @@ export default class TopcollComponent extends Component {
      */
     create(descriptor) {
         super.create(descriptor);
-        this.selectors.COURSE_TOGGLESECTIONLIST = `[data-for='course_togglesectionlist']`;
-        this.selectors.TOGGLESECTION = `.topcollsection`;
-
-        Log.debug(this.selectors);
     }
 
     /**
@@ -59,57 +55,17 @@ export default class TopcollComponent extends Component {
     }
 
     /**
-     * Return the component watchers.
-     *
-     * @returns {Array} of watchers
-     */
-    getWatchers() {
-        var watchers = super.getWatchers();
-
-        Log.debug("getWatchers() - " + watchers);
-
-        return watchers;
-        // Section return is a global page variable but most formats define it just before start printing
-        // the course content. This is the reason why we define this page setting here.
-        this.reactive.sectionReturn = this.sectionReturn;
-
-        // Check if the course format is compatible with reactive components.
-        if (!this.reactive.supportComponents) {
-            return [];
-        }
-        return [
-            // State changes that require to reload some course modules.
-            {watch: `cm.visible:updated`, handler: this._reloadCm},
-            // Update section number and title.
-            {watch: `section.number:updated`, handler: this._refreshSectionNumber},
-            // Collapse and expand sections.
-            {watch: `section.contentcollapsed:updated`, handler: this._refreshSectionCollapsed},
-            // Sections and cm sorting.
-            {watch: `transaction:start`, handler: this._startProcessing},
-            {watch: `course.sectionlist:updated`, handler: this._refreshCourseSectionlist},
-            {watch: `section.cmlist:updated`, handler: this._refreshSectionCmlist},
-            // Reindex sections and cms.
-            {watch: `state:updated`, handler: this._indexContents},
-            // State changes thaty require to reload course modules.
-            {watch: `cm.visible:updated`, handler: this._reloadCm},
-            {watch: `cm.sectionid:updated`, handler: this._reloadCm},
-        ];
-    }
-
-    /**
      * Refresh the section list.
      *
      * @param {Object} param
      * @param {Object} param.element details the update details.
      */
     _refreshCourseSectionlist({element}) {
-        Log.debug("_refreshCourseSectionlist() - " + element);
         // If we have a section return means we only show a single section so no need to fix order.
         if (this.reactive.sectionReturn != 0) {
             return;
         }
-        const sectionlist = element.sectionlist.slice(1) ?? [];
-        Log.debug("_refreshCourseSectionlist() sectionlist - " + sectionlist);
+        const sectionlist = element.sectionlist.slice(1) ?? []; // Remove section 0 from the list!
         const listparent = this.getElement(this.selectors.COURSE_SECTIONLIST);
         // For now section cannot be created at a frontend level.
         const createSection = this._createSectionItem.bind(this);
@@ -151,13 +107,10 @@ export default class TopcollComponent extends Component {
             }
             let itemno = this.getElement('#tcnoid-'+itemid);
             if (itemno !== undefined) {
-                itemno.textContent = index + 1;
+                itemno.textContent = index + 1; // Update the section number in the 'left' part.
             }
             // Get the current elemnt at that position.
             const currentitem = container.children[index];
-            Log.debug(itemid + ' - ' + index);
-            Log.debug('Item ' + item.id + ' - ' + item.classList);
-            Log.debug('CItem ' + currentitem.id + ' - ' + currentitem.classList);
             if (currentitem === undefined) {
                 container.append(item);
                 return;
