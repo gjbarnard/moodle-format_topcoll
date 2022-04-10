@@ -1,7 +1,7 @@
 ﻿Version Information
 ===================
 
-Version 4.0.0.1 - TBR
+Version 4.0.0.1 - 10/04/22
 -----------------------------
   1. Refactor - Moodle 4.0 version to cope with course format API changes.
   2. Fix 'Error during course creation if defaultdisplayblocks is empty' - CONTRIB-8824.
