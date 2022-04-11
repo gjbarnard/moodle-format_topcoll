@@ -1,6 +1,9 @@
 ﻿Version Information
 ===================
 
+Version 4.0.0.2 - TBR
+-----------------------------
+
 Version 4.0.0.1 - 10/04/22
 -----------------------------
   1. Refactor - Moodle 4.0 version to cope with course format API changes.
