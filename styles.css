@@ -872,6 +872,61 @@ element.style {
     }
 }
 
+/* Indentation */
+@media (min-width: 576px) {
+    .format-topcoll .indent-1 {
+        margin-left: 30px;
+    }
+    .format-topcoll .indent-2 {
+        margin-left: 60px;
+    }
+    .format-topcoll .indent-3 {
+        margin-left: 90px;
+    }
+    .format-topcoll .indent-4 {
+        margin-left: 120px;
+    }
+    .format-topcoll .indent-5 {
+        margin-left: 150px;
+    }
+    .format-topcoll .indent-6 {
+        margin-left: 180px;
+    }
+    .format-topcoll .indent-7 {
+        margin-left: 210px;
+    }
+    .format-topcoll .indent-8 {
+        margin-left: 240px;
+    }
+    .format-topcoll .indent-9 {
+        margin-left: 270px;
+    }
+    .format-topcoll .indent-10 {
+        margin-left: 300px;
+    }
+    .format-topcoll .indent-11 {
+        margin-left: 330px;
+    }
+    .format-topcoll .indent-12 {
+        margin-left: 360px;
+    }
+    .format-topcoll .indent-13 {
+        margin-left: 390px;
+    }
+    .format-topcoll .indent-14 {
+        margin-left: 420px;
+    }
+    .format-topcoll .indent-15 {
+        margin-left: 450px;
+    }
+    .format-topcoll .indent-16 {
+        margin-left: 480px;
+    }
+    .format-topcoll .indent-huge {
+        margin-left: 480px;
+    }
+}
+
 /* Activity further information styling */
 .format-topcoll .ct-activity-meta-container {
     padding: 5px 0 0 0;
