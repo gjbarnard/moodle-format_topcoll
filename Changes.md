@@ -1,7 +1,7 @@
 ﻿Version Information
 ===================
 
-Version 4.0.0.2 - TBR
+Version 4.0.1.0 - 17/04/22
 -----------------------------
   1. Fix 'Indentation not working in moodle 4.0' - #120.
 
