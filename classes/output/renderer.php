@@ -504,6 +504,7 @@ class renderer extends section_renderer {
     protected function section_heading($section, $title, $classes = '') {
         $attributes = array(
             'data-for' => 'section_title',
+            'data-id' => $section->id,
             'data-number' => $section->section,
             'id' => "sectionid-{$section->id}-title"
         );

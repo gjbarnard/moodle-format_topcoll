@@ -1,8 +1,13 @@
 ﻿Version Information
 ===================
 
+Version 4.0.1.1 - TBR
+--------------------------
+  1. Fix 'Moodle 4.0: Reactive state/course index not updating on section renaming' - #121, a big thanks to [PhMemmel](https://github.com/PhMemmel)
+     for the patch in #122.
+
 Version 4.0.1.0 - 17/04/22
------------------------------
+--------------------------
   1. Fix 'Indentation not working in moodle 4.0' - #120.
 
 Version 4.0.0.1 - 10/04/22
@@ -69,7 +74,7 @@ Version 3.11.0.1 - 02/07/2021
   1. Fix 'PHP Notice:  Trying to access array offset on value of type null' when accessing a single section page on PHP 7.4.
   2. Reset language improvements in line with global default tracking as implemented in 3.10.0.2.
   3. Improved backup restore with numsections.
-  4. Added 'Toggle blocks location' functionality, thanks to John Joubert (https://github.com/John-Joubert) for the patch - #100.
+  4. Added 'Toggle blocks location' functionality, thanks to [John Joubert](https://github.com/John-Joubert) for the patch - #100.
   5. Fix 'Deprecation warning for 3.11' - #99.
   6. Fix 'Section content is in a column when using horizontal columns on a single section page'.
   7. Fix 'Column orientation combo box strings'.
