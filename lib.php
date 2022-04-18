@@ -117,6 +117,18 @@ class format_topcoll extends core_courseformat\base {
         return true;
     }
 
+
+    /**
+     * Returns the information about the ajax support. Topcoll uses ajax.
+     *
+     * @return stdClass
+     */
+    public function supports_ajax() {
+        $ajaxsupport = new stdClass();
+        $ajaxsupport->capable = true;
+        return $ajaxsupport;
+    }
+
     /**
      * This format is compatible with the React updates.
      */
