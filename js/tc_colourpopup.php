@@ -32,10 +32,11 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-require_once("HTML/QuickForm/text.php");
+global $CFG;
+require_once($CFG->dirroot."/lib/pear/HTML/QuickForm/text.php");
 
 /**
- * HTML class for a colorpopup type element
+ * HTML class for a colour popup type element
  *
  * @author       Iain Checkland - modified from ColourPicker by Jamie Pratt [thanks]
  * @access       public
