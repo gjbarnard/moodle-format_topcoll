@@ -3,6 +3,7 @@
 
 Version 4.0.1.2 - TBR
 --------------------------
+ 1. Fix 'Indentation changes do not show until page refresh' - related to #126.
 
 Version 4.0.1.1 - 18/07/22
 --------------------------
