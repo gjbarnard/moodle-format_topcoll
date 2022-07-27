@@ -1,6 +1,9 @@
 ﻿Version Information
 ===================
 
+Version 4.0.1.2 - TBR
+--------------------------
+
 Version 4.0.1.1 - 18/07/22
 --------------------------
   1. Fix 'Moodle 4.0: Reactive state/course index not updating on section renaming' - #121, a big thanks to [PhMemmel](https://github.com/PhMemmel)
