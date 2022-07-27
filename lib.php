@@ -104,8 +104,15 @@ class format_topcoll extends core_courseformat\base {
         return true;
     }
 
+    /**
+     * Indentation is deprecated in moodle 4.0.
+     * Function will return false when using moodle 4.0.
+     * 
+     * @return bool 
+     */
     public function uses_indentation(): bool {
-        return true;
+        global $CFG;
+        return $CFG->version < 2022041900;
     }
 
     /**
