@@ -232,42 +232,40 @@ class renderer extends section_renderer {
     protected function section_right_content($section, $course, $onsectionpage, $sectionishidden = false) {
         $o = '';
 
-        if ($section->section != 0) {
-            if ($this->userisediting) {
-                $widgetclass = $this->courseformat->get_output_classname('content\\section\\controlmenu');
-                $widget = new $widgetclass($this->courseformat, $section);
-                $o .= $this->render($widget);
-            } else if ((!$onsectionpage) && (!$sectionishidden)) {
-                if (empty($this->tcsettings)) {
-                    $this->tcsettings = $this->courseformat->get_settings();
-                }
-                $url = new moodle_url('/course/view.php', array('id' => $course->id, 'section' => $section->section));
-                // Get the specific words from the language files.
-                $topictext = null;
-                if (($this->tcsettings['layoutstructure'] == 1) || ($this->tcsettings['layoutstructure'] == 4)) {
-                    $topictext = get_string('setlayoutstructuretopic', 'format_topcoll');
-                } else if (($this->tcsettings['layoutstructure'] == 2) || ($this->tcsettings['layoutstructure'] == 3)) {
-                    $topictext = get_string('setlayoutstructureweek', 'format_topcoll');
-                } else {
-                    $topictext = get_string('setlayoutstructureday', 'format_topcoll');
-                }
-                if ($this->tcsettings['viewsinglesectionenabled'] == 2) {
-                    $title = get_string('viewonly', 'format_topcoll', array('sectionname' => $topictext.' '.$section->section));
-                    switch ($this->tcsettings['layoutelement']) { // Toggle section x.
-                        case 1:
-                        case 3:
-                        case 5:
-                        case 8:
-                            $o .= html_writer::link($url,
-                                $topictext.html_writer::empty_tag('br').
-                                $section->section, array('title' => $title, 'class' => 'cps_centre'));
-                            break;
-                        default:
-                            $o .= html_writer::link($url,
-                                $this->one_section_icon($title),
-                                array('title' => $title, 'class' => 'cps_centre'));
-                            break;
-                    }
+        if ($this->userisediting) {
+            $widgetclass = $this->courseformat->get_output_classname('content\\section\\controlmenu');
+            $widget = new $widgetclass($this->courseformat, $section);
+            $o .= $this->render($widget);
+        } else if ((!$onsectionpage) && (!$sectionishidden)) {
+            if (empty($this->tcsettings)) {
+                $this->tcsettings = $this->courseformat->get_settings();
+            }
+            $url = new moodle_url('/course/view.php', array('id' => $course->id, 'section' => $section->section));
+            // Get the specific words from the language files.
+            $topictext = null;
+            if (($this->tcsettings['layoutstructure'] == 1) || ($this->tcsettings['layoutstructure'] == 4)) {
+                $topictext = get_string('setlayoutstructuretopic', 'format_topcoll');
+            } else if (($this->tcsettings['layoutstructure'] == 2) || ($this->tcsettings['layoutstructure'] == 3)) {
+                $topictext = get_string('setlayoutstructureweek', 'format_topcoll');
+            } else {
+                $topictext = get_string('setlayoutstructureday', 'format_topcoll');
+            }
+            if ($this->tcsettings['viewsinglesectionenabled'] == 2) {
+                $title = get_string('viewonly', 'format_topcoll', array('sectionname' => $topictext.' '.$section->section));
+                switch ($this->tcsettings['layoutelement']) { // Toggle section x.
+                    case 1:
+                    case 3:
+                    case 5:
+                    case 8:
+                        $o .= html_writer::link($url,
+                            $topictext.html_writer::empty_tag('br').
+                            $section->section, array('title' => $title, 'class' => 'cps_centre'));
+                        break;
+                    default:
+                        $o .= html_writer::link($url,
+                            $this->one_section_icon($title),
+                            array('title' => $title, 'class' => 'cps_centre'));
+                        break;
                 }
             }
         }
@@ -374,7 +372,6 @@ class renderer extends section_renderer {
                 array('href' => course_get_url($course, $section->section), 'class' => $linkclasses));
         }
         $sectionsummarycontext['heading'] = $this->section_heading($section, $title, 'section-title');
-
         return $this->render_from_template('format_topcoll/sectionsummary', $sectionsummarycontext);
     }
 
@@ -497,7 +494,6 @@ class renderer extends section_renderer {
                 $sectioncontext['cscml'] .= $this->course_section_add_cm_control($course, $section->section, $sectionreturn);
             }
         }
-
         return $this->render_from_template('format_topcoll/section', $sectioncontext);
     }
 
