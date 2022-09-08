@@ -3,7 +3,8 @@
 
 Version 4.0.1.2 - TBR
 --------------------------
- 1. Fix 'Indentation changes do not show until page refresh' - related to #126.
+1. Fix 'Indentation changes do not show until page refresh' - related to #126.
+2. Fix 'Error when restoring course backup file (with no files included in backup)' - CONTRIB-9019.
 
 Version 4.0.1.1 - 18/07/22
 --------------------------
