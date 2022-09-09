@@ -132,7 +132,6 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
         $courseformat = course_get_format($courseid);
         $settings = $courseformat->get_settings();
 
-        global $DB;
         if (empty($settings['numsections'])) {
             /* Backup file does not contain 'numsections' in the course format options so we need to set it from the number of
                sections we can determine the course has.  The 'default' might be wrong, so there could be an entry in the db
