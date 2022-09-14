@@ -128,7 +128,7 @@ class admin_setting_information extends \admin_setting {
                     $context['maturityalert'] = 'warning';
                 break;
                 case MATURITY_STABLE:
-                    $context['maturity'] = get_string('versionstable', 'format_grid');
+                    $context['maturity'] = get_string('versionstable', 'format_topcoll');
                     $context['maturityalert'] = 'info';
                 break;
             }
