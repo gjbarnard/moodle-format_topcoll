@@ -1,10 +1,13 @@
 ﻿Version Information
 ===================
 
-Version 4.0.1.2 - TBR
+Version 400.1.2 - TBR
 --------------------------
 1. Fix 'Indentation changes do not show until page refresh' - related to #126.
 2. Fix 'Error when restoring course backup file (with no files included in backup)' - CONTRIB-9019.
+3. Changed to semantic versioning 2.0.0 (https://semver.org/) for the release value, whereby the 'major' number is the Moodle core
+   branch number.  The 'version' property still needs to follow the Moodle way in order for the plugin to operate within the core
+   API.
 
 Version 4.0.1.1 - 18/07/22
 --------------------------
