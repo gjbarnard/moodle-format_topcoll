@@ -1,7 +1,7 @@
 ﻿Version Information
 ===================
 
-Version 400.1.2 - 09/11/22
+Version 400.1.2 - 15/11/22
 --------------------------
 1. Fix 'Indentation changes do not show until page refresh' - related to #126.
 2. Fix 'Error when restoring course backup file (with no files included in backup)' - CONTRIB-9019.
