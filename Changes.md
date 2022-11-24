@@ -1,6 +1,9 @@
 ﻿Version Information
 ===================
 
+Version 400.1.3 - TBR
+--------------------------
+
 Version 400.1.2 - 15/11/22
 --------------------------
 1. Fix 'Indentation changes do not show until page refresh' - related to #126.
