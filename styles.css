@@ -159,7 +159,8 @@
 }
 
 .course-content ul.ctopics li.section .content .toggle span.the_toggle h3.sectionname,
-.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname {
+.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname,
+.course-content ul.ctopics .course-section .sectionbadges .badge {
     margin: 4px;
 }
 

@@ -92,6 +92,13 @@
             <span class="the_toggle {{#toggleopen}}toggle_open{{/toggleopen}}{{^toggleopen}}toggle_closed{{/toggleopen}} {{toggleiconsize}}" role="button" aria-expanded="{{#toggleopen}}true{{/toggleopen}}{{^toggleopen}}false{{/toggleopen}}" aria-controls="toggledsection-{{sectionno}}">
                 {{{heading}}}{{#tif}}{{{tif}}}{{/tif}}
                 {{{sectionavailability}}}
+                {{#sectionvisibility}}
+                <div data-region="sectionbadges" class="sectionbadges d-flex align-items-center">
+                    {{$ core_courseformat/local/content/section/badges }}
+                        {{> core_courseformat/local/content/section/badges }}
+                    {{/ core_courseformat/local/content/section/badges }}
+                </div>
+                {{/sectionvisibility}}
             </span>
         </div>
         {{#sectionsummarywhencollapsed}}

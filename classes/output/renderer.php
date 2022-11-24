@@ -446,6 +446,7 @@ class renderer extends section_renderer {
             $sectioncontext['contentaria'] = true;
         }
         $sectioncontext['sectionavailability'] = $this->section_availability($section);
+        $sectioncontext['sectionvisibility'] = $this->add_section_visibility_data($sectioncontext, $section, $context);
 
         if (($onsectionpage == false) && ($section->section != 0)) {
             $sectioncontext['sectionpage'] = false;
@@ -486,6 +487,7 @@ class renderer extends section_renderer {
             $sectioncontext['heading'] = $this->section_heading($section, $title, $headingclass);
             $sectioncontext['summary'] = $this->format_summary_text($section);
         }
+
         if ($this->userisediting && has_capability('moodle/course:update', $context)) {
             $sectioncontext['usereditingicon'] = $this->output->pix_icon('t/edit', get_string('edit'));
             $sectioncontext['usereditingurl'] = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
@@ -499,6 +501,35 @@ class renderer extends section_renderer {
         }
 
         return $this->render_from_template('format_topcoll/section', $sectioncontext);
+    }
+
+    /**
+     * Add the section visibility information to the data structure.
+     *
+     * @param array $data context for the template
+     * @param section_info $section The section.
+     * @param context_course $coursecontext The course context.
+     * @return bool If data
+     */
+    protected function add_section_visibility_data(array &$data, $section, $coursecontext): bool {
+        global $USER;
+        $result = false;
+        // Check if it is a stealth sections (orphaned).
+        if ($section->isstealth) {
+            $data['isstealth'] = true;
+            $data['ishidden'] = true;
+            $result = true;
+        }
+        if (!$section->visible) {
+            $data['ishidden'] = true;
+            $data['notavailable'] = true;
+            if (has_capability('moodle/course:viewhiddensections', $coursecontext, $USER)) {
+                $data['hiddenfromstudents'] = true;
+                $data['notavailable'] = false;
+                $result = true;
+            }
+        }
+        return $result;
     }
 
     protected function section_heading($section, $title, $classes = '') {
