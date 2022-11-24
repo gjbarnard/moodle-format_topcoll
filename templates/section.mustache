@@ -24,6 +24,7 @@
     * columnwidth - Column layout width.
     * contentaria - Add ARIA attribute to section.
     * cscml - Course section course module list.
+    * editing - User is editing.
     * heading - The heading.
     * leftcontent - Right column content.
     * nomtore - No mobile / tablet or editing.
@@ -44,7 +45,6 @@
     * usereditingicon - User editing icon.
     * usereditingtitle - User editing title.
     * usereditingurl - User editing URL.
-    * userisediting - User is editing.
 
     Example context (json):
     {
@@ -52,6 +52,7 @@
         "columnwidth": "100",
         "contentaria": true,
         "cscml": "",
+        "editing": false,
         "heading": '<h3 id="sectionid-124-title" class="section-title">Section 1</h3>',
         "leftcontent": "",
         "nomtore": true,
@@ -71,13 +72,12 @@
         "toggleopen": true,
         "usereditingicon": "",
         "usereditingtitle": "",
-        "usereditingurl": "",
-        "userisediting": false
+        "usereditingurl": ""
     }
 }}
 
 
-<li id="section-{{sectionno}}" class="section course-section main clearfix{{#sectionstyle}} {{sectionstyle}}{{/sectionstyle}}{{#columnclass}} {{columnclass}}{{/columnclass}}"{{#columnwidth}} style="width: {{columnwidth}}%;"{{/columnwidth}} role="region" aria-labeled-by="sectionid-{{sectionid}}-title"{{#userisediting}} data-sectionid="{{sectionno}}"{{#sectionreturn}} data-sectionreturnid="{{sectionreturn}}"{{/sectionreturn}} data-for="section" data-id="{{sectionid}}" data-number="{{sectionno}}{{/userisediting}}">
+<li id="section-{{sectionno}}" class="section course-section main clearfix{{#sectionstyle}} {{sectionstyle}}{{/sectionstyle}}{{#columnclass}} {{columnclass}}{{/columnclass}}"{{#columnwidth}} style="width: {{columnwidth}}%;"{{/columnwidth}} role="region" aria-labeled-by="sectionid-{{sectionid}}-title"{{#editing}} data-sectionid="{{sectionno}}"{{#sectionreturn}} data-sectionreturnid="{{sectionreturn}}"{{/sectionreturn}} data-for="section" data-id="{{sectionid}}" data-number="{{sectionno}}{{/editing}}">
 {{#nomtore}}
     {{^rtl}}
     <div class="left side">{{{leftcontent}}}</div>

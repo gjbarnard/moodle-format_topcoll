@@ -51,6 +51,13 @@
 {{/rtl}}
     <div class="content">
         {{{heading}}}
+        {{#sectionvisibility}}
+        <div data-region="sectionbadges" class="sectionbadges d-inline-block align-items-center">
+            {{$ core_courseformat/local/content/section/badges }}
+                {{> core_courseformat/local/content/section/badges }}
+            {{/ core_courseformat/local/content/section/badges }}
+        </div>
+        {{/sectionvisibility}}
         {{{cscml}}}
         {{{cmcontrols}}}
     </div>

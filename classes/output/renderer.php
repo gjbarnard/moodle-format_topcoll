@@ -409,7 +409,7 @@ class renderer extends section_renderer {
             'sectionid' => $section->id,
             'sectionno' => $section->section,
             'sectionreturn' => $sectionreturn,
-            'userisediting' => $this->userisediting
+            'editing' => $this->userisediting
         );
 
         if ($section->section != 0) {
@@ -446,7 +446,7 @@ class renderer extends section_renderer {
             $sectioncontext['contentaria'] = true;
         }
         $sectioncontext['sectionavailability'] = $this->section_availability($section);
-        $sectioncontext['sectionvisibility'] = $this->add_section_visibility_data($sectioncontext, $section, $context);
+        $sectioncontext['sectionvisibility'] = $this->add_section_visibility_data($sectioncontext, $section, $context, false);
 
         if (($onsectionpage == false) && ($section->section != 0)) {
             $sectioncontext['sectionpage'] = false;
@@ -509,13 +509,14 @@ class renderer extends section_renderer {
      * @param array $data context for the template
      * @param section_info $section The section.
      * @param context_course $coursecontext The course context.
+     * @param bool $isstealth If stealth section.
      * @return bool If data
      */
-    protected function add_section_visibility_data(array &$data, $section, $coursecontext): bool {
+    protected function add_section_visibility_data(array &$data, $section, $coursecontext, $isstealth): bool {
         global $USER;
         $result = false;
-        // Check if it is a stealth sections (orphaned).
-        if ($section->isstealth) {
+        // Check if it is a stealth section (orphaned).
+        if ($isstealth) {
             $data['isstealth'] = true;
             $data['ishidden'] = true;
             $result = true;
@@ -597,6 +598,9 @@ class renderer extends section_renderer {
                 $stealthsectioncontext['columnclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
             }
         }
+
+        $context = context_course::instance($course->id);
+        $stealthsectioncontext['sectionvisibility'] = $this->add_section_visibility_data($stealthsectioncontext, $section, $context, true);
 
         if ($this->courseformat->show_editor()) {
             $stealthsectioncontext['cmcontrols'] =
