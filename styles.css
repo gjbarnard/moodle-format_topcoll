@@ -159,9 +159,13 @@
 }
 
 .course-content ul.ctopics li.section .content .toggle span.the_toggle h3.sectionname,
-.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname,
-.course-content ul.ctopics .course-section .sectionbadges .badge {
+.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname {
     margin: 4px;
+}
+
+.course-content ul.ctopics .course-section .sectionbadges .badge {
+    margin: 3px 0 0;
+    vertical-align: top;
 }
 
 /* Icon set common. */

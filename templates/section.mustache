@@ -91,16 +91,18 @@
         <div id="toggle-{{sectionno}}" class="sectionhead toggle {{^tif}}toggle-{{toggleiconset}}{{/tif}}{{#tif}}tif{{/tif}}" tabindex="0">
             <span class="the_toggle {{#toggleopen}}toggle_open{{/toggleopen}}{{^toggleopen}}toggle_closed{{/toggleopen}} {{toggleiconsize}}" role="button" aria-expanded="{{#toggleopen}}true{{/toggleopen}}{{^toggleopen}}false{{/toggleopen}}" aria-controls="toggledsection-{{sectionno}}">
                 {{{heading}}}{{#tif}}{{{tif}}}{{/tif}}
-                {{{sectionavailability}}}
-                {{#sectionvisibility}}
-                <div data-region="sectionbadges" class="sectionbadges d-flex align-items-center">
-                    {{$ core_courseformat/local/content/section/badges }}
-                        {{> core_courseformat/local/content/section/badges }}
-                    {{/ core_courseformat/local/content/section/badges }}
-                </div>
-                {{/sectionvisibility}}
             </span>
         </div>
+        {{#usereditingtitle}}<span class="hidden" aria-hidden="true">{{usereditingtitle}}</span>{{/usereditingtitle}}
+        {{#usereditingurl}}<a href="{{{usereditingurl}}}" title="{{#str}}editsection, format_topcoll{{/str}}">{{{usereditingicon}}}</a>{{/usereditingurl}}{{!
+        }}{{#sectionvisibility}}{{!
+        }}<div data-region="sectionbadges" class="sectionbadges d-inline-block align-items-center">
+            {{$ core_courseformat/local/content/section/badges }}
+                {{> core_courseformat/local/content/section/badges }}
+            {{/ core_courseformat/local/content/section/badges }}
+        </div>
+        {{/sectionvisibility}}
+        {{{sectionavailability}}}
         {{#sectionsummarywhencollapsed}}
         {{{sectionsummary}}}
         {{/sectionsummarywhencollapsed}}
@@ -108,8 +110,6 @@
             {{^sectionsummarywhencollapsed}}
             {{{sectionsummary}}}
             {{/sectionsummarywhencollapsed}}
-            {{#usereditingtitle}}<span class="hidden" aria-hidden="true">{{usereditingtitle}}</span>{{/usereditingtitle}}
-            {{#usereditingurl}}<a href="{{{usereditingurl}}}" title="{{#str}}editsection, format_topcoll{{/str}}">{{{usereditingicon}}}</a>{{/usereditingurl}}
             {{{cscml}}}
         </div>
         {{/sectionpage}}
