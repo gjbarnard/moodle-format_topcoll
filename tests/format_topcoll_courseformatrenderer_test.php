@@ -320,7 +320,8 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
             'rightcontent' => self::call_method($this->outputus, 'section_right_content', array($section, $this->course, false)),
             'rtl' => false,
             'sectionid' => $section->id,
-            'sectionno' => $section->section
+            'sectionno' => $section->section,
+            'sectionvisibility' => true
         );
 
         $thevalue = self::call_method($this->outputus, 'render_from_template', array('format_topcoll/stealthsection',
