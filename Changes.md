@@ -1,8 +1,9 @@
 ﻿Version Information
 ===================
 
-Version 400.1.3 - TBR
+Version 401.0.1 - TBR
 --------------------------
+1. Release candidate for Moodle 4.1.
 
 Version 400.1.2 - 15/11/22
 --------------------------
