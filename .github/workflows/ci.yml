@@ -8,7 +8,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:12.0
+        image: postgres:13.0
         env:
           POSTGRES_USER: 'postgres'
           POSTGRES_HOST_AUTH_METHOD: 'trust'
@@ -16,10 +16,12 @@ jobs:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
       mariadb:
-        image: mariadb:10.5
+        image: mariadb:10.6
         env:
           MYSQL_USER: 'root'
           MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+          MYSQL_CHARACTER_SET_SERVER: "utf8mb4"
+          MYSQL_COLLATION_SERVER: "utf8mb4_unicode_ci"
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 3
@@ -35,16 +37,10 @@ jobs:
             moodle-branch: 'MOODLE_401_STABLE'
             database: mariadb
           - php: 8.0
-            # The following line is only needed if you're going to run php8 jobs and your
-            # plugin needs xmlrpc services.
-            extensions: xmlrpc-beta
-            moodle-branch: MOODLE_401_STABLE
+            moodle-branch: 'MOODLE_401_STABLE'
             database: pgsql
           - php: 8.0
-            # The following line is only needed if you're going to run php8 jobs and your
-            # plugin needs xmlrpc services.
-            extensions: xmlrpc-beta
-            moodle-branch: MOODLE_401_STABLE
+            moodle-branch: 'MOODLE_401_STABLE'
             database: mariadb
 
     steps:
