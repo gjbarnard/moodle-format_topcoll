@@ -3,6 +3,7 @@
 
 Version 400.1.3 - TBR
 --------------------------
+1. Content component improvements.
 
 Version 400.1.2 - 15/11/22
 --------------------------

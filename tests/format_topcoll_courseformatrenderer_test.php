@@ -135,7 +135,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $this->init();
         $theclass = self::call_method($this->outputus, 'start_toggle_section_list',
             array());
-        $thevalue = '<ul class="ctopics topics row">';
+        $thevalue = '<ul class="ctopics ctoggled topics row">';
 
         $this->assertEquals($thevalue, $theclass);
     }
@@ -377,7 +377,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $theoutput = file_get_contents($CFG->dirroot.'/course/format/topcoll/tests/phpu_data/test_multiple_section_page_css.txt');
         $theoutput .= '<ul class="ctopics">';
         $theoutput .= self::call_method($this->outputus, 'topcoll_section', array($section0, $this->course, false, 0));
-        $theoutput .= '</ul><ul class="ctopics topics row">';
+        $theoutput .= '</ul><ul class="ctopics ctoggled topics row">';
         $theoutput .= self::call_method($this->outputus, 'topcoll_section', array($section1, $this->course, false));
         $theoutput .= '</ul>';
 
@@ -402,7 +402,7 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
         $theoutput .= '<ul class="ctopics">';
         $theoutput .= self::call_method($this->outputus, 'topcoll_section', array($section0, $this->course, false, 0));
         $theoutput .= '</ul><div class="row">';
-        $theoutput .= '<ul class="ctopics topics col-sm-12">';
+        $theoutput .= '<ul class="ctopics ctoggled topics col-sm-12">';
         $theoutput .= self::call_method($this->outputus, 'topcoll_section', array($section1, $this->course, false));
         $theoutput .= '</ul></div>';
 

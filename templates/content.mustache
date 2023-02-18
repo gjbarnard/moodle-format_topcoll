@@ -31,10 +31,16 @@
     <h2 class="accesshide">{{{title}}}</h2>
     {{{content}}}
 </div>
-{{#userisediting}}
-    {{#js}}
-        require(['format_topcoll/content'], function(component) {
-            component.init('{{uniqid}}-course-format', {}, {{sectionreturn}});
-        });
-    {{/js}}
-{{/userisediting}}
+{{#js}}
+    require(['format_topcoll/local/content'], function(component) {
+        component.init(
+            '{{uniqid}}-course-format', 
+            {
+                COLLAPSE: `.ctopics .toggle`,
+                TOGGLEALL: `.ctopics .toggle-all`,
+                TOGGLEALLCLOSED: `toggles-all-closed`
+            },
+            {{sectionreturn}}
+        );
+    });
+{{/js}}
