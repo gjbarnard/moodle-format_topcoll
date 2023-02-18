@@ -166,7 +166,7 @@ class renderer extends section_renderer {
      * @return string HTML to output.
      */
     protected function start_toggle_section_list() {
-        $classes = 'ctopics topics';
+        $classes = 'ctopics ctoggled topics';
         $attributes = array();
         if (($this->mobiletheme === true) || ($this->tablettheme === true)) {
             $classes .= ' ctportable';

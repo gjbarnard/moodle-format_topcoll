@@ -3,6 +3,7 @@
 
 Version 401.0.2 - TBR
 --------------------------
+1. Content component improvements.
 
 Version 401.0.1 - 27/11/22
 --------------------------

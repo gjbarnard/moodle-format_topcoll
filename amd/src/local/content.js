@@ -16,8 +16,8 @@
 /**
  * Collapsed Topics Course index main component.
  *
- * @module     format_topcoll/content
- * @class      format_topcoll/content
+ * @module     format_topcoll/local/content
+ * @class      format_topcoll/local/content
  * @copyright  2022 G J Barnard based upon work done by:
  * @copyright  2020 Ferran Recio <ferran@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -52,6 +52,38 @@ export default class TopcollComponent extends Component {
             selectors,
             sectionReturn,
         });
+    }
+
+    /**
+     * Return the component watchers.
+     *
+     * @returns {Array} of watchers
+     */
+    getWatchers() {
+        // Section return is a global page variable but most formats define it just before start printing
+        // the course content. This is the reason why we define this page setting here.
+        this.reactive.sectionReturn = this.sectionReturn;
+
+        // Check if the course format is compatible with reactive components.
+        if (!this.reactive.supportComponents) {
+            return [];
+        }
+        return [
+            // State changes that require to reload some course modules.
+            {watch: `cm.visible:updated`, handler: this._reloadCm},
+            {watch: `cm.stealth:updated`, handler: this._reloadCm},
+            // Update section number and title.
+            {watch: `section.number:updated`, handler: this._refreshSectionNumber},
+            // Sections and cm sorting.
+            {watch: `transaction:start`, handler: this._startProcessing},
+            {watch: `course.sectionlist:updated`, handler: this._refreshCourseSectionlist},
+            {watch: `section.cmlist:updated`, handler: this._refreshSectionCmlist},
+            // Reindex sections and cms.
+            {watch: `state:updated`, handler: this._indexContents},
+            // State changes thaty require to reload course modules.
+            {watch: `cm.visible:updated`, handler: this._reloadCm},
+            {watch: `cm.sectionid:updated`, handler: this._reloadCm},
+        ];
     }
 
     /**
