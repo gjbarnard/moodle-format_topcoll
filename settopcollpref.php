@@ -38,7 +38,7 @@ require_sesskey();
 // Get the name of the preference to update, and check that it is allowed.
 $name = required_param('pref', PARAM_RAW);
 if (!isset($USER->ajax_updatable_user_prefs[$name])) {
-    print_error('notallowedtoupdateprefremotely');
+    throw new \moodle_exception('notallowedtoupdateprefremotely');
 }
 
 // Get and set the value.
@@ -46,7 +46,7 @@ $value = \format_topcoll\togglelib::required_topcoll_param('value');
 // Update.
 if ($value) {
     if (!set_user_preference($name, $value)) {
-        print_error('errorsettinguserpref');
+        throw new \moodle_exception('errorsettinguserpref');
     }
     echo 'OK';
 } else {
