@@ -116,7 +116,7 @@ export default class TopcollComponent extends Component {
      * @param {function} createMethod method to create missing elements
      */
     async _fixTopcollSectionOrder(container, neworder, selector, dettachedelements, createMethod) {
-        if (container === undefined) {
+        if (!container) {
             return;
         }
 
@@ -133,17 +133,17 @@ export default class TopcollComponent extends Component {
         // Move the elements in order at the beginning of the list.
         neworder.forEach((itemid, index) => {
             let item = this.getElement(selector, itemid) ?? dettachedelements[itemid] ?? createMethod(container, itemid);
-            if (item === undefined) {
+            if (!item) {
                 // Missing elements cannot be sorted.
                 return;
             }
             let itemno = this.getElement('#tcnoid-'+itemid);
-            if (itemno !== undefined) {
+            if (itemno) {
                 itemno.textContent = index + 1; // Update the section number in the 'left' part.
             }
             // Get the current elemnt at that position.
             const currentitem = container.children[index];
-            if (currentitem === undefined) {
+            if (!currentitem) {
                 container.append(item);
                 return;
             }
