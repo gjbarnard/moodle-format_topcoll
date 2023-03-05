@@ -685,7 +685,7 @@ class renderer extends section_renderer {
         );
 
         $sectionzero = $modinfo->get_section_info(0);
-        if ($sectionzero->summary or !empty($modinfo->sections[0]) or $this->page->user_is_editing()) {
+        if ($sectionzero->summary || !empty($modinfo->sections[0]) || $this->page->user_is_editing()) {
             $singlesectioncontext['sectionzero'] = $this->topcoll_section($sectionzero, $course, true, $displaysection);
         }
 
@@ -727,7 +727,7 @@ class renderer extends section_renderer {
         // General section if non-empty.
         $thissection = $sections[0];
         unset($sections[0]);
-        if ($thissection->summary or ! empty($modinfo->sections[0]) or $this->userisediting) {
+        if ($thissection->summary || !empty($modinfo->sections[0]) || $this->userisediting) {
             $content .= $this->topcoll_section($thissection, $course, false);
         }
 
@@ -906,7 +906,7 @@ class renderer extends section_renderer {
             $canbreak = (
                 (!$this->userisediting) &&
                 ($this->tcsettings['layoutcolumns'] > 1) &&
-                ($this->tcsettings['layoutcolumnorientation'] != 3) // Dynamic columns
+                ($this->tcsettings['layoutcolumnorientation'] != 3) // Dynamic columns.
             );
             $columncount = 1;
             $breakpoint = 0;
@@ -998,12 +998,12 @@ class renderer extends section_renderer {
         }
 
         $changenumsections = '';
-        if ($this->userisediting and has_capability('moodle/course:update', $context)) {
+        if ($this->userisediting && has_capability('moodle/course:update', $context)) {
             $changenumsections = $this->change_number_sections($course, 0);
             // Print stealth sections if present.
             foreach ($modinfo->get_section_info_all() as $thissection) {
                 $sectionno = $thissection->section;
-                if ($sectionno <= $coursenumsections or empty($modinfo->sections[$sectionno])) {
+                if ($sectionno <= $coursenumsections || empty($modinfo->sections[$sectionno])) {
                     // This is not stealth section or it is empty.
                     continue;
                 }

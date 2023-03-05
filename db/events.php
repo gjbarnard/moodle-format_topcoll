@@ -38,43 +38,43 @@ defined('MOODLE_INTERNAL') || die();
 $observers = array(
 
     array(
-        'eventname'   => '\core\event\course_content_deleted',
-        'callback'    => 'format_topcoll_observer::course_content_deleted',
+        'eventname' => '\core\event\course_content_deleted',
+        'callback' => 'format_topcoll_observer::course_content_deleted',
     ),
     array(
-        'eventname'   => '\core\event\role_allow_view_updated',
-        'callback'    => 'format_topcoll_observer::role_allow_view_updated',
+        'eventname' => '\core\event\role_allow_view_updated',
+        'callback' => 'format_topcoll_observer::role_allow_view_updated',
     ),
     array(
-        'eventname'   => '\core\event\role_updated',
-        'callback'    => 'format_topcoll_observer::role_updated',
+        'eventname' => '\core\event\role_updated',
+        'callback' => 'format_topcoll_observer::role_updated',
     ),
     array(
-        'eventname'   => '\core\event\role_deleted',
-        'callback'    => 'format_topcoll_observer::role_deleted',
+        'eventname' => '\core\event\role_deleted',
+        'callback' => 'format_topcoll_observer::role_deleted',
     ),
     array(
-        'eventname'   => '\core\event\user_enrolment_created',
-        'callback'    => 'format_topcoll_observer::user_enrolment_created',
+        'eventname' => '\core\event\user_enrolment_created',
+        'callback' => 'format_topcoll_observer::user_enrolment_created',
     ),
     array(
-        'eventname'   => '\core\event\user_enrolment_updated',
-        'callback'    => 'format_topcoll_observer::user_enrolment_updated',
+        'eventname' => '\core\event\user_enrolment_updated',
+        'callback' => 'format_topcoll_observer::user_enrolment_updated',
     ),
     array(
-        'eventname'   => '\core\event\user_enrolment_deleted',
-        'callback'    => 'format_topcoll_observer::user_enrolment_deleted',
+        'eventname' => '\core\event\user_enrolment_deleted',
+        'callback' => 'format_topcoll_observer::user_enrolment_deleted',
     ),
     array(
-        'eventname'   => '\core\event\course_module_created',
-        'callback'    => 'format_topcoll_observer::course_module_created',
+        'eventname' => '\core\event\course_module_created',
+        'callback' => 'format_topcoll_observer::course_module_created',
     ),
     array(
-        'eventname'   => '\core\event\course_module_updated',
-        'callback'    => 'format_topcoll_observer::course_module_updated',
+        'eventname' => '\core\event\course_module_updated',
+        'callback' => 'format_topcoll_observer::course_module_updated',
     ),
     array(
-        'eventname'   => '\core\event\course_module_deleted',
-        'callback'    => 'format_topcoll_observer::course_module_deleted',
+        'eventname' => '\core\event\course_module_deleted',
+        'callback' => 'format_topcoll_observer::course_module_deleted',
     )
 );

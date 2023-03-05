@@ -393,7 +393,7 @@ class format_topcoll extends core_courseformat\base {
         // Return our block list on the correct side.
         return array(
             BLOCK_POS_RIGHT => $bpr,
-            BLOCK_POS_LEFT  => $bpl
+            BLOCK_POS_LEFT => $bpl
         );
     }
 

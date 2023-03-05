@@ -145,7 +145,7 @@ if (!empty($sectioninfo)) {
             foreach ($sectionmods as $modnumber) {
                 $k++;
                 $mod = $modinfo->cms[$modnumber];
-                $cm  = get_coursemodule_from_id('', $mod->id, 0, true, MUST_EXIST);
+                $cm = get_coursemodule_from_id('', $mod->id, 0, true, MUST_EXIST);
 
                 $modcontext = context_module::instance($cm->id);
                 if (has_capability('moodle/course:manageactivities', $modcontext)) {
