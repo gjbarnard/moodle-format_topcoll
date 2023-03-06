@@ -7,6 +7,7 @@ Version 401.0.2 - TBR
 2. Fix 'Deleting sections doesn't work in some layouts' - #130.  A big thank you to Kata (https://github.com/olivabigyo) for the report,
    information and patch.
 3. Add section badges.
+4. Layout tidy.
 
 Version 401.0.1 - 27/11/22
 --------------------------

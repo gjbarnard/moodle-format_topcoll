@@ -562,10 +562,6 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
 }
 
 /* Layout */
-.course-content ul.ctopics #section-0 > .content{
-    padding: 10px;
-}
-
 .course-content ul.ctopics li.section.main .side, .course-content ul.ctopics li.tcsection .side,
 .editing .course-content ul.ctopics li.section.main .side, .editing .course-content ul.ctopics li.tcsection .side {
     padding: 0;
@@ -867,12 +863,12 @@ element.style {
 }
 
 /* Activity padding */
-.format-topcoll .ctopics.topics .activity-item:not(.activityinline) {
+.format-topcoll .ctopics .activity-item:not(.activityinline) {
     padding: 1rem 0;
 }
 
 @media (min-width: 768px) {
-    .format-topcoll .ctopics.topics .activity-item:not(.activityinline) {
+    .format-topcoll .ctopics .activity-item:not(.activityinline) {
         padding: 0.5rem 0;
     }
 }
