@@ -8,25 +8,25 @@ Linux/Unix/MacOS
 or
 Windows\
 
-vendor/bin/phpunit course/format/topcoll/tests/format_topcoll_courseformatlib_test.php
+vendor/bin/phpunit course/format/topcoll/tests/courseformatlib_test.php
 or
-vendor\bin\phpunit course/format/topcoll/tests/format_topcoll_courseformatlib_test.php
+vendor\bin\phpunit course/format/topcoll/tests/courseformatlib_test.php
 
-vendor/bin/phpunit course/format/topcoll/tests/format_topcoll_courseformatrenderer_test.php
+vendor/bin/phpunit course/format/topcoll/tests/courseformatrenderer_test.php
 or
-vendor\bin\phpunit course/format/topcoll/tests/format_topcoll_courseformatrenderer_test.php
+vendor\bin\phpunit course/format/topcoll/tests/courseformatrenderer_test.php
 
-vendor/bin/phpunit course/format/topcoll/tests/format_topcoll_courseformattoolbox_test.php
+vendor/bin/phpunit course/format/topcoll/tests/courseformattoolbox_test.php
 or
-vendor\bin\phpunit course/format/topcoll/tests/format_topcoll_courseformattoolbox_test.php
+vendor\bin\phpunit course/format/topcoll/tests/courseformattoolbox_test.php
 
-vendor/bin/phpunit course/format/topcoll/tests/format_topcoll_privacy_provider_test.php
+vendor/bin/phpunit course/format/topcoll/tests/privacy_provider_test.php
 or
-vendor\bin\phpunit course/format/topcoll/tests/format_topcoll_privacy_provider_test.php
+vendor\bin\phpunit course/format/topcoll/tests/privacy_provider_test.php
 
-vendor/bin/phpunit course/format/topcoll/tests/format_topcoll_togglelib_test.php
+vendor/bin/phpunit course/format/topcoll/tests/togglelib_test.php
 or
-vendor\bin\phpunit course/format/topcoll/tests/format_topcoll_togglelib_test.php
+vendor\bin\phpunit course/format/topcoll/tests/togglelib_test.php
 
 vendor/bin/phpunit --group format_topcoll
 or

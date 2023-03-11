@@ -467,7 +467,10 @@ class format_topcoll extends core_courseformat\base {
                                 array_push($enabledplugins, $plugintype . 's');
                                 break;
                             default:
-                                coding_exception('Try to process invalid plugin', 'Check the plugintypes that are supported by format_topcoll');
+                                coding_exception(
+                                    'Try to process invalid plugin',
+                                    'Check the plugintypes that are supported by format_topcoll'
+                                );
                         }
                     }
                 }
@@ -998,7 +1001,11 @@ class format_topcoll extends core_courseformat\base {
                         )
                     )
                 );
-                $opacityvalues['-'] = new lang_string('default', 'format_topcoll', get_config('format_topcoll', 'defaulttoggleforegroundopacity'));
+                $opacityvalues['-'] = new lang_string(
+                    'default',
+                    'format_topcoll',
+                    get_config('format_topcoll', 'defaulttoggleforegroundopacity')
+                );
                 $courseformatoptionsedit['toggleforegroundopacity'] = array(
                     'label' => new lang_string('settoggleforegroundopacity', 'format_topcoll'),
                     'help' => 'settoggleforegroundopacity',
@@ -1018,7 +1025,11 @@ class format_topcoll extends core_courseformat\base {
                         )
                     )
                 );
-                $opacityvalues['-'] = new lang_string('default', 'format_topcoll', get_config('format_topcoll', 'defaulttoggleforegroundhoveropacity'));
+                $opacityvalues['-'] = new lang_string(
+                    'default',
+                    'format_topcoll',
+                    get_config('format_topcoll', 'defaulttoggleforegroundhoveropacity')
+                );
                 $courseformatoptionsedit['toggleforegroundhoveropacity'] = array(
                     'label' => new lang_string('settoggleforegroundhoveropacity', 'format_topcoll'),
                     'help' => 'settoggleforegroundhoveropacity',
@@ -1038,7 +1049,11 @@ class format_topcoll extends core_courseformat\base {
                         )
                     )
                 );
-                $opacityvalues['-'] = new lang_string('default', 'format_topcoll', get_config('format_topcoll', 'defaulttogglebackgroundopacity'));
+                $opacityvalues['-'] = new lang_string(
+                    'default',
+                    'format_topcoll',
+                    get_config('format_topcoll', 'defaulttogglebackgroundopacity')
+                );
                 $courseformatoptionsedit['togglebackgroundopacity'] = array(
                     'label' => new lang_string('settogglebackgroundopacity', 'format_topcoll'),
                     'help' => 'settogglebackgroundopacity',
@@ -1058,7 +1073,11 @@ class format_topcoll extends core_courseformat\base {
                         )
                     )
                 );
-                $opacityvalues['-'] = new lang_string('default', 'format_topcoll', get_config('format_topcoll', 'defaulttogglebackgroundhoveropacity'));
+                $opacityvalues['-'] = new lang_string(
+                    'default',
+                    'format_topcoll',
+                    get_config('format_topcoll', 'defaulttogglebackgroundhoveropacity')
+                );
                 $courseformatoptionsedit['togglebackgroundhoveropacity'] = array(
                     'label' => new lang_string('settogglebackgroundhoveropacity', 'format_topcoll'),
                     'help' => 'settogglebackgroundhoveropacity',
@@ -1200,7 +1219,10 @@ class format_topcoll extends core_courseformat\base {
 
             $checkboxname = get_string('resetalldisplayinstructions', 'format_topcoll');
             $resetallelements[] = & $mform->createElement('checkbox', 'resetalldisplayinstructions', '', $checkboxname);
-            $resetallelements[] = & $mform->createElement('html', $OUTPUT->help_icon('resetalldisplayinstructions', 'format_topcoll'));
+            $resetallelements[] = & $mform->createElement(
+                'html',
+                $OUTPUT->help_icon('resetalldisplayinstructions', 'format_topcoll')
+            );
 
             $checkboxname = get_string('resetalllayout', 'format_topcoll');
             $resetallelements[] = & $mform->createElement('checkbox', 'resetalllayout', '', $checkboxname);

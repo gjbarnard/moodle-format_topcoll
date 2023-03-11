@@ -70,7 +70,7 @@ jobs:
         env:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
-          CODECHECKER_IGNORE_NAMES: 'tc_colourpopup.php,tc_colourpopup.js'
+          IGNORE_NAMES: 'tc_colourpopup.php,tc_colourpopup.js'
 
       - name: PHP Lint
         if: ${{ always() }}

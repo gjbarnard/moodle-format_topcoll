@@ -25,11 +25,15 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  */
 
+namespace format_topcoll;
+
+use stdClass;
+
 /**
  * Library unit tests for the Collapsed Topics course format.
  * @group format_topcoll
  */
-class format_topcoll_courseformatlib_test extends advanced_testcase {
+class courseformatlib_test extends \advanced_testcase {
 
     protected $course;
     protected $courseformat;

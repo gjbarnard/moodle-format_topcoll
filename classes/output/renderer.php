@@ -428,7 +428,8 @@ class renderer extends section_renderer {
         if (($section->section != 0) && (!$onsectionpage)) {
             if ($this->tcsettings['layoutcolumnorientation'] == 3) { // Dynamic column layout.
                 $sectioncontext['columnclass'] = $this->get_column_class('D');
-            } else if ((!$this->userisediting) && ($this->tcsettings['layoutcolumnorientation'] == 2)) { // Horizontal column layout.
+            } else if ((!$this->userisediting) && ($this->tcsettings['layoutcolumnorientation'] == 2)) {
+                 // User is not editing and horizontal column layout.
                 if ($this->formatresponsive) {
                     $sectioncontext['columnwidth'] = $this->tccolumnwidth;
                 } else {
@@ -490,7 +491,10 @@ class renderer extends section_renderer {
 
         if ($this->userisediting && has_capability('moodle/course:update', $context)) {
             $sectioncontext['usereditingicon'] = $this->output->pix_icon('t/edit', get_string('edit'));
-            $sectioncontext['usereditingurl'] = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
+            $sectioncontext['usereditingurl'] = new moodle_url(
+                '/course/editsection.php',
+                array('id' => $section->id, 'sr' => $sectionreturn)
+            );
         }
 
         if ($section->uservisible) {
@@ -600,7 +604,8 @@ class renderer extends section_renderer {
         }
 
         $context = context_course::instance($course->id);
-        $stealthsectioncontext['sectionvisibility'] = $this->add_section_visibility_data($stealthsectioncontext, $section, $context, true);
+        $stealthsectioncontext['sectionvisibility'] = $this->add_section_visibility_data(
+            $stealthsectioncontext, $section, $context, true);
 
         if ($this->courseformat->show_editor()) {
             $stealthsectioncontext['cmcontrols'] =
@@ -943,7 +948,7 @@ class renderer extends section_renderer {
                     $toggledsections[] = $thissection->section;
                 }
 
-                // Only check for breaking up the structure with rows if more than one column and when we output all of the sections.
+                // Check for breaking up the structure with rows if more than one column and when we output all of the sections.
                 if ($canbreak === true) {
                     // Only break in non-mobile themes or using a responsive theme.
                     if ((!$this->formatresponsive) || ($this->mobiletheme === false)) {
@@ -1126,7 +1131,11 @@ class renderer extends section_renderer {
         $topcollsidewidthlang = strcmp(substr($topcollsidewidth, 0, $topcollsidewidthdelim), current_language());
         $topcollsidewidthval = substr($topcollsidewidth, $topcollsidewidthdelim + 1);
         // Dynamically changing widths with language.
-        if ((!$this->userisediting) && (($this->mobiletheme == false) && ($this->tablettheme == false)) && ($topcollsidewidthlang == 0)) {
+        if ((!$this->userisediting) &&
+            (($this->mobiletheme == false) &&
+            ($this->tablettheme == false)) &&
+            ($topcollsidewidthlang == 0)
+            ) {
             $coursestylescontext['topcollsidewidthval'] = $topcollsidewidthval;
         } else if ($this->userisediting) {
             $coursestylescontext['topcollsidewidthval'] = '40px';
@@ -1143,10 +1152,22 @@ class renderer extends section_renderer {
         }
 
         // Site wide configuration Site Administration -> Plugins -> Course formats -> Collapsed Topics.
-        $coursestylescontext['tcborderradiustl'] = clean_param(get_config('format_topcoll', 'defaulttoggleborderradiustl'), PARAM_TEXT);
-        $coursestylescontext['tcborderradiustr'] = clean_param(get_config('format_topcoll', 'defaulttoggleborderradiustr'), PARAM_TEXT);
-        $coursestylescontext['tcborderradiusbr'] = clean_param(get_config('format_topcoll', 'defaulttoggleborderradiusbr'), PARAM_TEXT);
-        $coursestylescontext['tcborderradiusbl'] = clean_param(get_config('format_topcoll', 'defaulttoggleborderradiusbl'), PARAM_TEXT);
+        $coursestylescontext['tcborderradiustl'] = clean_param(
+            get_config('format_topcoll', 'defaulttoggleborderradiustl'),
+            PARAM_TEXT
+        );
+        $coursestylescontext['tcborderradiustr'] = clean_param(
+            get_config('format_topcoll', 'defaulttoggleborderradiustr'),
+            PARAM_TEXT
+        );
+        $coursestylescontext['tcborderradiusbr'] = clean_param(
+            get_config('format_topcoll', 'defaulttoggleborderradiusbr'),
+            PARAM_TEXT
+        );
+        $coursestylescontext['tcborderradiusbl'] = clean_param(
+            get_config('format_topcoll', 'defaulttoggleborderradiusbl'),
+            PARAM_TEXT
+        );
 
         return $this->render_from_template('format_topcoll/coursestyles', $coursestylescontext);
     }

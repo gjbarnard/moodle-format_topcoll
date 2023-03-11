@@ -25,11 +25,13 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  */
 
+namespace format_topcoll;
+
 /**
  * Togglelib unit tests for the Collapsed Topics course format.
  * @group format_topcoll
  */
-class format_topcoll_togglelib_test extends advanced_testcase {
+class togglelib_test extends \advanced_testcase {
 
     public function test_decode_toggle_state() {
         $togglelib = new \format_topcoll\togglelib;

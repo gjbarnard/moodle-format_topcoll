@@ -25,6 +25,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace format_topcoll;
+
 use \core_privacy\local\metadata\collection;
 use \core_privacy\local\request\writer;
 use \format_topcoll\privacy\provider;
@@ -33,7 +35,7 @@ use \format_topcoll\privacy\provider;
  * Privacy unit tests for the Collapsed Topics course format.
  * @group format_topcoll
  */
-class format_topcoll_privacy_provider_test extends \core_privacy\tests\provider_testcase {
+class privacy_provider_test extends \core_privacy\tests\provider_testcase {
 
     protected $outputus;
     protected $course;

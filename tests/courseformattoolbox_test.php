@@ -25,11 +25,13 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  */
 
+namespace format_topcoll;
+
 /**
  * Toolbox unit tests for the Collapsed Topics course format.
  * @group format_topcoll
  */
-class format_topcoll_courseformattoolbox_test extends advanced_testcase {
+class courseformattoolbox_test extends \advanced_testcase {
 
     protected function setUp(): void {
         $this->resetAfterTest(true);

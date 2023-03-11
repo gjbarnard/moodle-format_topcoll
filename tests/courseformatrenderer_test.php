@@ -25,11 +25,13 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  */
 
+namespace format_topcoll;
+
 /**
  * Renderer unit tests for the Collapsed Topics course format.
  * @group format_topcoll
  */
-class format_topcoll_courseformatrenderer_test extends advanced_testcase {
+class courseformatrenderer_test extends \advanced_testcase {
 
     protected $outputus;
     protected $ouroutput;
@@ -346,16 +348,37 @@ class format_topcoll_courseformatrenderer_test extends advanced_testcase {
             'maincoursepageicon' => $this->ouroutput->pix_icon('t/less', $maincoursepage),
             'maincoursepagestr' =>  $maincoursepage,
             'maincoursepageurl' => new moodle_url('/course/view.php', array('id' => $course->id)),
-            'sectionnavselection' => self::call_method($this->outputus, 'section_nav_selection', array($course, null, $displaysection)),
+            'sectionnavselection' => self::call_method(
+                $this->outputus,
+                'section_nav_selection', 
+                array($course, null, $displaysection)
+            ),
             'sectiontitle' => '<h3 class="sectionname">Section 1</h3>',
-            'sectionzero' => self::call_method($this->outputus, 'topcoll_section', array($sectionzero, $course, true, $displaysection, array('sr' => $displaysection))),
-            'thissection' => self::call_method($this->outputus, 'topcoll_section', array($thissection, $course, true, $displaysection, array('sr' => $displaysection)))
+            'sectionzero' => self::call_method(
+                $this->outputus, 'topcoll_section',
+                array($sectionzero, $course, true, $displaysection, array('sr' => $displaysection))
+            ),
+            'thissection' => self::call_method(
+                $this->outputus,
+                'topcoll_section',
+                array($thissection, $course, true, $displaysection, array('sr' => $displaysection))
+            )
         );
-        $sectionnavlinks = self::call_method($this->outputus, 'get_nav_links', array($this->course, $modinfo->get_section_info_all(), $displaysection));
+        $sectionnavlinks = self::call_method(
+            $this->outputus,
+            'get_nav_links',
+            array($this->course,
+            $modinfo->get_section_info_all(),
+            $displaysection)
+        );
         $singlesectioncontext['sectionnavlinksprevious'] = $sectionnavlinks['previous'];
         $singlesectioncontext['sectionnavlinksnext'] = $sectionnavlinks['next'];
 
-        $theoutput = self::call_method($this->outputus, 'render_from_template', array('format_topcoll/singlesection', $singlesectioncontext));
+        $theoutput = self::call_method(
+            $this->outputus,
+            'render_from_template',
+            array('format_topcoll/singlesection', $singlesectioncontext)
+        );
 
         $this->expectOutputString($theoutput);
     }
