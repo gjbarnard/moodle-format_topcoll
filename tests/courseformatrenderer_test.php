@@ -350,7 +350,7 @@ class courseformatrenderer_test extends \advanced_testcase {
             'maincoursepageurl' => new moodle_url('/course/view.php', array('id' => $course->id)),
             'sectionnavselection' => self::call_method(
                 $this->outputus,
-                'section_nav_selection', 
+                'section_nav_selection',
                 array($course, null, $displaysection)
             ),
             'sectiontitle' => '<h3 class="sectionname">Section 1</h3>',
