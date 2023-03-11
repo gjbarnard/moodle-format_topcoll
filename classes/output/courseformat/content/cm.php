@@ -121,17 +121,25 @@ class cm extends cm_base {
             }
             if (!empty($engagementmeta)) {
                 $params = array(
-                    'action' => 'grading',
-                    'id' => $mod->id,
-                    'tsort' => 'timesubmitted',
-                    'filter' => 'require_grading'
+                    'id' => $mod->id
                 );
+                $file = 'view';
+
+                switch ($mod->modname) {
+                    case 'assign':
+                        $params['action'] = 'grading';
+                    break;
+                    case 'quiz':
+                        $file = 'report';
+                        $params['mode'] = 'overview';
+                    break;
+                }
 
                 $sectioncmmetacontext = array(
                     'linkclass' => 'ct-activity-action',
                     'linkicon' => $OUTPUT->pix_icon('docs', get_string('info')),
                     'linktext' => implode(', ', $engagementmeta),
-                    'linkurl' => new \moodle_url("/mod/{$mod->modname}/view.php", $params),
+                    'linkurl' => new \moodle_url("/mod/{$mod->modname}/{$file}.php", $params),
                     'type' => 'engagement'
                 );
                 $content = $OUTPUT->render_from_template('format_topcoll/sectioncmmeta', $sectioncmmetacontext);
