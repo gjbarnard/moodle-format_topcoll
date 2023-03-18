@@ -1,5 +1,5 @@
 ---
-name: Feature request
+name: Feature / improvement request
 about: Suggest an idea for this project
 title: ''
 labels: Enhancement, Funding required, Pending investigation

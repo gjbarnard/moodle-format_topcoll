@@ -7,7 +7,7 @@ assignees: gjb2048
 
 ---
 
-Please use this when you have a general question about the format that is not a bug or enhancement / improvement.
+Please use this when you have a general question about the format that is not a bug, enhancement / improvement or support.
 
 **Versions (please complete the following information):**
  - Moodle: [e.g. 4.1]
