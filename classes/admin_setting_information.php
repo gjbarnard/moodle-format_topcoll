@@ -41,7 +41,7 @@ namespace format_topcoll;
  */
 class admin_setting_information extends \admin_setting {
 
-    /** @var int The branch this Grid format is for. */
+    /** @var int The branch this is for. */
     protected $mbranch;
 
     /**
@@ -50,7 +50,7 @@ class admin_setting_information extends \admin_setting {
      * @param string $name Setting name.
      * @param string $visiblename Setting name on the device.
      * @param string $description Setting description on the device.
-     * @param string $mbranch The branch this Grid format is for.
+     * @param string $mbranch The branch this is for.
      */
     public function __construct($name, $visiblename, $description, $mbranch) {
         $this->nosave = true;
