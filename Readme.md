@@ -270,8 +270,11 @@ Desired Enhancements
 1. Smoother animated toggle action.
 2. Toggle saving only when the user closes the window / moves to another course.
 
-Me
-==
+Developed and maintained by
+===========================
 G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE.
-Moodle profile: http://moodle.org/user/profile.php?id=442195.
-Web profile   : http://about.me/gjbarnard
+
+- Moodle profile | [Moodle.org](https://moodle.org/user/profile.php?id=442195)
+- @gjbarnard     | [Twitter](https://twitter.com/gjbarnard)
+- Web profile    | [About.me](https://about.me/gjbarnard)
+- Website        | [Website](https://gjbarnard.co.uk)
