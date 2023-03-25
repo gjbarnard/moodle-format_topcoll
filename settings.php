@@ -48,6 +48,10 @@ if ($ADMIN->fulltree) {
 
     // Support.md.
     $page->add(new \format_topcoll\admin_setting_markdown('format_topcoll/formatsupport', '', '', 'Support.md'));
+
+    // Changes.md.
+    $page->add(new \format_topcoll\admin_setting_markdown('format_topcoll/formatchanges',
+        get_string('informationchanges', 'format_topcoll'), '', 'Changes.md'));
 }
 $ADMIN->add('format_topcoll', $page);
 

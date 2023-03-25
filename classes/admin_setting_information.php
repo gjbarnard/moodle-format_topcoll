@@ -105,11 +105,19 @@ class admin_setting_information extends \admin_setting {
             $plugininfo->version = $plugininfo->versiondisk;
         }
 
+        $classes[] = 'fa fa-heart';
+        $attributes = array();
+        $attributes['aria-hidden'] = 'true';
+        $attributes['class'] = 'fa fa-heart';
+        $attributes['title'] = get_string('love', 'format_topcoll');
+        $content = \html_writer::tag('span', $attributes['title'], array('class' => 'sr-only'));
+        $content = \html_writer::tag('span', $content, $attributes);
         $context['versioninfo'] = get_string('versioninfo', 'format_topcoll',
             array(
                 'moodle' => $CFG->release,
                 'release' => $plugininfo->release,
-                'version' => $plugininfo->version
+                'version' => $plugininfo->version,
+                'love' => $content
             )
         );
 
