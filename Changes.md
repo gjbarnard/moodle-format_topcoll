@@ -1,7 +1,7 @@
 ﻿Version Information
 ===================
 
-Version 401.0.2 - TBR
+Version 401.1.0 - 01/04/23
 --------------------------
 1. Content component improvements.
 2. Fix 'Deleting sections doesn't work in some layouts' - #130.  A big thank you to Kata (https://github.com/olivabigyo) for the report,
