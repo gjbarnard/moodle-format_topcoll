@@ -145,10 +145,19 @@ class renderer extends section_renderer {
         if ($section->section == 0) {
             return '';
         }
+        if (empty($this->tcsettings)) {
+            $this->tcsettings = $format->get_settings();
+        }
         $this->set_user_preferences();
 
-        $section->toggle = true;  // TODO.
-        $output = $this->topcoll_section($section, $format->get_course(), false);
+        $course = $format->get_course();
+        // If section no > sections then orphan = stealth.
+        if ($section->section > $course->numsections) {
+            $output = $this->stealth_section($section, $course);
+        } else {
+            $section->toggle = true; // TODO.
+            $output = $this->topcoll_section($section, $course, false);
+        }
 
         return $output;
     }

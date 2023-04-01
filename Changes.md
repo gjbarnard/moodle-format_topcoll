@@ -9,6 +9,7 @@ Version 401.0.2 - TBR
 3. Add section badges.
 4. Layout tidy.
 5. Fix 'Additional information links for forum, quiz, & assignment do not work as expected' - #113.
+6. Fix 'Orphaned sections become normal sections when moving sections'.
 
 Version 401.0.1 - 27/11/22
 --------------------------
