@@ -1,6 +1,10 @@
 ﻿Version Information
 ===================
 
+Version 4021.0.1 - TBR
+--------------------------
+1. Removed duplicate section functionality as core has its own version.
+
 Version 401.1.0 - 01/04/23
 --------------------------
 1. Content component improvements.

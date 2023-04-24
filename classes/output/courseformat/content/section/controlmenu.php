@@ -85,20 +85,6 @@ class controlmenu extends controlmenu_base {
             $menu->add($al);
         }
 
-        $course = $this->format->get_course();
-        $coursecontext = context_course::instance($course->id);
-        if (has_capability('moodle/course:manageactivities', $coursecontext)) {
-            $duplicatestr = get_string('duplicate', 'format_topcoll');
-            $duplicateurl = new moodle_url('/course/format/topcoll/duplicate.php',
-                array('courseid' => $course->id, 'sectionno' => $section->section, 'sesskey' => sesskey()));
-            $link = new \action_link($duplicateurl, ' '.$duplicatestr, null,
-                array('class' => 'menu-action', 'role' => 'menuitem'),
-                new \pix_icon('t/copy', $duplicatestr));
-            $link->add_action(new \confirm_action(get_string('duplicateconfirm', 'format_topcoll'), null,
-                $duplicatestr));
-            $menu->add_secondary_action($link);
-        }
-
         $data = (object)[
             'menu' => $output->render($menu),
             'hasmenu' => true,

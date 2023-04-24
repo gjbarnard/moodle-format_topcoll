@@ -56,7 +56,8 @@ class format_topcoll extends core_courseformat\base {
         parent::__construct($format, $courseid);
 
         $section = optional_param('section', 0, PARAM_INT);
-        if ($section) {
+        $duplicatesection = optional_param('duplicatesection', 0, PARAM_INT);
+        if ($section && !$duplicatesection) {
             $this->coursedisplay = COURSE_DISPLAY_MULTIPAGE;
         }
     }
@@ -1777,6 +1778,25 @@ class format_topcoll extends core_courseformat\base {
 
         return $rv;
     }
+
+    /**
+     * Duplicate a section
+     *
+     * @param section_info $originalsection The section to be duplicated
+     * @return section_info The new duplicated section
+     * @since Moodle 4.2
+     */
+    public function duplicate_section(section_info $originalsection): section_info {
+        $retr = parent::duplicate_section($originalsection);
+
+        // Update 'numsections'.
+        $newnumsections = $this->settings['numsections'] + 1;
+        $courseformatdata = array('numsections' => $newnumsections);
+        $this->update_course_format_options($courseformatdata);
+
+        return $retr;
+    }
+
 }
 
 /**

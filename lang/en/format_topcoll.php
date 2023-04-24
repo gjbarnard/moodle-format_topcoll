@@ -446,16 +446,6 @@ $string['xposted'] = '{$a->completed} posted';
 $string['xsubmitted'] = '{$a->completed} submitted';
 $string['xungraded'] = '{$a} ungraded';
 
-// Duplicate section.
-$string['creatingsection'] = 'Creating new section';
-$string['duplicate'] = 'Duplicate';
-$string['duplicateconfirm'] = 'Are you sure you want to duplicate the current section?  This can take a while depending on the amount of resources.';
-$string['duplicating'] = 'Duplicating';
-$string['errornosectioninfo'] = 'The indicated topic have not information';
-$string['progresscounter'] = 'Duplicating activities ({$a->current}/{$a->size})';
-$string['progressfull'] = 'Duplicating topic';
-$string['rebuildcoursecache'] = 'Rebuild course cache';
-
 // Readme.
 $string['readme_title'] = 'Collapsed Topics read-me';
 $string['readme_desc'] = 'Please click on \'{$a->url}\' for lots more information about Collapsed Topics.';
