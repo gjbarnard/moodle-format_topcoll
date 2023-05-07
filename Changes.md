@@ -1,9 +1,10 @@
 ﻿Version Information
 ===================
 
-Version 4021.0.1 - TBR
+Version 402.1.0 - TBR
 --------------------------
-1. Removed duplicate section functionality as core has its own version.
+1. First Moodle 4.2 release.
+2. Removed duplicate section functionality as core has its own version.
 
 Version 401.1.0 - 01/04/23
 --------------------------
