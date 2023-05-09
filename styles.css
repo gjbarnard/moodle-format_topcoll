@@ -959,6 +959,16 @@ element.style {
     z-index: 500;
 }
 
+.tcjumptocontainer {
+    left: 0;
+    position: absolute;
+    right: 0;
+}
+
+.tcjumptocontainer .tcjumpto {
+    text-align: center;
+}
+
 /* Print styles. */
 @media print {
     body.jsenabled .toggledsection {
