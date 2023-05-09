@@ -54,7 +54,7 @@ trait format_renderer_migration_toolbox {
     protected function section_activity_summary($section, $course, $mods) {
         $widgetclass = $this->courseformat->get_output_classname('content\\section\\cmsummary');
         $widget = new $widgetclass($this->courseformat, $section);
-        $this->render($widget);
+        return $this->render($widget);
     }
 
     /**

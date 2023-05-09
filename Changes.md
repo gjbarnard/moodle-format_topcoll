@@ -3,6 +3,7 @@
 
 Version 402.1.1 - TBR
 --------------------------
+1. Fix 'section_activity_summary' method.
 
 Version 402.1.0 - 07/05/23
 --------------------------
