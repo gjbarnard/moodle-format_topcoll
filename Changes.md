@@ -16,6 +16,7 @@ Version 400.1.2 - 15/11/22
    branch number.  The 'version' property still needs to follow the Moodle way in order for the plugin to operate within the core
    API.
 4. Single section navigation fixes.
+5. Improve single section navigation appearance.
 
 Version 4.0.1.1 - 18/07/22
 --------------------------
