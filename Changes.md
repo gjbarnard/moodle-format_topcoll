@@ -4,6 +4,7 @@
 Version 402.1.1 - TBR
 --------------------------
 1. Fix 'section_activity_summary' method.
+2. Single section navigation fixes.
 
 Version 402.1.0 - 07/05/23
 --------------------------
