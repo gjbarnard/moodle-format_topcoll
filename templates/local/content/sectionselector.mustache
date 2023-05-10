@@ -30,20 +30,18 @@
         "selector": "<select><option>Section 4</option></select>"
     }
 }}
-<div class="section-navigation mdl-bottom d-flex justify-content-between">
-    <div class="prevsection">
+<div class="section-navigation mdl-bottom tc-selection-selector-container">
+    <div class="tc-selection-selector-item prevsection">
         {{#hasprevious}}
         <a href="{{{previousurl}}}"{{#previoushidden}} class="dimmed_text"{{/previoushidden}}>
             <span class="fa fa-arrow-circle-o-left mr-1"></span>{{{previousname}}}
         </a>
         {{/hasprevious}}
     </div>
-    <div class="tcjumptocontainer">
-        <div class="tcjumpto">
-            {{{selector}}}
-        </div>
+    <div class="tc-selection-selector-item jumpto">
+        {{{selector}}}
     </div>
-    <div class="nextsection">
+    <div class="tc-selection-selector-item nextsection">
         {{#hasnext}}
         <a href="{{{nexturl}}}"{{#nexthidden}} class="dimmed_text"{{/nexthidden}}>
             {{{nextname}}}<span class="fa fa-arrow-circle-o-right ml-1"></span>
