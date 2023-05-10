@@ -959,14 +959,27 @@ element.style {
     z-index: 500;
 }
 
-.tcjumptocontainer {
-    left: 0;
-    position: absolute;
-    right: 0;
+/* Single section navigation */
+.course-content .single-section .section-navigation.tc-selection-selector-container {
+    align-items: center;
+    display: flex;
 }
 
-.tcjumptocontainer .tcjumpto {
-    text-align: center;
+.course-content .single-section .section-navigation .tc-selection-selector-item {
+    display: flex;
+    flex: 1 0 0%;
+}
+
+.tc-selection-selector-item.prevsection {
+    justify-content: flex-start;
+}
+
+.tc-selection-selector-item.jumpto {
+    justify-content: center;
+}
+
+.tc-selection-selector-item.nextsection {
+    justify-content: flex-end;
 }
 
 /* Print styles. */
