@@ -12,6 +12,8 @@ jobs:
         env:
           MYSQL_USER: 'root'
           MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+          MYSQL_CHARACTER_SET_SERVER: "utf8mb4"
+          MYSQL_COLLATION_SERVER: "utf8mb4_unicode_ci"
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 3
@@ -27,7 +29,7 @@ jobs:
             moodle-branch: 'MOODLE_400_STABLE'
             database: mariadb
           - php: 8.0
-            moodle-branch: MOODLE_400_STABLE
+            moodle-branch: 'MOODLE_400_STABLE'
             database: mariadb
 
     steps:
@@ -57,7 +59,7 @@ jobs:
         env:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
-          CODECHECKER_IGNORE_NAMES: 'tc_colourpopup.php,tc_colourpopup.js'
+          IGNORE_NAMES: 'tc_colourpopup.php,tc_colourpopup.js'
 
       - name: PHP Lint
         if: ${{ always() }}
