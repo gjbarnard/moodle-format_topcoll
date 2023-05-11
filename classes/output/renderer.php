@@ -1032,6 +1032,7 @@ class renderer extends section_renderer {
         }
 
         $content .= $changenumsections;
+        $content .= $this->bulkedittools();
 
         // Now initialise the JavaScript.
         $toggles = $this->togglelib->get_toggles();

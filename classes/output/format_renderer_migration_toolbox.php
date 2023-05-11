@@ -120,6 +120,8 @@ trait format_renderer_migration_toolbox {
      *
      * @param stdClass $course
      * @param int|null $sectionreturn
+     *
+     * @return string HTML to output.
      */
     protected function change_number_sections($course, $sectionreturn = null) {
         if ($sectionreturn) {
@@ -128,5 +130,19 @@ trait format_renderer_migration_toolbox {
         $outputclass = $this->courseformat->get_output_classname('content\\addsection');
         $widget = new $outputclass($this->courseformat);
         return $this->render($widget);
+    }
+
+    /**
+     * Returns bulk edit tools if any.
+     *
+     * @return string HTML to output.
+     */
+    protected function bulkedittools() {
+        if ($this->courseformat->show_editor()) {
+            $outputclass = $this->courseformat->get_output_classname('content\\bulkedittools');
+            $widget = new $outputclass($this->courseformat);
+            return $this->render($widget);
+        }
+        return '';
     }
 }
