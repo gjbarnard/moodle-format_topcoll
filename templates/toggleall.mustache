@@ -49,11 +49,11 @@
     {{/spacer}}
     <div class="content">
         <div class="sectionbody toggle-all-content {{^tif}}toggle-{{toggleiconset}} {{#toggleallhover}}toggle-{{toggleiconset}}-hover{{/toggleallhover}}{{/tif}}{{#tif}}tif{{/tif}}">
-            <span id="toggles-all-opened" class="toggle-all on {{tctoggleiconsize}}" role="button" title="{{sctopenall}}" tabindex="0" aria-controls="{{ariacontrols}}">
-                <h4>{{#str}}topcollopened, format_topcoll{{/str}}</h4>{{#tif}}{{{tif}}}{{/tif}}
-            </span>
-            <span id="toggles-all-closed" class="toggle-all off {{tctoggleiconsize}}" role="button" title="{{sctcloseall}}" tabindex="0" aria-controls="{{ariacontrols}}">
-                <h4>{{#str}}topcollclosed, format_topcoll{{/str}}</h4>{{#tif}}{{{tif}}}{{/tif}}
+            <span id="toggles-all-opened" class="toggle-all on {{tctoggleiconsize}}{{#tif}} tif-container{{/tif}}" role="button" title="{{sctopenall}}" tabindex="0" aria-controls="{{ariacontrols}}">
+                {{#tif}}{{{tif}}}{{/tif}}<h4{{#tif}} class="tif-item"{{/tif}}>{{#str}}topcollopened, format_topcoll{{/str}}</h4>
+            </span>{{!
+            }}<span id="toggles-all-closed" class="toggle-all off {{tctoggleiconsize}}{{#tif}} tif-container{{/tif}}" role="button" title="{{sctcloseall}}" tabindex="0" aria-controls="{{ariacontrols}}">
+                {{#tif}}{{{tif}}}{{/tif}}<h4{{#tif}} class="tif-item"{{/tif}}>{{#str}}topcollclosed, format_topcoll{{/str}}</h4>
             </span>
         </div>
     </div>
