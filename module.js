@@ -172,7 +172,7 @@ M.format_topcoll.toggleClick = function(e) {
 M.format_topcoll.allOpenClick = function(e) {
     e.preventDefault();
     M.format_topcoll.ourYUI.all(".toggledsection").addClass('sectionopen');
-    M.format_topcoll.ourYUI.all(".toggle span.the_toggle").addClass('toggle_open').removeClass('toggle_closed')
+    M.format_topcoll.ourYUI.all(".toggle .the_toggle").addClass('toggle_open').removeClass('toggle_closed')
         .setAttribute('aria-expanded', 'true');
     M.format_topcoll.resetState(M.format_topcoll.get_max_digit());
     M.format_topcoll.save_toggles();
@@ -181,7 +181,7 @@ M.format_topcoll.allOpenClick = function(e) {
 M.format_topcoll.allCloseClick = function(e) {
     e.preventDefault();
     M.format_topcoll.ourYUI.all(".toggledsection").removeClass('sectionopen');
-    M.format_topcoll.ourYUI.all(".toggle span.the_toggle").addClass('toggle_closed').removeClass('toggle_open')
+    M.format_topcoll.ourYUI.all(".toggle .the_toggle").addClass('toggle_closed').removeClass('toggle_open')
         .setAttribute('aria-expanded', 'false');
     M.format_topcoll.resetState(M.format_topcoll.get_min_digit());
     M.format_topcoll.save_toggles();
@@ -202,7 +202,7 @@ M.format_topcoll.toggle_topic = function(targetNode, toggleNum) {
 
     if (this.oneTopic === true) {
         if ((this.currentTopicNum !== false) && (this.currentTopicNum != toggleNum)) {
-            var currentTarget = this.currentTopic.one('span.the_toggle');
+            var currentTarget = this.currentTopic.one('.the_toggle');
             currentTarget.addClass('toggle_closed').removeClass('toggle_open').setAttribute('aria-expanded', 'false');
             this.currentTopic.next('.toggledsection').removeClass('sectionopen');
             this.set_toggle_state(this.currentTopicNum, false);
@@ -211,7 +211,7 @@ M.format_topcoll.toggle_topic = function(targetNode, toggleNum) {
         }
     }
 
-    var target = targetNode.one('span.the_toggle');
+    var target = targetNode.one('.the_toggle');
     var state;
     if (!target.hasClass('toggle_open')) {
         target.addClass('toggle_open').removeClass('toggle_closed').setAttribute('aria-expanded', 'true');

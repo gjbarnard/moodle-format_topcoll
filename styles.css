@@ -118,49 +118,44 @@
 }
 
 /* -- Set the clickable element of the Toggle -- */
-.course-content ul.ctopics li.section .content .toggle span.the_toggle {
+.course-content ul.ctopics li.section .content .toggle .the_toggle {
     display: block;
     padding-bottom: 6px;
     padding-top: 6px;
     width: auto;
 }
 
-.course-content ul.ctopics li.section .content .toggle span.the_toggle.tc-small {
+.course-content ul.ctopics li.section .content .toggle .the_toggle.tc-small {
     padding-left: 16px; /* The 16px allows the arrow to be with the text next to it. */
     padding-right: 16px;
 }
 
-.course-content ul.ctopics li.section .content .toggle span.the_toggle.tc-medium {
+.course-content ul.ctopics li.section .content .toggle .the_toggle.tc-medium {
     padding-left: 24px; /* The 24px allows the arrow to be with the text next to it. */
     padding-right: 24px;
 }
 
-.course-content ul.ctopics li.section .content .toggle span.the_toggle.tc-large {
+.course-content ul.ctopics li.section .content .toggle .the_toggle.tc-large {
     padding-left: 32px; /* The 32px allows the arrow to be with the text next to it. */
     padding-right: 32px;
 }
 
 /* CONTRIB-4106 */
-.course-content ul.ctopics li.section .content .toggle span.the_toggle h3,
-.course-content ul.ctopics li.section .content.sectionhidden h3 {
-    margin: 0;
+.course-content ul.ctopics li.section .content .toggle .the_toggle .sectionname,
+.course-content ul.ctopics li.section .content.sectionhidden .sectionname {
+    margin: 4px;
     word-wrap: break-word;
 }
 
-.course-content ul.ctopics li.section .content .toggle span.the_toggle h3.sectionname,
-.course-content ul.ctopics li.section .content .toggle span.the_toggle h3.sectionname a,
-.course-content ul.ctopics li.section .content .toggle span.the_toggle h3.sectionname a:hover,
-.course-content ul.ctopics li.section .content .toggle span.the_toggle h3.sectionname a:focus,
-.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname,
-.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname a,
-.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname a:hover,
-.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname a:focus {
+.course-content ul.ctopics li.section .content .toggle .the_toggle .sectionname,
+.course-content ul.ctopics li.section .content .toggle .the_toggle .sectionname a,
+.course-content ul.ctopics li.section .content .toggle .the_toggle .sectionname a:hover,
+.course-content ul.ctopics li.section .content .toggle .the_toggle .sectionname a:focus,
+.course-content ul.ctopics li.section .content.sectionhidden .sectionname,
+.course-content ul.ctopics li.section .content.sectionhidden .sectionname a,
+.course-content ul.ctopics li.section .content.sectionhidden .sectionname a:hover,
+.course-content ul.ctopics li.section .content.sectionhidden .sectionname a:focus {
     color: inherit;
-}
-
-.course-content ul.ctopics li.section .content .toggle span.the_toggle h3.sectionname,
-.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname {
-    margin: 4px;
 }
 
 .course-content ul.ctopics .course-section .sectionbadges .badge {
@@ -169,7 +164,7 @@
 }
 
 /* Icon set common. */
-.course-content ul.ctopics li.section .content .toggle span.the_toggle,
+.course-content ul.ctopics li.section .content .toggle .the_toggle,
 #toggle-all .content .toggle-all {
     background-color: transparent;
     background-repeat: no-repeat;
@@ -533,25 +528,25 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
     font-size: 1.8em;
 }
 
-/* CSS Grid */
+/* Toggle icon font CSS Grid */
 .course-content ul.ctopics li.section .content .toggle.tif .the_toggle,
 #toggle-all .content .sectionbody.toggle-all-content.tif .toggle-all {
     column-gap: 4px;
 }
 
-.course-content ul.ctopics li.section .content .toggle.tif span.the_toggle {
+.course-content ul.ctopics li.section .content .toggle.tif .the_toggle {
     display: grid;
 }
 
-.course-content ul.ctopics li.section .content .toggle.tif span.the_toggle.tc-small {
+.course-content ul.ctopics li.section .content .toggle.tif .the_toggle.tc-small {
     grid-template-columns: 16px auto 16px;
 }
 
-.course-content ul.ctopics li.section .content .toggle.tif span.the_toggle.tc-medium {
+.course-content ul.ctopics li.section .content .toggle.tif .the_toggle.tc-medium {
     grid-template-columns: 24px auto 24px;
 }
 
-.course-content ul.ctopics li.section .content .toggle.tif span.the_toggle.tc-large {
+.course-content ul.ctopics li.section .content .toggle.tif .the_toggle.tc-large {
     grid-template-columns: 32px auto 32px;
 }
 
@@ -560,8 +555,8 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
     grid-template-columns: auto auto;
 }
 
-.course-content ul.ctopics .toggle.tif span.the_toggle .sectionname,
-.course-content ul.ctopics .toggle.tif span.the_toggle .tif-container {
+.course-content ul.ctopics .toggle.tif .the_toggle .sectionname,
+.course-content ul.ctopics .toggle.tif .the_toggle .tif-container {
     align-self: baseline;
 }
 
@@ -570,11 +565,11 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
     align-self: end;
 }
 
-.course-content ul.ctopics li.section .content .toggle.tif span.the_toggle.tc-small,
+.course-content ul.ctopics li.section .content .toggle.tif .the_toggle.tc-small,
 #toggle-all .content .sectionbody.toggle-all-content.tif .toggle-all.tc-small,
-.course-content ul.ctopics li.section .content .toggle.tif span.the_toggle.tc-medium,
+.course-content ul.ctopics li.section .content .toggle.tif .the_toggle.tc-medium,
 #toggle-all .content .sectionbody.toggle-all-content.tif .toggle-all.tc-medium,
-.course-content ul.ctopics li.section .content .toggle.tif span.the_toggle.tc-large,
+.course-content ul.ctopics li.section .content .toggle.tif .the_toggle.tc-large,
 #toggle-all .content .sectionbody.toggle-all-content.tif .toggle-all.tc-large {
     padding-left: 0;
     padding-right: 0;
@@ -594,7 +589,7 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
 }
 
 .course-content ul.ctopics li.section .left, .course-content ul.ctopics li.tcsection .left {
-    float:left;
+    float: left;
 }
 
 .course-content ul.ctopics li.section.main .left {
@@ -722,7 +717,7 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
 }
 
 /* -- The topic summary text -- */
-.course-content ul.ctopics li.section .content .toggle span.the_toggle p {
+.course-content ul.ctopics li.section .content .toggle .the_toggle p {
     font-size: 1.2em;
     font-style: italic;
     text-align: left;
@@ -730,7 +725,7 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
 
 
 /* -- Toggle text -- */
-.course-content ul.ctopics li.section .content .toggle span.the_toggle,
+.course-content ul.ctopics li.section .content .toggle .the_toggle,
 .course-content ul.ctopics li.section .content.sectionhidden {
     font-weight: bold;
     text-decoration: none;

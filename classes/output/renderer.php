@@ -1112,17 +1112,30 @@ class renderer extends section_renderer {
             $this->tcsettings['togglebackgroundcolour'], $this->tcsettings['togglebackgroundopacity']);
         $coursestylescontext['toggleforegroundcolour'] = \format_topcoll\toolbox::hex2rgba(
             $this->tcsettings['toggleforegroundcolour'], $this->tcsettings['toggleforegroundopacity']);
+        $coursestylescontext['tif'] = ($this->tcsettings['toggleiconset'] == 'tif');
+        if ($coursestylescontext['tif']) {
+            switch ($this->tcsettings['togglealignment']) {
+                case 1:
+                    $coursestylescontext['tiftogglealignment'] = 'start';
+                break;
+                case 3:
+                    $coursestylescontext['tiftogglealignment'] = 'end';
+                    break;
+                default:
+                    $coursestylescontext['tiftogglealignment'] = 'center';
+            }
+        }
         switch ($this->tcsettings['togglealignment']) {
             case 1:
                 $coursestylescontext['togglealignment'] = 'left';
-                break;
+            break;
             case 3:
                 $coursestylescontext['togglealignment'] = 'right';
                 break;
             default:
                 $coursestylescontext['togglealignment'] = 'center';
         }
-        if ($this->tcsettings['toggleiconset'] != 'tif') {
+        if (!$coursestylescontext['tif']) {
             switch ($this->tcsettings['toggleiconposition']) {
                 case 2:
                     $coursestylescontext['toggleiconposition'] = 'right';

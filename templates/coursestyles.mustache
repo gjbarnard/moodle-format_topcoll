@@ -20,6 +20,8 @@
     Collapsed Topics course styles template.
 
     Context variables required for this template:
+    * tif - Toggle icon font.
+    * tiftogglealignment - Toggle icon font toggle alignment.
     * togglebackground - Toggle background colour.
     * toggleforegroundcolour - Toggle foreground colour.
     * togglealignment - Toggle alignment.
@@ -36,6 +38,8 @@
 
     Example context (json):
     {
+        "tif": true,
+        "tiftogglealignment": "center",
         "togglebackground": "rgba(226, 226, 242, 1.0)",
         "toggleforegroundcolour": "rgba(0, 0, 0, 1.0)",
         "togglealignment": "center",
@@ -63,6 +67,18 @@
     .course-content ul.ctopics li.section .content .toggle .the_toggle,
     .course-content ul.ctopics li.section .content.sectionhidden {
         color: {{toggleforegroundcolour}};
+    }
+    {{#tif}}
+    .course-content ul.ctopics li.section .content .toggle.tif .the_toggle .sectionname {
+        justify-self: {{tiftogglealignment}};
+    }
+    {{/tif}}
+    {{^tif}}
+    .course-content ul.ctopics li.section .content .toggle .the_toggle {
+        text-align: {{togglealignment}};
+    }
+    {{/tif}}
+    .course-content ul.ctopics li.section .content.sectionhidden {
         text-align: {{togglealignment}};
     }
     {{#toggleiconposition}}
