@@ -580,6 +580,13 @@ class renderer extends section_renderer {
             }
             $sectioncontext['tif'] = $this->render_from_template('format_topcoll/tif', $tifcontext);
         } else {
+            switch ($this->tcsettings['toggleiconposition']) {
+                case 2:
+                    $sectioncontext['togglepos'] = 'right';
+                    break;
+                default:
+                    $sectioncontext['togglepos'] = 'left';
+            }
             $sectioncontext['toggleiconset'] = $this->tcsettings['toggleiconset'];
         }
     }

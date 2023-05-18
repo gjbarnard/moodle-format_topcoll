@@ -92,9 +92,9 @@
         {{^sectionpage}}
         <div id="toggle-{{sectionno}}" class="sectionhead toggle {{^tif}}toggle-{{toggleiconset}}{{/tif}}{{#tif}}tif{{/tif}}" tabindex="0">
             <span class="the_toggle {{#toggleopen}}toggle_open{{/toggleopen}}{{^toggleopen}}toggle_closed{{/toggleopen}} {{toggleiconsize}}" role="button" aria-expanded="{{#toggleopen}}true{{/toggleopen}}{{^toggleopen}}false{{/toggleopen}}" aria-controls="toggledsection-{{sectionno}}">{{!
-                }}{{#tif}}{{#tifpleft}}{{{tif}}}{{/tifpleft}}{{^tifpleft}}&nbsp;{{/tifpleft}}{{/tif}}{{!
+                }}{{#tif}}{{#tifpleft}}{{{tif}}}{{/tifpleft}}{{^tifpleft}}<span>&nbsp;</span>{{/tifpleft}}{{/tif}}{{!
                 }}{{{heading}}}{{!
-                }}{{#tif}}{{^tifpleft}}{{{tif}}}{{/tifpleft}}{{#tifpleft}}&nbsp;{{/tifpleft}}{{/tif}}{{!
+                }}{{#tif}}{{^tifpleft}}{{{tif}}}{{/tifpleft}}{{#tifpleft}}<span>&nbsp;</span>{{/tifpleft}}{{/tif}}{{!
             }}</span>
         </div>
         {{#usereditingtitle}}<span class="hidden" aria-hidden="true">{{usereditingtitle}}</span>{{/usereditingtitle}}
