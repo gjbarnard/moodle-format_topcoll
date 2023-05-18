@@ -27,8 +27,10 @@
     * spacer - Spacer markup.
     * tctoggleiconsize - Toggle icon size.
     * tif - Toggle icon font markup.
+    * tifpleft - Toggle icon font postion is left.
     * toggleallhover - Change the toggle all icon on hover.
     * toggleiconset - Icons set used.
+    * togglepos - Toggle position.
 
     Example context (json):
     {
@@ -39,8 +41,10 @@
         "spacer": "",
         "tctoggleiconsize": "medium",
         "tif": "",
+        "tifpleft": true,
         "toggleallhover": true,
-        "toggleiconset": "point"
+        "toggleiconset": "point",
+        "togglepos": "right"
     }
 }}
 <li id="toggle-all" class="tcsection main clearfix">
@@ -48,12 +52,12 @@
     <div class="{{^rtl}}left{{/rtl}}{{#rtl}}right{{/rtl}} side">{{{spacer}}}</div>
     {{/spacer}}
     <div class="content">
-        <div class="sectionbody toggle-all-content {{^tif}}toggle-{{toggleiconset}} {{#toggleallhover}}toggle-{{toggleiconset}}-hover{{/toggleallhover}}{{/tif}}{{#tif}}tif{{/tif}}">
+        <div class="sectionbody toggle-all-content {{^tif}}toggle-{{toggleiconset}}{{#toggleallhover}} toggle-{{toggleiconset}}-hover{{/toggleallhover}} togglepos-{{togglepos}}{{/tif}}{{#tif}}tif{{/tif}}">
             <span id="toggles-all-opened" class="toggle-all on {{tctoggleiconsize}}" role="button" title="{{sctopenall}}" tabindex="0" aria-controls="{{ariacontrols}}">
-                <h4>{{#str}}topcollopened, format_topcoll{{/str}}</h4>{{#tif}}{{{tif}}}{{/tif}}
+                {{#tifpleft}}{{#tif}}{{{tif}}}{{/tif}}{{/tifpleft}}<h4 class="toggle-all-header">{{#str}}topcollopened, format_topcoll{{/str}}</h4>{{^tifpleft}}{{#tif}}{{{tif}}}{{/tif}}{{/tifpleft}}
             </span>
             <span id="toggles-all-closed" class="toggle-all off {{tctoggleiconsize}}" role="button" title="{{sctcloseall}}" tabindex="0" aria-controls="{{ariacontrols}}">
-                <h4>{{#str}}topcollclosed, format_topcoll{{/str}}</h4>{{#tif}}{{{tif}}}{{/tif}}
+                {{#tifpleft}}{{#tif}}{{{tif}}}{{/tif}}{{/tifpleft}}<h4 class="toggle-all-header">{{#str}}topcollclosed, format_topcoll{{/str}}</h4>{{^tifpleft}}{{#tif}}{{{tif}}}{{/tif}}{{/tifpleft}}
             </span>
         </div>
     </div>

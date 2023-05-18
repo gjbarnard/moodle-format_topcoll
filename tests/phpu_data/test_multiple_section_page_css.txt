@@ -10,6 +10,11 @@
     .course-content ul.ctopics li.section .content .toggle .the_toggle,
     .course-content ul.ctopics li.section .content.sectionhidden {
         color: rgba(238, 238, 238, 1.0);
+    }
+    .course-content ul.ctopics li.section .content .toggle .the_toggle {
+        text-align: center;
+    }
+    .course-content ul.ctopics li.section .content.sectionhidden {
         text-align: center;
     }
     /* Toggle icon position. */

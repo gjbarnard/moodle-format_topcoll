@@ -118,49 +118,44 @@
 }
 
 /* -- Set the clickable element of the Toggle -- */
-.course-content ul.ctopics li.section .content .toggle span.the_toggle {
+.course-content ul.ctopics li.section .content .toggle .the_toggle {
     display: block;
     padding-bottom: 6px;
     padding-top: 6px;
     width: auto;
 }
 
-.course-content ul.ctopics li.section .content .toggle span.the_toggle.tc-small {
+.course-content ul.ctopics li.section .content .toggle .the_toggle.tc-small {
     padding-left: 16px; /* The 16px allows the arrow to be with the text next to it. */
     padding-right: 16px;
 }
 
-.course-content ul.ctopics li.section .content .toggle span.the_toggle.tc-medium {
+.course-content ul.ctopics li.section .content .toggle .the_toggle.tc-medium {
     padding-left: 24px; /* The 24px allows the arrow to be with the text next to it. */
     padding-right: 24px;
 }
 
-.course-content ul.ctopics li.section .content .toggle span.the_toggle.tc-large {
+.course-content ul.ctopics li.section .content .toggle .the_toggle.tc-large {
     padding-left: 32px; /* The 32px allows the arrow to be with the text next to it. */
     padding-right: 32px;
 }
 
 /* CONTRIB-4106 */
-.course-content ul.ctopics li.section .content .toggle span.the_toggle h3,
-.course-content ul.ctopics li.section .content.sectionhidden h3 {
-    margin: 0;
+.course-content ul.ctopics li.section .content .toggle .the_toggle .sectionname,
+.course-content ul.ctopics li.section .content.sectionhidden .sectionname {
+    margin: 4px;
     word-wrap: break-word;
 }
 
-.course-content ul.ctopics li.section .content .toggle span.the_toggle h3.sectionname,
-.course-content ul.ctopics li.section .content .toggle span.the_toggle h3.sectionname a,
-.course-content ul.ctopics li.section .content .toggle span.the_toggle h3.sectionname a:hover,
-.course-content ul.ctopics li.section .content .toggle span.the_toggle h3.sectionname a:focus,
-.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname,
-.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname a,
-.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname a:hover,
-.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname a:focus {
+.course-content ul.ctopics li.section .content .toggle .the_toggle .sectionname,
+.course-content ul.ctopics li.section .content .toggle .the_toggle .sectionname a,
+.course-content ul.ctopics li.section .content .toggle .the_toggle .sectionname a:hover,
+.course-content ul.ctopics li.section .content .toggle .the_toggle .sectionname a:focus,
+.course-content ul.ctopics li.section .content.sectionhidden .sectionname,
+.course-content ul.ctopics li.section .content.sectionhidden .sectionname a,
+.course-content ul.ctopics li.section .content.sectionhidden .sectionname a:hover,
+.course-content ul.ctopics li.section .content.sectionhidden .sectionname a:focus {
     color: inherit;
-}
-
-.course-content ul.ctopics li.section .content .toggle span.the_toggle h3.sectionname,
-.course-content ul.ctopics li.section .content.sectionhidden h3.sectionname {
-    margin: 4px;
 }
 
 .course-content ul.ctopics .course-section .sectionbadges .badge {
@@ -169,11 +164,11 @@
 }
 
 /* Icon set common. */
-.course-content ul.ctopics li.section .content .toggle span.the_toggle,
+.course-content ul.ctopics li.section .content .toggle .the_toggle,
 #toggle-all .content .toggle-all {
     background-color: transparent;
     background-repeat: no-repeat;
-    margin: 0 4px;
+    margin-right: 4px;
 }
 
 /* Icon sets.  Note: Background images for the settings - does not work in Chrome or Safari - known issue. */
@@ -507,29 +502,6 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
 }
 
 /* Toggle icon font */
-.toggle.tif,
-.toggle-all-content.tif .toggle-all {
-    position: relative;
-}
-
-.toggle.tif .tif-container,
-.toggle-all-content.tif .toggle-all .tif-container {
-    bottom: 0;
-    display: flex;
-    position: absolute;
-    top: 0;
-}
-
-.toggle.tif .tif-container.tif-left,
-.toggle-all-content.tif .toggle-all .tif-container.tif-left {
-    left: 4px;
-}
-
-.toggle.tif .tif-container.tif-right,
-.toggle-all-content.tif .toggle-all .tif-container.tif-right {
-    right: 4px;
-}
-
 .toggle.tif .tif-container .tife,
 .toggle-all-content.tif .toggle-all .tif-container .tife {
     margin: auto;
@@ -556,6 +528,55 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
     font-size: 1.8em;
 }
 
+/* Toggle icon font CSS Grid */
+.course-content ul.ctopics li.section .content .toggle.tif .the_toggle,
+#toggle-all .content .sectionbody.toggle-all-content.tif .toggle-all {
+    column-gap: 4px;
+}
+
+.course-content ul.ctopics li.section .content .toggle.tif .the_toggle {
+    display: grid;
+}
+
+.course-content ul.ctopics li.section .content .toggle.tif .the_toggle.tc-small {
+    grid-template-columns: 0.8em auto 0.8em;
+}
+
+.course-content ul.ctopics li.section .content .toggle.tif .the_toggle.tc-medium {
+    grid-template-columns: 1.2em auto 1.2em;
+}
+
+.course-content ul.ctopics li.section .content .toggle.tif .the_toggle.tc-large {
+    grid-template-columns: 1.8em auto 1.8em;
+}
+
+#toggle-all .content .sectionbody.toggle-all-content.tif .toggle-all {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+}
+
+.course-content ul.ctopics .toggle.tif .the_toggle .tif-container {
+    display: flex;
+    margin: 0;
+}
+
+.course-content ul.ctopics .toggle.tif .the_toggle .sectionname,
+.course-content ul.ctopics .toggle.tif .the_toggle .tif-container,
+.toggle-all-content.tif .toggle-all .toggle-all-header,
+.toggle-all-content.tif .toggle-all .tif-container {
+        align-self: center;
+}
+
+.course-content ul.ctopics li.section .content .toggle.tif .the_toggle.tc-small,
+#toggle-all .content .sectionbody.toggle-all-content.tif .toggle-all.tc-small,
+.course-content ul.ctopics li.section .content .toggle.tif .the_toggle.tc-medium,
+#toggle-all .content .sectionbody.toggle-all-content.tif .toggle-all.tc-medium,
+.course-content ul.ctopics li.section .content .toggle.tif .the_toggle.tc-large,
+#toggle-all .content .sectionbody.toggle-all-content.tif .toggle-all.tc-large {
+    padding-left: 0;
+    padding-right: 0;
+}
+
 /* Display instructions */
 .topcoll-display-instructions {
     margin: 0;
@@ -570,7 +591,7 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
 }
 
 .course-content ul.ctopics li.section .left, .course-content ul.ctopics li.tcsection .left {
-    float:left;
+    float: left;
 }
 
 .course-content ul.ctopics li.section.main .left {
@@ -698,15 +719,14 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
 }
 
 /* -- The topic summary text -- */
-.course-content ul.ctopics li.section .content .toggle span.the_toggle p {
+.course-content ul.ctopics li.section .content .toggle .the_toggle p {
     font-size: 1.2em;
     font-style: italic;
     text-align: left;
 }
 
-
 /* -- Toggle text -- */
-.course-content ul.ctopics li.section .content .toggle span.the_toggle,
+.course-content ul.ctopics li.section .content .toggle .the_toggle,
 .course-content ul.ctopics li.section .content.sectionhidden {
     font-weight: bold;
     text-decoration: none;
@@ -791,18 +811,27 @@ body.jsenabled #toggle-all {
     text-align: right;
 }
 
-#toggle-all .content .sectionbody .toggle-all.tc-small {
-    padding-left: 18px; /* The 18px allows the arrow to be with the text next to it. */
+#toggle-all .content .toggle-all-content.togglepos-left .toggle-all.tc-small {
+    padding-left: 18px;
+}
+
+#toggle-all .content .toggle-all-content.togglepos-right .toggle-all.tc-small {
     padding-right: 18px;
 }
 
-#toggle-all .content .sectionbody .toggle-all.tc-medium {
-    padding-left: 26px; /* The 26px allows the arrow to be with the text next to it. */
+#toggle-all .content .toggle-all-content.togglepos-left .toggle-all.tc-medium {
+    padding-left: 26px;
+}
+
+#toggle-all .content .toggle-all-content.togglepos-right .toggle-all.tc-medium {
     padding-right: 26px;
 }
 
-#toggle-all .content .sectionbody .toggle-all.tc-large {
-    padding-left: 34px; /* The 34px allows the arrow to be with the text next to it. */
+#toggle-all .content .toggle-all-content.togglepos-left .toggle-all.tc-large {
+    padding-left: 34px;
+}
+
+#toggle-all .content .toggle-all-content.togglepos-right .toggle-all.tc-large {
     padding-right: 34px;
 }
 
@@ -853,8 +882,6 @@ body.jsenabled #toggle-all {
     width: auto;
 }
 
-element.style {
-}
 .activity-item:not(.activityinline) {
     border: none;
 }

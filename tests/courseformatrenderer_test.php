@@ -466,7 +466,9 @@ class courseformatrenderer_test extends \advanced_testcase {
             'spacer' => '<img class="icon spacer" width="1" height="1" alt="" aria-hidden="true" src="'.$CFG->wwwroot.
                 '/theme/image.php/_s/boost/core/1/spacer" />',
             'toggleallhover' => true,
-            'tctoggleiconsize' => 'tc-medium'
+            'tctoggleiconsize' => 'tc-medium',
+            'togglepos' => 'left'
+
         );
         $thevalue = self::call_method($this->outputus, 'render_from_template', array('format_topcoll/toggleall',
             $toggleallcontext));

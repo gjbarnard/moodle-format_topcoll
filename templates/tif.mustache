@@ -22,16 +22,14 @@
     Context variables required for this template:
     * tifcc - Toggle Icon Font Closed Classes.
     * tifoc - Toggle Icon Font Open Classes.
-    * tifp  - Toggle Icon Font Position.
 
     Example context (json):
     {
         "tifcc": "fa fa-bus",
-        "tifoc": "fa fa-train",
-        "tifp": "left"
+        "tifoc": "fa fa-train"
     }
 }}
-<span class="tif-container tif-{{tifp}}">
+<span class="tif-container">
     <span class="tife tifc {{tifcc}}" aria-hidden="true"><span class="sr-only">{{#str}}toggleclose, format_topcoll{{/str}}</span></span>
     <span class="tife tifo {{tifoc}}" aria-hidden="true"><span class="sr-only">{{#str}}toggleopen, format_topcoll{{/str}}</span></span>
 </span>

@@ -39,6 +39,7 @@
     * sectionsummary - Section summary.
     * sectionsummarywhencollapsed - Show the section summary when collapsed.
     * tif - Toggle icon font markup.
+    * tifpleft - Toggle icon font postion is left.
     * toggleiconset - Toggle icon set.
     * toggleiconsize - Toggle icon size.
     * toggleopen - Toggle is open.
@@ -67,6 +68,7 @@
         "sectionsummary": "",
         "sectionsummarywhencollapsed": false,
         "tif": "",
+        "tifpleft": true,
         "toggleiconset": "arrow",
         "toggleiconsize": "tc-medium",
         "toggleopen": true,
@@ -89,9 +91,11 @@
     <div class="content"{{#contentaria}} aria-live="polite"{{/contentaria}}>
         {{^sectionpage}}
         <div id="toggle-{{sectionno}}" class="sectionhead toggle {{^tif}}toggle-{{toggleiconset}}{{/tif}}{{#tif}}tif{{/tif}}" tabindex="0">
-            <span class="the_toggle {{#toggleopen}}toggle_open{{/toggleopen}}{{^toggleopen}}toggle_closed{{/toggleopen}} {{toggleiconsize}}" role="button" aria-expanded="{{#toggleopen}}true{{/toggleopen}}{{^toggleopen}}false{{/toggleopen}}" aria-controls="toggledsection-{{sectionno}}">
-                {{{heading}}}{{#tif}}{{{tif}}}{{/tif}}
-            </span>
+            <span class="the_toggle {{#toggleopen}}toggle_open{{/toggleopen}}{{^toggleopen}}toggle_closed{{/toggleopen}} {{toggleiconsize}}" role="button" aria-expanded="{{#toggleopen}}true{{/toggleopen}}{{^toggleopen}}false{{/toggleopen}}" aria-controls="toggledsection-{{sectionno}}">{{!
+                }}{{#tif}}{{#tifpleft}}{{{tif}}}{{/tifpleft}}{{^tifpleft}}<span>&nbsp;</span>{{/tifpleft}}{{/tif}}{{!
+                }}{{{heading}}}{{!
+                }}{{#tif}}{{^tifpleft}}{{{tif}}}{{/tifpleft}}{{#tifpleft}}<span>&nbsp;</span>{{/tifpleft}}{{/tif}}{{!
+            }}</span>
         </div>
         {{#usereditingtitle}}<span class="hidden" aria-hidden="true">{{usereditingtitle}}</span>{{/usereditingtitle}}
         {{#usereditingurl}}<a href="{{{usereditingurl}}}" title="{{#str}}editsection, format_topcoll{{/str}}">{{{usereditingicon}}}</a>{{/usereditingurl}}{{!
