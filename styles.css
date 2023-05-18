@@ -512,8 +512,7 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
     position: relative;
 }
 
-.toggle.tif .tif-container,
-.toggle-all-content.tif .toggle-all .tif-container {
+.toggle.tif .tif-container {
     bottom: 0;
     display: flex;
     position: absolute;
@@ -554,6 +553,25 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
 
 .tc-large .tife {
     font-size: 1.8em;
+}
+
+/* CSS Grid */
+#toggle-all .content .sectionbody.toggle-all-content.tif .toggle-all {
+    column-gap: 4px;
+    display: inline-grid;
+    grid-template-columns: auto auto;
+}
+
+.toggle-all-content.tif .toggle-all .toggle-all-header,
+.toggle-all-content.tif .toggle-all .tif-container {
+    align-self: end;
+}
+
+#toggle-all .content .sectionbody.toggle-all-content.tif .toggle-all.tc-small,
+#toggle-all .content .sectionbody.toggle-all-content.tif .toggle-all.tc-medium,
+#toggle-all .content .sectionbody.toggle-all-content.tif .toggle-all.tc-large {
+    padding-left: 0;
+    padding-right: 0;
 }
 
 /* Display instructions */

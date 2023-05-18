@@ -1069,6 +1069,14 @@ class renderer extends section_renderer {
         );
         $this->toggle_icon_set($toggleallcontext);
 
+        switch ($this->tcsettings['toggleiconposition']) {
+            case 2:
+                $toggleallcontext['tifpleft'] = false;
+                break;
+            default:
+                $toggleallcontext['tifpleft'] = true;
+        }
+
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
             $toggleallcontext['spacer'] = $this->output->spacer();
         }
