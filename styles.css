@@ -507,28 +507,6 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
 }
 
 /* Toggle icon font */
-.toggle.tif,
-.toggle-all-content.tif .toggle-all {
-    position: relative;
-}
-
-.toggle.tif .tif-container {
-    bottom: 0;
-    display: flex;
-    position: absolute;
-    top: 0;
-}
-
-.toggle.tif .tif-container.tif-left,
-.toggle-all-content.tif .toggle-all .tif-container.tif-left {
-    left: 4px;
-}
-
-.toggle.tif .tif-container.tif-right,
-.toggle-all-content.tif .toggle-all .tif-container.tif-right {
-    right: 4px;
-}
-
 .toggle.tif .tif-container .tife,
 .toggle-all-content.tif .toggle-all .tif-container .tife {
     margin: auto;
@@ -556,10 +534,35 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
 }
 
 /* CSS Grid */
+.course-content ul.ctopics li.section .content .toggle.tif .the_toggle,
 #toggle-all .content .sectionbody.toggle-all-content.tif .toggle-all {
     column-gap: 4px;
+}
+
+.course-content ul.ctopics li.section .content .toggle.tif span.the_toggle {
+    display: grid;
+}
+
+.course-content ul.ctopics li.section .content .toggle.tif span.the_toggle.tc-small {
+    grid-template-columns: 16px auto 16px;
+}
+
+.course-content ul.ctopics li.section .content .toggle.tif span.the_toggle.tc-medium {
+    grid-template-columns: 24px auto 24px;
+}
+
+.course-content ul.ctopics li.section .content .toggle.tif span.the_toggle.tc-large {
+    grid-template-columns: 32px auto 32px;
+}
+
+#toggle-all .content .sectionbody.toggle-all-content.tif .toggle-all {
     display: inline-grid;
     grid-template-columns: auto auto;
+}
+
+.course-content ul.ctopics .toggle.tif span.the_toggle .sectionname,
+.course-content ul.ctopics .toggle.tif span.the_toggle .tif-container {
+    align-self: baseline;
 }
 
 .toggle-all-content.tif .toggle-all .toggle-all-header,
@@ -567,8 +570,11 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
     align-self: end;
 }
 
+.course-content ul.ctopics li.section .content .toggle.tif span.the_toggle.tc-small,
 #toggle-all .content .sectionbody.toggle-all-content.tif .toggle-all.tc-small,
+.course-content ul.ctopics li.section .content .toggle.tif span.the_toggle.tc-medium,
 #toggle-all .content .sectionbody.toggle-all-content.tif .toggle-all.tc-medium,
+.course-content ul.ctopics li.section .content .toggle.tif span.the_toggle.tc-large,
 #toggle-all .content .sectionbody.toggle-all-content.tif .toggle-all.tc-large {
     padding-left: 0;
     padding-right: 0;

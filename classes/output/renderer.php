@@ -573,10 +573,10 @@ class renderer extends section_renderer {
             );
             switch ($this->tcsettings['toggleiconposition']) {
                 case 2:
-                    $tifcontext['tifp'] = 'right';
+                    $sectioncontext['tifpleft'] = false;
                     break;
                 default:
-                    $tifcontext['tifp'] = 'left';
+                    $sectioncontext['tifpleft'] = true;
             }
             $sectioncontext['tif'] = $this->render_from_template('format_topcoll/tif', $tifcontext);
         } else {
@@ -1068,14 +1068,6 @@ class renderer extends section_renderer {
             'tctoggleiconsize' => $this->tctoggleiconsize
         );
         $this->toggle_icon_set($toggleallcontext);
-
-        switch ($this->tcsettings['toggleiconposition']) {
-            case 2:
-                $toggleallcontext['tifpleft'] = false;
-                break;
-            default:
-                $toggleallcontext['tifpleft'] = true;
-        }
 
         if ((($this->mobiletheme === false) && ($this->tablettheme === false)) || ($this->userisediting)) {
             $toggleallcontext['spacer'] = $this->output->spacer();
