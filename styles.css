@@ -812,27 +812,27 @@ body.jsenabled #toggle-all {
 }
 
 #toggle-all .content .toggle-all-content.togglepos-left .toggle-all.tc-small {
-    padding-left: 0.8em;
+    padding-left: 18px;
 }
 
 #toggle-all .content .toggle-all-content.togglepos-right .toggle-all.tc-small {
-    padding-right: 0.8em;
+    padding-right: 18px;
 }
 
 #toggle-all .content .toggle-all-content.togglepos-left .toggle-all.tc-medium {
-    padding-left: 1.2em;
+    padding-left: 26px;
 }
 
 #toggle-all .content .toggle-all-content.togglepos-right .toggle-all.tc-medium {
-    padding-right: 1.2em;
+    padding-right: 26px;
 }
 
 #toggle-all .content .toggle-all-content.togglepos-left .toggle-all.tc-large {
-    padding-left: 1.8em;
+    padding-left: 34px;
 }
 
 #toggle-all .content .toggle-all-content.togglepos-right .toggle-all.tc-large {
-    padding-right: 1.8em;
+    padding-right: 34px;
 }
 
 .cttoggle {
