@@ -8,6 +8,7 @@ Version 402.1.1 - TBR
 3. Improve single section navigation appearance.
 4. Add bulk editing tools.
 5. Improve layout by using CSS 'grid' for the toggle icon font.
+6. Fix 'Previous/Next section arrows are incorrect for RTL languages'.
 
 Version 402.1.0 - 07/05/23
 --------------------------
