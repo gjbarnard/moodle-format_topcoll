@@ -51,6 +51,10 @@ class cmlist extends \core_courseformat\output\local\content\section\cmlist {
         $data = parent::export_for_template($output);
         $data->editing = $PAGE->user_is_editing();
 
+        // Section information for the 'activitychooserbuttonactivity'.
+        $data->num = $this->section->section ?? '0';
+        $data->sectionreturn = $this->format->get_section_number();
+
         return $data;
     }
 }
