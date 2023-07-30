@@ -10,6 +10,7 @@ Version 402.1.1 - TBR
 5. Improve layout by using CSS 'grid' for the toggle icon font.
 6. Fix 'Previous/Next section arrows are incorrect for RTL languages'.
 7. Fix 'Clicking a section takes you to a neighbouring section in some circumstances' - #134.
+8. Fix 'Upgrading from Moodle 3.9 sets default values to zero' - #135.
 
 Version 402.1.0 - 07/05/23
 --------------------------
