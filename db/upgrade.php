@@ -175,32 +175,35 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
     }
 
     if ($oldversion < 2020110902) {
-        // Change in default names.
-        $value = get_config('format_topcoll', 'defaulttgfgcolour');
-        set_config('defaulttoggleforegroundcolour', $value, 'format_topcoll');
+        // Only upgrade if M3.9 version has not already done this.
+        if (!$DB->record_exists('config_plugins', array('plugin' => 'format_topcoll', 'name' => 'defaulttoggleforegroundcolour'))) {
+            // Change in default names.
+            $value = get_config('format_topcoll', 'defaulttgfgcolour');
+            set_config('defaulttoggleforegroundcolour', $value, 'format_topcoll');
 
-        $value = get_config('format_topcoll', 'defaulttgfgopacity');
-        set_config('defaulttoggleforegroundopacity', $value, 'format_topcoll');
+            $value = get_config('format_topcoll', 'defaulttgfgopacity');
+            set_config('defaulttoggleforegroundopacity', $value, 'format_topcoll');
 
-        $value = get_config('format_topcoll', 'defaulttgfghvrcolour');
-        set_config('defaulttoggleforegroundhovercolour', $value, 'format_topcoll');
+            $value = get_config('format_topcoll', 'defaulttgfghvrcolour');
+            set_config('defaulttoggleforegroundhovercolour', $value, 'format_topcoll');
 
-        $value = get_config('format_topcoll', 'defaulttgfghvropacity');
-        set_config('defaulttoggleforegroundhoveropacity', $value, 'format_topcoll');
+            $value = get_config('format_topcoll', 'defaulttgfghvropacity');
+            set_config('defaulttoggleforegroundhoveropacity', $value, 'format_topcoll');
 
-        $value = get_config('format_topcoll', 'defaulttgbgcolour');
-        set_config('defaulttogglebackgroundcolour', $value, 'format_topcoll');
+            $value = get_config('format_topcoll', 'defaulttgbgcolour');
+            set_config('defaulttogglebackgroundcolour', $value, 'format_topcoll');
 
-        $value = get_config('format_topcoll', 'defaulttgbgopacity');
-        set_config('defaulttogglebackgroundopacity', $value, 'format_topcoll');
+            $value = get_config('format_topcoll', 'defaulttgbgopacity');
+            set_config('defaulttogglebackgroundopacity', $value, 'format_topcoll');
 
-        $value = get_config('format_topcoll', 'defaulttgbghvrcolour');
-        set_config('defaulttogglebackgroundhovercolour', $value, 'format_topcoll');
+            $value = get_config('format_topcoll', 'defaulttgbghvrcolour');
+            set_config('defaulttogglebackgroundhovercolour', $value, 'format_topcoll');
 
-        $value = get_config('format_topcoll', 'defaulttgbghvropacity');
-        set_config('defaulttogglebackgroundhoveropacity', $value, 'format_topcoll');
+            $value = get_config('format_topcoll', 'defaulttgbghvropacity');
+            set_config('defaulttogglebackgroundhoveropacity', $value, 'format_topcoll');
 
-        upgrade_plugin_savepoint(true, 2020110902, 'format', 'topcoll');
+            upgrade_plugin_savepoint(true, 2020110902, 'format', 'topcoll');
+        }
     }
 
     return $result;
