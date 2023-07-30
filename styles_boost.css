@@ -32,11 +32,9 @@ ul.ctopics .content .section ul {
     margin: 0 0 10px 10px;
 }
 
-ul.ctopics :target::before {
-    height: auto;
-    margin-top: 0;
-    pointer-events: none;
-    width: 0;
+/* Half the navbar height */
+ul.ctopics :target {
+  scroll-margin-top: 30px;
 }
 
 .course-content ul.ctopics .current::before {
