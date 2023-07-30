@@ -3,6 +3,7 @@
 
 Version 3.11.1.1 - TBR
 -----------------------------
+1. Fix 'Upgrading from Moodle 3.9 sets default values to zero' - #135.
 
 Version 3.11.1.0 - 12/05/22
 -----------------------------
