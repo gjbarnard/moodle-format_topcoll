@@ -4,6 +4,7 @@
 Version 3.10.1.6 - TBR
 -----------------------------
   1. Fix 'Error during course creation if defaultdisplayblocks is empty' - CONTRIB-8824.
+  2. Fix 'Upgrading from Moodle 3.9 sets default values to zero' - #135.
 
 Version 3.10.1.5 - 28/11/2021
 -----------------------------
