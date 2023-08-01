@@ -8,6 +8,7 @@ Version 401.1.1 - TBR
 3. Improve single section navigation appearance.
 4. Fix 'Clicking a section takes you to a neighbouring section in some circumstances' - #134.
 5. Fix 'Upgrading from Moodle 3.9 sets default values to zero' - #135.
+6. Fix 'Move Left/Move Right doesn't work till page refresh' - #136.
 
 Version 401.1.0 - 01/04/23
 --------------------------
