@@ -343,30 +343,22 @@ class activity {
      * @return int
      */
     protected static function data_num_submissions($courseid, $mod) {
-        global $DB;
+        $modinstance = $mod->instance;
 
-        $modid = $mod->id;
+        static $modtotalsbyinstance = array();
 
-        static $modtotalsbyid = array();
-
-        if (!isset($modtotalsbyid['data'][$modid])) {
-            $params['dataid'] = $modid;
+        if (!isset($modtotalsbyinstance[$modinstance])) {
+            global $DB;
+            $params['dataid'] = $modinstance;
 
             // Get the number of contributions for this data activity.
-            $sql = '
-                SELECT d.id, count(dataid) as total FROM {data_records} r, {data} d
-                    WHERE r.dataid = d.id AND r.dataid = :dataid GROUP BY d.id';
+            $sql = 'SELECT count(r.dataid) as total FROM {data_records} r
+                        WHERE r.dataid = :dataid GROUP BY r.dataid';
 
-            $modtotalsbyid['data'][$modid] = $DB->get_records_sql($sql, $params);
+            $modtotalsbyid[$modinstance] = $DB->get_records_sql($sql, $params);
         }
-        $totalsbyid = $modtotalsbyid['data'][$modid];
-        // TO BE DELETED echo '<br>' . print_r($totalsbyid, 1) . '<br>'; ....
-        if (!empty($totalsbyid)) {
-            if (isset($totalsbyid[$modid])) {
-                return intval($totalsbyid[$modid]->total);
-            }
-        }
-        return 0;
+
+        return intval($modtotalsbyid[$modinstance]);
     }
 
     /**
