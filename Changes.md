@@ -1,8 +1,8 @@
 ﻿Version Information
 ===================
 
-Version 400.1.3 - TBR
---------------------------
+Version 400.1.3 - 14/08/2023
+----------------------------
 1. Content component improvements.
 2. Fix 'Deleting sections doesn't work in some layouts' - #130.  A big thank you to Kata (https://github.com/olivabigyo) for the report,
    information and patch.
