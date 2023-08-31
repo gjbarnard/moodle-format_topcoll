@@ -684,7 +684,7 @@ class renderer extends section_renderer {
         if (!($thissection = $modinfo->get_section_info($displaysection))) {
             /* This section doesn't exist or is not available for the user.
                We actually already check this in course/view.php but just in case exit from this function as well. */
-            print_error('unknowncoursesection', 'error', course_get_url($course),
+            throw new \moodle_exception('unknowncoursesection', 'error', course_get_url($course),
                 format_string($course->fullname));
         }
 

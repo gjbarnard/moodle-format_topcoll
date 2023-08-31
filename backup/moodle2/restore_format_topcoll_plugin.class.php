@@ -87,7 +87,7 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
         $data->courseid = $this->task->get_courseid();
 
         if (!($course = $DB->get_record('course', array('id' => $data->courseid)))) {
-            print_error('invalidcourseid', 'error');
+            throw new \moodle_exception('invalidcourseid', 'error');
         } // From /course/view.php.
         $courseformat = course_get_format($course);
 
