@@ -34,7 +34,6 @@ use stdClass;
  * @group format_topcoll
  */
 class courseformatlib_test extends \advanced_testcase {
-
     protected $course;
     protected $courseformat;
 
@@ -45,15 +44,17 @@ class courseformatlib_test extends \advanced_testcase {
         set_config('enableadditionalmoddata', 2, 'format_topcoll');
 
         // Ref: https://docs.moodle.org/dev/Writing_PHPUnit_tests.
-        $this->course = $this->getDataGenerator()->create_course(array(
+        $this->course = $this->getDataGenerator()->create_course(
+            [
             'format' => 'topcoll',
             'numsections' => 1,
             'toggleforegroundopacity' => '0.1',
             'toggleforegroundhoveropacity' => '0.2',
             'togglebackgroundopacity' => '0.3',
-            'togglebackgroundhoveropacity' => '0.4'
-        ),
-        array('createsections' => true));
+            'togglebackgroundhoveropacity' => '0.4',
+            ],
+            ['createsections' => true]
+        );
 
         $this->courseformat = course_get_format($this->course);
     }
@@ -99,7 +100,7 @@ class courseformatlib_test extends \advanced_testcase {
         set_config('defaulttogglebackgroundopacity', '0.7', 'format_topcoll');
         set_config('defaulttogglebackgroundhoveropacity', '0.8', 'format_topcoll');
 
-        $testdata = new stdClass;
+        $testdata = new stdClass();
         $testdata->resetcolour = true;
         $this->courseformat->update_course_format_options($testdata);
 
@@ -119,7 +120,7 @@ class courseformatlib_test extends \advanced_testcase {
         set_config('defaulttogglebackgroundopacity', '0.7', 'format_topcoll');
         set_config('defaulttogglebackgroundhoveropacity', '0.8', 'format_topcoll');
 
-        $testdata = new stdClass;
+        $testdata = new stdClass();
         $testdata->resetallcolour = true;
         $this->courseformat->update_course_format_options($testdata);
 
@@ -155,7 +156,7 @@ class courseformatlib_test extends \advanced_testcase {
         set_config('defaultshowadditionalmoddata', 1, 'format_topcoll');
         set_config('coursesectionactivityfurtherinformationlesson', 2, 'format_topcoll');
 
-        $testdata = new stdClass;
+        $testdata = new stdClass();
         $testdata->resetalllayout = true;
         $this->courseformat->update_course_format_options($testdata);
         $thesettings = $this->courseformat->get_settings();

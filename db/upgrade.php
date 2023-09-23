@@ -61,7 +61,7 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
             $table->add_field('layoutstructure', XMLDB_TYPE_INTEGER, '1', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, '1', null);
 
             // Adding key.
-            $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+            $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
 
             // Create table.
             $dbman->create_table($table);
@@ -144,7 +144,7 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
             $records = $DB->get_records($table->getName());
             foreach ($records as $record) {
                 // Check that the course still exists - CONTRIB-4065...
-                if ($DB->record_exists('course', array('id' => $record->courseid))) {
+                if ($DB->record_exists('course', ['id' => $record->courseid])) {
                     $courseformat = course_get_format($record->courseid);  // In '/course/format/lib.php'.
                     /* Only update if the current format is 'topcoll' as we must have an instance of 'format_topcoll' (in 'lib.php')
                        returned by the above.  Thanks to Marina Glancy for this :).
@@ -153,9 +153,15 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
                        code desires entries in the course_format_settings table for courses of a format that belong
                        to another format. */
                     if ($courseformat->get_format() == 'topcoll') {
-                        $courseformat->restore_topcoll_setting($record->courseid, $record->layoutelement, $record->layoutstructure,
-                                                               $record->layoutcolumns, $record->tgfgcolour, $record->tgbgcolour,
-                                                               $record->tgbghvrcolour); // In '/course/format/topcoll/lib.php'.
+                        $courseformat->restore_topcoll_setting(
+                            $record->courseid,
+                            $record->layoutelement,
+                            $record->layoutstructure,
+                            $record->layoutcolumns,
+                            $record->tgfgcolour,
+                            $record->tgbgcolour,
+                            $record->tgbghvrcolour
+                        ); // In '/course/format/topcoll/lib.php'.
                     }
                 }
             }
@@ -165,7 +171,6 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
     }
 
     if ($oldversion < 2017110301) {
-
         /* During upgrade to Moodle 3.3 it could happen that general section (section 0) became 'invisible'.
            It should always be visible. */
         $DB->execute("UPDATE {course_sections} SET visible=1 WHERE visible=0 AND section=0 AND course IN
@@ -176,7 +181,7 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
 
     if ($oldversion < 2020110902) {
         // Only upgrade if M3.9 version has not already done this.
-        if (!$DB->record_exists('config_plugins', array('plugin' => 'format_topcoll', 'name' => 'defaulttoggleforegroundcolour'))) {
+        if (!$DB->record_exists('config_plugins', ['plugin' => 'format_topcoll', 'name' => 'defaulttoggleforegroundcolour'])) {
             // Change in default names.
             $value = get_config('format_topcoll', 'defaulttgfgcolour');
             set_config('defaulttoggleforegroundcolour', $value, 'format_topcoll');

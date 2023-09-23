@@ -43,7 +43,6 @@ use stdClass;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class controlmenu extends controlmenu_base {
-
     /** @var course_format the course format class */
     protected $format;
 
@@ -120,8 +119,10 @@ class controlmenu extends controlmenu_base {
         $tcsettings = $format->get_settings();
 
         $controls = [];
-        if ((($tcsettings['layoutstructure'] == 1) || ($tcsettings['layoutstructure'] == 4)) &&
-            $section->section && has_capability('moodle/course:setcurrentsection', $coursecontext)) {
+        if (
+            (($tcsettings['layoutstructure'] == 1) || ($tcsettings['layoutstructure'] == 4)) &&
+            $section->section && has_capability('moodle/course:setcurrentsection', $coursecontext)
+        ) {
             if ($course->marker == $section->section) {  // Show the "light globe" on/off.
                 $url->param('marker', 0);
                 $highlightoff = get_string('highlightoff');
@@ -132,7 +133,7 @@ class controlmenu extends controlmenu_base {
                     'pixattr' => ['class' => ''],
                     'attr' => [
                         'class' => 'editing_highlight',
-                        'data-action' => 'removemarker'
+                        'data-action' => 'removemarker',
                     ],
                 ];
             } else {
@@ -145,7 +146,7 @@ class controlmenu extends controlmenu_base {
                     'pixattr' => ['class' => ''],
                     'attr' => [
                         'class' => 'editing_highlight',
-                        'data-action' => 'setmarker'
+                        'data-action' => 'setmarker',
                     ],
                 ];
             }

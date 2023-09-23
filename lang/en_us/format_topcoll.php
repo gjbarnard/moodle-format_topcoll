@@ -66,4 +66,3 @@ $string['defaulttgbghvrcolour_desc'] = "Toggle background hover color in hexidec
 
 // Capabilities.
 $string['topcoll:changecolour'] = 'Change or reset the color';
-

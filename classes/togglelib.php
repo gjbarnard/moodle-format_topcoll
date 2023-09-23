@@ -33,7 +33,6 @@
 namespace format_topcoll;
 
 class togglelib {
-
     // Digits used = ":;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy";
     // Note: An ':' is 58 Ascii so to go between six digit base 2 and this then add / subtract 58.
     // This has been chosen to avoid digits which are in the old method.
@@ -216,12 +215,12 @@ class togglelib {
      * Returns test result as HTML.
      */
     public function test() {
-        $retr = '<h1>A='.self::decode_character_to_value('A').' - back:'.self::encode_value_to_character(7).'</h1><br /><p>';
+        $retr = '<h1>A=' . self::decode_character_to_value('A') . ' - back:' . self::encode_value_to_character(7) . '</h1><br /><p>';
         for ($i = 0; $i < 64; $i++) {
             $curr = self::encode_value_to_character($i);
             $val = self::decode_character_to_value($curr);
             $back = self::encode_value_to_character($val);
-            $retr .= $curr.'='.$val.'='.$back.' ';
+            $retr .= $curr . '=' . $val . '=' . $back . ' ';
         }
         $retr .= '</p>';
 
@@ -229,7 +228,7 @@ class togglelib {
         $this->toggles = 'GjB'; // 001101 110000 001000 = 18 toggles.
         $retr .= '<p>Toggle string of GjB which is 001101 110000 001000 is:</p><p>';
         for ($j = 1; $j <= 18; $j++) {
-            $retr .= 'TG: '.$j.' = '.(int)$this->get_toggle_state($j).' - ';
+            $retr .= 'TG: ' . $j . ' = ' . (int)$this->get_toggle_state($j) . ' - ';
         }
         $retr .= '</p>';
         $retr .= '<p>Now set 5, 12, 15 (already set) and 18 and clear 3 and 7 is:</p><p>';
@@ -240,7 +239,7 @@ class togglelib {
         $this->set_toggle_state(3, false);
         $this->set_toggle_state(7, false);
         for ($j = 1; $j <= 18; $j++) {
-            $retr .= 'TG: '.$j.' = '.(int)$this->get_toggle_state($j).' - ';
+            $retr .= 'TG: ' . $j . ' = ' . (int)$this->get_toggle_state($j) . ' - ';
         }
         $retr .= '</p>';
 
@@ -291,4 +290,3 @@ class togglelib {
         return $param;
     }
 }
-

@@ -32,7 +32,6 @@ namespace format_topcoll;
  * @group format_topcoll
  */
 class courseformattoolbox_test extends \advanced_testcase {
-
     protected function setUp(): void {
         $this->resetAfterTest(true);
 
@@ -40,7 +39,8 @@ class courseformattoolbox_test extends \advanced_testcase {
     }
 
     public function test_hex2rgba() {
-        $theoutput = \format_topcoll\toolbox::hex2rgba('ffaabb', '0.8');;
+        $theoutput = \format_topcoll\toolbox::hex2rgba('ffaabb', '0.8');
+        ;
         $thevalue = 'rgba(255, 170, 187, 0.8)';
 
         $this->assertEquals($thevalue, $theoutput);

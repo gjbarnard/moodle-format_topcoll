@@ -40,7 +40,6 @@ namespace format_topcoll;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 class admin_setting_information extends \admin_setting {
-
     /** @var int The branch this is for. */
     protected $mbranch;
 
@@ -94,7 +93,7 @@ class admin_setting_information extends \admin_setting {
      * @param string $query
      * @return string Returns an HTML string
      */
-    public function output_html($data, $query='') {
+    public function output_html($data, $query = '') {
         global $CFG, $OUTPUT;
 
         $formats = \core_plugin_manager::instance()->get_present_plugins('format');
@@ -106,19 +105,21 @@ class admin_setting_information extends \admin_setting {
         }
 
         $classes[] = 'fa fa-heart';
-        $attributes = array();
+        $attributes = [];
         $attributes['aria-hidden'] = 'true';
         $attributes['class'] = 'fa fa-heart';
         $attributes['title'] = get_string('love', 'format_topcoll');
-        $content = \html_writer::tag('span', $attributes['title'], array('class' => 'sr-only'));
+        $content = \html_writer::tag('span', $attributes['title'], ['class' => 'sr-only']);
         $content = \html_writer::tag('span', $content, $attributes);
-        $context['versioninfo'] = get_string('versioninfo', 'format_topcoll',
-            array(
+        $context['versioninfo'] = get_string(
+            'versioninfo',
+            'format_topcoll',
+            [
                 'moodle' => $CFG->release,
                 'release' => $plugininfo->release,
                 'version' => $plugininfo->version,
-                'love' => $content
-            )
+                'love' => $content,
+            ]
         );
 
         if (!empty($plugininfo->maturity)) {
@@ -126,25 +127,25 @@ class admin_setting_information extends \admin_setting {
                 case MATURITY_ALPHA:
                     $context['maturity'] = get_string('versionalpha', 'format_topcoll');
                     $context['maturityalert'] = 'danger';
-                break;
+                    break;
                 case MATURITY_BETA:
                     $context['maturity'] = get_string('versionbeta', 'format_topcoll');
                     $context['maturityalert'] = 'danger';
-                break;
+                    break;
                 case MATURITY_RC:
                     $context['maturity'] = get_string('versionrc', 'format_topcoll');
                     $context['maturityalert'] = 'warning';
-                break;
+                    break;
                 case MATURITY_STABLE:
                     $context['maturity'] = get_string('versionstable', 'format_topcoll');
                     $context['maturityalert'] = 'info';
-                break;
+                    break;
             }
         }
 
         if ($CFG->branch != $this->mbranch) {
-            $context['versioncheck'] = 'Release '.$plugininfo->release.', version '.$plugininfo->version;
-            $context['versioncheck'] .= ' is incompatible with Moodle '.$CFG->release;
+            $context['versioncheck'] = 'Release ' . $plugininfo->release . ', version ' . $plugininfo->version;
+            $context['versioncheck'] .= ' is incompatible with Moodle ' . $CFG->release;
             $context['versioncheck'] .= ', please get the correct version from ';
             $context['versioncheck'] .= '<a href="https://moodle.org/plugins/format_topcoll" target="_blank">Moodle.org</a>.  ';
             $context['versioncheck'] .= 'If none is available, then please consider supporting the format by funding it.  ';

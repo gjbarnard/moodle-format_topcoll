@@ -35,7 +35,6 @@ namespace format_topcoll\output\courseformat\content\section;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class cmitem extends \core_courseformat\output\local\content\section\cmitem {
-
     public function get_template_name(\renderer_base $renderer): string {
         return 'format_topcoll/local/content/section/cmitem';
     }

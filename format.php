@@ -74,10 +74,10 @@ course_create_sections_if_missing($course, range(0, $courseformatoptions['numsec
 $renderer = $PAGE->get_renderer('format_topcoll');
 
 $content = '';
-$contentcontext = array(
+$contentcontext = [
     'title' => $courseformat->page_title(),
-    'userisediting' => $PAGE->user_is_editing()
-);
+    'userisediting' => $PAGE->user_is_editing(),
+];
 if (!empty($displaysection)) {
     $courseformat->set_section_number($displaysection);
     $content = $renderer->single_section_page($displaysection);

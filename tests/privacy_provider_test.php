@@ -27,16 +27,15 @@
 
 namespace format_topcoll;
 
-use \core_privacy\local\metadata\collection;
-use \core_privacy\local\request\writer;
-use \format_topcoll\privacy\provider;
+use core_privacy\local\metadata\collection;
+use core_privacy\local\request\writer;
+use format_topcoll\privacy\provider;
 
 /**
  * Privacy unit tests for the Collapsed Topics course format.
  * @group format_topcoll
  */
 class privacy_provider_test extends \core_privacy\tests\provider_testcase {
-
     protected $outputus;
     protected $course;
     protected $courseformat;
@@ -78,8 +77,10 @@ class privacy_provider_test extends \core_privacy\tests\provider_testcase {
         global $PAGE;
         $this->outputus = $PAGE->get_renderer('format_topcoll');
         // Ref: https://docs.moodle.org/dev/Writing_PHPUnit_tests.
-        $this->course = $this->getDataGenerator()->create_course(array('format' => 'topcoll', 'numsections' => $this->numsections),
-            array('createsections' => true));
+        $this->course = $this->getDataGenerator()->create_course(
+            ['format' => 'topcoll', 'numsections' => $this->numsections],
+            ['createsections' => true]
+        );
 
         $this->courseformat = course_get_format($this->course);
         self::set_property($this->outputus, 'courseformat', $this->courseformat);
@@ -116,12 +117,12 @@ class privacy_provider_test extends \core_privacy\tests\provider_testcase {
      * Ensure that export_user_preferences returns request data.
      */
     public function test_export_user_preferences() {
-        $togglelib = new \format_topcoll\togglelib;
+        $togglelib = new \format_topcoll\togglelib();
 
         $this->set_up();
         $this->setAdminUser();
 
-        set_user_preference('topcoll_toggle_'.$this->course->id, 'FAB');
+        set_user_preference('topcoll_toggle_' . $this->course->id, 'FAB');
 
         $user = \core_user::get_user_by_username('admin');
         provider::export_user_preferences($user->id);
@@ -134,7 +135,7 @@ class privacy_provider_test extends \core_privacy\tests\provider_testcase {
 
         $this->assertCount(1, $prefs);
 
-        $toggle = $prefs['topcoll_toggle_'.$this->course->id];
+        $toggle = $prefs['topcoll_toggle_' . $this->course->id];
         $this->assertEquals('FAB', $toggle->value);
 
         $description = get_string('privacy:request:preference:toggle', 'format_topcoll', (object) [

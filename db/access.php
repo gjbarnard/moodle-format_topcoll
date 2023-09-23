@@ -33,49 +33,49 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$capabilities = array(
-    'format/topcoll:changelayout' => array(
+$capabilities = [
+    'format/topcoll:changelayout' => [
         'captype' => 'write',
         'contextlevel' => CONTEXT_COURSE,
-        'archetypes' => array(
+        'archetypes' => [
             'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW
-        )
-    ),
+            'manager' => CAP_ALLOW,
+        ],
+    ],
 
-    'format/topcoll:changecolour' => array(
+    'format/topcoll:changecolour' => [
         'captype' => 'write',
         'contextlevel' => CONTEXT_COURSE,
-        'archetypes' => array(
+        'archetypes' => [
             'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW
-        )
-    ),
+            'manager' => CAP_ALLOW,
+        ],
+    ],
 
-    'format/topcoll:changetogglealignment' => array(
+    'format/topcoll:changetogglealignment' => [
         'captype' => 'write',
         'contextlevel' => CONTEXT_COURSE,
-        'archetypes' => array(
+        'archetypes' => [
         'editingteacher' => CAP_ALLOW,
-        'manager' => CAP_ALLOW
-        )
-    ),
+        'manager' => CAP_ALLOW,
+        ],
+    ],
 
-    'format/topcoll:changetoggleiconset' => array(
+    'format/topcoll:changetoggleiconset' => [
         'captype' => 'write',
         'contextlevel' => CONTEXT_COURSE,
-        'archetypes' => array(
+        'archetypes' => [
         'editingteacher' => CAP_ALLOW,
-        'manager' => CAP_ALLOW
-        )
-    ),
+        'manager' => CAP_ALLOW,
+        ],
+    ],
 
-    'format/topcoll:changeactivitymeta' => array(
+    'format/topcoll:changeactivitymeta' => [
         'captype' => 'write',
         'contextlevel' => CONTEXT_COURSE,
-        'archetypes' => array(
+        'archetypes' => [
         'editingteacher' => CAP_ALLOW,
-        'manager' => CAP_ALLOW
-        )
-    )
-);
+        'manager' => CAP_ALLOW,
+        ],
+    ],
+];

@@ -52,7 +52,6 @@ namespace format_topcoll;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class activity_meta {
-
     // Strings.
     /**
      * @var string $submitstrkey - language string key.

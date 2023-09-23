@@ -37,7 +37,6 @@
 namespace format_topcoll\output;
 
 trait format_renderer_migration_toolbox {
-
     /**
      * Generate a summary of the activities in a section
      *

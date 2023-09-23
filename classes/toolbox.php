@@ -34,7 +34,6 @@
 namespace format_topcoll;
 
 class toolbox {
-
     protected static $instance;
 
     const TOPCOLL_TOGGLE = 'topcoll_toggle';
@@ -60,15 +59,15 @@ class toolbox {
         $hex = str_replace("#", "", $hex);
 
         if (strlen($hex) == 3) {
-            $r = hexdec(substr($hex, 0, 1).substr($hex, 0, 1));
-            $g = hexdec(substr($hex, 1, 1).substr($hex, 1, 1));
-            $b = hexdec(substr($hex, 2, 1).substr($hex, 2, 1));
+            $r = hexdec(substr($hex, 0, 1) . substr($hex, 0, 1));
+            $g = hexdec(substr($hex, 1, 1) . substr($hex, 1, 1));
+            $b = hexdec(substr($hex, 2, 1) . substr($hex, 2, 1));
         } else {
             $r = hexdec(substr($hex, 0, 2));
             $g = hexdec(substr($hex, 2, 2));
             $b = hexdec(substr($hex, 4, 2));
         }
-        $rgb = array('r' => $r, 'g' => $g, 'b' => $b);
+        $rgb = ['r' => $r, 'g' => $g, 'b' => $b];
         return $rgb; // Returns the rgb as an array.
     }
 
@@ -82,6 +81,6 @@ class toolbox {
     public static function hex2rgba($hex, $alpha) {
         $rgba = self::hex2rgb($hex);
         $rgba[] = $alpha;
-        return 'rgba('.implode(", ", $rgba).')'; // Returns the rgba values separated by commas.
+        return 'rgba(' . implode(", ", $rgba) . ')'; // Returns the rgba values separated by commas.
     }
 }

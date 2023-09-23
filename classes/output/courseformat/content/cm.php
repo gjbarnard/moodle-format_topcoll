@@ -37,7 +37,6 @@ use core_courseformat\output\local\content\cm as cm_base;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class cm extends cm_base {
-
     /**
      * Export this data so it can be used as the context for a mustache template.
      *
@@ -54,7 +53,7 @@ class cm extends cm_base {
             if (\format_topcoll\activity::activitymetaused($courseformat)) {
                 $courseid = $this->mod->course;
                 if (\format_topcoll\activity::maxstudentsnotexceeded($courseid)) {
-                    $settingname = 'coursesectionactivityfurtherinformation'.$this->mod->modname;
+                    $settingname = 'coursesectionactivityfurtherinformation' . $this->mod->modname;
                     $setting = get_config('format_topcoll', $settingname);
                     if ((!empty($setting)) && ($setting == 2)) {
                         $data->cmmeta = $this->course_section_cm_get_meta($this->mod);
@@ -95,23 +94,27 @@ class cm extends cm_base {
 
         if ($meta->isteacher) {
             // Teacher - useful teacher meta data.
-            $engagementmeta = array();
+            $engagementmeta = [];
 
             if (!$meta->submissionnotrequired) {
                 /* Below, != 0 means we would get x out of 0 submissions, so at least show something as
                    the module could now be hidden, but there is still useful information. */
                 if ($meta->numparticipants != 0) {
-                    $engagementmeta[] = get_string('xofy'.$meta->submitstrkey, 'format_topcoll',
-                        (object) array(
+                    $engagementmeta[] = get_string(
+                        'xofy' . $meta->submitstrkey,
+                        'format_topcoll',
+                        (object) [
                             'completed' => $meta->numsubmissions,
-                            'participants' => $meta->numparticipants
-                        )
+                            'participants' => $meta->numparticipants,
+                        ]
                     );
                 } else {
-                    $engagementmeta[] = get_string('x'.$meta->submitstrkey, 'format_topcoll',
-                        (object) array(
-                            'completed' => $meta->numsubmissions
-                        )
+                    $engagementmeta[] = get_string(
+                        'x' . $meta->submitstrkey,
+                        'format_topcoll',
+                        (object) [
+                            'completed' => $meta->numsubmissions,
+                        ]
                     );
                 }
             }
@@ -120,45 +123,45 @@ class cm extends cm_base {
                 $engagementmeta[] = get_string('xungraded', 'format_topcoll', $meta->numrequiregrading);
             }
             if (!empty($engagementmeta)) {
-                $params = array(
-                    'id' => $mod->id
-                );
+                $params = [
+                    'id' => $mod->id,
+                ];
                 $file = 'view';
 
                 switch ($mod->modname) {
                     case 'assign':
                         $params['action'] = 'grading';
-                    break;
+                        break;
                     case 'quiz':
                         $file = 'report';
                         $params['mode'] = 'overview';
-                    break;
+                        break;
                 }
 
-                $sectioncmmetacontext = array(
+                $sectioncmmetacontext = [
                     'linkclass' => 'ct-activity-action',
                     'linkicon' => $OUTPUT->pix_icon('docs', get_string('info')),
                     'linktext' => implode(', ', $engagementmeta),
                     'linkurl' => new \moodle_url("/mod/{$mod->modname}/{$file}.php", $params),
-                    'type' => 'engagement'
-                );
+                    'type' => 'engagement',
+                ];
                 $content = $OUTPUT->render_from_template('format_topcoll/sectioncmmeta', $sectioncmmetacontext);
             }
         } else {
             // Feedback meta.
             if (!empty($meta->grade)) {
                 if (in_array($mod->modname, ['quiz', 'assign'])) {
-                    $url = new \moodle_url('/mod/'.$mod->modname.'/view.php?id='.$mod->id);
+                    $url = new \moodle_url('/mod/' . $mod->modname . '/view.php?id=' . $mod->id);
                 } else {
                     $url = new \moodle_url('/grade/report/user/index.php', ['id' => $courseid]);
                 }
 
-                $sectioncmmetacontext = array(
+                $sectioncmmetacontext = [
                     'linkicon' => $OUTPUT->pix_icon('t/message', get_string('feedback')),
                     'linktext' => get_string('feedbackavailable', 'format_topcoll'),
                     'linkurl' => $url,
-                    'type' => 'feedback'
-                );
+                    'type' => 'feedback',
+                ];
                 $content = $OUTPUT->render_from_template('format_topcoll/sectioncmmeta', $sectioncmmetacontext);
             }
         }

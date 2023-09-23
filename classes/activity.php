@@ -48,9 +48,9 @@ namespace format_topcoll;
 
 defined('MOODLE_INTERNAL') || die();
 
-use \cm_info;
+use cm_info;
 
-require_once($CFG->dirroot.'/mod/assign/locallib.php');
+require_once($CFG->dirroot . '/mod/assign/locallib.php');
 
 /**
  * Activity functions.
@@ -64,7 +64,6 @@ require_once($CFG->dirroot.'/mod/assign/locallib.php');
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class activity {
-
     /**
      *
      * Main method that calls relevant activity-related method based on the mod name.
@@ -96,40 +95,42 @@ class activity {
      * @return activity_meta
      */
     protected static function std_meta(
-            cm_info $mod,
-            $submitstrkey,
-            $isgradeable = false
-        ) {
+        cm_info $mod,
+        $submitstrkey,
+        $isgradeable = false
+    ) {
 
         $courseid = $mod->course;
         $meta = null;
         // If role has specific "teacher" capabilities.
-        if ((has_capability('mod/assign:grade', $mod->context)) ||
-            (has_capability('mod/forum:grade', $mod->context))) {
+        if (
+            (has_capability('mod/assign:grade', $mod->context)) ||
+            (has_capability('mod/forum:grade', $mod->context))
+        ) {
             $meta = new activity_meta();
             $meta->isteacher = true;
             $meta->submitstrkey = $submitstrkey;
 
             if ($mod->modname === 'assign') {
-                list(
+                [
                     'participants' => $meta->numparticipants,
                     'submissions' => $meta->numsubmissions,
                     'ungraded' => $meta->numrequiregrading,
-                ) = self::assign_nums($courseid, $mod);
+                ] = self::assign_nums($courseid, $mod);
             } else {
-                $methodnsubmissions = $mod->modname.'_num_submissions';
-                $methodnumungraded = $mod->modname.'_num_submissions_ungraded';
+                $methodnsubmissions = $mod->modname . '_num_submissions';
+                $methodnumungraded = $mod->modname . '_num_submissions_ungraded';
 
                 // Do this before the rest so that the caches are populated for use.
                 $meta->numparticipants = self::course_participant_count($courseid, $mod);
                 if (!empty($meta->numparticipants)) {
                     // Only need to bother if there are participants!
                     if (method_exists('format_topcoll\\activity', $methodnsubmissions)) {
-                        $meta->numsubmissions = call_user_func('format_topcoll\\activity::'.
+                        $meta->numsubmissions = call_user_func('format_topcoll\\activity::' .
                             $methodnsubmissions, $courseid, $mod);
                     }
                     if (method_exists('format_topcoll\\activity', $methodnumungraded)) {
-                        $meta->numrequiregrading = call_user_func('format_topcoll\\activity::'.
+                        $meta->numrequiregrading = call_user_func('format_topcoll\\activity::' .
                             $methodnumungraded, $courseid, $mod);
                     }
                     if ($mod->modname === 'forum') {
@@ -151,14 +152,14 @@ class activity {
                 } else {
                     global $USER;
 
-                    $gradeitem = \grade_item::fetch(array(
+                    $gradeitem = \grade_item::fetch([
                         'itemtype' => 'mod',
                         'itemmodule' => $mod->modname,
                         'iteminstance' => $mod->instance,
-                        'outcomeid' => null
-                    ));
+                        'outcomeid' => null,
+                    ]);
 
-                    $grade = new \grade_grade(array('itemid' => $gradeitem->id, 'userid' => $USER->id));
+                    $grade = new \grade_grade(['itemid' => $gradeitem->id, 'userid' => $USER->id]);
                     if (!$grade->is_hidden()) {
                         $meta = new activity_meta();
                         $meta->grade = true;
@@ -224,9 +225,11 @@ class activity {
                     FROM {forum} f
                     WHERE f.id = :forumid";
         $forumscale = $DB->get_records_sql($sql, $params);
-        if ((!empty($forumscale[$modinst->instance])) &&
+        if (
+            (!empty($forumscale[$modinst->instance])) &&
             ($forumscale[$modinst->instance]->scale > 0) &&
-            ($forumscale[$modinst->instance]->grade_forum != 0)) {
+            ($forumscale[$modinst->instance]->grade_forum != 0)
+        ) {
             return self::std_meta($modinst, 'posted');
         }
         return null; // Whole forum grading off for this forum.
@@ -268,28 +271,29 @@ class activity {
      * @return int
      */
     protected static function std_num_submissions(
-            $courseid,
-            $mod,
-            $maintable,
-            $mainkey,
-            $submittable,
-            $extraselect = '') {
+        $courseid,
+        $mod,
+        $maintable,
+        $mainkey,
+        $submittable,
+        $extraselect = ''
+    ) {
         global $DB;
 
-        static $modtotalsbyid = array();
+        static $modtotalsbyid = [];
 
         if (!isset($modtotalsbyid[$maintable][$courseid])) {
             // Results are not cached, so lets get them.
 
             // Get people who are typically not students (people who can view grader report) so that we can exclude them!
-            list($graderids, $params) = get_enrolled_sql(\context_course::instance($courseid), 'moodle/grade:viewall');
+            [$graderids, $params] = get_enrolled_sql(\context_course::instance($courseid), 'moodle/grade:viewall');
             $params['courseid'] = $courseid;
 
             // Get the number of submissions for all $maintable activities in this course.
             $sql = "-- Snap sql
                 SELECT m.id, COUNT(DISTINCT sb.userid) as totalsubmitted
-                    FROM {".$maintable."} m
-                    JOIN {".$submittable."} sb ON m.id = sb.$mainkey
+                    FROM {" . $maintable . "} m
+                    JOIN {" . $submittable . "} sb ON m.id = sb.$mainkey
                     WHERE m.course = :courseid
                     AND sb.userid NOT IN ($graderids)
                     $extraselect
@@ -328,11 +332,11 @@ class activity {
         }
         $submitted = ASSIGN_SUBMISSION_STATUS_SUBMITTED;
 
-        return array(
+        return [
             'participants' => $participants,
             'submissions' => $assign->count_submissions_with_status($submitted, $activitygroup),
-            'ungraded' => $assign->count_submissions_need_grading($activitygroup)
-        );
+            'ungraded' => $assign->count_submissions_need_grading($activitygroup),
+        ];
     }
 
     /**
@@ -345,7 +349,7 @@ class activity {
     protected static function data_num_submissions($courseid, $mod) {
         $modinstance = $mod->instance;
 
-        static $modtotalsbyinstance = array();
+        static $modtotalsbyinstance = [];
 
         if (!isset($modtotalsbyinstance[$modinstance])) {
             global $DB;
@@ -485,7 +489,7 @@ class activity {
 
         $coursecontext = \context_course::instance($courseid);
         // Get people who are typically not students (people who can view grader report) so that we can exclude them!
-        list($graderids, $params) = get_enrolled_sql($coursecontext, 'moodle/grade:viewall');
+        [$graderids, $params] = get_enrolled_sql($coursecontext, 'moodle/grade:viewall');
         $params['courseid'] = $courseid;
 
         if (!isset($totalsbyquizid)) {
@@ -527,17 +531,18 @@ class activity {
     protected static function grade_row($courseid, $mod) {
         global $DB, $USER;
 
-        static $grades = array();
+        static $grades = [];
 
-        if (isset($grades[$courseid.'_'.$mod->modname])
-            && isset($grades[$courseid.'_'.$mod->modname][$mod->instance])
-            ) {
-                return $grades[$courseid.'_'.$mod->modname][$mod->instance];
+        if (
+            isset($grades[$courseid . '_' . $mod->modname])
+            && isset($grades[$courseid . '_' . $mod->modname][$mod->instance])
+        ) {
+                return $grades[$courseid . '_' . $mod->modname][$mod->instance];
         }
 
         $sql = "-- Snap sql
             SELECT m.id AS instanceid, gg.*
-                FROM {".$mod->modname."} m
+                FROM {" . $mod->modname . "} m
 
                 JOIN {grade_items} gi
                 ON m.id = gi.iteminstance
@@ -557,16 +562,16 @@ class activity {
                     OR gg.feedback IS NOT NULL
                 )
             ";
-        $params = array(
+        $params = [
             'modname' => $mod->modname,
             'courseid1' => $courseid,
             'courseid2' => $courseid,
-            'userid' => $USER->id
-        );
-        $grades[$courseid.'_'.$mod->modname] = $DB->get_records_sql($sql, $params);
+            'userid' => $USER->id,
+        ];
+        $grades[$courseid . '_' . $mod->modname] = $DB->get_records_sql($sql, $params);
 
-        if (isset($grades[$courseid.'_'.$mod->modname][$mod->instance])) {
-            return $grades[$courseid.'_'.$mod->modname][$mod->instance];
+        if (isset($grades[$courseid . '_' . $mod->modname][$mod->instance])) {
+            return $grades[$courseid . '_' . $mod->modname][$mod->instance];
         } else {
             return false;
         }
@@ -588,7 +593,7 @@ class activity {
         $usercreatedcache = \cache::make('format_topcoll', 'activityusercreatedcache');
         $createdusers = $usercreatedcache->get($courseid);
         $lock = null;
-        $newstudents = array();
+        $newstudents = [];
         if (!empty($createdusers)) {
             $lock = self::lockcaches($courseid);
 
@@ -598,7 +603,7 @@ class activity {
             $alluserroles = get_users_roles($context, $createdusers, false);
 
             foreach ($createdusers as $userid) {
-                $usershortnames = array();
+                $usershortnames = [];
                 foreach ($alluserroles[$userid] as $userrole) {
                     $usershortnames[] = $userrole->shortname;
                 }
@@ -675,7 +680,7 @@ class activity {
 
         if (empty($studentroles)) {
             $studentarch = get_archetype_roles('student');
-            $studentroles = array();
+            $studentroles = [];
             foreach ($studentarch as $role) {
                 $studentroles[] = $role->shortname;
             }
@@ -685,14 +690,14 @@ class activity {
         $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
         $students = $studentscache->get($courseid);
         if (empty($students)) {
-            $students = array();
+            $students = [];
             $context = \context_course::instance($courseid);
             $enrolledusers = get_enrolled_users($context, '', 0, 'u.id', null, 0, 0, true);
             $users = array_keys($enrolledusers);
             $alluserroles = get_users_roles($context, $users, false);
 
             foreach ($users as $userid) {
-                $usershortnames = array();
+                $usershortnames = [];
                 foreach ($alluserroles[$userid] as $userrole) {
                     $usershortnames[] = $userrole->shortname;
                 }
@@ -747,7 +752,7 @@ class activity {
         }
 
         if ($extrainfo) {
-            return array('notexceeded' => $notexceeded, 'nostudents' => $studentcount, 'maxstudents' => $maxstudents);
+            return ['notexceeded' => $notexceeded, 'nostudents' => $studentcount, 'maxstudents' => $maxstudents];
         }
 
         return $notexceeded;
@@ -834,7 +839,7 @@ class activity {
             $usercreatedcache = \cache::make('format_topcoll', 'activityusercreatedcache');
             $createdusers = $usercreatedcache->get($courseid);
             if (empty($createdusers)) {
-                $createdusers = array();
+                $createdusers = [];
             }
             $createdusers[] = $userid;
             $usercreatedcache->set($courseid, $createdusers);
@@ -964,10 +969,10 @@ class activity {
                 $modinfo = get_fast_modinfo($courseid, -1);
                 $cms = $modinfo->get_cms(); // Array of cm_info objects.
                 foreach ($cms as $themod) {
-                    $modulecount[$themod->id] = array(0, array());
+                    $modulecount[$themod->id] = [0, []];
                 }
             } else {
-                $modulecount[$modid] = array(0, array());
+                $modulecount[$modid] = [0, []];
             }
         }
         foreach ($students as $userid) {
@@ -1000,11 +1005,15 @@ class activity {
      */
     private static function lockcaches($courseid) {
         $lockfactory = \core\lock\lock_config::get_lock_factory('format_topcoll');
-        if ($lock = $lockfactory->get_lock('courseid'.$courseid, 5)) {
+        if ($lock = $lockfactory->get_lock('courseid' . $courseid, 5)) {
             return $lock;
         }
-        throw new \moodle_exception('cannotgetactivitycacheslock', 'format_topcoll', '',
-            get_string('cannotgetactivitycacheslock', 'format_topcoll', $courseid));
+        throw new \moodle_exception(
+            'cannotgetactivitycacheslock',
+            'format_topcoll',
+            '',
+            get_string('cannotgetactivitycacheslock', 'format_topcoll', $courseid)
+        );
     }
 
     /**
