@@ -21,10 +21,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - php: 8.0
-            moodle-branch: 'MOODLE_402_STABLE'
-            database: mariadb
+        php: ['8.0', '8.2']
+        moodle-branch: ['MOODLE_403_STABLE']
+        database: [mariadb]
 
     steps:
       - name: Check out repository code
@@ -42,7 +41,7 @@ jobs:
 
       - name: Initialise moodle-plugin-ci
         run: |
-          composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^3
+          composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^4
           echo $(cd ci/bin; pwd) >> $GITHUB_PATH
           echo $(cd ci/vendor/bin; pwd) >> $GITHUB_PATH
           sudo locale-gen en_AU.UTF-8

@@ -3,29 +3,29 @@
 Topic based course format with an individual 'toggle' for each topic except 0.
 
 This file contains general information about the format.  If you're reading this as an educator then you can learn about the format
-from the documentation on http://docs.moodle.org/402/en/Collapsed_Topics_course_format.  If you get stuck and your Moodle support
+from the documentation on http://docs.moodle.org/403/en/Collapsed_Topics_course_format.  If you get stuck and your Moodle support
 are unable to help / not sure what to do, then please go to https://moodle.org/mod/forum/view.php?id=47.  If you like the format,
 then please do spread the word to other educators.  The main page for the format is https://moodle.org/plugins/format_topcoll.
 
 Required version of Moodle
 ==========================
-This version works with Moodle 4.2 version 2023042400.00 (Build: 20230424) and above within the MOODLE_402_STABLE branch until the
+This version works with Moodle 4.3 version 2023100900.00 (Build: 20231009) and above within the MOODLE_403_STABLE branch until the
 next release.
 
-Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/402/en/Installing_Moodle)'.
+Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/403/en/Installing_Moodle)'.
 
 Downloads and documentation
 ===========================
 The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
-with 'Select Moodle version:' set at 'Moodle 4.2'.
+with 'Select Moodle version:' set at 'Moodle 4.3'.
 
-The secondary source is a tagged version with the V402 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
+The secondary source is a tagged version with the V403 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
 
 If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/ - consider that
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
-Documented on http://docs.moodle.org/402/en/Collapsed_Topics_course_format
+Documented on http://docs.moodle.org/403/en/Collapsed_Topics_course_format
 
 Free software
 =============
@@ -275,6 +275,6 @@ Developed and maintained by
 G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE.
 
 - Moodle profile | [Moodle.org](https://moodle.org/user/profile.php?id=442195)
-- @gjbarnard     | [Twitter](https://twitter.com/gjbarnard)
+- @gjbarnard     | [X](https://twitter.com/gjbarnard)
 - Web profile    | [About.me](https://about.me/gjbarnard)
 - Website        | [Website](https://gjbarnard.co.uk)

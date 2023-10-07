@@ -19,7 +19,7 @@ If you'd like to sponsor, get support or fund improvements, then please do get i
 
 - gjbarnard | Gmail dt com address.
 - GitHub | Please outline your issue / improvement on '[GitHub](https://github.com/gjb2048/moodle-format_topcoll/issues)'.
-- @gjbarnard | '[Twitter](https://twitter.com/gjbarnard)'.
+- @gjbarnard | '[X](https://twitter.com/gjbarnard)'.
 
 Sponsors
 ========
@@ -49,10 +49,10 @@ benefits.
 
 Required version of Moodle
 ==========================
-This version works with Moodle 4.2 version 2023042400.00 (Build: 20230424) and above within the MOODLE_402_STABLE branch until the
+This version works with Moodle 4.3 version 2023100900.00 (Build: 20231009) and above within the MOODLE_403_STABLE branch until the
 next release.
 
-Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/402/en/Installing_Moodle)'.
+Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/403/en/Installing_Moodle)'.
 
 Reporting issues
 ================
@@ -78,6 +78,6 @@ Developed and maintained by
 G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE.
 
 - Moodle profile | [Moodle.org](https://moodle.org/user/profile.php?id=442195)
-- @gjbarnard     | [Twitter](https://twitter.com/gjbarnard)
+- @gjbarnard     | [X](https://twitter.com/gjbarnard)
 - Web profile    | [About.me](https://about.me/gjbarnard)
 - Website        | [Website](https://gjbarnard.co.uk)
