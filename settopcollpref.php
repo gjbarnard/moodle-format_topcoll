@@ -37,19 +37,28 @@ require_sesskey();
 
 // Get the name of the preference to update, and check that it is allowed.
 $name = required_param('pref', PARAM_RAW);
-if (!isset($USER->ajax_updatable_user_prefs[$name])) {
-    print_error('notallowedtoupdateprefremotely');
-}
-
-// Get and set the value.
-$value = \format_topcoll\togglelib::required_topcoll_param('value');
-// Update.
-if ($value) {
-    if (!set_user_preference($name, $value)) {
-        print_error('errorsettinguserpref');
-    }
-    echo 'OK';
+if (!isset($USER->topcoll_user_pref[$name])) {
+    // User's session does not contain the given preference, so the request is invalid.
+    header('HTTP/1.1 400 Bad Request');
+    //echo '{"code": 400, "message": "'.get_string('notallowedtoupdateprefremotely', 'error').'"}';
+    throw new moodle_exception(get_string('notallowedtoupdateprefremotely', 'error'));
 } else {
-    header('HTTP/1.1 406 Not Acceptable');
-    echo 'Not Acceptable';
+    try {
+        // Get and set the value.
+        //throw new coding_exception('clean_topcoll_param() cannot process objects.');
+        $value = \format_topcoll\togglelib::required_topcoll_param('value');
+        // Update.
+        if (!$value) {
+            set_user_preference($name, $value); // Always returns true or a coding exception.
+            header('HTTP/1.1 200 OK');
+            echo '{"code": 200, "message": "OK"}';
+        } else {
+            header('HTTP/1.1 406 Not Acceptable');
+            //echo '{"code": 406, "message": "Toggle value contains a character outside of the range 58 to 121 decimal."}';
+            throw new invalid_parameter_exception("Toggle value contains a character outside of the range 58 to 121 decimal.");
+        }
+    } catch (coding_exception $ce) {
+        header('HTTP/1.1 500 Internal Server Error');
+        throw $ce;
+    }
 }
