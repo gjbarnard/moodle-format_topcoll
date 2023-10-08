@@ -33,6 +33,8 @@
 namespace format_topcoll;
 
 class togglelib {
+    const TOPCOLL_TOGGLE = 'topcoll_toggle';
+
     // Digits used = ":;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy";
     // Note: An ':' is 58 Ascii so to go between six digit base 2 and this then add / subtract 58.
     // This has been chosen to avoid digits which are in the old method.
@@ -271,12 +273,12 @@ class togglelib {
      */
     public static function clean_topcoll_param($param) {
         if (is_array($param)) {
-            throw new coding_exception('clean_topcoll_param() can not process arrays.');
+            throw new coding_exception('clean_topcoll_param() cannot process arrays.');
         } else if (is_object($param)) {
             if (method_exists($param, '__toString')) {
                 $param = $param->__toString();
             } else {
-                throw new coding_exception('clean_topcoll_param() can not process objects.');
+                throw new coding_exception('clean_topcoll_param() cannot process objects.');
             }
         }
 

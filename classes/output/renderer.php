@@ -1077,7 +1077,7 @@ class renderer extends section_renderer {
             $this->userisediting, ]);
         /* Make sure the database has the correct state of the toggles if changed by the code.
            This ensures that a no-change page reload is correct. */
-        set_user_preference('topcoll_toggle_' . $course->id, $toggles);
+        set_user_preference(\format_topcoll\togglelib::TOPCOLL_TOGGLE.'_' . $course->id, $toggles);
 
         return $content;
     }
@@ -1239,11 +1239,9 @@ class renderer extends section_renderer {
         $this->defaulttogglepersistence = clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT);
 
         if ($this->defaulttogglepersistence == 1) {
-            //user_preference_allow_ajax_update('topcoll_toggle_' . $this->course->id, PARAM_RAW);
-            //$USER->ajax_updatable_user_prefs[$name] = PARAM_RAW;
             global $USER;
-            $USER->topcoll_user_pref['topcoll_toggle_' . $this->course->id] = PARAM_RAW;
-            $userpreference = get_user_preferences('topcoll_toggle_' . $this->course->id);
+            $USER->topcoll_user_pref[\format_topcoll\togglelib::TOPCOLL_TOGGLE.'_' . $this->course->id] = PARAM_RAW;
+            $userpreference = get_user_preferences(\format_topcoll\togglelib::TOPCOLL_TOGGLE.'_' . $this->course->id);
         } else {
             $userpreference = null;
         }

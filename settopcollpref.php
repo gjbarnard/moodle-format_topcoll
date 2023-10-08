@@ -40,21 +40,18 @@ $name = required_param('pref', PARAM_RAW);
 if (!isset($USER->topcoll_user_pref[$name])) {
     // User's session does not contain the given preference, so the request is invalid.
     header('HTTP/1.1 400 Bad Request');
-    //echo '{"code": 400, "message": "'.get_string('notallowedtoupdateprefremotely', 'error').'"}';
     throw new moodle_exception(get_string('notallowedtoupdateprefremotely', 'error'));
 } else {
     try {
         // Get and set the value.
-        //throw new coding_exception('clean_topcoll_param() cannot process objects.');
         $value = \format_topcoll\togglelib::required_topcoll_param('value');
         // Update.
-        if (!$value) {
+        if ($value) {
             set_user_preference($name, $value); // Always returns true or a coding exception.
             header('HTTP/1.1 200 OK');
-            echo '{"code": 200, "message": "OK"}';
+            echo '{"message": "'.$name.' preference set"}';
         } else {
             header('HTTP/1.1 406 Not Acceptable');
-            //echo '{"code": 406, "message": "Toggle value contains a character outside of the range 58 to 121 decimal."}';
             throw new invalid_parameter_exception("Toggle value contains a character outside of the range 58 to 121 decimal.");
         }
     } catch (coding_exception $ce) {

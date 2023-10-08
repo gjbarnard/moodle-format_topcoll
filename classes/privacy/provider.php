@@ -46,7 +46,7 @@ class provider implements
      * @return  collection A listing of user data stored through this system.
      */
     public static function get_metadata(collection $items): collection {
-        $items->add_user_preference(\format_topcoll\toolbox::TOPCOLL_TOGGLE, 'privacy:metadata:preference:toggle');
+        $items->add_user_preference(\format_topcoll\togglelib::TOPCOLL_TOGGLE, 'privacy:metadata:preference:toggle');
 
         return $items;
     }
@@ -61,8 +61,8 @@ class provider implements
         $togglelib = new \format_topcoll\togglelib();
         foreach ($preferences as $name => $value) {
             $courseid = null;
-            if (strpos($name, \format_topcoll\toolbox::TOPCOLL_TOGGLE) === 0) {
-                $courseid = substr($name, strlen(\format_topcoll\toolbox::TOPCOLL_TOGGLE) + 1);
+            if (strpos($name, \format_topcoll\togglelib::TOPCOLL_TOGGLE) === 0) {
+                $courseid = substr($name, strlen(\format_topcoll\togglelib::TOPCOLL_TOGGLE) + 1);
 
                 writer::export_user_preference(
                     'format_topcoll',
