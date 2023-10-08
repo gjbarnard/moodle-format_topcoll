@@ -402,6 +402,10 @@ M.format_topcoll.encode_value_to_character = function(val) {
  * @param String the value to set it to.
  */
 M.format_topcoll.set_user_preference = function(name, value) {
+    // Note: Using own version instead of core_user/repository.setUserPreference(name, value) as I'm encoding the course id in
+    // the name of the preference, and that breaks the checking code, set_user_preferences() in user/externallib.php, that
+    // expects preferences to be statically named / cached in format_topcoll_user_preferences() in lib.php.  Thus cannot be
+    // dynamic.  Long term solution is using 'core/ajax' with db/services.php.  Ref: MDL-76974.
     YUI().use('io', function(Y) {
         var url = M.cfg.wwwroot + '/course/format/topcoll/settopcollpref.php?sesskey=' + M.cfg.sesskey + '&pref=' + encodeURI(name) + '&value=' + encodeURI(value); // jshint ignore:line
 
