@@ -253,6 +253,8 @@ class format_topcoll extends core_courseformat\base {
                 // If the stealth section has modules then is visible.
                 return (!empty($modinfo->sections[$section->section]));
             }
+            // Don't show.
+            return false;
         }
         return parent::is_section_visible($section);
     }
