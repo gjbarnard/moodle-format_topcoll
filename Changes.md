@@ -1,6 +1,9 @@
 ﻿Version Information
 ===================
 
+Version 401.1.2 - TBR
+----------------------------
+
 Version 401.1.1 - 14/08/2023
 ----------------------------
 1. Fix 'section_activity_summary' method.
