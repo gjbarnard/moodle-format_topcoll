@@ -3,6 +3,7 @@
 
 Version 403.1.1 - TBR
 ----------------------------
+1. Fix 'Orphaned Section still appear in Index Drawer' - #146.
 
 Version 403.1.0 - 08/10/2023
 ----------------------------
