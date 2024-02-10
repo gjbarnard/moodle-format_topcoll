@@ -48,7 +48,7 @@ namespace format_topcoll;
 
 defined('MOODLE_INTERNAL') || die();
 
-use \cm_info;
+use cm_info;
 
 require_once($CFG->dirroot.'/mod/assign/locallib.php');
 
@@ -151,14 +151,14 @@ class activity {
                 } else {
                     global $USER;
 
-                    $gradeitem = \grade_item::fetch(array(
+                    $gradeitem = \grade_item::fetch([
                         'itemtype' => 'mod',
                         'itemmodule' => $mod->modname,
                         'iteminstance' => $mod->instance,
-                        'outcomeid' => null
-                    ));
+                        'outcomeid' => null,
+                    ]);
 
-                    $grade = new \grade_grade(array('itemid' => $gradeitem->id, 'userid' => $USER->id));
+                    $grade = new \grade_grade(['itemid' => $gradeitem->id, 'userid' => $USER->id]);
                     if (!$grade->is_hidden()) {
                         $meta = new activity_meta();
                         $meta->grade = true;
@@ -276,7 +276,7 @@ class activity {
             $extraselect = '') {
         global $DB;
 
-        static $modtotalsbyid = array();
+        static $modtotalsbyid = [];
 
         if (!isset($modtotalsbyid[$maintable][$courseid])) {
             // Results are not cached, so lets get them.
@@ -328,11 +328,11 @@ class activity {
         }
         $submitted = ASSIGN_SUBMISSION_STATUS_SUBMITTED;
 
-        return array(
+        return [
             'participants' => $participants,
             'submissions' => $assign->count_submissions_with_status($submitted, $activitygroup),
-            'ungraded' => $assign->count_submissions_need_grading($activitygroup)
-        );
+            'ungraded' => $assign->count_submissions_need_grading($activitygroup),
+        ];
     }
 
     /**
@@ -345,7 +345,7 @@ class activity {
     protected static function data_num_submissions($courseid, $mod) {
         $modinstance = $mod->instance;
 
-        static $modtotalsbyinstance = array();
+        static $modtotalsbyinstance = [];
 
         if (!isset($modtotalsbyinstance[$modinstance])) {
             global $DB;
@@ -527,7 +527,7 @@ class activity {
     protected static function grade_row($courseid, $mod) {
         global $DB, $USER;
 
-        static $grades = array();
+        static $grades = [];
 
         if (isset($grades[$courseid.'_'.$mod->modname])
             && isset($grades[$courseid.'_'.$mod->modname][$mod->instance])
@@ -557,12 +557,12 @@ class activity {
                     OR gg.feedback IS NOT NULL
                 )
             ";
-        $params = array(
+        $params = [
             'modname' => $mod->modname,
             'courseid1' => $courseid,
             'courseid2' => $courseid,
-            'userid' => $USER->id
-        );
+            'userid' => $USER->id,
+        ];
         $grades[$courseid.'_'.$mod->modname] = $DB->get_records_sql($sql, $params);
 
         if (isset($grades[$courseid.'_'.$mod->modname][$mod->instance])) {
@@ -588,7 +588,7 @@ class activity {
         $usercreatedcache = \cache::make('format_topcoll', 'activityusercreatedcache');
         $createdusers = $usercreatedcache->get($courseid);
         $lock = null;
-        $newstudents = array();
+        $newstudents = [];
         if (!empty($createdusers)) {
             $lock = self::lockcaches($courseid);
 
@@ -598,7 +598,7 @@ class activity {
             $alluserroles = get_users_roles($context, $createdusers, false);
 
             foreach ($createdusers as $userid) {
-                $usershortnames = array();
+                $usershortnames = [];
                 foreach ($alluserroles[$userid] as $userrole) {
                     $usershortnames[] = $userrole->shortname;
                 }
@@ -675,7 +675,7 @@ class activity {
 
         if (empty($studentroles)) {
             $studentarch = get_archetype_roles('student');
-            $studentroles = array();
+            $studentroles = [];
             foreach ($studentarch as $role) {
                 $studentroles[] = $role->shortname;
             }
@@ -685,14 +685,14 @@ class activity {
         $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
         $students = $studentscache->get($courseid);
         if (empty($students)) {
-            $students = array();
+            $students = [];
             $context = \context_course::instance($courseid);
             $enrolledusers = get_enrolled_users($context, '', 0, 'u.id', null, 0, 0, true);
             $users = array_keys($enrolledusers);
             $alluserroles = get_users_roles($context, $users, false);
 
             foreach ($users as $userid) {
-                $usershortnames = array();
+                $usershortnames = [];
                 foreach ($alluserroles[$userid] as $userrole) {
                     $usershortnames[] = $userrole->shortname;
                 }
@@ -747,7 +747,7 @@ class activity {
         }
 
         if ($extrainfo) {
-            return array('notexceeded' => $notexceeded, 'nostudents' => $studentcount, 'maxstudents' => $maxstudents);
+            return ['notexceeded' => $notexceeded, 'nostudents' => $studentcount, 'maxstudents' => $maxstudents];
         }
 
         return $notexceeded;
@@ -834,7 +834,7 @@ class activity {
             $usercreatedcache = \cache::make('format_topcoll', 'activityusercreatedcache');
             $createdusers = $usercreatedcache->get($courseid);
             if (empty($createdusers)) {
-                $createdusers = array();
+                $createdusers = [];
             }
             $createdusers[] = $userid;
             $usercreatedcache->set($courseid, $createdusers);
@@ -964,10 +964,10 @@ class activity {
                 $modinfo = get_fast_modinfo($courseid, -1);
                 $cms = $modinfo->get_cms(); // Array of cm_info objects.
                 foreach ($cms as $themod) {
-                    $modulecount[$themod->id] = array(0, array());
+                    $modulecount[$themod->id] = [0, []];
                 }
             } else {
-                $modulecount[$modid] = array(0, array());
+                $modulecount[$modid] = [0, []];
             }
         }
         foreach ($students as $userid) {

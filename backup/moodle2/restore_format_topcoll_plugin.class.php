@@ -57,7 +57,7 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
             $this->originalnumsections = (int)$maxsection;
         }
 
-        $paths = array();
+        $paths = [];
 
         // Add own format stuff.
         $elename = 'topcoll'; // This defines the postfix of 'process_*' below.
@@ -79,14 +79,14 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
         $data = (object) $data;
         /* We only process this information if the course we are restoring to
            has 'topcoll' format (target format can change depending of restore options). */
-        $format = $DB->get_field('course', 'format', array('id' => $this->task->get_courseid()));
+        $format = $DB->get_field('course', 'format', ['id' => $this->task->get_courseid()]);
         if ($format != 'topcoll') {
             return;
         }
 
         $data->courseid = $this->task->get_courseid();
 
-        if (!($course = $DB->get_record('course', array('id' => $data->courseid)))) {
+        if (!($course = $DB->get_record('course', ['id' => $data->courseid]))) {
             print_error('invalidcourseid', 'error');
         } // From /course/view.php.
         $courseformat = course_get_format($course);
@@ -124,7 +124,7 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
 
         /* We only process this information if the course we are restoring to has 'topcoll' format (target format can change
            depending of restore options). */
-        $format = $DB->get_field('course', 'format', array('id' => $courseid));
+        $format = $DB->get_field('course', 'format', ['id' => $courseid]);
         if ($format !== 'topcoll') {
             return;
         }

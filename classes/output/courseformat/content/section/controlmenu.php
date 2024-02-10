@@ -90,9 +90,9 @@ class controlmenu extends controlmenu_base {
         if (has_capability('moodle/course:manageactivities', $coursecontext)) {
             $duplicatestr = get_string('duplicate', 'format_topcoll');
             $duplicateurl = new moodle_url('/course/format/topcoll/duplicate.php',
-                array('courseid' => $course->id, 'sectionno' => $section->section, 'sesskey' => sesskey()));
+                ['courseid' => $course->id, 'sectionno' => $section->section, 'sesskey' => sesskey()]);
             $link = new \action_link($duplicateurl, ' '.$duplicatestr, null,
-                array('class' => 'menu-action', 'role' => 'menuitem'),
+                ['class' => 'menu-action', 'role' => 'menuitem'],
                 new \pix_icon('t/copy', $duplicatestr));
             $link->add_action(new \confirm_action(get_string('duplicateconfirm', 'format_topcoll'), null,
                 $duplicatestr));
@@ -146,7 +146,7 @@ class controlmenu extends controlmenu_base {
                     'pixattr' => ['class' => ''],
                     'attr' => [
                         'class' => 'editing_highlight',
-                        'data-action' => 'removemarker'
+                        'data-action' => 'removemarker',
                     ],
                 ];
             } else {
@@ -159,7 +159,7 @@ class controlmenu extends controlmenu_base {
                     'pixattr' => ['class' => ''],
                     'attr' => [
                         'class' => 'editing_highlight',
-                        'data-action' => 'setmarker'
+                        'data-action' => 'setmarker',
                     ],
                 ];
             }

@@ -68,7 +68,7 @@ class toolbox {
             $g = hexdec(substr($hex, 2, 2));
             $b = hexdec(substr($hex, 4, 2));
         }
-        $rgb = array('r' => $r, 'g' => $g, 'b' => $b);
+        $rgb = ['r' => $r, 'g' => $g, 'b' => $b];
         return $rgb; // Returns the rgb as an array.
     }
 

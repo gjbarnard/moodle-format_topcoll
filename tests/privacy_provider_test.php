@@ -27,9 +27,9 @@
 
 namespace format_topcoll;
 
-use \core_privacy\local\metadata\collection;
-use \core_privacy\local\request\writer;
-use \format_topcoll\privacy\provider;
+use core_privacy\local\metadata\collection;
+use core_privacy\local\request\writer;
+use format_topcoll\privacy\provider;
 
 /**
  * Privacy unit tests for the Collapsed Topics course format.
@@ -78,8 +78,8 @@ class privacy_provider_test extends \core_privacy\tests\provider_testcase {
         global $PAGE;
         $this->outputus = $PAGE->get_renderer('format_topcoll');
         // Ref: https://docs.moodle.org/dev/Writing_PHPUnit_tests.
-        $this->course = $this->getDataGenerator()->create_course(array('format' => 'topcoll', 'numsections' => $this->numsections),
-            array('createsections' => true));
+        $this->course = $this->getDataGenerator()->create_course(['format' => 'topcoll', 'numsections' => $this->numsections],
+            ['createsections' => true]);
 
         $this->courseformat = course_get_format($this->course);
         self::set_property($this->outputus, 'courseformat', $this->courseformat);

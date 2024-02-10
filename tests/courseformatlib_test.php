@@ -45,15 +45,15 @@ class courseformatlib_test extends \advanced_testcase {
         set_config('enableadditionalmoddata', 2, 'format_topcoll');
 
         // Ref: https://docs.moodle.org/dev/Writing_PHPUnit_tests.
-        $this->course = $this->getDataGenerator()->create_course(array(
+        $this->course = $this->getDataGenerator()->create_course([
             'format' => 'topcoll',
             'numsections' => 1,
             'toggleforegroundopacity' => '0.1',
             'toggleforegroundhoveropacity' => '0.2',
             'togglebackgroundopacity' => '0.3',
-            'togglebackgroundhoveropacity' => '0.4'
-        ),
-        array('createsections' => true));
+            'togglebackgroundhoveropacity' => '0.4',
+        ],
+        ['createsections' => true]);
 
         $this->courseformat = course_get_format($this->course);
     }

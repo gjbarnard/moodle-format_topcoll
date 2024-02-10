@@ -33,9 +33,9 @@ require_once($CFG->dirroot.'/course/lib.php');
 
 $courseid = required_param('courseid', PARAM_INT);
 $sectionno = required_param('sectionno', PARAM_INT);
-$course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
+$course = $DB->get_record('course', ['id' => $courseid], '*', MUST_EXIST);
 
-$PAGE->set_url('/course/format/topcoll/duplicate.php', array('courseid' => $courseid, 'sectionno' => $sectionno));
+$PAGE->set_url('/course/format/topcoll/duplicate.php', ['courseid' => $courseid, 'sectionno' => $sectionno]);
 
 // Authorization checks.
 require_login($course);
@@ -53,7 +53,7 @@ $numnewsection = null;
 $PAGE->set_pagelayout('course');
 $PAGE->set_heading($course->fullname);
 
-$PAGE->set_title(get_string('coursetitle', 'moodle', array('course' => $course->fullname)));
+$PAGE->set_title(get_string('coursetitle', 'moodle', ['course' => $course->fullname]));
 
 echo $OUTPUT->header();
 
@@ -61,7 +61,7 @@ if (!empty($sectioninfo)) {
     $pbar = new progress_bar('topcoll_duplicate_bar', 500, true);
     $pbar->update_full(1, get_string('duplicating', 'format_topcoll'));
 
-    $lastsectionnum = $DB->get_field('course_sections', 'MAX(section)', array('course' => $courseid), MUST_EXIST);
+    $lastsectionnum = $DB->get_field('course_sections', 'MAX(section)', ['course' => $courseid], MUST_EXIST);
 
     $numnewsection = $lastsectionnum + 1;
 
@@ -80,7 +80,7 @@ if (!empty($sectioninfo)) {
     $newsectionid = $DB->insert_record('course_sections', $data, true);
 
     // Update 'numsections'.
-    $courseformatdata = array('numsections' => $numnewsection);
+    $courseformatdata = ['numsections' => $numnewsection];
     $courseformat->update_course_format_options($courseformatdata);
 
     try {
@@ -88,10 +88,10 @@ if (!empty($sectioninfo)) {
         $files = $fs->get_area_files($context->id, 'course', 'section', $sectioninfo->id);
 
         if ($files && is_array($files)) {
-            $fileinfo = array(
+            $fileinfo = [
                 'component' => 'course',
-                'filearea' => 'section'
-            );
+                'filearea' => 'section',
+            ];
             foreach ($files as $file) {
                 $fileinfo['contextid'] = $context->id;
                 $fileinfo['itemid'] = $newsectionid;
@@ -116,12 +116,12 @@ if (!empty($sectioninfo)) {
 
     // Trigger an event for course section update.
     $event = \core\event\course_section_updated::create(
-        array(
+        [
             'objectid' => $newsectionid,
             'courseid' => $course->id,
             'context' => $context,
-            'other' => array('sectionnum' => $numnewsection)
-        )
+            'other' => ['sectionnum' => $numnewsection],
+        ]
     );
     $event->trigger();
 
@@ -130,7 +130,7 @@ if (!empty($sectioninfo)) {
 
     $pbar->update_full(10, get_string('rebuildcoursecache', 'format_topcoll'));
     $newsectioninfo = $modinfo->get_section_info($numnewsection);
-    $modules = array();
+    $modules = [];
 
     if (is_object($modinfo) && isset($modinfo->sections[$sectionno])) {
         $sectionmods = $modinfo->sections[$sectionno];

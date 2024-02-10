@@ -27,8 +27,8 @@
 
 namespace format_topcoll\privacy;
 
-use \core_privacy\local\request\writer;
-use \core_privacy\local\metadata\collection;
+use core_privacy\local\request\writer;
+use core_privacy\local\metadata\collection;
 
 /**
  * Implementation of the privacy subsystem plugin provider.

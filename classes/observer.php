@@ -51,7 +51,7 @@ class format_topcoll_observer {
      */
     public static function course_content_deleted(\core\event\course_content_deleted $event) {
         global $DB;
-        $DB->delete_records("user_preferences", array("name" => 'topcoll_toggle_'.$event->objectid)); // This is the $courseid.
+        $DB->delete_records("user_preferences", ["name" => 'topcoll_toggle_'.$event->objectid]); // This is the $courseid.
     }
 
     /* Events observed for the purpose of the activty functionality.

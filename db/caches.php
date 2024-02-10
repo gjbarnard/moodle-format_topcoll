@@ -34,34 +34,34 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$definitions = array(
+$definitions = [
     // Caches student roles.
-    'activitystudentrolescache' => array(
+    'activitystudentrolescache' => [
         'mode' => cache_store::MODE_APPLICATION,
         'simplekeys' => true,
         'simpledata' => true,
         'staticacceleration' => true,
-        'staticaccelerationsize' => 2
-    ),
+        'staticaccelerationsize' => 2,
+    ],
     // Caches the number of 'students' who can access a given module on a given course.
-    'activitymodulecountcache' => array(
+    'activitymodulecountcache' => [
         'mode' => cache_store::MODE_APPLICATION,
         'simplekeys' => true,
         'simpledata' => true,
-        'staticacceleration' => true
-    ),
+        'staticacceleration' => true,
+    ],
     // Caches the ids of the 'students' on a given course.
-    'activitystudentscache' => array(
+    'activitystudentscache' => [
         'mode' => cache_store::MODE_APPLICATION,
         'simplekeys' => true,
         'simpledata' => true,
-        'staticacceleration' => true
-    ),
+        'staticacceleration' => true,
+    ],
     // Caches the ids of the new users on a given course.
-    'activityusercreatedcache' => array(
+    'activityusercreatedcache' => [
         'mode' => cache_store::MODE_APPLICATION,
         'simplekeys' => true,
         'simpledata' => true,
-        'staticacceleration' => true
-    )
-);
+        'staticacceleration' => true,
+    ],
+];
