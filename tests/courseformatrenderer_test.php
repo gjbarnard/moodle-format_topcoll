@@ -253,15 +253,14 @@ class courseformatrenderer_test extends \advanced_testcase {
         set_config('defaulttogglepersistence', 1, 'format_topcoll');
         self::set_property($this->outputus, 'formatresponsive', false);
         $section1 = $this->courseformat->get_section(1);
-        $section1->section = 1;
-        $section1->toggle = true;
+        $toggle = true;
 
         $onsectionpage = false;
         $sectionreturn = null;
         $theclass = self::call_method(
             $this->outputus,
             'topcoll_section',
-            [$section1, $this->course, $onsectionpage]
+            [$section1, $this->course, $onsectionpage, null, $toggle]
         );
 
         $sectioncontext = [
@@ -287,7 +286,7 @@ class courseformatrenderer_test extends \advanced_testcase {
             'sectionsummarywhencollapsed' => false,
             'toggleiconset' => 'arrow',
             'toggleiconsize' => 'tc-medium',
-            'toggleopen' => $section1->toggle,
+            'toggleopen' => $toggle,
         ];
         $thevalue = self::call_method($this->outputus, 'render_from_template', ['format_topcoll/section', $sectioncontext]);
         $this->assertEquals($thevalue, $theclass);
@@ -323,7 +322,6 @@ class courseformatrenderer_test extends \advanced_testcase {
     public function test_section_hidden() {
         $this->init();
         $section = $this->courseformat->get_section(1);
-        $section->visible = false;
 
         $theclass = self::call_method(
             $this->outputus,
@@ -438,15 +436,15 @@ class courseformatrenderer_test extends \advanced_testcase {
         set_config('defaulttogglepersistence', 1, 'format_topcoll');
         $section0 = $this->courseformat->get_section(0);
         $section1 = $this->courseformat->get_section(1);
-        $section1->toggle = false;
+        $toggle = false;
 
         $thevalue = self::call_method($this->outputus, 'multiple_section_page', []);
 
         $theoutput = file_get_contents($CFG->dirroot . '/course/format/topcoll/tests/phpu_data/test_multiple_section_page_css.txt');
         $theoutput .= '<ul class="ctopics">';
-        $theoutput .= self::call_method($this->outputus, 'topcoll_section', [$section0, $this->course, false, 0]);
+        $theoutput .= self::call_method($this->outputus, 'topcoll_section', [$section0, $this->course, false, 0, $toggle]);
         $theoutput .= '</ul><ul class="ctopics ctoggled topics row">';
-        $theoutput .= self::call_method($this->outputus, 'topcoll_section', [$section1, $this->course, false]);
+        $theoutput .= self::call_method($this->outputus, 'topcoll_section', [$section1, $this->course, false, null, $toggle]);
         $theoutput .= '</ul>';
 
         $this->assertEquals($thevalue, $theoutput);
@@ -462,16 +460,16 @@ class courseformatrenderer_test extends \advanced_testcase {
 
         $section0 = $this->courseformat->get_section(0);
         $section1 = $this->courseformat->get_section(1);
-        $section1->toggle = true;
+        $toggle = true;
 
         $thevalue = self::call_method($this->outputus, 'multiple_section_page', []);
 
         $theoutput = file_get_contents($CFG->dirroot . '/course/format/topcoll/tests/phpu_data/test_multiple_section_page_css.txt');
         $theoutput .= '<ul class="ctopics">';
-        $theoutput .= self::call_method($this->outputus, 'topcoll_section', [$section0, $this->course, false, 0]);
+        $theoutput .= self::call_method($this->outputus, 'topcoll_section', [$section0, $this->course, false, 0, $toggle]);
         $theoutput .= '</ul><div class="row">';
         $theoutput .= '<ul class="ctopics ctoggled topics col-sm-12">';
-        $theoutput .= self::call_method($this->outputus, 'topcoll_section', [$section1, $this->course, false]);
+        $theoutput .= self::call_method($this->outputus, 'topcoll_section', [$section1, $this->course, false, null, $toggle]);
         $theoutput .= '</ul></div>';
 
         $this->assertEquals($thevalue, $theoutput);
