@@ -155,8 +155,7 @@ class renderer extends section_renderer {
         if ($section->section > $course->numsections) {
             $output = $this->stealth_section($section, $course);
         } else {
-            $section->toggle = true; // TODO.
-            $output = $this->topcoll_section($section, $course, false);
+            $output = $this->topcoll_section($section, $course, false, null, true);
         }
 
         return $output;
@@ -407,10 +406,11 @@ class renderer extends section_renderer {
      * @param stdClass $course The course entry from DB.
      * @param bool $onsectionpage true if being printed on a section page.
      * @param int $sectionreturn The section to return to after an action.
+     * @param ?bool $toggle true if toggle is enabled, false otherwise, null if not set
      *
      * @return string HTML to output.
      */
-    protected function topcoll_section($section, $course, $onsectionpage, $sectionreturn = null) {
+    protected function topcoll_section($section, $course, $onsectionpage, $sectionreturn = null, $toggle = null) {
         $context = context_course::instance($course->id);
 
         $sectioncontext = [
@@ -463,11 +463,7 @@ class renderer extends section_renderer {
             $this->toggle_icon_set($sectioncontext);
             $sectioncontext['toggleiconsize'] = $this->tctoggleiconsize;
 
-            if ((!($section->toggle === null)) && ($section->toggle == true)) {
-                $sectioncontext['toggleopen'] = true;
-            } else {
-                $sectioncontext['toggleopen'] = false;
-            }
+            $sectioncontext['toggleopen'] = !empty($toggle);
 
             if ($this->userisediting) {
                 $title = $this->section_title($section, $course);
@@ -836,6 +832,7 @@ class renderer extends section_renderer {
                     $nextweekdate = $weekdate - ($weekofseconds);
                 }
                 $thissection = $modinfo->get_section_info($section);
+                $extrasectioninfo[$thissection->id] = new \stdClass();
 
                 /* Show the section if the user is permitted to access it, OR if it's not available
                    but there is some available info text which explains the reason & should display. */
@@ -869,7 +866,7 @@ class renderer extends section_renderer {
                     }
                     if ($testhidden) {
                         if (!$course->hiddensections && $thissection->available) {
-                            $thissection->ishidden = true;
+                            $extrasectioninfo[$thissection->id]->ishidden = true;
                             $sectiondisplayarray[] = $thissection;
                         }
                     }
@@ -877,21 +874,21 @@ class renderer extends section_renderer {
                     if ($this->isoldtogglepreference == true) {
                         $togglestate = substr($this->togglelib->get_toggles(), $section, 1);
                         if ($togglestate == '1') {
-                            $thissection->toggle = true;
+                            $extrasectioninfo[$thissection->id]->toggle = true;
                         } else {
-                            $thissection->toggle = false;
+                            $extrasectioninfo[$thissection->id]->toggle = false;
                         }
                     } else {
-                        $thissection->toggle = $this->togglelib->get_toggle_state($thissection->section);
+                        $extrasectioninfo[$thissection->id]->toggle = $this->togglelib->get_toggle_state($thissection->section);
                     }
 
                     if ($this->courseformat->is_section_current($thissection)) {
                         $this->currentsection = $thissection->section;
-                        $thissection->toggle = true; // Open current section regardless of toggle state.
+                        $extrasectioninfo[$thissection->id]->toggle = true; // Open current section regardless of toggle state.
                         $this->togglelib->set_toggle_state($thissection->section, true);
                     }
 
-                    $thissection->isshown = true;
+                    $extrasectioninfo[$thissection->id]->isshown = true;
                     $sectiondisplayarray[] = $thissection;
                 }
 
@@ -937,9 +934,9 @@ class renderer extends section_renderer {
                     $sectionoutput .= $this->section_hidden($thissection);
                 } else if (!empty($thissection->issummary)) {
                     $sectionoutput .= $this->section_summary($thissection, $course, null);
-                } else if (!empty($thissection->isshown)) {
+                } else if (!empty($extrasectioninfo[$thissection->id]->isshown)) {
                     if ((!$this->userisediting) && ($this->tcsettings['onesection'] == 2)) {
-                        if ($thissection->toggle) {
+                        if ($extrasectioninfo[$thissection->id]->toggle) {
                             if (!empty($shownonetoggle)) {
                                 // Make sure the current section is not closed if set above.
                                 if ($shownonetoggle != $thissection->section) {
@@ -953,7 +950,8 @@ class renderer extends section_renderer {
                             }
                         }
                     }
-                    $sectionoutput .= $this->topcoll_section($thissection, $course, false);
+                    $sectionoutput .= $this->topcoll_section($thissection, $course, false,
+                            null, $extrasectioninfo[$thissection->id]->toggle);
                     $toggledsections[] = $thissection->section;
                 }
 
