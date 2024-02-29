@@ -774,7 +774,7 @@ class renderer extends section_renderer {
                 while ($loopsection <= $coursenumsections) {
                     $nextweekdate = $weekdate - ($weekofseconds);
                     if (($this->courseformat->is_section_visible($thissection)) && ($nextweekdate <= $timenow)) {
-                        $numsections++; // Section not shown so do not count in columns calculation.
+                        $numsections++; // Section is shown so do count in columns calculation.
                     }
                     $weekdate = $nextweekdate;
                     $section--;
