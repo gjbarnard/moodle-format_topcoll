@@ -471,9 +471,7 @@ class renderer extends section_renderer {
             $this->toggle_icon_set($sectioncontext);
             $sectioncontext['toggleiconsize'] = $this->tctoggleiconsize;
 
-            if (!is_null($toggle)) {
-                $sectioncontext['toggleopen'] = $toggle;
-            }
+            $sectioncontext['toggleopen'] = !empty($toggle);
 
             if ($this->userisediting) {
                 $title = $this->section_title($section, $course);
