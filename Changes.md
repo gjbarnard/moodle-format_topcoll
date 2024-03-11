@@ -1,9 +1,11 @@
 ﻿Version Information
 ===================
 
-Version 403.1.1 - TBR
+Version 403.1.1 - 11/03/2024
 ----------------------------
 1. Fix 'Orphaned Section still appear in Index Drawer' - #146.
+2. Fix 'Deprecated warnings in PHP 8.2' - #147, a big thanks to [PhMemmel](https://github.com/PhMemmel)
+   for the patch in #148.
 
 Version 403.1.0 - 08/10/2023
 ----------------------------
