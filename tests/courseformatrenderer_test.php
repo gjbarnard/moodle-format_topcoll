@@ -248,7 +248,7 @@ class courseformatrenderer_test extends \advanced_testcase {
 
     public function test_topcoll_section() {
         $this->init();
-        set_user_preference(\format_topcoll\togglelib::TOPCOLL_TOGGLE.'_' . $this->course->id, 'Z');
+        set_user_preference(\format_topcoll\toolbox::TOPCOLL_TOGGLE.'_' . $this->course->id, 'Z');
         set_config('defaultuserpreference', 0, 'format_topcoll');
         set_config('defaulttogglepersistence', 1, 'format_topcoll');
         self::set_property($this->outputus, 'formatresponsive', false);
@@ -431,7 +431,7 @@ class courseformatrenderer_test extends \advanced_testcase {
         global $CFG;
 
         $this->init();
-        set_user_preference(\format_topcoll\togglelib::TOPCOLL_TOGGLE.'_' . $this->course->id, null);
+        set_user_preference(\format_topcoll\toolbox::TOPCOLL_TOGGLE.'_' . $this->course->id, null);
         set_config('defaultuserpreference', 0, 'format_topcoll');
         set_config('defaulttogglepersistence', 1, 'format_topcoll');
         $section0 = $this->courseformat->get_section(0);
@@ -454,7 +454,7 @@ class courseformatrenderer_test extends \advanced_testcase {
         global $CFG;
 
         $this->init(1, 1);
-        set_user_preference(\format_topcoll\togglelib::TOPCOLL_TOGGLE.'_' . $this->course->id, 'Z');
+        set_user_preference(\format_topcoll\toolbox::TOPCOLL_TOGGLE.'_' . $this->course->id, 'Z');
         set_config('defaultuserpreference', 0, 'format_topcoll');
         set_config('defaulttogglepersistence', 1, 'format_topcoll');
 
@@ -479,7 +479,7 @@ class courseformatrenderer_test extends \advanced_testcase {
         global $CFG;
 
         $this->init(0);
-        set_user_preference(\format_topcoll\togglelib::TOPCOLL_TOGGLE.'_' . $this->course->id, null);
+        set_user_preference(\format_topcoll\toolbox::TOPCOLL_TOGGLE.'_' . $this->course->id, null);
         set_config('defaultuserpreference', 0, 'format_topcoll');
         set_config('defaulttogglepersistence', 1, 'format_topcoll');
         $section0 = $this->courseformat->get_section(0);
@@ -507,7 +507,7 @@ class courseformatrenderer_test extends \advanced_testcase {
             'sctcloseall' => 'Close all topics',
             'sctopenall' => 'Open all topics',
             'spacer' => '<img class="icon spacer" width="1" height="1" alt="" aria-hidden="true" src="' . $CFG->wwwroot .
-                '/theme/image.php/boost/core/1/spacer" />',
+                '/theme/image.php/_s/boost/core/1/spacer" />',
             'toggleallhover' => true,
             'tctoggleiconsize' => 'tc-medium',
             'togglepos' => 'left',
@@ -528,7 +528,7 @@ class courseformatrenderer_test extends \advanced_testcase {
         $displayinstructionscontext = [
             'rtl' => false,
             'spacer' => '<img class="icon spacer" width="1" height="1" alt="" aria-hidden="true" src="' . $CFG->wwwroot .
-                '/theme/image.php/boost/core/1/spacer" />',
+                '/theme/image.php/_s/boost/core/1/spacer" />',
         ];
         $thevalue = self::call_method($this->outputus, 'render_from_template', ['format_topcoll/displayinstructions',
             $displayinstructionscontext, ]);
