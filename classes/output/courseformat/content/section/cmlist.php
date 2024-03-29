@@ -52,7 +52,7 @@ class cmlist extends \core_courseformat\output\local\content\section\cmlist {
 
         // Section information for the 'activitychooserbuttonactivity'.
         $data->num = $this->section->section ?? '0';
-        $data->sectionreturn = $this->format->get_section_number();
+        $data->sectionreturn = $this->format->get_sectionnum();
 
         return $data;
     }

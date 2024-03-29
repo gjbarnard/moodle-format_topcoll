@@ -21,8 +21,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['8.0'] # Note in 8.2 Creation of dynamic properties are deprecated and thus PHPUnit and Behat tests will fail, so 8.2 removed.
-        moodle-branch: ['MOODLE_403_STABLE']
+        php: ['8.1', '8.2']
+        moodle-branch: ['main']
         database: [mariadb]
 
     steps:
@@ -58,10 +58,10 @@ jobs:
         if: ${{ always() }}
         run: moodle-plugin-ci phplint
 
-      - name: PHP Copy/Paste Detector
-        continue-on-error: true # This step will show errors but will not fail
-        if: ${{ always() }}
-        run: moodle-plugin-ci phpcpd
+#      - name: PHP Copy/Paste Detector
+#        continue-on-error: true # This step will show errors but will not fail
+#        if: ${{ always() }}
+#        run: moodle-plugin-ci phpcpd
 
       - name: PHP Mess Detector
         continue-on-error: true # This step will show errors but will not fail

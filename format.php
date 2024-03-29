@@ -79,7 +79,7 @@ $contentcontext = [
     'userisediting' => $PAGE->user_is_editing(),
 ];
 if (!empty($displaysection)) {
-    $courseformat->set_section_number($displaysection);
+    $courseformat->set_sectionnum($displaysection);
     $content = $renderer->single_section_page($displaysection);
     $contentcontext['sectionreturn'] = $displaysection;
 } else {
@@ -89,6 +89,3 @@ if (!empty($displaysection)) {
 $contentcontext['content'] = $content;
 
 echo $renderer->render_from_template('format_topcoll/content', $contentcontext);
-
-// Include course format js module.
-$PAGE->requires->js('/course/format/topcoll/format.js');

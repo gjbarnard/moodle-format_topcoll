@@ -51,15 +51,16 @@ $string['defaulttoggleallenabled_desc'] = 'States if the toggle all functionalit
 // Moodle 2.0 Enhancement - Moodle Tracker MDL-15252, MDL-21693 & MDL-22056 - http://docs.moodle.org/en/Development:Languages.
 $string['sectionname'] = 'Section';
 $string['pluginname'] = 'Collapsed Topics';
+$string['plugin_description'] = 'The course is divided into toggleable sections.';
 $string['section0name'] = 'General';
 
 // MDL-26105.
 $string['page-course-view-topcoll'] = 'Any course main page in the collapsed topics format';
 $string['page-course-view-topcoll-x'] = 'Any course page in the collapsed topics format';
 
-$string['addsection'] = 'Add section';
-$string['hidefromothers'] = 'Hide section';
-$string['showfromothers'] = 'Show section';
+$string['newsection'] = 'New section';
+$string['hidefromothers'] = 'Hide';
+$string['showfromothers'] = 'Show';
 $string['currentsection'] = 'This section';
 $string['editsection'] = 'Edit section';
 $string['deletesection'] = 'Delete section';

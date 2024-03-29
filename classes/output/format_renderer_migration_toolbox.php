@@ -99,7 +99,7 @@ trait format_renderer_migration_toolbox {
 
     protected function section_nav_links() {
         $sectionnavigationclass = $this->courseformat->get_output_classname('content\\sectionnavigation');
-        $sectionnavigation = new $sectionnavigationclass($this->courseformat, $this->courseformat->get_section_number());
+        $sectionnavigation = new $sectionnavigationclass($this->courseformat, $this->courseformat->get_sectionnum());
         return $this->render($sectionnavigation);
     }
 
