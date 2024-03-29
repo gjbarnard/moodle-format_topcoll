@@ -349,6 +349,45 @@ class format_topcoll extends core_courseformat\base {
     }
 
     /**
+     * The URL to use for the specified course (with section)
+     *
+     * Please note that course view page /course/view.php?id=COURSEID is hardcoded in many
+     * places in core and contributed modules. If course format wants to change the location
+     * of the view script, it is not enough to change just this function. Do not forget
+     * to add proper redirection.
+     *
+     * @param int|stdClass $section Section object from database or just field course_sections.section
+     *     if null the course view page is returned
+     * @param array $options options for view URL. At the moment core uses:
+     *     'navigation' (bool) if true and section not empty, the function returns section page; otherwise, it returns course page.
+     *     'sr' (int) used by course formats to specify to which section to return
+     *     'expanded' (bool) if true the section will be shown expanded, true by default
+     * @return null|moodle_url
+     */
+    public function get_view_url($section, $options = array()) {
+        $course = $this->get_course();
+        $url = new moodle_url('/course/view.php', ['id' => $course->id]);
+
+        if (array_key_exists('sr', $options)) {
+            $sectionno = $options['sr'];
+        } else if (is_object($section)) {
+            $sectionno = $section->section;
+        } else {
+            $sectionno = $section;
+        }
+        if ((!empty($options['navigation']) || array_key_exists('sr', $options)) && $sectionno !== null) {
+            // Display section on separate page.
+            $sectioninfo = $this->get_section($sectionno);
+            return new moodle_url('/course/section.php', ['id' => $sectioninfo->id]);
+        }
+        if ($this->uses_sections() && $sectionno !== null) {
+            $url->set_anchor('section-'.$sectionno);
+        }
+
+        return $url;
+    }
+
+    /**
      * Returns the list of blocks to be automatically added for the newly created course
      *
      * First we check defaultdisplayblocks to see which of the four default blocks should be displayed,
