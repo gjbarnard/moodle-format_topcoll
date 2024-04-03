@@ -23,13 +23,10 @@
  * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
  *
  * @package    format_topcoll
- * @category   event
- * @version    See the value of '$plugin->version' in version.php.
- * @copyright  &copy; 2017-onwards G J Barnard based upon work done by Marina Glancy.
- * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
- * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
- *
+ * @copyright  &copy; 2022-onwards G J Barnard based upon work done by Marina Glancy.
+ * @author     G J Barnard - {@link https://moodle.org/user/profile.php?id=442195}
+ * @link       https://docs.moodle.org/en/Collapsed_Topics_course_format
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -50,7 +47,8 @@ class format_topcoll_observer {
      */
     public static function course_content_deleted(\core\event\course_content_deleted $event) {
         global $DB;
-        $DB->delete_records("user_preferences", ["name" => \format_topcoll\togglelib::TOPCOLL_TOGGLE.'_' . $event->objectid]); // This is the $courseid.
+        $DB->delete_records("user_preferences",
+            ["name" => \format_topcoll\togglelib::TOPCOLL_TOGGLE.'_' . $event->objectid]); // This is the $courseid.
     }
 
     /* Events observed for the purpose of the activty functionality.

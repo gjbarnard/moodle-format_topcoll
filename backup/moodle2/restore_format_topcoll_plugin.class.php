@@ -23,12 +23,10 @@
  * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
  *
  * @package    format_topcoll
- * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
- * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
- * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
- *
+ * @author     G J Barnard - {@link https://moodle.org/user/profile.php?id=442195}
+ * @link       https://docs.moodle.org/en/Collapsed_Topics_course_format
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
@@ -87,7 +85,7 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
         $data->courseid = $this->task->get_courseid();
 
         if (!($course = $DB->get_record('course', ['id' => $data->courseid]))) {
-            print_error('invalidcourseid', 'error');
+            throw new moodle_exception(get_string('invalidcourseid', 'error'));
         } // From /course/view.php.
         $courseformat = course_get_format($course);
 
@@ -107,9 +105,6 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
         );
 
         // No need to annotate anything here.
-    }
-
-    protected function after_execute_structure() {
     }
 
     /**

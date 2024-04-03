@@ -23,12 +23,10 @@
  * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
  *
  * @package    format_topcoll
- * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
- * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
- * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
- *
+ * @author     G J Barnard - {@link https://moodle.org/user/profile.php?id=442195}
+ * @link       https://docs.moodle.org/en/Collapsed_Topics_course_format
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace format_topcoll\output;
@@ -44,25 +42,43 @@ use section_info;
 
 require_once($CFG->dirroot . '/course/format/lib.php'); // For course_get_format.
 
+/**
+ * The renderer.
+ */
 class renderer extends section_renderer {
     use format_renderer_migration_toolbox;
 
-    protected $tccolumnwidth = 100; // Default width in percent of the column(s).
-    protected $tccolumnpadding = 0; // Default padding in pixels of the column(s).
-    protected $mobiletheme = false; // As not using a mobile theme we can react to the number of columns setting.
-    protected $tablettheme = false; // As not using a tablet theme we can react to the number of columns setting.
-    protected $courseformat = null; // Our course format object as defined in lib.php.
-    protected $course = null; // Our course object.
-    protected $tcsettings; // Settings for the format - array.
-    protected $defaulttogglepersistence; // Default toggle persistence.
-    protected $defaultuserpreference; // Default user preference when none set - bool - true all open, false all closed.
+    /** @var int $tccolumnwidth Default width in percent of the column(s).*/
+    protected $tccolumnwidth = 100;
+    /** @var int $tccolumnpadding Default padding in pixels of the column(s).*/
+    protected $tccolumnpadding = 0;
+    /** @var bool $mobiletheme As not using a mobile theme we can react to the number of columns setting.*/
+    protected $mobiletheme = false;
+    /** @var bool $tablettheme As not using a tablet theme we can react to the number of columns setting.*/
+    protected $tablettheme = false;
+    /** @var class $courseformat Our course format object as defined in lib.php.*/
+    protected $courseformat = null;
+    /** @var class $course Our course object.*/
+    protected $course = null;
+    /** @var array $tcsettings Settings for the format.*/
+    protected $tcsettings;
+    /** @var string $defaulttogglepersistence Default toggle persistence.*/
+    protected $defaulttogglepersistence;
+    /** @var string $defaultuserpreference Default user preference when none set - bool - true all open, false all closed.*/
+    protected $defaultuserpreference;
+    /** @var class $togglelib Toggle lib object.*/
     protected $togglelib;
-    protected $currentsection = false; // If not false then will be the current section number.
+    /** @var int $currentsection If not false then will be the current section number.*/
+    protected $currentsection = false;
+    /** @var bool $isoldtogglepreference */
     protected $isoldtogglepreference = false;
+    /** @var bool $userisediting */
     protected $userisediting = false;
-    protected $tconesectioniconfont;
+    /** @var string $tctoggleiconsize */
     protected $tctoggleiconsize;
+    /** @var bool $formatresponsive */
     protected $formatresponsive;
+    /** @var bool $rtl */
     protected $rtl = false;
 
     /**
@@ -394,6 +410,13 @@ class renderer extends section_renderer {
         return $this->render_from_template('format_topcoll/sectionsummary', $sectionsummarycontext);
     }
 
+    /**
+     * Generate section summary container.
+     *
+     * @param stdClass $section The course_section entry from DB.
+     *
+     * @return string HTML to output.
+     */
     protected function section_summary_container($section) {
         $summarytext = $this->format_summary_text($section);
         if ($summarytext) {
@@ -550,6 +573,9 @@ class renderer extends section_renderer {
         return $result;
     }
 
+    /**
+     * Section heading.
+     */
     protected function section_heading($section, $title, $classes = '') {
         $attributes = [
             'data-for' => 'section_title',
@@ -1232,6 +1258,9 @@ class renderer extends section_renderer {
         return $this->render_from_template('format_topcoll/coursestyles', $coursestylescontext);
     }
 
+    /**
+     * Set the user preferences.
+     */
     protected function set_user_preferences() {
         $this->defaultuserpreference = clean_param(get_config('format_topcoll', 'defaultuserpreference'), PARAM_INT);
         $this->defaulttogglepersistence = clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT);
@@ -1295,10 +1324,20 @@ class renderer extends section_renderer {
         }
     }
 
+    /**
+     * Get row class.
+     *
+     * @return string.
+     */
     protected function get_row_class() {
         return 'row';
     }
 
+    /**
+     * Get column class.
+     *
+     * @return string.
+     */
     protected function get_column_class($columns) {
         static $colclasses = [
             1 => 'col-sm-12',
@@ -1310,6 +1349,11 @@ class renderer extends section_renderer {
         return $colclasses[$columns];
     }
 
+    /**
+     * Is the format responsive?
+     *
+     * @return bool.
+     */
     public function get_format_responsive() {
         return $this->formatresponsive;
     }

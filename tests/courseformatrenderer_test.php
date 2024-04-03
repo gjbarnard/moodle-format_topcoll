@@ -18,11 +18,10 @@
  * Collapsed Topics course format.
  *
  * @package    format_topcoll
- * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2015-onwards G J Barnard in respect to modifications of standard topics format.
- * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
- * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
+ * @author     G J Barnard - {@link https://moodle.org/user/profile.php?id=442195}
+ * @link       https://docs.moodle.org/en/Collapsed_Topics_course_format
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace format_topcoll;
@@ -31,11 +30,16 @@ namespace format_topcoll;
  * Renderer unit tests for the Collapsed Topics course format.
  * @group format_topcoll
  */
-class courseformatrenderer_test extends \advanced_testcase {
+final class courseformatrenderer_test extends \advanced_testcase {
+    /** @var class $outputus */
     protected $outputus;
+    /** @var class $ouroutput */
     protected $ouroutput;
+    /** @var class $course */
     protected $course;
+    /** @var class $courseformat */
     protected $courseformat;
+    /** @var int $cmid */
     protected $cmid;
 
     /**
@@ -83,7 +87,11 @@ class courseformatrenderer_test extends \advanced_testcase {
         return $property;
     }
 
-    protected function init($numsections = 1, $layoutcolumnorientation = 2, $toggleallenabled = 2, $viewsinglesectionenabled = 2) {
+    /**
+     * Init.
+     */
+    protected function init($numsections = 1, $layoutcolumnorientation = 2, $toggleallenabled = 2,
+        $viewsinglesectionenabled = 2): void {
         $this->resetAfterTest(true);
 
         set_config('theme', 'boost');
@@ -124,7 +132,7 @@ class courseformatrenderer_test extends \advanced_testcase {
         self::set_property($this->outputus, 'tcsettings', $tcsettings);
     }
 
-    public function test_start_section_list() {
+    public function test_start_section_list(): void {
         $this->init();
         $theclass = self::call_method(
             $this->outputus,
@@ -136,7 +144,7 @@ class courseformatrenderer_test extends \advanced_testcase {
         $this->assertEquals($thevalue, $theclass);
     }
 
-    public function test_start_toggle_section_list() {
+    public function test_start_toggle_section_list(): void {
         // With defaults unchanged.
         $this->init();
         $theclass = self::call_method(
@@ -149,7 +157,7 @@ class courseformatrenderer_test extends \advanced_testcase {
         $this->assertEquals($thevalue, $theclass);
     }
 
-    public function test_page_title() {
+    public function test_page_title(): void {
         // With defaults unchanged.
         $this->init();
         $theclass = self::call_method($this->outputus, 'page_title', []);
@@ -158,7 +166,7 @@ class courseformatrenderer_test extends \advanced_testcase {
         $this->assertEquals($thevalue, $theclass);
     }
 
-    public function test_section_right_content() {
+    public function test_section_right_content(): void {
         global $CFG;
 
         // With defaults unchanged.
@@ -184,7 +192,7 @@ class courseformatrenderer_test extends \advanced_testcase {
         $this->assertEquals($thevalue, $theclass);
     }
 
-    public function test_section_left_content() {
+    public function test_section_left_content(): void {
         $this->init();
         $section = $this->courseformat->get_section(1);
         $onsectionpage = false;
@@ -206,7 +214,7 @@ class courseformatrenderer_test extends \advanced_testcase {
         $this->assertEquals($thevalue, $theclass);
     }
 
-    public function test_section_summary() {
+    public function test_section_summary(): void {
         global $CFG;
 
         $this->init();
@@ -219,9 +227,9 @@ class courseformatrenderer_test extends \advanced_testcase {
         );
 
         $sectionsummarycontext = [
-            'heading' => '<h3 data-for="section_title" data-id="' . $section->id . '" data-number="1" id="sectionid-' . $section->id .
-                '-title" class="section-title"><a href="' . $CFG->wwwroot . '/course/view.php?id=' . $this->course->id . '#section-1"' .
-                ' class="">Section 1</a></h3>',
+            'heading' => '<h3 data-for="section_title" data-id="' . $section->id . '" data-number="1" id="sectionid-' .
+                $section->id . '-title" class="section-title"><a href="' . $CFG->wwwroot . '/course/view.php?id=' .
+                $this->course->id . '#section-1"' . ' class="">Section 1</a></h3>',
             'columnwidth' => '100',
             'rtl' => false,
             'sectionavailability' => '<div class="section_availability"></div>',
@@ -246,7 +254,7 @@ class courseformatrenderer_test extends \advanced_testcase {
         $this->assertEquals($thevalue, $theclass);
     }
 
-    public function test_topcoll_section() {
+    public function test_topcoll_section(): void {
         $this->init();
         set_user_preference(\format_topcoll\togglelib::TOPCOLL_TOGGLE.'_' . $this->course->id, 'Z');
         set_config('defaultuserpreference', 0, 'format_topcoll');
@@ -319,7 +327,7 @@ class courseformatrenderer_test extends \advanced_testcase {
         $this->assertEquals($thevalue, $theclass);
     }
 
-    public function test_section_hidden() {
+    public function test_section_hidden(): void {
         $this->init();
         $section = $this->courseformat->get_section(1);
 
@@ -331,8 +339,8 @@ class courseformatrenderer_test extends \advanced_testcase {
 
         $sectionhiddencontext = [
             'columnclass' => 'col-sm-12',
-            'heading' => '<h3 data-for="section_title" data-id="' . $section->id . '" data-number="1" id="sectionid-' . $section->id .
-                '-title" class="section-title">Section 1</h3>',
+            'heading' => '<h3 data-for="section_title" data-id="' . $section->id . '" data-number="1" id="sectionid-' .
+                $section->id . '-title" class="section-title">Section 1</h3>',
             'leftcontent' => '<span class="cps_centre">1</span>',
             'nomtore' => true,
             'rightcontent' => '',
@@ -347,7 +355,7 @@ class courseformatrenderer_test extends \advanced_testcase {
         $this->assertEquals($thevalue, $theclass);
     }
 
-    public function test_stealth_section() {
+    public function test_stealth_section(): void {
         $this->init();
         $section = $this->courseformat->get_section(1);
 
@@ -360,8 +368,9 @@ class courseformatrenderer_test extends \advanced_testcase {
         $stealthsectioncontext = [
             'columnclass' => 'col-sm-12',
             'cscml' => self::call_method($this->outputus, 'course_section_cmlist', [$section]),
-            'heading' => '<h3 data-for="section_title" data-id="' . $section->id . '" data-number="1" id="sectionid-' . $section->id .
-                '-title" class="section-title">' . get_string('orphanedactivitiesinsectionno', '', $section->section) . '</h3>',
+            'heading' => '<h3 data-for="section_title" data-id="' . $section->id . '" data-number="1" id="sectionid-' .
+                $section->id . '-title" class="section-title">' . get_string('orphanedactivitiesinsectionno', '',
+                $section->section) . '</h3>',
             'rightcontent' => self::call_method($this->outputus, 'section_right_content', [$section, $this->course, false]),
             'rtl' => false,
             'sectionid' => $section->id,
@@ -427,7 +436,7 @@ class courseformatrenderer_test extends \advanced_testcase {
     }
     */
 
-    public function test_multiple_section_page_horizontal() {
+    public function test_multiple_section_page_horizontal(): void {
         global $CFG;
 
         $this->init();
@@ -450,7 +459,7 @@ class courseformatrenderer_test extends \advanced_testcase {
         $this->assertEquals($thevalue, $theoutput);
     }
 
-    public function test_multiple_section_page_vertical() {
+    public function test_multiple_section_page_vertical(): void {
         global $CFG;
 
         $this->init(1, 1);
@@ -475,7 +484,7 @@ class courseformatrenderer_test extends \advanced_testcase {
         $this->assertEquals($thevalue, $theoutput);
     }
 
-    public function test_multiple_section_page_no_sections() {
+    public function test_multiple_section_page_no_sections(): void {
         global $CFG;
 
         $this->init(0);
@@ -494,7 +503,7 @@ class courseformatrenderer_test extends \advanced_testcase {
         $this->assertEquals($thevalue, $theoutput);
     }
 
-    public function test_toggle_all() {
+    public function test_toggle_all(): void {
         global $CFG;
 
         $this->init();
@@ -519,7 +528,7 @@ class courseformatrenderer_test extends \advanced_testcase {
         $this->assertEquals($thevalue, $theclass);
     }
 
-    public function test_display_instructions() {
+    public function test_display_instructions(): void {
         global $CFG;
 
         $this->init();
