@@ -23,20 +23,22 @@
  * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.md' file.
  *
  * @package    format_topcoll
- * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
- * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
- * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
- *
+ * @author     G J Barnard - {@link https://moodle.org/user/profile.php?id=442195}
+ * @link       https://docs.moodle.org/en/Collapsed_Topics_course_format
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/course/format/lib.php'); // For format_base.
 
+/**
+ * Format class.
+ */
 class format_topcoll extends core_courseformat\base {
-    // Used to determine the type of view URL to generate - parameter or anchor.
+    /** @var int $coursedisplay Used to determine the type of view URL to generate - parameter or anchor */
     private $coursedisplay = COURSE_DISPLAY_SINGLEPAGE;
+    /** @var array $settings */
     private $settings;
 
     /**
@@ -103,10 +105,20 @@ class format_topcoll extends core_courseformat\base {
         return true;
     }
 
+    /**
+     * Indicates this format uses course index.
+     *
+     * @return bool Returns true
+     */
     public function uses_course_index() {
         return true;
     }
 
+    /**
+     * Indicates this format uses indentation.
+     *
+     * @return bool Returns true
+     */
     public function uses_indentation(): bool {
         return true;
     }
@@ -259,6 +271,9 @@ class format_topcoll extends core_courseformat\base {
         return parent::is_section_visible($section);
     }
 
+    /**
+     * get_section_dates.
+     */
     public function get_section_dates($section, $course = null, $tcsettings = null) {
         if (empty($tcsettings) && empty($course)) {
             return $this->format_topcoll_get_section_dates($section, $this->get_course());
@@ -428,6 +443,31 @@ class format_topcoll extends core_courseformat\base {
         ];
     }
 
+    /**
+     * Definitions of the additional options that this course format uses for section
+     *
+     * See course_format::course_format_options() for return array definition.
+     *
+     * Additionally section format options may have property 'cache' set to true
+     * if this option needs to be cached in get_fast_modinfo(). The 'cache' property
+     * is recommended to be set only for fields used in course_format::get_section_name(),
+     * course_format::extend_course_navigation() and course_format::get_view_url()
+     *
+     * For better performance cached options are recommended to have 'cachedefault' property
+     * Unlike 'default', 'cachedefault' should be static and not access get_config().
+     *
+     * Regardless of value of 'cache' all options are accessed in the code as
+     * $sectioninfo->OPTIONNAME
+     * where $sectioninfo is instance of section_info, returned by
+     * get_fast_modinfo($course)->get_section_info($sectionnum)
+     * or get_fast_modinfo($course)->get_section_info_all()
+     *
+     * All format options for particular section are returned by calling:
+     * $this->get_format_options($section);
+     *
+     * @param bool $foreditform
+     * @return array
+     */
     public function section_format_options($foreditform = false) {
         static $sectionformatoptions = false;
 
@@ -1839,6 +1879,19 @@ class format_topcoll extends core_courseformat\base {
         return !$section->section || ($section->visible && $section->section <= $this->get_course()->numsections);
     }
 
+    /**
+     * Callback used in WS core_course_edit_section when teacher performs an AJAX action on a section (show/hide)
+     *
+     * Access to the course is already validated in the WS but the callback has to make sure
+     * that particular action is allowed by checking capabilities
+     *
+     * Course formats should register
+     *
+     * @param stdClass|section_info $section
+     * @param string $action
+     * @param int $sr the section return
+     * @return null|array|stdClass any data for the Javascript post-processor (must be json-encodeable)
+     */
     public function section_action($section, $action, $sr) {
         global $PAGE;
 
@@ -1885,6 +1938,15 @@ class format_topcoll extends core_courseformat\base {
         $this->update_course_format_options($courseformatdata);
 
         return $retr;
+    }
+
+    /**
+     * Get the required javascript files for the course format.
+     *
+     * @return array The list of javascript files required by the course format.
+     */
+    public function get_required_jsfiles(): array {
+        return [];
     }
 }
 

@@ -23,20 +23,16 @@
  * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
  *
  * @package    format_topcoll
- * @category   event
- * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2017-onwards G J Barnard based upon work done by Marina Glancy.
- * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
- * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
- *
+ * @author     G J Barnard - {@link https://moodle.org/user/profile.php?id=442195}
+ * @link       https://docs.moodle.org/en/Collapsed_Topics_course_format
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 // List of observers.
 $observers = [
-
     [
         'eventname' => '\core\event\course_content_deleted',
         'callback' => 'format_topcoll_observer::course_content_deleted',

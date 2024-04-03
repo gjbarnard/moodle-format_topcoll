@@ -26,16 +26,17 @@
  * Note: 'courseformat' property is set in the using class constructor.
  *
  * @package    format_topcoll
- * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2021-onwards G J Barnard in respect to modifications of core code.
- * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
- * @link       http://docs.moodle.org/en/Collapsed_Topics_course_format
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
- *
+ * @author     G J Barnard - {@link https://moodle.org/user/profile.php?id=442195}
+ * @link       https://docs.moodle.org/en/Collapsed_Topics_course_format
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace format_topcoll\output;
 
+/**
+ * Migration trait.
+ */
 trait format_renderer_migration_toolbox {
     /**
      * Generate a summary of the activities in a section
@@ -68,7 +69,7 @@ trait format_renderer_migration_toolbox {
      * @return string
      */
     public function section_availability($section) {
-        // TODO: Update to a template!
+        // Todo: Update to a template!
         $widgetclass = $this->courseformat->get_output_classname('content\\section\\availability');
         $widget = new $widgetclass($this->courseformat, $section);
         return $this->render($widget);
@@ -92,17 +93,40 @@ trait format_renderer_migration_toolbox {
         return $summary->format_summary_text();
     }
 
+    /**
+     * Section course module list.
+     *
+     * @param stdClass $section The course_section entry from DB
+     * @return string HTML to output.
+     */
     protected function course_section_cmlist($section) {
         $cmlistclass = $this->courseformat->get_output_classname('content\\section\\cmlist');
         return $this->render(new $cmlistclass($this->courseformat, $section));
     }
 
+    /**
+     * Section navigation links.
+     *
+     * @return string HTML to output.
+     */
     protected function section_nav_links() {
         $sectionnavigationclass = $this->courseformat->get_output_classname('content\\sectionnavigation');
         $sectionnavigation = new $sectionnavigationclass($this->courseformat, $this->courseformat->get_section_number());
         return $this->render($sectionnavigation);
     }
 
+    /**
+     * Generate the html for the 'Jump to' menu on a single section page.
+     *
+     * This element is now a core_courseformat\output\content\section output component and it is displayed using
+     * mustache templates instead of a renderer method.
+     *
+     * @param stdClass $course The course entry from DB
+     * @param array $sections The course_sections entries from the DB
+     * @param int $displaysection the current displayed section number.
+     *
+     * @return string HTML to output.
+     */
     protected function section_nav_selection($course, $sections, $displaysection) {
         $sectionnavigationclass = $this->courseformat->get_output_classname('content\\sectionnavigation');
         $sectionnavigation = new $sectionnavigationclass($this->courseformat, $displaysection);

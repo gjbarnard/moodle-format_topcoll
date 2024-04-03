@@ -18,11 +18,10 @@
  * Contains the default section controls output class.
  *
  * @package    format_topcoll
- * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2022-onwards G J Barnard in respect to modifications of core code.
- * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
+ * @author     G J Barnard - {@link https://moodle.org/user/profile.php?id=442195}
  * @copyright  2020 Ferran Recio <ferran@moodle.com>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace format_topcoll\output\courseformat\content\section;
@@ -35,6 +34,12 @@ namespace format_topcoll\output\courseformat\content\section;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class cmitem extends \core_courseformat\output\local\content\section\cmitem {
+    /**
+     * Get the name of the template to use for this templatable.
+     *
+     * @param \renderer_base $renderer The renderer requesting the template name
+     * @return string
+     */
     public function get_template_name(\renderer_base $renderer): string {
         return 'format_topcoll/local/content/section/cmitem';
     }

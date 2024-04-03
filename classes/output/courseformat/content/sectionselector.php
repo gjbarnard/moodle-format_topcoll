@@ -17,15 +17,13 @@
 /**
  * Collapsed Topics
  *
- * Contains the default section controls output class.
  * Contains the default section selector.
  *
  * @package    format_topcoll
- * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2023-onwards G J Barnard in respect to modifications of standard topics format.
- * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
+ * @author     G J Barnard - {@link https://moodle.org/user/profile.php?id=442195}
  * @copyright  2020 Ferran Recio <ferran@moodle.com>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace format_topcoll\output\courseformat\content;
