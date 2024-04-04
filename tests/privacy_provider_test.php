@@ -65,7 +65,7 @@ final class privacy_provider_test extends \core_privacy\tests\provider_testcase 
      * @param stdClass $obj The object.
      * @param string $name Name of the method.
      */
-    protected static function get_property($obj, $name): ReflectionClass {
+    protected static function get_property($obj, $name): \ReflectionProperty {
         // Ref: http://stackoverflow.com/questions/18558183/phpunit-mockbuilder-set-mock-object-internal-property ish.
         $class = new \ReflectionClass($obj);
         $property = $class->getProperty($name);
