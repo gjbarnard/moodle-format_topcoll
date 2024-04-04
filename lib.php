@@ -390,13 +390,17 @@ class format_topcoll extends core_courseformat\base {
         } else {
             $sectionno = $section;
         }
-        if ((!empty($options['navigation']) || array_key_exists('sr', $options)) && $sectionno !== null) {
+        if ((!empty($options['navigation'])) && $sectionno !== null) {
             // Display section on separate page.
             $sectioninfo = $this->get_section($sectionno);
             return new moodle_url('/course/section.php', ['id' => $sectioninfo->id]);
         }
         if ($this->uses_sections() && $sectionno !== null) {
-            $url->set_anchor('section-'.$sectionno);
+            if ($this->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
+                $url->param('section', $sectionno);
+            } else {
+                $url->set_anchor('section-'.$sectionno);
+            }
         }
 
         return $url;
