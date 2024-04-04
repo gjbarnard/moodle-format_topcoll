@@ -74,6 +74,8 @@ class renderer extends section_renderer {
     protected $isoldtogglepreference = false;
     /** @var bool $userisediting */
     protected $userisediting = false;
+    /** @var string $tconesectioniconfont */
+    protected $tconesectioniconfont;
     /** @var string $tctoggleiconsize */
     protected $tctoggleiconsize;
     /** @var bool $formatresponsive */
