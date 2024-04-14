@@ -463,11 +463,11 @@ $string['sidepre'] = 'Pre';
 // Information.
 $string['information'] = 'Information';
 $string['informationsettings'] = 'Information settings';
-$string['informationsettingsdesc'] = 'Collapsed Topics format information';
+$string['informationsettingsdesc'] = 'Collapsed Topics course format information';
 $string['informationchanges'] = 'Changes';
 $string['settings'] = 'Settings';
 $string['settingssettings'] = 'Settings settings';
-$string['settingssettingsdesc'] = 'Collapsed Topics format settings';
+$string['settingssettingsdesc'] = 'Collapsed Topics course format settings';
 $string['love'] = 'love';
 $string['versioninfo'] = 'Release {$a->release}, version {$a->version} on Moodle {$a->moodle}.  Made with {$a->love} in Great Britain.';
 $string['versionalpha'] = 'Alpha version - Almost certainly contains bugs.  This is a development version for developers \'only\'!  Don\'t even think of installing on a production server!';

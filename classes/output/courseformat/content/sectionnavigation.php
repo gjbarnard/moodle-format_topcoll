@@ -32,6 +32,9 @@ namespace format_topcoll\output\courseformat\content;
  * Base class to render a course add section navigation.
  */
 class sectionnavigation extends \core_courseformat\output\local\content\sectionnavigation {
+    /** @var stdClass the calculated data to prevent calculations when rendered several times */
+    protected $data = null;
+
     /**
      * Export this data so it can be used as the context for a mustache template.
      *
@@ -39,8 +42,59 @@ class sectionnavigation extends \core_courseformat\output\local\content\sectionn
      * @return stdClass data context for a mustache template
      */
     public function export_for_template(\renderer_base $output): \stdClass {
-        $data = parent::export_for_template($output);
+        global $USER;
+
+        if ($this->data !== null) {
+            return $this->data;
+        }
+
+        $format = $this->format;
+        $course = $format->get_course();
+        $context = \context_course::instance($course->id);
+
+        $modinfo = $this->format->get_modinfo();
+        $sections = $modinfo->get_section_info_all();
+
+        // FIXME: This is really evil and should by using the navigation API.
+        $canviewhidden = has_capability('moodle/course:viewhiddensections', $context, $USER);
+
+        $data = (object)[
+            'previousurl' => '',
+            'nexturl' => '',
+            'larrow' => $output->larrow(),
+            'rarrow' => $output->rarrow(),
+            'currentsection' => $this->sectionno,
+        ];
+
+        $back = $this->sectionno - 1;
+        while ($back > 0 and empty($data->previousurl)) {
+            if ($canviewhidden || $sections[$back]->uservisible) {
+                if (!$sections[$back]->visible) {
+                    $data->previoushidden = true;
+                }
+                $data->previousname = get_section_name($course, $sections[$back]);
+                $data->previousurl = course_get_url($course, $back, ['navigation' => true]);
+                $data->hasprevious = true;
+            }
+            $back--;
+        }
+
+        $forward = $this->sectionno + 1;
+        $numsections = course_get_format($course)->get_last_section_number();
+        while ($forward <= $numsections and empty($data->nexturl)) {
+            if ($canviewhidden || $sections[$forward]->uservisible) {
+                if (!$sections[$forward]->visible) {
+                    $data->nexthidden = true;
+                }
+                $data->nextname = get_section_name($course, $sections[$forward]);
+                $data->nexturl = course_get_url($course, $forward, ['navigation' => true]);
+                $data->hasnext = true;
+            }
+            $forward++;
+        }
+
         $data->rtl = right_to_left();
+        $this->data = $data;
         return $data;
     }
 
