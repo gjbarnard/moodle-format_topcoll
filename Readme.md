@@ -9,7 +9,7 @@ then please do spread the word to other educators.  The main page for the format
 
 Required version of Moodle
 ==========================
-This version works with Moodle 4.3 version 2023100900.00 (Build: 20231009) and above within the MOODLE_403_STABLE branch until the
+This version works with Moodle 4.4 version 2024042200.00 (Build: 20240422) and above within the MOODLE_404_STABLE branch until the
 next release.
 
 Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/403/en/Installing_Moodle)'.
@@ -17,9 +17,9 @@ Please ensure that your hardware and software complies with 'Requirements' in '[
 Downloads and documentation
 ===========================
 The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
-with 'Select Moodle version:' set at 'Moodle 4.3'.
+with 'Select Moodle version:' set at 'Moodle 4.4'.
 
-The secondary source is a tagged version with the V403 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
+The secondary source is a tagged version with the V404 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
 
 If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/ - consider that
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages

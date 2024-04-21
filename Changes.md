@@ -3,7 +3,7 @@
 
 Version 404.0.1 - TBR
 --------------------------
-1. Alpha version for Moodle 4.4.
+1. Release candidate version for Moodle 4.4.
 
 Version 403.1.1 - 11/03/2024
 ----------------------------
