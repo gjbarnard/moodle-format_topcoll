@@ -3,6 +3,7 @@
 
 Version 404.0.2 - In development
 --------------------------------
+1. Fix section zero with a summary is shown when there are no modules.
 
 Version 404.0.1 - 22/04/2024
 ----------------------------

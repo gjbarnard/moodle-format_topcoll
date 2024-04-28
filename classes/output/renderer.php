@@ -791,7 +791,7 @@ class renderer extends section_renderer {
         // General section if non-empty.
         $thissection = $sections[0];
         unset($sections[0]);
-        if ($thissection->summary || !empty($modinfo->sections[0]) || $this->userisediting) {
+        if (!empty($modinfo->sections[0]) || $this->userisediting) {
             $content .= $this->topcoll_section($thissection, $course, false);
         }
 
