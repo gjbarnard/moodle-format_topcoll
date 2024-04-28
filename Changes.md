@@ -1,6 +1,9 @@
 ﻿Version Information
 ===================
 
+Version 404.0.2 - In development
+--------------------------------
+
 Version 404.0.1 - 22/04/2024
 ----------------------------
 1. Release candidate version for Moodle 4.4.
