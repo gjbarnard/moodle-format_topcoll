@@ -675,8 +675,13 @@ body.format-topcoll.editing.dir-rtl .ctopics .section .activity .mod-indent-oute
     padding-right: 32px;
 }
 
-body.format-topcoll .ctopics .section  {
+body.format-topcoll .ctopics .section {
     margin: 1em 0;
+}
+
+body.format-topcoll .ctopics .section .d-flex {
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 body.format-topcoll .course-content ul.ctopics li.section .summary {

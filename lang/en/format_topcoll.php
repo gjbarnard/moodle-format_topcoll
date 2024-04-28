@@ -187,6 +187,10 @@ $string['columndynamic'] = 'Dynamic';
 $string['columnhorizontal'] = 'Horizontal';
 $string['columnvertical'] = 'Vertical';
 
+// Flexible modules.
+$string['setflexiblemodules'] = 'Flexible modules';
+$string['setflexiblemodules_help'] = 'Use flexible modules?';
+
 // MDL-34917 - implemented in M2.5 but needs to be here to support M2.4- versions.
 $string['maincoursepage'] = 'Main course page';
 
@@ -290,6 +294,9 @@ $string['defaultlayoutcolumns_desc'] = "Number of columns between one and four."
 
 $string['defaultlayoutcolumnorientation'] = 'Column orientation';
 $string['defaultlayoutcolumnorientation_desc'] = 'The default column orientation: Dynamic - Number sections per \'row\' adjust to window size, \'Column\' setting not currently used.<br>Horizontal - Sections go left to right.<br>Vertical - Sections go top to bottom.';
+
+$string['defaultflexiblemodules'] = 'Flexible modules';
+$string['defaultflexiblemodules_desc'] = 'Use flexible modules?';
 
 $string['defaulttgfgcolour'] = 'Toggle foreground colour';
 $string['defaulttgfgcolour_desc'] = "Toggle foreground colour in hexidecimal RGB.";

@@ -191,6 +191,17 @@ if ($ADMIN->fulltree) {
     ];
     $page->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
+    /* Flexible modules - 1 = no, 2 = yes. */
+    $name = 'format_topcoll/defaultflexiblemodules';
+    $title = get_string('defaultflexiblemodules', 'format_topcoll');
+    $description = get_string('defaultflexiblemodules_desc', 'format_topcoll');
+    $default = 1;
+    $choices = [
+        1 => new lang_string('no'), // No.
+        2 => new lang_string('yes'), // Yes.
+    ];
+    $page->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
     /* Toggle all enabled - 1 = no, 2 = yes. */
     $name = 'format_topcoll/defaulttoggleallenabled';
     $title = get_string('defaulttoggleallenabled', 'format_topcoll');

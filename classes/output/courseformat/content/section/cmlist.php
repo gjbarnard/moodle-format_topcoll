@@ -59,6 +59,9 @@ class cmlist extends \core_courseformat\output\local\content\section\cmlist {
         $data->num = $this->section->section ?? '0';
         $data->sectionreturn = $this->format->get_sectionnum();
 
+        $tcsettings = $this->format->get_settings();
+        $data->flexiblemodules = ($tcsettings['flexiblemodules'] == 2);
+
         return $data;
     }
 }

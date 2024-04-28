@@ -18,14 +18,62 @@
 {{!
     @template format_topcoll/local/content/section/cmlist
 
-    Include the core content/section/cmlist template.
-    See core file for example context.
+    Displays the course module list inside a course section.
+
+    Example context (json):
+    {
+        "cms": [
+            {
+                "cmitem": {
+                    "cmformat": {
+                        "cmname": "<a class=\"aalink\" href=\"#\"><span class=\"instancename\">Forum example</span></a>",
+                        "hasname": "true"
+                    },
+                    "id": 3,
+                    "module": "forum",
+                    "extraclasses": "newmessages"
+                }
+            },
+            {
+                "cmitem": {
+                    "cmformat": {
+                        "cmname": "<a class=\"aalink\" href=\"#\"><span class=\"instancename\">Assign example</span></a>",
+                        "hasname": "true"
+                    },
+                    "id": 4,
+                    "module": "assign",
+                    "extraclasses": ""
+                }
+            }
+        ],
+        "hascms": true,
+        "flexiblemodules": false,
+        "showmovehere": true,
+        "movingstr": "Moving this activity: folder example",
+        "cancelcopyurl": "#",
+        "movetosectionurl": "#",
+        "strmovefull": "Move 'folder example' to this location"
+    }
 }}
-
-{{< core_courseformat/local/content/section/cmlist }}
-
-    {{$ core_courseformat/local/content/section/cmitem}}
-        {{> format_topcoll/local/content/section/cmitem }}
-    {{/ core_courseformat/local/content/section/cmitem}}
-
-{{/ core_courseformat/local/content/section/cmlist }}
+{{#showmovehere}}
+<p>{{movingstr}} (<a href="{{{cancelcopyurl}}}">{{#str}} cancel {{/str}}</a>)</p>
+{{/showmovehere}}
+<ul class="section m-0 p-0 img-text {{^flexiblemodules}}d-block{{/flexiblemodules}}{{#flexiblemodules}}d-flex{{/flexiblemodules}}" data-for="cmlist">
+{{#cms}}
+    {{#showmovehere}}
+    <li class="movehere">
+        <a href="{{{moveurl}}}" title="{{strmovefull}}" class="movehere"></a>
+    </li>
+    {{/showmovehere}}
+    {{#cmitem}}
+        {{$ core_courseformat/local/content/section/cmitem}}
+            {{> format_topcoll/local/content/section/cmitem }}
+        {{/ core_courseformat/local/content/section/cmitem}}
+    {{/cmitem}}
+{{/cms}}
+{{#showmovehere}}
+    <li class="movehere">
+        <a href="{{{movetosectionurl}}}" title="{{strmovefull}}" class="movehere"></a>
+    </li>
+{{/showmovehere}}
+</ul>

@@ -581,6 +581,10 @@ class format_topcoll extends core_courseformat\base {
                     'default' => 0,
                     'type' => PARAM_INT,
                 ],
+                'flexiblemodules' => [
+                    'default' => 0,
+                    'type' => PARAM_INT,
+                ],
                 'toggleallenabled' => [
                     'default' => 0,
                     'type' => PARAM_INT,
@@ -814,6 +818,21 @@ class format_topcoll extends core_courseformat\base {
                     'element_type' => 'select',
                     'element_attributes' => [$layoutcolumnsvalues],
                 ];
+                $flexiblemodulesvalues = $this->generate_default_entry(
+                    'flexiblemodules',
+                    0,
+                    [
+                        1 => new lang_string('no'),
+                        2 => new lang_string('yes'),
+                    ]
+                );
+                $courseformatoptionsedit['flexiblemodules'] = [
+                    'label' => new lang_string('setflexiblemodules', 'format_topcoll'),
+                    'help' => 'setflexiblemodules',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => [$flexiblemodulesvalues],
+                ];
                 $toggleallenabledvalues = $this->generate_default_entry(
                     'toggleallenabled',
                     0,
@@ -897,6 +916,8 @@ class format_topcoll extends core_courseformat\base {
                 $courseformatoptionsedit['layoutcolumns'] = [
                     'label' => 0, 'element_type' => 'hidden', ];
                 $courseformatoptionsedit['layoutcolumnorientation'] = [
+                    'label' => 0, 'element_type' => 'hidden', ];
+                $courseformatoptionsedit['flexiblemodules'] = [
                     'label' => 0, 'element_type' => 'hidden', ];
                 $courseformatoptionsedit['toggleallenabled'] = [
                     'label' => 0, 'element_type' => 'hidden', ];
@@ -1688,6 +1709,7 @@ class format_topcoll extends core_courseformat\base {
             $updatedata['layoutstructure'] = 0;
             $updatedata['layoutcolumns'] = 0;
             $updatedata['layoutcolumnorientation'] = 0;
+            $updatedata['flexiblemodules'] = 0;
             $updatedata['toggleallenabled'] = 0;
             $updatedata['viewsinglesectionenabled'] = 0;
             $updatedata['toggleiconposition'] = 0;
@@ -1780,6 +1802,7 @@ class format_topcoll extends core_courseformat\base {
             // Defaults taken from 'settings.php'.
             $data['displayinstructions'] = 0;
             $data['layoutcolumnorientation'] = 0;
+            $data['flexiblemodules'] = 0;
             $data['toggleallenabled'] = 0;
             $data['viewsinglesectionenabled'] = 0;
             $data['showsectionsummary'] = 0;

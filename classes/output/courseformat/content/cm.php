@@ -61,6 +61,12 @@ class cm extends cm_base {
             }
         }
 
+        $tcsettings = $this->format->get_settings();
+        if ($tcsettings['flexiblemodules'] == 2) {
+            // Turn off indentation.
+            $data->indent = 0;
+        }
+
         return $data;
     }
 

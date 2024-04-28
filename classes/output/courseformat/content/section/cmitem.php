@@ -43,4 +43,22 @@ class cmitem extends \core_courseformat\output\local\content\section\cmitem {
     public function get_template_name(\renderer_base $renderer): string {
         return 'format_topcoll/local/content/section/cmitem';
     }
+
+    /**
+     * Export this data so it can be used as the context for a mustache template.
+     *
+     * @param renderer_base $output typically, the renderer that's calling this function
+     * @return stdClass data context for a mustache template
+     */
+    public function export_for_template(\renderer_base $output): \stdClass {
+        $context = parent::export_for_template($output);
+
+        $tcsettings = $this->format->get_settings();
+        if ($tcsettings['flexiblemodules'] == 2) {
+            // Turn off indentation.
+            $context->indent = 0;
+        }
+
+        return $context;
+    }
 }

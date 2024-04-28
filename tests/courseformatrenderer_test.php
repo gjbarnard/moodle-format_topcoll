@@ -90,8 +90,8 @@ final class courseformatrenderer_test extends \advanced_testcase {
     /**
      * Init.
      */
-    protected function init($numsections = 1, $layoutcolumnorientation = 2, $toggleallenabled = 2,
-        $viewsinglesectionenabled = 2): void {
+    protected function init($numsections = 1, $layoutcolumnorientation = 2, $flexiblemodules = 1,
+        $toggleallenabled = 2, $viewsinglesectionenabled = 2): void {
         $this->resetAfterTest(true);
 
         set_config('theme', 'boost');
@@ -126,6 +126,7 @@ final class courseformatrenderer_test extends \advanced_testcase {
         self::set_property($this->outputus, 'output', $this->ouroutput);
         $tcsettings = $this->courseformat->get_settings();
         $tcsettings['layoutcolumnorientation'] = $layoutcolumnorientation;
+        $tcsettings['flexiblemodules'] = $flexiblemodules;
         $tcsettings['toggleallenabled'] = $toggleallenabled;
         $tcsettings['viewsinglesectionenabled'] = $viewsinglesectionenabled;
         $tcsettings['toggleiconset'] = 'arrow';
