@@ -5,6 +5,7 @@ Version 404.0.2 - In development
 --------------------------------
 1. Fix section zero with a summary is shown when there are no modules.
 2. Add flexible modules.
+3. Only show a section if it has modules that are visible to the user when not editing.
 
 Version 404.0.1 - 22/04/2024
 ----------------------------

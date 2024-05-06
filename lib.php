@@ -268,7 +268,33 @@ class format_topcoll extends core_courseformat\base {
             // Don't show.
             return false;
         }
-        return parent::is_section_visible($section);
+        $shown = parent::is_section_visible($section);
+        if ($shown) {
+            // Don't show if no modules or all modules unavailable to user.
+            $showmovehere = ismoving($this->course->id);
+            if (!$showmovehere) {
+                global $PAGE;
+                $context = context_course::instance($this->course->id);
+                if (!($PAGE->user_is_editing() && has_capability('moodle/course:update', $context))) {
+                    $modshown = false;
+                    $modinfo = get_fast_modinfo($this->course);
+
+                    if (!empty($modinfo->sections[$section->section])) {
+                        foreach ($modinfo->sections[$section->section] as $modnumber) {
+                            $mod = $modinfo->cms[$modnumber];
+                            if ($mod->is_visible_on_course_page()) {
+                                // At least one is.
+                                $modshown = true;
+                                break;
+                            }
+                        }
+                    }
+                    $shown = $modshown;
+                }
+            }
+        }
+
+        return $shown;
     }
 
     /**

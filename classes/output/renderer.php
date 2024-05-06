@@ -535,11 +535,9 @@ class renderer extends section_renderer {
             );
         }
 
-        if ($section->uservisible) {
-            $sectioncontext['cscml'] = $this->course_section_cmlist($section);
-            if ($this->courseformat->show_editor()) {
-                $sectioncontext['cscml'] .= $this->course_section_add_cm_control($course, $section->section, $sectionreturn);
-            }
+        $sectioncontext['cscml'] = $this->course_section_cmlist($section);
+        if ($this->courseformat->show_editor()) {
+            $sectioncontext['cscml'] .= $this->course_section_add_cm_control($course, $section->section, $sectionreturn);
         }
 
         return $this->render_from_template('format_topcoll/section', $sectioncontext);
@@ -791,7 +789,7 @@ class renderer extends section_renderer {
         // General section if non-empty.
         $thissection = $sections[0];
         unset($sections[0]);
-        if (!empty($modinfo->sections[0]) || $this->userisediting) {
+        if ($this->courseformat->is_section_visible($thissection)) {
             $content .= $this->topcoll_section($thissection, $course, false);
         }
 
@@ -890,12 +888,12 @@ class renderer extends section_renderer {
 
                 /* Show the section if the user is permitted to access it, OR if it's not available
                    but there is some available info text which explains the reason & should display. */
-                if (($this->tcsettings['layoutstructure'] != 3) || ($this->userisediting)) {
-                    $showsection = ($this->courseformat->is_section_visible($thissection));
-                } else {
-                    $showsection = (($this->courseformat->is_section_visible($thissection)) && ($nextweekdate <= $timenow));
+                $showsection = ($this->courseformat->is_section_visible($thissection));
+                if ($showsection && ($this->tcsettings['layoutstructure'] == 3) && (!$this->userisediting)) {
+                    $showsection = ($nextweekdate <= $timenow);
                 }
-                if (($currentsectionfirst == true) && ($showsection == true)) {
+
+                if ($currentsectionfirst && $showsection) {
                     // Show the section if we were meant to and it is the current section:....
                     $showsection = ($course->marker == $section);
                 } else if (
@@ -904,7 +902,27 @@ class renderer extends section_renderer {
                 ) {
                     $showsection = false; // Do not reshow current section.
                 }
-                if (!$showsection) {
+                if ($showsection) {
+                    if ($this->isoldtogglepreference == true) {
+                        $togglestate = substr($this->togglelib->get_toggles(), $section, 1);
+                        if ($togglestate == '1') {
+                            $extrasectioninfo[$thissection->id]->toggle = true;
+                        } else {
+                            $extrasectioninfo[$thissection->id]->toggle = false;
+                        }
+                    } else {
+                        $extrasectioninfo[$thissection->id]->toggle = $this->togglelib->get_toggle_state($thissection->section);
+                    }
+
+                    if ($this->courseformat->is_section_current($thissection)) {
+                        $this->currentsection = $thissection->section;
+                        $extrasectioninfo[$thissection->id]->toggle = true; // Open current section regardless of toggle state.
+                        $this->togglelib->set_toggle_state($thissection->section, true);
+                    }
+
+                    $extrasectioninfo[$thissection->id]->isshown = true;
+                    $sectiondisplayarray[] = $thissection;
+                } else {
                     // Hidden section message is overridden by 'unavailable' control.
                     $testhidden = false;
                     if ($this->tcsettings['layoutstructure'] != 4) {
@@ -926,26 +944,6 @@ class renderer extends section_renderer {
                             $sectiondisplayarray[] = $thissection;
                         }
                     }
-                } else {
-                    if ($this->isoldtogglepreference == true) {
-                        $togglestate = substr($this->togglelib->get_toggles(), $section, 1);
-                        if ($togglestate == '1') {
-                            $extrasectioninfo[$thissection->id]->toggle = true;
-                        } else {
-                            $extrasectioninfo[$thissection->id]->toggle = false;
-                        }
-                    } else {
-                        $extrasectioninfo[$thissection->id]->toggle = $this->togglelib->get_toggle_state($thissection->section);
-                    }
-
-                    if ($this->courseformat->is_section_current($thissection)) {
-                        $this->currentsection = $thissection->section;
-                        $extrasectioninfo[$thissection->id]->toggle = true; // Open current section regardless of toggle state.
-                        $this->togglelib->set_toggle_state($thissection->section, true);
-                    }
-
-                    $extrasectioninfo[$thissection->id]->isshown = true;
-                    $sectiondisplayarray[] = $thissection;
                 }
 
                 if (($this->tcsettings['layoutstructure'] != 3) || ($this->userisediting)) {
