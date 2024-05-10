@@ -269,8 +269,8 @@ class format_topcoll extends core_courseformat\base {
             return false;
         }
         $shown = parent::is_section_visible($section);
-        if ($shown) {
-            // Don't show if no modules or all modules unavailable to user.
+        if (($shown) && ($section->sectionnum == 0)) {
+            // Don't show section zero if no modules or all modules unavailable to user.
             $showmovehere = ismoving($this->course->id);
             if (!$showmovehere) {
                 global $PAGE;

@@ -747,7 +747,7 @@ class renderer extends section_renderer {
         ];
 
         $sectionzero = $modinfo->get_section_info(0);
-        if ($sectionzero->summary || !empty($modinfo->sections[0]) || $this->page->user_is_editing()) {
+        if ($this->courseformat->is_section_visible($sectionzero)) {
             $singlesectioncontext['sectionzero'] = $this->topcoll_section($sectionzero, $course, true, $displaysection);
         }
 

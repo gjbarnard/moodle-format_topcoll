@@ -457,7 +457,7 @@ final class courseformatrenderer_test extends \advanced_testcase {
         $theoutput .= self::call_method($this->outputus, 'topcoll_section', [$section1, $this->course, false, null, $toggle]);
         $theoutput .= '</ul>';
 
-        $this->assertEquals($thevalue, $theoutput);
+        $this->assertEquals($theoutput, $thevalue);
     }
 
     public function test_multiple_section_page_vertical(): void {
@@ -482,7 +482,7 @@ final class courseformatrenderer_test extends \advanced_testcase {
         $theoutput .= self::call_method($this->outputus, 'topcoll_section', [$section1, $this->course, false, null, $toggle]);
         $theoutput .= '</ul></div>';
 
-        $this->assertEquals($thevalue, $theoutput);
+        $this->assertEquals($theoutput, $thevalue);
     }
 
     public function test_multiple_section_page_no_sections(): void {
@@ -501,7 +501,7 @@ final class courseformatrenderer_test extends \advanced_testcase {
         $theoutput .= self::call_method($this->outputus, 'topcoll_section', [$section0, $this->course, false, 0]);
         $theoutput .= '</ul>';
 
-        $this->assertEquals($thevalue, $theoutput);
+        $this->assertEquals($theoutput, $thevalue);
     }
 
     public function test_toggle_all(): void {
