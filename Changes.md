@@ -3,6 +3,7 @@
 
 Version 404.1.0 - In development
 --------------------------------
+1. Fix 'Error with Orphaned Sections when editing' - #151.
 
 Version 404.0.2 - 30/05/2024
 ----------------------------

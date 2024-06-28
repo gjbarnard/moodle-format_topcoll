@@ -662,7 +662,7 @@ class renderer extends section_renderer {
 
         if ($this->courseformat->show_editor()) {
             $stealthsectioncontext['cmcontrols'] =
-                $this->courserenderer->course_section_add_cm_control($course, $section->section, $section->section);
+                $this->course_section_add_cm_control($course, $section->section, $section->section);
         }
 
         return $this->render_from_template('format_topcoll/stealthsection', $stealthsectioncontext);
