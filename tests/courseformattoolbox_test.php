@@ -32,6 +32,7 @@ namespace format_topcoll;
  */
 final class courseformattoolbox_test extends \advanced_testcase {
     protected function setUp(): void {
+        parent::setUp();
         $this->resetAfterTest(true);
 
         set_config('theme', 'boost');
