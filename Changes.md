@@ -3,6 +3,7 @@
 
 Version 404.1.1 - Development started
 ----------------------------
+1. Show section zero if the section has meaningful content.
 
 Version 404.1.0 - 01/07/2024
 ----------------------------
