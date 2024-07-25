@@ -1,6 +1,9 @@
 ﻿Version Information
 ===================
 
+Version 404.1.1 - Development started
+----------------------------
+
 Version 404.1.0 - 01/07/2024
 ----------------------------
 1. Fix 'Error with Orphaned Sections when editing' - #151.
