@@ -1,6 +1,14 @@
 ﻿Version Information
 ===================
 
+Version 404.1.1 - 22/09/2024
+----------------------------
+1. Show section zero if the section has meaningful content.
+2. Fix single section page navigation.
+3. Compromise with the Course Index that it will always refer to the main course page and the format
+   implement its own single page access and navigation.
+4. Fix single section page navigation visibility.
+
 Version 404.1.0 - 01/07/2024
 ----------------------------
 1. Fix 'Error with Orphaned Sections when editing' - #151.

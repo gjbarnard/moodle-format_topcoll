@@ -64,9 +64,11 @@ class sectionselector extends \core_courseformat\output\local\content\sectionsel
         $numsections = $format->get_last_section_number();
         while ($section <= $numsections) {
             $thissection = $modinfo->get_section_info($section);
-            $url = course_get_url($course, $section, ['navigation' => true]);
-            if ($thissection->uservisible && $url && $section != $data->currentsection) {
-                $sectionmenu[$url->out(false)] = get_section_name($course, $section);
+            $url = $format->get_view_url($section, ['navigation' => false]);
+            if ($url && $section != $data->currentsection) {
+                if ($format->is_section_visible($thissection)) {
+                    $sectionmenu[$url->out(false)] = get_section_name($course, $section);
+                }
             }
             $section++;
         }
@@ -76,6 +78,7 @@ class sectionselector extends \core_courseformat\output\local\content\sectionsel
         $select->formid = 'sectionmenu';
 
         $data->selector = $output->render($select);
+
         return $data;
     }
 }

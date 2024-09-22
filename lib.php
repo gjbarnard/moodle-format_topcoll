@@ -270,26 +270,29 @@ class format_topcoll extends core_courseformat\base {
         }
         $shown = parent::is_section_visible($section);
         if (($shown) && ($section->sectionnum == 0)) {
-            // Don't show section zero if no modules or all modules unavailable to user.
-            $showmovehere = ismoving($this->course->id);
-            if (!$showmovehere) {
-                global $PAGE;
-                $context = context_course::instance($this->course->id);
-                if (!($PAGE->user_is_editing() && has_capability('moodle/course:update', $context))) {
-                    $modshown = false;
-                    $modinfo = get_fast_modinfo($this->course);
+            // Show section zero if summary has content, otherwise check modules.
+            if (empty(strip_tags($section->summary))) {
+                // Don't show section zero if no modules or all modules unavailable to user.
+                $showmovehere = ismoving($this->course->id);
+                if (!$showmovehere) {
+                    global $PAGE;
+                    $context = context_course::instance($this->course->id);
+                    if (!($PAGE->user_is_editing() && has_capability('moodle/course:update', $context))) {
+                        $modshown = false;
+                        $modinfo = get_fast_modinfo($this->course);
 
-                    if (!empty($modinfo->sections[$section->section])) {
-                        foreach ($modinfo->sections[$section->section] as $modnumber) {
-                            $mod = $modinfo->cms[$modnumber];
-                            if ($mod->is_visible_on_course_page()) {
-                                // At least one is.
-                                $modshown = true;
-                                break;
+                        if (!empty($modinfo->sections[$section->section])) {
+                            foreach ($modinfo->sections[$section->section] as $modnumber) {
+                                $mod = $modinfo->cms[$modnumber];
+                                if ($mod->is_visible_on_course_page()) {
+                                    // At least one is.
+                                    $modshown = true;
+                                    break;
+                                }
                             }
                         }
+                        $shown = $modshown;
                     }
-                    $shown = $modshown;
                 }
             }
         }
@@ -417,11 +420,9 @@ class format_topcoll extends core_courseformat\base {
             $sectionno = $section;
         }
         if ((!empty($options['navigation'])) && $sectionno !== null) {
-            // Display section on separate page.
-            $sectioninfo = $this->get_section($sectionno);
-            return new moodle_url('/course/section.php', ['id' => $sectioninfo->id]);
-        }
-        if ($this->uses_sections() && $sectionno !== null) {
+            // Unlike core, navigate to section on course page.
+            $url->set_anchor('section-'.$sectionno);
+        } else if ($this->uses_sections() && $sectionno !== null) {
             if ($this->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                 $url->param('section', $sectionno);
             } else {

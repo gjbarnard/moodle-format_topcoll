@@ -68,26 +68,26 @@ class sectionnavigation extends \core_courseformat\output\local\content\sectionn
 
         $back = $this->sectionno - 1;
         while ($back > 0 && empty($data->previousurl)) {
-            if ($canviewhidden || $sections[$back]->uservisible) {
+            if ($canviewhidden || $format->is_section_visible($back)) {
                 if (!$sections[$back]->visible) {
                     $data->previoushidden = true;
                 }
                 $data->previousname = get_section_name($course, $sections[$back]);
-                $data->previousurl = course_get_url($course, $back, ['navigation' => true]);
+                $data->previousurl = $format->get_view_url($back, ['navigation' => false]);
                 $data->hasprevious = true;
             }
             $back--;
         }
 
         $forward = $this->sectionno + 1;
-        $numsections = course_get_format($course)->get_last_section_number();
+        $numsections = $format->get_last_section_number();
         while ($forward <= $numsections && empty($data->nexturl)) {
-            if ($canviewhidden || $sections[$forward]->uservisible) {
+            if ($canviewhidden || $format->is_section_visible($forward)) {
                 if (!$sections[$forward]->visible) {
                     $data->nexthidden = true;
                 }
                 $data->nextname = get_section_name($course, $sections[$forward]);
-                $data->nexturl = course_get_url($course, $forward, ['navigation' => true]);
+                $data->nexturl = $format->get_view_url($forward, ['navigation' => false]);
                 $data->hasnext = true;
             }
             $forward++;
