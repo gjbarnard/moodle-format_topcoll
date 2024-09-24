@@ -1,6 +1,10 @@
 ﻿Version Information
 ===================
 
+Version 404.1.2 - 24/09/2024
+----------------------------
+1. Fix 'Single page shows is_section_visible()' error.
+
 Version 404.1.1 - 22/09/2024
 ----------------------------
 1. Show section zero if the section has meaningful content.
