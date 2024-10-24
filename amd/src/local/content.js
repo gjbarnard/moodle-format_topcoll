@@ -25,6 +25,8 @@
 
 import Component from 'core_courseformat/local/content';
 import {getCurrentCourseEditor} from 'core_courseformat/courseeditor';
+import TopcollDispatchActions from 'format_topcoll/local/content/actions';
+import * as CourseEvents from 'core_course/events';
 
 export default class TopcollComponent extends Component {
 
@@ -52,6 +54,37 @@ export default class TopcollComponent extends Component {
             selectors,
             sectionReturn,
         });
+    }
+
+    /**
+     * Initial state ready method.
+     */
+    stateReady() {
+        this._indexContents();
+
+        if (this.reactive.supportComponents) {
+            // Actions are only available in edit mode.
+            if (this.reactive.isEditing) {
+                new TopcollDispatchActions(this);
+            }
+
+            // Mark content as state ready.
+            this.element.classList.add(this.classes.STATEDREADY);
+        }
+
+        // Capture completion events.
+        this.addEventListener(
+            this.element,
+            CourseEvents.manualCompletionToggled,
+            this._completionHandler
+        );
+
+        // Capture page scroll to update page item.
+        this.addEventListener(
+            document,
+            "scroll",
+            this._scrollHandler
+        );
     }
 
     /**

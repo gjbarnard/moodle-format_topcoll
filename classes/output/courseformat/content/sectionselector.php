@@ -28,6 +28,10 @@
 
 namespace format_topcoll\output\courseformat\content;
 
+use core\output\renderer_base;
+use core\output\url_select;
+use stdClass;
+
 /**
  * Represents the section selector.
  */
@@ -35,10 +39,10 @@ class sectionselector extends \core_courseformat\output\local\content\sectionsel
     /**
      * Get the name of the template to use for this templatable.
      *
-     * @param \renderer_base $renderer The renderer requesting the template name
+     * @param renderer_base $renderer The renderer requesting the template name
      * @return string
      */
-    public function get_template_name(\renderer_base $renderer): string {
+    public function get_template_name(renderer_base $renderer): string {
         return 'format_topcoll/local/content/sectionselector';
     }
 
@@ -48,7 +52,7 @@ class sectionselector extends \core_courseformat\output\local\content\sectionsel
      * @param renderer_base $output typically, the renderer that's calling this function
      * @return stdClass data context for a mustache template
      */
-    public function export_for_template(\renderer_base $output): \stdClass {
+    public function export_for_template(renderer_base $output): stdClass {
 
         $format = $this->format;
         $course = $format->get_course();
@@ -73,7 +77,7 @@ class sectionselector extends \core_courseformat\output\local\content\sectionsel
             $section++;
         }
 
-        $select = new \url_select($sectionmenu, '', ['' => get_string('jumpto')]);
+        $select = new url_select($sectionmenu, '', ['' => get_string('jumpto')]);
         $select->class = 'jumpmenu';
         $select->formid = 'sectionmenu';
 

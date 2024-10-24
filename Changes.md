@@ -1,6 +1,12 @@
 ﻿Version Information
 ===================
 
+Version 405.0.1 - 24/10/2024
+----------------------------
+1. First Moodle 4.5 version.
+2. Impact of MDL-81920 and MDL-81960.
+3. Fix 'Add section actions JS failing'.
+
 Version 404.1.2 - 24/09/2024
 ----------------------------
 1. Fix 'Single page shows is_section_visible()' error.

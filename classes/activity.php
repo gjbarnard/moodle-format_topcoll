@@ -46,7 +46,15 @@ namespace format_topcoll;
 
 defined('MOODLE_INTERNAL') || die();
 
+use assign;
+use cache;
 use cm_info;
+use context_course;
+use context_module;
+use core\lock\lock_config;
+use grade_item;
+use grade_grade;
+use moodle_exception;
 
 require_once($CFG->dirroot . '/mod/assign/locallib.php');
 
@@ -66,7 +74,7 @@ class activity {
      *
      * Main method that calls relevant activity-related method based on the mod name.
      *
-     * @param \cm_info $mod
+     * @param cm_info $mod
      * @return activity_meta
      */
     public static function module_meta(cm_info $mod) {
@@ -143,21 +151,21 @@ class activity {
             $graderow = self::grade_row($courseid, $mod);
 
             if ($graderow) {
-                $coursecontext = \context_course::instance($courseid);
+                $coursecontext = context_course::instance($courseid);
                 if (has_capability('moodle/grade:viewhidden', $coursecontext)) {
                     $meta = new activity_meta();
                     $meta->grade = true;
                 } else {
                     global $USER;
 
-                    $gradeitem = \grade_item::fetch([
+                    $gradeitem = grade_item::fetch([
                         'itemtype' => 'mod',
                         'itemmodule' => $mod->modname,
                         'iteminstance' => $mod->instance,
                         'outcomeid' => null,
                     ]);
 
-                    $grade = new \grade_grade(['itemid' => $gradeitem->id, 'userid' => $USER->id]);
+                    $grade = new grade_grade(['itemid' => $gradeitem->id, 'userid' => $USER->id]);
                     if (!$grade->is_hidden()) {
                         $meta = new activity_meta();
                         $meta->grade = true;
@@ -284,7 +292,7 @@ class activity {
             // Results are not cached, so lets get them.
 
             // Get people who are typically not students (people who can view grader report) so that we can exclude them!
-            [$graderids, $params] = get_enrolled_sql(\context_course::instance($courseid), 'moodle/grade:viewall');
+            [$graderids, $params] = get_enrolled_sql(context_course::instance($courseid), 'moodle/grade:viewall');
             $params['courseid'] = $courseid;
 
             // Get the number of submissions for all $maintable activities in this course.
@@ -318,9 +326,9 @@ class activity {
      */
     protected static function assign_nums($courseid, $mod) {
         // Ref: get_assign_grading_summary_renderable().
-        $coursemodulecontext = \context_module::instance($mod->id);
+        $coursemodulecontext = context_module::instance($mod->id);
         $course = get_course($courseid);
-        $assign = new \assign($coursemodulecontext, $mod, $course);
+        $assign = new assign($coursemodulecontext, $mod, $course);
         $activitygroup = groups_get_activity_group($mod);
         $instance = $assign->get_default_instance();
         if ($instance->teamsubmission) {
@@ -400,7 +408,7 @@ class activity {
            'posted' in / started them and thus should be graded if they have not
            been. */
         $params['forumid'] = $mod->instance;
-        $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+        $studentscache = cache::make('format_topcoll', 'activitystudentscache');
         $students = $studentscache->get($courseid);
         $userids = implode(',', $students);
 
@@ -450,7 +458,7 @@ class activity {
     protected static function forum_num_submissions_ungraded($courseid, $mod) {
         global $DB;
 
-        $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+        $studentscache = cache::make('format_topcoll', 'activitystudentscache');
         $students = $studentscache->get($courseid);
         $userids = implode(',', $students);
 
@@ -485,7 +493,7 @@ class activity {
 
         static $totalsbyquizid = null;
 
-        $coursecontext = \context_course::instance($courseid);
+        $coursecontext = context_course::instance($courseid);
         // Get people who are typically not students (people who can view grader report) so that we can exclude them!
         [$graderids, $params] = get_enrolled_sql($coursecontext, 'moodle/grade:viewall');
         $params['courseid'] = $courseid;
@@ -588,16 +596,16 @@ class activity {
         $students = self::course_get_students($courseid);
 
         // New users?
-        $usercreatedcache = \cache::make('format_topcoll', 'activityusercreatedcache');
+        $usercreatedcache = cache::make('format_topcoll', 'activityusercreatedcache');
         $createdusers = $usercreatedcache->get($courseid);
         $lock = null;
         $newstudents = [];
         if (!empty($createdusers)) {
             $lock = self::lockcaches($courseid);
 
-            $studentrolescache = \cache::make('format_topcoll', 'activitystudentrolescache');
+            $studentrolescache = cache::make('format_topcoll', 'activitystudentrolescache');
             $studentroles = $studentrolescache->get('roles');
-            $context = \context_course::instance($courseid);
+            $context = context_course::instance($courseid);
             $alluserroles = get_users_roles($context, $createdusers, false);
 
             foreach ($createdusers as $userid) {
@@ -629,18 +637,18 @@ class activity {
                         $students[$newstudent] = $newstudent;
                     }
                 }
-                $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+                $studentscache = cache::make('format_topcoll', 'activitystudentscache');
                 $studentscache->set($courseid, $students);
             } else if (!empty($newstudents)) {
                 $students = $newstudents;
-                $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+                $studentscache = cache::make('format_topcoll', 'activitystudentscache');
                 $studentscache->set($courseid, $students);
             }
         }
 
         if (is_array($students)) {
             // We have students!
-            $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
+            $modulecountcache = cache::make('format_topcoll', 'activitymodulecountcache');
             $modulecountcourse = $modulecountcache->get($courseid);
             if (empty($modulecountcourse)) {
                 $modulecountcourse = self::calulatecoursemodules($courseid, $students);
@@ -673,7 +681,7 @@ class activity {
      * @return array / string 0 or more student id's in an array or 'nostudents' string.
      */
     public static function course_get_students($courseid) {
-        $studentrolescache = \cache::make('format_topcoll', 'activitystudentrolescache');
+        $studentrolescache = cache::make('format_topcoll', 'activitystudentrolescache');
         $studentroles = $studentrolescache->get('roles');
 
         if (empty($studentroles)) {
@@ -685,11 +693,11 @@ class activity {
             $studentrolescache->set('roles', $studentroles);
         }
 
-        $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+        $studentscache = cache::make('format_topcoll', 'activitystudentscache');
         $students = $studentscache->get($courseid);
         if (empty($students)) {
             $students = [];
-            $context = \context_course::instance($courseid);
+            $context = context_course::instance($courseid);
             $enrolledusers = get_enrolled_users($context, '', 0, 'u.id', null, 0, 0, true);
             $users = array_keys($enrolledusers);
             $alluserroles = get_users_roles($context, $users, false);
@@ -760,7 +768,7 @@ class activity {
      * Invalidates the activity student roles cache.
      */
     public static function invalidatestudentrolescache() {
-        $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
+        $modulecountcache = cache::make('format_topcoll', 'activitymodulecountcache');
         $modulecountcache->purge();
     }
 
@@ -768,7 +776,7 @@ class activity {
      * Invalidates the activity module count cache.
      */
     public static function invalidatemodulecountcache() {
-        $studentrolescache = \cache::make('format_topcoll', 'activitystudentrolescache');
+        $studentrolescache = cache::make('format_topcoll', 'activitystudentrolescache');
         $studentrolescache->purge();
     }
 
@@ -776,7 +784,7 @@ class activity {
      * Invalidates the activity students cache.
      */
     public static function invalidatestudentscache() {
-        $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+        $studentscache = cache::make('format_topcoll', 'activitystudentscache');
         $studentscache->purge();
     }
 
@@ -834,7 +842,7 @@ class activity {
             // Created.
             /* Note: At the time of the event, the DB has not been updated to know that the given user has been assigned a role
                      of 'student' - role_assignments table with data relating to that contained in the event itself. */
-            $usercreatedcache = \cache::make('format_topcoll', 'activityusercreatedcache');
+            $usercreatedcache = cache::make('format_topcoll', 'activityusercreatedcache');
             $createdusers = $usercreatedcache->get($courseid);
             if (empty($createdusers)) {
                 $createdusers = [];
@@ -843,13 +851,13 @@ class activity {
             $usercreatedcache->set($courseid, $createdusers);
         } else if ($type == -1) {
             // Deleted.
-            $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+            $studentscache = cache::make('format_topcoll', 'activitystudentscache');
             $students = $studentscache->get($courseid);
             if (!empty($students)) {
                 if (array_key_exists($userid, $students)) {
                     unset($students[$userid]);
                     $studentscache->set($courseid, $students);
-                    $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
+                    $modulecountcache = cache::make('format_topcoll', 'activitymodulecountcache');
                     $modulecountcourse = $modulecountcache->get($courseid);
                     if (empty($modulecountcourse)) {
                         if (!empty($students)) {
@@ -901,10 +909,10 @@ class activity {
     private static function modulechanged($modid, $courseid, $courseformat) {
         if (self::activitymetaenabled() && self::activitymetaused($courseformat)) {
             $lock = self::lockcaches($courseid);
-            $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+            $studentscache = cache::make('format_topcoll', 'activitystudentscache');
             $students = $studentscache->get($courseid);
             if (is_array($students)) {
-                $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
+                $modulecountcache = cache::make('format_topcoll', 'activitymodulecountcache');
                 $modulecountcourse = $modulecountcache->get($courseid);
                 if (!empty($modulecountcourse)) {
                     $updated = self::calulatecoursemodules($courseid, $students, $modid);
@@ -925,7 +933,7 @@ class activity {
     public static function moduledeleted($modid, $courseid, $courseformat) {
         if (self::activitymetaenabled() && self::activitymetaused($courseformat)) {
             $lock = self::lockcaches($courseid);
-            $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
+            $modulecountcache = cache::make('format_topcoll', 'activitymodulecountcache');
             $modulecountcourse = $modulecountcache->get($courseid);
             if (!empty($modulecountcourse)) {
                 unset($modulecountcourse[$modid]);
@@ -943,9 +951,9 @@ class activity {
      */
     private static function clearcoursemodulecount($courseid) {
         $lock = self::lockcaches($courseid);
-        $modulecountcache = \cache::make('format_topcoll', 'activitymodulecountcache');
+        $modulecountcache = cache::make('format_topcoll', 'activitymodulecountcache');
         $modulecountcache->set($courseid, null);
-        $studentscache = \cache::make('format_topcoll', 'activitystudentscache');
+        $studentscache = cache::make('format_topcoll', 'activitystudentscache');
         $studentscache->set($courseid, null);
         $lock->release();
     }
@@ -1002,11 +1010,11 @@ class activity {
      * @return object The lock to release when complete.
      */
     private static function lockcaches($courseid) {
-        $lockfactory = \core\lock\lock_config::get_lock_factory('format_topcoll');
+        $lockfactory = lock_config::get_lock_factory('format_topcoll');
         if ($lock = $lockfactory->get_lock('courseid' . $courseid, 5)) {
             return $lock;
         }
-        throw new \moodle_exception(
+        throw new moodle_exception(
             'cannotgetactivitycacheslock',
             'format_topcoll',
             '',

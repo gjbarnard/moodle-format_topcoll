@@ -28,10 +28,11 @@ namespace format_topcoll\output\courseformat\content\section;
 
 use core_courseformat\output\local\content\section\controlmenu as controlmenu_base;
 use context_course;
-use moodle_url;
-use pix_icon;
-use action_menu_link_secondary;
-use action_menu;
+use core\output\action_menu;
+use core\output\action_menu\link_secondary;
+use core\output\renderer_base;
+use core\output\pix_icon;
+use core\url;
 use stdClass;
 
 /**
@@ -54,7 +55,7 @@ class controlmenu extends controlmenu_base {
      * @param renderer_base $output typically, the renderer that's calling this function
      * @return array data context for a mustache template
      */
-    public function export_for_template(\renderer_base $output): stdClass {
+    public function export_for_template(renderer_base $output): stdClass {
         $section = $this->section;
 
         $controls = $this->section_control_items();
@@ -74,8 +75,8 @@ class controlmenu extends controlmenu_base {
             $name = empty($value['name']) ? '' : $value['name'];
             $attr = empty($value['attr']) ? [] : $value['attr'];
             $class = empty($value['pixattr']['class']) ? '' : $value['pixattr']['class'];
-            $al = new action_menu_link_secondary(
-                new moodle_url($url),
+            $al = new link_secondary(
+                new url($url),
                 new pix_icon($icon, '', null, ['class' => "smallicon " . $class]),
                 $name,
                 $attr

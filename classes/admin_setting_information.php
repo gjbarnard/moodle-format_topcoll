@@ -31,13 +31,17 @@
 
 namespace format_topcoll;
 
+use admin_setting;
+use core_plugin_manager;
+use core\output\html_writer;
+
 /**
  * Setting that displays information.  Based on admin_setting_description in adminlib.php.
  *
  * @copyright  &copy; 2022-onwards G J Barnard.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
-class admin_setting_information extends \admin_setting {
+class admin_setting_information extends admin_setting {
     /** @var int The branch this is for. */
     protected $mbranch;
 
@@ -94,11 +98,11 @@ class admin_setting_information extends \admin_setting {
     public function output_html($data, $query = '') {
         global $CFG, $OUTPUT;
 
-        $formats = \core_plugin_manager::instance()->get_present_plugins('format');
+        $formats = core_plugin_manager::instance()->get_present_plugins('format');
         if (!empty($formats['topcoll'])) {
             $plugininfo = $formats['topcoll'];
         } else {
-            $plugininfo = \core_plugin_manager::instance()->get_plugin_info('format_topcoll');
+            $plugininfo = core_plugin_manager::instance()->get_plugin_info('format_topcoll');
             $plugininfo->version = $plugininfo->versiondisk;
         }
 
@@ -107,8 +111,8 @@ class admin_setting_information extends \admin_setting {
         $attributes['aria-hidden'] = 'true';
         $attributes['class'] = 'fa fa-heart';
         $attributes['title'] = get_string('love', 'format_topcoll');
-        $content = \html_writer::tag('span', $attributes['title'], ['class' => 'sr-only']);
-        $content = \html_writer::tag('span', $content, $attributes);
+        $content = html_writer::tag('span', $attributes['title'], ['class' => 'sr-only']);
+        $content = html_writer::tag('span', $content, $attributes);
         $context['versioninfo'] = get_string(
             'versioninfo',
             'format_topcoll',

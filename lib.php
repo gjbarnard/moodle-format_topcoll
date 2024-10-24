@@ -1887,12 +1887,12 @@ class format_topcoll extends core_courseformat\base {
     /**
      * Prepares the templateable object to display section name.
      *
-     * @param \section_info|\stdClass $section
+     * @param section_info|stdClass $section
      * @param bool $linkifneeded
      * @param bool $editable
      * @param null|lang_string|string $edithint
      * @param null|lang_string|string $editlabel
-     * @return \core\output\inplace_editable
+     * @return core\output\inplace_editable
      */
     public function inplace_editable_render_section_name(
         $section,

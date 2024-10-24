@@ -26,6 +26,9 @@
 
 namespace format_topcoll\output\courseformat\content\section;
 
+use core\output\renderer_base;
+use stdClass;
+
 /**
  * Class to render a section activity list.
  *
@@ -37,10 +40,10 @@ class cmlist extends \core_courseformat\output\local\content\section\cmlist {
     /**
      * Get the name of the template to use for this templatable.
      *
-     * @param \renderer_base $renderer The renderer requesting the template name
+     * @param renderer_base $renderer The renderer requesting the template name
      * @return string
      */
-    public function get_template_name(\renderer_base $renderer): string {
+    public function get_template_name(renderer_base $renderer): string {
         return 'format_topcoll/local/content/section/cmlist';
     }
 
@@ -50,7 +53,7 @@ class cmlist extends \core_courseformat\output\local\content\section\cmlist {
      * @param renderer_base $output typically, the renderer that's calling this function
      * @return array data context for a mustache template
      */
-    public function export_for_template(\renderer_base $output): \stdClass {
+    public function export_for_template(renderer_base $output): stdClass {
         global $PAGE;
         $data = parent::export_for_template($output);
         $data->editing = $PAGE->user_is_editing();

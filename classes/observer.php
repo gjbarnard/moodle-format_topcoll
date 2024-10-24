@@ -29,6 +29,11 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace format_topcoll;
+
+use format_topcoll\activity;
+use format_topcoll\togglelib;
+
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/course/format/lib.php'); // For course_get_format.
@@ -36,7 +41,7 @@ require_once($CFG->dirroot . '/course/format/lib.php'); // For course_get_format
 /**
  * Event observers supported by this format.
  */
-class format_topcoll_observer {
+class observer {
     /**
      * Observer for the course_content_deleted event.
      *
@@ -48,7 +53,7 @@ class format_topcoll_observer {
     public static function course_content_deleted(\core\event\course_content_deleted $event) {
         global $DB;
         $DB->delete_records("user_preferences",
-            ["name" => \format_topcoll\togglelib::TOPCOLL_TOGGLE.'_' . $event->objectid]); // This is the $courseid.
+            ["name" => togglelib::TOPCOLL_TOGGLE.'_' . $event->objectid]); // This is the $courseid.
     }
 
     /* Events observed for the purpose of the activty functionality.
@@ -64,27 +69,27 @@ class format_topcoll_observer {
         /* Subsitute for a 'role created' event that does not exist in core!
            But this seems to happen when a role is created.  See 'create_role'
            in lib/accesslib.php. */
-        \format_topcoll\activity::invalidatestudentrolescache();
-        \format_topcoll\activity::invalidatemodulecountcache();
-        \format_topcoll\activity::invalidatestudentscache();
+        activity::invalidatestudentrolescache();
+        activity::invalidatemodulecountcache();
+        activity::invalidatestudentscache();
     }
 
     /**
      * Observer for the role_updated event.
      */
     public static function role_updated() {
-        \format_topcoll\activity::invalidatestudentrolescache();
-        \format_topcoll\activity::invalidatemodulecountcache();
-        \format_topcoll\activity::invalidatestudentscache();
+        activity::invalidatestudentrolescache();
+        activity::invalidatemodulecountcache();
+        activity::invalidatestudentscache();
     }
 
     /**
      * Observer for the role_deleted event.
      */
     public static function role_deleted() {
-        \format_topcoll\activity::invalidatestudentrolescache();
-        \format_topcoll\activity::invalidatemodulecountcache();
-        \format_topcoll\activity::invalidatestudentscache();
+        activity::invalidatestudentrolescache();
+        activity::invalidatemodulecountcache();
+        activity::invalidatestudentscache();
     }
 
     /**
@@ -94,7 +99,7 @@ class format_topcoll_observer {
      */
     public static function user_enrolment_created(\core\event\user_enrolment_created $event) {
         if ($courseformat = self::istopcoll($event->courseid)) {
-            \format_topcoll\activity::userenrolmentcreated($event->relateduserid, $event->courseid, $courseformat);
+            activity::userenrolmentcreated($event->relateduserid, $event->courseid, $courseformat);
         }
     }
 
@@ -105,7 +110,7 @@ class format_topcoll_observer {
      */
     public static function user_enrolment_updated(\core\event\user_enrolment_updated $event) {
         if ($courseformat = self::istopcoll($event->courseid)) {
-            \format_topcoll\activity::userenrolmentupdated($event->relateduserid, $event->courseid, $courseformat);
+            activity::userenrolmentupdated($event->relateduserid, $event->courseid, $courseformat);
         }
     }
 
@@ -116,7 +121,7 @@ class format_topcoll_observer {
      */
     public static function user_enrolment_deleted(\core\event\user_enrolment_deleted $event) {
         if ($courseformat = self::istopcoll($event->courseid)) {
-            \format_topcoll\activity::userenrolmentdeleted($event->relateduserid, $event->courseid, $courseformat);
+            activity::userenrolmentdeleted($event->relateduserid, $event->courseid, $courseformat);
         }
     }
 
@@ -127,7 +132,7 @@ class format_topcoll_observer {
      */
     public static function course_module_created(\core\event\course_module_created $event) {
         if ($courseformat = self::istopcoll($event->courseid)) {
-            \format_topcoll\activity::modulecreated($event->objectid, $event->courseid, $courseformat);
+            activity::modulecreated($event->objectid, $event->courseid, $courseformat);
         }
     }
 
@@ -138,7 +143,7 @@ class format_topcoll_observer {
      */
     public static function course_module_updated(\core\event\course_module_updated $event) {
         if ($courseformat = self::istopcoll($event->courseid)) {
-            \format_topcoll\activity::moduleupdated($event->objectid, $event->courseid, $courseformat);
+            activity::moduleupdated($event->objectid, $event->courseid, $courseformat);
         }
     }
 
@@ -149,7 +154,7 @@ class format_topcoll_observer {
      */
     public static function course_module_deleted(\core\event\course_module_deleted $event) {
         if ($courseformat = self::istopcoll($event->courseid)) {
-            \format_topcoll\activity::moduledeleted($event->objectid, $event->courseid, $courseformat);
+            activity::moduledeleted($event->objectid, $event->courseid, $courseformat);
         }
     }
 

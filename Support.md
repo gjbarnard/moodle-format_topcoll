@@ -18,7 +18,7 @@ enhanced over the years in addition to coping with the API changes.
 If you'd like to sponsor, get support or fund improvements, then please do get in touch via:
 
 - gjbarnard | Gmail dt com address.
-- GitHub | Please outline your issue / improvement on '[GitHub](https://github.com/gjb2048/moodle-format_topcoll/issues)'.
+- GitHub | Please outline your issue / improvement on '[GitHub](https://github.com/gjbarnard/moodle-format_topcoll/issues)'.
 - @gjbarnard | '[X](https://twitter.com/gjbarnard)'.
 
 Sponsors
@@ -36,7 +36,7 @@ to ask questions.
 Collapsed Topics can be obtained from:
 
 * [Moodle.org](https://moodle.org/plugins/view.php?plugin=format_topcoll).
-* [GitHub](https://github.com/gjb2048/moodle-format_topcoll/releases).
+* [GitHub](https://github.com/gjbarnard/moodle-format_topcoll/releases).
 
 You have all the rights granted to you by the GPLv3 license.  If you are unsure about anything, then the
 FAQ - [GPL FAQ](https://www.gnu.org/licenses/gpl-faq.html) - is a good place to look.
@@ -44,15 +44,15 @@ FAQ - [GPL FAQ](https://www.gnu.org/licenses/gpl-faq.html) - is a good place to 
 If you reuse any of the code then I kindly ask that you make reference to the format.
 
 If you make improvements or bug fixes then I would appreciate if you would send them back to me by forking from
-[GitHub](https://github.com/gjb2048/moodle-format_topcoll) and doing a 'Pull Request' so that the rest of the Moodle community
+[GitHub](https://github.com/gjbarnard/moodle-format_topcoll) and doing a 'Pull Request' so that the rest of the Moodle community
 benefits.
 
 Required version of Moodle
 ==========================
-This version works with Moodle 4.4 version 2024042200.00 (Build: 20240422) and above within the MOODLE_404_STABLE branch until the
+This version works with Moodle 4.5 version 2024100700.00 (Build: 20241007) and above within the MOODLE_405_STABLE branch until the
 next release.
 
-Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/404/en/Installing_Moodle)'.
+Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/405/en/Installing_Moodle)'.
 
 Reporting issues
 ================
@@ -61,7 +61,7 @@ is essential that you are operating the required version of Moodle as stated abo
 that is out of its control.
 
 If you think you've discovered a genuine bug with the format then please look at the Moodle Course and course formats forum first to see if it
-has already been repoted.  Secondly, look at [GitHub](https://github.com/gjb2048/moodle-format_topcoll/issues), and thirdly [Moodle Tracker](https://tracker.moodle.org/issues/?jql=project+%3D+CONTRIB+AND+component+%3D+%22Course+format%3A+Topcoll%22).
+has already been repoted.  Secondly, look at [GitHub](https://github.com/gjbarnard/moodle-format_topcoll/issues), and thirdly [Moodle Tracker](https://tracker.moodle.org/issues/?jql=project+%3D+CONTRIB+AND+component+%3D+%22Course+format%3A+Topcoll%22).
 
 I operate a policy that I will fix all genuine issues in 'my' (not other developers of the format) code, when fully described and
 replicatable.

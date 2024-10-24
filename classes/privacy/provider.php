@@ -28,6 +28,7 @@ namespace format_topcoll\privacy;
 
 use core_privacy\local\request\writer;
 use core_privacy\local\metadata\collection;
+use format_topcoll\togglelib;
 
 /**
  * Implementation of the privacy subsystem plugin provider.
@@ -45,7 +46,7 @@ class provider implements
      * @return  collection A listing of user data stored through this system.
      */
     public static function get_metadata(collection $items): collection {
-        $items->add_user_preference(\format_topcoll\togglelib::TOPCOLL_TOGGLE, 'privacy:metadata:preference:toggle');
+        $items->add_user_preference(togglelib::TOPCOLL_TOGGLE, 'privacy:metadata:preference:toggle');
 
         return $items;
     }
@@ -57,11 +58,11 @@ class provider implements
      */
     public static function export_user_preferences(int $userid) {
         $preferences = get_user_preferences(null, null, $userid);
-        $togglelib = new \format_topcoll\togglelib();
+        $togglelib = new togglelib();
         foreach ($preferences as $name => $value) {
             $courseid = null;
-            if (strpos($name, \format_topcoll\togglelib::TOPCOLL_TOGGLE) === 0) {
-                $courseid = substr($name, strlen(\format_topcoll\togglelib::TOPCOLL_TOGGLE) + 1);
+            if (strpos($name, togglelib::TOPCOLL_TOGGLE) === 0) {
+                $courseid = substr($name, strlen(togglelib::TOPCOLL_TOGGLE) + 1);
 
                 writer::export_user_preference(
                     'format_topcoll',

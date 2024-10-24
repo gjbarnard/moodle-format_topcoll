@@ -31,13 +31,16 @@
 
 namespace format_topcoll;
 
+use admin_setting;
+use stdClass;
+
 /**
  * Setting that displays markdown files.  Based on admin_setting_description in adminlib.php.
  *
  * @copyright  &copy; 2022-onwards G J Barnard.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
-class admin_setting_markdown extends \admin_setting {
+class admin_setting_markdown extends admin_setting {
     /** @var string Filename */
     private $filename;
 
@@ -94,7 +97,7 @@ class admin_setting_markdown extends \admin_setting {
     public function output_html($data, $query = '') {
         global $CFG, $OUTPUT;
 
-        $context = new \stdClass();
+        $context = new stdClass();
         $context->title = $this->visiblename;
         $context->description = $this->description;
 

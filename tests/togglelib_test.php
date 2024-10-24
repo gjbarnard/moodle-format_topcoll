@@ -26,13 +26,16 @@
 
 namespace format_topcoll;
 
+use advanced_testcase;
+use format_topcoll\togglelib;
+
 /**
  * Togglelib unit tests for the Collapsed Topics course format.
  * @group format_topcoll
  */
-final class togglelib_test extends \advanced_testcase {
+final class togglelib_test extends advanced_testcase {
     public function test_decode_toggle_state(): void {
-        $togglelib = new \format_topcoll\togglelib();
+        $togglelib = new togglelib();
 
         $mindigit = $togglelib->get_min_digit();
         $maxdigit = $togglelib->get_max_digit();

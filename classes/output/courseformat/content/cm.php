@@ -27,6 +27,12 @@
 namespace format_topcoll\output\courseformat\content;
 
 use core_courseformat\output\local\content\cm as cm_base;
+use cm_info;
+use context_course;
+use core\output\renderer_base;
+use core\url;
+use format_topcoll\activity;
+use stdClass;
 
 /**
  * Base class to render a course module inside a course format.
@@ -39,19 +45,19 @@ class cm extends cm_base {
     /**
      * Export this data so it can be used as the context for a mustache template.
      *
-     * @param \renderer_base $output typically, the renderer that's calling this function
+     * @param renderer_base $output typically, the renderer that's calling this function
      * @return stdClass data context for a mustache template
      */
-    public function export_for_template(\renderer_base $output): \stdClass {
+    public function export_for_template(renderer_base $output): stdClass {
         $data = parent::export_for_template($output);
 
         // Get further information.
-        if (\format_topcoll\activity::activitymetaenabled()) {
+        if (activity::activitymetaenabled()) {
             $courseformat = $this->format;
 
-            if (\format_topcoll\activity::activitymetaused($courseformat)) {
+            if (activity::activitymetaused($courseformat)) {
                 $courseid = $this->mod->course;
-                if (\format_topcoll\activity::maxstudentsnotexceeded($courseid)) {
+                if (activity::maxstudentsnotexceeded($courseid)) {
                     $settingname = 'coursesectionactivityfurtherinformation' . $this->mod->modname;
                     $setting = get_config('format_topcoll', $settingname);
                     if ((!empty($setting)) && ($setting == 2)) {
@@ -76,9 +82,9 @@ class cm extends cm_base {
      * @param cm_info $mod The module.
      * @return string The markup.
      */
-    protected function course_section_cm_get_meta(\cm_info $mod) {
+    protected function course_section_cm_get_meta(cm_info $mod) {
         $courseid = $mod->course;
-        if (is_guest(\context_course::instance($courseid))) {
+        if (is_guest(context_course::instance($courseid))) {
             return '';
         }
 
@@ -88,7 +94,7 @@ class cm extends cm_base {
         }
 
         // Do we have an activity function for this module for returning meta data?
-        $meta = \format_topcoll\activity::module_meta($mod);
+        $meta = activity::module_meta($mod);
         if ($meta == null) {
             // Can't get meta data for this module.
             return '';
@@ -147,7 +153,7 @@ class cm extends cm_base {
                     'linkclass' => 'ct-activity-action',
                     'linkicon' => $OUTPUT->pix_icon('docs', get_string('info')),
                     'linktext' => implode(', ', $engagementmeta),
-                    'linkurl' => new \moodle_url("/mod/{$mod->modname}/{$file}.php", $params),
+                    'linkurl' => new url("/mod/{$mod->modname}/{$file}.php", $params),
                     'type' => 'engagement',
                 ];
                 $content = $OUTPUT->render_from_template('format_topcoll/sectioncmmeta', $sectioncmmetacontext);
@@ -156,9 +162,9 @@ class cm extends cm_base {
             // Feedback meta.
             if (!empty($meta->grade)) {
                 if (in_array($mod->modname, ['quiz', 'assign'])) {
-                    $url = new \moodle_url('/mod/' . $mod->modname . '/view.php?id=' . $mod->id);
+                    $url = new url('/mod/' . $mod->modname . '/view.php?id=' . $mod->id);
                 } else {
-                    $url = new \moodle_url('/grade/report/user/index.php', ['id' => $courseid]);
+                    $url = new url('/grade/report/user/index.php', ['id' => $courseid]);
                 }
 
                 $sectioncmmetacontext = [

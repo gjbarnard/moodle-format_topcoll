@@ -3,29 +3,29 @@
 Topic based course format with an individual 'toggle' for each topic except 0.
 
 This file contains general information about the format.  If you're reading this as an educator then you can learn about the format
-from the documentation on http://docs.moodle.org/403/en/Collapsed_Topics_course_format.  If you get stuck and your Moodle support
+from the documentation on http://docs.moodle.org/405/en/Collapsed_Topics_course_format.  If you get stuck and your Moodle support
 are unable to help / not sure what to do, then please go to https://moodle.org/mod/forum/view.php?id=47.  If you like the format,
 then please do spread the word to other educators.  The main page for the format is https://moodle.org/plugins/format_topcoll.
 
 Required version of Moodle
 ==========================
-This version works with Moodle 4.4 version 2024042200.00 (Build: 20240422) and above within the MOODLE_404_STABLE branch until the
+This version works with Moodle 4.5 version 2024100700.00 (Build: 20241007) and above within the MOODLE_405_STABLE branch until the
 next release.
 
-Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/403/en/Installing_Moodle)'.
+Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/405/en/Installing_Moodle)'.
 
 Downloads and documentation
 ===========================
 The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
-with 'Select Moodle version:' set at 'Moodle 4.4'.
+with 'Select Moodle version:' set at 'Moodle 4.5'.
 
-The secondary source is a tagged version with the V404 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
+The secondary source is a tagged version with the V405 prefix on https://github.com/gjbarnard/moodle-format_topcoll/tags
 
-If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/ - consider that
+If you download from the development area - https://github.com/gjbarnard/moodle-format_topcoll/ - consider that
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
-Documented on http://docs.moodle.org/403/en/Collapsed_Topics_course_format
+Documented on http://docs.moodle.org/405/en/Collapsed_Topics_course_format
 
 Free software
 =============
@@ -39,7 +39,7 @@ FAQ - http://www.gnu.org/licenses/gpl-faq.html - is a good place to look.
 If you reuse any of the code then I kindly ask that you make reference to the format.
 
 If you make improvements or bug fixes then I would appreciate if you would send them back to me by forking from
-https://github.com/gjb2048/moodle-format_topcoll and doing a 'Pull Request' so that the rest of the
+https://github.com/gjbarnard/moodle-format_topcoll and doing a 'Pull Request' so that the rest of the
 Moodle community benefits.
 
 Support
