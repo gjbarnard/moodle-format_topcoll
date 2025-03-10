@@ -104,6 +104,27 @@ class togglelib {
     }
 
     /**
+     * Sets the state of the requested Toggle number.
+     * int $togglenum - The toggle number.
+     * boolean $state - true or false.
+     *
+     * @return string Updated toggle state.
+     */
+    public static function update_toggle_state($toggles, $togglenum, $state) {
+        $togglecharpos = self::get_toggle_pos($togglenum);
+        $toggleflag = self::get_toggle_flag($togglenum, $togglecharpos);
+        $value = self::decode_character_to_value($toggles[$togglecharpos - 1]);
+        if ($state == true) {
+            $value |= $toggleflag;
+        } else {
+            $value &= ~$toggleflag;
+        }
+        $toggles[$togglecharpos - 1] = self::encode_value_to_character($value);
+
+        return $toggles;
+    }
+
+    /**
      * Gets the string binary representation of the given toggle state.
      * string $toggles - Toggles state.
      * returns string.
@@ -124,27 +145,11 @@ class togglelib {
     }
 
     /**
-     * Tells us if the toggle state from the DB is an old one.
-     * string $pref - Toggle state.
-     * returns boolean old preference = true and not old preference = false.
-     */
-    public function is_old_preference($pref) {
-        $retr = false;
-        $firstchar = $pref[0];
-
-        if (($firstchar == '0') || ($firstchar == '1')) {
-            $retr = true;
-        }
-
-        return $retr;
-    }
-
-    /**
      * Tells us the number of digits we need to store the state for the number of toggles we have.
      * int $numtoggles - Number of toggles.
      * returns int - Number of digits required.
      */
-    public function get_required_digits($numtoggles) {
+    public static function get_required_digits($numtoggles) {
         return self::get_toggle_pos($numtoggles);
     }
 
@@ -152,7 +157,7 @@ class togglelib {
      * Tells us the minimum character used.
      * returns char - Digit positionS.
      */
-    public function get_min_digit() {
+    public static function get_min_digit() {
         return ':'; // 58 ':'.
     }
 
@@ -160,7 +165,7 @@ class togglelib {
      * Tells us the maximum character used.
      * returns char - Digit character.
      */
-    public function get_max_digit() {
+    public static function get_max_digit() {
         return  'y'; // 58 'y'.
     }
 
@@ -256,49 +261,5 @@ class togglelib {
         $retr .= '</p>';
 
         return $retr;
-    }
-
-    /**
-     * Returns a required_param() toggle value for the named user preference.
-     *
-     * @param string $parname the name of the user preference we want
-     * @return mixed
-     * @throws coding_exception
-     */
-    public static function required_topcoll_param($parname) {
-        if (empty($parname)) {
-            throw new coding_exception('required_topcoll_param() requires $parname to be specified');
-        }
-        $param = required_param($parname, PARAM_RAW);
-
-        return self::clean_topcoll_param($param);
-    }
-
-    /**
-     * Used by required_topcoll_param to clean the toggle parameter.
-     *
-     * @param string $param the variable we are cleaning
-     * @return mixed
-     * @throws coding_exception
-     */
-    public static function clean_topcoll_param($param) {
-        if (is_array($param)) {
-            throw new coding_exception('clean_topcoll_param() cannot process arrays.');
-        } else if (is_object($param)) {
-            if (method_exists($param, '__toString')) {
-                $param = $param->__toString();
-            } else {
-                throw new coding_exception('clean_topcoll_param() cannot process objects.');
-            }
-        }
-
-        $chars = strlen($param);
-        for ($i = 0; $i < $chars; $i++) {
-            $charval = ord($param[$i]);
-            if (($charval < 58) || ($charval > 121)) {
-                return false;
-            }
-        }
-        return $param;
     }
 }

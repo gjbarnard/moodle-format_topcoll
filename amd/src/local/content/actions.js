@@ -25,6 +25,8 @@
 
 import BaseActions from 'core_courseformat/local/content/actions';
 
+import Log from 'core/log';
+
 export default class extends BaseActions {
 
     /**
@@ -32,7 +34,21 @@ export default class extends BaseActions {
      */
     create() {
         super.create();
-        this.selectors.ADDSECTION = ".increase-sections";
+        //this.selectors.ADDSECTION = ".increase-sections";
+    }
+
+    /**
+     * Check the section list and disable some options if needed.
+     *
+     * @param {Object} detail the update details.
+     * @param {Object} detail.state the state object.
+     */
+    _checkSectionlist({state}) {
+        Log.debug('_checkSectionlist state.course.sectionlist ' + state.course.sectionlist);
+        Log.debug('_checkSectionlist state.course.numsectionswithoutdeligated ' + state.course.numsectionswithoutdeligated);
+        // Disable "add section" actions if the course max sections has been exceeded.
+        //this._setAddSectionLocked(state.course.sectionlist.length > state.course.maxsections);
+        this._setAddSectionLocked(state.course.numsectionswithoutdeligated >= state.course.maxsectionswithoutdeligated);
     }
 
     /**
@@ -44,6 +60,7 @@ export default class extends BaseActions {
         const courseAddSection = this.getElement(this.selectors.COURSEADDSECTION);
         if (courseAddSection) {
             const addSection = courseAddSection.querySelector(this.selectors.ADDSECTION);
+            Log.debug('_setAddSectionLocked addSection ' + addSection.classList);
             if (addSection) {
                 addSection.classList.toggle(this.classes.DISPLAYNONE, locked);
             }

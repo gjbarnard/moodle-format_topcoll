@@ -50,50 +50,6 @@ class controlmenu extends controlmenu_base {
     protected $section;
 
     /**
-     * Export this data so it can be used as the context for a mustache template.
-     *
-     * @param renderer_base $output typically, the renderer that's calling this function
-     * @return array data context for a mustache template
-     */
-    public function export_for_template(renderer_base $output): stdClass {
-        $section = $this->section;
-
-        $controls = $this->section_control_items();
-
-        if (empty($controls)) {
-            return new stdClass();
-        }
-
-        // Convert control array into an action_menu.
-        $menu = new action_menu();
-        $icon = $output->pix_icon('i/menu', get_string('edit'));
-        $menu->set_menu_trigger($icon, 'btn btn-icon d-flex align-items-center justify-content-center');
-        $menu->attributes['class'] .= ' section-actions';
-        foreach ($controls as $value) {
-            $url = empty($value['url']) ? '' : $value['url'];
-            $icon = empty($value['icon']) ? '' : $value['icon'];
-            $name = empty($value['name']) ? '' : $value['name'];
-            $attr = empty($value['attr']) ? [] : $value['attr'];
-            $class = empty($value['pixattr']['class']) ? '' : $value['pixattr']['class'];
-            $al = new link_secondary(
-                new url($url),
-                new pix_icon($icon, '', null, ['class' => "smallicon " . $class]),
-                $name,
-                $attr
-            );
-            $menu->add($al);
-        }
-
-        $data = (object)[
-            'menu' => $output->render($menu),
-            'hasmenu' => true,
-            'id' => $section->id,
-        ];
-
-        return $data;
-    }
-
-    /**
      * Generate the edit control items of a section.
      *
      * This method must remain public until the final deprecation of section_edit_control_items.

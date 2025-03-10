@@ -36,8 +36,6 @@ require_once($CFG->dirroot . '/course/format/lib.php'); // For format_base.
  * Format class.
  */
 class format_topcoll extends core_courseformat\base {
-    /** @var int $coursedisplay Used to determine the type of view URL to generate - parameter or anchor */
-    private $coursedisplay = COURSE_DISPLAY_SINGLEPAGE;
     /** @var array $settings */
     private $settings;
 
@@ -56,21 +54,6 @@ class format_topcoll extends core_courseformat\base {
             $courseid = $COURSE->id;  // Save lots of global $COURSE as we will never be the site course.
         }
         parent::__construct($format, $courseid);
-
-        $section = optional_param('section', 0, PARAM_INT);
-        $duplicatesection = optional_param('duplicatesection', 0, PARAM_INT);
-        if ($section && !$duplicatesection) {
-            $this->coursedisplay = COURSE_DISPLAY_MULTIPAGE;
-        }
-    }
-
-    /**
-     * Get the course display value for the current course.
-     *
-     * @return int The current value (COURSE_DISPLAY_MULTIPAGE or COURSE_DISPLAY_SINGLEPAGE).
-     */
-    public function get_course_display(): int {
-        return $this->coursedisplay;
     }
 
     /**
@@ -152,12 +135,82 @@ class format_topcoll extends core_courseformat\base {
     }
 
     /**
+     * Get the number of sections not counting deligated ones.
+     *
+     * @return int The last section number, or -1 if sections are entirely missing
+     */
+    public function get_last_section_number_without_deligated() {
+        $lastsectionno = parent::get_last_section_number();
+
+        if (!empty($lastsectionno)) {
+            $lastsectionno -= $this->get_number_of_deligated_sections();
+        }
+
+        return $lastsectionno;
+    }
+
+    /**
+     * Method used to get the maximum number of sections for this course format with deligated.
+     * @return int Maximum number of sections.
+     */
+    public function get_max_sections() {
+        $maxsections = $this->get_max_sections_without_deligated();
+
+        // Add in the number of deligated sections as we don't count them as 'sections'
+        // but I can't change the way mod_subsection 'permission.php' works in its check
+        // with get_last_section_number().
+        $maxsections += $this->get_number_of_deligated_sections();
+
+        return $maxsections;
+    }
+
+    /**
+     * Method used to get the maximum number of sections for this course format without deligated.
+     * @return int Maximum number of sections.
+     */
+    public function get_max_sections_without_deligated() {
+        return parent::get_max_sections();
+    }
+
+    /**
+     * Get the number of deligated sections.
+     *
+     * @return int Number of deligated sections.
+     */
+    protected function get_number_of_deligated_sections() {
+        global $DB;
+        $deligatedcount = 0;
+
+        $subsectionsenabled = $DB->get_field('modules', 'visible', ['name' => 'subsection']);
+        if ($subsectionsenabled) {
+            // Add in our deligated sections.  The 'subsection' table is unreliable in this regard.
+            $modinfo = $this->get_modinfo();
+            $sectioninfos = $modinfo->get_section_info_all();
+            $deligatedcount = 0;
+
+            foreach ($sectioninfos as $sectioninfo) {
+                if (!empty($sectioninfo->component)) {
+                    // Deligated section.
+                    $deligatedcount++;
+                }
+            }
+        }
+
+        return $deligatedcount;
+    }
+
+    /**
      * Gets the name for the provided section.
      *
      * @param int|stdClass $section Section object from database or just field section.section
      * @return string The section name.
      */
     public function get_section_name($section) {
+        // If deligated then return the standard name.
+        if (!empty($section->component)) {
+            return $this->get_deligated_section_name($section);
+        }
+
         $course = $this->get_course();
         // Don't add additional text as called in creating the navigation.
         return $this->get_topcoll_section_name($course, $section, false);
@@ -248,6 +301,25 @@ class format_topcoll extends core_courseformat\base {
     }
 
     /**
+     * Returns the display name of the given deligated section.
+     *
+     * @param int|stdClass $section Section object from database or just field section.section.
+     * @return string Display name that the course format prefers, e.g. "Section 2".
+     */
+    protected function get_deligated_section_name($section) {
+        $section = $this->get_section($section);
+        if ((string)$section->name !== '') {
+            return format_string($section->name, true,
+                ['context' => context_course::instance($this->courseid)]);
+        } else {
+            if ($section->sectionnum == 0) {
+                return get_string('section0name', 'format_topcoll');
+            }
+            return get_string('newsectionname', 'format_topcoll', $section->sectionnum);
+        }
+    }
+
+    /**
      * Returns if an specific section is visible to the current user.
      *
      * Formats can overrride this method to implement any special section logic.
@@ -256,8 +328,11 @@ class format_topcoll extends core_courseformat\base {
      * @return bool;
      */
     public function is_section_visible(section_info $section): bool {
-        if ($section->section > $this->get_last_section_number()) {
-            // Stealth section.
+        if (!$section->uservisible) {
+            return false;
+        }
+        if (($section->section > $this->get_last_section_number_without_deligated()) && (empty($section->component))) {
+            // Stealth section that is not a deligated one.
             global $PAGE;
             $context = context_course::instance($this->course->id);
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
@@ -419,14 +494,16 @@ class format_topcoll extends core_courseformat\base {
         } else {
             $sectionno = $section;
         }
-        if ((!empty($options['navigation'])) && $sectionno !== null) {
-            // Unlike core, navigate to section on course page.
-            $url->set_anchor('section-'.$sectionno);
-        } else if ($this->uses_sections() && $sectionno !== null) {
-            if ($this->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
-                $url->param('section', $sectionno);
-            } else {
+        if ($sectionno !== null) {
+            if (!empty($options['navigation'])) {
+                // Unlike core, navigate to section on course page.
                 $url->set_anchor('section-'.$sectionno);
+            } else if (!empty($options['state'])) {
+                // Navigate to section on course page from course index.
+                // Yes I know this is the same but at this stage I want to be sure.
+                $url->set_anchor('section-'.$sectionno);
+            } else {
+                $url->param('section', $sectionno);
             }
         }
 
@@ -572,18 +649,7 @@ class format_topcoll extends core_courseformat\base {
                 }
             }
 
-            if ($courseid == 1) { // New course.
-                $defaultnumsections = $courseconfig->numsections;
-            } else { // Existing course that may not have 'numsections' - see get_last_section().
-                global $DB;
-                $defaultnumsections = $DB->get_field_sql('SELECT max(section) from {course_sections}
-                    WHERE course = ?', [$courseid]);
-            }
             $courseformatoptions = [
-                'numsections' => [
-                    'default' => $defaultnumsections,
-                    'type' => PARAM_INT,
-                ],
                 'hiddensections' => [
                     'default' => $courseconfig->hiddensections ?? 0,
                     'type' => PARAM_INT,
@@ -733,11 +799,6 @@ class format_topcoll extends core_courseformat\base {
                 ]
             );
             $courseformatoptionsedit = [
-                'numsections' => [
-                    'label' => new lang_string('numbersections', 'format_topcoll'),
-                    'element_type' => 'select',
-                    'element_attributes' => [$sectionmenu],
-                ],
                 'hiddensections' => [
                     'label' => new lang_string('hiddensections'),
                     'help' => 'hiddensections',
@@ -1266,7 +1327,7 @@ class format_topcoll extends core_courseformat\base {
      * @return array array of references to the added form elements
      */
     public function create_edit_form_elements(&$mform, $forsection = false) {
-        global $CFG, $OUTPUT, $USER;
+        global $CFG, $COURSE, $OUTPUT;
         MoodleQuickForm::registerElementType(
             'tccolourpopup',
             "$CFG->dirroot/course/format/topcoll/js/tc_colourpopup.php",
@@ -1275,21 +1336,19 @@ class format_topcoll extends core_courseformat\base {
 
         $elements = parent::create_edit_form_elements($mform, $forsection);
 
-        /* Increase the number of sections combo box values if the user has increased the number of sections
-           using the icon on the course page beyond course 'maxsections' or course 'maxsections' has been
-           reduced below the number of sections already set for the course on the site administration course
-           defaults page.  This is so that the number of sections is not reduced leaving unintended orphaned
-           activities / resources. */
-        if (!$forsection) {
-            $maxsections = get_config('moodlecourse', 'maxsections');
-            $numsections = $mform->getElementValue('numsections');
-            $numsections = $numsections[0];
-            if ($numsections > $maxsections) {
-                $element = $mform->getElement('numsections');
-                for ($i = $maxsections + 1; $i <= $numsections; $i++) {
-                    $element->addOption("$i", $i);
-                }
+        if (!$forsection && (empty($COURSE->id) || $COURSE->id == SITEID)) {
+            // Add "numsections" element to the create course form - it will force new course to be prepopulated
+            // with empty sections.
+            // The "Number of sections" option is no longer available when editing course, instead teachers should
+            // delete and add sections when needed.
+            $courseconfig = get_config('moodlecourse');
+            $max = (int)$courseconfig->maxsections;
+            $element = $mform->addElement('select', 'numsections', get_string('numberweeks'), range(0, $max ?: 52));
+            $mform->setType('numsections', PARAM_INT);
+            if (is_null($mform->getElementValue('numsections'))) {
+                $mform->setDefault('numsections', $courseconfig->numsections);
             }
+            array_unshift($elements, $element);
         }
 
         $context = $this->get_context();
@@ -1445,7 +1504,7 @@ class format_topcoll extends core_courseformat\base {
      * Updates format options for a course
      *
      * In case if course format was changed to 'Collapsed Topics', we try to copy options
-     * 'coursedisplay', 'numsections' and 'hiddensections' from the previous format.
+     * 'numsections' and 'hiddensections' from the previous format.
      * If previous course format did not have 'numsections' option, we populate it with the
      * current number of sections.  The layout and colour defaults will come from 'course_format_options'.
      *
@@ -1841,21 +1900,6 @@ class format_topcoll extends core_courseformat\base {
             $data['toggleiconfontopen'] = '-';
             $data['showadditionalmoddata'] = 0;
         }
-        $this->update_course_format_options($data);
-
-        $this->courseid = $currentcourseid;
-    }
-
-    /**
-     * Restores the numsections if was not in the backup.
-     * @param int $courseid If not 0, then a specific course to reset.
-     * @param int $numsections The number of sections.
-     */
-    public function restore_numsections($courseid, $numsections) {
-        $currentcourseid = $this->courseid;  // Save for later - stack data model.
-        $this->courseid = $courseid;
-
-        $data = ['numsections' => $numsections];
         $this->update_course_format_options($data);
 
         $this->courseid = $currentcourseid;

@@ -27,6 +27,7 @@
 namespace format_topcoll\output\courseformat\content\section;
 
 use core\output\renderer_base;
+use core\url;
 use stdClass;
 
 /**

@@ -1,6 +1,19 @@
 ﻿Version Information
 ===================
 
+Version 405.0.2 - 09/03/2025
+----------------------------
+1. Fix 'Student view not working as expected within hidden sections' - #153.
+2. Fix 'Hidden from Students not showing in section header' - #154.  Note: Does not update via AJAX yet!
+3. Fix the Course Index to always link to the main course page as being dynamic is not possible due to
+   caching.  This is contrary to core where the links are to the single section page, which the format
+   already implements next to the section.
+4. Refactored toggle JS to convert from YUI to ES6.
+5. One section applies even when editing.
+6. Old toggle format was ages ago, so no longer checking.
+7. Subsection support.
+8. 'numsections' has been removed in order to feasibly support Subsections.
+
 Version 405.0.1 - 24/10/2024
 ----------------------------
 1. First Moodle 4.5 version.

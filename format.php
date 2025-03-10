@@ -54,20 +54,17 @@ if ($week = optional_param('week', 0, PARAM_INT)) { // Weeks old section paramet
 }
 // End backwards-compatible aliasing....
 
-$context = context_course::instance($course->id);
-
 // Retrieve course format option fields and add them to the $course object.
 $courseformat = course_get_format($course);
 $course = $courseformat->get_course();
-$courseformatoptions = $courseformat->get_settings();
+$context = context_course::instance($course->id);
 
 if (($marker >= 0) && has_capability('moodle/course:setcurrentsection', $context) && confirm_sesskey()) {
     $course->marker = $marker;
     course_set_marker($course->id, $marker);
 }
-
-// Make sure all sections are created.
-course_create_sections_if_missing($course, range(0, $courseformatoptions['numsections']));
+// Make sure section 0 is created.
+course_create_sections_if_missing($course, 0);
 
 $renderer = $PAGE->get_renderer('format_topcoll');
 

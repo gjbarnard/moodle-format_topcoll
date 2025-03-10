@@ -23,16 +23,29 @@
  * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
  *
  * @package    format_topcoll
- * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
+ * @copyright  &copy; 2025-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - {@link https://moodle.org/user/profile.php?id=442195}
  * @link       https://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2024092201;
-$plugin->maturity = MATURITY_RC;
-$plugin->requires = 2024100700.00; // 4.5 (Build: 20241007).
-$plugin->supported = [405, 405];
-$plugin->component = 'format_topcoll';
-$plugin->release = '405.0.2';
+defined('MOODLE_INTERNAL') || die;
+
+$functions = [
+    'format_topcoll_user_set_toggle' => [
+        'classname' => 'format_topcoll\output\external',
+        'methodname' => 'user_set_toggle',
+        'description' => 'Set user toggle state.',
+        'type' => 'write',
+        'loginrequired' => true,
+        'ajax' => true,
+    ],
+    'format_topcoll_user_set_toggleall' => [
+        'classname' => 'format_topcoll\output\external',
+        'methodname' => 'user_set_toggleall',
+        'description' => 'Set user toggle all state.',
+        'type' => 'write',
+        'loginrequired' => true,
+        'ajax' => true,
+    ],
+];

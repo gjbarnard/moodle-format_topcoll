@@ -24,19 +24,42 @@
  */
 
 import Component from 'core_courseformat/local/content';
-import {getCurrentCourseEditor} from 'core_courseformat/courseeditor';
+import Config from 'core/config';
+import Fragment from 'core/fragment';
+import { getCurrentCourseEditor } from 'core_courseformat/courseeditor';
+import inplaceeditable from 'core/inplace_editable';
+import Log from 'core/log';
+import Pending from 'core/pending';
+import Templates from 'core/templates';
 import TopcollDispatchActions from 'format_topcoll/local/content/actions';
+import {setUserTopcollToggle, userSetUserToggleAll} from 'format_topcoll/util';
 import * as CourseEvents from 'core_course/events';
 
 export default class TopcollComponent extends Component {
 
     /**
-     * Constructor hook.
+     * The class constructor.
      *
-     * @param {Object} descriptor the component descriptor
+     * The only param this method gets is a constructor with all the mandatory
+     * and optional component data. Component will receive the same descriptor
+     * as create method param.
+     *
+     * This method will call the "create" method before registering the component into
+     * the reactive module. This way any component can add default selectors and events.
+     *
+     * @param {descriptor} descriptor data to create the object.
      */
-    create(descriptor) {
-        super.create(descriptor);
+    constructor(descriptor) {
+        super(descriptor);
+        const tcdata = this.getElement(this.selectors.TC_DATA);
+        if (tcdata) {
+            this.oneTopic = (tcdata.dataset.onetopic === 'true');
+            if (tcdata.dataset.onetopictoggle === 'false') {
+                this.currentTopicNum = false;
+            } else {
+                this.currentTopicNum = tcdata.dataset.onetopictoggle;
+            }
+        }
     }
 
     /**
@@ -52,7 +75,7 @@ export default class TopcollComponent extends Component {
             element: document.getElementById(target),
             reactive: getCurrentCourseEditor(),
             selectors,
-            sectionReturn,
+            sectionReturn
         });
     }
 
@@ -61,6 +84,39 @@ export default class TopcollComponent extends Component {
      */
     stateReady() {
         this._indexContents();
+
+        // Toggle.
+        const toogleAllClosed = this.getElement(this.selectors.TOGGLE_ALL_ClOSED);
+        if (toogleAllClosed) {
+            this.addEventListener(toogleAllClosed, 'click', this._toogleAllClosedToggler);
+            this.addEventListener(toogleAllClosed, 'keydown', e => {
+                // Close all sections when Space key is pressed on the toggle button.
+                if (e.key === ' ') {
+                    this._toogleAllClosedToggler(e);
+                }
+            });
+        }
+
+        const toogleAllOpen = this.getElement(this.selectors.TOGGLE_ALL_OPEN);
+        if (toogleAllOpen) {
+            this.addEventListener(toogleAllOpen, 'click', this._toogleAllOpenToggler);
+            this.addEventListener(toogleAllOpen, 'keydown', e => {
+                // Open all sections when Space key is pressed on the toggle button.
+                if (e.key === ' ') {
+                    this._toogleAllOpenToggler(e);
+                }
+            });
+        }
+
+        const toggles = this.getElements(this.selectors.TOGGLE);
+        for (const toggle of toggles) {
+            this.addEventListener(toggle, 'click', this._toogleToggler);
+            this.addEventListener(toggle, 'keydown', e => {
+                if (e.key === ' ') {
+                    this._toogleToggler(e);
+                }
+            });
+        }
 
         if (this.reactive.supportComponents) {
             // Actions are only available in edit mode.
@@ -112,6 +168,7 @@ export default class TopcollComponent extends Component {
             // Update section number and title.
             {watch: `section.number:updated`, handler: this._refreshSectionNumber},
             {watch: `section.title:updated`, handler: this._refreshSectionTitle},
+            //{watch: `section:updated`, handler: this._refreshTCSection},
             // Sections and cm sorting.
             {watch: `transaction:start`, handler: this._startProcessing},
             {watch: `course.sectionlist:updated`, handler: this._refreshCourseSectionlist},
@@ -121,6 +178,227 @@ export default class TopcollComponent extends Component {
             // Reindex sections and cms.
             {watch: `state:updated`, handler: this._indexContents},
         ];
+    }
+
+    _refreshTCSection({element}) {
+        Log.debug(element.id);
+    }
+
+    /**
+     * Update a course section when the section number changes.
+     *
+     * The courseActions module used for most course section tools still depends on css classes and
+     * section numbers (not id). To prevent inconsistencies when a section is moved, we need to refresh
+     * the
+     *
+     * Course formats can override the section title rendering so the frontend depends heavily on backend
+     * rendering. Luckily in edit mode we can trigger a title update using the inplace_editable module.
+     *
+     * @param {Object} param
+     * @param {Object} param.element details the update details.
+     */
+    _refreshSectionNumber({element}) {
+        Log.debug('_refreshSectionNumber ' + element.id);
+
+        // Find the element.
+        const target = this.getElement(this.selectors.SECTION, element.id);
+        if (!target) {
+            // Job done. Nothing to refresh.
+            return;
+        }
+
+        if (target.classList.contains('delegated-section')) {
+            // Update section numbers in all data, css and YUI attributes.
+            target.id = `section-${element.number}`;
+            // YUI uses section number as section id in data-sectionid, in principle if a format use components
+            // don't need this sectionid attribute anymore, but we keep the compatibility in case some plugin
+            // use it for legacy purposes.
+            target.dataset.sectionid = element.number;
+            // The data-number is the attribute used by components to store the section number.
+            target.dataset.number = element.number;
+
+            // Update title and title inplace editable, if any.
+            const inplace = inplaceeditable.getInplaceEditable(target.querySelector(this.selectors.SECTION_ITEM));
+            if (inplace) {
+                // The course content HTML can be modified at any moment, so the function need to do some checkings
+                // to make sure the inplace editable still represents the same itemid.
+                const currentvalue = inplace.getValue();
+                const currentitemid = inplace.getItemId();
+                // Unnamed sections must be recalculated.
+                if (inplace.getValue() === '') {
+                    // The value to send can be an empty value if it is a default name.
+                    if (currentitemid == element.id && (currentvalue != element.rawtitle || element.rawtitle == '')) {
+                        inplace.setValue(element.rawtitle);
+                    }
+                }
+            }
+        } else {
+            // Normal section.
+            // As the number has changed then we need to regenerate the whole section.
+            this._reloadSection({
+                element: element,
+            });
+        }
+    }
+
+    /**
+     * Reload a course section contents.
+     *
+     * Section HTML is still strongly backend dependant.
+     * Some changes require to get a new version of the section.
+     *
+     * @param {details} param0 the watcher details
+     * @param {object} param0.element the state object
+     */
+    _reloadSection({element}) {
+        Log.debug('_reloadSection ' + element.id);
+        const pendingReload = new Pending(`courseformat/content:reloadSection_${element.id}`);
+        const sectionitem = this.getElement(this.selectors.SECTION, element.id);
+        if (sectionitem) {
+            // Cancel any pending reload because the section will reload cms too.
+            for (const cmId of element.cmlist) {
+                this._cancelDebouncedReloadCm(cmId);
+            }
+            const promise = Fragment.loadFragment(
+                'core_courseformat',
+                'section',
+                Config.courseContextId,
+                {
+                    id: element.id,
+                    courseid: Config.courseId,
+                    sr: this.reactive.sectionReturn ?? null,
+                }
+            );
+            promise.then((html, js) => {
+                Log.debug('_reloadSection promise reply eid: ' + element.id);
+                Templates.replaceNode(sectionitem, html, js);
+                this._indexContents();
+
+                const container = this.getElement(this.selectors.COURSE_SECTIONLIST);
+                const toggle = container.querySelector('[data-id="' + element.id + '"] ' + this.selectors.TOGGLE);
+                Log.debug('toggle id ' + toggle.id + ' parent li ' + toggle.parentElement.parentElement.id +
+                    ' ' + toggle.parentElement.parentElement.dataset.id);
+                if (toggle !== null) {
+                    Log.debug('toggle exists ' + toggle.id);
+                    this.addEventListener(toggle, 'click', this._toogleToggler);
+                    this.addEventListener(toggle, 'keydown', e => {
+                        // Open all sections when Space key is pressed on the toggle button.
+                        if (e.key === ' ') {
+                            this._toogleToggler(e);
+                        }
+                    });
+                }
+
+                pendingReload.resolve();
+            }).catch(() => {
+                Log.debug('_reloadSection promise fail ' + element.id);
+                pendingReload.resolve();
+            });
+        } else {
+            Log.debug('_reloadSection no section item ' + element.id);
+        }
+    }
+
+    /**
+     * Handle the close all toggles button.
+     *
+     * @param {Event} event the triggered event
+     */
+    _toogleAllClosedToggler(event) {
+        event.preventDefault();
+
+        const toggles = this.getElements(this.selectors.TOGGLE + ' .the_toggle');
+        for (const toggle of toggles) {
+            toggle.classList.add('toggle_closed');
+            toggle.classList.remove('toggle_open');
+        }
+        const toggledsections = this.getElements(this.selectors.TOGGLED_SECTION);
+        for (const toggledsection of toggledsections) {
+            toggledsection.classList.remove('sectionopen');
+        }
+
+        userSetUserToggleAll(Config.courseId, false);
+    }
+
+    /**
+     * Handle the open all toggles button.
+     *
+     * @param {Event} event the triggered event
+     */
+    _toogleAllOpenToggler(event) {
+        event.preventDefault();
+
+        const toggles = this.getElements(this.selectors.TOGGLE + ' .the_toggle');
+        for (const toggle of toggles) {
+            toggle.classList.add('toggle_open');
+            toggle.classList.remove('toggle_closed');
+        }
+        const toggledsections = this.getElements(this.selectors.TOGGLED_SECTION);
+        for (const toggledsection of toggledsections) {
+            toggledsection.classList.add('sectionopen');
+        }
+
+        userSetUserToggleAll(Config.courseId, true);
+    }
+
+    /**
+     * Handle the toggler.
+     *
+     * @param {Event} event the triggered event
+     */
+    _toogleToggler(event) {
+        event.preventDefault();
+        Log.debug('_toogleToggler');
+        if (this.reactive.isEditing) {
+            const parentClasses = event.target.parentElement.classList;
+            if ((parentClasses.contains('quickediticon')) || (parentClasses.contains('inplaceeditable'))) {
+                return;
+            }
+        }
+
+        const toggle = event.target.closest(this.selectors.TOGGLE);
+        const toggleNum = parseInt(toggle.getAttribute('id').replace("toggle-", ""));
+        Log.debug('_toogleToggler: ' + toggleNum);
+
+        if (this.oneTopic === true) {
+            if ((this.currentTopicNum !== false) && (this.currentTopicNum != toggleNum)) {
+                const currentTargetParent = this.getElement('#toggle-' + this.currentTopicNum).parentElement;
+                const currentToggle = currentTargetParent.querySelector('.the_toggle');
+                currentToggle.classList.add('toggle_closed');
+                currentToggle.classList.remove('toggle_open');
+                currentToggle.setAttribute('aria-expanded', 'false');
+
+                const currentSection = currentTargetParent.querySelector(this.selectors.TOGGLED_SECTION);
+                currentSection.classList.remove('sectionopen');
+
+                setUserTopcollToggle(Config.courseId, this.currentTopicNum, false);
+                this.currentTopicNum = false;
+            }
+        }
+
+        const target = toggle.querySelector('.the_toggle');
+        const targetSection = toggle.parentElement.querySelector(this.selectors.TOGGLED_SECTION);
+        var state;
+        if (target.classList.contains('toggle_closed')) {
+            target.classList.add('toggle_open');
+            target.classList.remove('toggle_closed');
+            target.setAttribute('aria-expanded', 'true');
+            targetSection.classList.add('sectionopen');
+            if (this.oneTopic === true) {
+                this.currentTopicNum = toggleNum;
+            }
+            state = true;
+        } else {
+            target.classList.add('toggle_closed');
+            target.classList.remove('toggle_open');
+            target.setAttribute('aria-expanded', 'false');
+            targetSection.classList.remove('sectionopen');
+            if (this.oneTopic === true) {
+                this.currentTopicNum = false;
+            }
+            state = false;
+        }
+        setUserTopcollToggle(Config.courseId, toggleNum, state);
     }
 
     /**

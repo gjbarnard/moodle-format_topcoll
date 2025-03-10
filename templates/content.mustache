@@ -36,7 +36,11 @@
         component.init(
             '{{uniqid}}-course-format', 
             {
-                COLLAPSE: `.ctopics .toggle`
+                TOGGLE: `.toggle`,
+                TOGGLED_SECTION: `.toggledsection`,
+                TOGGLE_ALL_ClOSED: `#toggles-all-closed`,
+                TOGGLE_ALL_OPEN: `#toggles-all-opened`,
+                TC_DATA: `#tcdata`
             },
             {{sectionreturn}}
         );
