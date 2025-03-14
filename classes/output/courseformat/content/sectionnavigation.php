@@ -57,7 +57,7 @@ class sectionnavigation extends \core_courseformat\output\local\content\sectionn
         $context = context_course::instance($course->id);
 
         $modinfo = $this->format->get_modinfo();
-        $sections = $modinfo->get_section_info_all();
+        $sections = $modinfo->get_section_info_all(); // Note: Deligated sections are put at the end of the array.
 
         // FIXME: This is really evil and should by using the navigation API.
         $canviewhidden = has_capability('moodle/course:viewhiddensections', $context, $USER);

@@ -34,7 +34,6 @@ export default class extends BaseActions {
      */
     create() {
         super.create();
-        //this.selectors.ADDSECTION = ".increase-sections";
     }
 
     /**
@@ -47,8 +46,8 @@ export default class extends BaseActions {
         Log.debug('_checkSectionlist state.course.sectionlist ' + state.course.sectionlist);
         Log.debug('_checkSectionlist state.course.numsectionswithoutdeligated ' + state.course.numsectionswithoutdeligated);
         // Disable "add section" actions if the course max sections has been exceeded.
-        //this._setAddSectionLocked(state.course.sectionlist.length > state.course.maxsections);
-        this._setAddSectionLocked(state.course.numsectionswithoutdeligated >= state.course.maxsectionswithoutdeligated);
+        this._setAddSectionLocked(state.course.sectionlist.length >= state.course.maxsections);
+        //this._setAddSectionLocked(state.course.numsectionswithoutdeligated >= state.course.maxsectionswithoutdeligated);
     }
 
     /**

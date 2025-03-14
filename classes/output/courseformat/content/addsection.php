@@ -40,43 +40,6 @@ use stdClass;
  */
 class addsection extends \core_courseformat\output\local\content\addsection {
     /**
-     * Export this data so it can be used as the context for a mustache template.
-     *
-     * @param \renderer_base $output typically, the renderer that's calling this function
-     * @return stdClass data context for a mustache template
-     */
-    public function export_for_template(\renderer_base $output): stdClass {
-
-        // If no editor must be displayed, just return an empty structure.
-        if (!$this->format->show_editor(['moodle/course:update'])) {
-            return new stdClass();
-        }
-
-        $format = $this->format;
-        $course = $format->get_course();
-        $options = $format->get_format_options();
-
-        $lastsection = $format->get_last_section_number_without_deligated(); // Difference from core.
-        $maxsections = $format->get_max_sections();
-
-        // Component based formats handle add section button in the frontend.
-        $show = ($lastsection < $maxsections) || $format->supports_components();
-
-        $supportsnumsections = array_key_exists('numsections', $options);
-        if ($supportsnumsections) {
-            $data = $this->get_num_sections_data($output, $lastsection, $maxsections);
-        } else if (course_get_format($course)->uses_sections() && $show) {
-            $data = $this->get_add_section_data($output, $lastsection, $maxsections);
-        }
-
-        if (count((array)$data)) {
-            $data->showaddsection = true;
-        }
-
-        return $data;
-    }
-
-    /**
      * Get the name of the template to use for this templatable.
      *
      * @param renderer_base $renderer The renderer requesting the template name.

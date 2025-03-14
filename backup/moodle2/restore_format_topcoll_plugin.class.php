@@ -28,7 +28,6 @@
  * @link       https://docs.moodle.org/en/Collapsed_Topics_course_format
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Restore plugin class that provides the necessary information
@@ -85,7 +84,6 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
     public function process_topcoll($data) {
         global $DB;
 
-        $data = (object) $data;
         /* We only process this information if the course we are restoring to
            has 'topcoll' format (target format can change depending of restore options). */
         $format = $DB->get_field('course', 'format', ['id' => $this->task->get_courseid()]);
@@ -93,6 +91,7 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
             return;
         }
 
+        $data = (object) $data;
         $data->courseid = $this->task->get_courseid();
 
         if (!($course = $DB->get_record('course', ['id' => $data->courseid]))) {
@@ -114,8 +113,6 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
             $data->tgbgcolour,
             $data->tgbghvrcolour
         );
-
-        // No need to annotate anything here.
     }
 
     /**
@@ -132,24 +129,27 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
         }
 
         $data = $this->connectionpoint->get_data();
-        $backupinfo = $this->step->get_task()->get_info();
+        $task = $this->step->get_task();
+        $backupinfo = $task->get_info();
         if ($backupinfo->original_course_format !== 'topcoll' || !isset($data['tags']['numsections'])) {
             // Backup from another course format or backup file does not even have 'numsections'.
             return;
         }
 
-        $numsections = (int)$data['tags']['numsections'];
-        foreach ($backupinfo->sections as $key => $section) {
-            // For each section from the backup file check if it was restored and if was "orphaned" in the original
-            // course and mark it as hidden. This will leave all activities in it visible and available just as it was
-            // in the original course.
-            // Exception is when we restore with merging and the course already had a section with this section number,
-            // in this case we don't modify the visibility.
-            if ($this->step->get_task()->get_setting_value($key . '_included')) {
-                $sectionnum = (int)$section->title;
-                if ($sectionnum > $numsections && $sectionnum > $this->originalnumsections) {
-                    $DB->execute("UPDATE {course_sections} SET visible = 0 WHERE course = ? AND section = ?",
-                        [$this->step->get_task()->get_courseid(), $sectionnum]);
+        if ($this->originalnumsections) {
+            $numsections = (int)$data['tags']['numsections'];
+            foreach ($backupinfo->sections as $key => $section) {
+                // For each section from the backup file check if it was restored and if was "orphaned" in the original
+                // course and mark it as hidden. This will leave all activities in it visible and available just as it was
+                // in the original course.
+                // Exception is when we restore with merging and the course already had a section with this section number,
+                // in this case we don't modify the visibility.
+                if ($task->get_setting_value($key . '_included')) {
+                    $sectionnum = (int)$section->title;
+                    if ($sectionnum > $numsections && $sectionnum > $this->originalnumsections) {
+                        $DB->execute("UPDATE {course_sections} SET visible = 0 WHERE course = ? AND section = ?",
+                            [$task->get_courseid(), $sectionnum]);
+                    }
                 }
             }
         }

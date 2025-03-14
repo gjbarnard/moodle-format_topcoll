@@ -1,6 +1,10 @@
 ﻿Version Information
 ===================
 
+Version 405.0.3 - 14/03/2025
+----------------------------
+1. Subsection improvements.
+
 Version 405.0.2 - 09/03/2025
 ----------------------------
 1. Fix 'Student view not working as expected within hidden sections' - #153.

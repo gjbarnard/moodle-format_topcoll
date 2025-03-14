@@ -150,26 +150,17 @@ class format_topcoll extends core_courseformat\base {
     }
 
     /**
-     * Method used to get the maximum number of sections for this course format with deligated.
-     * @return int Maximum number of sections.
-     */
-    public function get_max_sections() {
-        $maxsections = $this->get_max_sections_without_deligated();
-
-        // Add in the number of deligated sections as we don't count them as 'sections'
-        // but I can't change the way mod_subsection 'permission.php' works in its check
-        // with get_last_section_number().
-        $maxsections += $this->get_number_of_deligated_sections();
-
-        return $maxsections;
-    }
-
-    /**
      * Method used to get the maximum number of sections for this course format without deligated.
      * @return int Maximum number of sections.
      */
     public function get_max_sections_without_deligated() {
-        return parent::get_max_sections();
+        $maxsections = $this->get_max_sections();
+
+        if (!empty($maxsections)) {
+            $maxsections -= $this->get_number_of_deligated_sections();
+        }
+
+        return $maxsections;
     }
 
     /**
@@ -783,13 +774,6 @@ class format_topcoll extends core_courseformat\base {
 
             $context = $this->get_context();
 
-            if (is_null($courseconfig)) {
-                $courseconfig = get_config('moodlecourse');
-            }
-            $sectionmenu = [];
-            for ($i = 0; $i <= $courseconfig->maxsections; $i++) {
-                $sectionmenu[$i] = "$i";
-            }
             $displayinstructionsvalues = $this->generate_default_entry(
                 'displayinstructions',
                 0,
@@ -1583,40 +1567,18 @@ class format_topcoll extends core_courseformat\base {
 
         $data = (array) $data;
         if ($oldcourse !== null) {
-            $oldcourse = (array) $oldcourse;
+            $oldcourse = (array)$oldcourse;
             $options = $this->course_format_options();
             foreach ($options as $key => $unused) {
                 if (!array_key_exists($key, $data)) {
                     if (array_key_exists($key, $oldcourse)) {
                         $data[$key] = $oldcourse[$key];
-                    } else if ($key === 'numsections') {
-                        /* If previous format does not have the field 'numsections'
-                           and $data['numsections'] is not set,
-                           we fill it with the maximum section number from the DB. */
-                        $maxsection = $DB->get_field_sql('SELECT max(section) from {course_sections}
-                            WHERE course = ?', [$this->courseid]);
-                        if ($maxsection) {
-                            // If there are no sections, or just default 0-section, 'numsections' will be set to default.
-                            $data['numsections'] = $maxsection;
-                        }
                     }
                 }
             }
         }
 
         $changes = $this->update_format_options($data);
-
-        if ($changes && array_key_exists('numsections', $data)) {
-            // If the numsections was decreased, try to completely delete the orphaned sections (unless they are not empty).
-            $numsections = (int)$data['numsections'];
-            $maxsection = $DB->get_field_sql('SELECT max(section) from {course_sections}
-                        WHERE course = ?', [$this->courseid]);
-            for ($sectionnum = $maxsection; $sectionnum > $numsections; $sectionnum--) {
-                if (!$this->delete_section($sectionnum, false)) {
-                    break;
-                }
-            }
-        }
 
         // Now we can do the reset.
         if (

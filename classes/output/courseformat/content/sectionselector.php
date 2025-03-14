@@ -65,6 +65,8 @@ class sectionselector extends \core_courseformat\output\local\content\sectionsel
         $sectionmenu = [];
         $sectionmenu[course_get_url($course)->out(false)] = get_string('maincoursepage');
         $section = 0;
+        /* Note: Deligated sections are put at the end of the array returned by 'get_section_info_all',
+                 so real 'sections' are indexable sequentially by number. */
         $numsections = $format->get_last_section_number_without_deligated();
         while ($section <= $numsections) {
             $thissection = $modinfo->get_section_info($section);

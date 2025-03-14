@@ -211,7 +211,6 @@ $string['resetallcolour_help'] = 'Resets the colours and opacities to follow the
 // Columns enhancement.
 
 // Moodle 2.4 Course format refactoring - MDL-35218.
-$string['numbersections'] = 'Number of sections';
 $string['ctreset'] = 'Collapsed Topics reset options';
 $string['ctreset_help'] = 'Reset to Collapsed Topics defaults.';
 
