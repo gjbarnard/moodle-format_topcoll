@@ -1311,7 +1311,7 @@ class format_topcoll extends core_courseformat\base {
      * @return array array of references to the added form elements
      */
     public function create_edit_form_elements(&$mform, $forsection = false) {
-        global $CFG, $COURSE, $OUTPUT;
+        global $CFG, $COURSE, $OUTPUT, $USER;
         MoodleQuickForm::registerElementType(
             'tccolourpopup',
             "$CFG->dirroot/course/format/topcoll/js/tc_colourpopup.php",
@@ -1927,8 +1927,8 @@ class format_topcoll extends core_courseformat\base {
      * @return bool
      */
     public function allow_stealth_module_visibility($cm, $section) {
-        // Allow the third visibility state inside visible sections or in section 0, not allow in orphaned sections.
-        return !$section->section || ($section->visible && $section->section <= $this->get_course()->numsections);
+        // Allow the third visibility state inside visible sections or in section 0.
+        return !$section->section || $section->visible;
     }
 
     /**

@@ -1,6 +1,11 @@
 ﻿Version Information
 ===================
 
+Version 405.0.4 - 19/03/2025
+----------------------------
+1. Fix 'allow_stealth_module_visibility' still using 'numsections'.
+2. Fix missing '$USER' global when editing the course settings.
+
 Version 405.0.3 - 14/03/2025
 ----------------------------
 1. Subsection improvements.
