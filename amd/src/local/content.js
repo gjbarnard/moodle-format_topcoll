@@ -59,6 +59,7 @@ export default class TopcollComponent extends Component {
             } else {
                 this.currentTopicNum = tcdata.dataset.onetopictoggle;
             }
+            this.defaulttogglepersistence = (tcdata.dataset.defaulttogglepersistence === 'true');
         }
     }
 
@@ -317,7 +318,9 @@ export default class TopcollComponent extends Component {
             toggledsection.classList.remove('sectionopen');
         }
 
-        userSetUserToggleAll(Config.courseId, false);
+        if (this.defaulttogglepersistence === true) {
+            userSetUserToggleAll(Config.courseId, false);
+        }
     }
 
     /**
@@ -338,7 +341,9 @@ export default class TopcollComponent extends Component {
             toggledsection.classList.add('sectionopen');
         }
 
-        userSetUserToggleAll(Config.courseId, true);
+        if (this.defaulttogglepersistence === true) {
+            userSetUserToggleAll(Config.courseId, true);
+        }
     }
 
     /**
@@ -347,7 +352,6 @@ export default class TopcollComponent extends Component {
      * @param {Event} event the triggered event
      */
     _toogleToggler(event) {
-        event.preventDefault();
         Log.debug('_toogleToggler');
         if (this.reactive.isEditing) {
             const parentClasses = event.target.parentElement.classList;
@@ -356,6 +360,7 @@ export default class TopcollComponent extends Component {
             }
         }
 
+        event.preventDefault();
         const toggle = event.target.closest(this.selectors.TOGGLE);
         const toggleNum = parseInt(toggle.getAttribute('id').replace("toggle-", ""));
         Log.debug('_toogleToggler: ' + toggleNum);
@@ -371,7 +376,9 @@ export default class TopcollComponent extends Component {
                 const currentSection = currentTargetParent.querySelector(this.selectors.TOGGLED_SECTION);
                 currentSection.classList.remove('sectionopen');
 
-                setUserTopcollToggle(Config.courseId, this.currentTopicNum, false);
+                if (this.defaulttogglepersistence === true) {
+                    setUserTopcollToggle(Config.courseId, this.currentTopicNum, false);
+                }
                 this.currentTopicNum = false;
             }
         }
@@ -398,7 +405,9 @@ export default class TopcollComponent extends Component {
             }
             state = false;
         }
-        setUserTopcollToggle(Config.courseId, toggleNum, state);
+        if (this.defaulttogglepersistence === true) {
+            setUserTopcollToggle(Config.courseId, toggleNum, state);
+        }
     }
 
     /**

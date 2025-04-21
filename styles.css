@@ -38,10 +38,13 @@
     vertical-align: top;
 }
 
-.course-content ul.ctopics li.section.main .left,
-.course-content ul.ctopics li.section.main .right {
-    /* Fix for Bootstrap V3 based themes in less/moodle/course.less . */
-    display: block;
+.course-content ul.ctopics .course-section .section-item {
+    border: none;
+    padding: 0;
+}
+
+.course-content ul.ctopics .course-section.current > .section-item::before {
+    left: 0;
 }
 
 .format-topcoll #region-main {
@@ -72,12 +75,13 @@
 .course-content ul.ctopics .content .summarytext ul {
     list-style: disc outside none;
 }
+
 .course-content ul.ctopics .content .summary ol,
 .course-content ul.ctopics .content .summarytext ol {
     list-style: decimal outside none;
 }
 
-.course-content ul.ctopics li.section.main > .content,
+.course-content ul.ctopics li.section.main .section-item > .content,
 .course-content ul.ctopics li.tcsection .content {
     /* Default for non tablets / mobiles.  If the language file has 'topcollsidewidth' for the current language, then will be set in format.php. */
     margin: 0 40px;
@@ -599,7 +603,7 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
 }
 
 .course-content ul.ctopics li.current.main .right {
-    padding: 0 0 0 0; /* Cancel out effect of above when having to use 'left' side selector for getting the correct text colour on the right for the current section.  This is because the selector '.course-content .current .left' defines the colour in the theme and therefore any CT specific 'right' implementation would not work for all themes. */
+    padding: 0; /* Cancel out effect of above when having to use 'left' side selector for getting the correct text colour on the right for the current section.  This is because the selector '.course-content .current .left' defines the colour in the theme and therefore any CT specific 'right' implementation would not work for all themes. */
 }
 
 .course-content ul.ctopics li.section .right,
@@ -679,7 +683,7 @@ body.format-topcoll .ctopics .section {
     margin: 1em 0;
 }
 
-body.format-topcoll .ctopics .section .d-flex {
+body.format-topcoll .ctopics .section .content .d-flex {
     flex-wrap: wrap;
     justify-content: space-between;
 }
@@ -887,10 +891,11 @@ body.jsenabled #toggle-all {
     width: auto;
 }
 
-.activity-item:not(.activityinline) {
+.format-topcoll .activity-item:not(.activityinline) {
     border: none;
 }
-.editing .activity-item {
+
+.format-topcoll.editing .activity-item {
     cursor: move;
 }
 

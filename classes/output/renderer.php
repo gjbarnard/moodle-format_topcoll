@@ -1107,8 +1107,12 @@ class renderer extends section_renderer {
         $toggles = $this->togglelib->get_toggles();
         $onetopic = ($this->tcsettings['onesection'] == 2) ? 'true' : 'false';
         $onetopictoggle = (empty($shownonetoggle)) ? 'false' : $shownonetoggle;
-        $content .= '<span id="tcdata" class="d-none" data-onetopic="'.$onetopic.
-            '" data-onetopictoggle="'.$onetopictoggle.'"></span>';
+        $defaulttogglepersistence = ($this->defaulttogglepersistence == 1) ? 'true' : 'false';
+        $content .= '<span id="tcdata" class="d-none"'.
+            ' data-onetopic="'.$onetopic.'"'.
+            ' data-onetopictoggle="'.$onetopictoggle.'"'.
+            ' data-defaulttogglepersistence="'.$defaulttogglepersistence.'"'.
+            '></span>';
 
         /* Make sure the database has the correct state of the toggles if changed by the code.
            This ensures that a no-change page reload is correct. */

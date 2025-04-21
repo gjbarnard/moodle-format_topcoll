@@ -26,14 +26,7 @@
 
 namespace format_topcoll\output\courseformat\content\section;
 
-use core_courseformat\output\local\content\section\controlmenu as controlmenu_base;
-use context_course;
-use core\output\action_menu;
-use core\output\action_menu\link_secondary;
-use core\output\renderer_base;
-use core\output\pix_icon;
-use core\url;
-use stdClass;
+use format_topics\output\courseformat\content\section\controlmenu as controlmenu_base;
 
 /**
  * Base class to render a course section menu.
@@ -57,75 +50,31 @@ class controlmenu extends controlmenu_base {
      * @return array of edit control items
      */
     public function section_control_items() {
-
+        $controls = parent::section_control_items();
         $format = $this->format;
         $section = $this->section;
-        $course = $format->get_course();
-        $sectionreturn = $format->get_sectionnum();
 
-        $coursecontext = context_course::instance($course->id);
-
-        if ($sectionreturn) {
-            $url = course_get_url($course, $section->section);
-        } else {
-            $url = course_get_url($course);
+        // Alter 'permalink' to our form of url.
+        if (array_key_exists('permalink', $controls)) {
+            $controls['permalink']->url = $format->get_view_url($section->section, ['singlenavigation' => true]);
         }
-        $url->param('sesskey', sesskey());
+
+        if ($section->is_orphan() || !$section->sectionnum) {
+            return $controls;
+        }
+
+        if (!has_capability('moodle/course:setcurrentsection', $this->coursecontext)) {
+            return $controls;
+        }
 
         $tcsettings = $format->get_settings();
-
-        $controls = [];
         if (
             (($tcsettings['layoutstructure'] == 1) || ($tcsettings['layoutstructure'] == 4)) &&
-            $section->section && has_capability('moodle/course:setcurrentsection', $coursecontext)
+            $section->section && has_capability('moodle/course:setcurrentsection', $this->coursecontext)
         ) {
-            if ($course->marker == $section->section) {  // Show the "light globe" on/off.
-                $url->param('marker', 0);
-                $highlightoff = get_string('highlightoff');
-                $controls['highlight'] = [
-                    'url' => $url,
-                    'icon' => 'i/marked',
-                    'name' => $highlightoff,
-                    'pixattr' => ['class' => ''],
-                    'attr' => [
-                        'class' => 'editing_highlight',
-                        'data-action' => 'removemarker',
-                    ],
-                ];
-            } else {
-                $url->param('marker', $section->section);
-                $highlight = get_string('highlight');
-                $controls['highlight'] = [
-                    'url' => $url,
-                    'icon' => 'i/marker',
-                    'name' => $highlight,
-                    'pixattr' => ['class' => ''],
-                    'attr' => [
-                        'class' => 'editing_highlight',
-                        'data-action' => 'setmarker',
-                    ],
-                ];
-            }
+            $controls = $this->add_control_after($controls, 'edit', 'highlight', $this->get_section_highlight_item());
         }
 
-        $parentcontrols = parent::section_control_items();
-
-        // If the edit key exists, we are going to insert our controls after it.
-        if (array_key_exists("edit", $parentcontrols)) {
-            $merged = [];
-            // We can't use splice because we are using associative arrays.
-            // Step through the array and merge the arrays.
-            foreach ($parentcontrols as $key => $action) {
-                $merged[$key] = $action;
-                if ($key == "edit") {
-                    // If we have come to the edit key, merge these controls here.
-                    $merged = array_merge($merged, $controls);
-                }
-            }
-
-            return $merged;
-        } else {
-            return array_merge($controls, $parentcontrols);
-        }
+        return $controls;
     }
 }

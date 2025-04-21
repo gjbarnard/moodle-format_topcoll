@@ -79,60 +79,62 @@
 }}
 
 
-<li id="section-{{sectionno}}" class="section course-section main clearfix{{#sectionstyle}} {{sectionstyle}}{{/sectionstyle}}{{#columnclass}} {{columnclass}}{{/columnclass}}"{{#columnwidth}} style="width: {{columnwidth}}%;"{{/columnwidth}} role="region" aria-labeled-by="sectionid-{{sectionid}}-title" data-sectionid="{{sectionno}}"{{#sectionreturn}} data-sectionreturnid="{{sectionreturn}}"{{/sectionreturn}} data-for="section" data-id="{{sectionid}}" data-number="{{sectionno}}">
-{{#nomtore}}
-    {{^rtl}}
-    <div class="left side">{{{leftcontent}}}</div>
-    {{/rtl}}
-    {{#rtl}}
-    <div class="right side">{{{rightcontent}}}</div>
-    {{/rtl}}
-{{/nomtore}}
-    <div class="content"{{#contentaria}} aria-live="polite"{{/contentaria}}>
-        {{^sectionpage}}
-        <div id="toggle-{{sectionno}}" class="sectionhead toggle {{^tif}}toggle-{{toggleiconset}}{{/tif}}{{#tif}}tif{{/tif}}" tabindex="0">
-            <span class="the_toggle {{#toggleopen}}toggle_open{{/toggleopen}}{{^toggleopen}}toggle_closed{{/toggleopen}} {{toggleiconsize}}" role="button" aria-expanded="{{#toggleopen}}true{{/toggleopen}}{{^toggleopen}}false{{/toggleopen}}" aria-controls="toggledsection-{{sectionno}}">{{!
-                }}{{#tif}}{{#tifpleft}}{{{tif}}}{{/tifpleft}}{{^tifpleft}}<span>&nbsp;</span>{{/tifpleft}}{{/tif}}{{!
-                }}{{{heading}}}{{!
-                }}{{#tif}}{{^tifpleft}}{{{tif}}}{{/tifpleft}}{{#tifpleft}}<span>&nbsp;</span>{{/tifpleft}}{{/tif}}{{!
-            }}</span>
-        </div>
-        {{#usereditingtitle}}<span class="hidden" aria-hidden="true">{{usereditingtitle}}</span>{{/usereditingtitle}}
-        {{#usereditingurl}}<a href="{{{usereditingurl}}}" title="{{#str}}editsection, format_topcoll{{/str}}">{{{usereditingicon}}}</a>{{/usereditingurl}}{{!
-        }}{{#sectionvisibility}}{{!
-        }}<div data-region="sectionbadges" class="sectionbadges d-inline-block align-items-center">
-            {{$ core_courseformat/local/content/section/badges }}
-                {{> core_courseformat/local/content/section/badges }}
-            {{/ core_courseformat/local/content/section/badges }}
-        </div>
-        {{/sectionvisibility}}
-        {{{sectionavailability}}}
-        {{#sectionsummarywhencollapsed}}
-        {{{sectionsummary}}}
-        {{/sectionsummarywhencollapsed}}
-        <div id="toggledsection-{{sectionno}}" class="sectionbody toggledsection{{#toggleopen}} sectionopen{{/toggleopen}}">
-            {{^sectionsummarywhencollapsed}}
+<li id="section-{{sectionno}}" class="section course-section main clearfix{{#sectionstyle}} {{sectionstyle}}{{/sectionstyle}}{{#columnclass}} {{columnclass}}{{/columnclass}}"{{#columnwidth}} style="width: {{columnwidth}}%;"{{/columnwidth}} role="region" aria-labelledby="sectionid-{{sectionid}}-title" data-sectionid="{{sectionno}}"{{#sectionreturn}} data-sectionreturnid="{{sectionreturn}}"{{/sectionreturn}} data-for="section" data-id="{{sectionid}}" data-number="{{sectionno}}">
+<div class="section-item">
+    {{#nomtore}}
+        {{^rtl}}
+        <div class="left side">{{{leftcontent}}}</div>
+        {{/rtl}}
+        {{#rtl}}
+        <div class="right side">{{{rightcontent}}}</div>
+        {{/rtl}}
+    {{/nomtore}}
+        <div class="content"{{#contentaria}} aria-live="polite"{{/contentaria}}>
+            {{^sectionpage}}
+            <div id="toggle-{{sectionno}}" class="sectionhead toggle {{^tif}}toggle-{{toggleiconset}}{{/tif}}{{#tif}}tif{{/tif}}" role="button" aria-expanded="{{#toggleopen}}true{{/toggleopen}}{{^toggleopen}}false{{/toggleopen}}" aria-controls="toggledsection-{{sectionno}}" tabindex="0">
+                <span class="the_toggle {{#toggleopen}}toggle_open{{/toggleopen}}{{^toggleopen}}toggle_closed{{/toggleopen}} {{toggleiconsize}}">{{!
+                    }}{{#tif}}{{#tifpleft}}{{{tif}}}{{/tifpleft}}{{/tif}}{{!
+                    }}{{{heading}}}{{!
+                    }}{{#tif}}{{^tifpleft}}{{{tif}}}{{/tifpleft}}{{/tif}}{{!
+                }}</span>
+            </div>
+            {{#usereditingtitle}}<span class="hidden" aria-hidden="true">{{usereditingtitle}}</span>{{/usereditingtitle}}
+            {{#usereditingurl}}<a href="{{{usereditingurl}}}" title="{{#str}}editsection, format_topcoll{{/str}}">{{{usereditingicon}}}</a>{{/usereditingurl}}{{!
+            }}{{#sectionvisibility}}{{!
+            }}<div data-region="sectionbadges" class="sectionbadges d-inline-block align-items-center">
+                {{$ core_courseformat/local/content/section/badges }}
+                    {{> core_courseformat/local/content/section/badges }}
+                {{/ core_courseformat/local/content/section/badges }}
+            </div>
+            {{/sectionvisibility}}
+            {{{sectionavailability}}}
+            {{#sectionsummarywhencollapsed}}
             {{{sectionsummary}}}
             {{/sectionsummarywhencollapsed}}
-            {{{cscml}}}
-        </div>
-        {{/sectionpage}}
-        {{#sectionpage}}
-            {{{heading}}}
-            {{{sectionavailability}}}
-            <div class="summary">
-                {{{summary}}}
-                {{#usereditingurl}}<a href="{{{usereditingurl}}}" title="{{#str}}editsection, format_topcoll{{/str}}">{{{usereditingicon}}}</a>{{/usereditingurl}}
+            <div id="toggledsection-{{sectionno}}" class="sectionbody toggledsection{{#toggleopen}} sectionopen{{/toggleopen}}">
+                {{^sectionsummarywhencollapsed}}
+                {{{sectionsummary}}}
+                {{/sectionsummarywhencollapsed}}
+                {{{cscml}}}
             </div>
-            {{{cscml}}}
-        {{/sectionpage}}
+            {{/sectionpage}}
+            {{#sectionpage}}
+                {{{heading}}}
+                {{{sectionavailability}}}
+                <div class="summary">
+                    {{{summary}}}
+                    {{#usereditingurl}}<a href="{{{usereditingurl}}}" title="{{#str}}editsection, format_topcoll{{/str}}">{{{usereditingicon}}}</a>{{/usereditingurl}}
+                </div>
+                {{{cscml}}}
+            {{/sectionpage}}
+        </div>
+    {{#nomtore}}
+        {{^rtl}}
+        <div class="right side">{{{rightcontent}}}</div>
+        {{/rtl}}
+        {{#rtl}}
+        <div class="left side">{{{leftcontent}}}</div>
+        {{/rtl}}
+    {{/nomtore}}
     </div>
-{{#nomtore}}
-    {{^rtl}}
-    <div class="right side">{{{rightcontent}}}</div>
-    {{/rtl}}
-    {{#rtl}}
-    <div class="left side">{{{leftcontent}}}</div>
-    {{/rtl}}
-{{/nomtore}}
 </li>

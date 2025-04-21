@@ -77,7 +77,7 @@ class sectionnavigation extends \core_courseformat\output\local\content\sectionn
                     $data->previoushidden = true;
                 }
                 $data->previousname = get_section_name($course, $sections[$back]);
-                $data->previousurl = $format->get_view_url($back, ['navigation' => false]);
+                $data->previousurl = $format->get_view_url($back, ['singlenavigation' => true]);
                 $data->hasprevious = true;
             }
             $back--;
@@ -91,7 +91,7 @@ class sectionnavigation extends \core_courseformat\output\local\content\sectionn
                     $data->nexthidden = true;
                 }
                 $data->nextname = get_section_name($course, $sections[$forward]);
-                $data->nexturl = $format->get_view_url($forward, ['navigation' => false]);
+                $data->nexturl = $format->get_view_url($forward, ['singlenavigation' => true]);
                 $data->hasnext = true;
             }
             $forward++;

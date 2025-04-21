@@ -9,17 +9,17 @@ then please do spread the word to other educators.  The main page for the format
 
 Required version of Moodle
 ==========================
-This version works with Moodle 4.5 version 2024100700.00 (Build: 20241007) and above within the MOODLE_405_STABLE branch until the
+This version works with Moodle 5.0 version 2025041400.00 (Build: 20250414) and above within the MOODLE_500_STABLE branch until the
 next release.
 
-Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/405/en/Installing_Moodle)'.
+Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/500/en/Installing_Moodle)'.
 
 Downloads and documentation
 ===========================
 The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
-with 'Select Moodle version:' set at 'Moodle 4.5'.
+with 'Select Moodle version:' set at 'Moodle 5.0'.
 
-The secondary source is a tagged version with the V405 prefix on https://github.com/gjbarnard/moodle-format_topcoll/tags
+The secondary source is a tagged version with the V500 prefix on https://github.com/gjbarnard/moodle-format_topcoll/tags
 
 If you download from the development area - https://github.com/gjbarnard/moodle-format_topcoll/ - consider that
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
@@ -44,7 +44,7 @@ Moodle community benefits.
 
 Support
 =======
-Please see Support.md.
+Please see [SupportAndSponsorship.md](SupportAndSponsorship.md).
 
 Installation
 ============

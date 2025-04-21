@@ -478,8 +478,10 @@ class format_topcoll extends core_courseformat\base {
         $course = $this->get_course();
         $url = new moodle_url('/course/view.php', ['id' => $course->id]);
 
+        $sr = false;
         if (array_key_exists('sr', $options)) {
             $sectionno = $options['sr'];
+            $sr = true;
         } else if (is_object($section)) {
             $sectionno = $section->section;
         } else {
@@ -493,8 +495,11 @@ class format_topcoll extends core_courseformat\base {
                 // Navigate to section on course page from course index.
                 // Yes I know this is the same but at this stage I want to be sure.
                 $url->set_anchor('section-'.$sectionno);
-            } else {
+            } else if ((!empty($options['singlenavigation'])) || ($sr)) {
                 $url->param('section', $sectionno);
+            } else {
+                // I know, odd logic but more of an explaination!
+                $url->set_anchor('section-'.$sectionno);
             }
         }
 
