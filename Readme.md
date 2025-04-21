@@ -44,7 +44,7 @@ Moodle community benefits.
 
 Support
 =======
-Please see Support.md.
+Please see [SupportAndSponsorship.md](SupportAndSponsorship.md).
 
 Installation
 ============

@@ -79,7 +79,7 @@
 }}
 
 
-<li id="section-{{sectionno}}" class="section course-section main clearfix{{#sectionstyle}} {{sectionstyle}}{{/sectionstyle}}{{#columnclass}} {{columnclass}}{{/columnclass}}"{{#columnwidth}} style="width: {{columnwidth}}%;"{{/columnwidth}} role="region" aria-labeled-by="sectionid-{{sectionid}}-title" data-sectionid="{{sectionno}}"{{#sectionreturn}} data-sectionreturnid="{{sectionreturn}}"{{/sectionreturn}} data-for="section" data-id="{{sectionid}}" data-number="{{sectionno}}">
+<li id="section-{{sectionno}}" class="section course-section main clearfix{{#sectionstyle}} {{sectionstyle}}{{/sectionstyle}}{{#columnclass}} {{columnclass}}{{/columnclass}}"{{#columnwidth}} style="width: {{columnwidth}}%;"{{/columnwidth}} role="region" aria-labelledby="sectionid-{{sectionid}}-title" data-sectionid="{{sectionno}}"{{#sectionreturn}} data-sectionreturnid="{{sectionreturn}}"{{/sectionreturn}} data-for="section" data-id="{{sectionid}}" data-number="{{sectionno}}">
 {{#nomtore}}
     {{^rtl}}
     <div class="left side">{{{leftcontent}}}</div>
@@ -90,11 +90,11 @@
 {{/nomtore}}
     <div class="content"{{#contentaria}} aria-live="polite"{{/contentaria}}>
         {{^sectionpage}}
-        <div id="toggle-{{sectionno}}" class="sectionhead toggle {{^tif}}toggle-{{toggleiconset}}{{/tif}}{{#tif}}tif{{/tif}}" tabindex="0">
-            <span class="the_toggle {{#toggleopen}}toggle_open{{/toggleopen}}{{^toggleopen}}toggle_closed{{/toggleopen}} {{toggleiconsize}}" role="button" aria-expanded="{{#toggleopen}}true{{/toggleopen}}{{^toggleopen}}false{{/toggleopen}}" aria-controls="toggledsection-{{sectionno}}">{{!
-                }}{{#tif}}{{#tifpleft}}{{{tif}}}{{/tifpleft}}{{^tifpleft}}<span>&nbsp;</span>{{/tifpleft}}{{/tif}}{{!
+        <div id="toggle-{{sectionno}}" class="sectionhead toggle {{^tif}}toggle-{{toggleiconset}}{{/tif}}{{#tif}}tif{{/tif}}" role="button" aria-expanded="{{#toggleopen}}true{{/toggleopen}}{{^toggleopen}}false{{/toggleopen}}" aria-controls="toggledsection-{{sectionno}}" tabindex="0">
+            <span class="the_toggle {{#toggleopen}}toggle_open{{/toggleopen}}{{^toggleopen}}toggle_closed{{/toggleopen}} {{toggleiconsize}}">{{!
+                }}{{#tif}}{{#tifpleft}}{{{tif}}}{{/tifpleft}}{{/tif}}{{!
                 }}{{{heading}}}{{!
-                }}{{#tif}}{{^tifpleft}}{{{tif}}}{{/tifpleft}}{{#tifpleft}}<span>&nbsp;</span>{{/tifpleft}}{{/tif}}{{!
+                }}{{#tif}}{{^tifpleft}}{{{tif}}}{{/tifpleft}}{{/tif}}{{!
             }}</span>
         </div>
         {{#usereditingtitle}}<span class="hidden" aria-hidden="true">{{usereditingtitle}}</span>{{/usereditingtitle}}

@@ -459,7 +459,8 @@ final class courseformatrenderer_test extends \advanced_testcase {
         $theoutput .= '</ul><ul class="ctopics ctoggled topics row">';
         $theoutput .= self::call_method($this->outputus, 'topcoll_section', [$section1, $this->course, false, null, $toggle]);
         $theoutput .= '</ul>';
-        $theoutput .= '<span id="tcdata" class="d-none" data-onetopic="false" data-onetopictoggle="false"></span>';
+        $theoutput .= '<span id="tcdata" class="d-none" data-onetopic="false" data-onetopictoggle="false"'.
+            ' data-defaulttogglepersistence="true"></span>';
 
         $this->assertEquals($theoutput, $thevalue);
     }
@@ -485,7 +486,8 @@ final class courseformatrenderer_test extends \advanced_testcase {
         $theoutput .= '<ul class="ctopics ctoggled topics col-sm-12">';
         $theoutput .= self::call_method($this->outputus, 'topcoll_section', [$section1, $this->course, false, null, $toggle]);
         $theoutput .= '</ul></div>';
-        $theoutput .= '<span id="tcdata" class="d-none" data-onetopic="false" data-onetopictoggle="false"></span>';
+        $theoutput .= '<span id="tcdata" class="d-none" data-onetopic="false" data-onetopictoggle="false"'.
+            ' data-defaulttogglepersistence="true"></span>';
 
         $this->assertEquals($theoutput, $thevalue);
     }
@@ -505,7 +507,8 @@ final class courseformatrenderer_test extends \advanced_testcase {
         $theoutput .= '<ul class="ctopics">';
         $theoutput .= self::call_method($this->outputus, 'topcoll_section', [$section0, $this->course, false, 0]);
         $theoutput .= '</ul>';
-        $theoutput .= '<span id="tcdata" class="d-none" data-onetopic="false" data-onetopictoggle="false"></span>';
+        $theoutput .= '<span id="tcdata" class="d-none" data-onetopic="false" data-onetopictoggle="false"'.
+            ' data-defaulttogglepersistence="true"></span>';
 
         $this->assertEquals($theoutput, $thevalue);
     }

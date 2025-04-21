@@ -1,6 +1,14 @@
 ﻿Version Information
 ===================
 
+Version 405.1.0 - 21/04/2025
+----------------------------
+1. Fix 'ARIA attribute for accessibility: aria-labelledby' - #160.
+2. Fix keyboard control of toggles in terms of focussing only on a the actual element that does the toggling.
+3. Fix 'Space key input not registered with the system Inplace editable in sections titles' - #161.
+4. Fix 'defaulttogglepersistence' not working.
+5. Improve single section page logic, especially when returning to course from creating a module.
+
 Version 405.0.4 - 19/03/2025
 ----------------------------
 1. Fix 'allow_stealth_module_visibility' still using 'numsections'.

@@ -66,9 +66,9 @@ class controlmenu extends controlmenu_base {
         $coursecontext = context_course::instance($course->id);
 
         if ($sectionreturn) {
-            $url = course_get_url($course, $section->section);
+            $url = $format->get_view_url($section->section, ['sr' => true]);
         } else {
-            $url = course_get_url($course);
+            $url = $format->get_view_url($section->section);
         }
         $url->param('sesskey', sesskey());
 
@@ -110,9 +110,9 @@ class controlmenu extends controlmenu_base {
 
         $parentcontrols = parent::section_control_items();
 
+        $merged = [];
         // If the edit key exists, we are going to insert our controls after it.
         if (array_key_exists("edit", $parentcontrols)) {
-            $merged = [];
             // We can't use splice because we are using associative arrays.
             // Step through the array and merge the arrays.
             foreach ($parentcontrols as $key => $action) {
@@ -122,10 +122,16 @@ class controlmenu extends controlmenu_base {
                     $merged = array_merge($merged, $controls);
                 }
             }
-
-            return $merged;
         } else {
-            return array_merge($controls, $parentcontrols);
+            // Put our controls first.
+            $merged = array_merge($controls, $parentcontrols);
         }
+
+        // Alter 'permalink' to our form of url.
+        if (array_key_exists('permalink', $merged)) {
+            $merged['permalink']['url'] = $format->get_view_url($section->section, ['singlenavigation' => true]);
+        }
+
+        return $merged;
     }
 }

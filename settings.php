@@ -47,7 +47,7 @@ if ($ADMIN->fulltree) {
     ));
 
     // Information.
-    $page->add(new \format_topcoll\admin_setting_information('format_topcoll/formatinformation', '', '', 403));
+    $page->add(new \format_topcoll\admin_setting_information('format_topcoll/formatinformation', '', '', 405));
 
     // Support.md.
     $page->add(new \format_topcoll\admin_setting_markdown('format_topcoll/formatsupport', '', '', 'Support.md'));
