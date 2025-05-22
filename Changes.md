@@ -1,8 +1,10 @@
 ﻿Version Information
 ===================
 
-Version 403.1.2 - In development
---------------------------------
+Version 403.1.2 - 22/05/2025
+----------------------------
+1. Fix core AJAX on open all toggles.
+2. Code tidy against coding standard.
 
 Version 403.1.1 - 11/03/2024
 ----------------------------
