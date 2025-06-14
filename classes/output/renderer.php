@@ -31,6 +31,10 @@
 
 namespace format_topcoll\output;
 
+// Add if not already present, adjust namespace if needed
+use core_completion\completion_info;
+// Constants like COMPLETION_NOT_TRACKED are usually global.
+
 defined('MOODLE_INTERNAL') || die();
 
 use core_courseformat\base as course_format;
@@ -88,6 +92,86 @@ class renderer extends section_renderer {
     protected $rtl = false;
     /** @var optional visibility output class */
     protected $visibilityclass;
+
+    /**
+     * Calculates the completion progress for the current section.
+     *
+     * @param \section_info $sectioninfo The section information object.
+     * @param int $userid The ID of the user for whom to calculate progress.
+     * @param \course_modinfo $modinfo The course module information object.
+     * @return int|null Progress percentage (0-100), or null if no trackable activities or no activities.
+     */
+    protected function calculate_section_progress(\section_info $sectioninfo, int $userid, \course_modinfo $modinfo): ?int {
+        // Check settings first
+        $courseformats_settings = $this->courseformat->get_settings(); // courseformat is available as $this->courseformat
+
+        $course_setting = $courseformats_settings['enabletopicprogress_course'] ?? 0; // Default to 'Use site default'
+
+        $site_enabled = (bool)get_config('format_topcoll', 'enabletopicprogress');
+
+        $feature_enabled = false;
+        if ($course_setting == 0) { // Use site default
+            $feature_enabled = $site_enabled;
+        } else if ($course_setting == 1) { // Enabled for this course
+            $feature_enabled = true;
+        } else { // ($course_setting == 2) // Disabled for this course
+            $feature_enabled = false;
+        }
+
+        if (!$feature_enabled) {
+            return null; // Feature is disabled
+        }
+
+        // ... rest of the existing method logic ...
+        global $USER; // Use global $USER if userid is 0, or for consistent current user context.
+
+        if ($userid === 0) {
+            $userid = $USER->id;
+        }
+
+        $coursemodules = $modinfo->get_section_activities($sectioninfo->sectionnum);
+        if (empty($coursemodules)) {
+            return null; // No activities in this section
+        }
+
+        $trackable_activities_count = 0;
+        $completed_activities_count = 0;
+
+        $course = $modinfo->get_course();
+        // Ensure \core_completion\completion_info is the correct namespace if aliased differently or not globally available.
+        // Often Moodle's autoloader handles this, or a direct \completion_info might work if in global namespace.
+        // For Moodle 3.11+ it's core_completion\completion_info
+        $completion_info_class = class_exists('\core_completion\completion_info') ? '\core_completion\completion_info' : '\completion_info';
+        $completion = new $completion_info_class($course);
+
+        foreach ($coursemodules as $cm) { // $cm is a cm_info object
+            if (!$cm->uservisible) { // Skip hidden activities for students unless teacher viewing.
+                                    // Consider if teachers should see progress based on all activities or student-visible ones.
+                                    // For student-focused enhancement, uservisible is key.
+                continue;
+            }
+
+            // Check if activity has completion tracking enabled
+            // COMPLETION_TRACKING_NONE is often used as an alias for COMPLETION_NOT_TRACKED
+            if (isset($cm->completion) && $cm->completion != COMPLETION_NOT_TRACKED && $cm->completion != COMPLETION_TRACKING_NONE) {
+                $trackable_activities_count++;
+
+                $cm_completion_data = $completion->get_data($cm, false, $userid);
+
+                if ($cm_completion_data && $cm_completion_data->completionstate == COMPLETION_COMPLETE) {
+                    $completed_activities_count++;
+                }
+            }
+        }
+
+        if ($trackable_activities_count == 0) {
+            return null; // No trackable activities in this section
+        }
+
+        $progress_percentage = (int)(($completed_activities_count / $trackable_activities_count) * 100);
+
+        return $progress_percentage;
+    }
 
     /**
      * Constructor method, calls the parent constructor - MDL-21097.
@@ -550,6 +634,18 @@ class renderer extends section_renderer {
         if ($this->courseformat->show_editor()) {
             $sectioncontext['cscml'] .= $this->course_section_add_cm_control($course, $section->section, $sectionreturn);
         }
+
+        // Inside topcoll_section, before render_from_template
+        // Ensure $course is available, it should be from $this->course
+        // Get modinfo for the course
+        $modinfo = get_fast_modinfo($this->course); // Or course_modinfo::instance($this->course->id);
+
+        // Calculate progress percentage
+        // Make sure $USER is available or pass the correct userid.
+        global $USER;
+        $progress = $this->calculate_section_progress($section, $USER->id, $modinfo);
+        $sectioncontext['progresspercentage'] = $progress;
+        $sectioncontext['hasprogress'] = !is_null($progress); // Helper for template
 
         return $this->render_from_template('format_topcoll/section', $sectioncontext);
     }

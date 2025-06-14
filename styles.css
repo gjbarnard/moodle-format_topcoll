@@ -1038,3 +1038,25 @@ body.jsenabled #toggle-all {
         page-break-before: avoid;
     }
 }
+
+/* Styling for Topic Progress Indicator */
+.section-progress-indicator {
+    margin-left: 8px; /* Adds some space between the title and the progress */
+    font-size: 0.9em; /* Slightly smaller than the main title */
+    color: #555; /* A neutral color */
+    font-weight: normal; /* Ensure it's not bold if the title is */
+    display: inline-block; /* Ensures it flows well with the title */
+}
+
+/* Optional: If the heading is inside a flex container and you want to align items */
+/* .sectionhead .the_toggle {
+    display: flex;
+    align-items: center;
+} */
+
+/* Adjust spacing if the progress indicator is next to editing icons or other badges */
+/* This is highly dependent on the final HTML structure and other existing styles */
+.sectionhead .section-progress-indicator + .sectionbadges,
+.sectionhead .section-progress-indicator + a[href*="editsection.php"] {
+    margin-left: 5px; /* Add a bit of space if other elements follow directly */
+}

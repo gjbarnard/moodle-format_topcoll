@@ -484,3 +484,11 @@ $string['versionstable'] = 'Stable version - Could contain bugs.  Check on a tes
 // Privacy.
 $string['privacy:metadata:preference:toggle'] = 'The state of the toggles on a course.';
 $string['privacy:request:preference:toggle'] = 'The course id "{$a->name}" has the value "{$a->value}" which represents "{$a->decoded}" for the state of the toggles.';
+
+// Topic Progress Indicator strings.
+$string['enabletopicprogress'] = 'Enable topic progress indicator';
+$string['enabletopicprogress_desc'] = 'If enabled, a progress indicator (e.g., percentage) will be shown for each topic, representing the student\'s completion of activities within that topic.';
+$string['topicprogress'] = 'Topic Progress';
+$string['enabletopicprogress_course_help'] = 'Select whether to enable or disable the topic progress indicator for this course, or use the site default setting.';
+$string['enabled'] = 'Enabled';
+$string['disabled'] = 'Disabled';

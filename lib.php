@@ -746,6 +746,10 @@ class format_topcoll extends core_courseformat\base {
                     'default' => 0,
                     'type' => PARAM_INT,
                 ],
+                'enabletopicprogress_course' => [
+                    'default' => 0, // 0 = Use site default, 1 = Enabled, 2 = Disabled.
+                    'type' => PARAM_INT,
+                ],
             ];
 
             /* If at least one plugin is set to 'yes' then show config with default of 'yes',
@@ -1286,6 +1290,34 @@ class format_topcoll extends core_courseformat\base {
                     'element_type' => 'static',
                     'element_attributes' => [get_string('readme_desc', 'format_topcoll', ['url' => $readme])],
                 ];
+
+            // Course-level setting for Topic Progress Indicator.
+            $defaulttopicprogressvalue = get_config('format_topcoll', 'enabletopicprogress');
+            // Ensure $defaulttopicprogressvalue is 0 or 1 for the logic below.
+            // If get_config returns a string '0' or '1', cast to int. If it's null or other, default to 0 (disabled).
+            $defaulttopicprogressvalue = (int)(bool)$defaulttopicprogressvalue;
+
+
+            $topicprogressoptions_clean = [
+                 0 => new lang_string('sitedefault', 'admin') . ' (' . ($defaulttopicprogressvalue == 1 ? get_string('enabled', 'format_topcoll') : get_string('disabled', 'format_topcoll')) . ')',
+                 1 => new lang_string('enabled', 'format_topcoll'),
+                 2 => new lang_string('disabled', 'format_topcoll'),
+            ];
+
+            if (has_capability('format/topcoll:changetopicprogress', $context)) {
+                $courseformatoptionsedit['enabletopicprogress_course'] = [
+                    'label' => new lang_string('enabletopicprogress', 'format_topcoll'),
+                    'help' => 'enabletopicprogress_course_help',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => [$topicprogressoptions_clean],
+                ];
+            } else {
+                $courseformatoptionsedit['enabletopicprogress_course'] = [
+                    'label' => 0, 'element_type' => 'hidden',
+                ];
+            }
+
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
         return $courseformatoptions;
@@ -1324,6 +1356,14 @@ class format_topcoll extends core_courseformat\base {
         );
 
         $elements = parent::create_edit_form_elements($mform, $forsection);
+
+        // Topic Progress Header.
+        if (!$forsection) {
+            // Check if the header already exists to prevent duplicates if this method is called multiple times.
+            if (!isset($elements['cttopicprogresshdr'])) {
+                $elements['cttopicprogresshdr'] = $mform->addElement('header', 'cttopicprogresshdr', get_string('topicprogress', 'format_topcoll'));
+            }
+        }
 
         if (!$forsection && (empty($COURSE->id) || $COURSE->id == SITEID)) {
             // Add "numsections" element to the create course form - it will force new course to be prepopulated

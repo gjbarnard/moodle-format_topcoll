@@ -685,5 +685,13 @@ if ($ADMIN->fulltree) {
         2 => new lang_string('yes'),
     ];
     $page->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
+
+    // Topic Progress Indicator setting.
+    $name = 'format_topcoll/enabletopicprogress';
+    $title = new lang_string('enabletopicprogress', 'format_topcoll');
+    $description = new lang_string('enabletopicprogress_desc', 'format_topcoll');
+    $default = 0; // Disabled by default.
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    $page->add($setting);
 }
 $ADMIN->add('format_topcoll', $page);
