@@ -48,4 +48,20 @@ $functions = [
         'loginrequired' => true,
         'ajax' => true,
     ],
+    'format_topcoll_get_personal_note' => [
+        'classname'     => 'format_topcoll_external',
+        'methodname'    => 'get_personal_note',
+        'description'   => 'Retrieves a personal note for a given course section and user.',
+        'type'          => 'read',
+        'ajax'          => true,
+        'capabilities'  => 'moodle/course:view',
+    ],
+    'format_topcoll_save_personal_note' => [
+        'classname'     => 'format_topcoll_external',
+        'methodname'    => 'save_personal_note',
+        'description'   => 'Saves a personal note for a given course section and user.',
+        'type'          => 'write',
+        'ajax'          => true,
+        'capabilities'  => 'moodle/course:view',
+    ],
 ];

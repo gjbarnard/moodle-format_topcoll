@@ -83,6 +83,23 @@ if (!empty($displaysection)) {
 
 $contentcontext['content'] = $content;
 
+// Check if personal notes feature is enabled for this course before initializing JS
+// $courseformat is already available
+\$topcoll_settings_for_js = \$courseformat->get_settings();
+\$personalnotes_course_setting_for_js = \$topcoll_settings_for_js['enablepersonalnotes_course'] ?? 0;
+\$personalnotes_site_enabled_for_js = (bool)get_config('format_topcoll', 'enablepersonalnotes');
+\$personalnotes_feature_enabled_for_js = false;
+
+if (\$personalnotes_course_setting_for_js == 0) {
+    \$personalnotes_feature_enabled_for_js = \$personalnotes_site_enabled_for_js;
+} else if (\$personalnotes_course_setting_for_js == 1) {
+    \$personalnotes_feature_enabled_for_js = true;
+}
+
+if (\$personalnotes_feature_enabled_for_js) {
+    \$PAGE->requires->js_call_amd('format_topcoll/personal_notes', 'init');
+}
+
 echo $renderer->render_from_template('format_topcoll/content', $contentcontext);
 
 // --- What's New? Highlight Feature ---

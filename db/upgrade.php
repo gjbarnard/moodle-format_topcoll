@@ -212,5 +212,39 @@ function xmldb_format_topcoll_upgrade($oldversion = 0) {
         }
     }
 
+    // Add new table for personal notes if it doesn't exist.
+    // This requires a version bump in version.php, e.g., to 2023010100 (YYYYMMDDXX).
+    // Let's assume the new version number for this change is 2024011500.
+    if ($oldversion < 2024011500) { // Choose an appropriate version number for this change.
+
+        // Define table format_topcoll_notes.
+        $table = new xmldb_table('format_topcoll_notes');
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', true, XMLDB_UNSIGNED, true, null, null);
+        $table->add_field('courseid', XMLDB_TYPE_INTEGER, '10', true, XMLDB_UNSIGNED, false, null, null);
+        $table->add_field('sectionid', XMLDB_TYPE_INTEGER, '10', true, XMLDB_UNSIGNED, false, null, null);
+        $table->add_field('userid', XMLDB_TYPE_INTEGER, '10', true, XMLDB_UNSIGNED, false, null, null);
+        $table->add_field('notescontent', XMLDB_TYPE_TEXT, null, true, null, false, null, null);
+        $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', true, XMLDB_UNSIGNED, false, '0', null);
+        $table->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', true, XMLDB_UNSIGNED, false, '0', null);
+
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+        $table->add_key('unique_user_course_section', XMLDB_KEY_UNIQUE, ['userid', 'courseid', 'sectionid']);
+        $table->add_key('fk_courseid', XMLDB_KEY_FOREIGN, ['courseid'], 'course', ['id']);
+        $table->add_key('fk_sectionid', XMLDB_KEY_FOREIGN, ['sectionid'], 'course_sections', ['id']);
+        $table->add_key('fk_userid', XMLDB_KEY_FOREIGN, ['userid'], 'user', ['id']);
+
+        $table->add_index('idx_courseid', XMLDB_INDEX_NOTUNIQUE, ['courseid']);
+        $table->add_index('idx_userid', XMLDB_INDEX_NOTUNIQUE, ['userid']);
+
+        if (!\$dbman->table_exists(\$table)) {
+            \$dbman->create_table(\$table);
+        }
+
+        // Collapsed Topics savepoint reached.
+        upgrade_plugin_savepoint(true, 2024011500, 'format', 'topcoll');
+    }
+
+    // Future upgrade steps will go here, guarded by their own version checks.
+
     return $result;
 }

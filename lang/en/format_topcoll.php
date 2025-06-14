@@ -498,3 +498,14 @@ $string['enablewhatsnew'] = 'Enable "What\'s New?" highlight';
 $string['enablewhatsnew_desc'] = 'If enabled, recently added or updated sections and activities will be highlighted for students based on their last course access.';
 $string['whatsnewheader'] = '"What\'s New?" Highlight';
 $string['enablewhatsnew_course_help'] = 'Select whether to enable or disable the "What\'s New?" highlight for this course, or use the site default setting.';
+$string['mynotes'] = 'My Notes';
+// Personal Notes JS strings
+$string['errorloadingnotes'] = 'Error loading notes.';
+$string['errorsavingnotes'] = 'Error saving notes.';
+$string['mynotessection'] = 'My notes for %s'; // %s will be replaced by section name/number
+$string['personalnotesheading'] = 'Personal Notes for';
+$string['enablepersonalnotes'] = 'Enable Personal Topic Notes';
+$string['enablepersonalnotes_desc'] = 'If enabled, students will be able to add private notes to each topic section in a course.';
+$string['personalnotesheader'] = 'Personal Topic Notes'; // For course settings form header
+$string['enablepersonalnotes_course_help'] = 'Select whether to enable or disable the Personal Topic Notes feature for this course, or use the site default setting.';
+$string['featuredisabled'] = 'This feature is currently disabled.';

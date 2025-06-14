@@ -701,5 +701,13 @@ if ($ADMIN->fulltree) {
     $default = 0; // Disabled by default.
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
     $page->add($setting);
+
+    // "Personal Notes" Feature setting.
+    $name = 'format_topcoll/enablepersonalnotes';
+    $title = new lang_string('enablepersonalnotes', 'format_topcoll');
+    $description = new lang_string('enablepersonalnotes_desc', 'format_topcoll');
+    $default = 0; // Disabled by default.
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    $page->add($setting);
 }
 $ADMIN->add('format_topcoll', $page);

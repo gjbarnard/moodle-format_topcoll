@@ -1097,3 +1097,53 @@ body.jsenabled #toggle-all {
 /* .activity-item > .new-activity-indicator {
     /* Example: float: left; or adjust margins carefully */
 /* } */
+
+/* Styling for Personal Topic Notes Feature */
+
+.format-topcoll-notes-trigger {
+    /* text-decoration: none; */ /* Remove if it's an icon only, or style as desired */
+    /* color: #007bff; */ /* Example link color */
+    cursor: pointer;
+    display: inline-block; /* Allows margin and aligns better with other inline elements */
+    vertical-align: middle; /* Aligns icon/text nicely if in a line of text/icons */
+}
+
+.format-topcoll-notes-trigger .icon { /* If using a pix_icon, it's usually an img with class .icon */
+    margin-right: 4px; /* Space between icon and text if both are present */
+    vertical-align: text-bottom; /* Align icon nicely with text */
+}
+
+.format-topcoll-notes-editor {
+    /* display: none; /* Initially hidden by inline style, JS controls this */
+    /* border: 1px solid #ddd; */ /* Already added inline for demo, can be moved here */
+    /* padding: 10px; */
+    /* margin-top: 10px; */ /* Already added inline for demo */
+    /* background-color: #f9f9f9; */
+    /* border-radius: 4px; */
+    /* clear: both; */ /* Ensures it takes full width below floated elements if any */
+}
+
+.format-topcoll-notes-editor textarea.format-topcoll-notes-textarea {
+    width: 100%;
+    min-height: 80px;
+    box-sizing: border-box; /* Standard Moodle textarea styling often includes this */
+    margin-bottom: 10px;
+}
+
+/* Styling for buttons within the notes editor */
+.format-topcoll-notes-editor .btn {
+    /* Moodle themes usually style .btn, .btn-primary, .btn-secondary */
+    /* Add any specific overrides or additional spacing if needed */
+    margin-right: 5px; /* e.g. space between save and cancel */
+}
+
+.format-topcoll-notes-editor .btn:last-child {
+    margin-right: 0;
+}
+
+/* Optional: Heading style within the notes editor */
+.format-topcoll-notes-editor h3.h5 {
+    margin-top: 0; /* Remove default top margin if it's the first element */
+    margin-bottom: 10px;
+    font-size: 1.1em; /* Slightly smaller than typical h3 if needed */
+}

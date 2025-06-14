@@ -109,7 +109,16 @@
                 <span class="section-new-indicator">{{#str}}newsection_indicator, format_topcoll{{/str}}</span>
                 {{/isnewsection}}
                 {{! END: Added new section indicator }}
+
+                {{{notes_trigger_html}}} {{! This is the new "My Notes" trigger }}
             </div>
+            {{! Placeholder for the notes UI, controlled by JavaScript }}
+            {{#notes_trigger_html}}
+            <div id="format-topcoll-notes-ui-{{sectionid}}" class="format-topcoll-notes-editor" style="display: none; clear: both; margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px;" aria-live="polite" role="dialog" aria-labelledby="format-topcoll-notes-heading-{{sectionid}}">
+                {{! JavaScript will inject textarea and buttons here.
+                    Aria properties like aria-labelledby would point to a heading within this injected UI. }}
+            </div>
+            {{/notes_trigger_html}}
             {{#usereditingtitle}}<span class="hidden" aria-hidden="true">{{usereditingtitle}}</span>{{/usereditingtitle}}
             {{#usereditingurl}}<a href="{{{usereditingurl}}}" title="{{#str}}editsection, format_topcoll{{/str}}">{{{usereditingicon}}}</a>{{/usereditingurl}}{{!
             }}{{#sectionvisibility}}{{!

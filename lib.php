@@ -754,6 +754,10 @@ class format_topcoll extends core_courseformat\base {
                     'default' => 0, // 0 = Use site default, 1 = Enabled, 2 = Disabled
                     'type' => PARAM_INT,
                 ],
+                'enablepersonalnotes_course' => [
+                    'default' => 0, // 0 = Use site default, 1 = Enabled, 2 = Disabled
+                    'type' => PARAM_INT,
+                ],
             ];
 
             /* If at least one plugin is set to 'yes' then show config with default of 'yes',
@@ -1344,6 +1348,28 @@ class format_topcoll extends core_courseformat\base {
                 ];
             }
 
+            // "Personal Notes" course setting.
+            \$site_default_personalnotes = (bool)get_config('format_topcoll', 'enablepersonalnotes');
+            \$personalnotes_options_clean = [
+                 0 => new lang_string('sitedefault', 'admin') . ' (' . (\$site_default_personalnotes ? get_string('enabled', 'format_topcoll') : get_string('disabled', 'format_topcoll')) . ')',
+                 1 => new lang_string('enabled', 'format_topcoll'),
+                 2 => new lang_string('disabled', 'format_topcoll'),
+            ];
+
+            if (has_capability('format/topcoll:changepersonalnotes', \$context)) {
+                \$courseformatoptionsedit['enablepersonalnotes_course'] = [
+                    'label' => new lang_string('enablepersonalnotes', 'format_topcoll'),
+                    'help' => 'enablepersonalnotes_course_help',
+                    'help_component' => 'format_topcoll',
+                    'element_type' => 'select',
+                    'element_attributes' => [\$personalnotes_options_clean],
+                ];
+            } else {
+                \$courseformatoptionsedit['enablepersonalnotes_course'] = [
+                    'label' => 0, 'element_type' => 'hidden',
+                ];
+            }
+
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
         return $courseformatoptions;
@@ -1392,6 +1418,10 @@ class format_topcoll extends core_courseformat\base {
             // "What's New?" Header.
             if (!isset($elements['ctwhatsnewhdr'])) {
                 $elements['ctwhatsnewhdr'] = $mform->addElement('header', 'ctwhatsnewhdr', get_string('whatsnewheader', 'format_topcoll'));
+            }
+            // "Personal Notes" Header.
+            if (!isset($elements['ctpersonalnoteshdr'])) {
+                $elements['ctpersonalnoteshdr'] = $mform->addElement('header', 'ctpersonalnoteshdr', get_string('personalnotesheader', 'format_topcoll'));
             }
         }
 

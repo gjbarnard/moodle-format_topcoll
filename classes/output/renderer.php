@@ -618,6 +618,18 @@ class renderer extends section_renderer {
             $this->tcsettings = $this->courseformat->get_settings();
         }
 
+        // Determine if Personal Notes feature is enabled
+        $personalnotes_course_setting = $this->tcsettings['enablepersonalnotes_course'] ?? 0;
+        $personalnotes_site_enabled = (bool)get_config('format_topcoll', 'enablepersonalnotes');
+        $personalnotes_feature_enabled = false;
+        if ($personalnotes_course_setting == 0) { // Use site default
+            $personalnotes_feature_enabled = $personalnotes_site_enabled;
+        } else if ($personalnotes_course_setting == 1) { // Enabled for this course
+            $personalnotes_feature_enabled = true;
+        } // else (is 2), it's disabled for this course
+
+        $sectioncontext['notes_trigger_html'] = ''; // Default to empty
+
         if (($section->section != 0) && (!$onsectionpage)) {
             if ($this->tcsettings['layoutcolumnorientation'] == 3) { // Dynamic column layout.
                 $sectioncontext['columnclass'] = $this->get_column_class('D');
@@ -648,6 +660,26 @@ class renderer extends section_renderer {
             $sectioncontext['toggleiconsize'] = $this->tctoggleiconsize;
 
             $sectioncontext['toggleopen'] = !empty($toggle);
+
+            if ($personalnotes_feature_enabled) {
+                // Prepare 'My Notes' trigger
+                $notes_trigger_string = get_string('mynotes', 'format_topcoll');
+                $icon = $this->output->pix_icon('t/addcomment', $notes_trigger_string);
+                $notes_trigger_attributes = [
+                    'class' => 'format-topcoll-notes-trigger',
+                    'data-courseid' => $this->course->id,
+                    'data-sectiondbid' => $section->id, // This is course_sections.id
+                    'data-sectionnum' => $section->section, // This is the section number (position)
+                    'title' => $notes_trigger_string,
+                    'role' => 'button',
+                    'aria-controls' => 'format-topcoll-notes-ui-' . $section->id,
+                    'aria-expanded' => 'false'
+                ];
+                $sectioncontext['notes_trigger_html'] = html_writer::tag('span',
+                    html_writer::link('#', $icon . ' ' . $notes_trigger_string, $notes_trigger_attributes),
+                    ['style' => 'margin-left: 10px;']
+                );
+            }
 
             if ($this->userisediting) {
                 $title = $this->section_title($section, $course);

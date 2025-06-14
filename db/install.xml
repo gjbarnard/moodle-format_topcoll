@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="course/format/topcoll/db" VERSION="20230101" COMMENT="XMLDB file for Moodle course/format/topcoll"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="format_topcoll_settings" COMMENT="Collapsed Topics settings">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="layoutelement" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="layoutstructure" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="layoutcolumns" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="toggleforegroundcolour" TYPE="char" LENGTH="6" NOTNULL="true" DEFAULT="000000" SEQUENCE="false"/>
+        <FIELD NAME="togglebackgroundcolour" TYPE="char" LENGTH="6" NOTNULL="true" DEFAULT="e2e2f2" SEQUENCE="false"/>
+        <FIELD NAME="togglebackgroundhovercolour" TYPE="char" LENGTH="6" NOTNULL="true" DEFAULT="eeeeff" SEQUENCE="false"/>
+        <FIELD NAME="togglealignment" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="toggleiconset" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="arrow" SEQUENCE="false"/>
+        <FIELD NAME="toggleallhover" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="2" SEQUENCE="false"/>
+        <FIELD NAME="displayinstructions" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="2" SEQUENCE="false"/>
+        <FIELD NAME="toggleforegroundhovercolour" TYPE="char" LENGTH="6" NOTNULL="true" DEFAULT="000000" SEQUENCE="false"/>
+        <FIELD NAME="toggleforegroundopacity" TYPE="char" LENGTH="3" NOTNULL="true" DEFAULT="1.0" SEQUENCE="false"/>
+        <FIELD NAME="toggleforegroundhoveropacity" TYPE="char" LENGTH="3" NOTNULL="true" DEFAULT="1.0" SEQUENCE="false"/>
+        <FIELD NAME="togglebackgroundopacity" TYPE="char" LENGTH="3" NOTNULL="true" DEFAULT="1.0" SEQUENCE="false"/>
+        <FIELD NAME="togglebackgroundhoveropacity" TYPE="char" LENGTH="3" NOTNULL="true" DEFAULT="1.0" SEQUENCE="false"/>
+        <FIELD NAME="toggleiconposition" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="toggleiconfontclosed" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="toggleiconfontopen" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="onesection" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="layoutcolumnorientation" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="2" SEQUENCE="false"/>
+        <FIELD NAME="showsectionsummary" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="toggleallenabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="2" SEQUENCE="false"/>
+        <FIELD NAME="viewsinglesectionenabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="2" SEQUENCE="false"/>
+        <FIELD NAME="showadditionalmoddata" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="flexiblemodules" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign-unique" FIELDS="courseid" REFTABLE="course" REFFIELDS="id" ONUPDATE="cascade" ONDELETE="cascade"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="format_topcoll_notes" COMMENT="Stores student personal notes for sections in Collapsed Topics format.">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"/>
+        <FIELD NAME="sectionid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="Corresponds to course_sections.id"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"/>
+        <FIELD NAME="notescontent" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="unique_user_course_section" TYPE="unique" FIELDS="userid, courseid, sectionid"/>
+        <KEY NAME="fk_courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id" ONDELETE="cascade"/>
+        <KEY NAME="fk_sectionid" TYPE="foreign" FIELDS="sectionid" REFTABLE="course_sections" REFFIELDS="id" ONDELETE="cascade"/>
+        <KEY NAME="fk_userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id" ONDELETE="cascade"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="idx_courseid" FIELDS="courseid"/>
+        <INDEX NAME="idx_userid" FIELDS="userid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

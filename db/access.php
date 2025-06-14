@@ -92,4 +92,12 @@ $capabilities = [
             'manager' => CAP_ALLOW,
         ],
     ],
+    'format/topcoll:changepersonalnotes' => [
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_COURSE,
+        'archetypes' => [
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW,
+        ],
+    ],
 ];
