@@ -92,6 +92,43 @@ class renderer extends section_renderer {
     protected $rtl = false;
     /** @var optional visibility output class */
     protected $visibilityclass;
+    /** @var ?int $user_last_course_access */
+    protected $user_last_course_access = null;
+    /** @var bool $user_last_course_access_fetched */
+    protected $user_last_course_access_fetched = false; // To fetch only once per page load
+
+    /**
+     * Checks if a section or module is considered "new" or "updated" for the user.
+     *
+     * @param int $content_timemodified Timestamp of the content's last modification.
+     * @param int|null $user_last_access_timestamp Timestamp of the user's last access to the course. Can be null.
+     * @return bool True if the content is new/updated, false otherwise.
+     */
+    public function is_content_new(int $content_timemodified, ?int $user_last_access_timestamp): bool {
+        if ($user_last_access_timestamp === null || $user_last_access_timestamp === 0) {
+            // If user has no valid last access timestamp (e.g., first visit with feature, or pref returned 0),
+            // nothing is considered new based on this mechanism for this page load.
+            // The timestamp will be set at the end of this request for future comparisons.
+            return false;
+        }
+        // Content is new if it was modified after the user's last recorded access.
+        return $content_timemodified > $user_last_access_timestamp;
+    }
+
+    /**
+     * Public getter for user_last_course_access, fetches if not already done.
+     * @return int|null
+     */
+    public function get_user_last_course_access(): ?int {
+        if (!$this->user_last_course_access_fetched) {
+            // Ensure $this->course is available. It should be initialized in the constructor.
+            if ($this->course) {
+                $this->user_last_course_access = get_user_preference('format_topcoll_last_access_' . $this->course->id, null);
+            }
+            $this->user_last_course_access_fetched = true;
+        }
+        return $this->user_last_course_access;
+    }
 
     /**
      * Calculates the completion progress for the current section.
@@ -548,6 +585,25 @@ class renderer extends section_renderer {
             'sectionreturn' => $sectionreturn,
             'editing' => $this->userisediting,
         ];
+
+        // Fetch user's last access time for "What's New" feature.
+        // Ensure get_user_last_course_access() is called to fetch/set the value.
+        $this->get_user_last_course_access();
+
+        // Get section timemodified.
+        $section_record = null;
+        if (method_exists($section, 'get_section_record')) {
+            $section_record = $section->get_section_record();
+        }
+        $section_timemodified = $section_record ? $section_record->timemodified : 0;
+        // If $section is already a stdClass from DB (e.g. in stealth_section or hidden_section), it might have timemodified directly.
+        // Also, section_info objects might have it if they are fully populated.
+        if ($section_timemodified === 0 && isset($section->timemodified)) {
+             $section_timemodified = $section->timemodified;
+        }
+        $section_timemodified = (int)$section_timemodified;
+
+        $sectioncontext['isnewsection'] = $this->is_content_new($section_timemodified, $this->user_last_course_access);
 
         if ($section->section != 0) {
             // Only in the non-general sections.

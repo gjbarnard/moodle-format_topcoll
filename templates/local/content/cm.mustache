@@ -32,6 +32,9 @@
         }}{{#indent}} indent-{{indent}}{{/indent}}{{!
         }}{{#modinline}} activityinline{{/modinline}}" data-activityname="{{activityname}}"{{!
 }}>
+    {{#isnew}}
+    <span class="new-activity-indicator">{{#str}}newitem_indicator, format_topcoll{{/str}}</span>
+    {{/isnew}}
     {{$ core_courseformat/local/content/cm/bulkselect }}
         {{> core_courseformat/local/content/cm/bulkselect }}
     {{/ core_courseformat/local/content/cm/bulkselect }}

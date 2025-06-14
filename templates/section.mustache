@@ -104,6 +104,11 @@
                 </span>
                 {{/hasprogress}}
                 {{! END: Added progress indicator }}
+                {{! START: Added new section indicator }}
+                {{#isnewsection}}
+                <span class="section-new-indicator">{{#str}}newsection_indicator, format_topcoll{{/str}}</span>
+                {{/isnewsection}}
+                {{! END: Added new section indicator }}
             </div>
             {{#usereditingtitle}}<span class="hidden" aria-hidden="true">{{usereditingtitle}}</span>{{/usereditingtitle}}
             {{#usereditingurl}}<a href="{{{usereditingurl}}}" title="{{#str}}editsection, format_topcoll{{/str}}">{{{usereditingicon}}}</a>{{/usereditingurl}}{{!

@@ -693,5 +693,13 @@ if ($ADMIN->fulltree) {
     $default = 0; // Disabled by default.
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
     $page->add($setting);
+
+    // "What's New?" Highlight Feature setting.
+    $name = 'format_topcoll/enablewhatsnew';
+    $title = new lang_string('enablewhatsnew', 'format_topcoll');
+    $description = new lang_string('enablewhatsnew_desc', 'format_topcoll');
+    $default = 0; // Disabled by default.
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    $page->add($setting);
 }
 $ADMIN->add('format_topcoll', $page);

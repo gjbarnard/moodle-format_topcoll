@@ -1060,3 +1060,40 @@ body.jsenabled #toggle-all {
 .sectionhead .section-progress-indicator + a[href*="editsection.php"] {
     margin-left: 5px; /* Add a bit of space if other elements follow directly */
 }
+
+/* Styling for "New Section" Indicator */
+.section-new-indicator {
+    background-color: #ffeb3b; /* A noticeable yellow */
+    color: #333;
+    padding: 2px 6px;
+    font-size: 0.85em;
+    border-radius: 4px;
+    margin-left: 10px;
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: middle; /* Align with text/icons if needed */
+}
+
+/* Styling for "New Activity" Indicator */
+.new-activity-indicator {
+    background-color: #c8e6c9; /* A subtle green */
+    color: #2e7d32;
+    padding: 1px 5px;
+    font-size: 0.8em;
+    border-radius: 3px;
+    margin-right: 8px; /* Space before the activity name/icon */
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Adjust positioning if needed, for example, if it's inside a flex container */
+/* .sectionhead .the_toggle {
+    display: flex;
+    align-items: center; /* Helps align items on the same line */
+/* } */
+
+/* Ensure indicators don't disrupt existing layout if placed within activity content */
+/* .activity-item > .new-activity-indicator {
+    /* Example: float: left; or adjust margins carefully */
+/* } */

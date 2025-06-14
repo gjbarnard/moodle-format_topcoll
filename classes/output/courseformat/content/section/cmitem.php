@@ -62,6 +62,51 @@ class cmitem extends \core_courseformat\output\local\content\section\cmitem {
             $context->indent = 0;
         }
 
+        // --- What's New? Highlight Feature ---
+        // $output should be an instance of format_topcoll\output\renderer
+        $main_renderer = $output; // Assuming $output is the correct renderer instance.
+                                  // If not, $this->format->get_renderer($this->format->get_page()) might be needed.
+
+        $user_last_access = null;
+        if (method_exists($main_renderer, 'get_user_last_course_access')) {
+             $user_last_access = $main_renderer->get_user_last_course_access();
+        } else {
+            // Fallback if the main_renderer isn't what we expect or method isn't available.
+            // This is less ideal due to potential for repeated calls if not fetched once per page load in main_renderer.
+            if (property_exists($main_renderer, 'user_last_course_access_fetched') && $main_renderer->user_last_course_access_fetched) {
+                 if (property_exists($main_renderer, 'user_last_course_access')) {
+                    $user_last_access = $main_renderer->user_last_course_access;
+                 }
+            } else {
+                 // Last resort, fetch directly.
+                 $user_last_access = get_user_preference('format_topcoll_last_access_' . $this->format->get_course()->id, null);
+            }
+        }
+
+        $cm_timemodified = 0;
+        if (isset($this->cm->timemodified)) {
+            $cm_timemodified = (int)$this->cm->timemodified;
+        } else if (method_exists($this->cm, 'get_course_module_record')) {
+            $cm_record = $this->cm->get_course_module_record();
+            if ($cm_record && isset($cm_record->timemodified)) {
+                $cm_timemodified = (int)$cm_record->timemodified;
+            }
+        }
+
+        // Call the public is_content_new method from the main renderer.
+        if (method_exists($main_renderer, 'is_content_new')) {
+            $context->isnew = $main_renderer->is_content_new($cm_timemodified, $user_last_access);
+        } else {
+            // Fallback simple check if main_renderer's method is not callable as expected.
+            // This duplicates logic and might not be ideal if is_content_new has more complex conditions.
+            if ($user_last_access === null || $user_last_access === 0) {
+                $context->isnew = false;
+            } else {
+                $context->isnew = $cm_timemodified > $user_last_access;
+            }
+        }
+        // --- End What's New? Highlight Feature ---
+
         return $context;
     }
 }

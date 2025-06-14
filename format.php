@@ -84,3 +84,12 @@ if (!empty($displaysection)) {
 $contentcontext['content'] = $content;
 
 echo $renderer->render_from_template('format_topcoll/content', $contentcontext);
+
+// --- What's New? Highlight Feature ---
+// Update the last access time for the current user for this course.
+// This timestamp will be used on the *next* course visit to determine what is new.
+// We might only want to do this for students, or when not editing.
+// For now, let's set it for any view that is not by a guest and not an editing view.
+if (!isguestuser() && !$PAGE->user_is_editing() && isset($course) && $course->id != SITEID) { // Ensure course context is valid
+    set_user_preference('format_topcoll_last_access_' . $course->id, time());
+}
