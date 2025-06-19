@@ -29,6 +29,10 @@ namespace format_topcoll\privacy;
 use core_privacy\local\request\writer;
 use core_privacy\local\metadata\collection;
 use format_topcoll\togglelib;
+use \core_privacy\local\request\contextlist;
+use \core_privacy\local\request\approved_contextlist;
+use \context_course;
+use \format_topcoll\notes_manager; // Assuming notes_manager.php is in format_topcoll/classes/
 
 /**
  * Implementation of the privacy subsystem plugin provider.
@@ -38,7 +42,9 @@ class provider implements
     \core_privacy\local\metadata\provider,
 
     // This plugin has some sitewide user preferences to export.
-    \core_privacy\local\request\user_preference_provider {
+    \core_privacy\local\request\user_preference_provider,
+    // This plugin stores data in plugin tables.
+    \core_privacy\local\request\plugin\provider {
     /**
      * Returns meta data about this system.
      *
@@ -47,6 +53,17 @@ class provider implements
      */
     public static function get_metadata(collection $items): collection {
         $items->add_user_preference(togglelib::TOPCOLL_TOGGLE, 'privacy:metadata:preference:toggle');
+
+        $items->add_database_table(
+            notes_manager::TABLE_NAME,
+            [
+                'userid' => 'privacy:metadata:userid',
+                'notescontent' => 'privacy:metadata:format_topcoll_notes:notescontent',
+                'timecreated' => 'privacy:metadata:timecreated',
+                'timemodified' => 'privacy:metadata:timemodified',
+            ],
+            'privacy:metadata:format_topcoll_notes:table'
+        );
 
         return $items;
     }
@@ -75,6 +92,97 @@ class provider implements
                     ])
                 );
             }
+        }
+    }
+
+    /**
+     * Gets all the contexts in which a user has data in this plugin.
+     *
+     * @param   int \$userid The user to search.
+     * @return  contextlist Contextlist of all contexts that apply to this user.
+     */
+    public static function get_contexts_for_userid(int \$userid): contextlist {
+        global \$DB;
+        \$contextlist = new contextlist();
+        // Using notes_manager::TABLE_NAME constant
+        \$sql = "SELECT DISTINCT c.id
+                  FROM {course} c
+                  JOIN {".notes_manager::TABLE_NAME."} ftn ON ftn.courseid = c.id
+                 WHERE ftn.userid = :userid";
+        if (\$courseids = \$DB->get_fieldset_sql(\$sql, ['userid' => \$userid])) {
+            foreach (\$courseids as \$courseid) {
+                \$contextlist->add(context_course::instance(\$courseid));
+            }
+        }
+        return \$contextlist;
+    }
+
+    /**
+     * Export all user data for the specified user, in the specified contexts.
+     *
+     * @param   approved_contextlist \$contextlist The approved contexts to export information for.
+     */
+    public static function export_user_data(approved_contextlist \$contextlist) {
+        global \$DB;
+        \$userid = \$contextlist->get_user()->id;
+
+        foreach (\$contextlist->get_contexts() as \$context) {
+            if (!\$context instanceof \context_course) {
+                continue;
+            }
+            \$courseid = \$context->instanceid;
+            \$params = ['userid' => \$userid, 'courseid' => \$courseid];
+            // Using notes_manager::TABLE_NAME constant
+            \$sql = "SELECT ftn.id, ftn.sectionid, cs.section as sectionnum, ftn.notescontent, ftn.timecreated, ftn.timemodified
+                      FROM {".notes_manager::TABLE_NAME."} ftn
+                      JOIN {course_sections} cs ON ftn.sectionid = cs.id
+                     WHERE ftn.userid = :userid AND ftn.courseid = :courseid
+                  ORDER BY cs.section";
+
+            if (\$notes = \$DB->get_records_sql(\$sql, \$params)) {
+                foreach (\$notes as \$note) {
+                    writer::with_context(\$context)->export_database_record(
+                        notes_manager::TABLE_NAME, // Use the constant
+                        \$note,
+                        'privacy:export:format_topcoll_note',
+                        ['sectionnum' => \$note->sectionnum]
+                    );
+                }
+            }
+        }
+    }
+
+    /**
+     * Delete all data for all users in the specified context.
+     *
+     * @param   \context \$context The context to delete data for.
+     */
+    public static function delete_data_for_all_users_in_context(\context \$context) {
+        global \$DB;
+        if (!\$context instanceof \context_course) {
+            return;
+        }
+        \$courseid = \$context->instanceid;
+        // Using notes_manager::TABLE_NAME constant
+        \$DB->delete_records(notes_manager::TABLE_NAME, ['courseid' => \$courseid]);
+    }
+
+    /**
+     * Delete all user data for the specified user, in the specified contexts.
+     *
+     * @param   approved_contextlist \$contextlist The approved contexts and user to delete information for.
+     */
+    public static function delete_data_for_user(approved_contextlist \$contextlist) {
+        global \$DB;
+        \$userid = \$contextlist->get_user()->id;
+
+        foreach (\$contextlist->get_contexts() as \$context) {
+            if (!\$context instanceof \context_course) {
+                continue;
+            }
+            \$courseid = \$context->instanceid;
+            // Using notes_manager::TABLE_NAME constant
+            \$DB->delete_records(notes_manager::TABLE_NAME, ['userid' => \$userid, 'courseid' => \$courseid]);
         }
     }
 }

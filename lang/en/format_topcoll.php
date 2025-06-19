@@ -509,3 +509,6 @@ $string['enablepersonalnotes_desc'] = 'If enabled, students will be able to add 
 $string['personalnotesheader'] = 'Personal Topic Notes'; // For course settings form header
 $string['enablepersonalnotes_course_help'] = 'Select whether to enable or disable the Personal Topic Notes feature for this course, or use the site default setting.';
 $string['featuredisabled'] = 'This feature is currently disabled.';
+$string['privacy:metadata:format_topcoll_notes:table'] = 'Personal Topic Notes';
+$string['privacy:metadata:format_topcoll_notes:notescontent'] = 'The content of the personal note.';
+$string['privacy:export:format_topcoll_note'] = 'Personal note for section {$a->sectionnum} in this course.';
