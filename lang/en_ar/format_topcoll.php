@@ -112,9 +112,11 @@ $string['setlayoutcolumns_help'] = 'How many columns to use.';
 // Toggle alignment - CONTRIB-4098.
 $string['settogglealignment'] = 'Thee toggle text alignment';
 $string['settogglealignment_help'] = 'Sets thee alignment of thee text in thy toggle.';
+$string['end'] = 'Aft';
 $string['left'] = 'Port';
 $string['center'] = 'Midships';
 $string['right'] = 'Starboard';
+$string['start'] = 'Fore';
 $string['resettogglealignment'] = 'Thee toggle alignment';
 $string['resetalltogglealignment'] = 'Thee toggle alignments';
 $string['resettogglealignment_help'] = 'Resets thee toggle alignment to follow thee site default value.';
@@ -122,9 +124,9 @@ $string['resetalltogglealignment_help'] = 'Resets thee toggle alignment to follo
 
 // Icon position - CONTRIB-4470.
 $string['settoggleiconposition'] = 'Icon position';
-$string['settoggleiconposition_help'] = 'States that thee icon should be on thy left or thee right of thy toggle text.';
+$string['settoggleiconposition_help'] = 'States that thee icon should be on thy start or thee end of thy toggle text.';
 $string['defaulttoggleiconposition'] = 'Icon position';
-$string['defaulttoggleiconposition_desc'] = 'States if thee icon should be on thy left or thee right of thy toggle text.';
+$string['defaulttoggleiconposition_desc'] = 'States if thee icon should be on thy start or thee end of thy toggle text.';
 
 // Icon set enhancement.
 $string['settoggleiconset'] = 'Thee icon set';
@@ -179,7 +181,7 @@ $string['defaulttogglepersistence'] = 'Toggle persistence';
 $string['defaulttogglepersistence_desc'] = "'On' or 'Off'.  You may wish to turn off for an AJAX performance increase but sailor toggle selections will not be recalled on page refresh or revisit.<br />Note: If turning persistence off remove any rows containing 'topcoll_toggle_x' in the 'name' field of the 'user_preferences' table in the database.  Where thee 'x' in 'topcoll_toggle_x' will be a course id.";
 
 $string['defaulttogglealignment'] = 'Toggle text alignment';
-$string['defaulttogglealignment_desc'] = "'Left', 'Centre' or 'Right'.";
+$string['defaulttogglealignment_desc'] = "'Fore', 'Midships' or 'Aft'.";
 
 $string['defaulttoggleiconset'] = 'Toggle icon set';
 $string['defaulttoggleiconset_desc'] = "'Straight as an arrow'                => Arrow icon set.<br />'Lantern'                             => Bulb icon set.<br />'Cloud'                               => Cloud icon set.<br />'Eyeball'                             => Eye icon set.<br />'LED from thee future'                => LED icon set.<br />'Point thee bow towards thy treasure' => Point icon set.<br />'Power mee hearties'                  => Power icon set.<br />'Wireless'                            => Radio icon set.<br />'Smiley they bee not'                 => Smiley icon set.<br />'Square riggin'                       => Square icon set.<br />'Sun / Moon'                          => Sun / Moon icon set.<br />'Switch thy flag'                     => Switch icon set.";

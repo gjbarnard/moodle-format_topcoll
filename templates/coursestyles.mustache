@@ -59,13 +59,12 @@
     /* <![CDATA[ */
 
     /* -- Toggle -- */
-    .course-content ul.ctopics li.section .content .toggle,
-    .course-content ul.ctopics li.section .content.sectionhidden {
+    .course-content ul.ctopics li.section .content .toggle {
         background-color: {{togglebackground}};
     }
     /* -- Toggle text -- */
     .course-content ul.ctopics li.section .content .toggle .the_toggle,
-    .course-content ul.ctopics li.section .content.sectionhidden {
+    .course-content ul.ctopics li.section .content.sectionhidden .toggle .no_toggle {
         color: {{toggleforegroundcolour}};
     }
     {{#tif}}
@@ -78,7 +77,7 @@
         text-align: {{togglealignment}};
     }
     {{/tif}}
-    .course-content ul.ctopics li.section .content.sectionhidden {
+    .course-content ul.ctopics li.section .content.sectionhidden .toggle .no_toggle {
         text-align: {{togglealignment}};
     }
     {{#toggleiconposition}}
@@ -119,7 +118,7 @@
     }
     {{/hulhc}}
     .course-content ul.ctopics li.section .content .toggle,
-    .course-content ul.ctopics li.section .content.sectionhidden {
+    .course-content ul.ctopics li.section .content.sectionhidden .no_toggle {
         border-top-left-radius: {{tcborderradiustl}}em;
         border-top-right-radius: {{tcborderradiustr}}em;
         border-bottom-right-radius: {{tcborderradiusbr}}em;

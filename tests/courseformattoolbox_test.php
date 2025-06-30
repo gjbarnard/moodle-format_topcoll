@@ -27,11 +27,13 @@
 namespace format_topcoll;
 
 use advanced_testcase;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Toolbox unit tests for the Collapsed Topics course format.
  * @group format_topcoll
  */
+#[Group('format_topcoll')]
 final class courseformattoolbox_test extends advanced_testcase {
     protected function setUp(): void {
         parent::setUp();

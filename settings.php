@@ -225,27 +225,27 @@ if ($ADMIN->fulltree) {
     $page->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     // Toggle text alignment.
-    // 1 = left, 2 = center and 3 = right - done this way to avoid typos.
+    // 1 = start, 2 = center and 3 = end - done this way to avoid typos.
     $name = 'format_topcoll/defaulttogglealignment';
     $title = get_string('defaulttogglealignment', 'format_topcoll');
     $description = get_string('defaulttogglealignment_desc', 'format_topcoll');
     $default = 2;
     $choices = [
-        1 => new lang_string('left', 'format_topcoll'), // Left.
+        1 => new lang_string('start', 'format_topcoll'), // Start.
         2 => new lang_string('center', 'format_topcoll'), // Centre.
-        3 => new lang_string('right', 'format_topcoll'), // Right.
+        3 => new lang_string('end', 'format_topcoll'), // End.
     ];
     $page->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     // Toggle icon position.
-    // 1 = left and 2 = right - done this way to avoid typos.
+    // 1 = start and 2 = end - done this way to avoid typos.
     $name = 'format_topcoll/defaulttoggleiconposition';
     $title = get_string('defaulttoggleiconposition', 'format_topcoll');
     $description = get_string('defaulttoggleiconposition_desc', 'format_topcoll');
     $default = 1;
     $choices = [
-        1 => new lang_string('left', 'format_topcoll'), // Left.
-        2 => new lang_string('right', 'format_topcoll'), // Right.
+        1 => new lang_string('start', 'format_topcoll'), // Start.
+        2 => new lang_string('end', 'format_topcoll'), // End.
     ];
     $page->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 

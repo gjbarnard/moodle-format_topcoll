@@ -1,6 +1,23 @@
 ﻿Version Information
 ===================
 
+Version 500.1.0 - 30/06/2025
+----------------------------
+1. Fix 'Section 0 does not appear in course index' - #162.
+2. Fix 'Bulk actions controls do not display after editing an activity' - #164.
+3. Fix 'Arrow icon is on Open all, Close all options in RTL languages' - #167.
+4. Improve 'togglealignment' for RTL in light of #167.
+5. Refactor 'side width' code / single section layout in light of #167.
+6. Remove Adaptable styles and instead adjust purely in theme.
+7. Add left margin to the toggle so that the icon does not conflict with the accessible border.
+8. Fix minimal column break point calculation.
+9. Fix course index not showing the same order or sections in the course.
+10. Fix 'Hidden sections are shown as not available - course format setting does not seem to work' - #168.
+11. Add PHP attributes for PHPUnit.  Leaving doc-comments for now as attributes work in PHPUnit 10 (I think).  Refs:
+    https://github.com/sebastianbergmann/phpunit/issues/4502
+    https://docs.phpunit.de/en/10.5/attributes.html
+    https://www.php.net/manual/en/language.attributes.overview.php
+
 Version 500.0.1 - 21/04/2025
 ----------------------------
 1. First Moodle 5.0 version.

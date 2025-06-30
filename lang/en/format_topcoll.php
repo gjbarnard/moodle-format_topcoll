@@ -217,9 +217,11 @@ $string['ctreset_help'] = 'Reset to Collapsed Topics defaults.';
 // Toggle alignment - CONTRIB-4098.
 $string['settogglealignment'] = 'Toggle text alignment';
 $string['settogglealignment_help'] = 'Sets the alignment of the text in the toggle.';
+$string['end'] = 'End';
 $string['left'] = 'Left';
 $string['center'] = 'Centre';
 $string['right'] = 'Right';
+$string['start'] = 'Start';
 $string['resettogglealignment'] = 'Toggle alignment';
 $string['resetalltogglealignment'] = 'Toggle alignments';
 $string['resettogglealignment_help'] = 'Resets the toggle alignment to follow the site default value.';
@@ -227,9 +229,9 @@ $string['resetalltogglealignment_help'] = 'Resets all the toggle alignment to fo
 
 // Icon position - CONTRIB-4470.
 $string['settoggleiconposition'] = 'Icon position';
-$string['settoggleiconposition_help'] = 'States that the icon should be on the left or the right of the toggle text.';
+$string['settoggleiconposition_help'] = 'States that the icon should be on the start or end of the toggle text.';
 $string['defaulttoggleiconposition'] = 'Icon position';
-$string['defaulttoggleiconposition_desc'] = 'States if the icon should be on the left or the right of the toggle text.';
+$string['defaulttoggleiconposition_desc'] = 'States if the icon should be on the start or the end of the toggle text.';
 
 // Icon set enhancement.
 $string['settoggleiconset'] = 'Icon set';
@@ -310,7 +312,7 @@ $string['defaulttgbghvrcolour'] = 'Toggle background hover colour';
 $string['defaulttgbghvrcolour_desc'] = "Toggle background hover colour in hexidecimal RGB.";
 
 $string['defaulttogglealignment'] = 'Toggle text alignment';
-$string['defaulttogglealignment_desc'] = "'Left', 'Centre' or 'Right'.";
+$string['defaulttogglealignment_desc'] = "'Start', 'Centre' or 'End'.";
 
 $string['defaulttoggleiconset'] = 'Toggle icon set';
 $string['defaulttoggleiconset_desc'] = '<table><tbody><tr><td>Arrow</td><td>{$a->arrow}</td></tr><tr><td>Bulb</td><td>{$a->bulb}</td></tr><tr><td>Cloud</td><td>{$a->cloud}</td></tr><tr><td>Eye</td><td>{$a->eye}</td></tr><tr><td>Folder</td><td>{$a->folder}</td></tr><tr><td>Ground Signal</td><td>{$a->groundsignal}</td></tr><tr><td>Light Emitting Diode</td><td>{$a->led}</td></tr><tr><td>Point</td><td>{$a->point}</td></tr><tr><td>Power</td><td>{$a->power}</td></tr><tr><td>Radio</td><td>{$a->radio}</td></tr><tr><td>Smiley</td><td>{$a->smiley}</td></tr><tr><td>Square</td><td>{$a->square}</td></tr><tr><td>Sun / Moon</td><td>{$a->sunmoon}</td></tr><tr><td>Switch</td><td>{$a->switch}</td></tr><tr><td>Icon font</td><td>{$a->tif}</td></tr></tbody></table>';

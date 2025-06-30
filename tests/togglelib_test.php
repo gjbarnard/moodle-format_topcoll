@@ -28,11 +28,13 @@ namespace format_topcoll;
 
 use advanced_testcase;
 use format_topcoll\togglelib;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Togglelib unit tests for the Collapsed Topics course format.
  * @group format_topcoll
  */
+#[Group('format_topcoll')]
 final class togglelib_test extends advanced_testcase {
     public function test_decode_toggle_state(): void {
         $togglelib = new togglelib();

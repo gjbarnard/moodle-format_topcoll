@@ -33,6 +33,7 @@ use core_privacy\tests\provider_testcase;
 use core_user;
 use format_topcoll\privacy\provider;
 use format_topcoll\togglelib;
+use PHPUnit\Framework\Attributes\Group;
 use ReflectionClass;
 use ReflectionProperty;
 
@@ -40,6 +41,7 @@ use ReflectionProperty;
  * Privacy unit tests for the Collapsed Topics course format.
  * @group format_topcoll
  */
+#[Group('format_topcoll')]
 final class privacy_provider_test extends provider_testcase {
     /** @var class $outputus */
     protected $outputus;
