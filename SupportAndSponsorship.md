@@ -18,8 +18,8 @@ enhanced over the years in addition to coping with the API changes.
 If you'd like to sponsor, get support or fund improvements, then please do get in touch via:
 
 - gjbarnard | Gmail dt com address.
+- My website eMail | contact at gjbarnard dt co dt uk.
 - GitHub | Please outline your issue / improvement on '[GitHub](https://github.com/gjbarnard/moodle-format_topcoll/issues)'.
-- @gjbarnard | '[X](https://twitter.com/gjbarnard)'.
 
 Sponsors
 ========
@@ -78,6 +78,5 @@ Developed and maintained by
 G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE.
 
 - Moodle profile | [Moodle.org](https://moodle.org/user/profile.php?id=442195)
-- @gjbarnard     | [X](https://twitter.com/gjbarnard)
 - Web profile    | [About.me](https://about.me/gjbarnard)
 - Website        | [Website](https://gjbarnard.co.uk)

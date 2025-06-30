@@ -1,6 +1,19 @@
 ﻿Version Information
 ===================
 
+Version 405.1.1 - 30/06/2025
+----------------------------
+1. Fix 'Section 0 does not appear in course index' - #162.
+2. Fix 'Bulk actions controls do not display after editing an activity' - #164.
+3. Fix 'Arrow icon is on Open all, Close all options in RTL languages' - #167.
+4. Improve 'togglealignment' for RTL in light of #167.
+5. Refactor 'side width' code / single section layout in light of #167.
+6. Remove Adaptable styles and instead adjust purely in theme.
+7. Add left margin to the toggle so that the icon does not conflict with the accessible border.
+8. Fix minimal column break point calculation.
+9. Fix course index not showing the same order or sections in the course.
+10. Fix 'Hidden sections are shown as not available - course format setting does not seem to work' - #168.
+
 Version 405.1.0 - 21/04/2025
 ----------------------------
 1. Fix 'ARIA attribute for accessibility: aria-labelledby' - #160.

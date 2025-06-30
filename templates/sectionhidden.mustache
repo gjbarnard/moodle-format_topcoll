@@ -44,33 +44,38 @@
         "sectionavailability": '<div class="section_availability"><div class="availabilityinfo ishidden"><span class="badge badge-info">Not available</span></div></div>',
         "sectionid": "124",
         "sectionno": "1",
-        "title": "The hidden section"
+        "title": "The hidden section",
+        "toggleiconsize": "tc-medium"
     }
 }}
 <li id="section-{{sectionno}}" class="section main course-section clearfix hidden{{#columnclass}} {{columnclass}}{{/columnclass}}"{{#columnwidth}} style="width: {{columnwidth}}%;"{{/columnwidth}} role="region" aria-labelledby="sectionid-{{sectionid}}-title" data-sectionid="{{sectionno}}" data-for="section">
-{{#nomtore}}
+    {{#nomtore}}
     {{^rtl}}
-    <div class="left side">{{{leftcontent}}}</div>
+        {{{leftcontent}}}
     {{/rtl}}
     {{#rtl}}
-    <div class="right side">{{{rightcontent}}}</div>
+        {{{rightcontent}}}
     {{/rtl}}
-{{/nomtore}}
+    {{/nomtore}}
     <div class="content sectionhidden">
     {{#nomtore}}
-        {{{heading}}}
+        <div id="toggle-{{sectionno}}" class="sectionhead toggle">
+            <span class="no_toggle {{toggleiconsize}}">
+                {{{heading}}}
+            </span>
+        </div>
     {{/nomtore}}
     {{^nomtore}}
-        <h3 id="sectionid-{{sectionid}}-title">{{{title}}}</h3>
+        <h3 id="sectionid-{{sectionid}}-title" class="section-title">{{{title}}}</h3>
     {{/nomtore}}
         {{{sectionavailability}}}
+    {{#nomtore}}
     </div>
-{{#nomtore}}
     {{^rtl}}
-    <div class="right side">{{{rightcontent}}}</div>
+        {{{rightcontent}}}
     {{/rtl}}
     {{#rtl}}
-    <div class="left side">{{{leftcontent}}}</div>
+        {{{leftcontent}}}
     {{/rtl}}
-{{/nomtore}}
+    {{/nomtore}}
 </li>

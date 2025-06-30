@@ -2,19 +2,18 @@
     /* <![CDATA[ */
 
     /* -- Toggle -- */
-    .course-content ul.ctopics li.section .content .toggle,
-    .course-content ul.ctopics li.section .content.sectionhidden {
+    .course-content ul.ctopics li.section .content .toggle {
         background-color: rgba(17, 119, 209, 1.0);
     }
     /* -- Toggle text -- */
     .course-content ul.ctopics li.section .content .toggle .the_toggle,
-    .course-content ul.ctopics li.section .content.sectionhidden {
+    .course-content ul.ctopics li.section .content.sectionhidden .toggle .no_toggle {
         color: rgba(238, 238, 238, 1.0);
     }
     .course-content ul.ctopics li.section .content .toggle .the_toggle {
         text-align: center;
     }
-    .course-content ul.ctopics li.section .content.sectionhidden {
+    .course-content ul.ctopics li.section .content.sectionhidden .toggle .no_toggle {
         text-align: center;
     }
     /* Toggle icon position. */
@@ -42,7 +41,7 @@
         width: 28px;
     }
     .course-content ul.ctopics li.section .content .toggle,
-    .course-content ul.ctopics li.section .content.sectionhidden {
+    .course-content ul.ctopics li.section .content.sectionhidden .no_toggle {
         border-top-left-radius: 0.0em;
         border-top-right-radius: 1.2em;
         border-bottom-right-radius: 0.4em;

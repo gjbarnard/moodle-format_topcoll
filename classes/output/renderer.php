@@ -106,7 +106,7 @@ class renderer extends section_renderer {
            other managing capability. */
         $page->set_other_editing_capability('moodle/course:setcurrentsection');
 
-        $this->userisediting = $page->user_is_editing();
+        $this->userisediting = $this->courseformat->show_editor();
         $this->tconesectioniconfont = get_config('format_topcoll', 'defaultonesectioniconfont');
         $this->tctoggleiconsize = get_config('format_topcoll', 'defaulttoggleiconsize');
         $this->formatresponsive = get_config('format_topcoll', 'formatresponsive');
@@ -271,7 +271,7 @@ class renderer extends section_renderer {
                 $widgetclass = $this->courseformat->get_output_classname('content\\section\\controlmenu');
                 $widget = new $widgetclass($this->courseformat, $section);
                 $o .= $this->render($widget);
-            } else if ((!$onsectionpage) && (!$sectionishidden)) {
+            } else if (!$onsectionpage) {
                 if (empty($this->tcsettings)) {
                     $this->tcsettings = $this->courseformat->get_settings();
                 }
@@ -286,29 +286,49 @@ class renderer extends section_renderer {
                     $topictext = get_string('setlayoutstructureday', 'format_topcoll');
                 }
                 if ($this->tcsettings['viewsinglesectionenabled'] == 2) {
-                    $title = get_string('viewonly', 'format_topcoll', ['sectionname' => $topictext . ' ' . $section->section]);
-                    switch ($this->tcsettings['layoutelement']) { // Toggle section x.
-                        case 1:
-                        case 3:
-                        case 5:
-                        case 8:
-                            $o .= html_writer::link(
-                                $url,
-                                $topictext . html_writer::empty_tag('br') .
-                                $section->section,
-                                ['title' => $title, 'class' => 'cps_centre']
-                            );
-                            break;
-                        default:
-                            $o .= html_writer::link(
-                                $url,
-                                $this->one_section_icon($title),
-                                ['title' => $title, 'class' => 'cps_centre']
-                            );
-                            break;
+                    if ($sectionishidden) {
+                        switch ($this->tcsettings['layoutelement']) { // Toggle section x.
+                            case 1:
+                            case 3:
+                            case 5:
+                            case 8:
+                                $o .= html_writer::tag(
+                                    'span',
+                                    $topictext . html_writer::empty_tag('br') .
+                                    $section->section,
+                                    ['class' => 'cps_centre']
+                                );
+                                break;
+                        }
+                    } else {
+                        $title = get_string('viewonly', 'format_topcoll', ['sectionname' => $topictext . ' ' . $section->section]);
+                        switch ($this->tcsettings['layoutelement']) { // Toggle section x.
+                            case 1:
+                            case 3:
+                            case 5:
+                            case 8:
+                                $o .= html_writer::link(
+                                    $url,
+                                    $topictext . html_writer::empty_tag('br') .
+                                    $section->section,
+                                    ['title' => $title, 'class' => 'cps_centre']
+                                );
+                                break;
+                            default:
+                                $o .= html_writer::link(
+                                    $url,
+                                    $this->one_section_icon($title),
+                                    ['title' => $title, 'class' => 'cps_centre']
+                                );
+                                break;
+                        }
                     }
                 }
             }
+        }
+
+        if (!empty($o) || ($this->userisediting)) {
+            $o = html_writer::tag('div', $o, ['class' => 'right side']);
         }
 
         return $o;
@@ -365,6 +385,11 @@ class renderer extends section_renderer {
                     break;
             }
         }
+
+        if (!empty($o) || ($this->userisediting)) {
+            $o = html_writer::tag('div', $o, ['class' => 'left side']);
+        }
+
         return $o;
     }
 
@@ -629,10 +654,10 @@ class renderer extends section_renderer {
         } else {
             switch ($this->tcsettings['toggleiconposition']) {
                 case 2:
-                    $sectioncontext['togglepos'] = 'right';
+                    $sectioncontext['toggleiconposition'] = 'end';
                     break;
                 default:
-                    $sectioncontext['togglepos'] = 'left';
+                    $sectioncontext['toggleiconposition'] = 'start';
             }
             $sectioncontext['toggleiconset'] = $this->tcsettings['toggleiconset'];
         }
@@ -717,6 +742,7 @@ class renderer extends section_renderer {
             $sectionhiddencontext['leftcontent'] = $this->section_left_content($section, $course, false);
             $sectionhiddencontext['rightcontent'] = $this->section_right_content($section, $course, false, true);
             $sectionhiddencontext['heading'] = $this->section_heading($section, $title, 'section-title');
+            $sectionhiddencontext['toggleiconsize'] = $this->tctoggleiconsize;
         } else {
             $sectionhiddencontext['title'] = $title;
         }
@@ -775,8 +801,9 @@ class renderer extends section_renderer {
         }
         $sectionname = $this->section_title_without_link($thissection, $course);
         $singlesectioncontext['sectiontitle'] = $this->section_heading($thissection, $sectionname, $classes);
+        $singlesectioncontext['bulkedittools'] = $this->bulkedittools();
 
-        return $this->render_from_template('format_topcoll/singlesection', $singlesectioncontext);
+        return $this->single_section_styles().$this->render_from_template('format_topcoll/singlesection', $singlesectioncontext);
     }
 
     /**
@@ -802,60 +829,23 @@ class renderer extends section_renderer {
         }
         $content .= $this->start_section_list();
 
-        $sections = $modinfo->get_section_info_all();
-        $sectionskeys = array_keys($sections);
+        $shownsectionsinfo = $this->courseformat->get_shown_sections();
 
         // General section if non-empty.
-        $thissection = $sections[0];
-        unset($sections[0]);
-        if ($this->courseformat->is_section_visible($thissection)) {
-            $content .= $this->topcoll_section($thissection, $course, false);
+        if (!empty($shownsectionsinfo['sectionzero'])) {
+            $content .= $this->topcoll_section($shownsectionsinfo['sectionzero'], $course, false);
         }
 
         $shownonetoggle = false;
-        $coursenumsections = $this->courseformat->get_last_section_number_without_deligated();
-        if ($coursenumsections > 0) {
-            $sectiondisplayarray = [];
+        if ($shownsectionsinfo['coursenumsections'] > 0) {
             $sectionoutput = '';
             $toggledsections = [];
-            $currentsectionfirst = false;
-            if (($this->tcsettings['layoutstructure'] == 4) && (!$this->userisediting)) {
-                $currentsectionfirst = true;
+
+            $numshownsections = count($shownsectionsinfo['sectionsdisplayed']);
+            if ($numshownsections < $this->tcsettings['layoutcolumns']) {
+                $this->tcsettings['layoutcolumns'] = $numshownsections;  // Help to ensure a reasonable display.
             }
 
-            if (($this->tcsettings['layoutstructure'] != 3) || ($this->userisediting)) {
-                $section = 1;
-            } else {
-                $timenow = time();
-                $weekofseconds = 604800;
-                $course->enddate = $course->startdate + ($weekofseconds * $coursenumsections);
-                $section = $coursenumsections;
-                $weekdate = $course->enddate;      // This should be 0:00 Monday of that week.
-                $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems.
-            }
-
-            $numsections = $coursenumsections; // Because we want to manipulate this for column breakpoints.
-            if (($this->tcsettings['layoutstructure'] == 3) && ($this->userisediting == false)) {
-                $loopsection = 1;
-                $numsections = 0;
-                while ($loopsection <= $coursenumsections) {
-                    $nextweekdate = $weekdate - ($weekofseconds);
-                    if (($this->courseformat->is_section_visible($thissection)) && ($nextweekdate <= $timenow)) {
-                        $numsections++; // Section is shown so do count in columns calculation.
-                    }
-                    $weekdate = $nextweekdate;
-                    $section--;
-                    $loopsection++;
-                }
-                // Reset.
-                $section = $coursenumsections;
-                $weekdate = $course->enddate;      // This should be 0:00 Monday of that week.
-                $weekdate -= 7200;                 // Subtract two hours to avoid possible DST problems.
-            }
-
-            if ($numsections < $this->tcsettings['layoutcolumns']) {
-                $this->tcsettings['layoutcolumns'] = $numsections;  // Help to ensure a reasonable display.
-            }
             if (($this->tcsettings['layoutcolumns'] > 1) && ($this->mobiletheme === false)) {
                 if ($this->tcsettings['layoutcolumns'] > 4) {
                     // Default in config.php (and reset in database) or database has been changed incorrectly.
@@ -895,90 +885,28 @@ class renderer extends section_renderer {
 
             $sectionoutput .= $this->start_toggle_section_list();
 
-            $loopsection = 1;
-            $breaking = false; // Once the first section is shown we can decide if we break on another column.
-
             $extrasectioninfo = [];
-            while ($loopsection <= $coursenumsections) {
-                if (($this->tcsettings['layoutstructure'] == 3) && ($this->userisediting == false)) {
-                    $nextweekdate = $weekdate - ($weekofseconds);
-                }
-                $thissection = $modinfo->get_section_info($sectionskeys[$section]);
-                $extrasectioninfo[$thissection->id] = new stdClass();
+            foreach ($shownsectionsinfo['sectionsdisplayed'] as $displayedsection) {
+                $extrasectioninfo[$displayedsection->id] = new stdClass();
 
-                /* Show the section if the user is permitted to access it, OR if it's not available
-                   but there is some available info text which explains the reason & should display. */
-                $showsection = ($this->courseformat->is_section_visible($thissection));
-                if ($showsection && ($this->tcsettings['layoutstructure'] == 3) && (!$this->userisediting)) {
-                    $showsection = ($nextweekdate <= $timenow);
-                }
-
-                if ($currentsectionfirst && $showsection) {
-                    // Show the section if we were meant to and it is the current section:....
-                    $showsection = ($course->marker == $section);
-                } else if (
-                    ($this->tcsettings['layoutstructure'] == 4) &&
-                    ($course->marker == $section) && (!$this->userisediting)
-                ) {
-                    $showsection = false; // Do not reshow current section.
-                }
-                if ($showsection) {
-                    if ($this->courseformat->is_section_current($thissection)) {
-                        $this->currentsection = $thissection->section;
-                        $extrasectioninfo[$thissection->id]->toggle = true; // Open current section regardless of toggle state.
-                        $this->togglelib->set_toggle_state($thissection->section, true);
-                    } else {
-                        $extrasectioninfo[$thissection->id]->toggle = $this->togglelib->get_toggle_state($thissection->section);
-                    }
-
-                    $extrasectioninfo[$thissection->id]->isshown = true;
-                    $sectiondisplayarray[] = $thissection;
+                if (in_array($displayedsection->id, $shownsectionsinfo['hiddensectionids'])) {
+                    // Shown hidden section - to state that it is hidden.
+                    $extrasectioninfo[$displayedsection->id]->ishidden = true;
                 } else {
-                    // Hidden section message is overridden by 'unavailable' control.
-                    $testhidden = false;
-                    if ($this->tcsettings['layoutstructure'] != 4) {
-                        if (($this->tcsettings['layoutstructure'] != 3) || ($this->userisediting)) {
-                            $testhidden = true;
-                        } else if ($nextweekdate <= $timenow) {
-                            $testhidden = true;
-                        }
+                    if ((!empty($shownsectionsinfo['currentsectionno'])) &&
+                        ($shownsectionsinfo['currentsectionno'] == $displayedsection->section)) {
+                        $this->currentsection = $shownsectionsinfo['currentsectionno'];
+                        $extrasectioninfo[$displayedsection->id]->toggle = true; // Open current section regardless of toggle state.
+                        $this->togglelib->set_toggle_state($displayedsection->section, true);
                     } else {
-                        if (($currentsectionfirst == true) && ($course->marker == $section)) {
-                            $testhidden = true;
-                        } else if (($currentsectionfirst == false) && ($course->marker != $section)) {
-                            $testhidden = true;
-                        }
+                        $extrasectioninfo[$displayedsection->id]->toggle =
+                            $this->togglelib->get_toggle_state($displayedsection->section);
                     }
-                    if ($testhidden) {
-                        if (!$course->hiddensections && $thissection->available) {
-                            $extrasectioninfo[$thissection->id]->ishidden = true;
-                            $sectiondisplayarray[] = $thissection;
-                        }
-                    }
-                }
-
-                if (($this->tcsettings['layoutstructure'] != 3) || ($this->userisediting)) {
-                    $section++;
-                } else {
-                    $section--;
-                    if (($this->tcsettings['layoutstructure'] == 3) && ($this->userisediting == false)) {
-                        $weekdate = $nextweekdate;
-                    }
-                }
-
-                $loopsection++;
-                if (($currentsectionfirst == true) && ($loopsection > $coursenumsections)) {
-                    // Now show the rest.
-                    $currentsectionfirst = false;
-                    $loopsection = 1;
-                    $section = 1;
-                }
-                if ($section > $coursenumsections) {
-                    // Activities inside this section are 'orphaned', this section will be printed as 'stealth' below.
-                    break;
+                    $extrasectioninfo[$displayedsection->id]->isshown = true;
                 }
             }
 
+            $breaking = false; // Once the first section is shown we can decide if we break on another column.
             $canbreak = (
                 (!$this->userisediting) &&
                 ($this->tcsettings['layoutcolumns'] > 1) &&
@@ -991,33 +919,32 @@ class renderer extends section_renderer {
                 $shownonetoggle = $this->currentsection; // One toggle open only, so as we have a current section it will be it.
             }
 
-            $numshownsections = count($sectiondisplayarray);
-            foreach ($sectiondisplayarray as $thissection) {
+            foreach ($shownsectionsinfo['sectionsdisplayed'] as $displayedsection) {
                 $shownsectioncount++;
 
-                if (!empty($extrasectioninfo[$thissection->id]->ishidden)) {
-                    $sectionoutput .= $this->section_hidden($thissection);
-                } else if (!empty($thissection->issummary)) {
-                    $sectionoutput .= $this->section_summary($thissection, $course, null);
-                } else if (!empty($extrasectioninfo[$thissection->id]->isshown)) {
+                if (!empty($extrasectioninfo[$displayedsection->id]->ishidden)) {
+                    $sectionoutput .= $this->section_hidden($displayedsection);
+                } else if (!empty($displayedsection->issummary)) {
+                    $sectionoutput .= $this->section_summary($displayedsection, $course, null);
+                } else if (!empty($extrasectioninfo[$displayedsection->id]->isshown)) {
                     if ($this->tcsettings['onesection'] == 2) {
-                        if ($extrasectioninfo[$thissection->id]->toggle) {
+                        if ($extrasectioninfo[$displayedsection->id]->toggle) {
                             if (!empty($shownonetoggle)) {
                                 // Make sure the current section is not closed if set above.
-                                if ($shownonetoggle != $thissection->section) {
+                                if ($shownonetoggle != $displayedsection->section) {
                                     // There is already a toggle open so others need to be closed.
-                                    $thissection->toggle = false;
-                                    $this->togglelib->set_toggle_state($thissection->section, false);
+                                    $displayedsection->toggle = false;
+                                    $this->togglelib->set_toggle_state($displayedsection->section, false);
                                 }
                             } else {
                                 // No open toggle, so as this is the first, it can be the one.
-                                $shownonetoggle = $thissection->section;
+                                $shownonetoggle = $displayedsection->section;
                             }
                         }
                     }
-                    $sectionoutput .= $this->topcoll_section($thissection, $course, false,
-                            null, $extrasectioninfo[$thissection->id]->toggle);
-                    $toggledsections[] = $thissection->section;
+                    $sectionoutput .= $this->topcoll_section($displayedsection, $course, false,
+                            null, $extrasectioninfo[$displayedsection->id]->toggle);
+                    $toggledsections[] = $displayedsection->section;
                 }
 
                 // Check for breaking up the structure with rows if more than one column and when we output all of the sections.
@@ -1057,11 +984,9 @@ class renderer extends section_renderer {
                         }
                     }
                 }
-
-                unset($sections[$thissection->section]);
             }
 
-            if ($coursenumsections > 1) {
+            if ($shownsectionsinfo['coursenumsections'] > 1) {
                 if ($this->tcsettings['toggleallenabled'] == 2) {
                     if ($this->tcsettings['onesection'] == 1) {
                         // Collapsed Topics all toggles.
@@ -1086,7 +1011,7 @@ class renderer extends section_renderer {
                     continue;
                 }
                 $sectionno = $thissection->section;
-                if ($sectionno <= $coursenumsections || empty($modinfo->sections[$sectionno])) {
+                if ($sectionno <= $shownsectionsinfo['coursenumsections'] || empty($modinfo->sections[$sectionno])) {
                     // This is not stealth section or it is empty.
                     continue;
                 }
@@ -1094,7 +1019,7 @@ class renderer extends section_renderer {
             }
         }
         $content .= $this->end_section_list();
-        if ($coursenumsections > 0) {
+        if ($shownsectionsinfo['coursenumsections'] > 0) {
             if ((!$this->formatresponsive) && ($this->tcsettings['layoutcolumnorientation'] == 1)) { // Vertical columns.
                 $content .= html_writer::end_tag('div');
             }
@@ -1200,10 +1125,10 @@ class renderer extends section_renderer {
         }
         switch ($this->tcsettings['togglealignment']) {
             case 1:
-                $coursestylescontext['togglealignment'] = 'left';
+                $coursestylescontext['togglealignment'] = ($this->rtl) ? 'right' : 'left';
                 break;
             case 3:
-                $coursestylescontext['togglealignment'] = 'right';
+                $coursestylescontext['togglealignment'] = ($this->rtl) ? 'left' : 'right';
                 break;
             default:
                 $coursestylescontext['togglealignment'] = 'center';
@@ -1211,10 +1136,10 @@ class renderer extends section_renderer {
         if (!$coursestylescontext['tif']) {
             switch ($this->tcsettings['toggleiconposition']) {
                 case 2:
-                    $coursestylescontext['toggleiconposition'] = 'right';
+                    $coursestylescontext['toggleiconposition'] = ($this->rtl) ? 'left' : 'right';
                     break;
                 default:
-                    $coursestylescontext['toggleiconposition'] = 'left';
+                    $coursestylescontext['toggleiconposition'] = ($this->rtl) ? 'right' : 'left';
             }
         }
         $coursestylescontext['toggleforegroundhovercolour'] = toolbox::hex2rgba(
@@ -1226,25 +1151,11 @@ class renderer extends section_renderer {
             $this->tcsettings['togglebackgroundhoveropacity']
         );
 
-        $topcollsidewidth = get_string('topcollsidewidthlang', 'format_topcoll');
-        $topcollsidewidthdelim = strpos($topcollsidewidth, '-');
-        $topcollsidewidthlang = strcmp(substr($topcollsidewidth, 0, $topcollsidewidthdelim), current_language());
-        $topcollsidewidthval = substr($topcollsidewidth, $topcollsidewidthdelim + 1);
-        // Dynamically changing widths with language.
-        if (
-            (!$this->userisediting) &&
-            (($this->mobiletheme == false) &&
-            ($this->tablettheme == false)) &&
-            ($topcollsidewidthlang == 0)
-        ) {
-            $coursestylescontext['topcollsidewidthval'] = $topcollsidewidthval;
-        } else if ($this->userisediting) {
-            $coursestylescontext['topcollsidewidthval'] = '40px';
-        }
+        $coursestylescontext['topcollsidewidthval'] = $this->calc_topcollsidewidth();
 
-        // Make room for editing icons.
-        if ((!$this->userisediting) && ($topcollsidewidthlang == 0)) {
-            $coursestylescontext['topcollsidewidthvalicons'] = $topcollsidewidthval;
+        // Make room for single section icon.
+        if (!$this->userisediting) {
+            $coursestylescontext['topcollsidewidthvalicons'] = $coursestylescontext['topcollsidewidthval'];
         }
 
         // Establish horizontal unordered list for horizontal columns.
@@ -1271,6 +1182,64 @@ class renderer extends section_renderer {
         );
 
         return $this->render_from_template('format_topcoll/coursestyles', $coursestylescontext);
+    }
+
+    /**
+     * The single section styles.
+     * @return string HTML to output.
+     */
+    protected function single_section_styles() {
+        if (empty($this->tcsettings)) {
+            $this->tcsettings = $this->courseformat->get_settings();
+        }
+
+        $singlesectionstylescontext = [];
+        $singlesectionstylescontext['topcollsidewidthval'] = $this->calc_topcollsidewidth();
+
+        return $this->render_from_template('format_topcoll/singlesectionstyles', $singlesectionstylescontext);
+    }
+
+    /**
+     * Calculate the side width.
+     * @return string Side width.
+     */
+    protected function calc_topcollsidewidth() {
+        if (empty($this->tcsettings)) {
+            $this->tcsettings = $this->courseformat->get_settings();
+        }
+        if (!$this->userisediting) {
+            if (($this->tcsettings['layoutelement'] != 4) && ($this->tcsettings['layoutelement'] != 7)) {
+                $topcollsidewidth = get_string('topcollsidewidthlang', 'format_topcoll');
+                $topcollsidewidthdelim = strpos($topcollsidewidth, '-');
+                $topcollsidewidthlang = strcmp(substr($topcollsidewidth, 0, $topcollsidewidthdelim), current_language());
+                if ($topcollsidewidthlang != 0) {
+                    // Could have defaulted to 'en', so check.
+                    $topcollsidewidthlang = strcmp(substr($topcollsidewidth, 0, $topcollsidewidthdelim), 'en');
+                    if ($topcollsidewidthlang == 0) {
+                        // We have defaulted to 'en', so have a default.
+                        $topcollsidewidthval = '42px';
+                    }
+                }
+                if (empty($topcollsidewidthval)) {
+                    // Dynamically changing widths with language.
+                    if ((($this->mobiletheme == false) &&
+                        ($this->tablettheme == false)) &&
+                        ($topcollsidewidthlang == 0)
+                    ) {
+                        $topcollsidewidthval = substr($topcollsidewidth, $topcollsidewidthdelim + 1);
+                    } else {
+                        // Default.
+                        $topcollsidewidthval = '28px';
+                    }
+                }
+            } else {
+                $topcollsidewidthval = '28px';
+            }
+        } else {
+            // Default.
+            $topcollsidewidthval = '40px';
+        }
+        return $topcollsidewidthval;
     }
 
     /**

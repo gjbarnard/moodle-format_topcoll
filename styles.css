@@ -38,12 +38,6 @@
     vertical-align: top;
 }
 
-.course-content ul.ctopics li.section.main .left,
-.course-content ul.ctopics li.section.main .right {
-    /* Fix for Bootstrap V3 based themes in less/moodle/course.less . */
-    display: block;
-}
-
 .format-topcoll #region-main {
     overflow-x: inherit;
 }
@@ -72,6 +66,7 @@
 .course-content ul.ctopics .content .summarytext ul {
     list-style: disc outside none;
 }
+
 .course-content ul.ctopics .content .summary ol,
 .course-content ul.ctopics .content .summarytext ol {
     list-style: decimal outside none;
@@ -79,14 +74,14 @@
 
 .course-content ul.ctopics li.section.main > .content,
 .course-content ul.ctopics li.tcsection .content {
-    /* Default for non tablets / mobiles.  If the language file has 'topcollsidewidth' for the current language, then will be set in format.php. */
+    /* Default for non tablets / mobiles. */
     margin: 0 40px;
     padding: 0;
 }
 
 .course-content ul.ctopics.ctportable li.section.main .content,
 .course-content ul.ctopics.ctportable li.tcsection .content {
-    margin: 0 0; /* Override default for tablets / mobiles.  When have sides, set in format.php. */
+    margin: 0;
 }
 
 .course-content ul.ctopics li .content .sectionhead h3 {
@@ -118,31 +113,38 @@
 }
 
 /* -- Set the clickable element of the Toggle -- */
-.course-content ul.ctopics li.section .content .toggle .the_toggle {
+.course-content ul.ctopics li.section .content .toggle .the_toggle,
+.course-content ul.ctopics li.section .content.sectionhidden .toggle .no_toggle {
     display: block;
     padding-bottom: 6px;
     padding-top: 6px;
     width: auto;
 }
 
-.course-content ul.ctopics li.section .content .toggle .the_toggle.tc-small {
-    padding-left: 16px; /* The 16px allows the arrow to be with the text next to it. */
+.course-content ul.ctopics li.section .content .toggle .the_toggle.tc-small,
+.course-content ul.ctopics li.section .content.sectionhidden .toggle .no_toggle.tc-small {
+    /* The 16px allows the icon to be with the text next to it or symmetrical with hidden sections.*/
+    padding-left: 16px;
     padding-right: 16px;
 }
 
-.course-content ul.ctopics li.section .content .toggle .the_toggle.tc-medium {
-    padding-left: 24px; /* The 24px allows the arrow to be with the text next to it. */
+.course-content ul.ctopics li.section .content .toggle .the_toggle.tc-medium,
+.course-content ul.ctopics li.section .content.sectionhidden .toggle .no_toggle.tc-medium {
+    /* The 24px allows the icon to be with the text next to it or symmetrical with hidden sections.*/
+    padding-left: 24px;
     padding-right: 24px;
 }
 
-.course-content ul.ctopics li.section .content .toggle .the_toggle.tc-large {
-    padding-left: 32px; /* The 32px allows the arrow to be with the text next to it. */
+.course-content ul.ctopics li.section .content .toggle .the_toggle.tc-large,
+.course-content ul.ctopics li.section .content.sectionhidden .toggle .no_toggle.tc-large {
+    /* The 32px allows the icon to be with the text next to it or symmetrical with hidden sections.*/
+    padding-left: 32px;
     padding-right: 32px;
 }
 
 /* CONTRIB-4106 */
 .course-content ul.ctopics li.section .content .toggle .the_toggle .sectionname,
-.course-content ul.ctopics li.section .content.sectionhidden .sectionname {
+.course-content ul.ctopics li.section .content.sectionhidden .no_toggle .section-title {
     margin: 4px;
     word-wrap: break-word;
 }
@@ -151,10 +153,7 @@
 .course-content ul.ctopics li.section .content .toggle .the_toggle .sectionname a,
 .course-content ul.ctopics li.section .content .toggle .the_toggle .sectionname a:hover,
 .course-content ul.ctopics li.section .content .toggle .the_toggle .sectionname a:focus,
-.course-content ul.ctopics li.section .content.sectionhidden .sectionname,
-.course-content ul.ctopics li.section .content.sectionhidden .sectionname a,
-.course-content ul.ctopics li.section .content.sectionhidden .sectionname a:hover,
-.course-content ul.ctopics li.section .content.sectionhidden .sectionname a:focus {
+.course-content ul.ctopics li.section .content.sectionhidden .toggle .no_toggle .section-title {
     color: inherit;
 }
 
@@ -168,6 +167,7 @@
 #toggle-all .content .toggle-all {
     background-color: transparent;
     background-repeat: no-repeat;
+    margin-left: 4px;
     margin-right: 4px;
 }
 
@@ -599,11 +599,13 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
 }
 
 .course-content ul.ctopics li.current.main .right {
-    padding: 0 0 0 0; /* Cancel out effect of above when having to use 'left' side selector for getting the correct text colour on the right for the current section.  This is because the selector '.course-content .current .left' defines the colour in the theme and therefore any CT specific 'right' implementation would not work for all themes. */
+    padding: 0; /* Cancel out effect of above when having to use 'left' side selector for getting the correct text colour on the right for the current section.  This is because the selector '.course-content .current .left' defines the colour in the theme and therefore any CT specific 'right' implementation would not work for all themes. */
 }
 
-.course-content ul.ctopics li.section .right,
-.course-content ul.ctopics li.tcsection .right {
+.dir-ltr .course-content ul.ctopics li.section .right,
+.dir-ltr .course-content ul.ctopics li.tcsection .right,
+.dir-rtl .course-content ul.ctopics li.section .left,
+.dir-rtl .course-content ul.ctopics li.tcsection .left {
     clear: none;
     float: none;
     position: absolute;
@@ -646,10 +648,6 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
 }
 
 /* Assist the layout. */
-body.format-topcoll.dir-rtl .course-content ul.ctopics li.section .left {
-    float: right;
-}
-
 body.format-topcoll.dir-rtl .course-content ul.ctopics li.section .right {
     float: left;
 }
@@ -688,10 +686,6 @@ body.format-topcoll .course-content ul.ctopics li.section .summary {
     margin-left: 0;
 }
 
-body.format-topcoll.dir-rtl .course-content ul.ctopics li.section .summary {
-    margin-right: 0;
-}
-
 body.format-topcoll .course-content ul.ctopics li.section .summary.summaryalwaysshown {
     padding-top: 10px;
 }
@@ -718,11 +712,6 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
     width: 100%;
 }
 
-/* -- The padding of a hidden section -- */
-.course-content ul.ctopics li.section .content.sectionhidden {
-    padding: 6px 0 6px 0;
-}
-
 /* -- The topic summary text -- */
 .course-content ul.ctopics li.section .content .toggle .the_toggle p {
     font-size: 1.2em;
@@ -732,7 +721,7 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
 
 /* -- Toggle text -- */
 .course-content ul.ctopics li.section .content .toggle .the_toggle,
-.course-content ul.ctopics li.section .content.sectionhidden {
+.course-content ul.ctopics li.section .content.sectionhidden .toggle .no_toggle {
     font-weight: bold;
     text-decoration: none;
 }
@@ -742,15 +731,10 @@ body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu
 }
 
 /* -- For centring the 'Topic / Week / Day x' text -- */
-.course-content ul.ctopics li.section .right .cps_centre,
-.dir-rtl .course-content ul.ctopics li.section .left .cps_centre {
+.course-content ul.ctopics li.section .side .cps_centre {
     font-size: 0.7em;
     min-height: 28px;
     text-align: center;
-}
-
-.dir-rtl .course-content ul.ctopics li.section .right .cps_centre {
-    font-size: 14px;
 }
 
 .course-content ul.ctopics li.section .right .cps_centre img {
@@ -812,31 +796,27 @@ body.jsenabled #toggle-all {
     text-decoration: none;
 }
 
-.dir-rtl #toggle-all .content .sectionbody .toggle-all {
-    text-align: right;
-}
-
-#toggle-all .content .toggle-all-content.togglepos-left .toggle-all.tc-small {
+#toggle-all .content .toggle-all-content.toggleiconposition-start .toggle-all.tc-small {
     padding-left: 18px;
 }
 
-#toggle-all .content .toggle-all-content.togglepos-right .toggle-all.tc-small {
+#toggle-all .content .toggle-all-content.toggleiconposition-end .toggle-all.tc-small {
     padding-right: 18px;
 }
 
-#toggle-all .content .toggle-all-content.togglepos-left .toggle-all.tc-medium {
+#toggle-all .content .toggle-all-content.toggleiconposition-start .toggle-all.tc-medium {
     padding-left: 26px;
 }
 
-#toggle-all .content .toggle-all-content.togglepos-right .toggle-all.tc-medium {
+#toggle-all .content .toggle-all-content.toggleiconposition-end .toggle-all.tc-medium {
     padding-right: 26px;
 }
 
-#toggle-all .content .toggle-all-content.togglepos-left .toggle-all.tc-large {
+#toggle-all .content .toggle-all-content.toggleiconposition-start .toggle-all.tc-large {
     padding-left: 34px;
 }
 
-#toggle-all .content .toggle-all-content.togglepos-right .toggle-all.tc-large {
+#toggle-all .content .toggle-all-content.toggleiconposition-end .toggle-all.tc-large {
     padding-right: 34px;
 }
 
@@ -887,10 +867,11 @@ body.jsenabled #toggle-all {
     width: auto;
 }
 
-.activity-item:not(.activityinline) {
+.format-topcoll .activity-item:not(.activityinline) {
     border: none;
 }
-.editing .activity-item {
+
+.format-topcoll.editing .activity-item {
     cursor: move;
 }
 
