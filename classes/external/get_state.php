@@ -100,21 +100,30 @@ class get_state extends get_state_base {
         if (!empty($shownsectionsinfo['sectionzero'])) {
             $sectionstate = new $sectionclass($courseformat, $shownsectionsinfo['sectionzero']);
             $result->section[] = $sectionstate->export_for_template($renderer);
-            $sections[] = $shownsectionsinfo['sectionzero'];
+            $sections[$shownsectionsinfo['sectionzero']->section] = $shownsectionsinfo['sectionzero'];
         }
+        // Top level sections.
         foreach ($shownsectionsinfo['sectionsdisplayed'] as $displayedsection) {
             $sectionstate = new $sectionclass($courseformat, $displayedsection);
             $result->section[] = $sectionstate->export_for_template($renderer);
-            $sections[] = $displayedsection;
+            $sections[$displayedsection->section] = $displayedsection;
+        }
+        // Delegated sections.
+        foreach ($shownsectionsinfo['delegatedsectionsdisplayed'] as $displayeddelegatedsection) {
+            $sectionstate = new $sectionclass($courseformat, $displayeddelegatedsection);
+            $result->section[] = $sectionstate->export_for_template($renderer);
+            $sections[$displayeddelegatedsection->section] = $displayeddelegatedsection;
         }
 
         // Course modules state.
         foreach ($modinfo->cms as $cm) {
-            if ($cm->is_visible_on_course_page()) {
-                // Only return this course module data if it's visible by current user on the course page.
+            if (!empty($sections[$cm->sectionnum])) {
                 $section = $sections[$cm->sectionnum];
-                $cmstate = new $cmclass($courseformat, $section, $cm, istrackeduser: $istrackeduser);
-                $result->cm[] = $cmstate->export_for_template($renderer);
+                if ($cm->is_visible_on_course_page()) {
+                    // Only return this course module data if it's visible by current user on the course page.
+                    $cmstate = new $cmclass($courseformat, $section, $cm, istrackeduser: $istrackeduser);
+                    $result->cm[] = $cmstate->export_for_template($renderer);
+                }
             }
         }
 

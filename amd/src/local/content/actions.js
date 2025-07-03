@@ -44,10 +44,10 @@ export default class extends BaseActions {
      */
     _checkSectionlist({state}) {
         Log.debug('_checkSectionlist state.course.sectionlist ' + state.course.sectionlist);
-        Log.debug('_checkSectionlist state.course.numsectionswithoutdeligated ' + state.course.numsectionswithoutdeligated);
+        Log.debug('_checkSectionlist state.course.numsectionswithoutdelegated ' + state.course.numsectionswithoutdelegated);
         // Disable "add section" actions if the course max sections has been exceeded.
         this._setAddSectionLocked(state.course.sectionlist.length >= state.course.maxsections);
-        //this._setAddSectionLocked(state.course.numsectionswithoutdeligated >= state.course.maxsectionswithoutdeligated);
+        //this._setAddSectionLocked(state.course.numsectionswithoutdelegated >= state.course.maxsectionswithoutdelegated);
     }
 
     /**

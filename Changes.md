@@ -1,6 +1,10 @@
 ﻿Version Information
 ===================
 
+Version 405.1.2 - 
+----------------------------
+1. Fix 'Issue with creating subsections' - #169.
+
 Version 405.1.1 - 30/06/2025
 ----------------------------
 1. Fix 'Section 0 does not appear in course index' - #162.
