@@ -15,6 +15,14 @@ towards a server side solution that didn't use 'Cookies', and since then with th
 There has now been a version of the format for every major version of Moodle ever since the first, gradually being improved and
 enhanced over the years in addition to coping with the API changes.
 
+About me
+--------
+I am an experienced self employed software engineer with decades of development experience in a variety of languages, design
+methodologies and processes.  I have an MSc in Computing as well as a PGCE in Secondary Education.  I'm a member of the British
+Computer Society with Chartered Engineer and Chartered IT Professional status.
+
+Contact
+-------
 If you'd like to sponsor, get support or fund improvements, then please do get in touch via:
 
 - gjbarnard | Gmail dt com address.
@@ -73,10 +81,3 @@ consider to be relevant.
 
 You can use either the '[Course and course formats forum](https://moodle.org/mod/forum/view.php?id=47)' or '[GitHub](https://github.com/gjb2048/moodle-format_topcoll/issues)'.
 
-Developed and maintained by
-===========================
-G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE.
-
-- Moodle profile | [Moodle.org](https://moodle.org/user/profile.php?id=442195)
-- Web profile    | [About.me](https://about.me/gjbarnard)
-- Website        | [Website](https://gjbarnard.co.uk)

@@ -3,7 +3,7 @@
 Topic based course format with an individual 'toggle' for each topic except 0.
 
 This file contains general information about the format.  If you're reading this as an educator then you can learn about the format
-from the documentation on http://docs.moodle.org/405/en/Collapsed_Topics_course_format.  If you get stuck and your Moodle support
+from the documentation on http://docs.moodle.org/500/en/Collapsed_Topics_course_format.  If you get stuck and your Moodle support
 are unable to help / not sure what to do, then please go to https://moodle.org/mod/forum/view.php?id=47.  If you like the format,
 then please do spread the word to other educators.  The main page for the format is https://moodle.org/plugins/format_topcoll.
 
@@ -25,8 +25,6 @@ If you download from the development area - https://github.com/gjbarnard/moodle-
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
-Documented on http://docs.moodle.org/405/en/Collapsed_Topics_course_format
-
 Free software
 =============
 The Collapsed Topics format is 'free' software under the terms of the GNU GPLv3 License, please see 'COPYING.txt'.
@@ -42,8 +40,8 @@ If you make improvements or bug fixes then I would appreciate if you would send 
 https://github.com/gjbarnard/moodle-format_topcoll and doing a 'Pull Request' so that the rest of the
 Moodle community benefits.
 
-Support
-=======
+Support and sponsorship
+=======================
 Please see [SupportAndSponsorship.md](SupportAndSponsorship.md).
 
 Installation
@@ -277,3 +275,9 @@ G J Barnard MSc. BSc(Hons)(Sndw). MBCS. CEng. CITP. PGCE.
 - Moodle profile | [Moodle.org](https://moodle.org/user/profile.php?id=442195)
 - Web profile    | [About.me](https://about.me/gjbarnard)
 - Website        | [Website](https://gjbarnard.co.uk)
+
+About me
+--------
+I am an experienced self employed software engineer with decades of development experience in a variety of languages, design
+methodologies and processes.  I have an MSc in Computing as well as a PGCE in Secondary Education.  I'm a member of the British
+Computer Society with Chartered Engineer and Chartered IT Professional status.

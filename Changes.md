@@ -1,6 +1,10 @@
 ﻿Version Information
 ===================
 
+Version 500.1.1 - 05/07/2025
+----------------------------
+1. Fix 'Issue with creating subsections' - #169.
+
 Version 500.1.0 - 30/06/2025
 ----------------------------
 1. Fix 'Section 0 does not appear in course index' - #162.

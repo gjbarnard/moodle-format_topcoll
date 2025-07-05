@@ -135,59 +135,59 @@ class format_topcoll extends core_courseformat\base {
     }
 
     /**
-     * Get the number of sections not counting deligated ones.
+     * Get the number of sections not counting delegated ones.
      *
      * @return int The last section number, or -1 if sections are entirely missing
      */
-    public function get_last_section_number_without_deligated() {
+    public function get_last_section_number_without_delegated() {
         $lastsectionno = parent::get_last_section_number();
 
         if (!empty($lastsectionno)) {
-            $lastsectionno -= $this->get_number_of_deligated_sections();
+            $lastsectionno -= $this->get_number_of_delegated_sections();
         }
 
         return $lastsectionno;
     }
 
     /**
-     * Method used to get the maximum number of sections for this course format without deligated.
+     * Method used to get the maximum number of sections for this course format without delegated.
      * @return int Maximum number of sections.
      */
-    public function get_max_sections_without_deligated() {
+    public function get_max_sections_without_delegated() {
         $maxsections = $this->get_max_sections();
 
         if (!empty($maxsections)) {
-            $maxsections -= $this->get_number_of_deligated_sections();
+            $maxsections -= $this->get_number_of_delegated_sections();
         }
 
         return $maxsections;
     }
 
     /**
-     * Get the number of deligated sections.
+     * Get the number of delegated sections.
      *
-     * @return int Number of deligated sections.
+     * @return int Number of delegated sections.
      */
-    protected function get_number_of_deligated_sections() {
+    protected function get_number_of_delegated_sections() {
         global $DB;
-        $deligatedcount = 0;
+        $delegatedcount = 0;
 
         $subsectionsenabled = $DB->get_field('modules', 'visible', ['name' => 'subsection']);
         if ($subsectionsenabled) {
-            // Add in our deligated sections.  The 'subsection' table is unreliable in this regard.
+            // Add in our delegated sections.  The 'subsection' table is unreliable in this regard.
             $modinfo = $this->get_modinfo();
             $sectioninfos = $modinfo->get_section_info_all();
-            $deligatedcount = 0;
+            $delegatedcount = 0;
 
             foreach ($sectioninfos as $sectioninfo) {
                 if (!empty($sectioninfo->component)) {
-                    // Deligated section.
-                    $deligatedcount++;
+                    // Delegated section.
+                    $delegatedcount++;
                 }
             }
         }
 
-        return $deligatedcount;
+        return $delegatedcount;
     }
 
     /**
@@ -197,9 +197,9 @@ class format_topcoll extends core_courseformat\base {
      * @return string The section name.
      */
     public function get_section_name($section) {
-        // If deligated then return the standard name.
+        // If delegated then return the standard name.
         if (!empty($section->component)) {
-            return $this->get_deligated_section_name($section);
+            return $this->get_delegated_section_name($section);
         }
 
         $course = $this->get_course();
@@ -292,12 +292,12 @@ class format_topcoll extends core_courseformat\base {
     }
 
     /**
-     * Returns the display name of the given deligated section.
+     * Returns the display name of the given delegated section.
      *
      * @param int|stdClass $section Section object from database or just field section.section.
      * @return string Display name that the course format prefers, e.g. "Section 2".
      */
-    protected function get_deligated_section_name($section) {
+    protected function get_delegated_section_name($section) {
         $section = $this->get_section($section);
         if ((string)$section->name !== '') {
             return format_string($section->name, true,
@@ -322,8 +322,8 @@ class format_topcoll extends core_courseformat\base {
         if (!$section->uservisible) {
             return false;
         }
-        if (($section->section > $this->get_last_section_number_without_deligated()) && (empty($section->component))) {
-            // Stealth section that is not a deligated one.
+        if (($section->section > $this->get_last_section_number_without_delegated()) && (empty($section->component))) {
+            // Stealth section that is not a delegated one.
             global $PAGE;
             $context = context_course::instance($this->course->id);
             if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
@@ -1716,17 +1716,35 @@ class format_topcoll extends core_courseformat\base {
      * @return array of data required, indexes containing:
      *      'sectionzero' Section_info instance if section zero is shown.
      *      'sectionsdisplayed' Section_info instances, array, that are shown.
+     *      'delegatedsectionsdisplayed' Delegated section_info instances, array, that are shown.
      *      'currentsectionno' Section number of the current section or if none then false.
      *      'hiddensectionids' Section id's, array, of hidden sections if any.
      *      'coursenumsections' Number of sections in the course regardless if shown or not.
      */
     public function get_shown_sections() {
-        $course = $this->course;
+        $course = $this->get_course();
         $modinfo = get_fast_modinfo($course);
         $sections = $modinfo->get_section_info_all();
+        $delegatedsections = [];
+        // Array of parent section number with an array of delegated section id's if they have them.
+        $delegatedsectionparents = [];
         $sectionsdisplayed = [];
+        $delegatedsectionsdisplayed = [];
         $currentsectionno = false;
         $hiddensectionids = [];
+
+        // Find the subsections and who their parent is.
+        // All the delegated sections as modules in the course.
+        foreach ($modinfo->delegatedbycm as $delegatedcmsectioninfokey => $delegatedcmsectioninfo) {
+            // Note: cm_info object contains parent sectionid / sectionnum.  As a subsection is a module
+            // here then this will be the parent section.
+            $cminfoparentsectionnum = $modinfo->cms[$delegatedcmsectioninfokey]->sectionnum;
+            if (empty($delegatedsectionparents[$cminfoparentsectionnum])) {
+                $delegatedsectionparents[$cminfoparentsectionnum] = [];
+            }
+            $delegatedsectionparents[$cminfoparentsectionnum][] = $delegatedcmsectioninfo->id;
+            $delegatedsections[$delegatedcmsectioninfo->id] = $delegatedcmsectioninfo;
+        }
 
         // General section if non-empty.
         $thissection = $sections[0];
@@ -1736,12 +1754,11 @@ class format_topcoll extends core_courseformat\base {
             $sectionzero = null;
         }
 
-        $coursenumsections = $this->get_last_section_number_without_deligated();
+        $coursenumsections = $this->get_last_section_number_without_delegated();
         if ($coursenumsections > 0) {
             $tcsettings = $this->get_settings();
-            $coursenumsections = $this->get_last_section_number_without_deligated();
+            $coursenumsections = $this->get_last_section_number_without_delegated();
             $userisediting = $this->show_editor();
-            $course = $this->course;
             $sectionskeys = array_keys($sections);
 
             $currentsectionfirst = false;
@@ -1783,11 +1800,13 @@ class format_topcoll extends core_courseformat\base {
                 ) {
                     $showsection = false; // Do not reshow current section.
                 }
+                $addsection = false;
                 if ($showsection) {
                     if ($this->is_section_current($thissection)) {
                         $currentsectionno = $thissection->section;
                     }
-                    $sectionsdisplayed[] = $thissection;
+                    // This section is shown.
+                    $addsection = true;
                 } else {
                     // Hidden section message is overridden by 'unavailable' control.
                     $testhidden = false;
@@ -1806,8 +1825,21 @@ class format_topcoll extends core_courseformat\base {
                     }
                     if ($testhidden) {
                         if (!$course->hiddensections) {
-                            $sectionsdisplayed[] = $thissection;
+                            // This section is shown as hidden.
+                            $addsection = true;
                             $hiddensectionids[] = $thissection->id;
+                        }
+                    }
+                }
+                if ($addsection) {
+                    $sectionsdisplayed[$thissection->section] = $thissection;
+                    // Does it contain visible subsection(s)?
+                    if (!empty($delegatedsectionparents[$thissection->section])) {
+                        foreach ($delegatedsectionparents[$thissection->section] as $delegatedsectionid) {
+                            if (parent::is_section_visible($delegatedsections[$delegatedsectionid])) {
+                                $delegatedsectionsdisplayed[$delegatedsections[$delegatedsectionid]->section] =
+                                    $delegatedsections[$delegatedsectionid];
+                            }
                         }
                     }
                 }
@@ -1838,6 +1870,7 @@ class format_topcoll extends core_courseformat\base {
         return [
             'sectionzero' => $sectionzero,
             'sectionsdisplayed' => $sectionsdisplayed,
+            'delegatedsectionsdisplayed' => $delegatedsectionsdisplayed,
             'currentsectionno' => $currentsectionno,
             'hiddensectionids' => $hiddensectionids,
             'coursenumsections' => $coursenumsections,
@@ -2155,6 +2188,12 @@ class format_topcoll extends core_courseformat\base {
 function format_topcoll_override_webservice_execution($function, $params) {
     // Check if it's the function we want to override.
     if ($function->name === 'core_courseformat_get_state') {
+        // Only one parameter of the course id.
+        $courseformat = course_get_format($params[0]);
+        if ($courseformat->get_format() != 'topcoll') {
+            return false;
+        }
+
         // Call our load template function in our class instead of $function->classname.
         return call_user_func_array(['format_topcoll\external\get_state', $function->methodname], $params);
     }

@@ -1257,7 +1257,7 @@ class renderer extends section_renderer {
             $userpreference = null;
         }
 
-        $coursenumsections = $this->courseformat->get_last_section_number_without_deligated();
+        $coursenumsections = $this->courseformat->get_last_section_number_without_delegated();
         if ($userpreference != null) {
             // Check we have enough digits for the number of toggles in case this has increased.
             $numdigits = togglelib::get_required_digits($coursenumsections);
