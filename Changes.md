@@ -1,7 +1,7 @@
 ﻿Version Information
 ===================
 
-Version 405.1.2 - 
+Version 405.1.2 - 05/07/2025
 ----------------------------
 1. Fix 'Issue with creating subsections' - #169.
 
