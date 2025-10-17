@@ -119,7 +119,7 @@ class get_state extends get_state_base {
         foreach ($modinfo->cms as $cm) {
             if (!empty($sections[$cm->sectionnum])) {
                 $section = $sections[$cm->sectionnum];
-                if ($cm->is_visible_on_course_page()) {
+                if ($cm->is_visible_on_course_page() && $cm->is_of_type_that_can_display()) {
                     // Only return this course module data if it's visible by current user on the course page.
                     $cmstate = new $cmclass($courseformat, $section, $cm, istrackeduser: $istrackeduser);
                     $result->cm[] = $cmstate->export_for_template($renderer);

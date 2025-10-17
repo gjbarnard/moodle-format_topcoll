@@ -91,7 +91,7 @@ class section extends section_base {
 
         foreach ($modinfo->sections[$section->section] as $modnumber) {
             $mod = $modinfo->cms[$modnumber];
-            if ($section->uservisible && $mod->is_visible_on_course_page()) {
+            if ($section->uservisible && $mod->is_visible_on_course_page() && $mod->is_of_type_that_can_display()) {
                 $data->cmlist[] = $mod->id;
             }
         }
