@@ -120,50 +120,6 @@ $string['layoutstructuretopics'] = 'topics';
 $string['layoutstructureweeks'] = 'weeks';
 $string['layoutstructuredays'] = 'days';
 
-// Coursesetting - Show addtional data for modules.
-$string['enableadditionalmoddata'] = 'Enable additional information';
-$string['enableadditionalmoddatadesc'] = 'This is a \'Site level\' switch to turn the activity information on or off.  It needs to be \'on\' for the related settings that operate at a course level to take effect.  As this functionality can be computationally expensive, then it is strongly suggested that you undertake full testing before using on a production system.  Note: Purges the cache caches when changed.';
-
-$string['showadditionalmoddata'] = 'Show additional information for: {$a} in the course';
-$string['showadditionalmoddata_help'] = 'Allow all users to see the activity deadline and users with grading permission to see the number of submissions on the course page for activities.';
-$string['defaultshowadditionalmoddata'] = 'Default course \'Show additional information\'';
-$string['defaultshowadditionalmoddatadesc'] = 'If an activity is set at site level (below) to show additional information then this setting states the default state of the course specific instance of it.';
-$string['resetactivitymeta'] = 'Additional module information';
-$string['resetallactivitymeta'] = 'All additional module information';
-$string['resetactivitymeta_help'] = 'Resets the additional module information to follow the site default value.';
-$string['resetallactivitymeta_help'] = 'Resets all the additional module information to follow the site default value.';
-
-$string['courseadditionalmoddatamaxstudents'] = 'Set the maximum number of students on a course that \'Show additional information\' will apply to';
-$string['courseadditionalmoddatamaxstudentsdesc'] = 'Additional information can take time to calculate, especially on large courses, so here you can set the maximum number of students that a couse can have for the functionality to show on that course.  Above that value, the \'Additional information\' will NOT be calculated or show regardless of the course settings!  A value of \'0\' means \'unlimited\'.  Note: Purges the cache caches when changed.';
-
-$string['courseadditionalmoddatastudentsinfo'] = 'Additional information status:';
-$string['courseadditionalmoddatastudentsinfounlimited'] = 'Additional information will show for the enabled activities for {$a} students.';
-$string['courseadditionalmoddatastudentsinfolimitedshow'] = 'Additional information will show for the enabled activities for {$a->students} students as the number does not exceed the maximum \'{$a->maxstudents}\' set by the administrator on the Collapsed Topics course format setting \'courseadditionalmoddatamaxstudents\'.';
-$string['courseadditionalmoddatastudentsinfolimitednoshow'] = 'Additional information will NOT show for the enabled activities for {$a->students} students as the number exceededs the maximum \'{$a->maxstudents}\' set by the administrator on the Collapsed Topics course format setting \'courseadditionalmoddatamaxstudents\'.';
-
-$string['coursesectionactivityfurtherinformation'] = 'Course page further information';
-$string['coursesectionactivityfurtherinformation_desc'] = 'Site level course page further information settings';
-$string['coursesectionactivityfurtherinformationassign'] = 'Show assignment information';
-$string['coursesectionactivityfurtherinformationassigndesc'] = 'Allow assignment information to be selected to be shown on a course.  For teachers / admins, show number of submissions.';
-$string['coursesectionactivityfurtherinformationquiz'] = 'Show quiz information';
-$string['coursesectionactivityfurtherinformationquizdesc'] = 'Allow quiz information to be selected to be shown on a course.  For teachers / admins, show number of submissions.';
-$string['coursesectionactivityfurtherinformationchoice'] = 'Show choice information';
-$string['coursesectionactivityfurtherinformationchoicedesc'] = 'Allow choice information to be selected to be shown on a course.  For teachers / admins, show number of submissions.';
-$string['coursesectionactivityfurtherinformationfeedback'] = 'Show feedback information';
-$string['coursesectionactivityfurtherinformationfeedbackdesc'] = 'Allow feedback information to be selected to be shown on a course.  For teachers / admins, show number of submissions.';
-$string['coursesectionactivityfurtherinformationforum'] = 'Show forum information';
-$string['coursesectionactivityfurtherinformationforumdesc'] = 'Allow forum information to be selected to be shown on a course.  For teachers / admins, show number of contributions when whole forum grading is on.';
-$string['coursesectionactivityfurtherinformationlesson'] = 'Show lesson information';
-$string['coursesectionactivityfurtherinformationlessondesc'] = 'Allow lesson information to be selected to be shown on a course.  For teachers / admins, show number of submissions.';
-$string['coursesectionactivityfurtherinformationdata'] = 'Show database information';
-$string['coursesectionactivityfurtherinformationdatadesc'] = 'Allow data information to be selected to be shown on a course.  For teachers / admins, show number of submissions.';
-
-$string['cachedef_activitystudentrolescache'] = 'Caches the student roles.';
-$string['cachedef_activitymodulecountcache'] = 'Caches the number of students who can access a given module on a given course.';
-$string['cachedef_activitystudentscache'] = 'Caches the ids of the students on a given course.';
-$string['cachedef_activityusercreatedcache'] = 'Caches the ids of the new users on a given course.';
-$string['cannotgetactivitycacheslock'] = 'Cannot get activity caches lock for course id {$a}.';
-
 // Colour enhancement - Moodle Tracker CONTRIB-3529.
 $string['setcolour'] = 'Colour';
 $string['colourrule'] = "Please enter a valid RGB colour, six hexadecimal digits or '-' for default.";
@@ -182,14 +138,14 @@ $string['two'] = 'Two';
 $string['three'] = 'Three';
 $string['four'] = 'Four';
 $string['setlayoutcolumnorientation'] = 'Column orientation';
-$string['setlayoutcolumnorientation_help'] = 'Dynamic - Number sections per \'row\' adjust to window size, \'Column\' setting not currently used.<br>Horizontal - Sections go left to right.<br>Vertical - Sections go top to bottom.';
+$string['setlayoutcolumnorientation_help'] = 'Dynamic - Number sections per \'row\' adjust to window size, \'Column\' setting not used.<br>Horizontal - Sections go left to right.<br>Vertical - Sections go top to bottom.';
 $string['columndynamic'] = 'Dynamic';
 $string['columnhorizontal'] = 'Horizontal';
 $string['columnvertical'] = 'Vertical';
 
 // Flexible modules.
 $string['setflexiblemodules'] = 'Flexible modules';
-$string['setflexiblemodules_help'] = 'Use flexible modules?';
+$string['setflexiblemodules_help'] = 'Turns off indentation and wraps module instances within the section subject to the contraints of the theme / defined styles.';
 
 // MDL-34917 - implemented in M2.5 but needs to be here to support M2.4- versions.
 $string['maincoursepage'] = 'Main course page';
@@ -229,13 +185,13 @@ $string['resetalltogglealignment_help'] = 'Resets all the toggle alignment to fo
 
 // Icon position - CONTRIB-4470.
 $string['settoggleiconposition'] = 'Icon position';
-$string['settoggleiconposition_help'] = 'States that the icon should be on the start or end of the toggle text.';
+$string['settoggleiconposition_help'] = 'States that the icon should be on the start or end of the toggle.';
 $string['defaulttoggleiconposition'] = 'Icon position';
-$string['defaulttoggleiconposition_desc'] = 'States if the icon should be on the start or the end of the toggle text.';
+$string['defaulttoggleiconposition_desc'] = 'States if the icon should be on the start or the end of the toggle.';
 
 // Icon set enhancement.
 $string['settoggleiconset'] = 'Icon set';
-$string['settoggleiconset_help'] = 'Sets the icon set of the toggle.';
+$string['settoggleiconset_help'] = 'Select the icon set to one of:<br><table><tbody><tr><td>Arrow</td><td>{$a->arrow}</td></tr><tr><td>Bulb</td><td>{$a->bulb}</td></tr><tr><td>Cloud</td><td>{$a->cloud}</td></tr><tr><td>Eye</td><td>{$a->eye}</td></tr><tr><td>Folder</td><td>{$a->folder}</td></tr><tr><td>Ground signal</td><td>{$a->groundsignal}</td></tr><tr><td>Light Emitting Diode</td><td>{$a->led}</td></tr><tr><td>Point</td><td>{$a->point}</td></tr><tr><td>Power</td><td>{$a->power}</td></tr><tr><td>Radio</td><td>{$a->radio}</td></tr><tr><td>Smiley</td><td>{$a->smiley}</td></tr><tr><td>Square</td><td>{$a->square}</td></tr><tr><td>Sun / Moon</td><td>{$a->sunmoon}</td></tr><tr><td>Switch</td><td>{$a->switch}</td></tr><tr><td>Icon font</td><td>{$a->tif}</td></tr></tbody></table><br>Where \'Icon font\' allows you to specify a FontAwesome CSS class for the open and close icon with the settings \'Open toggle icon font\' and \'Closed toggle icon font\'.';
 $string['settoggleiconfontclosed'] = 'Closed toggle icon font';
 $string['settoggleiconfontclosed_help'] = 'When \'toggleiconset\' is set to \'Icon font\', this states the default CSS classes to use for the closed icon, i.e. see the FontAwesome icon classes.  If set to \'-\' then the default is used.';
 $string['settoggleiconfontopen'] = 'Open toggle icon font';
@@ -294,10 +250,10 @@ $string['defaultlayoutcolumns'] = 'Number of columns';
 $string['defaultlayoutcolumns_desc'] = "Number of columns between one and four.";
 
 $string['defaultlayoutcolumnorientation'] = 'Column orientation';
-$string['defaultlayoutcolumnorientation_desc'] = 'The default column orientation: Dynamic - Number sections per \'row\' adjust to window size, \'Column\' setting not currently used.<br>Horizontal - Sections go left to right.<br>Vertical - Sections go top to bottom.';
+$string['defaultlayoutcolumnorientation_desc'] = 'The default column orientation: Dynamic - Number sections per \'row\' adjust to window size, \'Column\' setting not used.<br>Horizontal - Sections go left to right.<br>Vertical - Sections go top to bottom.';
 
 $string['defaultflexiblemodules'] = 'Flexible modules';
-$string['defaultflexiblemodules_desc'] = 'Use flexible modules?';
+$string['defaultflexiblemodules_desc'] = 'Turns off indentation and wraps module instances within the section subject to the contraints of the theme / defined styles.';
 
 $string['defaulttgfgcolour'] = 'Toggle foreground colour';
 $string['defaulttgfgcolour_desc'] = "Toggle foreground colour in hexidecimal RGB.";
@@ -315,7 +271,7 @@ $string['defaulttogglealignment'] = 'Toggle text alignment';
 $string['defaulttogglealignment_desc'] = "'Start', 'Centre' or 'End'.";
 
 $string['defaulttoggleiconset'] = 'Toggle icon set';
-$string['defaulttoggleiconset_desc'] = '<table><tbody><tr><td>Arrow</td><td>{$a->arrow}</td></tr><tr><td>Bulb</td><td>{$a->bulb}</td></tr><tr><td>Cloud</td><td>{$a->cloud}</td></tr><tr><td>Eye</td><td>{$a->eye}</td></tr><tr><td>Folder</td><td>{$a->folder}</td></tr><tr><td>Ground Signal</td><td>{$a->groundsignal}</td></tr><tr><td>Light Emitting Diode</td><td>{$a->led}</td></tr><tr><td>Point</td><td>{$a->point}</td></tr><tr><td>Power</td><td>{$a->power}</td></tr><tr><td>Radio</td><td>{$a->radio}</td></tr><tr><td>Smiley</td><td>{$a->smiley}</td></tr><tr><td>Square</td><td>{$a->square}</td></tr><tr><td>Sun / Moon</td><td>{$a->sunmoon}</td></tr><tr><td>Switch</td><td>{$a->switch}</td></tr><tr><td>Icon font</td><td>{$a->tif}</td></tr></tbody></table>';
+$string['defaulttoggleiconset_desc'] = 'Select the icon set to one of:<br><table><tbody><tr><td>Arrow</td><td>{$a->arrow}</td></tr><tr><td>Bulb</td><td>{$a->bulb}</td></tr><tr><td>Cloud</td><td>{$a->cloud}</td></tr><tr><td>Eye</td><td>{$a->eye}</td></tr><tr><td>Folder</td><td>{$a->folder}</td></tr><tr><td>Ground signal</td><td>{$a->groundsignal}</td></tr><tr><td>Light Emitting Diode</td><td>{$a->led}</td></tr><tr><td>Point</td><td>{$a->point}</td></tr><tr><td>Power</td><td>{$a->power}</td></tr><tr><td>Radio</td><td>{$a->radio}</td></tr><tr><td>Smiley</td><td>{$a->smiley}</td></tr><tr><td>Square</td><td>{$a->square}</td></tr><tr><td>Sun / Moon</td><td>{$a->sunmoon}</td></tr><tr><td>Switch</td><td>{$a->switch}</td></tr><tr><td>Icon font</td><td>{$a->tif}</td></tr></tbody></table><br>Where \'Icon font\' allows you to specify a FontAwesome CSS class for the open and close icon with the settings \'Open toggle icon font\' and \'Closed toggle icon font\'.';
 
 $string['defaulttoggleiconfontclosed'] = 'Closed toggle icon font';
 $string['defaulttoggleiconfontclosed_desc'] = 'When \'defaulttoggleiconset\' is set to \'Icon font\', this states the default CSS classes to use for the closed icon, i.e. see the FontAwesome icon classes.';
@@ -429,7 +385,6 @@ $string['topcoll:changelayout'] = 'Change or reset the layout';
 $string['topcoll:changecolour'] = 'Change or reset the colour';
 $string['topcoll:changetogglealignment'] = 'Change or reset the toggle alignment';
 $string['topcoll:changetoggleiconset'] = 'Change or reset the toggle icon set';
-$string['topcoll:changeactivitymeta'] = 'Change or reset the activity meta';
 
 // Instructions.
 $string['instructions'] = 'Instructions: Clicking on the section name will show / hide the section.';

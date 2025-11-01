@@ -130,13 +130,15 @@ $string['defaulttoggleiconposition_desc'] = 'States if thee icon should be on th
 
 // Icon set enhancement.
 $string['settoggleiconset'] = 'Thee icon set';
-$string['settoggleiconset_help'] = 'Sets thee icon set of thy toggle.';
+$string['settoggleiconset_help'] = 'Select thee icon set to be thy one of:<br><table><tbody><tr><td>Straight as an arrow</td><td>{$a->arrow}</td></tr><tr><td>Lantern</td><td>{$a->bulb}</td></tr><tr><td>Cloud</td><td>{$a->cloud}</td></tr><tr><td>Eyeball</td><td>{$a->eye}</td></tr><tr><td>Map pouch</td><td>{$a->folder}</td></tr><tr><td>Landlubber signal</td><td>{$a->groundsignal}</td></tr><tr><td>LED from thee future</td><td>{$a->led}</td></tr><tr><td>Point thee bow towards thy treasure</td><td>{$a->point}</td></tr><tr><td>Power mee hearties</td><td>{$a->power}</td></tr><tr><td>Wireless</td><td>{$a->radio}</td></tr><tr><td>Smiley they bee not</td><td>{$a->smiley}</td></tr><tr><td>Square riggin</td><td>{$a->square}</td></tr><tr><td>Sun / Moon</td><td>{$a->sunmoon}</td></tr><tr><td>Switch thy flag</td><td>{$a->switch}</td></tr><tr><td>Icon font</td><td>{$a->tif}</td></tr></tbody></table><br>Where \'Icon font\' allows thee to specify thy FontAwesome CSS class for thee open and close icon with thy settings \'Open toggle icon font\' and \'Closed toggle icon font\'.';
 $string['settoggleallhover'] = 'Set thee toggle all icon hover';
 $string['settoggleallhover_help'] = 'Sets if thee toggle all icons will change when thy mouse moves over them.';
 $string['arrow'] = 'Straight as an arrow';
 $string['bulb'] = 'Lantern';
 $string['cloud'] = 'Cloud';
 $string['eye'] = 'Eyeball';
+$string['folder'] = 'Map pouch';
+$string['groundsignal'] = 'Landlubber signal';
 $string['led'] = 'LED from thee future';
 $string['point'] = 'Point thee bow towards thy treasure';
 $string['power'] = 'Power mee hearties';
@@ -184,7 +186,7 @@ $string['defaulttogglealignment'] = 'Toggle text alignment';
 $string['defaulttogglealignment_desc'] = "'Fore', 'Midships' or 'Aft'.";
 
 $string['defaulttoggleiconset'] = 'Toggle icon set';
-$string['defaulttoggleiconset_desc'] = "'Straight as an arrow'                => Arrow icon set.<br />'Lantern'                             => Bulb icon set.<br />'Cloud'                               => Cloud icon set.<br />'Eyeball'                             => Eye icon set.<br />'LED from thee future'                => LED icon set.<br />'Point thee bow towards thy treasure' => Point icon set.<br />'Power mee hearties'                  => Power icon set.<br />'Wireless'                            => Radio icon set.<br />'Smiley they bee not'                 => Smiley icon set.<br />'Square riggin'                       => Square icon set.<br />'Sun / Moon'                          => Sun / Moon icon set.<br />'Switch thy flag'                     => Switch icon set.";
+$string['defaulttoggleiconset_desc'] = 'Select thee icon set to be thy one of:<br><table><tbody><tr><td>Straight as an arrow</td><td>{$a->arrow}</td></tr><tr><td>Lantern</td><td>{$a->bulb}</td></tr><tr><td>Cloud</td><td>{$a->cloud}</td></tr><tr><td>Eyeball</td><td>{$a->eye}</td></tr><tr><td>Map pouch</td><td>{$a->folder}</td></tr><tr><td>Landlubber signal</td><td>{$a->groundsignal}</td></tr><tr><td>LED from thee future</td><td>{$a->led}</td></tr><tr><td>Point thee bow towards thy treasure</td><td>{$a->point}</td></tr><tr><td>Power mee hearties</td><td>{$a->power}</td></tr><tr><td>Wireless</td><td>{$a->radio}</td></tr><tr><td>Smiley they bee not</td><td>{$a->smiley}</td></tr><tr><td>Square riggin</td><td>{$a->square}</td></tr><tr><td>Sun / Moon</td><td>{$a->sunmoon}</td></tr><tr><td>Switch thy flag</td><td>{$a->switch}</td></tr><tr><td>Icon font</td><td>{$a->tif}</td></tr></tbody></table><br>Where \'Icon font\' allows thee to specify thy FontAwesome CSS class for thee open and close icon with thy settings \'Open toggle icon font\' and \'Closed toggle icon font\'.';
 
 $string['defaulttoggleallhover'] = 'Toggle all icon hovers';
 $string['defaulttoggleallhover_desc'] = "'Nay' or 'Aye'.";

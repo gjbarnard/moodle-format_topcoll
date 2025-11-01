@@ -44,7 +44,6 @@ final class courseformatlib_test extends advanced_testcase {
         $this->resetAfterTest(true);
 
         set_config('theme', 'boost');
-        set_config('enableadditionalmoddata', 2, 'format_topcoll');
 
         // Ref: https://docs.moodle.org/dev/Writing_PHPUnit_tests.
         $this->course = $this->getDataGenerator()->create_course(
@@ -142,42 +141,5 @@ final class courseformatlib_test extends advanced_testcase {
         $this->assertEquals('0.6', $thesettings['toggleforegroundhoveropacity']);
         $this->assertEquals('0.7', $thesettings['togglebackgroundopacity']);
         $this->assertEquals('0.8', $thesettings['togglebackgroundhoveropacity']);
-    }
-
-    /**
-     * Show additional mod data default yes.
-     */
-    public function test_showadditionalmoddata_default_yes(): void {
-        $this->setAdminUser();
-
-        set_config('defaultshowadditionalmoddata', 2, 'format_topcoll');
-        set_config('coursesectionactivityfurtherinformationchoice', 2, 'format_topcoll');
-        set_config('coursesectionactivityfurtherinformationdata', 2, 'format_topcoll');
-
-        $thesettings = $this->courseformat->get_settings();
-        $this->assertEquals(2, $thesettings['showadditionalmoddata']);
-
-        set_config('coursesectionactivityfurtherinformationchoice', 1, 'format_topcoll');
-        set_config('coursesectionactivityfurtherinformationdata', 1, 'format_topcoll');
-        set_config('coursesectionactivityfurtherinformationlesson', 2, 'format_topcoll');
-
-        $thesettings = $this->courseformat->get_settings();
-        $this->assertEquals(2, $thesettings['showadditionalmoddata']);
-    }
-
-    /**
-     * Show additional mod data default reset.
-     */
-    public function test_showadditionalmoddata_reset(): void {
-        $this->setAdminUser();
-
-        set_config('defaultshowadditionalmoddata', 1, 'format_topcoll');
-        set_config('coursesectionactivityfurtherinformationlesson', 2, 'format_topcoll');
-
-        $testdata = new stdClass();
-        $testdata->resetalllayout = true;
-        $this->courseformat->update_course_format_options($testdata);
-        $thesettings = $this->courseformat->get_settings();
-        $this->assertEquals(1, $thesettings['showadditionalmoddata']);
     }
 }

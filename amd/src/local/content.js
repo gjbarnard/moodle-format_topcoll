@@ -461,11 +461,15 @@ export default class TopcollComponent extends Component {
                 // Missing elements cannot be sorted.
                 return;
             }
+            if (item.dataset.number == "0") {
+                // Ignore section zero.
+                return;
+            }
             let itemno = this.getElement('#tcnoid-'+itemid);
             if (itemno) {
-                itemno.textContent = index + 1; // Update the section number in the 'left' part.
+                itemno.textContent = index; // Update the section number in the 'left' part.
             }
-            // Get the current elemnt at that position.
+            // Get the current element at that position.
             const currentitem = container.children[index];
             if (!currentitem) {
                 container.append(item);

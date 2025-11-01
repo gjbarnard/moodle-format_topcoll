@@ -18,7 +18,7 @@
     @template format_topcoll/local/content/cm
 
     Displays a course module instance inside a course section.
-    See core file for example context.  CT adds 'cmmeta' to this, this is generated markup if any.
+    See core file for example context.
 }}
 {{#editing}}
     {{< core_courseformat/local/content/divider}}
@@ -27,14 +27,16 @@
         {{/content}}
     {{/ core_courseformat/local/content/divider}}
 {{/editing}}
-<div class="activity-item{{#modstealth}} hiddenactivity{{/modstealth}}{{!
+<div class="activity-item focus-control{{#modstealth}} hiddenactivity{{/modstealth}}{{!
         }}{{#modhiddenfromstudents}} hiddenactivity{{/modhiddenfromstudents}}{{!
         }}{{#indent}} indent-{{indent}}{{/indent}}{{!
         }}{{#modinline}} activityinline{{/modinline}}" data-activityname="{{activityname}}"{{!
 }}>
-    {{$ core_courseformat/local/content/cm/bulkselect }}
-        {{> core_courseformat/local/content/cm/bulkselect }}
-    {{/ core_courseformat/local/content/cm/bulkselect }}
+    {{#cmbulk}}
+        {{$ core_courseformat/local/content/cm/bulkselect }}
+            {{> core_courseformat/local/content/cm/bulkselect }}
+        {{/ core_courseformat/local/content/cm/bulkselect }}
+    {{/cmbulk}}
     {{!
       Place the actual content of the activity-item in a separate template to make it easier for other formats to add
       additional content to the activity wrapper.
@@ -42,9 +44,4 @@
     {{$ core_courseformat/local/content/cm/activity }}
         {{> core_courseformat/local/content/cm/activity }}
     {{/ core_courseformat/local/content/cm/activity }}
-    {{#cmmeta}}
-        <div class="ct-activity-meta-container">
-            {{{cmmeta}}}
-        </div>
-    {{/cmmeta}}
 </div>

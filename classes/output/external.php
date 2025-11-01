@@ -108,7 +108,7 @@ class external extends external_core {
         foreach ($params['togglestates'] as $pref) {
             try {
                 // Support legacy preferences from the old M.util.set_user_preference API (always using the current user).
-                $name = togglelib::TOPCOLL_TOGGLE.'_' . $pref['courseid'];
+                $name = togglelib::TOPCOLL_TOGGLE . '_' . $pref['courseid'];
                 if (isset($USER->topcoll_user_pref[$name])) {
                     // Update...
                     $userpreference = get_user_preferences($name);
@@ -124,7 +124,7 @@ class external extends external_core {
                         'item' => 'user',
                         'itemid' => $user->id,
                         'warningcode' => 'nopermission',
-                        'message' => 'You are not allowed to change the preference '.s($pref['name']).' for user '.$user->id,
+                        'message' => 'You are not allowed to change the preference ' . s($pref['name']) . ' for user ' . $user->id,
                     ];
                 }
             } catch (Exception $e) {
@@ -157,7 +157,8 @@ class external extends external_core {
                             'name' => new external_value(PARAM_RAW, 'The name of the preference'),
                             'userid' => new external_value(PARAM_INT, 'The user the preference was set for'),
                         ],
-                    ), 'Preferences saved'
+                    ),
+                    'Preferences saved'
                 ),
                 'warnings' => new external_warnings(),
             ]
@@ -223,7 +224,7 @@ class external extends external_core {
         foreach ($params['toggleallstates'] as $pref) {
             try {
                 // Support legacy preferences from the old M.util.set_user_preference API (always using the current user).
-                $name = togglelib::TOPCOLL_TOGGLE.'_' . $pref['courseid'];
+                $name = togglelib::TOPCOLL_TOGGLE . '_' . $pref['courseid'];
                 if (isset($USER->topcoll_user_pref[$name])) {
                     // Update...
                     $courseformat = course_get_format($pref['courseid']);
@@ -249,7 +250,7 @@ class external extends external_core {
                         'item' => 'user',
                         'itemid' => $user->id,
                         'warningcode' => 'nopermission',
-                        'message' => 'You are not allowed to change the preference '.s($pref['name']).' for user '.$user->id,
+                        'message' => 'You are not allowed to change the preference ' . s($pref['name']) . ' for user ' . $user->id,
                     ];
                 }
             } catch (Exception $e) {
@@ -282,7 +283,8 @@ class external extends external_core {
                             'name' => new external_value(PARAM_RAW, 'The name of the preference'),
                             'userid' => new external_value(PARAM_INT, 'The user the preference was set for'),
                         ],
-                    ), 'Preferences saved'
+                    ),
+                    'Preferences saved'
                 ),
                 'warnings' => new external_warnings(),
             ]

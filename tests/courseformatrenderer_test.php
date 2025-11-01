@@ -95,8 +95,13 @@ final class courseformatrenderer_test extends \advanced_testcase {
     /**
      * Init.
      */
-    protected function init($numsections = 1, $layoutcolumnorientation = 2, $flexiblemodules = 1,
-        $toggleallenabled = 2, $viewsinglesectionenabled = 2): void {
+    protected function init(
+        $numsections = 1,
+        $layoutcolumnorientation = 2,
+        $flexiblemodules = 1,
+        $toggleallenabled = 2,
+        $viewsinglesectionenabled = 2
+    ): void {
         $this->resetAfterTest(true);
 
         set_config('theme', 'boost');
@@ -264,7 +269,7 @@ final class courseformatrenderer_test extends \advanced_testcase {
 
     public function test_topcoll_section(): void {
         $this->init();
-        set_user_preference(togglelib::TOPCOLL_TOGGLE.'_' . $this->course->id, 'Z');
+        set_user_preference(togglelib::TOPCOLL_TOGGLE . '_' . $this->course->id, 'Z');
         set_config('defaultuserpreference', 0, 'format_topcoll');
         set_config('defaulttogglepersistence', 1, 'format_topcoll');
         self::set_property($this->outputus, 'formatresponsive', false);
@@ -289,6 +294,7 @@ final class courseformatrenderer_test extends \advanced_testcase {
                 $onsectionpage, ]),
             'heading' => '<h3 data-for="section_title" data-id="' . $section1->id . '" data-number="1" id="sectionid-' . $section1->id .
                 '-title" class="sectionname">Section 1<div class="cttoggle"> - Toggle</div></h3>',
+            'id' => $section1->id,
             'nomtore' => true,
             'rightcontent' => self::call_method($this->outputus, 'section_right_content', [$section1, $this->course,
                 $onsectionpage, ]),
@@ -378,8 +384,11 @@ final class courseformatrenderer_test extends \advanced_testcase {
             'columnclass' => 'col-sm-12',
             'cscml' => self::call_method($this->outputus, 'course_section_cmlist', [$section]),
             'heading' => '<h3 data-for="section_title" data-id="' . $section->id . '" data-number="1" id="sectionid-' .
-                $section->id . '-title" class="section-title">' . get_string('orphanedactivitiesinsectionno', '',
-                $section->section) . '</h3>',
+                $section->id . '-title" class="section-title">' . get_string(
+                    'orphanedactivitiesinsectionno',
+                    '',
+                    $section->section
+                ) . '</h3>',
             'rightcontent' => self::call_method($this->outputus, 'section_right_content', [$section, $this->course, false]),
             'rtl' => false,
             'sectionid' => $section->id,
@@ -449,7 +458,7 @@ final class courseformatrenderer_test extends \advanced_testcase {
         global $CFG;
 
         $this->init();
-        set_user_preference(togglelib::TOPCOLL_TOGGLE.'_' . $this->course->id, null);
+        set_user_preference(togglelib::TOPCOLL_TOGGLE . '_' . $this->course->id, null);
         set_config('defaultuserpreference', 0, 'format_topcoll');
         set_config('defaulttogglepersistence', 1, 'format_topcoll');
         $section0 = $this->courseformat->get_section(0);
@@ -464,7 +473,7 @@ final class courseformatrenderer_test extends \advanced_testcase {
         $theoutput .= '</ul><ul class="ctopics ctoggled topics row">';
         $theoutput .= self::call_method($this->outputus, 'topcoll_section', [$section1, $this->course, false, null, $toggle]);
         $theoutput .= '</ul>';
-        $theoutput .= '<span id="tcdata" class="d-none" data-onetopic="false" data-onetopictoggle="false"'.
+        $theoutput .= '<span id="tcdata" class="d-none" data-onetopic="false" data-onetopictoggle="false"' .
             ' data-defaulttogglepersistence="true"></span>';
 
         $this->assertEquals($theoutput, $thevalue);
@@ -474,7 +483,7 @@ final class courseformatrenderer_test extends \advanced_testcase {
         global $CFG;
 
         $this->init(1, 1);
-        set_user_preference(togglelib::TOPCOLL_TOGGLE.'_' . $this->course->id, 'Z');
+        set_user_preference(togglelib::TOPCOLL_TOGGLE . '_' . $this->course->id, 'Z');
         set_config('defaultuserpreference', 0, 'format_topcoll');
         set_config('defaulttogglepersistence', 1, 'format_topcoll');
 
@@ -491,7 +500,7 @@ final class courseformatrenderer_test extends \advanced_testcase {
         $theoutput .= '<ul class="ctopics ctoggled topics col-sm-12">';
         $theoutput .= self::call_method($this->outputus, 'topcoll_section', [$section1, $this->course, false, null, $toggle]);
         $theoutput .= '</ul></div>';
-        $theoutput .= '<span id="tcdata" class="d-none" data-onetopic="false" data-onetopictoggle="false"'.
+        $theoutput .= '<span id="tcdata" class="d-none" data-onetopic="false" data-onetopictoggle="false"' .
             ' data-defaulttogglepersistence="true"></span>';
 
         $this->assertEquals($theoutput, $thevalue);
@@ -501,7 +510,7 @@ final class courseformatrenderer_test extends \advanced_testcase {
         global $CFG;
 
         $this->init(0);
-        set_user_preference(togglelib::TOPCOLL_TOGGLE.'_' . $this->course->id, null);
+        set_user_preference(togglelib::TOPCOLL_TOGGLE . '_' . $this->course->id, null);
         set_config('defaultuserpreference', 0, 'format_topcoll');
         set_config('defaulttogglepersistence', 1, 'format_topcoll');
         $section0 = $this->courseformat->get_section(0);
@@ -512,7 +521,7 @@ final class courseformatrenderer_test extends \advanced_testcase {
         $theoutput .= '<ul class="ctopics">';
         $theoutput .= self::call_method($this->outputus, 'topcoll_section', [$section0, $this->course, false, 0]);
         $theoutput .= '</ul>';
-        $theoutput .= '<span id="tcdata" class="d-none" data-onetopic="false" data-onetopictoggle="false"'.
+        $theoutput .= '<span id="tcdata" class="d-none" data-onetopic="false" data-onetopictoggle="false"' .
             ' data-defaulttogglepersistence="true"></span>';
 
         $this->assertEquals($theoutput, $thevalue);

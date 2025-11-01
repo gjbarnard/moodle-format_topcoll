@@ -15,9 +15,9 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template format_topcoll/local/content/section/header
+    @template format_topcoll/local/content/section/delegatedheader
 
-    Displays a course section header.
+    Displays a course section delegated header.
 
     Example context (json):
     {
@@ -26,16 +26,10 @@
         "title": "<a href=\"http://moodle/course/view.php?id=5#section-0\">Section title</a>",
         "url": "#",
         "headerdisplaymultipage": true,
-        "sectionbulk": true,
         "editing": 0,
         "headinglevel": 3
     }
 }}
-{{#sectionbulk}}
-{{$ core_courseformat/local/content/section/bulkselect }}
-    {{> core_courseformat/local/content/section/bulkselect }}
-{{/ core_courseformat/local/content/section/bulkselect }}
-{{/sectionbulk}}
 {{#headerdisplaymultipage}}
     {{^displayonesection}}
         <h3 id="sectionid-{{id}}-title" class="h4 sectionname">

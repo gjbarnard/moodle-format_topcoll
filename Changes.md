@@ -1,6 +1,22 @@
 ﻿Version Information
 ===================
 
+Version 500.1.2 - 01/11/2025
+----------------------------
+1. Fix 'Images only in section zero summary don't count as content to be shown'.
+2. Fix 'Question banks cannot determine if section zero can be shown'.
+3. Fix 'Bulk section control showing for delegated sections'.
+4. Fix 'Course index content does not load when a subsection is in the first section of the course' - #175.
+5. Fix 'Bulk section control not showing'.
+6. Fix 'Warning about 'numsections' when duplicating a section'.
+7. Fix 'Prevent section zero moving when other sections are moved'.
+8. Fix 'Prevent qbank activities from being displayed after an activity move', thanks to [Julien Boulen](https://github.com/jboulen)
+   for the patch.
+9. Fix 'Restricted sections are hidden - option "Hidden sections are completely invisible"' - #176.
+10. Removed additional module information.
+11. Improve 'Flexible modules' description and style.
+12. Improve toggle icon set description.
+
 Version 500.1.1 - 05/07/2025
 ----------------------------
 1. Fix 'Issue with creating subsections' - #169.
