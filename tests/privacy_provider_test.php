@@ -134,7 +134,7 @@ final class privacy_provider_test extends provider_testcase {
         $this->set_up();
         $this->setAdminUser();
 
-        set_user_preference(togglelib::TOPCOLL_TOGGLE.'_' . $this->course->id, 'FAB');
+        set_user_preference(togglelib::TOPCOLL_TOGGLE . '_' . $this->course->id, 'FAB');
 
         $user = core_user::get_user_by_username('admin');
         provider::export_user_preferences($user->id);
@@ -147,7 +147,7 @@ final class privacy_provider_test extends provider_testcase {
 
         $this->assertCount(1, $prefs);
 
-        $toggle = $prefs[togglelib::TOPCOLL_TOGGLE.'_' . $this->course->id];
+        $toggle = $prefs[togglelib::TOPCOLL_TOGGLE . '_' . $this->course->id];
         $this->assertEquals('FAB', $toggle->value);
 
         $description = get_string('privacy:request:preference:toggle', 'format_topcoll', (object) [

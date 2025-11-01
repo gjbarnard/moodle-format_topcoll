@@ -484,7 +484,7 @@ class renderer extends section_renderer {
 
         $sectioncontext = [
             'rtl' => $this->rtl,
-            'sectionid' => $section->id,
+            'id' => $section->id,
             'sectionno' => $section->section,
             'sectionreturn' => $sectionreturn,
             'editing' => $this->userisediting,
@@ -496,6 +496,9 @@ class renderer extends section_renderer {
                 $sectioncontext['sectionstyle'] = 'hidden';
             } else if ($section->section == $this->currentsection) {
                 $sectioncontext['sectionstyle'] = 'current';
+            }
+            if ($this->userisediting && !$section->is_delegated()) {
+                $sectioncontext['sectionbulk'] = true;
             }
         }
 
@@ -768,7 +771,7 @@ class renderer extends section_renderer {
                 'unknowncoursesection',
                 'error',
                 course_get_url($course),
-                format_string($course->fullname. ' - id='.$course->id)
+                format_string($course->fullname . ' - id=' . $course->id)
             );
         }
 
@@ -803,7 +806,7 @@ class renderer extends section_renderer {
         $singlesectioncontext['sectiontitle'] = $this->section_heading($thissection, $sectionname, $classes);
         $singlesectioncontext['bulkedittools'] = $this->bulkedittools();
 
-        return $this->single_section_styles().$this->render_from_template('format_topcoll/singlesection', $singlesectioncontext);
+        return $this->single_section_styles() . $this->render_from_template('format_topcoll/singlesection', $singlesectioncontext);
     }
 
     /**
@@ -893,8 +896,10 @@ class renderer extends section_renderer {
                     // Shown hidden section - to state that it is hidden.
                     $extrasectioninfo[$displayedsection->id]->ishidden = true;
                 } else {
-                    if ((!empty($shownsectionsinfo['currentsectionno'])) &&
-                        ($shownsectionsinfo['currentsectionno'] == $displayedsection->section)) {
+                    if (
+                        (!empty($shownsectionsinfo['currentsectionno'])) &&
+                        ($shownsectionsinfo['currentsectionno'] == $displayedsection->section)
+                    ) {
                         $this->currentsection = $shownsectionsinfo['currentsectionno'];
                         $extrasectioninfo[$displayedsection->id]->toggle = true; // Open current section regardless of toggle state.
                         $this->togglelib->set_toggle_state($displayedsection->section, true);
@@ -942,8 +947,13 @@ class renderer extends section_renderer {
                             }
                         }
                     }
-                    $sectionoutput .= $this->topcoll_section($displayedsection, $course, false,
-                            null, $extrasectioninfo[$displayedsection->id]->toggle);
+                    $sectionoutput .= $this->topcoll_section(
+                        $displayedsection,
+                        $course,
+                        false,
+                        null,
+                        $extrasectioninfo[$displayedsection->id]->toggle
+                    );
                     $toggledsections[] = $displayedsection->section;
                 }
 
@@ -1033,15 +1043,15 @@ class renderer extends section_renderer {
         $onetopic = ($this->tcsettings['onesection'] == 2) ? 'true' : 'false';
         $onetopictoggle = (empty($shownonetoggle)) ? 'false' : $shownonetoggle;
         $defaulttogglepersistence = ($this->defaulttogglepersistence == 1) ? 'true' : 'false';
-        $content .= '<span id="tcdata" class="d-none"'.
-            ' data-onetopic="'.$onetopic.'"'.
-            ' data-onetopictoggle="'.$onetopictoggle.'"'.
-            ' data-defaulttogglepersistence="'.$defaulttogglepersistence.'"'.
+        $content .= '<span id="tcdata" class="d-none"' .
+            ' data-onetopic="' . $onetopic . '"' .
+            ' data-onetopictoggle="' . $onetopictoggle . '"' .
+            ' data-defaulttogglepersistence="' . $defaulttogglepersistence . '"' .
             '></span>';
 
         /* Make sure the database has the correct state of the toggles if changed by the code.
            This ensures that a no-change page reload is correct. */
-        set_user_preference(togglelib::TOPCOLL_TOGGLE.'_' . $course->id, $toggles);
+        set_user_preference(togglelib::TOPCOLL_TOGGLE . '_' . $course->id, $toggles);
 
         return $content;
     }
@@ -1222,7 +1232,8 @@ class renderer extends section_renderer {
                 }
                 if (empty($topcollsidewidthval)) {
                     // Dynamically changing widths with language.
-                    if ((($this->mobiletheme == false) &&
+                    if (
+                        (($this->mobiletheme == false) &&
                         ($this->tablettheme == false)) &&
                         ($topcollsidewidthlang == 0)
                     ) {
@@ -1251,8 +1262,8 @@ class renderer extends section_renderer {
 
         if ($this->defaulttogglepersistence == 1) {
             global $USER;
-            $USER->topcoll_user_pref[togglelib::TOPCOLL_TOGGLE.'_' . $this->course->id] = PARAM_RAW;
-            $userpreference = get_user_preferences(togglelib::TOPCOLL_TOGGLE.'_' . $this->course->id);
+            $USER->topcoll_user_pref[togglelib::TOPCOLL_TOGGLE . '_' . $this->course->id] = PARAM_RAW;
+            $userpreference = get_user_preferences(togglelib::TOPCOLL_TOGGLE . '_' . $this->course->id);
         } else {
             $userpreference = null;
         }

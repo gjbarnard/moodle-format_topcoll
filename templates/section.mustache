@@ -31,6 +31,7 @@
     * rightcontent - Right column content.
     * rtl - Right to left?
     * sectionavailability - Section availability.
+    * sectionbulk - Section can be bulk edited.
     * sectionid - Section identification.
     * sectionno - Section number.
     * sectionpage - On a section page.
@@ -60,7 +61,8 @@
         "rightcontent": "",
         "rtl": false,
         "sectionavailability": '<div class="section_availability"><div class="availabilityinfo ishidden"><span class="badge badge-info">Not available</span></div></div>',
-        "sectionid": "124",
+        "sectionbulk": true,
+        "id": "124",
         "sectionno": "1",
         "sectionpage": false,
         "sectionreturn": "1",
@@ -79,7 +81,7 @@
 }}
 
 
-<li id="section-{{sectionno}}" class="section course-section main clearfix{{#sectionstyle}} {{sectionstyle}}{{/sectionstyle}}{{#columnclass}} {{columnclass}}{{/columnclass}}"{{#columnwidth}} style="width: {{columnwidth}}%;"{{/columnwidth}} role="region" aria-labelledby="sectionid-{{sectionid}}-title" data-sectionid="{{sectionno}}"{{#sectionreturn}} data-sectionreturnid="{{sectionreturn}}"{{/sectionreturn}} data-for="section" data-id="{{sectionid}}" data-number="{{sectionno}}">
+<li id="section-{{sectionno}}" class="section course-section main clearfix{{#sectionstyle}} {{sectionstyle}}{{/sectionstyle}}{{#columnclass}} {{columnclass}}{{/columnclass}}"{{#columnwidth}} style="width: {{columnwidth}}%;"{{/columnwidth}} role="region" aria-labelledby="sectionid-{{id}}-title" data-sectionid="{{sectionno}}"{{#sectionreturn}} data-sectionreturnid="{{sectionreturn}}"{{/sectionreturn}} data-for="section" data-id="{{id}}" data-number="{{sectionno}}">
 {{#nomtore}}
     {{^rtl}}
     {{{leftcontent}}}
@@ -90,6 +92,15 @@
 {{/nomtore}}
     <div class="content"{{#contentaria}} aria-live="polite"{{/contentaria}}>
         {{^sectionpage}}
+        {{#editing}}
+        <div class="course-section-header d-flex" data-for="section_title">
+            {{#sectionbulk}}
+            {{$ core_courseformat/local/content/section/bulkselect }}
+                {{> core_courseformat/local/content/section/bulkselect }}
+            {{/ core_courseformat/local/content/section/bulkselect }}
+            {{/sectionbulk}}
+        {{/editing}}
+
         <div id="toggle-{{sectionno}}" class="sectionhead toggle {{^tif}}toggle-{{toggleiconset}}{{/tif}}{{#tif}}tif{{/tif}}" role="button" aria-expanded="{{#toggleopen}}true{{/toggleopen}}{{^toggleopen}}false{{/toggleopen}}" aria-controls="toggledsection-{{sectionno}}" tabindex="0">
             <span class="the_toggle {{#toggleopen}}toggle_open{{/toggleopen}}{{^toggleopen}}toggle_closed{{/toggleopen}} {{toggleiconsize}}">{{!
                 }}{{#tif}}{{#tifpleft}}{{{tif}}}{{/tifpleft}}{{/tif}}{{!
@@ -110,6 +121,9 @@
         {{#sectionsummarywhencollapsed}}
         {{{sectionsummary}}}
         {{/sectionsummarywhencollapsed}}
+        {{#editing}}
+        </div>
+        {{/editing}}
         <div id="toggledsection-{{sectionno}}" class="sectionbody toggledsection{{#toggleopen}} sectionopen{{/toggleopen}}">
             {{^sectionsummarywhencollapsed}}
             {{{sectionsummary}}}

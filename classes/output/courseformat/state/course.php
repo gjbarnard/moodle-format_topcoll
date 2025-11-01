@@ -41,7 +41,6 @@ use stdClass;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class course extends course_base {
-
     /**
      * Export this data so it can be used as state object in the course editor.
      *

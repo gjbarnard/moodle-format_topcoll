@@ -31,7 +31,6 @@ use cm_info;
 use context_course;
 use core\output\renderer_base;
 use core\url;
-use format_topcoll\activity;
 use stdClass;
 
 /**
@@ -51,22 +50,6 @@ class cm extends cm_base {
     public function export_for_template(renderer_base $output): stdClass {
         $data = parent::export_for_template($output);
 
-        // Get further information.
-        if (activity::activitymetaenabled()) {
-            $courseformat = $this->format;
-
-            if (activity::activitymetaused($courseformat)) {
-                $courseid = $this->mod->course;
-                if (activity::maxstudentsnotexceeded($courseid)) {
-                    $settingname = 'coursesectionactivityfurtherinformation' . $this->mod->modname;
-                    $setting = get_config('format_topcoll', $settingname);
-                    if ((!empty($setting)) && ($setting == 2)) {
-                        $data->cmmeta = $this->course_section_cm_get_meta($this->mod);
-                    }
-                }
-            }
-        }
-
         $tcsettings = $this->format->get_settings();
         if ($tcsettings['flexiblemodules'] == 2) {
             // Turn off indentation.
@@ -74,109 +57,5 @@ class cm extends cm_base {
         }
 
         return $data;
-    }
-
-    /**
-     * Get the module meta data for a specific module.
-     *
-     * @param cm_info $mod The module.
-     * @return string The markup.
-     */
-    protected function course_section_cm_get_meta(cm_info $mod) {
-        $courseid = $mod->course;
-        if (is_guest(context_course::instance($courseid))) {
-            return '';
-        }
-
-        // If module is not visible to the user then don't bother getting meta data.
-        if (!$mod->uservisible) {
-            return '';
-        }
-
-        // Do we have an activity function for this module for returning meta data?
-        $meta = activity::module_meta($mod);
-        if ($meta == null) {
-            // Can't get meta data for this module.
-            return '';
-        }
-
-        global $OUTPUT;
-        $content = '';
-
-        if ($meta->isteacher) {
-            // Teacher - useful teacher meta data.
-            $engagementmeta = [];
-
-            if (!$meta->submissionnotrequired) {
-                /* Below, != 0 means we would get x out of 0 submissions, so at least show something as
-                   the module could now be hidden, but there is still useful information. */
-                if ($meta->numparticipants != 0) {
-                    $engagementmeta[] = get_string(
-                        'xofy' . $meta->submitstrkey,
-                        'format_topcoll',
-                        (object) [
-                            'completed' => $meta->numsubmissions,
-                            'participants' => $meta->numparticipants,
-                        ]
-                    );
-                } else {
-                    $engagementmeta[] = get_string(
-                        'x' . $meta->submitstrkey,
-                        'format_topcoll',
-                        (object) [
-                            'completed' => $meta->numsubmissions,
-                        ]
-                    );
-                }
-            }
-
-            if ($meta->numrequiregrading) {
-                $engagementmeta[] = get_string('xungraded', 'format_topcoll', $meta->numrequiregrading);
-            }
-            if (!empty($engagementmeta)) {
-                $params = [
-                    'id' => $mod->id,
-                ];
-                $file = 'view';
-
-                switch ($mod->modname) {
-                    case 'assign':
-                        $params['action'] = 'grading';
-                        break;
-                    case 'quiz':
-                        $file = 'report';
-                        $params['mode'] = 'overview';
-                        break;
-                }
-
-                $sectioncmmetacontext = [
-                    'linkclass' => 'ct-activity-action',
-                    'linkicon' => $OUTPUT->pix_icon('docs', get_string('info')),
-                    'linktext' => implode(', ', $engagementmeta),
-                    'linkurl' => new url("/mod/{$mod->modname}/{$file}.php", $params),
-                    'type' => 'engagement',
-                ];
-                $content = $OUTPUT->render_from_template('format_topcoll/sectioncmmeta', $sectioncmmetacontext);
-            }
-        } else {
-            // Feedback meta.
-            if (!empty($meta->grade)) {
-                if (in_array($mod->modname, ['quiz', 'assign'])) {
-                    $url = new url('/mod/' . $mod->modname . '/view.php?id=' . $mod->id);
-                } else {
-                    $url = new url('/grade/report/user/index.php', ['id' => $courseid]);
-                }
-
-                $sectioncmmetacontext = [
-                    'linkicon' => $OUTPUT->pix_icon('t/message', get_string('feedback')),
-                    'linktext' => get_string('feedbackavailable', 'format_topcoll'),
-                    'linkurl' => $url,
-                    'type' => 'feedback',
-                ];
-                $content = $OUTPUT->render_from_template('format_topcoll/sectioncmmeta', $sectioncmmetacontext);
-            }
-        }
-
-        return $content;
     }
 }

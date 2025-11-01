@@ -27,7 +27,6 @@
 namespace format_topcoll\external;
 
 use core_courseformat\external\get_state as get_state_base;
-
 use core_external\external_api;
 
 /**
@@ -39,7 +38,6 @@ use core_external\external_api;
  * @since      Moodle 4.0
  */
 class get_state extends get_state_base {
-
     /**
      * This method will load all course, sections and cm states needed to initialize the frontend
      * course editor module. The state data of every individual course, section and cm is
@@ -61,7 +59,7 @@ class get_state extends get_state_base {
     public static function execute(int $courseid): string {
         global $PAGE, $CFG, $USER;
 
-        require_once($CFG->dirroot.'/course/lib.php');
+        require_once($CFG->dirroot . '/course/lib.php');
 
         $params = external_api::validate_parameters(self::execute_parameters(), [
             'courseid' => $courseid,

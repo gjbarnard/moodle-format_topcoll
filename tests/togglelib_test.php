@@ -60,16 +60,20 @@ final class togglelib_test extends advanced_testcase {
                 $currentinnerdigit = chr(ord($currentinnerdigit) + 1);
                 $testval++;
             }
-            $this->assertEquals(sprintf('%012d', decbin($testval)),
-                $togglelib->decode_toggle_state($currentouterdigit . $maxdigit));
+            $this->assertEquals(
+                sprintf('%012d', decbin($testval)),
+                $togglelib->decode_toggle_state($currentouterdigit . $maxdigit)
+            );
             $testval++;
             $currentinnerdigit = $mindigit;
             $currentouterdigit = chr(ord($currentouterdigit) + 1);
         }
         $currentinnerdigit = $mindigit;
         while ($currentinnerdigit != $maxdigit) {
-            $this->assertEquals(sprintf('%012d', decbin($testval)),
-                $togglelib->decode_toggle_state($maxdigit . $currentinnerdigit));
+            $this->assertEquals(
+                sprintf('%012d', decbin($testval)),
+                $togglelib->decode_toggle_state($maxdigit . $currentinnerdigit)
+            );
             $currentinnerdigit = chr(ord($currentinnerdigit) + 1);
             $testval++;
         }

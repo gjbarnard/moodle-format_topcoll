@@ -1,6 +1,19 @@
 ﻿Version Information
 ===================
 
+Version 405.1.3 - 01/11/2025
+----------------------------
+1. Fix 'Images only in section zero summary don't count as content to be shown'.
+2. Fix 'Bulk section control showing for delegated sections'.
+3. Fix 'Course index content does not load when a subsection is in the first section of the course' - #175.
+4. Fix 'Bulk section control not showing'.
+5. Fix 'Warning about 'numsections' when duplicating a section'.
+6. Fix 'Prevent section zero moving when other sections are moved'.
+7. Fix 'Restricted sections are hidden - option "Hidden sections are completely invisible"' - #176.
+8. Removed additional module information.
+9. Improve 'Flexible modules' description and style.
+10. Improve toggle icon set description.
+
 Version 405.1.2 - 05/07/2025
 ----------------------------
 1. Fix 'Issue with creating subsections' - #169.

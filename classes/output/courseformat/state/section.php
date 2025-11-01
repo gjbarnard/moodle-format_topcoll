@@ -33,7 +33,6 @@ use stdClass;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 class section extends section_base {
-
     /** @var course_format the course format class */
     protected $format;
 

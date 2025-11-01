@@ -677,9 +677,14 @@ body.format-topcoll .ctopics .section {
     margin: 1em 0;
 }
 
-body.format-topcoll .ctopics .section .d-flex {
+body.format-topcoll .ctopics .section .content .ct-flexiblemodules {
     flex-wrap: wrap;
     justify-content: space-between;
+}
+
+body.format-topcoll .ctopics .section .content .ct-flexiblemodules .activity {
+    border-top: none;
+    margin-top: 0;
 }
 
 body.format-topcoll .course-content ul.ctopics li.section .summary {
@@ -941,24 +946,6 @@ body.jsenabled #toggle-all {
     }
 }
 
-/* Activity further information styling */
-.format-topcoll .ct-activity-meta-container {
-    padding: 5px 0 0 0;
-}
-
-.format-topcoll .ct-activity-mod-feedback {
-    padding: 5px 0;
-}
-
-.format-topcoll .ct-activity-action i {
-    margin-right: 0.35rem;
-}
-
-.format-topcoll .ct-activity-mod-engagement .icon,
-.format-topcoll .ct-activity-mod-feedback .icon {
-    font-size: 1.1em;
-}
-
 /* Colour picker */
 .tccolourpopupbox {
     border: 1px solid black;
@@ -993,6 +980,12 @@ body.jsenabled #toggle-all {
 
 .tc-selection-selector-item.nextsection {
     justify-content: flex-end;
+}
+
+/* Bulk edting tools */
+.format-topcoll.bulkenabled .course-section-header .bulkselect {
+    left: -1.75rem;
+    top: .5rem;
 }
 
 /* Print styles. */

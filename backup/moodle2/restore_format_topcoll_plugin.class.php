@@ -147,8 +147,10 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
                 if ($task->get_setting_value($key . '_included')) {
                     $sectionnum = (int)$section->title;
                     if ($sectionnum > $numsections && $sectionnum > $this->originalnumsections) {
-                        $DB->execute("UPDATE {course_sections} SET visible = 0 WHERE course = ? AND section = ?",
-                            [$task->get_courseid(), $sectionnum]);
+                        $DB->execute(
+                            "UPDATE {course_sections} SET visible = 0 WHERE course = ? AND section = ?",
+                            [$task->get_courseid(), $sectionnum]
+                        );
                     }
                 }
             }
