@@ -6,8 +6,8 @@ Feature: Toggle persistance off
 
   Background:
     Given the following "users" exist:
-      | username | firstname | lastname | email              |
-      | dennis   | Dennis    | Topcoll  | dennis@topcoll.com |
+      | username | firstname | lastname | email                    |
+      | dennis   | Dennis    | Topcoll  | dennis@topcoll.localhost |
     And the following "courses" exist:
       | fullname | shortname | format  | numsections |
       | CollTop  | CT        | topcoll | 2           |

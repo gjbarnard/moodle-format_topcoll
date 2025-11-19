@@ -1,6 +1,12 @@
 ﻿Version Information
 ===================
 
+Version 500.1.3 - 19/11/2025
+----------------------------
+1. Fix 'Can't toggle sections open/closed when editing is on' - #177.
+2. Fix 'Inconsistent deletion result on bulk actions' - #179.
+3. Fix 'Activities with no restrictions are hidden if the section is unavailable' - #181.
+
 Version 500.1.2 - 01/11/2025
 ----------------------------
 1. Fix 'Images only in section zero summary don't count as content to be shown'.

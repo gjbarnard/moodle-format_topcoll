@@ -87,7 +87,7 @@ export default class TopcollComponent extends Component {
         this._indexContents();
 
         // Toggle.
-        const toogleAllClosed = this.getElement(this.selectors.TOGGLE_ALL_ClOSED);
+        const toogleAllClosed = this.getElement(this.selectors.TOGGLE_ALL_CLOSED);
         if (toogleAllClosed) {
             this.addEventListener(toogleAllClosed, 'click', this._toogleAllClosedToggler);
             this.addEventListener(toogleAllClosed, 'keydown', e => {
@@ -277,8 +277,9 @@ export default class TopcollComponent extends Component {
 
                 const container = this.getElement(this.selectors.COURSE_SECTIONLIST);
                 const toggle = container.querySelector('[data-id="' + element.id + '"] ' + this.selectors.TOGGLE);
-                Log.debug('toggle id ' + toggle.id + ' parent li ' + toggle.parentElement.parentElement.id +
-                    ' ' + toggle.parentElement.parentElement.dataset.id);
+                const toggleParent = toggle.closest(this.selectors.SECTION);
+                Log.debug('toggle id ' + toggle.id + ' parent li ' + toggleParent.id +
+                    ' ' + toggleParent.dataset.id);
                 if (toggle !== null) {
                     Log.debug('toggle exists ' + toggle.id);
                     this.addEventListener(toggle, 'click', this._toogleToggler);
@@ -308,7 +309,7 @@ export default class TopcollComponent extends Component {
     _toogleAllClosedToggler(event) {
         event.preventDefault();
 
-        const toggles = this.getElements(this.selectors.TOGGLE + ' .the_toggle');
+        const toggles = this.getElements(this.selectors.TOGGLE + ' ' + this.selectors.TOGGLE_THE);
         for (const toggle of toggles) {
             toggle.classList.add('toggle_closed');
             toggle.classList.remove('toggle_open');
@@ -331,7 +332,7 @@ export default class TopcollComponent extends Component {
     _toogleAllOpenToggler(event) {
         event.preventDefault();
 
-        const toggles = this.getElements(this.selectors.TOGGLE + ' .the_toggle');
+        const toggles = this.getElements(this.selectors.TOGGLE + ' ' + this.selectors.TOGGLE_THE);
         for (const toggle of toggles) {
             toggle.classList.add('toggle_open');
             toggle.classList.remove('toggle_closed');
@@ -352,11 +353,15 @@ export default class TopcollComponent extends Component {
      * @param {Event} event the triggered event
      */
     _toogleToggler(event) {
-        Log.debug('_toogleToggler');
+        Log.debug('_toogleToggler: ' + event.target.tagName);
         if (this.reactive.isEditing) {
-            const parentClasses = event.target.parentElement.classList;
-            if ((parentClasses.contains('quickediticon')) || (parentClasses.contains('inplaceeditable'))) {
-                return;
+            Log.debug('_toogleToggler: ' + event.target.classList);
+            const parentInplaceEditable = event.target.closest('.inplaceeditable');
+            if (parentInplaceEditable) {
+                if (!((event.target.tagName == 'A') && (event.target.classList == ''))) {
+                    Log.debug('_toogleToggler parentInplaceEditable not name link');
+                    return;
+                }
             }
         }
 
@@ -367,14 +372,15 @@ export default class TopcollComponent extends Component {
 
         if (this.oneTopic === true) {
             if ((this.currentTopicNum !== false) && (this.currentTopicNum != toggleNum)) {
-                const currentTargetParent = this.getElement('#toggle-' + this.currentTopicNum).parentElement;
-                const currentToggle = currentTargetParent.querySelector('.the_toggle');
-                currentToggle.classList.add('toggle_closed');
-                currentToggle.classList.remove('toggle_open');
-                currentToggle.setAttribute('aria-expanded', 'false');
+                const currentToggle = this.getElement('#toggle-' + this.currentTopicNum);
+                const currentTarget = currentToggle.querySelector(this.selectors.TOGGLE_THE);
+                currentTarget.classList.add('toggle_closed');
+                currentTarget.classList.remove('toggle_open');
+                currentTarget.setAttribute('aria-expanded', 'false');
 
-                const currentSection = currentTargetParent.querySelector(this.selectors.TOGGLED_SECTION);
-                currentSection.classList.remove('sectionopen');
+                const currentSection = currentToggle.closest(this.selectors.SECTION);
+                const currentToggledSection = currentSection.querySelector(this.selectors.TOGGLED_SECTION);
+                currentToggledSection.classList.remove('sectionopen');
 
                 if (this.defaulttogglepersistence === true) {
                     setUserTopcollToggle(Config.courseId, this.currentTopicNum, false);
@@ -383,14 +389,15 @@ export default class TopcollComponent extends Component {
             }
         }
 
-        const target = toggle.querySelector('.the_toggle');
-        const targetSection = toggle.parentElement.querySelector(this.selectors.TOGGLED_SECTION);
+        const target = toggle.querySelector(this.selectors.TOGGLE_THE);
+        const targetSection = toggle.closest(this.selectors.SECTION);
+        const targetToggledSection = targetSection.querySelector(this.selectors.TOGGLED_SECTION);
         var state;
         if (target.classList.contains('toggle_closed')) {
             target.classList.add('toggle_open');
             target.classList.remove('toggle_closed');
             target.setAttribute('aria-expanded', 'true');
-            targetSection.classList.add('sectionopen');
+            targetToggledSection.classList.add('sectionopen');
             if (this.oneTopic === true) {
                 this.currentTopicNum = toggleNum;
             }
@@ -399,7 +406,7 @@ export default class TopcollComponent extends Component {
             target.classList.add('toggle_closed');
             target.classList.remove('toggle_open');
             target.setAttribute('aria-expanded', 'false');
-            targetSection.classList.remove('sectionopen');
+            targetToggledSection.classList.remove('sectionopen');
             if (this.oneTopic === true) {
                 this.currentTopicNum = false;
             }
@@ -425,7 +432,16 @@ export default class TopcollComponent extends Component {
         const listparent = this.getElement(this.selectors.COURSE_SECTIONLIST);
         // For now section cannot be created at a frontend level.
         const createSection = this._createSectionItem.bind(this);
+
         if (listparent) {
+            if (sectionlist.length) {
+                let firstItemId = sectionlist[0];
+                let item = this.getElement(this.selectors.SECTION, firstItemId);
+                if (item.dataset.number == "0") {
+                    // Ignore section zero.
+                    sectionlist.shift();
+                }
+            }
             this._fixTopcollSectionOrder(listparent, sectionlist, this.selectors.SECTION, this.dettachedSections, createSection);
         }
     }
@@ -461,14 +477,12 @@ export default class TopcollComponent extends Component {
                 // Missing elements cannot be sorted.
                 return;
             }
-            if (item.dataset.number == "0") {
-                // Ignore section zero.
-                return;
-            }
+
             let itemno = this.getElement('#tcnoid-'+itemid);
             if (itemno) {
-                itemno.textContent = index; // Update the section number in the 'left' part.
+                itemno.textContent = index + 1; // Update the section number in the 'left' part.
             }
+
             // Get the current element at that position.
             const currentitem = container.children[index];
             if (!currentitem) {

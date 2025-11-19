@@ -643,7 +643,7 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
     margin-top: 1rem;
 }
 
-.course-content ul.ctopics li.section .right a {
+.course-content ul.ctopics li.section .right .cps_centre {
     display: block;  /* So that section_right_content() does not implode with 'br's and get too many when the up arrow is removed by JS. */
 }
 

@@ -275,7 +275,7 @@ class renderer extends section_renderer {
                 if (empty($this->tcsettings)) {
                     $this->tcsettings = $this->courseformat->get_settings();
                 }
-                $url = new url('/course/view.php', ['id' => $course->id, 'section' => $section->section]);
+
                 // Get the specific words from the language files.
                 $topictext = null;
                 if (($this->tcsettings['layoutstructure'] == 1) || ($this->tcsettings['layoutstructure'] == 4)) {
@@ -301,25 +301,28 @@ class renderer extends section_renderer {
                                 break;
                         }
                     } else {
-                        $title = get_string('viewonly', 'format_topcoll', ['sectionname' => $topictext . ' ' . $section->section]);
                         switch ($this->tcsettings['layoutelement']) { // Toggle section x.
                             case 1:
                             case 3:
                             case 5:
                             case 8:
-                                $o .= html_writer::link(
-                                    $url,
-                                    $topictext . html_writer::empty_tag('br') .
-                                    $section->section,
-                                    ['title' => $title, 'class' => 'cps_centre']
-                                );
-                                break;
-                            default:
-                                $o .= html_writer::link(
-                                    $url,
-                                    $this->one_section_icon($title),
-                                    ['title' => $title, 'class' => 'cps_centre']
-                                );
+                                if ($section->uservisible) {
+                                    $title = get_string('viewonly', 'format_topcoll', ['sectionname' => $topictext . ' ' . $section->section]);
+                                    $url = new url('/course/view.php', ['id' => $course->id, 'section' => $section->section]);
+                                    $o .= html_writer::link(
+                                        $url,
+                                        $topictext . html_writer::empty_tag('br') .
+                                        $section->section,
+                                        ['title' => $title, 'class' => 'cps_centre']
+                                    );
+                                } else {
+                                    $o .= html_writer::tag(
+                                        'span',
+                                        $topictext . html_writer::empty_tag('br') .
+                                        $section->section,
+                                        ['class' => 'cps_centre']
+                                    );
+                                }
                                 break;
                         }
                     }
@@ -574,9 +577,11 @@ class renderer extends section_renderer {
             );
         }
 
-        $sectioncontext['cscml'] = $this->course_section_cmlist($section);
-        if ($this->courseformat->show_editor()) {
-            $sectioncontext['cscml'] .= $this->course_section_add_cm_control($course, $section->section, $sectionreturn);
+        if ($section->uservisible) {
+            $sectioncontext['cscml'] = $this->course_section_cmlist($section);
+            if ($this->courseformat->show_editor()) {
+                $sectioncontext['cscml'] .= $this->course_section_add_cm_control($course, $section->section, $sectionreturn);
+            }
         }
 
         return $this->render_from_template('format_topcoll/section', $sectioncontext);
