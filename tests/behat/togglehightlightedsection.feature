@@ -4,9 +4,9 @@ Feature: Toggle highlighted section
 
   Background:
     Given the following "users" exist:
-      | username | firstname | lastname | email              |
-      | dennis   | Dennis    | Topcoll  | dennis@topcoll.com |
-      | daisy    | Daisy     | Topcoll  | daisy@topcoll.com |
+      | username | firstname | lastname | email                    |
+      | dennis   | Dennis    | Topcoll  | dennis@topcoll.localhost |
+      | daisy    | Daisy     | Topcoll  | daisy@topcoll.localhost  |
     And the following "courses" exist:
       | fullname | shortname | format  | numsections |
       | CollTop  | CT        | topcoll | 3           |

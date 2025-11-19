@@ -6,18 +6,18 @@ Feature: Toggle
 
   Background:
     Given the following "users" exist:
-      | username | firstname | lastname | email              |
-      | dennis   | Dennis    | Topcoll  | dennis@topcoll.com |
+      | username | firstname | lastname | email                   |
+      | daisy    | Daisy     | Topcoll  | daisy@topcoll.localhost |
     And the following "courses" exist:
       | fullname | shortname | format  | numsections |
       | CollTop  | CT        | topcoll | 3           |
     And the following "course enrolments" exist:
-      | user     | course | role    |
-      | dennis   | CT     | student |
+      | user     | course | role           |
+      | daisy    | CT     | student        |
     And the following config values are set as admin:
       | config                | value | plugin         |
       | defaultuserpreference | 0     | format_topcoll |
-    And I am on the "CT" "Course" page logged in as "dennis"
+    And I am on the "CT" "Course" page logged in as "daisy"
 
   Scenario: Open a toggle
     When I click on "Section 1 - Toggle" "text"
