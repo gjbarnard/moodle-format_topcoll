@@ -65,6 +65,7 @@ $string['showfromothers'] = 'Show';
 $string['currentsection'] = 'This section';
 $string['editsection'] = 'Edit section';
 $string['deletesection'] = 'Delete section';
+$string['jumptosection'] = 'Jump to section';
 // These are 'sections' as they are only shown in 'section' based structures.
 $string['markedthissection'] = 'This section is highlighted as the current section';
 $string['markthissection'] = 'Highlight this section as the current section';

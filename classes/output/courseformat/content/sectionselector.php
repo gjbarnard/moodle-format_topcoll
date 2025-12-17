@@ -82,7 +82,7 @@ class sectionselector extends \core_courseformat\output\local\content\sectionsel
         $select = new url_select($sectionmenu, '', ['' => get_string('jumpto')]);
         $select->class = 'jumpmenu';
         $select->formid = 'sectionmenu';
-
+        $select->set_label(get_string('jumptosection', 'format_topcoll'), ['class' => 'accesshide']);
         $data->selector = $output->render($select);
 
         return $data;
