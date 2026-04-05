@@ -4,7 +4,7 @@
  * A topic based format that solves the issue of the 'Scroll of Death' when a course has many topics. All topics
  * except zero have a toggle that displays that topic. One or more topics can be displayed at any given time.
  * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
- * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
+ * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.md' file.
  *
  * @package    format_topcoll
  * @version    See the value of '$plugin->version' in version.php.
@@ -1002,17 +1002,16 @@ body.jsenabled #toggle-all {
     body.jsenabled .toggledsection {
         display: block; /* If JavaScript is enabled and we are printing then this css will apply and the section will be shown. */
     }
-    body.jsenabled #toggle-all, body.jsenabled #topcoll-display-instructions, .cttoggle {
+    body.jsenabled #toggle-all,
+    body.jsenabled #topcoll-display-instructions,
+    body.format-topcoll .cttoggle {
         display: none;
-    }
-    .course-content ul.ctopics li.section.main {
-        float: left;
     }
     body.format-topcoll .course-content ul.ctopics li.section.main {
         padding-bottom: 0;
     }
     ul.ctopics {
-        page-break-after: avoid;
-        page-break-before: avoid;
+        break-after: avoid;
+        break-before: avoid;
     }
 }

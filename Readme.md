@@ -9,17 +9,17 @@ then please do spread the word to other educators.  The main page for the format
 
 Required version of Moodle
 ==========================
-This version works with Moodle 5.0 version 2025041400.00 (Build: 20250414) and above within the MOODLE_500_STABLE branch until the
+This version works with Moodle 5.1 version 2025100600.00 (Build: 20251006) and above within the MOODLE_501_STABLE branch until the
 next release.
 
-Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/500/en/Installing_Moodle)'.
+Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/501/en/Installing_Moodle)'.
 
 Downloads and documentation
 ===========================
 The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
-with 'Select Moodle version:' set at 'Moodle 5.0'.
+with 'Select Moodle version:' set at 'Moodle 5.1'.
 
-The secondary source is a tagged version with the V500 prefix on https://github.com/gjbarnard/moodle-format_topcoll/tags
+The secondary source is a tagged version with the V501 prefix on https://github.com/gjbarnard/moodle-format_topcoll/tags
 
 If you download from the development area - https://github.com/gjbarnard/moodle-format_topcoll/ - consider that
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
@@ -40,9 +40,9 @@ If you make improvements or bug fixes then I would appreciate if you would send 
 https://github.com/gjbarnard/moodle-format_topcoll and doing a 'Pull Request' so that the rest of the
 Moodle community benefits.
 
-Support and sponsorship
-=======================
-Please see [SupportAndSponsorship.md](SupportAndSponsorship.md).
+Information
+===========
+Please see [Information.md](Information.md).
 
 Installation
 ============
@@ -195,19 +195,10 @@ Known Issues
 2.  Importing a Moodle 1.9 course does not currently work, please see CONTRIB-3552 which depends on MDL-32205 - as
     a workaround, please select the 'Topics' format first in 1.9, backup and restore then select the Collapsed Topics
     course format in the course settings.  You will have to reset your decisions on structure etc.
-3.  Sometimes when restoring a course, it is accessed for the first time and a toggle is clicked a 'Error updating user
-    preference 'topcoll_toggle_x'' (where 'x' is the course id as shown in the URL 'id=x') can occur.  I'm not completely sure
-    why this is happening as the 'user_preference_allow_ajax_update' call in 'format.php' should establish that the user
-    preference can be set.  Could be a page cache thing as the 'init' code is getting the course id unlike an issue I'm
-    currently experiencing with the MyMobile theme - MDL-33115.  The work around is to refresh the page.  Having altered some
-    of the event handing code to operate after page load, I'm hoping that this has now been resolved, please let me know
-    if you encounter it.
-4.  If you get HTTP 403 errors on the browsers console for the 'settopcollpref.php' then check that the permissions within the
-    'topcoll' folder are 755 for folders and 644 for files.  Ref: https://moodle.org/mod/forum/discuss.php?d=329620.
 
 Reporting Issues
 ================
-Please see Support.md.
+Please see SupportAndSponsorship.md.
 
 Version Information
 ===================
@@ -251,8 +242,9 @@ Moodle 2.2 code on discussion [Collapsed Topics with Custom Layouts](http://mood
 
 References
 ==========
-.Net Magazine Issue 186 - Article on Collapsed Tables by Craig Grannell -
- http://www.netmag.co.uk/zine/latest-issue/issue-186
+.Net Magazine Issue 186 - Article on Collapsed Tables by Craig Grannell:
+ - http://www.netmag.co.uk/zine/latest-issue/issue-186
+ - https://web.archive.org/web/20090228023949/http://www.netmag.co.uk/zine/latest-issue/issue-186
 
 Craig Grannell - http://www.snubcommunications.com/
 
@@ -263,10 +255,10 @@ Paint.Net - http://www.getpaint.net/
 
 JavaScript: The Definitive Guide - David Flanagan - O'Reilly - ISBN: 978-0-596-10199-2
 
-Desired Enhancements
+Desired enhancements
 ====================
 1. Smoother animated toggle action.
-2. Toggle saving only when the user closes the window / moves to another course.
+2. Move to section id rather than number based toggle state data key.
 
 Developed and maintained by
 ===========================

@@ -65,6 +65,7 @@ $string['showfromothers'] = 'Show';
 $string['currentsection'] = 'This section';
 $string['editsection'] = 'Edit section';
 $string['deletesection'] = 'Delete section';
+$string['jumptosection'] = 'Jump to section';
 // These are 'sections' as they are only shown in 'section' based structures.
 $string['markedthissection'] = 'This section is highlighted as the current section';
 $string['markthissection'] = 'Highlight this section as the current section';
@@ -432,7 +433,7 @@ $string['settings'] = 'Settings';
 $string['settingssettings'] = 'Settings settings';
 $string['settingssettingsdesc'] = 'Collapsed Topics course format settings';
 $string['love'] = 'love';
-$string['versioninfo'] = 'Release {$a->release}, version {$a->version} on Moodle {$a->moodle}.  Made with {$a->love} in Great Britain.';
+$string['versioninfo'] = 'Release {$a->release}, version {$a->version} on Moodle {$a->moodle}.<br>Made with {$a->love} in Great Britain and proudly written without AI.';
 $string['versionalpha'] = 'Alpha version - Almost certainly contains bugs.  This is a development version for developers \'only\'!  Don\'t even think of installing on a production server!';
 $string['versionbeta'] = 'Beta version - Likely to contain bugs.  Ready for testing by administrators on a test server only.';
 $string['versionrc'] = 'Release candidate version - May contain bugs.  Check completely on a test server before considering on a production server.';

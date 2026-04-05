@@ -25,9 +25,9 @@ Contact
 -------
 If you'd like to sponsor, get support or fund improvements, then please do get in touch via:
 
-- gjbarnard | Gmail dt com address.
-- My website eMail | contact at gjbarnard dt co dt uk.
-- GitHub | Please outline your issue / improvement on '[GitHub](https://github.com/gjbarnard/moodle-format_topcoll/issues)'.
+ - gjbarnard | Gmail dt com address.
+ - My website eMail | contact at gjbarnard dt co dt uk.
+ - GitHub | '[GitHub](https://github.com/gjbarnard/moodle-format_topcoll)'.
 
 Sponsors
 ========
@@ -43,8 +43,8 @@ to ask questions.
 
 Collapsed Topics can be obtained from:
 
-* [Moodle.org](https://moodle.org/plugins/view.php?plugin=format_topcoll).
-* [GitHub](https://github.com/gjbarnard/moodle-format_topcoll/releases).
+ - [Moodle.org](https://moodle.org/plugins/view.php?plugin=format_topcoll).
+ - [GitHub](https://github.com/gjbarnard/moodle-format_topcoll/releases).
 
 You have all the rights granted to you by the GPLv3 license.  If you are unsure about anything, then the
 FAQ - [GPL FAQ](https://www.gnu.org/licenses/gpl-faq.html) - is a good place to look.
@@ -57,10 +57,10 @@ benefits.
 
 Required version of Moodle
 ==========================
-This version works with Moodle 5.0 version 2025041400.00 (Build: 20250414) and above within the MOODLE_500_STABLE branch until the
+This version works with Moodle 5.1 version 2025100600.00 (Build: 20251006) and above within the MOODLE_501_STABLE branch until the
 next release.
 
-Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/500/en/Installing_Moodle)'.
+Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/501/en/Installing_Moodle)'.
 
 Reporting issues
 ================
@@ -69,13 +69,12 @@ is essential that you are operating the required version of Moodle as stated abo
 that is out of its control.
 
 If you think you've discovered a genuine bug with the format then please look at the Moodle Course and course formats forum first to see if it
-has already been repoted.  Secondly, look at [GitHub](https://github.com/gjbarnard/moodle-format_topcoll/issues), and thirdly [Moodle Tracker](https://tracker.moodle.org/issues/?jql=project+%3D+CONTRIB+AND+component+%3D+%22Course+format%3A+Topcoll%22).
+has already been reported.  Secondly, look at [GitHub](https://github.com/gjbarnard/moodle-format_topcoll/issues), and thirdly [Moodle Tracker](https://tracker.moodle.org/issues/?jql=project+%3D+CONTRIB+AND+component+%3D+%22Course+format%3A+Topcoll%22).
 
-I operate a policy that I will fix all genuine issues in 'my' (not other developers of the format) code, when fully described and
-replicatable.
+I operate a policy that I will fix all genuine issues when described and replicatable.
 
 It is essential that you provide as much information as possible, the critical information being the contents of the format's
-version.php file / or the top of the 'Information' settings tab.  Other version information such as specific Moodle version,
+`version.php` file / or the top of the 'Information' settings tab.  Other version information such as specific Moodle version,
 theme name and version also helps.  A screen shot can be really useful in visualising the issue along with any files you
 consider to be relevant.
 

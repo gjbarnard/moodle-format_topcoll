@@ -1,6 +1,46 @@
 ﻿Version Information
 ===================
 
+Version 501.0.1 - 05/04/2026
+----------------------------
+### Release notes
+This release not only makes the format compatible with Moodle 5.1 but refactors it to put it in a position where it can continue in
+line with core improvements.  Such as '[MDL-82709](https://moodle.atlassian.net/browse/MDL-82709)' which while still in progress is a
+good idea as section id's don't change when sections move.  Thus I have updated the code to use section id's instead of numbers. This
+brings with it implications:
+
+ - When a section moves then the open / closed intent stays with the section.
+ - Risk in terms of code change to migrate from numbers to id's and hence this is a 'Release Candidate'.  There is migration functionality,
+so you don't need to do anything.  But... this also means that going back is currently not an option.  Therefore it is 'really' essential
+that you test before using on production.
+ - I've used the same user preference as the 'Custom sections' format with the same data format of storing what sections are collapsed.
+And thus changing between the two formats will retain the collapsed / expanded state of each section.
+
+#### Timing
+I realise that this version has been released much later than previous updates to major versions.  I'm releasing this version now because
+I'm passionate about the impact that Collapsed Topics has within the community driven Moodle ecosystem that helps to bring education to all.
+It is one cog amongst many that contributes to the overall success of the eLearning system.
+
+The format is fully 'Open Source' including the CSS and JavaScript ([GPLv3](https://www.gnu.org/licenses/gpl-3.0.html)).  This is because
+from my understanding of the GPLv3 licence ([GPLAndPlugins](https://www.gnu.org/licenses/gpl-faq.html#GPLAndPlugins) and
+[GPLPlugins](https://www.gnu.org/licenses/gpl-faq.html#GPLPlugins)) then only the CSS could employ a 'Closed Source' licence as the
+JavaScript imports core API code which is GPLv3 licenced, and thus has to be too.  The CSS is already GPLv3 and that cannot be revoked.
+Therefore when you get a copy of the code then you can redistribute for free or charge a distribution fee if you wish
+'[DoesTheGPLAllowMoney](https://www.gnu.org/licenses/gpl-faq.html#DoesTheGPLAllowMoney)' and related in the FAQ.
+
+### Changes
+1. First Moodle 5.1 version.
+2. Fix 'Accessibility - "Jump to" menu on section page needs label' - #183.  Thanks to [Stefan Topfstedt](https://github.com/stopfstedt)
+   for the patch.
+3. Put back removed 'One section icon' in #181 for when no element text is shown on the right of the toggle.
+4. Fix badge and section availability messages when editing.
+5. Address hidden sections string deprecation.
+6. Address deprecation of '`get_max_sections`'.
+7. Address move of activity chooser.
+8. Address deprecation of '`course_section_add_cm_control`'.
+9. Apply 'MDL-86565 courseformat: don't link to sections user cannot see'.
+10. Impact of 'MDL-84045 core_courseformat: Restore section return functionality'.
+
 Version 500.1.3 - 19/11/2025
 ----------------------------
 1. Fix 'Can't toggle sections open/closed when editing is on' - #177.

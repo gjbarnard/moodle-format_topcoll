@@ -20,7 +20,7 @@
  * A topic based format that solves the issue of the 'Scroll of Death' when a course has many topics. All topics
  * except zero have a toggle that displays that topic. One or more topics can be displayed at any given time.
  * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
- * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
+ * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.md' file.
  *
  * @package    format_topcoll
  * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
@@ -72,8 +72,6 @@ class renderer extends section_renderer {
     protected $defaulttogglepersistence;
     /** @var string $defaultuserpreference Default user preference when none set - bool - true all open, false all closed.*/
     protected $defaultuserpreference;
-    /** @var class $togglelib Toggle lib object.*/
-    protected $togglelib;
     /** @var int $currentsection If not false then will be the current section number.*/
     protected $currentsection = false;
     /** @var bool $userisediting */
@@ -97,7 +95,12 @@ class renderer extends section_renderer {
      */
     public function __construct(moodle_page $page, $target) {
         parent::__construct($page, $target);
-        $this->togglelib = new togglelib();
+        $this->defaulttogglepersistence = clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT);
+        if ($this->defaulttogglepersistence == 0) {
+            $this->defaultuserpreference = clean_param(get_config('format_topcoll', 'defaultuserpreference'), PARAM_INT);
+        } else {
+            $this->defaultuserpreference = null;
+        }
         $this->courseformat = course_get_format($page->course); // Needed for collapsed topics settings retrieval.
         $this->course = $this->courseformat->get_course();
 
@@ -174,12 +177,19 @@ class renderer extends section_renderer {
         if (empty($this->tcsettings)) {
             $this->tcsettings = $format->get_settings();
         }
-        $this->set_user_preferences();
 
         if ($this->courseformat->is_section_current($section)) {
             $togglestate = true;
+            if ($this->defaulttogglepersistence == 1) {
+                $this->courseformat->remove_section_preference_ids('contentcollapsed', [$section->id]);
+            }
         } else {
-            $togglestate = $this->togglelib->get_toggle_state($section->section);
+            if ($this->defaulttogglepersistence == 1) {
+                $sectionpreferences = $this->courseformat->get_sections_preferences();
+                $togglestate = !(!empty($sectionpreferences[$section->id]->contentcollapsed));
+            } else {
+                $togglestate = $this->defaultuserpreference;
+            }
         }
         $course = $format->get_course();
         $output = $this->topcoll_section($section, $course, false, null, $togglestate);
@@ -308,7 +318,7 @@ class renderer extends section_renderer {
                             case 8:
                                 if ($section->uservisible) {
                                     $title = get_string('viewonly', 'format_topcoll', ['sectionname' => $topictext . ' ' . $section->section]);
-                                    $url = new url('/course/view.php', ['id' => $course->id, 'section' => $section->section]);
+                                    $url = new url('/course/section.php', ['id' => $section->id]);
                                     $o .= html_writer::link(
                                         $url,
                                         $topictext . html_writer::empty_tag('br') .
@@ -324,6 +334,16 @@ class renderer extends section_renderer {
                                     );
                                 }
                                 break;
+                            default:
+                                if ($section->uservisible) {
+                                    $title = get_string('viewonly', 'format_topcoll', ['sectionname' => $topictext . ' ' . $section->section]);
+                                    $url = new url('/course/section.php', ['id' => $section->id]);
+                                    $o .= html_writer::link(
+                                        $url,
+                                        $this->one_section_icon($title),
+                                        ['title' => $title, 'class' => 'cps_centre']
+                                    );
+                                }
                         }
                     }
                 }
@@ -580,7 +600,7 @@ class renderer extends section_renderer {
         if ($section->uservisible) {
             $sectioncontext['cscml'] = $this->course_section_cmlist($section);
             if ($this->courseformat->show_editor()) {
-                $sectioncontext['cscml'] .= $this->course_section_add_cm_control($course, $section->section, $sectionreturn);
+                $sectioncontext['cscml'] .= $this->section_add_cm_controls($this->courseformat, $section);
             }
         }
 
@@ -712,7 +732,7 @@ class renderer extends section_renderer {
 
         if ($this->courseformat->show_editor()) {
             $stealthsectioncontext['cmcontrols'] =
-                $this->course_section_add_cm_control($course, $section->section, $section->section);
+                $this->section_add_cm_controls($this->courseformat, $section);
         }
 
         return $this->render_from_template('format_topcoll/stealthsection', $stealthsectioncontext);
@@ -821,7 +841,6 @@ class renderer extends section_renderer {
      */
     public function multiple_section_page() {
         $course = $this->course;
-        $this->set_user_preferences();
         $content = $this->course_styles();
 
         $modinfo = get_fast_modinfo($course);
@@ -894,6 +913,11 @@ class renderer extends section_renderer {
             $sectionoutput .= $this->start_toggle_section_list();
 
             $extrasectioninfo = [];
+            if ($this->defaulttogglepersistence == 1) {
+                $sectionpreferences = $this->courseformat->get_sections_preferences();
+            }
+            $changedstatetoclosed = [];
+            $changedstatetoopen = [];
             foreach ($shownsectionsinfo['sectionsdisplayed'] as $displayedsection) {
                 $extrasectioninfo[$displayedsection->id] = new stdClass();
 
@@ -907,10 +931,16 @@ class renderer extends section_renderer {
                     ) {
                         $this->currentsection = $shownsectionsinfo['currentsectionno'];
                         $extrasectioninfo[$displayedsection->id]->toggle = true; // Open current section regardless of toggle state.
-                        $this->togglelib->set_toggle_state($displayedsection->section, true);
+                        if ($this->defaulttogglepersistence == 1) {
+                            $changedstatetoopen[] = $displayedsection->id;
+                        }
                     } else {
-                        $extrasectioninfo[$displayedsection->id]->toggle =
-                            $this->togglelib->get_toggle_state($displayedsection->section);
+                        if ($this->defaulttogglepersistence == 0) {
+                            $extrasectioninfo[$displayedsection->id]->toggle = $this->defaultuserpreference;
+                        } else {
+                            $extrasectioninfo[$displayedsection->id]->toggle =
+                                !(!empty($sectionpreferences[$displayedsection->id]->contentcollapsed));
+                        }
                     }
                     $extrasectioninfo[$displayedsection->id]->isshown = true;
                 }
@@ -944,7 +974,9 @@ class renderer extends section_renderer {
                                 if ($shownonetoggle != $displayedsection->section) {
                                     // There is already a toggle open so others need to be closed.
                                     $displayedsection->toggle = false;
-                                    $this->togglelib->set_toggle_state($displayedsection->section, false);
+                                    if ($this->defaulttogglepersistence == 1) {
+                                        $changedstatetoclosed[] = $displayedsection->id;
+                                    }
                                 }
                             } else {
                                 // No open toggle, so as this is the first, it can be the one.
@@ -1014,6 +1046,14 @@ class renderer extends section_renderer {
                 }
             }
             $content .= $sectionoutput;
+
+            // Ensure that the database is correct.
+            if (!empty($changedstatetoopen)) {
+                $this->courseformat->remove_section_preference_ids('contentcollapsed', $changedstatetoopen);
+            }
+            if (!empty($changedstatetoclosed)) {
+                $this->courseformat->add_section_preference_ids('contentcollapsed', $changedstatetoclosed);
+            }
         }
 
         $changenumsections = '';
@@ -1044,7 +1084,6 @@ class renderer extends section_renderer {
         $content .= $this->bulkedittools();
 
         // Now initialise the JavaScript.
-        $toggles = $this->togglelib->get_toggles();
         $onetopic = ($this->tcsettings['onesection'] == 2) ? 'true' : 'false';
         $onetopictoggle = (empty($shownonetoggle)) ? 'false' : $shownonetoggle;
         $defaulttogglepersistence = ($this->defaulttogglepersistence == 1) ? 'true' : 'false';
@@ -1054,11 +1093,7 @@ class renderer extends section_renderer {
             ' data-defaulttogglepersistence="' . $defaulttogglepersistence . '"' .
             '></span>';
 
-        /* Make sure the database has the correct state of the toggles if changed by the code.
-           This ensures that a no-change page reload is correct. */
-        set_user_preference(togglelib::TOPCOLL_TOGGLE . '_' . $course->id, $toggles);
-
-        return $content;
+            return $content;
     }
 
     /**
@@ -1256,55 +1291,6 @@ class renderer extends section_renderer {
             $topcollsidewidthval = '40px';
         }
         return $topcollsidewidthval;
-    }
-
-    /**
-     * Set the user preferences.
-     */
-    protected function set_user_preferences() {
-        $this->defaultuserpreference = clean_param(get_config('format_topcoll', 'defaultuserpreference'), PARAM_INT);
-        $this->defaulttogglepersistence = clean_param(get_config('format_topcoll', 'defaulttogglepersistence'), PARAM_INT);
-
-        if ($this->defaulttogglepersistence == 1) {
-            global $USER;
-            $USER->topcoll_user_pref[togglelib::TOPCOLL_TOGGLE . '_' . $this->course->id] = PARAM_RAW;
-            $userpreference = get_user_preferences(togglelib::TOPCOLL_TOGGLE . '_' . $this->course->id);
-        } else {
-            $userpreference = null;
-        }
-
-        $coursenumsections = $this->courseformat->get_last_section_number_without_delegated();
-        if ($userpreference != null) {
-            // Check we have enough digits for the number of toggles in case this has increased.
-            $numdigits = togglelib::get_required_digits($coursenumsections);
-            $totdigits = strlen($userpreference);
-            if ($numdigits > $totdigits) {
-                if ($this->defaultuserpreference == 0) {
-                    $dchar = togglelib::get_min_digit();
-                } else {
-                    $dchar = togglelib::get_max_digit();
-                }
-                for ($i = $totdigits; $i < $numdigits; $i++) {
-                    $userpreference .= $dchar;
-                }
-            } else if ($numdigits < $totdigits) {
-                // Shorten to save space.
-                $userpreference = substr($userpreference, 0, $numdigits);
-            }
-            $this->togglelib->set_toggles($userpreference);
-        } else {
-            $numdigits = togglelib::get_required_digits($coursenumsections);
-            if ($this->defaultuserpreference == 0) {
-                $dchar = togglelib::get_min_digit();
-            } else {
-                $dchar = togglelib::get_max_digit();
-            }
-            $userpreference = '';
-            for ($i = 0; $i < $numdigits; $i++) {
-                $userpreference .= $dchar;
-            }
-            $this->togglelib->set_toggles($userpreference);
-        }
     }
 
     /**

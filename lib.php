@@ -32,6 +32,8 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/course/format/lib.php'); // For format_base.
 
+use format_topcoll\togglelib;
+
 /**
  * Format class.
  */
@@ -150,20 +152,6 @@ class format_topcoll extends core_courseformat\base {
     }
 
     /**
-     * Method used to get the maximum number of sections for this course format without delegated.
-     * @return int Maximum number of sections.
-     */
-    public function get_max_sections_without_delegated() {
-        $maxsections = $this->get_max_sections();
-
-        if (!empty($maxsections)) {
-            $maxsections -= $this->get_number_of_delegated_sections();
-        }
-
-        return $maxsections;
-    }
-
-    /**
      * Get the number of delegated sections.
      *
      * @return int Number of delegated sections.
@@ -188,6 +176,115 @@ class format_topcoll extends core_courseformat\base {
         }
 
         return $delegatedcount;
+    }
+
+    /**
+     * Return the format section preferences.
+     *
+     * @return array of preferences indexed by preference name.
+     */
+    public function get_sections_preferences_by_preference(): array {
+        global $USER;
+        $course = $this->get_course();
+        try {
+            $sectionpreferences = json_decode(
+                get_user_preferences("coursesectionspreferences_{$course->id}", '', $USER->id),
+                true,
+            );
+            if (empty($sectionpreferences)) {
+                $sectionpreferences = $this->get_default_preferences();
+            }
+        } catch (\Throwable $e) {
+            $sectionpreferences = $this->get_default_preferences();
+        }
+        return $sectionpreferences;
+    }
+
+    /**
+     * Return the default state of the toggles and index when first accessed.
+     *
+     * @return array of collapsed sections information arrays.
+     */
+    protected function get_default_preferences(): array {
+        $sectionscollapsed = [];
+
+        // If we have a 'topcoll_toggle' preference, then convert that instead.
+        $togglelib = $this->migrate_topcoll_toggles();
+        if ($togglelib != null) {
+            $coursenumsections = $this->get_last_section_number_without_delegated();
+            if ($coursenumsections > 0) {
+                $course = $this->get_course();
+                $modinfo = get_fast_modinfo($course);
+                $sections = $modinfo->get_section_info_all();
+
+                for ($sectionno = 1; $sectionno <= $coursenumsections; $sectionno++) {
+                    $state = $togglelib->get_toggle_state($sectionno);
+                    if (!$state) {
+                        $sectionscollapsed[] = $sections[$sectionno]->id;
+                    }
+                }
+            }
+        } else {
+            $shownsectionsinfo = $this->get_shown_sections();
+            if ($shownsectionsinfo['coursenumsections'] > 0) {
+                $defaultuserpreference = clean_param(get_config('format_topcoll', 'defaultuserpreference'), PARAM_INT);
+                if ($defaultuserpreference == 0) { // Collapsed.
+                    foreach ($shownsectionsinfo['sectionsdisplayed'] as $displayedsection) {
+                        $sectionscollapsed[] = $displayedsection->id;
+                    }
+                }
+            }
+        }
+
+        $sectionpreferences = ['contentcollapsed' => $sectionscollapsed, 'indexcollapsed' => $sectionscollapsed];
+
+        if ($togglelib != null) {
+            // Persist.
+            global $USER;
+            set_user_preference('coursesectionspreferences_' . $this->courseid, json_encode($sectionpreferences), $USER->id);
+            // Invalidate section preferences cache.
+            $coursesectionscache = cache::make('core', 'coursesectionspreferences');
+            $coursesectionscache->delete($this->courseid);
+        }
+
+        return $sectionpreferences;
+    }
+
+    /**
+     * Get the topcoll toggles if any.
+     *
+     * @return toggle_lib with preference state if has a 'topcoll_toggle' or null.
+     */
+    protected function migrate_topcoll_toggles() {
+        $togglelib = null;
+
+        $userpreference = get_user_preferences(togglelib::TOPCOLL_TOGGLE . '_' . $this->courseid);
+        if ($userpreference != null) {
+            $coursenumsections = $this->get_last_section_number_without_delegated();
+            // Check we have enough digits for the number of toggles in case this has increased.
+            $numdigits = togglelib::get_required_digits($coursenumsections);
+            $totdigits = strlen($userpreference);
+            if ($numdigits > $totdigits) {
+                $defaultuserpreference = clean_param(get_config('format_topcoll', 'defaultuserpreference'), PARAM_INT);
+                if ($defaultuserpreference == 0) {
+                    $dchar = togglelib::get_min_digit();
+                } else {
+                    $dchar = togglelib::get_max_digit();
+                }
+                for ($i = $totdigits; $i < $numdigits; $i++) {
+                    $userpreference .= $dchar;
+                }
+            } else if ($numdigits < $totdigits) {
+                // Shorten to save space.
+                $userpreference = substr($userpreference, 0, $numdigits);
+            }
+            $togglelib = new togglelib();
+            $togglelib->set_toggles($userpreference);
+
+            unset_user_preference(togglelib::TOPCOLL_TOGGLE . '_' . $this->courseid);
+        }
+
+        return $togglelib;
     }
 
     /**
@@ -480,30 +577,37 @@ class format_topcoll extends core_courseformat\base {
      */
     public function get_view_url($section, $options = []) {
         $course = $this->get_course();
+        $section = (is_object($section) || is_null($section)) ? $section : $this->get_section($section, IGNORE_MISSING);
         $url = new moodle_url('/course/view.php', ['id' => $course->id]);
 
         $sr = false;
         if (array_key_exists('sr', $options)) {
-            $sectionno = $options['sr'];
+            $pagesection = !is_null($options['sr']) ? $this->get_section($options['sr'], IGNORE_MISSING) : null;
             $sr = true;
-        } else if (is_object($section)) {
-            $sectionno = $section->section;
+        } else if ($options['navigation'] ?? false) {
+            $pagesection = $section;
         } else {
-            $sectionno = $section;
+            $pagesection = null;
         }
-        if ($sectionno !== null) {
-            if (!empty($options['navigation'])) {
-                // Unlike core, navigate to section on course page.
-                $url->set_anchor('section-' . $sectionno);
-            } else if (!empty($options['state'])) {
-                // Navigate to section on course page from course index.
-                // Yes I know this is the same but at this stage I want to be sure.
-                $url->set_anchor('section-' . $sectionno);
-            } else if ((!empty($options['singlenavigation'])) || ($sr)) {
-                $url->param('section', $sectionno);
+
+        if (!is_null($pagesection)) {
+            if (!empty($pagesection->component)) {
+                $url = new moodle_url('/course/section.php', ['id' => $pagesection->id]);
             } else {
-                // I know, odd logic but more of an explaination!
-                $url->set_anchor('section-' . $sectionno);
+                $sectionno = $pagesection->section;
+                if (!empty($options['navigation'])) {
+                    // Unlike core, navigate to section on course page.
+                    $url->set_anchor('section-' . $sectionno);
+                } else if (!empty($options['state'])) {
+                    // Navigate to section on course page from course index.
+                    // Yes I know this is the same but at this stage I want to be sure.
+                    $url->set_anchor('section-' . $sectionno);
+                } else if ((!empty($options['singlenavigation'])) || ($sr)) {
+                    $url = new moodle_url('/course/section.php', ['id' => $pagesection->id]);
+                } else {
+                    // I know, odd logic but more of an explaination!
+                    $url->set_anchor('section-' . $sectionno);
+                }
             }
         }
 
@@ -746,6 +850,23 @@ class format_topcoll extends core_courseformat\base {
 
             $context = $this->get_context();
 
+            $hiddensectionslist = new core\output\choicelist();
+            $hiddensectionslist->set_allow_empty(false);
+            $hiddensectionslist->add_option(
+                1,
+                new lang_string('hiddensectionsinvisible'),
+                [
+                    'description' => new lang_string('hiddensectionsinvisible_description'),
+                ],
+            );
+            $hiddensectionslist->add_option(
+                0,
+                new lang_string('hiddensectionscollapsed'),
+                [
+                    'description' => new lang_string('hiddensectionscollapsed_description'),
+                ],
+            );
+
             $displayinstructionsvalues = $this->generate_default_entry(
                 'displayinstructions',
                 0,
@@ -757,14 +878,9 @@ class format_topcoll extends core_courseformat\base {
             $courseformatoptionsedit = [
                 'hiddensections' => [
                     'label' => new lang_string('hiddensections'),
-                    'help' => 'hiddensections',
-                    'help_component' => 'moodle',
-                    'element_type' => 'select',
+                    'element_type' => 'choicedropdown',
                     'element_attributes' => [
-                        [
-                            0 => new lang_string('hiddensectionscollapsed'),
-                            1 => new lang_string('hiddensectionsinvisible'),
-                        ],
+                        $hiddensectionslist,
                     ],
                 ],
                 'displayinstructions' => [
@@ -1278,8 +1394,11 @@ class format_topcoll extends core_courseformat\base {
             // The "Number of sections" option is no longer available when editing course, instead teachers should
             // delete and add sections when needed.
             $courseconfig = get_config('moodlecourse');
-            $max = (int)$courseconfig->maxsections;
-            $element = $mform->addElement('select', 'numsections', get_string('numberweeks'), range(0, $max ?: 52));
+            $maxsections = get_config('moodlecourse', 'maxsections');
+            if (!isset($maxsections) || !is_numeric($maxsections)) {
+                $maxsections = 52;
+            }
+            $element = $mform->addElement('select', 'numsections', get_string('numberweeks'), range(0, $maxsections));
             $mform->setType('numsections', PARAM_INT);
             if (is_null($mform->getElementValue('numsections'))) {
                 $mform->setDefault('numsections', $courseconfig->numsections);

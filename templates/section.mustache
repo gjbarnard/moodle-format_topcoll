@@ -81,74 +81,75 @@
 }}
 
 
-<li id="section-{{sectionno}}" class="section course-section main clearfix{{#sectionstyle}} {{sectionstyle}}{{/sectionstyle}}{{#columnclass}} {{columnclass}}{{/columnclass}}"{{#columnwidth}} style="width: {{columnwidth}}%;"{{/columnwidth}} role="region" aria-labelledby="sectionid-{{id}}-title" data-sectionid="{{sectionno}}"{{#sectionreturn}} data-sectionreturnid="{{sectionreturn}}"{{/sectionreturn}} data-for="section" data-id="{{id}}" data-number="{{sectionno}}">
-    <div class="section-item">
-    {{#nomtore}}
-        {{^rtl}}
-        {{{leftcontent}}}
-        {{/rtl}}
-        {{#rtl}}
-        {{{rightcontent}}}
-        {{/rtl}}
-    {{/nomtore}}
-        <div class="content"{{#contentaria}} aria-live="polite"{{/contentaria}}>
-            {{^sectionpage}}
-            {{#editing}}
-            <div class="course-section-header d-flex" data-for="section_title">
-                {{#sectionbulk}}
-                {{$ core_courseformat/local/content/section/bulkselect }}
-                    {{> core_courseformat/local/content/section/bulkselect }}
-                {{/ core_courseformat/local/content/section/bulkselect }}
-                {{/sectionbulk}}
-            {{/editing}}
+<li id="section-{{sectionno}}" class="section course-section main clearfix{{#sectionstyle}} {{sectionstyle}}{{/sectionstyle}}{{#columnclass}} {{columnclass}}{{/columnclass}}"{{#columnwidth}} style="width: {{columnwidth}}%;"{{/columnwidth}} role="region" aria-labelledby="sectionid-{{id}}-title" data-sectionid="{{sectionno}}"{{#sectionreturn}} data-sectionreturnid="{{sectionreturn}}"{{/sectionreturn}} data-for="section" data-id="{{id}}" data-number="{{sectionno}}">{{!
+    }}<div class="section-item">{{!
+    }}{{#nomtore}}{{!
+        }}{{^rtl}}{{!
+        }}{{{leftcontent}}}{{!
+        }}{{/rtl}}{{!
+        }}{{#rtl}}{{!
+        }}{{{rightcontent}}}{{!
+        }}{{/rtl}}{{!
+    }}{{/nomtore}}{{!
+        }}<div class="content"{{#contentaria}} aria-live="polite"{{/contentaria}}>{{!
+            }}{{^sectionpage}}{{!
+            }}{{#editing}}{{!
+            }}<div class="course-section-header d-flex" data-for="section_title">{{!
+                }}{{#sectionbulk}}{{!
+                    }}{{$ core_courseformat/local/content/section/bulkselect }}{{!
+                        }}{{> core_courseformat/local/content/section/bulkselect }}{{!
+                    }}{{/ core_courseformat/local/content/section/bulkselect }}{{!
+                }}{{/sectionbulk}}{{!
+            }}{{/editing}}{{!
 
-            <div id="toggle-{{sectionno}}" class="sectionhead toggle {{^tif}}toggle-{{toggleiconset}}{{/tif}}{{#tif}}tif{{/tif}}" role="button" aria-expanded="{{#toggleopen}}true{{/toggleopen}}{{^toggleopen}}false{{/toggleopen}}" aria-controls="toggledsection-{{sectionno}}" tabindex="0">
-                <span class="the_toggle {{#toggleopen}}toggle_open{{/toggleopen}}{{^toggleopen}}toggle_closed{{/toggleopen}} {{toggleiconsize}}">{{!
+            }}<div id="toggle-{{sectionno}}" data-id="{{id}}" data-number="{{sectionno}}" class="sectionhead toggle {{^tif}}toggle-{{toggleiconset}}{{/tif}}{{#tif}}tif{{/tif}}" role="button" aria-expanded="{{#toggleopen}}true{{/toggleopen}}{{^toggleopen}}false{{/toggleopen}}" aria-controls="toggledsection-{{sectionno}}" tabindex="0">{{!
+                }}<span class="the_toggle {{#toggleopen}}toggle_open{{/toggleopen}}{{^toggleopen}}toggle_closed{{/toggleopen}} {{toggleiconsize}}">{{!
                     }}{{#tif}}{{#tifpleft}}{{{tif}}}{{/tifpleft}}{{/tif}}{{!
                      }}{{{heading}}}{{!
                     }}{{#tif}}{{^tifpleft}}{{{tif}}}{{/tifpleft}}{{/tif}}{{!
-                 }}</span>
-            </div>
-            {{#usereditingtitle}}<span class="hidden" aria-hidden="true">{{usereditingtitle}}</span>{{/usereditingtitle}}
-            {{#usereditingurl}}<a href="{{{usereditingurl}}}" title="{{#str}}editsection, format_topcoll{{/str}}">{{{usereditingicon}}}</a>{{/usereditingurl}}{{!
+                 }}</span>{{!
+            }}</div>{{!
+            }}{{#usereditingtitle}}<span class="hidden" aria-hidden="true">{{usereditingtitle}}</span>{{/usereditingtitle}}{{!
+            }}{{#usereditingurl}}<a href="{{{usereditingurl}}}" title="{{#str}}editsection, format_topcoll{{/str}}">{{{usereditingicon}}}</a>{{/usereditingurl}}{{!
+            }}{{#editing}}{{!
+            }}</div>{{!
+            }}{{/editing}}{{!
             }}{{#sectionvisibility}}{{!
-            }}<div data-region="sectionbadges" class="sectionbadges d-inline-block align-items-center">
-                {{$ core_courseformat/local/content/section/badges }}
-                    {{> core_courseformat/local/content/section/badges }}
-                {{/ core_courseformat/local/content/section/badges }}
-            </div>
-            {{/sectionvisibility}}
-            {{{sectionavailability}}}
-            {{#sectionsummarywhencollapsed}}
-            {{{sectionsummary}}}
-            {{/sectionsummarywhencollapsed}}
-            {{#editing}}
-            </div>
-            {{/editing}}
-            <div id="toggledsection-{{sectionno}}" class="sectionbody toggledsection{{#toggleopen}} sectionopen{{/toggleopen}}">
-                {{^sectionsummarywhencollapsed}}
-                {{{sectionsummary}}}
-                {{/sectionsummarywhencollapsed}}
-                {{{cscml}}}
-            </div>
-            {{/sectionpage}}
-            {{#sectionpage}}
-                {{{heading}}}
-                {{{sectionavailability}}}
-                <div class="summary">
-                    {{{summary}}}
-                    {{#usereditingurl}}<a href="{{{usereditingurl}}}" title="{{#str}}editsection, format_topcoll{{/str}}">{{{usereditingicon}}}</a>{{/usereditingurl}}
-                </div>
-                {{{cscml}}}
-            {{/sectionpage}}
-        </div>
-    {{#nomtore}}
-        {{^rtl}}
-        {{{rightcontent}}}
-        {{/rtl}}
-        {{#rtl}}
-        {{{leftcontent}}}
-        {{/rtl}}
-    {{/nomtore}}
-    </div>
-</li>
+            }}<div data-region="sectionbadges" class="sectionbadges d-inline-block align-items-center">{{!
+            }}{{$ core_courseformat/local/content/section/badges }}{{!
+                }}{{> core_courseformat/local/content/section/badges }}{{!
+            }}{{/ core_courseformat/local/content/section/badges }}{{!
+            }}</div>{{!
+            }}{{/sectionvisibility}}{{!
+            }}{{{sectionavailability}}}{{!
+            }}{{#sectionsummarywhencollapsed}}{{!
+            }}{{{sectionsummary}}}{{!
+            }}{{/sectionsummarywhencollapsed}}{{!
+
+            }}<div id="toggledsection-{{sectionno}}" class="sectionbody toggledsection{{#toggleopen}} sectionopen{{/toggleopen}}">{{!
+            }}{{^sectionsummarywhencollapsed}}{{!
+            }}{{{sectionsummary}}}{{!
+            }}{{/sectionsummarywhencollapsed}}{{!
+            }}{{{cscml}}}{{!
+            }}</div>{{!
+            }}{{/sectionpage}}
+            {{#sectionpage}}{{!
+            }}{{{heading}}}{{!
+            }}{{{sectionavailability}}}{{!
+            }}<div class="summary">{{!
+            }}{{{summary}}}{{!
+            }}{{#usereditingurl}}<a href="{{{usereditingurl}}}" title="{{#str}}editsection, format_topcoll{{/str}}">{{{usereditingicon}}}</a>{{/usereditingurl}}{{!
+            }}</div>{{!
+            }}{{{cscml}}}{{!
+            }}{{/sectionpage}}{{!
+            }}</div>{{!
+    }}{{#nomtore}}{{!
+        }}{{^rtl}}{{!
+        }}{{{rightcontent}}}{{!
+        }}{{/rtl}}{{!
+        }}{{#rtl}}{{!
+        }}{{{leftcontent}}}{{!
+        }}{{/rtl}}{{!
+    }}{{/nomtore}}{{!
+    }}</div>{{!
+}}</li>

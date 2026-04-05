@@ -74,12 +74,9 @@ class course extends course_base {
         $data = (object)[
             'id' => $course->id,
             'numsections' => $format->get_last_section_number(),
-            'numsectionswithoutdelegated' => $format->get_last_section_number_without_delegated(),
             'sectionlist' => [],
             'editmode' => $format->show_editor(),
             'highlighted' => $format->get_section_highlighted_name(),
-            'maxsections' => $format->get_max_sections(),
-            'maxsectionswithoutdelegated' => $format->get_max_sections_without_delegated(),
             'baseurl' => $url->out(),
             'statekey' => course_format::session_cache($course),
             'maxbytes' => $maxbytes,
