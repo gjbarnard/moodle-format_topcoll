@@ -57,10 +57,9 @@ benefits.
 
 Required version of Moodle
 ==========================
-This version works with Moodle 5.1 version 2025100600.00 (Build: 20251006) and above within the MOODLE_501_STABLE branch until the
-next release.
+This version works with Moodle 5.2 version 2026042000.00 (Build: 20260420) and above within the MOODLE_502_STABLE branch.
 
-Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/501/en/Installing_Moodle)'.
+Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/502/en/Installing_Moodle)'.
 
 Reporting issues
 ================

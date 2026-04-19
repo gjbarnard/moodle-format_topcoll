@@ -577,38 +577,40 @@ class format_topcoll extends core_courseformat\base {
      */
     public function get_view_url($section, $options = []) {
         $course = $this->get_course();
-        $section = (is_object($section) || is_null($section)) ? $section : $this->get_section($section, IGNORE_MISSING);
-        $url = new moodle_url('/course/view.php', ['id' => $course->id]);
+        $section = (is_null($section) || $section instanceof section_info) ?
+                    $section
+                    : $this->get_section($section, IGNORE_MISSING);
 
         $sr = false;
         if (array_key_exists('sr', $options)) {
-            $pagesection = !is_null($options['sr']) ? $this->get_section($options['sr'], IGNORE_MISSING) : null;
+            $srsection = !is_null($options['sr']) ? $this->get_section($options['sr'], IGNORE_MISSING) : null;
             $sr = true;
-        } else if ($options['navigation'] ?? false) {
-            $pagesection = $section;
+        } else if ((!empty($options['navigation'])) || (!empty($options['singlenavigation']))) {
+            $pagesection = ($section && $section->get_component_instance()) ?
+                            $section->get_component_instance()->get_parent_section()
+                            : $section;
         } else {
             $pagesection = null;
         }
 
-        if (!is_null($pagesection)) {
-            if (!empty($pagesection->component)) {
-                $url = new moodle_url('/course/section.php', ['id' => $pagesection->id]);
-            } else {
-                $sectionno = $pagesection->section;
-                if (!empty($options['navigation'])) {
-                    // Unlike core, navigate to section on course page.
-                    $url->set_anchor('section-' . $sectionno);
-                } else if (!empty($options['state'])) {
-                    // Navigate to section on course page from course index.
-                    // Yes I know this is the same but at this stage I want to be sure.
-                    $url->set_anchor('section-' . $sectionno);
-                } else if ((!empty($options['singlenavigation'])) || ($sr)) {
-                    $url = new moodle_url('/course/section.php', ['id' => $pagesection->id]);
-                } else {
-                    // I know, odd logic but more of an explaination!
-                    $url->set_anchor('section-' . $sectionno);
-                }
+        // Base URL.
+        if ($sr) {
+            $url = new moodle_url('/course/view.php', ['id' => $course->id]);
+            $url->set_anchor('section-' . $srsection->section);
+        } else if (is_null($pagesection)) {
+            $url = new moodle_url('/course/view.php', ['id' => $course->id]);
+            if (!empty($options['state'])) {
+                // Navigate to section on course page from course index.
+                // Note 'navigation' changed to 'state' in overridden state\section.php.
+                $url->set_anchor('section-' . $section->section);
             }
+        } else {
+            $url = new moodle_url('/course/section.php', ['id' => $pagesection->id]);
+        }
+
+        // Add details.
+        if ($section && ($section->id != $pagesection?->id)) {
+            $url->set_anchor('section-' . $section->section);
         }
 
         return $url;

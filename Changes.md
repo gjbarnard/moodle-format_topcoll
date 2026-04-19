@@ -1,6 +1,11 @@
 ﻿Version Information
 ===================
 
+Version 502.0.1 - 19/04/2026
+----------------------------
+1. Address implications of [MDL-87276](https://moodle.atlassian.net/browse/MDL-87276).
+2. Boost theme anchor improvement.
+
 Version 501.0.1 - 05/04/2026
 ----------------------------
 ### Release notes
