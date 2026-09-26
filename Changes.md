@@ -1,6 +1,11 @@
 ﻿Version Information
 ===================
 
+Version 502.1.0 - 26/09/2026
+----------------------------
+1. Fix 'Course question bank module in section zero prevents display of other modules'.  This is really apparent when restoring a course created for Moodle 4.5 and below.
+2. Add information for [CAMP](https://camp-registry.org/plugin/format_topcoll.html).
+
 Version 502.0.1 - 19/04/2026
 ----------------------------
 1. Address implications of [MDL-87276](https://moodle.atlassian.net/browse/MDL-87276).

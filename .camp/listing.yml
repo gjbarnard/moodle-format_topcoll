@@ -1,0 +1,28 @@
+name: format_topcoll
+summary: Collapsed Topics course format for Moodle.
+description: |
+  The concept of 'Collapsed Topics' arose from a need to segment a multi-unit course I was teaching, whereby a student would only
+  need to look at the material for a given unit at any given time.  So instead of the administrative complications of meta
+  courses, and as there was no group or cohort functionality in Moodle at the time, I thought that given my experience I could
+  potentially write some code as a plugin that would solve the problem and that of the 'Scroll of Death' that my students were
+  currently experiencing.  I then read in .Net Magazine (now no longer being published) issue 186, March 2009, an article entitled
+  'Collapsed Tables' by Craig Grannell (of Snub Communications) and thought that was the way to address the issue, so I contacted him
+  and received permission to reuse the idea.  And so in Moodle 1.9 I set to work creating the first version of 'Collapsed Topics' using
+  'cookies' to store the state of the toggles, as I'd as yet at the time not learned how to use a server based solution.  Having
+  completed the first version, I backported it to Moodle 1.8.  Then the complexities of the EU Cookie Law assisted the momentum
+  towards a server side solution that didn't use 'Cookies', and since then with the 'GDPR' regulations the format does now implement the
+  'Privacy API - https://docs.moodle.org/dev/Privacy_API' as the toggle states pertain to an identifiable user.
+  There has now been a version of the format for every major version of Moodle ever since the first, gradually being improved and
+  enhanced over the years in addition to coping with the API changes.
+labels:
+  - fully-free
+  - donation-supported
+  - commercial-support-available
+screenshots:
+  - path: .camp/screenshots/tc_logo_square.png
+    caption: Logo
+links:
+  docs: https://github.com/gjbarnard/moodle-format_topcoll/blob/main/Readme.md
+  changelog: https://github.com/gjbarnard/moodle-format_topcoll/blob/main/Changes.md
+  issues: https://github.com/gjbarnard/moodle-format_topcoll/issues
+  donate: https://github.com/gjbarnard/moodle-format_topcoll/blob/main/Information.md

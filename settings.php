@@ -47,10 +47,10 @@ if ($ADMIN->fulltree) {
     ));
 
     // Information.
-    $page->add(new \format_topcoll\admin_setting_information('format_topcoll/formatinformation', '', '', 501));
+    $page->add(new \format_topcoll\admin_setting_information('format_topcoll/formatinformation', '', '', 502));
 
-    // SupportAndSponsorship.md.
-    $page->add(new \format_topcoll\admin_setting_markdown('format_topcoll/formatsupport', '', '', 'SupportAndSponsorship.md'));
+    // Information.md.
+    $page->add(new \format_topcoll\admin_setting_markdown('format_topcoll/formatsupport', '', '', 'Information.md'));
 
     // Changes.md.
     $page->add(new \format_topcoll\admin_setting_markdown(

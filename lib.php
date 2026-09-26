@@ -449,7 +449,7 @@ class format_topcoll extends core_courseformat\base {
                                 $mod = $modinfo->cms[$modnumber];
                                 if ($mod->modname == 'qbank') {
                                     // Ignore question banks.
-                                    break;
+                                    continue;
                                 }
                                 if ($mod->is_visible_on_course_page()) {
                                     // At least one is.

@@ -30,9 +30,9 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2026041600;
-$plugin->maturity = MATURITY_RC;
+$plugin->version = 2026041601;
+$plugin->maturity = MATURITY_STABLE;
 $plugin->requires = 2025100600.00; // 5.2 (Build: 20260420).  phpcs:ignore Squiz.PHP.CommentedOutCode.Found
 $plugin->supported = [502, 502];
 $plugin->component = 'format_topcoll';
-$plugin->release = '502.0.1';
+$plugin->release = '502.1.0';
