@@ -352,7 +352,7 @@ class format_topcoll extends core_courseformat\base {
                                 $mod = $modinfo->cms[$modnumber];
                                 if ($mod->modname == 'qbank') {
                                     // Ignore question banks.
-                                    break;
+                                    continue;
                                 }
                                 if ($mod->is_visible_on_course_page()) {
                                     // At least one is.
@@ -480,30 +480,37 @@ class format_topcoll extends core_courseformat\base {
      */
     public function get_view_url($section, $options = []) {
         $course = $this->get_course();
+        $section = (is_object($section) || is_null($section)) ? $section : $this->get_section($section, IGNORE_MISSING);
         $url = new moodle_url('/course/view.php', ['id' => $course->id]);
 
         $sr = false;
         if (array_key_exists('sr', $options)) {
-            $sectionno = $options['sr'];
+            $pagesection = !is_null($options['sr']) ? $this->get_section($options['sr'], IGNORE_MISSING) : null;
             $sr = true;
-        } else if (is_object($section)) {
-            $sectionno = $section->section;
+        } else if ($options['navigation'] ?? false) {
+            $pagesection = $section;
         } else {
-            $sectionno = $section;
+            $pagesection = null;
         }
-        if ($sectionno !== null) {
-            if (!empty($options['navigation'])) {
-                // Unlike core, navigate to section on course page.
-                $url->set_anchor('section-' . $sectionno);
-            } else if (!empty($options['state'])) {
-                // Navigate to section on course page from course index.
-                // Yes I know this is the same but at this stage I want to be sure.
-                $url->set_anchor('section-' . $sectionno);
-            } else if ((!empty($options['singlenavigation'])) || ($sr)) {
-                $url->param('section', $sectionno);
+
+        if (!is_null($pagesection)) {
+            if (!empty($pagesection->component)) {
+                $url = new moodle_url('/course/section.php', ['id' => $pagesection->id]);
             } else {
-                // I know, odd logic but more of an explaination!
-                $url->set_anchor('section-' . $sectionno);
+                $sectionno = $pagesection->section;
+                if (!empty($options['navigation'])) {
+                    // Unlike core, navigate to section on course page.
+                    $url->set_anchor('section-' . $sectionno);
+                } else if (!empty($options['state'])) {
+                    // Navigate to section on course page from course index.
+                    // Yes I know this is the same but at this stage I want to be sure.
+                    $url->set_anchor('section-' . $sectionno);
+                } else if ((!empty($options['singlenavigation'])) || ($sr)) {
+                    $url = new moodle_url('/course/section.php', ['id' => $pagesection->id]);
+                } else {
+                    // I know, odd logic but more of an explaination!
+                    $url->set_anchor('section-' . $sectionno);
+                }
             }
         }
 

@@ -20,7 +20,7 @@
  * A topic based format that solves the issue of the 'Scroll of Death' when a course has many topics. All topics
  * except zero have a toggle that displays that topic. One or more topics can be displayed at any given time.
  * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
- * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
+ * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.md' file.
  *
  * @package    format_topcoll
  * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
@@ -308,7 +308,7 @@ class renderer extends section_renderer {
                             case 8:
                                 if ($section->uservisible) {
                                     $title = get_string('viewonly', 'format_topcoll', ['sectionname' => $topictext . ' ' . $section->section]);
-                                    $url = new url('/course/view.php', ['id' => $course->id, 'section' => $section->section]);
+                                    $url = new url('/course/section.php', ['id' => $section->id]);
                                     $o .= html_writer::link(
                                         $url,
                                         $topictext . html_writer::empty_tag('br') .
@@ -324,6 +324,16 @@ class renderer extends section_renderer {
                                     );
                                 }
                                 break;
+                            default:
+                                if ($section->uservisible) {
+                                    $title = get_string('viewonly', 'format_topcoll', ['sectionname' => $topictext . ' ' . $section->section]);
+                                    $url = new url('/course/section.php', ['id' => $section->id]);
+                                    $o .= html_writer::link(
+                                        $url,
+                                        $this->one_section_icon($title),
+                                        ['title' => $title, 'class' => 'cps_centre']
+                                    );
+                                }
                         }
                     }
                 }
@@ -397,61 +407,6 @@ class renderer extends section_renderer {
     }
 
     /**
-     * Generate a summary of a section for display on the 'course index page'.
-     *
-     * @param stdClass $section The course_section entry from DB.
-     * @param stdClass $course The course entry from DB.
-     * @param array    $mods (argument not used).
-     * @return string HTML to output.
-     */
-    protected function section_summary($section, $course, $mods) {
-        $title = $this->courseformat->get_topcoll_section_name($course, $section, false);
-        $sectionsummarycontext = [
-            'formatsummarytext' => $this->format_summary_text($section),
-            'rtl' => $this->rtl,
-            'sectionactivitysummary' => $this->section_activity_summary($section, $course, null),
-            'sectionavailability' => $this->section_availability($section),
-            'sectionno' => $section->section,
-            'title' => $title,
-        ];
-
-        $classattrextra = '';
-        $linkclasses = '';
-        // If section is hidden then display grey section link.
-        if (!$section->visible) {
-            $classattrextra = ' hidden';
-            $linkclasses .= 'dimmed_text';
-        } else if ($this->courseformat->is_section_current($section)) {
-            $classattrextra = ' current';
-        }
-        $sectionsummarycontext['classattrextra'] = $classattrextra;
-
-        if ($this->tcsettings['layoutcolumnorientation'] == 3) { // Dynamic column layout.
-            $sectionsummarycontext['columnclass'] = $this->get_column_class('D');
-        } else if ($this->tcsettings['layoutcolumnorientation'] == 2) { // Horizontal column layout.
-            if ($this->formatresponsive) {
-                $sectionsummarycontext['columnwidth'] = $this->tccolumnwidth;
-            } else {
-                $sectionsummarycontext['colummnclass'] = $this->get_column_class($this->tcsettings['layoutcolumns']);
-            }
-        }
-
-        if ($section->uservisible) {
-            $title = html_writer::tag(
-                'a',
-                $title,
-                [
-                    'href' => $this->courseformat->get_view_url($section->section, ['navigation' => 'true'])->out(false),
-                    'class' => $linkclasses,
-                ]
-            );
-        }
-        $sectionsummarycontext['heading'] = $this->section_heading($section, $title, 'section-title');
-
-        return $this->render_from_template('format_topcoll/sectionsummary', $sectionsummarycontext);
-    }
-
-    /**
      * Generate section summary container.
      *
      * @param stdClass $section The course_section entry from DB.
@@ -463,7 +418,7 @@ class renderer extends section_renderer {
         if ($summarytext) {
             $classextra = ($this->tcsettings['showsectionsummary'] == 1) ? '' : ' summaryalwaysshown';
             $o = html_writer::start_tag('div', ['class' => 'summary' . $classextra]);
-            $o .= $this->format_summary_text($section);
+            $o .= $summarytext;
             $o .= html_writer::end_tag('div');
         } else {
             $o = '';
@@ -934,8 +889,6 @@ class renderer extends section_renderer {
 
                 if (!empty($extrasectioninfo[$displayedsection->id]->ishidden)) {
                     $sectionoutput .= $this->section_hidden($displayedsection);
-                } else if (!empty($displayedsection->issummary)) {
-                    $sectionoutput .= $this->section_summary($displayedsection, $course, null);
                 } else if (!empty($extrasectioninfo[$displayedsection->id]->isshown)) {
                     if ($this->tcsettings['onesection'] == 2) {
                         if ($extrasectioninfo[$displayedsection->id]->toggle) {

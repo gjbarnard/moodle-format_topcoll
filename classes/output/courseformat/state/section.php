@@ -20,6 +20,7 @@ use core_courseformat\output\local\state\section as section_base;
 use core_availability\info_section;
 use core_courseformat\base as course_format;
 use context_course;
+use renderer_base;
 use section_info;
 use stdClass;
 
@@ -42,10 +43,10 @@ class section extends section_base {
     /**
      * Export this data so it can be used as state object in the course editor.
      *
-     * @param \renderer_base $output typically, the renderer that's calling this function
-     * @return array data context for a mustache template
+     * @param renderer_base $output typically, the renderer that's calling this function.
+     * @return array data context for a mustache template.
      */
-    public function export_for_template(\renderer_base $output): stdClass {
+    public function export_for_template(renderer_base $output): stdClass {
         $format = $this->format;
         $course = $format->get_course();
         $section = $this->section;
@@ -73,7 +74,6 @@ class section extends section_base {
             'rawtitle' => $section->name,
             'cmlist' => [],
             'visible' => !empty($section->visible),
-            'sectionurl' => course_get_url($course, $section->section, ['navigation' => true, 'state' => true])->out(),
             'current' => $format->is_section_current($section),
             'indexcollapsed' => $indexcollapsed,
             'contentcollapsed' => $contentcollapsed,
@@ -83,6 +83,10 @@ class section extends section_base {
             'itemid' => $section->itemid,
             'parentsectionid' => $section->get_component_instance()?->get_parent_section()?->id,
         ];
+
+        if ($section->uservisible) {
+            $data->sectionurl = course_get_url($course, $section->section, ['navigation' => true])?->out(false);
+        }
 
         if (empty($modinfo->sections[$section->section])) {
             return $data;

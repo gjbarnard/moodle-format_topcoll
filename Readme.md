@@ -3,27 +3,21 @@
 Topic based course format with an individual 'toggle' for each topic except 0.
 
 This file contains general information about the format.  If you're reading this as an educator then you can learn about the format
-from the documentation on http://docs.moodle.org/500/en/Collapsed_Topics_course_format.  If you get stuck and your Moodle support
-are unable to help / not sure what to do, then please go to https://moodle.org/mod/forum/view.php?id=47.  If you like the format,
-then please do spread the word to other educators.  The main page for the format is https://moodle.org/plugins/format_topcoll.
+from the documentation on [docs.moodle.org](http://docs.moodle.org/500/en/Collapsed_Topics_course_format).  If you get stuck and your Moodle support
+are unable to help / not sure what to do, then please go to [Courses and course formats forum](https://moodle.org/mod/forum/view.php?id=47).  If you like the format,
+then please do spread the word to other educators.
 
 Required version of Moodle
 ==========================
-This version works with Moodle 5.0 version 2025041400.00 (Build: 20250414) and above within the MOODLE_500_STABLE branch until the
-next release.
+This version works with Moodle 5.0 version 2025041400.00 (Build: 20250414) and above within the MOODLE_500_STABLE branch.
 
 Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/500/en/Installing_Moodle)'.
 
 Downloads and documentation
 ===========================
-The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
-with 'Select Moodle version:' set at 'Moodle 5.0'.
+The primary source for downloading this branch of the format is [CAMP](https://camp-registry.org/plugin/format_topcoll.html).
 
-The secondary source is a tagged version with the V500 prefix on https://github.com/gjbarnard/moodle-format_topcoll/tags
-
-If you download from the development area - https://github.com/gjbarnard/moodle-format_topcoll/ - consider that
-the code is unstable and not for use in production environments.  This is because I develop the next version in stages
-and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
+The secondary source is a tagged version with the V500 prefix on [GitHub](https://github.com/gjbarnard/moodle-format_topcoll/releases).
 
 Free software
 =============
@@ -32,17 +26,13 @@ The Collapsed Topics format is 'free' software under the terms of the GNU GPLv3 
 It can be obtained for free from the links in 'Downloads and documentation' above.
 
 You have all the rights granted to you by the GPLv3 license.  If you are unsure about anything, then the
-FAQ - http://www.gnu.org/licenses/gpl-faq.html - is a good place to look.
+'[GPL FAQ](http://www.gnu.org/licenses/gpl-faq.html)' is a good place to look.
 
 If you reuse any of the code then I kindly ask that you make reference to the format.
 
-If you make improvements or bug fixes then I would appreciate if you would send them back to me by forking from
-https://github.com/gjbarnard/moodle-format_topcoll and doing a 'Pull Request' so that the rest of the
-Moodle community benefits.
-
-Support and sponsorship
-=======================
-Please see [SupportAndSponsorship.md](SupportAndSponsorship.md).
+Information
+===========
+Please see [Information.md](Information.md).
 
 Installation
 ============
@@ -195,23 +185,14 @@ Known Issues
 2.  Importing a Moodle 1.9 course does not currently work, please see CONTRIB-3552 which depends on MDL-32205 - as
     a workaround, please select the 'Topics' format first in 1.9, backup and restore then select the Collapsed Topics
     course format in the course settings.  You will have to reset your decisions on structure etc.
-3.  Sometimes when restoring a course, it is accessed for the first time and a toggle is clicked a 'Error updating user
-    preference 'topcoll_toggle_x'' (where 'x' is the course id as shown in the URL 'id=x') can occur.  I'm not completely sure
-    why this is happening as the 'user_preference_allow_ajax_update' call in 'format.php' should establish that the user
-    preference can be set.  Could be a page cache thing as the 'init' code is getting the course id unlike an issue I'm
-    currently experiencing with the MyMobile theme - MDL-33115.  The work around is to refresh the page.  Having altered some
-    of the event handing code to operate after page load, I'm hoping that this has now been resolved, please let me know
-    if you encounter it.
-4.  If you get HTTP 403 errors on the browsers console for the 'settopcollpref.php' then check that the permissions within the
-    'topcoll' folder are 755 for folders and 644 for files.  Ref: https://moodle.org/mod/forum/discuss.php?d=329620.
 
 Reporting Issues
 ================
-Please see Support.md.
+Please see [Information.md](Information.md).
 
 Version Information
 ===================
-Please see Changes.md.
+Please see [Changes.md](Changes.md).
 
 Thanks
 ======
@@ -251,8 +232,9 @@ Moodle 2.2 code on discussion [Collapsed Topics with Custom Layouts](http://mood
 
 References
 ==========
-.Net Magazine Issue 186 - Article on Collapsed Tables by Craig Grannell -
- http://www.netmag.co.uk/zine/latest-issue/issue-186
+.Net Magazine Issue 186 - Article on Collapsed Tables by Craig Grannell:
+ - http://www.netmag.co.uk/zine/latest-issue/issue-186
+ - https://web.archive.org/web/20090228023949/http://www.netmag.co.uk/zine/latest-issue/issue-186
 
 Craig Grannell - http://www.snubcommunications.com/
 
@@ -263,10 +245,10 @@ Paint.Net - http://www.getpaint.net/
 
 JavaScript: The Definitive Guide - David Flanagan - O'Reilly - ISBN: 978-0-596-10199-2
 
-Desired Enhancements
+Desired enhancements
 ====================
 1. Smoother animated toggle action.
-2. Toggle saving only when the user closes the window / moves to another course.
+2. Move to section id rather than number based toggle state data key.
 
 Developed and maintained by
 ===========================
