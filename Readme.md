@@ -3,27 +3,21 @@
 Topic based course format with an individual 'toggle' for each topic except 0.
 
 This file contains general information about the format.  If you're reading this as an educator then you can learn about the format
-from the documentation on http://docs.moodle.org/500/en/Collapsed_Topics_course_format.  If you get stuck and your Moodle support
-are unable to help / not sure what to do, then please go to https://moodle.org/mod/forum/view.php?id=47.  If you like the format,
-then please do spread the word to other educators.  The main page for the format is https://moodle.org/plugins/format_topcoll.
+from the documentation on [docs.moodle.org](http://docs.moodle.org/501/en/Collapsed_Topics_course_format).  If you get stuck and your Moodle support
+are unable to help / not sure what to do, then please go to [Courses and course formats forum](https://moodle.org/mod/forum/view.php?id=47).  If you like the format,
+then please do spread the word to other educators.
 
 Required version of Moodle
 ==========================
-This version works with Moodle 5.1 version 2025100600.00 (Build: 20251006) and above within the MOODLE_501_STABLE branch until the
-next release.
+This version works with Moodle 5.1 version 2025100600.00 (Build: 20251006) and above within the MOODLE_501_STABLE branch.
 
 Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/501/en/Installing_Moodle)'.
 
 Downloads and documentation
 ===========================
-The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
-with 'Select Moodle version:' set at 'Moodle 5.1'.
+The primary source for downloading this branch of the format is [CAMP](https://camp-registry.org/plugin/format_topcoll.html).
 
-The secondary source is a tagged version with the V501 prefix on https://github.com/gjbarnard/moodle-format_topcoll/tags
-
-If you download from the development area - https://github.com/gjbarnard/moodle-format_topcoll/ - consider that
-the code is unstable and not for use in production environments.  This is because I develop the next version in stages
-and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
+The secondary source is a tagged version with the V501 prefix on [GitHub](https://github.com/gjbarnard/moodle-format_topcoll/releases).
 
 Free software
 =============
@@ -32,13 +26,9 @@ The Collapsed Topics format is 'free' software under the terms of the GNU GPLv3 
 It can be obtained for free from the links in 'Downloads and documentation' above.
 
 You have all the rights granted to you by the GPLv3 license.  If you are unsure about anything, then the
-FAQ - http://www.gnu.org/licenses/gpl-faq.html - is a good place to look.
+'[GPL FAQ](http://www.gnu.org/licenses/gpl-faq.html)' is a good place to look.
 
 If you reuse any of the code then I kindly ask that you make reference to the format.
-
-If you make improvements or bug fixes then I would appreciate if you would send them back to me by forking from
-https://github.com/gjbarnard/moodle-format_topcoll and doing a 'Pull Request' so that the rest of the
-Moodle community benefits.
 
 Information
 ===========
@@ -198,11 +188,11 @@ Known Issues
 
 Reporting Issues
 ================
-Please see SupportAndSponsorship.md.
+Please see [Information.md](Information.md).
 
 Version Information
 ===================
-Please see Changes.md.
+Please see [Changes.md](Changes.md).
 
 Thanks
 ======

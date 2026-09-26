@@ -1,0 +1,11 @@
+name: Publish CT release to Community Archive of Moodle Plugins.
+on:
+  push:
+    tags: ["V*"]
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  camp:
+    uses: camp-registry/camp-workflows/.github/workflows/release.yml@v1

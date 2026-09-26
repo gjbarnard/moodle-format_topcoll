@@ -1,6 +1,11 @@
 ﻿Version Information
 ===================
 
+Version 501.1.0 - 26/09/2026
+----------------------------
+1. Fix 'Course question bank module in section zero prevents display of other modules'.  This is really apparent when restoring a course created for Moodle 4.5 and below.
+2. Add information for [CAMP](https://camp-registry.org/plugin/format_topcoll.html).
+
 Version 501.0.1 - 05/04/2026
 ----------------------------
 ### Release notes
