@@ -1,6 +1,14 @@
 ﻿Version Information
 ===================
 
+Version 405.1.5 - 26/09/2026
+----------------------------
+1. Fix 'Accessibility - "Jump to" menu on section page needs label' - #183.  Thanks to [Stefan Topfstedt](https://github.com/stopfstedt)
+   for the patch.
+2. Put back removed 'One section icon' in #181 for when no element text is shown on the right of the toggle.
+3. Fix 'Course question bank module in section zero prevents display of other modules'.  This is really apparent when restoring a course created for Moodle 4.5 and below.
+4. Add information for [CAMP](https://camp-registry.org/plugin/format_topcoll.html).
+
 Version 405.1.4 - 19/11/2025
 ----------------------------
 1. Fix 'Can't toggle sections open/closed when editing is on' - #177.

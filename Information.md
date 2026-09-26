@@ -25,9 +25,9 @@ Contact
 -------
 If you'd like to sponsor, get support or fund improvements, then please do get in touch via:
 
-- gjbarnard | Gmail dt com address.
-- My website eMail | contact at gjbarnard dt co dt uk.
-- GitHub | Please outline your issue / improvement on '[GitHub](https://github.com/gjbarnard/moodle-format_topcoll/issues)'.
+ - gjbarnard | Gmail dt com address.
+ - My website eMail | contact at gjbarnard dt co dt uk.
+ - GitHub | '[GitHub](https://github.com/gjbarnard/moodle-format_topcoll)'.
 
 Sponsors
 ========
@@ -37,23 +37,19 @@ Emerogork: Central Connecticut State University, USA
 Open source software
 ====================
 Collapsed Topics is licensed under the [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html) License it comes with NO support,
-please see 'COPYING.txt'. If you would like support from me then I'm happy to provide it for a fee (please see my contact details
-below).  Otherwise, the Moodle '[Courses and course formats](https://moodle.org/mod/forum/view.php?id=47)' forum is an excellent place
+please see '[COPYING.txt](COPYING.txt)'. If you would like support from me then I'm happy to provide it for a fee (please see my contact details
+below).  Otherwise, the Moodle '[Courses and course formats forum](https://moodle.org/mod/forum/view.php?id=47)' forum is an excellent place
 to ask questions.
 
 Collapsed Topics can be obtained from:
 
-* [Moodle.org](https://moodle.org/plugins/view.php?plugin=format_topcoll).
-* [GitHub](https://github.com/gjbarnard/moodle-format_topcoll/releases).
+ - [CAMP](https://camp-registry.org/plugin/format_topcoll.html).
+ - [GitHub](https://github.com/gjbarnard/moodle-format_topcoll/releases).
 
 You have all the rights granted to you by the GPLv3 license.  If you are unsure about anything, then the
 FAQ - [GPL FAQ](https://www.gnu.org/licenses/gpl-faq.html) - is a good place to look.
 
 If you reuse any of the code then I kindly ask that you make reference to the format.
-
-If you make improvements or bug fixes then I would appreciate if you would send them back to me by forking from
-[GitHub](https://github.com/gjbarnard/moodle-format_topcoll) and doing a 'Pull Request' so that the rest of the Moodle community
-benefits.
 
 Required version of Moodle
 ==========================
@@ -69,15 +65,13 @@ is essential that you are operating the required version of Moodle as stated abo
 that is out of its control.
 
 If you think you've discovered a genuine bug with the format then please look at the Moodle Course and course formats forum first to see if it
-has already been repoted.  Secondly, look at [GitHub](https://github.com/gjbarnard/moodle-format_topcoll/issues), and thirdly [Moodle Tracker](https://tracker.moodle.org/issues/?jql=project+%3D+CONTRIB+AND+component+%3D+%22Course+format%3A+Topcoll%22).
+has already been reported.  Secondly, look at [GitHub](https://github.com/gjbarnard/moodle-format_topcoll/issues).
 
-I operate a policy that I will fix all genuine issues in 'my' (not other developers of the format) code, when fully described and
-replicatable.
+I operate a policy that I will fix all genuine issues when described and replicatable.
 
 It is essential that you provide as much information as possible, the critical information being the contents of the format's
-version.php file / or the top of the 'Information' settings tab.  Other version information such as specific Moodle version,
+`version.php` file / or the top of the 'Information' settings tab.  Other version information such as specific Moodle version,
 theme name and version also helps.  A screen shot can be really useful in visualising the issue along with any files you
 consider to be relevant.
 
-You can use either the '[Course and course formats forum](https://moodle.org/mod/forum/view.php?id=47)' or '[GitHub](https://github.com/gjb2048/moodle-format_topcoll/issues)'.
-
+You can use either the '[Course and course formats forum](https://moodle.org/mod/forum/view.php?id=47)' or '[GitHub](https://github.com/gjbarnard/moodle-format_topcoll/issues)'.

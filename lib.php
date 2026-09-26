@@ -350,6 +350,10 @@ class format_topcoll extends core_courseformat\base {
                         if (!empty($modinfo->sections[$section->section])) {
                             foreach ($modinfo->sections[$section->section] as $modnumber) {
                                 $mod = $modinfo->cms[$modnumber];
+                                if ($mod->modname == 'qbank') {
+                                    // Ignore question banks.
+                                    continue;
+                                }
                                 if ($mod->is_visible_on_course_page()) {
                                     // At least one is.
                                     $modshown = true;

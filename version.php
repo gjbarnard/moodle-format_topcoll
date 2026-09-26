@@ -20,7 +20,7 @@
  * A topic based format that solves the issue of the 'Scroll of Death' when a course has many topics. All topics
  * except zero have a toggle that displays that topic. One or more topics can be displayed at any given time.
  * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
- * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
+ * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.md' file.
  *
  * @package    format_topcoll
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
@@ -30,9 +30,9 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2024092208;
+$plugin->version = 2024092209;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->requires = 2024100700.00; // 4.5 (Build: 20241007).
 $plugin->supported = [405, 405];
 $plugin->component = 'format_topcoll';
-$plugin->release = '405.1.4';
+$plugin->release = '405.1.5';
