@@ -1,6 +1,10 @@
 ﻿Version Information
 ===================
 
+Version 502.1.1 - 09/10/2026
+----------------------------
+1. Remove legacy toggle user preference code.
+
 Version 502.1.0 - 26/09/2026
 ----------------------------
 1. Fix 'Course question bank module in section zero prevents display of other modules'.  This is really apparent when restoring a course created for Moodle 4.5 and below.
