@@ -47,7 +47,7 @@ if ($ADMIN->fulltree) {
     ));
 
     // Information.
-    $page->add(new \format_topcoll\admin_setting_information('format_topcoll/formatinformation', '', '', 502));
+    $page->add(new \format_topcoll\admin_setting_information('format_topcoll/formatinformation', '', '', 503));
 
     // Information.md.
     $page->add(new \format_topcoll\admin_setting_markdown('format_topcoll/formatsupport', '', '', 'Information.md'));
@@ -444,6 +444,32 @@ if ($ADMIN->fulltree) {
         get_string('configurationheadingsub', 'format_topcoll'),
         format_text(get_string('configurationheadingsubdesc', 'format_topcoll'), FORMAT_MARKDOWN)
     ));
+
+    // Linear navigation.
+    $label = new \core\lang_string('linearnavigationsettings', 'core_courseformat');
+    $description = new \core\lang_string('linearnavigationsettings_help', 'core_courseformat');
+    $options = [
+        0 => get_string('no'),
+        1 => get_string('yes'),
+    ];
+    $page->add(new admin_setting_configselect(
+        'format_topcoll/enablelinearnav',
+        new lang_string('linearnavigationsettings', 'core_courseformat'),
+        new lang_string('linearnavigationsettings_help', 'core_courseformat'),
+        1,
+        $options,
+    ));
+
+    // Setting help.
+    $name = 'format_topcoll/displayhelp';
+    $title = get_string('displayhelp', 'format_topcoll');
+    $description = get_string('displayhelp_desc', 'format_topcoll');
+    $default = 'help';
+    $choices = [
+        'inline_help' => new lang_string('displayhelpinline', 'format_topcoll'),
+        'help' => new lang_string('displayhelppopup', 'format_topcoll'),
+    ];
+    $page->add(new admin_setting_configselect($name, $title, $description, $default, $choices));
 
     /* Toggle persistence - 1 = on, 0 = off.  You may wish to disable for an AJAX performance increase.
        Note: If turning persistence off remove any rows containing 'topcoll_toggle_x' in the 'name' field

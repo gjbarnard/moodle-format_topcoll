@@ -831,6 +831,11 @@ class format_topcoll extends core_courseformat\base {
             ];
         }
         if ($foreditform && !isset($courseformatoptions['displayinstructions']['label'])) {
+            $helpoption = get_config('format_topcoll', 'displayhelp');
+            if (empty($helpoption)) {
+                $helpoption = 'help';
+            }
+
             /* Note: Because 'admin_setting_configcolourpicker' in 'settings.php' needs to use a prefixing '#'
                      this needs to be stripped off here if it's there for the format's specific colour picker. */
             $defaulttgfgcolour = get_config('format_topcoll', 'defaulttoggleforegroundcolour');
@@ -887,7 +892,7 @@ class format_topcoll extends core_courseformat\base {
                 ],
                 'displayinstructions' => [
                     'label' => new lang_string('displayinstructions', 'format_topcoll'),
-                    'help' => 'displayinstructions',
+                    $helpoption => 'displayinstructions',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => [$displayinstructionsvalues],
@@ -919,7 +924,7 @@ class format_topcoll extends core_courseformat\base {
                 );
                 $courseformatoptionsedit['layoutelement'] = [
                     'label' => new lang_string('setlayoutelements', 'format_topcoll'),
-                    'help' => 'setlayoutelements',
+                    $helpoption => 'setlayoutelements',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => [$layoutelementvalues],
@@ -942,7 +947,7 @@ class format_topcoll extends core_courseformat\base {
                 );
                 $courseformatoptionsedit['layoutstructure'] = [
                     'label' => new lang_string('setlayoutstructure', 'format_topcoll'),
-                    'help' => 'setlayoutstructure',
+                    $helpoption => 'setlayoutstructure',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => [$layoutstructurevalues],
@@ -958,7 +963,7 @@ class format_topcoll extends core_courseformat\base {
                 );
                 $courseformatoptionsedit['layoutcolumnorientation'] = [
                     'label' => new lang_string('setlayoutcolumnorientation', 'format_topcoll'),
-                    'help' => 'setlayoutcolumnorientation',
+                    $helpoption => 'setlayoutcolumnorientation',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => [$layoutcolumnorientationvalues],
@@ -975,7 +980,7 @@ class format_topcoll extends core_courseformat\base {
                 );
                 $courseformatoptionsedit['layoutcolumns'] = [
                     'label' => new lang_string('setlayoutcolumns', 'format_topcoll'),
-                    'help' => 'setlayoutcolumns',
+                    $helpoption => 'setlayoutcolumns',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => [$layoutcolumnsvalues],
@@ -990,7 +995,7 @@ class format_topcoll extends core_courseformat\base {
                 );
                 $courseformatoptionsedit['flexiblemodules'] = [
                     'label' => new lang_string('setflexiblemodules', 'format_topcoll'),
-                    'help' => 'setflexiblemodules',
+                    $helpoption => 'setflexiblemodules',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => [$flexiblemodulesvalues],
@@ -1005,7 +1010,7 @@ class format_topcoll extends core_courseformat\base {
                 );
                 $courseformatoptionsedit['toggleallenabled'] = [
                     'label' => new lang_string('settoggleallenabled', 'format_topcoll'),
-                    'help' => 'settoggleallenabled',
+                    $helpoption => 'settoggleallenabled',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => [$toggleallenabledvalues],
@@ -1020,7 +1025,7 @@ class format_topcoll extends core_courseformat\base {
                 );
                 $courseformatoptionsedit['viewsinglesectionenabled'] = [
                     'label' => new lang_string('setviewsinglesectionenabled', 'format_topcoll'),
-                    'help' => 'setviewsinglesectionenabled',
+                    $helpoption => 'setviewsinglesectionenabled',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => [$viewsinglesectionenabledvalues],
@@ -1035,7 +1040,7 @@ class format_topcoll extends core_courseformat\base {
                 );
                 $courseformatoptionsedit['toggleiconposition'] = [
                     'label' => new lang_string('settoggleiconposition', 'format_topcoll'),
-                    'help' => 'settoggleiconposition',
+                    $helpoption => 'settoggleiconposition',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => [$toggleiconpositionvalues],
@@ -1050,7 +1055,7 @@ class format_topcoll extends core_courseformat\base {
                 );
                 $courseformatoptionsedit['onesection'] = [
                     'label' => new lang_string('onesection', 'format_topcoll'),
-                    'help' => 'onesection',
+                    $helpoption => 'onesection',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => [$onesectionvalues],
@@ -1065,7 +1070,7 @@ class format_topcoll extends core_courseformat\base {
                 );
                 $courseformatoptionsedit['showsectionsummary'] = [
                     'label' => new lang_string('setshowsectionsummary', 'format_topcoll'),
-                    'help' => 'setshowsectionsummary',
+                    $helpoption => 'setshowsectionsummary',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => [$showsectionsummaryvalues],
@@ -1105,7 +1110,7 @@ class format_topcoll extends core_courseformat\base {
                 );
                 $courseformatoptionsedit['togglealignment'] = [
                     'label' => new lang_string('settogglealignment', 'format_topcoll'),
-                    'help' => 'settogglealignment',
+                    $helpoption => 'settogglealignment',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => [$togglealignmentvalues],
@@ -1156,19 +1161,19 @@ class format_topcoll extends core_courseformat\base {
                 ];
                 $courseformatoptionsedit['toggleiconset'] = [
                     'label' => new lang_string('settoggleiconset', 'format_topcoll'),
-                    'ct_help' => ['help' => 'settoggleiconset', 'a' => $iconseticons],
+                    'ct_help' => [$helpoption => 'settoggleiconset', 'a' => $iconseticons],
                     'element_type' => 'select',
                     'element_attributes' => [$toggleiconsetvalues],
                 ];
                 $courseformatoptionsedit['toggleiconfontclosed'] = [
                     'label' => new lang_string('settoggleiconfontclosed', 'format_topcoll'),
-                    'help' => 'settoggleiconfontclosed',
+                    $helpoption => 'settoggleiconfontclosed',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'text',
                 ];
                 $courseformatoptionsedit['toggleiconfontopen'] = [
                     'label' => new lang_string('settoggleiconfontopen', 'format_topcoll'),
-                    'help' => 'settoggleiconfontopen',
+                    $helpoption => 'settoggleiconfontopen',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'text',
                 ];
@@ -1182,7 +1187,7 @@ class format_topcoll extends core_courseformat\base {
                 );
                 $courseformatoptionsedit['toggleallhover'] = [
                     'label' => new lang_string('settoggleallhover', 'format_topcoll'),
-                    'help' => 'settoggleallhover',
+                    $helpoption => 'settoggleallhover',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => [$toggleallhovervalues],
@@ -1215,7 +1220,7 @@ class format_topcoll extends core_courseformat\base {
                 ];
                 $courseformatoptionsedit['toggleforegroundcolour'] = [
                     'label' => new lang_string('settoggleforegroundcolour', 'format_topcoll'),
-                    'help' => 'settoggleforegroundcolour',
+                    $helpoption => 'settoggleforegroundcolour',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => [
@@ -1232,14 +1237,14 @@ class format_topcoll extends core_courseformat\base {
                 );
                 $courseformatoptionsedit['toggleforegroundopacity'] = [
                     'label' => new lang_string('settoggleforegroundopacity', 'format_topcoll'),
-                    'help' => 'settoggleforegroundopacity',
+                    $helpoption => 'settoggleforegroundopacity',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => [$opacityvalues],
                 ];
                 $courseformatoptionsedit['toggleforegroundhovercolour'] = [
                     'label' => new lang_string('settoggleforegroundhovercolour', 'format_topcoll'),
-                    'help' => 'settoggleforegroundhovercolour',
+                    $helpoption => 'settoggleforegroundhovercolour',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => [
@@ -1256,14 +1261,14 @@ class format_topcoll extends core_courseformat\base {
                 );
                 $courseformatoptionsedit['toggleforegroundhoveropacity'] = [
                     'label' => new lang_string('settoggleforegroundhoveropacity', 'format_topcoll'),
-                    'help' => 'settoggleforegroundhoveropacity',
+                    $helpoption => 'settoggleforegroundhoveropacity',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => [$opacityvalues],
                 ];
                 $courseformatoptionsedit['togglebackgroundcolour'] = [
                     'label' => new lang_string('settogglebackgroundcolour', 'format_topcoll'),
-                    'help' => 'settogglebackgroundcolour',
+                    $helpoption => 'settogglebackgroundcolour',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => [
@@ -1280,14 +1285,14 @@ class format_topcoll extends core_courseformat\base {
                 );
                 $courseformatoptionsedit['togglebackgroundopacity'] = [
                     'label' => new lang_string('settogglebackgroundopacity', 'format_topcoll'),
-                    'help' => 'settogglebackgroundopacity',
+                    $helpoption => 'settogglebackgroundopacity',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => [$opacityvalues],
                 ];
                 $courseformatoptionsedit['togglebackgroundhovercolour'] = [
                     'label' => new lang_string('settogglebackgroundhovercolour', 'format_topcoll'),
-                    'help' => 'settogglebackgroundhovercolour',
+                    $helpoption => 'settogglebackgroundhovercolour',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'tccolourpopup',
                     'element_attributes' => [
@@ -1304,7 +1309,7 @@ class format_topcoll extends core_courseformat\base {
                 );
                 $courseformatoptionsedit['togglebackgroundhoveropacity'] = [
                     'label' => new lang_string('settogglebackgroundhoveropacity', 'format_topcoll'),
-                    'help' => 'settogglebackgroundhoveropacity',
+                    $helpoption => 'settogglebackgroundhoveropacity',
                     'help_component' => 'format_topcoll',
                     'element_type' => 'select',
                     'element_attributes' => [$opacityvalues],
@@ -1378,14 +1383,37 @@ class format_topcoll extends core_courseformat\base {
             $options = $this->course_format_options(true);
             foreach ($options as $optionname => $option) {
                 if (isset($option['ct_help'])) {
-                    $mform->addHelpButton(
-                        $optionname,
-                        $option['ct_help']['help'],
-                        'format_topcoll',
-                        '',
-                        false,
-                        $option['ct_help']['a']
-                    );
+                    if (empty($option['ct_help']['inline_help'])) {
+                        $mform->addHelpButton(
+                            $optionname,
+                            $option['ct_help']['help'],
+                            'format_topcoll',
+                            '',
+                            false,
+                            $option['ct_help']['a']
+                        );
+                    } else {
+                        $helpdata = get_formatted_help_string(
+                            $option['ct_help']['inline_help'],
+                            'format_topcoll',
+                            false,
+                            $option['ct_help']['a']
+                        );
+                        $helptext = $helpdata->text ?? '';
+                        if (isset($helpdata->completedoclink)) {
+                            $helptext .= " {$helpdata->completedoclink}";
+                        }
+                        $element = $mform->createElement('static', $optionname . '_desc', '', $helptext);
+                        $mform->insertElementBefore($element, "toggleiconfontclosed");
+
+                        $element = $mform->getElement($optionname . '_desc');
+                        $pos = 22; // Horrible but works.
+                        $elements = array_merge(
+                            array_slice($elements, 0, $pos),
+                            [$element],
+                            array_slice($elements, $pos)
+                        );
+                    }
                 }
             }
         }
@@ -2198,6 +2226,11 @@ class format_topcoll extends core_courseformat\base {
      */
     public function get_required_jsfiles(): array {
         return [];
+    }
+
+    #[\Override]
+    public static function uses_linear_navigation(): bool {
+        return true;
     }
 }
 

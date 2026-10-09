@@ -1,6 +1,11 @@
 ﻿Version Information
 ===================
 
+Version 503.0.1 - 09/10/2026
+----------------------------
+1. Add linear navigation control, site level setting 'enablelinearnav' - [MDL-87302](https://tracker.moodle.org/browse/MDL-87302).
+2. Add site level 'displayhelp' setting to control how the course level setting help is presented, popup or inline - [MDL-88669](https://tracker.moodle.org/browse/MDL-88669).
+
 Version 502.1.0 - 26/09/2026
 ----------------------------
 1. Fix 'Course question bank module in section zero prevents display of other modules'.  This is really apparent when restoring a course created for Moodle 4.5 and below.

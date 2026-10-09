@@ -9,9 +9,9 @@ then please do spread the word to other educators.
 
 Required version of Moodle
 ==========================
-This version works with Moodle 5.2 version 2026042000.00 (Build: 20260420) and above within the MOODLE_502_STABLE branch.
+This version works with Moodle 5.3 version 2026100500.00 (Build: 20261005) and above within the MOODLE_503_STABLE branch.
 
-Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/502/en/Installing_Moodle)'.
+Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/503/en/Installing_Moodle)'.
 
 Downloads and documentation
 ===========================
