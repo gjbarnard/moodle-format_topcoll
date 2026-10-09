@@ -26,7 +26,6 @@
 
 namespace format_topcoll;
 
-use format_topcoll\togglelib;
 use PHPUnit\Framework\Attributes\Group;
 use ReflectionClass;
 
@@ -229,7 +228,6 @@ final class courseformatrenderer_test extends \advanced_testcase {
 
     public function test_topcoll_section(): void {
         $this->init();
-        set_user_preference(togglelib::TOPCOLL_TOGGLE . '_' . $this->course->id, 'Z');
         set_config('defaultuserpreference', 0, 'format_topcoll');
         set_config('defaulttogglepersistence', 1, 'format_topcoll');
         self::set_property($this->outputus, 'formatresponsive', false);
@@ -417,7 +415,6 @@ final class courseformatrenderer_test extends \advanced_testcase {
         global $CFG;
 
         $this->init();
-        set_user_preference(togglelib::TOPCOLL_TOGGLE . '_' . $this->course->id, null);
         set_config('defaultuserpreference', 0, 'format_topcoll');
         set_config('defaulttogglepersistence', 1, 'format_topcoll');
         $section0 = $this->courseformat->get_section(0);
@@ -442,8 +439,7 @@ final class courseformatrenderer_test extends \advanced_testcase {
         global $CFG;
 
         $this->init(1, 1);
-        set_user_preference(togglelib::TOPCOLL_TOGGLE . '_' . $this->course->id, 'Z');
-        set_config('defaultuserpreference', 0, 'format_topcoll');
+        set_config('defaultuserpreference', 1, 'format_topcoll');
         set_config('defaulttogglepersistence', 1, 'format_topcoll');
 
         $section0 = $this->courseformat->get_section(0);
@@ -469,7 +465,6 @@ final class courseformatrenderer_test extends \advanced_testcase {
         global $CFG;
 
         $this->init(0);
-        set_user_preference(togglelib::TOPCOLL_TOGGLE . '_' . $this->course->id, null);
         set_config('defaultuserpreference', 0, 'format_topcoll');
         set_config('defaulttogglepersistence', 1, 'format_topcoll');
         $section0 = $this->courseformat->get_section(0);

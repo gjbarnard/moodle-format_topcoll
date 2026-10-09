@@ -1,6 +1,10 @@
 ﻿Version Information
 ===================
 
+Version 503.0.2 - 09/10/2026
+----------------------------
+1. Remove legacy toggle user preference code.
+
 Version 503.0.1 - 09/10/2026
 ----------------------------
 1. Add linear navigation control, site level setting 'enablelinearnav' - [MDL-87302](https://tracker.moodle.org/browse/MDL-87302).

@@ -30,9 +30,9 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2026100700;
+$plugin->version = 2026100701;
 $plugin->maturity = MATURITY_RC;
 $plugin->requires = 2026100500.00; // 5.3 (Build: 20261005).  phpcs:ignore Squiz.PHP.CommentedOutCode.Found
 $plugin->supported = [503, 503];
 $plugin->component = 'format_topcoll';
-$plugin->release = '503.0.1';
+$plugin->release = '503.0.2';

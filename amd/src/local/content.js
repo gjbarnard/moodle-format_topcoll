@@ -32,7 +32,6 @@ import Log from 'core/log';
 import Pending from 'core/pending';
 import Templates from 'core/templates';
 import DispatchActions from 'core_courseformat/local/content/actions';
-import {setUserTopcollToggle, userSetUserToggleAll} from 'format_topcoll/util';
 import * as CourseEvents from 'core_course/events';
 
 export default class TopcollComponent extends Component {
@@ -320,8 +319,6 @@ export default class TopcollComponent extends Component {
         }
 
         if (this.defaulttogglepersistence === true) {
-            userSetUserToggleAll(Config.courseId, false);
-
             const course = this.reactive.get('course');
             this.reactive.dispatch(
                 'sectionContentCollapsed',
@@ -350,8 +347,6 @@ export default class TopcollComponent extends Component {
         }
 
         if (this.defaulttogglepersistence === true) {
-            userSetUserToggleAll(Config.courseId, true);
-
             const course = this.reactive.get('course');
             this.reactive.dispatch(
                 'sectionContentCollapsed',
@@ -397,8 +392,6 @@ export default class TopcollComponent extends Component {
                 currentToggledSection.classList.remove('sectionopen');
 
                 if (this.defaulttogglepersistence === true) {
-                    setUserTopcollToggle(Config.courseId, this.currentTopicNum, false);
-
                     const sectionId = currentToggle.dataset.id;
                     this.reactive.dispatch(
                         'sectionContentCollapsed',
@@ -434,8 +427,6 @@ export default class TopcollComponent extends Component {
             state = false;
         }
         if (this.defaulttogglepersistence === true) {
-            setUserTopcollToggle(Config.courseId, toggleNum, state);
-
             const sectionId = toggle.dataset.id;
             this.reactive.dispatch(
                 'sectionContentCollapsed',
