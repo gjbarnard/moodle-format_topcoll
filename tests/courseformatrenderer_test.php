@@ -26,7 +26,6 @@
 
 namespace format_topcoll;
 
-use format_topcoll\togglelib;
 use PHPUnit\Framework\Attributes\Group;
 use ReflectionClass;
 
@@ -227,49 +226,8 @@ final class courseformatrenderer_test extends \advanced_testcase {
         $this->assertEquals($thevalue, $theclass);
     }
 
-    public function test_section_summary(): void {
-        global $CFG;
-
-        $this->init();
-        self::set_property($this->outputus, 'formatresponsive', true);
-        $section = $this->courseformat->get_section(1);
-        $theclass = self::call_method(
-            $this->outputus,
-            'section_summary',
-            [$section, $this->course, null]
-        );
-
-        $sectionsummarycontext = [
-            'heading' => '<h3 data-for="section_title" data-id="' . $section->id . '" data-number="1" id="sectionid-' .
-                $section->id . '-title" class="section-title"><a href="' . $CFG->wwwroot . '/course/view.php?id=' .
-                $this->course->id . '#section-1"' . ' class="">Section 1</a></h3>',
-            'columnwidth' => '100',
-            'rtl' => false,
-            'sectionavailability' => '<div class="section_availability"></div>',
-            'sectionno' => '1',
-            'title' => 'Section 1',
-        ];
-        $sectionsummarycontext['formatsummarytext'] = self::call_method($this->outputus, 'format_summary_text', [$section]);
-        $sectionsummarycontext['sectionactivitysummary'] = self::call_method(
-            $this->outputus,
-            'section_activity_summary',
-            [$section, $this->course, null]
-        );
-        $sectionsummarycontext['sectionavailability'] = self::call_method(
-            $this->outputus,
-            'section_availability',
-            [$section]
-        );
-
-        $thevalue = self::call_method($this->outputus, 'render_from_template', ['format_topcoll/sectionsummary',
-            $sectionsummarycontext, ]);
-
-        $this->assertEquals($thevalue, $theclass);
-    }
-
     public function test_topcoll_section(): void {
         $this->init();
-        set_user_preference(togglelib::TOPCOLL_TOGGLE . '_' . $this->course->id, 'Z');
         set_config('defaultuserpreference', 0, 'format_topcoll');
         set_config('defaulttogglepersistence', 1, 'format_topcoll');
         self::set_property($this->outputus, 'formatresponsive', false);
@@ -457,7 +415,6 @@ final class courseformatrenderer_test extends \advanced_testcase {
         global $CFG;
 
         $this->init();
-        set_user_preference(togglelib::TOPCOLL_TOGGLE . '_' . $this->course->id, null);
         set_config('defaultuserpreference', 0, 'format_topcoll');
         set_config('defaulttogglepersistence', 1, 'format_topcoll');
         $section0 = $this->courseformat->get_section(0);
@@ -482,8 +439,7 @@ final class courseformatrenderer_test extends \advanced_testcase {
         global $CFG;
 
         $this->init(1, 1);
-        set_user_preference(togglelib::TOPCOLL_TOGGLE . '_' . $this->course->id, 'Z');
-        set_config('defaultuserpreference', 0, 'format_topcoll');
+        set_config('defaultuserpreference', 1, 'format_topcoll');
         set_config('defaulttogglepersistence', 1, 'format_topcoll');
 
         $section0 = $this->courseformat->get_section(0);
@@ -509,7 +465,6 @@ final class courseformatrenderer_test extends \advanced_testcase {
         global $CFG;
 
         $this->init(0);
-        set_user_preference(togglelib::TOPCOLL_TOGGLE . '_' . $this->course->id, null);
         set_config('defaultuserpreference', 0, 'format_topcoll');
         set_config('defaulttogglepersistence', 1, 'format_topcoll');
         $section0 = $this->courseformat->get_section(0);

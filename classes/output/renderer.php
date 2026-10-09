@@ -39,7 +39,6 @@ use core\output\html_writer;
 use core\url;
 use core_courseformat\output\section_renderer;
 use core_useragent;
-use format_topcoll\togglelib;
 use format_topcoll\toolbox;
 use moodle_exception;
 use moodle_page;
